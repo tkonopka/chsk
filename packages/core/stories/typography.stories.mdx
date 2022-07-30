@@ -1,0 +1,134 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Typography } from '../src'
+
+# Typography
+
+<Meta title="Core/Components/Typography" />
+export const Template = args => <Typography {...args} />
+
+export const DivChartDecorator = Story => (
+    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+        <Chart
+            width={400}
+            height={200}
+            margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
+            data={[]}
+        >
+            <BackgroundSurface variant={'inner'} />
+            {Story()}
+        </Chart>
+    </div>
+)
+
+The `Typography` component places a single textbox on a chart.
+
+<ArgsTable of={Typography} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`.
+
+<Canvas>
+    <Story
+        name="title"
+        args={{
+            variant: 'title',
+            children: 'Primary heading',
+            y: -20,
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="subtitle"
+        args={{
+            variant: 'subtitle',
+            children: 'Secondary heading',
+            y: -10,
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="axisLabel"
+        args={{
+            variant: 'axisLabel',
+            children: 'axis label',
+            x: 140,
+            y: 115,
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="tickLabel"
+        args={{
+            variant: 'tickLabel',
+            children: 'tick label',
+            x: 0,
+            y: 85,
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+In the examples above, the prop `variant` determines the visual style for the text.
+Positions are set manually to suggest how the visual styles might be used within a chart.
+
+
+## Styling
+
+The presets can be adjusted via theming.
+
+Moreover, it is possible to adjust individual text elements using css styles.
+
+<Canvas>
+    <Story
+        name="title in color"
+        args={{
+            variant: 'title',
+            children: 'Title in color',
+            x: 0,
+            y: -30,
+            style: {
+              fill: '#dd4444',
+              alignmentBaseline: 'middle',
+            },
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="custom style"
+        args={{
+            variant: 'default',
+            children: 'Text with custom style',
+            x: 280,
+            y: 40,
+            style: {
+              fill: '#222222',
+              fontFamily: 'serif',
+              letterSpacing: 2,
+              fontSize: '20px',
+              textAnchor: 'end',
+              alignmentBaseline: 'middle'
+            },
+        }}
+        component={Typography}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+
+</Canvas>

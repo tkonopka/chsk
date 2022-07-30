@@ -1,0 +1,6 @@
+temp
+tmp
+coverage
+packages/*/dist
+packages/*/coverage
+storybook-static

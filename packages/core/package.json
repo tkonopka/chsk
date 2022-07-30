@@ -1,0 +1,30 @@
+{
+    "name": "@chask/core",
+    "version": "0.1.0",
+    "author": "Tomasz Konopka",
+    "description": "core",
+    "main": "./dist/chask-core.cjs.js",
+    "module": "./dist/chask-core.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tkonopka/chask.git",
+        "directory": "packages/core"
+    },
+    "scripts": {
+        "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
+        "test": "jest",
+        "test-coverage": "jest --coverage",
+        "build": "PACKAGE=core rollup -c ../../rollup.config.js"
+    },
+    "peerDependencies": {
+        "react": ">= 18.2.0 < 19.0.0",
+        "react-dom": ">= 18.2.0 < 19.0.0"
+    },
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/"
+    ]
+}

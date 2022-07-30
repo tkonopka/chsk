@@ -1,0 +1,89 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface } from '../src'
+
+# BackgroundSurface
+
+export const DivChartDecorator = Story => (
+    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+        <Chart
+            width={400}
+            height={260}
+            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+            data={[]}
+        >
+            {Story()}
+        </Chart>
+    </div>
+)
+
+<Meta title="Core/Components/BackgroundSurface" />
+export const Template = args => <BackgroundSurface {...args} />
+
+`BackgroundSurface` provides a rectangle intended as a background.
+
+<ArgsTable of={BackgroundSurface} />
+
+## Variants
+
+There are two preset variants: `inner` and `outer`.
+
+<Canvas>
+    <Story
+        name="inner surface"
+        args={{
+            variant: 'inner',
+            style: { fill: '#eeeeee' },
+        }}
+        component={BackgroundSurface}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="outer surface"
+        args={{
+            variant: 'outer',
+            style: { fill: '#eeeeee' },
+        }}
+        component={BackgroundSurface}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+It is also possible to use them together.
+
+<Canvas>
+    <Story name="multiple surfaces">
+        <Chart
+            width={400}
+            height={260}
+            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+            data={[]}
+        >
+            <BackgroundSurface variant={'outer'} style={{ fill: '#eeeeee' }} />
+            <BackgroundSurface variant={'inner'} style={{ fill: '#cccccc' }} />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Tuning
+
+The predefined variants can be adjusted via the prop `expansion` that
+stretches a surface in four directions.
+
+<Canvas>
+    <Story
+        name="expanded"
+        args={{
+            variant: 'inner',
+            style: { fill: '#eeeeee' },
+            expansion: { top: 40, bottom: 0, left: 0, right: 40 },
+        }}
+        component={BackgroundSurface}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

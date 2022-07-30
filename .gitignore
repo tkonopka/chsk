@@ -1,0 +1,17 @@
+# IDE
+.idea
+
+# development
+node_modules
+coverage
+storybook-static
+/packages/*/dist
+packagess/*/coverage
+
+# temporary
+tmp
+temp
+*.log
+
+# files
+package-lock.json
