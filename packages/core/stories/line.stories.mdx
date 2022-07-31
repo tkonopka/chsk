@@ -1,0 +1,117 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Line } from '../src'
+
+# Line
+
+<Meta title="Core/Components/Line" />
+export const Template = args => <Line {...args} />
+
+export const DivChartDecorator = Story => (
+    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+        <Chart
+            width={400}
+            height={200}
+            margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
+            data={[]}
+            scaleX={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+            scaleY={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+        >
+            <BackgroundSurface variant={'inner'} />
+            {Story()}
+        </Chart>
+    </div>
+)
+
+The `Line` component draws a single line on a chart.
+
+<ArgsTable of={Line} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`.
+
+<Canvas>
+    <Story
+        name="tick"
+        args={{
+            variant: 'tick',
+            x1: 140,
+            y1: 80,
+            x2: 140,
+            y2: 86,
+        }}
+        component={Line}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="grid"
+        args={{
+            variant: 'grid',
+            x1: 0,
+            y1: 40,
+            x2: 280,
+            y2: 40,
+        }}
+        component={Line}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+The examples above show variants `tick` and `grid`. Other variants include `default` and `axis`.
+(The default theme does not display a line for axes, hence it would not be useful to display an example.)
+
+## Examples
+
+It is possible to adjust individual lines using css styles.
+
+<Canvas>
+    <Story
+        name="color"
+        args={{
+            variant: 'default',
+            x1: 0,
+            y1: 80,
+            x2: 280,
+            y2: 0,
+            style: {
+                stroke: '#dd4444',
+            },
+        }}
+        component={Line}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="dasharray"
+        args={{
+            variant: 'default',
+            x1: 0,
+            y1: 0,
+            x2: 280,
+            y2: 80,
+            style: {
+                stroke: '#222222',
+                strokeDasharray: '15,15',
+                strokeLinecap: 'round',
+                strokeWidth: 5,
+            },
+        }}
+        component={Line}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

@@ -2,8 +2,8 @@ import { BackgroundSurfaceProps, SurfaceProps } from './types'
 import { useDimensions } from './dimensions'
 import { Style } from '../themes/style'
 
-export const SurfaceStyles = () => (
-    <Style themeKey={'surface'} component={'rect'} prefix={'surface'} />
+export const SurfaceStyles = ({ id }: { id: string }) => (
+    <Style id={id} themeKey={'surface'} component={'rect'} prefix={'surface'} />
 )
 
 export const Surface = ({ variant, x, y, width, height, style }: SurfaceProps) => {

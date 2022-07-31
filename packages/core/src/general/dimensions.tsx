@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext } from 'react'
-import { DimensionsSpec } from './types'
+import { DimensionsContextProps } from './types'
 
 export const dimensionsContext = createContext({
     width: 0,
@@ -7,15 +7,15 @@ export const dimensionsContext = createContext({
     margin: { top: 0, left: 0, bottom: 0, right: 0 },
     innerWidth: 0,
     innerHeight: 0,
-} as DimensionsSpec)
+} as DimensionsContextProps)
 
 export const DimensionsProvider = ({
     width,
     height,
     margin,
     children,
-}: Pick<DimensionsSpec, 'width' | 'height' | 'margin'> & { children: ReactNode }) => {
-    const value: DimensionsSpec = {
+}: Pick<DimensionsContextProps, 'width' | 'height' | 'margin'> & { children: ReactNode }) => {
+    const value: DimensionsContextProps = {
         width,
         height,
         margin,

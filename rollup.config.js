@@ -1,3 +1,4 @@
+import fs from 'fs'
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import cleanup from 'rollup-plugin-cleanup'
@@ -19,7 +20,10 @@ const babelConfig = {
     plugins: [],
 }
 
-let input = `./packages/${pkg}/src/index.tsx`
+let input = './packages/' + pkg + '/src/index.tsx'
+if (!fs.existsSync(input)) {
+    input = input.replace('.tsx', '.ts')
+}
 
 const commonPlugins = [
     resolve({
@@ -35,6 +39,9 @@ const commonPlugins = [
     cleanup(),
 ]
 
+// ignore warning about circular dependencies in d3-interpolate
+const D3_WARNING = /Circular dependency.*d3-interpolate/
+
 const configs = [
     {
         input,
@@ -46,6 +53,11 @@ const configs = [
             sourcemap: true,
         },
         plugins: [...commonPlugins],
+        onwarn: function (message) {
+            if (D3_WARNING.test(message)) {
+                return
+            }
+        },
     },
 ]
 
@@ -60,6 +72,11 @@ if (!isWatching) {
             sourcemap: true,
         },
         plugins: commonPlugins,
+        onwarn: function (message) {
+            if (D3_WARNING.test(message)) {
+                return
+            }
+        },
     })
     configs.push({
         input,
@@ -78,6 +95,11 @@ if (!isWatching) {
             sourcemap: true,
         },
         plugins: commonPlugins,
+        onwarn: function (message) {
+            if (D3_WARNING.test(message)) {
+                return
+            }
+        },
     })
 }
 

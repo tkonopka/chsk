@@ -42,15 +42,15 @@ export const defaultTheme = {
             strokeWidth: 1,
         },
         grid: {
-            stroke: '#aaaaaa',
-            strokeWidth: 2,
+            stroke: '#bbbbbb',
+            strokeWidth: 1,
         },
         axis: {
             stroke: '#222222',
             visibility: 'hidden' as const,
         },
         tick: {
-            stroke: '#222222',
+            stroke: '#555555',
             strokeWidth: 2,
         },
     },
@@ -63,5 +63,22 @@ export const defaultTheme = {
             fill: '#f4f4f4',
             fillOpacity: 1,
         },
+    },
+    rect: {
+        default: {
+            stroke: '#333333',
+            strokeWidth: 0,
+        },
+    },
+    circle: {
+        default: {
+            stroke: '#333333',
+            strokeWidth: 0,
+        },
+    },
+    tick: {
+        size: 5,
+        padding: 5,
+        rotation: 0,
     },
 }

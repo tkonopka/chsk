@@ -1,0 +1,72 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Surface } from '../src'
+
+# Surface
+
+<Meta title="Core/Components/Surface" />
+export const Template = args => <Surface {...args} />
+
+`Surface` displays a rectangle.
+
+export const DivChartDecorator = Story => (
+    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+        <Chart
+            width={400}
+            height={260}
+            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+            data={[]}
+            scaleX={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+            scaleY={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+        >
+            <BackgroundSurface variant={'inner'} />
+            {Story()}
+        </Chart>
+    </div>
+)
+
+<ArgsTable of={Surface} />
+
+## Examples
+
+Surfaces can be tuned using css.
+
+<Canvas>
+    <Story
+        name="fill color"
+        args={{
+            variant: 'custom',
+            style: { fill: '#dd9999' },
+            x: 30,
+            y: 20,
+            width: 160,
+            height: 90,
+        }}
+        component={Surface}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="stroke color"
+        args={{
+            variant: 'custom',
+            style: { fill: '#dd9999', stroke: '#662222', strokeWidth: '2px' },
+            x: 50,
+            y: -20,
+            width: 160,
+            height: 90,
+        }}
+        component={Surface}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

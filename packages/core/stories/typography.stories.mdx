@@ -13,6 +13,16 @@ export const DivChartDecorator = Story => (
             height={200}
             margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
             data={[]}
+            scaleX={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+            scaleY={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
         >
             <BackgroundSurface variant={'inner'} />
             {Story()}
@@ -84,8 +94,7 @@ There are a number of predefined variants, which can be activated via the prop `
 In the examples above, the prop `variant` determines the visual style for the text.
 Positions are set manually to suggest how the visual styles might be used within a chart.
 
-
-## Styling
+## Examples
 
 The presets can be adjusted via theming.
 

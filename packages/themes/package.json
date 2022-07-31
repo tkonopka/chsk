@@ -1,31 +1,24 @@
 {
-    "name": "@chask/core",
+    "name": "@chask/themes",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
-    "description": "core",
-    "main": "./dist/chask-core.cjs.js",
-    "module": "./dist/chask-core.es.js",
+    "description": "themes",
+    "main": "./dist/chask-themes.cjs.js",
+    "module": "./dist/chask-themes.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chask.git",
-        "directory": "packages/core"
+        "directory": "packages/themes"
     },
     "scripts": {
         "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "build": "PACKAGE=core rollup -c ../../rollup.config.js && tsc"
+        "build": "PACKAGE=themes rollup -c ../../rollup.config.js"
     },
     "dependencies": {
-        "d3-scale": "^4.0.2",
-        "d3-color": "^3.1.0",
-        "lodash": "^4.17.21"
-    },
-    "devDependencies": {
-        "@types/d3-scale": "^4.0.2",
-        "@types/d3-color": "^3.1.0",
-        "@types/lodash": "^4.14.182"
+        "@chask/core": "^0.1.0"
     },
     "peerDependencies": {
         "react": ">= 18.2.0 < 19.0.0",

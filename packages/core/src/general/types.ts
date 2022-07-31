@@ -7,7 +7,7 @@ export type MarginSpec = {
     right: number
 }
 
-export type DimensionsSpec = {
+export type DimensionsContextProps = {
     /** outer width of the chart */
     width: number
     /** outer height of the chart */

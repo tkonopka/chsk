@@ -1,7 +1,122 @@
-import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface } from '../src'
+import { customTheme } from './themes.helpers'
 
 <Meta title="Core/Themes" />
 
 # Themes
 
-To do
+Themes set global styles for a chart.
+By setting styles once and not for individual components, themes can make chart definitions less verbose.
+Themes also help in preparing multiple charts with a consistent appearance.
+
+A theme object is a nested dictionary. For example, the object below specifies custom styles
+for a surface component, some line variants, and tick marks.
+
+<Source
+    language="javascript"
+    code={`
+const customTheme = {
+  surface: {
+    // background in a light color
+    inner: {
+      fill: '#eeffff'
+    }
+  },
+  line: {
+    // grid lines in light gray
+    grid: {
+      stroke: '#333333',
+      strokeWidth: '1px',
+      strokeDashArray: '2 2'
+    },
+    // tick line in a heavier color
+    tick: {
+      stroke: '#222222',
+      strokeWidth: '2px'
+    }
+  },
+  // tick lines facing into the chart
+  tick: {
+    size: -6,
+    padding: 6
+  }
+}`}
+/>
+
+To apply the custom theme to a chart, pass it to the prop `theme` as in the pseudo-code below.
+
+<Source
+    language="javascript"
+    code={`
+<Chart {...props} theme={customTheme}>
+  ...
+</Chart>`}
+/>
+
+The examples below display the same content with the default and the custom themes.
+
+<Canvas>
+    <Story name="default">
+        <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+            <Chart
+                id={'chart-1'}
+                width={400}
+                height={260}
+                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                data={[]}
+                scaleX={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 100,
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 100,
+                }}
+            >
+                <BackgroundSurface variant={'inner'} />
+            </Chart>
+        </div>
+    </Story>
+    <Story name="custom">
+        <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
+            <Chart
+                id={'chart-2'}
+                width={400}
+                height={260}
+                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
+                data={[]}
+                scaleX={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 100,
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 100,
+                }}
+                theme={customTheme}
+            >
+                <BackgroundSurface variant={'inner'} />
+            </Chart>
+        </div>
+    </Story>
+</Canvas>
+
+**Note**: When two charts appear on the same page, their style definitions may clash.
+In other words, a style defined as part of a theme for one chart may affect/override the appearance of another chart.
+To avoid such cross-talk, set a unique chart identifier for each chart via the prop `id`.
+
+<Source
+    language="javascript"
+    code={`
+<Chart {...props} theme={customThemeA} id="chart-A">
+  ...
+</Chart>
+<Chart {...props} theme={customThemeB} id="chart-B">
+  ...
+</Chart>`}
+/>

@@ -1,13 +1,14 @@
-import { ThemeSpec } from './types'
 import { useTheme } from './theme'
 import { cssStyleString } from '../utils'
 
 export const Style = ({
+    id,
     themeKey,
     component,
     prefix,
 }: {
-    themeKey: keyof ThemeSpec
+    id: string
+    themeKey: 'typography' | 'surface' | 'line'
     component: string
     prefix: string
 }) => {
@@ -17,10 +18,11 @@ export const Style = ({
     const result = Object.keys(subTheme)
         .map(variant => {
             const cssStyle = cssStyleString(subTheme[variant])
+            const leading = '#' + id + ' ' + component
             if (variant === 'default') {
-                return component + ' { ' + cssStyle + ' }'
+                return leading + ' { ' + cssStyle + ' }'
             }
-            return component + '.' + prefix + '-' + variant + ' { ' + cssStyle + ' }'
+            return leading + '.' + prefix + '-' + variant + ' { ' + cssStyle + ' }'
         })
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
 

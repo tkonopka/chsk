@@ -10,6 +10,16 @@ export const DivChartDecorator = Story => (
             height={260}
             margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
             data={[]}
+            scaleX={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+            scaleY={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
         >
             {Story()}
         </Chart>
@@ -61,6 +71,16 @@ It is also possible to use them together.
             height={260}
             margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
             data={[]}
+            scaleX={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
+            scaleY={{
+                variant: 'linear',
+                min: 0,
+                max: 100,
+            }}
         >
             <BackgroundSurface variant={'outer'} style={{ fill: '#eeeeee' }} />
             <BackgroundSurface variant={'inner'} style={{ fill: '#cccccc' }} />
@@ -68,7 +88,7 @@ It is also possible to use them together.
     </Story>
 </Canvas>
 
-## Tuning
+## Examples
 
 The predefined variants can be adjusted via the prop `expansion` that
 stretches a surface in four directions.

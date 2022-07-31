@@ -1,8 +1,8 @@
 import { TypographyProps } from './types'
 import { Style } from '../themes/style'
 
-export const TypographyStyles = () => (
-    <Style themeKey={'typography'} component={'text'} prefix={'text'} />
+export const TypographyStyles = ({ id }: { id: string }) => (
+    <Style id={id} themeKey={'typography'} component={'text'} prefix={'text'} />
 )
 
 export const Typography = ({
