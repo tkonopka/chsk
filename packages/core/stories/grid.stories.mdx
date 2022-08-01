@@ -1,36 +1,13 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Grid } from '../src'
+import { DivChartDecorator } from './DivChartDecorators'
 
 # Grid
-
-export const DivChartDecorator = Story => (
-    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-        <Chart
-            width={400}
-            height={200}
-            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-            scaleX={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            scaleY={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            data={[]}
-        >
-            <BackgroundSurface variant={'inner'} />
-            {Story()}
-        </Chart>
-    </div>
-)
 
 <Meta title="Core/Components/Grid" />
 export const Template = args => <Grid {...args} />
 
-The `Grid` component draws a set of grid lines on a chart.
+`Grid` draws a set of grid lines on a chart.
 
 <ArgsTable of={Grid} />
 
@@ -68,14 +45,23 @@ There are a number of predefined variants, which can be activated via the prop `
 The grid lines can be styled using css. Below are examples with both horizontal and vertical gridlines.
 
 <Canvas>
-    <Story name="custom 1" args={{}} component={Grid} decorators={[DivChartDecorator]}>
-        <Grid variant="y" values={5} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
+    <Story name="dashed grid lines" args={{}} component={Grid} decorators={[DivChartDecorator]}>
+        <Grid variant="y" values={4} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
         <Grid variant="x" values={5} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
     </Story>
-    <Story name="custom 2" args={{}} component={Grid} decorators={[DivChartDecorator]}>
+    <Story name="negative lines" args={{}} component={Grid} decorators={[DivChartDecorator]}>
         <Grid variant="y" values={5} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
         <Grid variant="x" values={8} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
     </Story>
 </Canvas>
 
 Note that it is also possible to adjust the style for all grid lines using themes.
+
+Position of the grid lines can be set manually via the prop `values`.
+
+<Canvas>
+    <Story name="custom positions" args={{}} component={Grid} decorators={[DivChartDecorator]}>
+        <Grid variant="y" values={[0, 10, 20, 50, 80, 90, 100]} style={{ stroke: '#777777' }} />
+        <Grid variant="x" values={[0, 65, 85, 95, 100]} style={{ stroke: '#777777' }} />
+    </Story>
+</Canvas>

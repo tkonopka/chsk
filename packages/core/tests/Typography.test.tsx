@@ -24,12 +24,9 @@ describe('Typography', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('text-default')
-        //screen.debug(result)
+        const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBe('0')
-        expect(result.getAttribute('y')).toBe('0')
-        expect(result.getAttribute('class')).toBe(null)
-        expect(result.textContent).toBe('default')
+        expect(result.getAttribute('x')).toBe('0')
     })
 
     it('creates a title', () => {
@@ -67,12 +64,17 @@ describe('Typography styling', () => {
     it('sets inline styles', () => {
         render(
             <Chart {...chartProps}>
-                <Typography x={0} y={0} style={{ fill: '#ff0000', fontSize: '12px' }}>
+                <Typography
+                    variant="custom"
+                    x={0}
+                    y={0}
+                    style={{ fill: '#ff0000', fontSize: '12px' }}
+                >
                     In color
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('text-default')
+        const result = screen.getByRole('text-custom')
         //screen.debug(result)
         expect(result.textContent).toBe('In color')
         expect(result.getAttribute('style')).toContain('font-size: 12px')

@@ -1,0 +1,108 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Axis } from '../src'
+import { DivChartDecoratorLargeMargin } from './DivChartDecorators'
+
+# Axis
+
+<Meta title="Core/Components/Axis" />
+export const Template = args => <Axis {...args} />
+
+`Axis` draws an axis on a chart.
+
+<ArgsTable of={Axis} />
+
+## Variants
+
+Predefined variants places an axis on the top, right, bottom, and left sides of a chart.
+
+<Canvas>
+    <Story
+        name="top"
+        args={{
+            variant: 'top',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="right"
+        args={{
+            variant: 'right',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="bottom"
+        args={{
+            variant: 'bottom',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="left"
+        args={{
+            variant: 'left',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Examples
+
+Tick labels can be rotated through css styles. Note that adjusting the text angle will likely prompt adjustment to other css properties like `textAnchor` and `dominantBaseline`.
+
+<Canvas>
+    <Story
+        name="left rotated"
+        args={{
+            variant: 'left',
+            label: 'axis label',
+            ticks: 5,
+            tickLabelStyle: {
+                transform: 'rotate(-90deg)',
+                textAnchor: 'middle',
+                dominantBaseline: 'auto',
+            },
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="bottom rotated"
+        args={{
+            variant: 'bottom',
+            label: 'axis label',
+            ticks: 5,
+            tickLabelStyle: {
+                textAnchor: 'end',
+                transform: 'rotate(-90deg)',
+                dominantBaseline: 'middle',
+            },
+        }}
+        component={Axis}
+        decorators={[DivChartDecoratorLargeMargin]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

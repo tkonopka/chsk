@@ -10,17 +10,28 @@ export const Typography = ({
     y = 0,
     variant = 'default',
     children = '',
+    transform,
     style,
+    className,
+    wrap = false,
 }: TypographyProps) => {
-    return (
+    const isDefault = variant === 'default'
+    const role = 'text-' + variant
+    const compositeClassName = [isDefault ? undefined : role, className]
+        .filter(x => x !== undefined)
+        .join(' ')
+    const textElement = (
         <text
-            role={'text-' + variant}
-            x={x}
-            y={y}
+            role={isDefault ? undefined : role}
+            x={wrap ? 0 : x}
+            y={wrap ? 0 : y}
             style={style}
-            className={variant === 'default' ? undefined : 'text-' + variant}
+            transform={transform}
+            className={compositeClassName}
         >
             {children}
         </text>
     )
+    if (!wrap) return textElement
+    return <g transform={'translate(' + x + ',' + y + ')'}>{textElement}</g>
 }

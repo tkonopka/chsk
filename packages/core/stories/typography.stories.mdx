@@ -102,15 +102,15 @@ Moreover, it is possible to adjust individual text elements using css styles.
 
 <Canvas>
     <Story
-        name="title in color"
+        name="color"
         args={{
             variant: 'title',
             children: 'Title in color',
             x: 0,
             y: -30,
             style: {
-              fill: '#dd4444',
-              alignmentBaseline: 'middle',
+                fill: '#dd4444',
+                alignmentBaseline: 'middle',
             },
         }}
         component={Typography}
@@ -119,25 +119,26 @@ Moreover, it is possible to adjust individual text elements using css styles.
         {Template.bind({})}
     </Story>
     <Story
-        name="custom style"
+        name="rotation"
         args={{
             variant: 'default',
             children: 'Text with custom style',
-            x: 280,
+            x: 140,
             y: 40,
             style: {
-              fill: '#222222',
-              fontFamily: 'serif',
-              letterSpacing: 2,
-              fontSize: '20px',
-              textAnchor: 'end',
-              alignmentBaseline: 'middle'
+                fill: '#222222',
+                fontFamily: 'serif',
+                letterSpacing: 2,
+                fontSize: '20px',
+                textAnchor: 'middle',
+                alignmentBaseline: 'middle',
+                transform: 'rotate(-10deg)',
             },
+            wrap: true,
         }}
         component={Typography}
         decorators={[DivChartDecorator]}
     >
         {Template.bind({})}
     </Story>
-
 </Canvas>

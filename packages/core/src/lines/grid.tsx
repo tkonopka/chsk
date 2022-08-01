@@ -1,5 +1,5 @@
 import { GridProps } from './types'
-import { getTicks, useScales } from '../scales'
+import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './lines'
 
@@ -8,20 +8,7 @@ export const Grid = ({ variant, values, style }: GridProps) => {
     const dimensions = useDimensions()
     const isX = variant === 'x'
     const scale = isX ? scales.scaleX : scales.scaleY
-    //console.log('Grid ' + variant + ' with scale: ' + scale)
-    //console.log('style: ' + JSON.stringify(style))
-    let tickCoordinates: Array<number>
-    if ('ticks' in scale) {
-        const tickValues = Array.isArray(values)
-            ? (values as Array<number>)
-            : (getTicks(scale, values) as Array<number>)
-        tickCoordinates = tickValues?.map((v: number) => scale(v) as number)
-    } else {
-        const tickValues = Array.isArray(values)
-            ? (values as Array<string>)
-            : (getTicks(scale, undefined) as Array<string>)
-        tickCoordinates = tickValues?.map(v => scale(v) as number)
-    }
+    const tickCoordinates: Array<number> = getTickCoordinates(scale, values)
 
     let result
     if (isX) {

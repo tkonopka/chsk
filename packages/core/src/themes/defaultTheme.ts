@@ -1,6 +1,8 @@
 // default theme object
 
-export const defaultTheme = {
+import { CompleteThemeSpec } from './types'
+
+export const defaultTheme: CompleteThemeSpec = {
     typography: {
         default: {
             fontFamily: 'sans-serif',
@@ -26,14 +28,35 @@ export const defaultTheme = {
             fontSize: '14px',
             fill: '#333333',
             textAnchor: 'middle' as const,
+            dominantBaseline: 'middle' as const,
+        },
+        'axisLabel.left': {
+            transform: 'rotate(-90deg)',
+        },
+        'axisLabel.right': {
+            transform: 'rotate(90deg)',
         },
         tickLabel: {
             fontFamily: 'sans-serif',
             fontWeight: 400,
             fontSize: '12px',
             fill: '#333333',
+        },
+        'tickLabel.left': {
+            textAnchor: 'end' as const,
+            dominantBaseline: 'middle' as const,
+        },
+        'tickLabel.right': {
+            textAnchor: 'start' as const,
+            dominantBaseline: 'middle' as const,
+        },
+        'tickLabel.top': {
             textAnchor: 'middle' as const,
-            alignmentBaseline: 'hanging' as const,
+            dominantBaseline: 'auto' as const,
+        },
+        'tickLabel.bottom': {
+            textAnchor: 'middle' as const,
+            dominantBaseline: 'hanging' as const,
         },
     },
     line: {
@@ -47,7 +70,7 @@ export const defaultTheme = {
         },
         axis: {
             stroke: '#222222',
-            visibility: 'hidden' as const,
+            visibility: 'visible' as const,
         },
         tick: {
             stroke: '#555555',
@@ -77,8 +100,53 @@ export const defaultTheme = {
         },
     },
     tick: {
-        size: 5,
-        padding: 5,
-        rotation: 0,
+        top: {
+            size: 5,
+            padding: 9,
+        },
+        bottom: {
+            size: 5,
+            padding: 9,
+        },
+        left: {
+            size: 5,
+            padding: 9,
+        },
+        right: {
+            size: 5,
+            padding: 9,
+        },
+    },
+    axisLabel: {
+        top: {
+            padding: 40, // distance between axis and axis label
+            anchor: 0.5, // relative position of axis label
+        },
+        bottom: {
+            padding: 40,
+            anchor: 0.5,
+        },
+        left: {
+            padding: 45,
+            anchor: 0.5,
+        },
+        right: {
+            padding: 45,
+            anchor: 0.5,
+        },
+    },
+    axis: {
+        top: {
+            padding: 0, // distance between chart surface and axis
+        },
+        bottom: {
+            padding: 0,
+        },
+        left: {
+            padding: 0,
+        },
+        right: {
+            padding: 0,
+        },
     },
 }

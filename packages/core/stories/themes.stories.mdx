@@ -10,8 +10,8 @@ Themes set global styles for a chart.
 By setting styles once and not for individual components, themes can make chart definitions less verbose.
 Themes also help in preparing multiple charts with a consistent appearance.
 
-A theme object is a nested dictionary. For example, the object below specifies custom styles
-for a surface component, some line variants, and tick marks.
+A theme object is a nested dictionary. For example, the object below specifies styles
+for a surface component, two line variants, and tick marks.
 
 <Source
     language="javascript"
@@ -36,7 +36,7 @@ const customTheme = {
       strokeWidth: '2px'
     }
   },
-  // tick lines facing into the chart
+  // ticks facing into the chart
   tick: {
     size: -6,
     padding: 6

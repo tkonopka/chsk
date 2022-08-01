@@ -1,5 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Surface } from '../src'
+import { DivChartDecorator } from './DivChartDecorators'
 
 # Surface
 
@@ -7,30 +8,6 @@ import { Chart, BackgroundSurface, Surface } from '../src'
 export const Template = args => <Surface {...args} />
 
 `Surface` displays a rectangle.
-
-export const DivChartDecorator = Story => (
-    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-        <Chart
-            width={400}
-            height={260}
-            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-            data={[]}
-            scaleX={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            scaleY={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-        >
-            <BackgroundSurface variant={'inner'} />
-            {Story()}
-        </Chart>
-    </div>
-)
 
 <ArgsTable of={Surface} />
 

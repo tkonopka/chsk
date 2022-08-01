@@ -1,4 +1,5 @@
 // from sub-directories
+export * from './axes'
 export * from './general'
 export * from './lines'
 export * from './scales'

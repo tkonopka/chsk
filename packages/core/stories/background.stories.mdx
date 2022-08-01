@@ -1,30 +1,8 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface } from '../src'
+import { DivChartDecorator } from './DivChartDecorators'
 
 # BackgroundSurface
-
-export const DivChartDecorator = Story => (
-    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-        <Chart
-            width={400}
-            height={260}
-            margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-            data={[]}
-            scaleX={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            scaleY={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-        >
-            {Story()}
-        </Chart>
-    </div>
-)
 
 <Meta title="Core/Components/BackgroundSurface" />
 export const Template = args => <BackgroundSurface {...args} />
@@ -68,7 +46,7 @@ It is also possible to use them together.
     <Story name="multiple surfaces">
         <Chart
             width={400}
-            height={260}
+            height={300}
             margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
             data={[]}
             scaleX={{

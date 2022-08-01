@@ -44,9 +44,27 @@ export const createScale = ({
     return createContinuousScale({ axis, size, ...scale })
 }
 
+/** get an array of ticks in the scale domain */
 export const getTicks = (scale: AxisScale, ticks: number | undefined) => {
     if ('ticks' in scale) return scale.ticks(ticks) as Array<number>
     return scale.domain()
+}
+
+/** get an array of ticks in the scale range */
+export const getTickCoordinates = (
+    scale: AxisScale,
+    values: undefined | number | number[] | string[]
+) => {
+    if ('ticks' in scale) {
+        const tickValues = Array.isArray(values)
+            ? (values as Array<number>)
+            : (getTicks(scale, values) as Array<number>)
+        return tickValues?.map((v: number) => scale(v) as number)
+    }
+    const tickValues = Array.isArray(values)
+        ? (values as Array<string>)
+        : (getTicks(scale, undefined) as Array<string>)
+    return tickValues?.map(v => scale(v) as number)
 }
 
 export const scalesContext = createContext({

@@ -4,8 +4,6 @@ import { ThemeSpec } from '../src'
 describe('themes', () => {
     it('merge adds a new property', () => {
         const customTheme: ThemeSpec = {
-            typography: {},
-            surface: {},
             line: {
                 default: {
                     strokeLinecap: 'round',
@@ -19,13 +17,11 @@ describe('themes', () => {
 
     it('merge replaces an existing property', () => {
         const customTheme: ThemeSpec = {
-            typography: {},
             surface: {
                 inner: {
                     fill: '#0000dd',
                 },
             },
-            line: {},
         }
         const result = mergeTheme(defaultTheme, customTheme)
         expect(defaultTheme['surface']['inner']).toHaveProperty('fill', '#eeeeee')
