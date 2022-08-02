@@ -1,6 +1,6 @@
-import { CSSProperties } from 'react'
+import { SvgElementVariantBaseProps } from '../common'
 
-export interface TypographyProps {
+export interface TypographyProps extends SvgElementVariantBaseProps {
     /** x coordinate */
     x: number
     /** y coordinate */
@@ -9,12 +9,8 @@ export interface TypographyProps {
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
     /** transform */
     transform?: string
-    /** css style */
-    style?: Partial<CSSProperties>
-    /** class string */
-    className?: string
     /** wrap the text element in a g block with translation */
     wrap?: boolean
     /** text content **/
-    children: string
+    children?: string
 }

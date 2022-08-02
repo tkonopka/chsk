@@ -49,7 +49,7 @@ export const AxisLabel = ({
         padding: number
         anchor: string | number | unknown
     }) => {
-    if (label === undefined || label === '') return <></>
+    if (label === undefined || label === '') return null
     const anchorFraction = getAnchorFraction(anchor)
     let x = 0,
         y = 0
@@ -68,7 +68,7 @@ export const AxisLabel = ({
 
 export const Axis = ({
     variant,
-    label = '',
+    label,
     ticks,
     axisStyle,
     tickStyle,

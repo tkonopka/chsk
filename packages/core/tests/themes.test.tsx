@@ -1,5 +1,7 @@
-import { mergeTheme, defaultTheme } from '../src'
+import { mergeTheme, defaultTheme, Chart, Grid } from '../src'
 import { ThemeSpec } from '../src'
+import { render, screen } from '@testing-library/react'
+import { chartProps } from './helpers'
 
 describe('themes', () => {
     it('merge adds a new property', () => {
@@ -26,5 +28,16 @@ describe('themes', () => {
         const result = mergeTheme(defaultTheme, customTheme)
         expect(defaultTheme['surface']['inner']).toHaveProperty('fill', '#eeeeee')
         expect(result['surface']['inner']).toHaveProperty('fill', '#0000dd')
+    })
+})
+
+describe('styles', () => {
+    it('skips styles element when not needed', () => {
+        render(<Chart {...chartProps} styles={[]} />)
+        // by setting styles=[], expect there to be no <styles> tag in the svg
+        // but the testing-library framework always removes style tags
+        // so there isn't anything to test here
+        const result = screen.getByRole('chart-content')
+        expect(result).toBeDefined()
     })
 })

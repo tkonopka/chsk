@@ -1,28 +1,30 @@
 import { TypographyProps } from './types'
-import { Style } from '../themes/style'
+import { getStyles } from '../themes/style'
+import { composeClassName } from '../common'
 
-export const TypographyStyles = ({ id }: { id: string }) => (
-    <Style id={id} themeKey={'typography'} component={'text'} prefix={'text'} />
-)
+export const getTypographyStyles = (id: string) => {
+    return getStyles({ chartId: id, themeKey: 'typography', component: 'text' })
+}
 
 export const Typography = ({
     x = 0,
     y = 0,
     variant = 'default',
-    children = '',
+    children,
     transform,
     style,
     className,
     wrap = false,
+    setRole = true,
 }: TypographyProps) => {
+    if (children === undefined) return null
+
     const isDefault = variant === 'default'
-    const role = 'text-' + variant
-    const compositeClassName = [isDefault ? undefined : role, className]
-        .filter(x => x !== undefined)
-        .join(' ')
+    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+
     const textElement = (
         <text
-            role={isDefault ? undefined : role}
+            role={setRole ? variant : undefined}
             x={wrap ? 0 : x}
             y={wrap ? 0 : y}
             style={style}

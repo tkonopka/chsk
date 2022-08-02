@@ -1,19 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Grid } from '../src'
-
-const scaleProps = {
-    variant: 'linear' as const,
-    min: 0,
-    max: 100,
-}
-const chartProps = {
-    width: 400,
-    height: 300,
-    margin: { top: 20, right: 20, bottom: 20, left: 20 },
-    data: [],
-    scaleX: scaleProps,
-    scaleY: scaleProps,
-}
+import { chartProps } from './helpers'
 
 describe('Grid', () => {
     it('creates horizontal grid lines', () => {
@@ -22,8 +9,8 @@ describe('Grid', () => {
                 <Grid variant="x" values={6} />
             </Chart>
         )
-        const result = screen.getAllByRole('line-grid')
-        expect(result).toHaveLength(6)
+        const result = screen.getByRole('grid-x')
+        expect(result.querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates vertical grid lines', () => {
@@ -32,8 +19,8 @@ describe('Grid', () => {
                 <Grid variant="y" values={6} />
             </Chart>
         )
-        const result = screen.getAllByRole('line-grid')
-        expect(result).toHaveLength(6)
+        const result = screen.getByRole('grid-y')
+        expect(result.querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates grid with boolean nice', () => {
@@ -45,10 +32,10 @@ describe('Grid', () => {
                 <Grid variant="y" values={6} />
             </Chart>
         )
-        const result = screen.getAllByRole('line-grid')
         // this criterion does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        expect(result).toHaveLength(6)
+        const result = screen.getByRole('grid-y')
+        expect(result.querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates grid with numeric nice', () => {
@@ -57,9 +44,9 @@ describe('Grid', () => {
                 <Grid variant="y" values={6} />
             </Chart>
         )
-        const result = screen.getAllByRole('line-grid')
-        // this criterion does not actually check the effect of nice: true
+        // this test does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        expect(result).toHaveLength(6)
+        const result = screen.getByRole('grid-y')
+        expect(result.querySelectorAll('line')).toHaveLength(6)
     })
 })

@@ -1,0 +1,45 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Circle } from '../src'
+import { DivChartDecorator } from './DivChartDecorators'
+
+# Circle
+
+<Meta title="Core/Components/Circle" />
+export const Template = args => <Circle {...args} />
+
+`Circle` displays a circle shape.
+
+<ArgsTable of={Circle} />
+
+## Examples
+
+Circles can be tuned using css.
+
+<Canvas>
+    <Story
+        name="fill color"
+        args={{
+            style: { fill: '#dd9999' },
+            cx: 30,
+            cy: 30,
+            r: 30,
+        }}
+        component={Circle}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="stroke color"
+        args={{
+            style: { fill: '#dd9999', stroke: '#662222', strokeWidth: '2px' },
+            cx: 210,
+            cy: 80,
+            r: 50,
+        }}
+        component={Circle}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

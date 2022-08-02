@@ -1,34 +1,46 @@
 import { useTheme } from './theme'
-import { cssStyleString } from '../utils'
+import { cssStyleString } from '../common'
+import { getTypographyStyles } from '../typography'
+import { getSurfaceStyles } from '../general'
+import { getLineStyles } from '../lines'
+import { getShapeStyles } from '../shapes'
 
-export const Style = ({
-    id,
+// get string with css-formatted styles
+export const getStyles = ({
+    chartId,
     themeKey,
     component,
-    prefix,
 }: {
-    id: string
-    themeKey: 'typography' | 'surface' | 'line'
+    chartId: string
+    themeKey: 'typography' | 'surface' | 'line' | 'circle' | 'rect'
     component: string
-    prefix: string
 }) => {
     const theme = useTheme()
     const subTheme = theme[themeKey]
-
-    const result = Object.keys(subTheme)
+    return Object.keys(subTheme)
         .map(variant => {
             const cssStyle = cssStyleString(subTheme[variant])
-            const leading = '#' + id + ' ' + component
+            const leading = '#' + chartId + ' ' + component
             if (variant === 'default') {
                 return leading + ' { ' + cssStyle + ' }'
             }
-            return leading + '.' + prefix + '-' + variant + ' { ' + cssStyle + ' }'
+            return leading + '.' + variant + ' { ' + cssStyle + ' }'
         })
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
+}
 
-    return (
-        <style key={'style-' + themeKey} role={'style-' + themeKey}>
-            {result.join('\n')}
-        </style>
-    )
+export const Style = ({ chartId, styles }: { chartId: string; styles: string[] }) => {
+    if (styles.length === 0) return null
+    const styleDefinitions = styles
+        ?.map(styleType => {
+            if (styleType === 'typography') return getTypographyStyles(chartId)
+            if (styleType === 'surface') return getSurfaceStyles(chartId)
+            if (styleType === 'line') return getLineStyles(chartId)
+            if (styleType === 'shape') return getShapeStyles(chartId)
+            return null
+        })
+        .flat()
+        .filter(layer => layer !== null)
+        .join('\n')
+    return <style role="styles">{styleDefinitions}</style>
 }

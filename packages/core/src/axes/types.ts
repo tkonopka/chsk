@@ -8,7 +8,7 @@ export interface AxisProps {
     /** type of axis */
     variant: SideType
     /** text label for axis */
-    label: string
+    label?: string
     /** specification for tick positions */
     ticks?: TickType
     /** style for tick marks */

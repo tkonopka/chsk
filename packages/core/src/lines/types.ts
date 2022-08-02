@@ -1,15 +1,16 @@
 import { CSSProperties } from 'react'
+import { SvgElementVariantBaseProps } from '../common'
 
 export interface GridProps {
     /** variant */
-    variant?: 'x' | 'y'
+    variant: 'x' | 'y'
     /** positions for grid lines */
     values: number | number[] | string[]
     /** css style */
     style?: Partial<CSSProperties>
 }
 
-export interface LineProps {
+export interface LineProps extends SvgElementVariantBaseProps {
     /** starting x coordinate */
     x1: number
     /** starting y coordinate */
@@ -20,6 +21,4 @@ export interface LineProps {
     y2: number
     /** variant */
     variant?: 'default' | 'axis' | 'tick' | 'grid'
-    /** css style */
-    style?: Partial<CSSProperties>
 }

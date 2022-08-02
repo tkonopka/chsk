@@ -1,19 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, BackgroundSurface } from '../src'
-
-const scaleProps = {
-    variant: 'linear' as const,
-    min: 0,
-    max: 100,
-}
-const chartProps = {
-    width: 400,
-    height: 300,
-    margin: { top: 20, right: 20, bottom: 20, left: 20 },
-    data: [],
-    scaleX: scaleProps,
-    scaleY: scaleProps,
-}
+import { chartProps } from './helpers'
 
 describe('BackgroundSurface', () => {
     it('creates inner surface', () => {
@@ -22,7 +9,7 @@ describe('BackgroundSurface', () => {
                 <BackgroundSurface variant={'inner'} />
             </Chart>
         )
-        const result = screen.getByRole('surface')
+        const result = screen.getByRole('inner')
         //screen.debug(result)
         expect(result.getAttribute('x')).toBe('0')
         expect(result.getAttribute('y')).toBe('0')
@@ -34,8 +21,7 @@ describe('BackgroundSurface', () => {
                 <BackgroundSurface variant={'outer'} />
             </Chart>
         )
-        const result = screen.getByRole('surface')
-        //screen.debug(result)
+        const result = screen.getByRole('outer')
         expect(result.getAttribute('x')).toBe('-20')
         expect(result.getAttribute('y')).toBe('-20')
     })

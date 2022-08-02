@@ -1,19 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Typography } from '../src'
-
-const scaleProps = {
-    variant: 'linear' as const,
-    min: 0,
-    max: 100,
-}
-const chartProps = {
-    width: 400,
-    height: 300,
-    margin: { top: 20, right: 20, bottom: 20, left: 20 },
-    data: [],
-    scaleX: scaleProps,
-    scaleY: scaleProps,
-}
+import { chartProps } from './helpers'
 
 describe('Typography', () => {
     it('creates a default textbox', () => {
@@ -37,10 +24,10 @@ describe('Typography', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('text-title')
+        const result = screen.getByRole('title')
         expect(result.getAttribute('x')).toBe('0')
         expect(result.getAttribute('y')).toBe('0')
-        expect(result.getAttribute('class')).toBe('text-title')
+        expect(result.getAttribute('class')).toBe('title')
         expect(result.textContent).toBe('Title')
     })
 
@@ -52,11 +39,21 @@ describe('Typography', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('text-subtitle')
+        const result = screen.getByRole('subtitle')
         expect(result.getAttribute('x')).toBe('0')
         expect(result.getAttribute('y')).toBe('0')
-        expect(result.getAttribute('class')).toBe('text-subtitle')
+        expect(result.getAttribute('class')).toBe('subtitle')
         expect(result.textContent).toBe('Subtitle')
+    })
+
+    it('skips creating component when content is empty', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'subtitle'} x={0} y={0} />
+            </Chart>
+        )
+        const label = screen.queryByRole('subtitle')
+        expect(label).toBeNull()
     })
 })
 
@@ -74,7 +71,7 @@ describe('Typography styling', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('text-custom')
+        const result = screen.getByRole('custom')
         //screen.debug(result)
         expect(result.textContent).toBe('In color')
         expect(result.getAttribute('style')).toContain('font-size: 12px')

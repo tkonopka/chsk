@@ -48,3 +48,7 @@ export const DivChartDecoratorLargeMargin = (Story: () => ReactNode) => (
         </Chart>
     </div>
 )
+
+export const DivDecorator = (Story: () => ReactNode) => (
+    <div style={{ margin: '0.5em', display: 'inline-block' }}>{Story()}</div>
+)

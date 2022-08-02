@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { SvgElementVariantBaseProps } from '../common'
 
 export type MarginSpec = {
     top: number
@@ -20,7 +20,7 @@ export type DimensionsContextProps = {
     innerHeight: number
 }
 
-export interface SurfaceProps {
+export interface SurfaceProps extends SvgElementVariantBaseProps {
     /** variant */
     variant: 'inner' | 'outer'
     /** x coordinate of top-left surface corner */
@@ -31,15 +31,11 @@ export interface SurfaceProps {
     width: number
     /** height */
     height: number
-    /** style */
-    style?: Partial<CSSProperties>
 }
 
-export interface BackgroundSurfaceProps {
+export interface BackgroundSurfaceProps extends SvgElementVariantBaseProps {
     /** variant */
     variant: 'inner' | 'outer'
     /** expansion of background surface */
     expansion?: MarginSpec
-    /** style */
-    style?: Partial<CSSProperties>
 }

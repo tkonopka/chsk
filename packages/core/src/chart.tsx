@@ -1,16 +1,15 @@
 import { ChartProps } from './types'
-import { DimensionsProvider, SurfaceStyles } from './general'
+import { DimensionsProvider } from './general'
 import { emptyTheme, ThemeProvider } from './themes'
-import { TypographyStyles } from './typography'
-import { LineStyles } from './lines'
 import { ScalesProvider } from './scales'
+import { Style } from './themes/style'
 
 const defaultChartProps: Pick<ChartProps, 'width' | 'height' | 'margin' | 'data' | 'styles'> = {
     width: 500,
     height: 400,
     margin: { top: 40, bottom: 40, left: 40, right: 40 },
     data: [],
-    styles: ['typography', 'line', 'surface'],
+    styles: ['typography', 'line', 'surface', 'shape'],
 }
 
 export const Chart = ({
@@ -25,16 +24,6 @@ export const Chart = ({
     styles = defaultChartProps.styles,
     children,
 }: ChartProps) => {
-    const styleLayers = styles
-        ?.map(styleType => {
-            if (styleType === 'typography')
-                return <TypographyStyles key={'Style-typography'} id={id} />
-            if (styleType === 'surface') return <SurfaceStyles key={'Style-surface'} id={id} />
-            if (styleType === 'line') return <LineStyles key={'Style-line'} id={id} />
-            return null
-        })
-        .filter(layer => layer !== null)
-
     const dimsProps = { width, height, margin }
 
     return (
@@ -48,7 +37,7 @@ export const Chart = ({
                         height={height}
                         role={'chart'}
                     >
-                        {styleLayers}
+                        <Style chartId={id} styles={styles ?? []} />
                         <g
                             role="chart-content"
                             transform={`translate(${margin.left},${margin.top})`}

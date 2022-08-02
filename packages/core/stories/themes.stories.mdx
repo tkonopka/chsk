@@ -1,8 +1,10 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface } from '../src'
-import { customTheme } from './themes.helpers'
+import { customTheme, ChartWithAxisGrid } from './themes.helpers'
+import { DivDecorator } from './DivChartDecorators'
 
 <Meta title="Core/Themes" />
+export const Template = args => <ChartWithAxisGrid {...args} />
 
 # Themes
 
@@ -10,25 +12,41 @@ Themes set global styles for a chart.
 By setting styles once and not for individual components, themes can make chart definitions less verbose.
 Themes also help in preparing multiple charts with a consistent appearance.
 
-A theme object is a nested dictionary. For example, the object below specifies styles
-for a surface component, two line variants, and tick marks.
+<div className="sidenote">
+    **Side note**: This page describes how to use the theme syntax with a minimal example. For
+    additional information, including about ready-made themes, see the addon `@chask/themes`.
+</div>
+
+A theme object is a nested dictionary. For example, the object below changes styles
+for text, surface, line, and tick components.
 
 <Source
     language="javascript"
     code={`
 const customTheme = {
+  typography: {
+    // title in regular font weight
+    title: {
+      fontWeight: 400,
+    }
+  },
   surface: {
     // background in a light color
     inner: {
-      fill: '#eeffff'
+      fill: '#f6f6f6'
     }
   },
   line: {
+    // visible axis line
+    axis: {
+        stroke: '#222222',
+        visibility: 'hidden' as const,
+        strokeWidth: '2px',
+    },
     // grid lines in light gray
     grid: {
-      stroke: '#333333',
+      stroke: '#cccccc',
       strokeWidth: '1px',
-      strokeDashArray: '2 2'
     },
     // tick line in a heavier color
     tick: {
@@ -38,8 +56,14 @@ const customTheme = {
   },
   // ticks facing into the chart
   tick: {
-    size: -6,
-    padding: 6
+    left: {
+        size: -6,
+        padding: 6,
+    },
+    bottom: {
+        size: -6,
+        padding: 6,
+    },
   }
 }`}
 />
@@ -57,58 +81,32 @@ To apply the custom theme to a chart, pass it to the prop `theme` as in the pseu
 The examples below display the same content with the default and the custom themes.
 
 <Canvas>
-    <Story name="default">
-        <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-            <Chart
-                id={'chart-1'}
-                width={400}
-                height={260}
-                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-                data={[]}
-                scaleX={{
-                    variant: 'linear',
-                    min: 0,
-                    max: 100,
-                }}
-                scaleY={{
-                    variant: 'linear',
-                    min: 0,
-                    max: 100,
-                }}
-            >
-                <BackgroundSurface variant={'inner'} />
-            </Chart>
-        </div>
+    <Story
+        name="default"
+        args={{
+            id: 'default-theme',
+        }}
+        component={ChartWithAxisGrid}
+        decorators={[DivDecorator]}
+    >
+        {Template.bind({})}
     </Story>
-    <Story name="custom">
-        <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-            <Chart
-                id={'chart-2'}
-                width={400}
-                height={260}
-                margin={{ top: 40, right: 40, bottom: 40, left: 40 }}
-                data={[]}
-                scaleX={{
-                    variant: 'linear',
-                    min: 0,
-                    max: 100,
-                }}
-                scaleY={{
-                    variant: 'linear',
-                    min: 0,
-                    max: 100,
-                }}
-                theme={customTheme}
-            >
-                <BackgroundSurface variant={'inner'} />
-            </Chart>
-        </div>
+    <Story
+        name="custom"
+        args={{
+            id: 'custom-theme',
+            theme: customTheme,
+        }}
+        component={ChartWithAxisGrid}
+        decorators={[DivDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>
 
-**Note**: When two charts appear on the same page, their style definitions may clash.
-In other words, a style defined as part of a theme for one chart may affect/override the appearance of another chart.
-To avoid such cross-talk, set a unique chart identifier for each chart via the prop `id`.
+When two charts appear on the same page, as above, a theme for one chart may affect/override the appearance of another chart.
+(This happens because the `<style>` tag in HTML documents specify global settings.)
+To avoid such cross-talk, set a unique identifier for each chart via the prop `id`.
 
 <Source
     language="javascript"

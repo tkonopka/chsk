@@ -6,7 +6,6 @@ export const defaultTheme: CompleteThemeSpec = {
     typography: {
         default: {
             fontFamily: 'sans-serif',
-            fontWeight: 400,
             fontSize: '14px',
             fill: '#333333',
         },
@@ -18,13 +17,11 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         subtitle: {
             fontFamily: 'sans-serif',
-            fontWeight: 400,
             fontSize: '14px',
             fill: '#777777',
         },
         axisLabel: {
             fontFamily: 'sans-serif',
-            fontWeight: 400,
             fontSize: '14px',
             fill: '#333333',
             textAnchor: 'middle' as const,
@@ -38,7 +35,6 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         tickLabel: {
             fontFamily: 'sans-serif',
-            fontWeight: 400,
             fontSize: '12px',
             fill: '#333333',
         },
@@ -58,6 +54,12 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'middle' as const,
             dominantBaseline: 'hanging' as const,
         },
+        footnote: {
+            fontFamily: 'sans-serif',
+            fontSize: '11px',
+            fill: '#333333',
+            fontStyle: 'italic',
+        },
     },
     line: {
         default: {
@@ -70,7 +72,7 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         axis: {
             stroke: '#222222',
-            visibility: 'visible' as const,
+            visibility: 'hidden' as const,
         },
         tick: {
             stroke: '#555555',

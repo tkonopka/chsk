@@ -16,7 +16,7 @@
         "init": "lerna bootstrap --hoist",
         "prettier": "prettier --write .",
         "eslint": "eslint packages/*/{src,test}/**/*{js,ts,tsx}",
-        "lint": "lerna run lint",
+        "lint": "lerna run lint --stream",
         "build": "NODE_ENV=production lerna run build",
         "test": "lerna run test",
         "test-coverage": "lerna run test-coverage",
