@@ -89,13 +89,32 @@ Tick labels can be rotated using the prop `rotate`. Note that adjusting the angl
         name="rotation"
         args={{
             variant: 'bottom',
-            label: 'axis label',
             ticks: 5,
             rotate: -90,
             labelStyle: {
                 textAnchor: 'end',
                 dominantBaseline: 'middle',
             },
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Format
+
+Labels can be formatted with a custom function through the prop `format`.
+
+<Canvas>
+    <Story
+        name="format"
+        args={{
+            variant: 'bottom',
+            ticks: 5,
+            padding: 10,
+            format: (v) => v + "%"
         }}
         component={AxisTicks}
         decorators={[DivChartDecoratorWithAxis]}

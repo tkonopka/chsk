@@ -16,7 +16,7 @@ export const parameters = {
                 'Getting started',
                 'Using the documentation',
                 'Core',
-                ['Components', 'Hooks', 'Themes'],
+                ['Components', 'Hooks', 'Themes', 'Examples'],
                 'Addons',
                 ['Themes'],
             ],

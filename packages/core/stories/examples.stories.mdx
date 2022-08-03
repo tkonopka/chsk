@@ -1,0 +1,143 @@
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import {
+    Chart,
+    BackgroundSurface,
+    Axis,
+    AxisLabel,
+    AxisLine,
+    AxisTicks,
+    Grid,
+    Typography,
+} from '../src'
+import { DivDecorator } from './DivChartDecorators'
+import { CharWithAxisGridProps as commonProps } from './themes.helpers'
+
+<Meta title="Core/Examples" />
+export const Template = args => <ChartWithAxisGrid {...args} />
+
+# Examples
+
+Core components can be combined to produce distinctive chart skeletons.
+
+## Simple
+
+<Canvas>
+    <Story name="default">
+        <Chart {...commonProps}>
+            <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
+            <Axis variant={'left'} label={'y-axis (a.u.)'} />
+            <Typography x={0} y={-20} variant="title" children="Title" />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Grid
+
+<Canvas>
+    <Story name="grid">
+        <Chart {...commonProps}>
+            <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
+            <Axis variant={'left'} label={'y-axis (a.u.)'} />
+            <Grid variant={'x'} />
+            <Grid variant={'y'} />
+            <Typography y={-20} variant="title" children="Title" />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Inverse grid
+
+<Canvas>
+    <Story name="inverse grid">
+        <Chart {...commonProps}>
+            <BackgroundSurface variant={'inner'} style={{ fill: '#f0f0f0' }} />
+            <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
+            <Axis variant={'left'} label={'y-axis (a.u.)'} />
+            <Grid variant={'x'} values={5} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
+            <Grid variant={'y'} values={5} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
+            <Typography y={-20} variant="title" children="Title" />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Boxed
+
+<Canvas>
+    <Story name="boxed">
+        <Chart {...commonProps}>
+            <BackgroundSurface
+                variant={'inner'}
+                style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
+                expansion={{ top: 12, bottom: 12, left: 12, right: 12 }}
+            />
+            <Grid
+                variant={'x'}
+                values={5}
+                expansion={[12, 12]}
+                style={{ stroke: '#aaaaaa', strokeDasharray: '5 5' }}
+            />
+            <Grid
+                variant={'y'}
+                values={5}
+                expansion={[12, 12]}
+                style={{ stroke: '#aaaaaa', strokeDasharray: '5 5' }}
+            />
+            <Axis variant={'bottom'} ticks={null} padding={12}>
+                <AxisTicks variant={'bottom'} ticks={5} size={-5} padding={6} />
+                <AxisLabel variant={'bottom'} padding={40} children={'x-axis (a.u.)'} />
+            </Axis>
+            <Axis variant={'left'} ticks={null} padding={12}>
+                <AxisTicks variant={'left'} ticks={5} size={-5} padding={6} />
+                <AxisLabel variant={'left'} padding={40} children={'y-axis (a.u.)'} />
+            </Axis>
+            <Axis variant={'right'} ticks={null} padding={10}>
+                <AxisTicks variant={'right'} ticks={5} size={-5} format={null} />
+            </Axis>
+            <Axis variant={'top'} ticks={null} padding={10}>
+                <AxisTicks variant={'top'} ticks={5} size={-5} format={null} />
+            </Axis>
+            <Typography
+                x={140}
+                y={-26}
+                variant="title"
+                children="Title"
+                style={{ textAnchor: 'middle' }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Small labels
+
+<Canvas>
+    <Story name="small labels">
+        <Chart
+            id="small-labels"
+            {...commonProps}
+            padding={{ top: 55, right: 50, bottom: 55, left: 60 }}
+            theme={{
+                typography: {
+                    tickLabel: { fontSize: '11px', fill: '#777777' },
+                    axisLabel: { fontSize: '13px', fill: '#555555' },
+                },
+            }}
+        >
+            <BackgroundSurface variant={'outer'} style={{ fill: '#f4f4f4' }} />
+            <Grid variant={'y'} values={5} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
+            <Axis variant={'bottom'} ticks={null}>
+                <AxisTicks variant={'bottom'} ticks={5} size={5} padding={10} />
+                <AxisLine variant={'bottom'} style={{ visibility: 'visible', stroke: '#222222', strokeWidth: '2px' }} />
+                <AxisLabel
+                    variant={'bottom'}
+                    anchor={'end'}
+                    padding={32}
+                    children={'x-axis (a.u.)'}
+                />
+            </Axis>
+            <Axis variant={'left'} ticks={null}>
+                <AxisTicks variant={'left'} ticks={5} size={0} padding={6} />
+            </Axis>
+            <Typography x={-6} y={-28} variant={'axisLabel'} children={'y-axis (a.u.)'} />
+        </Chart>
+    </Story>
+</Canvas>

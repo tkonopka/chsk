@@ -15,7 +15,7 @@ export const Typography = ({
     className,
     setRole = true,
 }: TypographyProps) => {
-    if (children === undefined) return null
+    if (children === undefined || children === '') return null
 
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])

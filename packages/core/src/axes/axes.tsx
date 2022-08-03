@@ -18,7 +18,7 @@ const getAxisTranslate = ({
     height: number
 }) => {
     if (variant === 'left') return 'translate(' + -padding + ',0)'
-    if (variant === 'top') return 'translate(0,' + padding + ')'
+    if (variant === 'top') return 'translate(0,' + -padding + ')'
     if (variant === 'bottom') return 'translate(0,' + (height + padding) + ')'
     return 'translate(' + (width + padding) + ',0)'
 }
@@ -58,7 +58,7 @@ export const AxisLabel = ({
     if (variant === 'right') x += labelPadding
     if (variant === 'top') y -= labelPadding
     if (variant === 'bottom') y += labelPadding
-    if (variant === 'left' || variant === 'right') y += anchorFraction * height
+    if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * height
     if (variant === 'top' || variant === 'bottom') x += anchorFraction * width
     const rotation = labelRotate === 0 ? '' : ' rotate(' + String(Number(labelRotate)) + ')'
 

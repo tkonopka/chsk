@@ -1,8 +1,19 @@
 import { Line } from '../lines'
 import { getTickCoordinates, getTicks, useScales } from '../scales'
-import { TicksProps } from './types'
+import { TickFormatType, TicksProps } from './types'
 import { useTheme } from '../themes'
 import { Typography } from '../typography'
+
+// special formatting functions
+const stringFormat = (v: unknown) => String(v)
+// emptyFormat always returns an empty string; the if-else construct avoids lint warnings
+const emptyFormat = (v: unknown) => v ? '' : ''
+
+const getFormatFunction = (format: undefined | null | TickFormatType) => {
+    if (format === undefined) return stringFormat
+    if (format === null) return emptyFormat
+    return format
+}
 
 export const AxisTicks = ({
     variant,
@@ -10,6 +21,7 @@ export const AxisTicks = ({
     size,
     padding,
     rotate,
+    format,
     style,
     labelStyle,
 }: TicksProps) => {
@@ -37,6 +49,8 @@ export const AxisTicks = ({
     const transformTranslate = 'translate(' + labelX + ',' + labelY + ')'
     const transformRotate = tickRotate === 0 ? '' : 'rotate(' + String(Number(tickRotate)) + ')'
 
+    const tickFormat = getFormatFunction(format)
+
     const tickMarks = tickTranslations.map((translations, i) => (
         <g
             role="tick-group"
@@ -59,7 +73,7 @@ export const AxisTicks = ({
                 variant={'tickLabel'}
                 className={variant}
             >
-                {tickValues[i] as string}
+                {tickFormat(tickValues[i] as string)}
             </Typography>
         </g>
     ))

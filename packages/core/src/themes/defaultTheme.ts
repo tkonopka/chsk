@@ -67,6 +67,7 @@ export const defaultTheme: CompleteThemeSpec = {
         axis: {
             stroke: '#222222',
             visibility: 'hidden' as const,
+            strokeLinecap: 'square',
         },
         tick: {
             stroke: '#555555',

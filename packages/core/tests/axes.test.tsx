@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Axis } from '../src'
+import { Chart, Axis, AxisTicks } from '../src'
 import { chartProps } from './helpers'
 
 describe('Axis', () => {
@@ -125,5 +125,33 @@ describe('Axis', () => {
         )
         const label = screen.getByRole('axisLabel')
         expect(label).not.toBeNull()
+    })
+})
+
+describe('AxisTicks', () => {
+    it('formats tick labels', () => {
+        const percentFormat = (v: unknown) => v + "%"
+        render(
+            <Chart {...chartProps}>
+                <Axis variant="top" ticks={null} >
+                    <AxisTicks variant='top' ticks={6} format={percentFormat} />
+                </Axis>
+            </Chart>
+        )
+        const result = screen.getAllByRole('tickLabel')
+        expect(result[0].textContent).toContain('%')
+    })
+
+    it('can omit tick labels', () => {
+        const percentFormat = (v: unknown) => v + "%"
+        render(
+            <Chart {...chartProps}>
+                <Axis variant="top" ticks={null} >
+                    <AxisTicks variant='top' ticks={6} format={null} />
+                </Axis>
+            </Chart>
+        )
+        const result = screen.queryAllByRole('tickLabel')
+        expect(result).toHaveLength(0)
     })
 })
