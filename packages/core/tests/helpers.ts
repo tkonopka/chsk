@@ -9,7 +9,7 @@ export const scaleProps = {
 export const chartProps = {
     width: 400,
     height: 300,
-    margin: { top: 20, right: 20, bottom: 20, left: 20 },
+    padding: { top: 20, right: 20, bottom: 20, left: 20 },
     data: [],
     scaleX: scaleProps,
     scaleY: scaleProps,

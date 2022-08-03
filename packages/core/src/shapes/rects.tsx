@@ -1,6 +1,5 @@
-import { getStyles } from '../themes/style'
+import { composeClassName, getStyles } from '../themes'
 import { RectProps } from './types'
-import { composeClassName } from '../common'
 
 export const getRectStyles = (id: string) => {
     return getStyles({ chartId: id, themeKey: 'rect', component: 'rect' })
@@ -8,10 +7,10 @@ export const getRectStyles = (id: string) => {
 
 export const Rect = ({
     variant = 'default',
-    x = 0,
-    y = 0,
-    width = 2,
-    height = 2,
+    x,
+    y,
+    width,
+    height,
     center = false,
     className,
     style,

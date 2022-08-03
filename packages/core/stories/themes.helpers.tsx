@@ -32,7 +32,7 @@ export const customTheme: ThemeSpec = {
         },
     },
     // tick lines facing into the chart
-    tick: {
+    AxisTicks: {
         left: {
             size: -6,
             padding: 6,
@@ -47,7 +47,7 @@ export const customTheme: ThemeSpec = {
 export const CharWithAxisGridProps = {
     width: 400,
     height: 300,
-    margin: { top: 40, right: 40, bottom: 60, left: 60 },
+    padding: { top: 40, right: 40, bottom: 60, left: 60 },
     scaleX: {
         variant: 'linear',
         min: 0,

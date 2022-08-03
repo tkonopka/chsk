@@ -7,7 +7,7 @@ export const emptyTheme: CompleteThemeSpec = {
     line: {},
     rect: {},
     circle: {},
-    axis: {},
-    axisLabel: {},
-    tick: {},
+    Axis: {},
+    AxisLabel: {},
+    AxisTicks: {},
 }

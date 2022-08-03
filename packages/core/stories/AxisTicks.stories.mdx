@@ -1,0 +1,105 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { AxisTicks } from '../src'
+import { DivChartDecoratorWithAxis } from './DivChartDecorators'
+
+# AxisTicks
+
+<Meta title="Core/Components/AxisTicks" />
+export const Template = args => <AxisTicks {...args} />
+
+`AxisTicks` draws a set of tick line and labels.
+
+<ArgsTable of={AxisTicks} />
+
+Note that `AxisTicks` is intended to be wrapped in an `Axis` component.
+
+## Variants
+
+Predefined variants draw ticks on the top, right, bottom, or left axis. For brevity, the example below shows ticks on the bottom axis.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            variant: 'bottom',
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Size and padding
+
+Props `size` and `padding` control the length of the tick lines and the space between the axis and the text labels, respectively. These two props are often used together.
+
+<Canvas>
+    <Story
+        name="size and padding"
+        args={{
+            variant: 'bottom',
+            size: 15,
+            padding: 30,
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Position
+
+The position of ticks can be specified as an integer (to suggest a number of tick marks) or as an array (to specify all the tick positions).
+
+<Canvas>
+    <Story
+        name="number"
+        args={{
+            variant: 'bottom',
+            ticks: 5,
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="positions"
+        args={{
+            variant: 'bottom',
+            ticks: [0, 20, 50, 90, 100],
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that suggestions for the number of tick marks are approximate and the actual number of ticks may differ; the actual positions are computed by [d3-scale](https://github.com/d3/d3-scale).
+
+## Rotation
+
+Tick labels can be rotated using the prop `rotate`. Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
+
+<Canvas>
+    <Story
+        name="rotation"
+        args={{
+            variant: 'bottom',
+            label: 'axis label',
+            ticks: 5,
+            rotate: -90,
+            labelStyle: {
+                textAnchor: 'end',
+                dominantBaseline: 'middle',
+            },
+        }}
+        component={AxisTicks}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

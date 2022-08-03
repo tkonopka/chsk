@@ -1,13 +1,12 @@
 import { ChartProps } from './types'
 import { DimensionsProvider } from './general'
-import { emptyTheme, ThemeProvider } from './themes'
 import { ScalesProvider } from './scales'
-import { Style } from './themes/style'
+import { emptyTheme, Styles, ThemeProvider } from './themes'
 
-const defaultChartProps: Pick<ChartProps, 'width' | 'height' | 'margin' | 'data' | 'styles'> = {
+const defaultChartProps: Pick<ChartProps, 'width' | 'height' | 'padding' | 'data' | 'styles'> = {
     width: 500,
     height: 400,
-    margin: { top: 40, bottom: 40, left: 40, right: 40 },
+    padding: { top: 40, bottom: 40, left: 40, right: 40 },
     data: [],
     styles: ['typography', 'line', 'surface', 'shape'],
 }
@@ -17,14 +16,14 @@ export const Chart = ({
     width,
     height,
     data = defaultChartProps.data,
-    margin = defaultChartProps.margin,
+    padding = defaultChartProps.padding,
     scaleX,
     scaleY,
     theme = emptyTheme,
     styles = defaultChartProps.styles,
     children,
 }: ChartProps) => {
-    const dimsProps = { width, height, margin }
+    const dimsProps = { width, height, padding }
 
     return (
         <ThemeProvider theme={theme}>
@@ -37,10 +36,10 @@ export const Chart = ({
                         height={height}
                         role={'chart'}
                     >
-                        <Style chartId={id} styles={styles ?? []} />
+                        <Styles chartId={id} styles={styles ?? []} />
                         <g
                             role="chart-content"
-                            transform={`translate(${margin.left},${margin.top})`}
+                            transform={`translate(${padding.left},${padding.top})`}
                         >
                             {children}
                         </g>

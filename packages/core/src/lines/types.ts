@@ -1,13 +1,12 @@
-import { CSSProperties } from 'react'
-import { SvgElementVariantBaseProps } from '../common'
+import { SvgElementVariantBaseProps } from '../general'
 
-export interface GridProps {
+export interface GridProps extends SvgElementVariantBaseProps {
     /** variant */
     variant: 'x' | 'y'
     /** positions for grid lines */
     values: number | number[] | string[]
-    /** css style */
-    style?: Partial<CSSProperties>
+    /** expansion of lines at the start and end of the scale */
+    expansion?: [number, number]
 }
 
 export interface LineProps extends SvgElementVariantBaseProps {

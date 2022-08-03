@@ -27,12 +27,6 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'middle' as const,
             dominantBaseline: 'middle' as const,
         },
-        'axisLabel.left': {
-            transform: 'rotate(-90deg)',
-        },
-        'axisLabel.right': {
-            transform: 'rotate(90deg)',
-        },
         tickLabel: {
             fontFamily: 'sans-serif',
             fontSize: '12px',
@@ -101,43 +95,7 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 0,
         },
     },
-    tick: {
-        top: {
-            size: 5,
-            padding: 9,
-        },
-        bottom: {
-            size: 5,
-            padding: 9,
-        },
-        left: {
-            size: 5,
-            padding: 9,
-        },
-        right: {
-            size: 5,
-            padding: 9,
-        },
-    },
-    axisLabel: {
-        top: {
-            padding: 40, // distance between axis and axis label
-            anchor: 0.5, // relative position of axis label
-        },
-        bottom: {
-            padding: 40,
-            anchor: 0.5,
-        },
-        left: {
-            padding: 45,
-            anchor: 0.5,
-        },
-        right: {
-            padding: 45,
-            anchor: 0.5,
-        },
-    },
-    axis: {
+    Axis: {
         top: {
             padding: 0, // distance between chart surface and axis
         },
@@ -149,6 +107,44 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         right: {
             padding: 0,
+        },
+    },
+    AxisLabel: {
+        top: {
+            padding: 40, // distance between axis and axis label
+            anchor: 0.5, // relative position of axis label
+        },
+        bottom: {
+            padding: 40,
+            anchor: 0.5,
+        },
+        left: {
+            padding: 45,
+            anchor: 0.5,
+            rotate: -90,
+        },
+        right: {
+            padding: 45,
+            anchor: 0.5,
+            rotate: 90,
+        },
+    },
+    AxisTicks: {
+        top: {
+            size: 5,
+            padding: 9,
+        },
+        bottom: {
+            size: 5,
+            padding: 9,
+        },
+        left: {
+            size: 5,
+            padding: 9,
+        },
+        right: {
+            size: 5,
+            padding: 9,
         },
     },
 }

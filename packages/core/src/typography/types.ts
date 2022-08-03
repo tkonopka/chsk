@@ -1,16 +1,14 @@
-import { SvgElementVariantBaseProps } from '../common'
+import { SvgElementVariantBaseProps } from '../general'
 
 export interface TypographyProps extends SvgElementVariantBaseProps {
     /** x coordinate */
-    x: number
+    x?: number
     /** y coordinate */
-    y: number
+    y?: number
     /** variant */
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
     /** transform */
     transform?: string
-    /** wrap the text element in a g block with translation */
-    wrap?: boolean
     /** text content **/
     children?: string
 }

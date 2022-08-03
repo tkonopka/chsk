@@ -11,7 +11,7 @@ export const DivChartDecorator = Story => (
         <Chart
             width={400}
             height={200}
-            margin={{ top: 60, right: 60, bottom: 60, left: 60 }}
+            padding={{ top: 60, right: 60, bottom: 60, left: 60 }}
             data={[]}
             scaleX={{
                 variant: 'linear',
@@ -30,7 +30,7 @@ export const DivChartDecorator = Story => (
     </div>
 )
 
-The `Typography` component places a single textbox on a chart.
+The `Typography` component places a single text element on a chart.
 
 <ArgsTable of={Typography} />
 
@@ -94,11 +94,9 @@ There are a number of predefined variants, which can be activated via the prop `
 In the examples above, the prop `variant` determines the visual style for the text.
 Positions are set manually to suggest how the visual styles might be used within a chart.
 
-## Examples
+## Styles
 
-The presets can be adjusted via theming.
-
-Moreover, it is possible to adjust individual text elements using css styles.
+The text elements can be adjusted individually using css styles and svg transforms.
 
 <Canvas>
     <Story
@@ -123,8 +121,8 @@ Moreover, it is possible to adjust individual text elements using css styles.
         args={{
             variant: 'default',
             children: 'Text with custom style',
-            x: 140,
-            y: 40,
+            x: 0,
+            y: 0,
             style: {
                 fill: '#222222',
                 fontFamily: 'serif',
@@ -132,9 +130,8 @@ Moreover, it is possible to adjust individual text elements using css styles.
                 fontSize: '20px',
                 textAnchor: 'middle',
                 alignmentBaseline: 'middle',
-                transform: 'rotate(-10deg)',
             },
-            wrap: true,
+            transform: 'translate(140, 40) rotate(-10)',
         }}
         component={Typography}
         decorators={[DivChartDecorator]}

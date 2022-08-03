@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Axis } from '../src'
 import { DivChartDecoratorLargeMargin } from './DivChartDecorators'
 
@@ -11,9 +11,30 @@ export const Template = args => <Axis {...args} />
 
 <ArgsTable of={Axis} />
 
+Note that `Axis` is a composite component that draws a line, a label, and ticks marks with labels.
+The axis definition can be provided in a shorthand form, or in a long form using `AxisLine`, `AxisLabel`, and `AxisTicks` components.
+
+<Source
+    language="javascript"
+    code={`
+// shorthand
+
+<Axis variant={'top'} ticks={5} label={'axis label'} />
+
+// longform
+
+<Axis variant={'top'}>
+    <AxisTicks variant={'top'} ticks={5} />
+    <AxisLine variant={'top'} />
+    <AxisLabel variant={'top'} />axis label</AxisLabel>
+</Axis>
+`} />
+
+Because `Axis` is a shorthand form, it provides a very limited set of tuning props, selected as those perceived to be the most commonly adjusted features on axes. For fine-grained control of the underlying components, use the longform notation.
+
 ## Variants
 
-Predefined variants places an axis on the top, right, bottom, and left sides of a chart.
+Predefined variants place an axis on the top, right, bottom, or left sides of a chart.
 
 <Canvas>
     <Story
@@ -66,39 +87,18 @@ Predefined variants places an axis on the top, right, bottom, and left sides of 
     </Story>
 </Canvas>
 
-## Examples
+## Padding
 
-Tick labels can be rotated through css styles. Note that adjusting the text angle will likely prompt adjustment to other css properties like `textAnchor` and `dominantBaseline`.
+By default, axes are positioned exactly on the border of the charting surface. They can be offset using the prop `padding`.
 
 <Canvas>
     <Story
-        name="left rotated"
-        args={{
-            variant: 'left',
-            label: 'axis label',
-            ticks: 5,
-            tickLabelStyle: {
-                transform: 'rotate(-90deg)',
-                textAnchor: 'middle',
-                dominantBaseline: 'auto',
-            },
-        }}
-        component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="bottom rotated"
+        name="axis padding"
         args={{
             variant: 'bottom',
             label: 'axis label',
             ticks: 5,
-            tickLabelStyle: {
-                textAnchor: 'end',
-                transform: 'rotate(-90deg)',
-                dominantBaseline: 'middle',
-            },
+            padding: 10,
         }}
         component={Axis}
         decorators={[DivChartDecoratorLargeMargin]}

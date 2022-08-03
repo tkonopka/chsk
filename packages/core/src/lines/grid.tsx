@@ -3,7 +3,14 @@ import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './lines'
 
-export const Grid = ({ variant, values, style }: GridProps) => {
+export const Grid = ({
+    variant,
+    values,
+    expansion = [0, 0],
+    className,
+    style,
+    setRole = true,
+}: GridProps) => {
     const scales = useScales()
     const dimensions = useDimensions()
     const isX = variant === 'x'
@@ -16,23 +23,27 @@ export const Grid = ({ variant, values, style }: GridProps) => {
             <Line
                 x1={v}
                 x2={v}
-                y1={0}
-                y2={dimensions.innerHeight}
+                y1={0 - expansion[1]}
+                y2={dimensions.innerHeight + expansion[0]}
                 variant={'grid'}
                 key={'grid-x-' + i}
+                className={className}
                 style={style}
+                setRole={setRole}
             />
         ))
     } else {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
-                x1={0}
-                x2={dimensions.innerWidth}
+                x1={-expansion[0]}
+                x2={dimensions.innerWidth + expansion[1]}
                 y1={v}
                 y2={v}
                 variant={'grid'}
                 key={'grid-y-' + i}
+                className={className}
                 style={style}
+                setRole={setRole}
             />
         ))
     }

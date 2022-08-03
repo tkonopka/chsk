@@ -1,7 +1,7 @@
 import { BackgroundSurfaceProps, SurfaceProps } from './types'
 import { useDimensions } from './dimensions'
-import { getStyles } from '../themes/style'
-import { composeClassName } from '../common'
+import { getStyles } from '../themes'
+import { composeClassName } from '../themes'
 
 export const getSurfaceStyles = (id: string) => {
     return getStyles({ chartId: id, themeKey: 'surface', component: 'rect' })
@@ -40,8 +40,8 @@ export const BackgroundSurface = ({
 }: BackgroundSurfaceProps) => {
     const dimensions = useDimensions()
     const isOuter = variant === 'outer'
-    const x = isOuter ? -dimensions.margin.left : 0
-    const y = isOuter ? -dimensions.margin.top : 0
+    const x = isOuter ? -dimensions.padding.left : 0
+    const y = isOuter ? -dimensions.padding.top : 0
     const width = isOuter ? dimensions.width : dimensions.innerWidth
     const height = isOuter ? dimensions.height : dimensions.innerHeight
     return (

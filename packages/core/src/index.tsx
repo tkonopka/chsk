@@ -6,7 +6,6 @@ export * from './scales'
 export * from './shapes'
 export * from './themes'
 export * from './typography'
-export * from './common'
 
 // from this directory
 export * from './chart'

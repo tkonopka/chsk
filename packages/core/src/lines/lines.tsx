@@ -1,19 +1,18 @@
-import { getStyles } from '../themes/style'
+import { composeClassName, getStyles } from '../themes'
 import { LineProps } from './types'
-import { composeClassName } from '../common'
 
 export const getLineStyles = (id: string) => {
     return getStyles({ chartId: id, themeKey: 'line', component: 'line' })
 }
 
 export const Line = ({
-    x1 = 0,
-    y1 = 0,
-    x2 = 0,
-    y2 = 0,
+    x1,
+    y1,
+    x2,
+    y2,
     variant = 'default',
     className,
-    setRole,
+    setRole = true,
     style,
 }: LineProps) => {
     const isDefault = variant === 'default'

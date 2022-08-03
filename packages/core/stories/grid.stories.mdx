@@ -42,6 +42,8 @@ There are a number of predefined variants, which can be activated via the prop `
 
 ## Examples
 
+### Styling
+
 The grid lines can be styled using css. Below are examples with both horizontal and vertical gridlines.
 
 <Canvas>
@@ -55,7 +57,7 @@ The grid lines can be styled using css. Below are examples with both horizontal 
     </Story>
 </Canvas>
 
-Note that it is also possible to adjust the style for all grid lines using themes.
+### Line positions
 
 Position of the grid lines can be set manually via the prop `values`.
 
@@ -63,5 +65,24 @@ Position of the grid lines can be set manually via the prop `values`.
     <Story name="custom positions" args={{}} component={Grid} decorators={[DivChartDecorator]}>
         <Grid variant="y" values={[0, 10, 20, 50, 80, 90, 100]} style={{ stroke: '#777777' }} />
         <Grid variant="x" values={[0, 65, 85, 95, 100]} style={{ stroke: '#777777' }} />
+    </Story>
+</Canvas>
+
+### Line extent
+
+By default, gridlines span across the entire chart surface. It is possible to adjust their extent them using the prop `expansion`.
+
+<Canvas>
+    <Story
+        name="line extent"
+        args={{
+            values: 5,
+            expansion: [10, 25],
+            style: { stroke: '#555555' },
+        }}
+        component={Grid}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>

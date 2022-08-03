@@ -72,7 +72,7 @@ describe('Axis', () => {
 
     it('places label at the end of the axis', () => {
         const customTheme = {
-            axisLabel: {
+            AxisLabel: {
                 top: { anchor: 'end' },
             },
         }
@@ -80,13 +80,13 @@ describe('Axis', () => {
             <Chart
                 {...chartProps}
                 width={400}
-                margin={{ top: 40, bottom: 40, left: 40, right: 40 }}
+                padding={{ top: 40, bottom: 40, left: 40, right: 40 }}
                 theme={customTheme}
             >
                 <Axis variant="top" ticks={6} label={'axis label'} />
             </Chart>
         )
-        const label = screen.getByRole('axisLabel').closest('g')
+        const label = screen.getByRole('axisLabel')
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
         expect(label?.getAttribute('transform')).toContain('translate(320')
@@ -94,7 +94,7 @@ describe('Axis', () => {
 
     it('accepts an invalid label anchor', () => {
         const customTheme = {
-            axisLabel: {
+            AxisLabel: {
                 top: { anchor: 'invalid' },
             },
         }
@@ -102,7 +102,7 @@ describe('Axis', () => {
             <Chart
                 {...chartProps}
                 width={400}
-                margin={{ top: 40, bottom: 40, left: 40, right: 40 }}
+                padding={{ top: 40, bottom: 40, left: 40, right: 40 }}
                 theme={customTheme}
             >
                 <Axis variant="top" ticks={6} label={'axis label'} />
@@ -114,7 +114,7 @@ describe('Axis', () => {
 
     it('accepts a non-string and non-number as label anchor', () => {
         const customTheme = {
-            axisLabel: {
+            AxisLabel: {
                 top: { anchor: [] },
             },
         }

@@ -1,6 +1,5 @@
-import { getStyles } from '../themes/style'
+import { composeClassName, getStyles } from '../themes'
 import { CircleProps } from './types'
-import { composeClassName } from '../common'
 
 export const getCircleStyles = (id: string) => {
     return getStyles({ chartId: id, themeKey: 'circle', component: 'circle' })
@@ -10,7 +9,7 @@ export const Circle = ({
     variant = 'default',
     cx = 0,
     cy = 0,
-    r = 1,
+    r = 0,
     className,
     style,
     setRole = true,

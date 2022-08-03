@@ -3,17 +3,28 @@ import { Chart, Typography } from '../src'
 import { chartProps } from './helpers'
 
 describe('Typography', () => {
-    it('creates a default textbox', () => {
+    it('creates a default text component', () => {
         render(
             <Chart {...chartProps}>
-                <Typography x={0} y={0}>
-                    default
-                </Typography>
+                <Typography>default</Typography>
             </Chart>
         )
         const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBe('0')
         expect(result.getAttribute('x')).toBe('0')
+        expect(result.getAttribute('role')).toBe('default')
+    })
+
+    it('creates a text component without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography setRole={false}>default</Typography>
+            </Chart>
+        )
+        const result = screen.getByText('default')
+        expect(result.getAttribute('x')).toBe('0')
+        expect(result.getAttribute('x')).toBe('0')
+        expect(result.getAttribute('role')).toBeNull()
     })
 
     it('creates a title', () => {

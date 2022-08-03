@@ -11,7 +11,15 @@ export const parameters = {
     viewMode: 'docs',
     options: {
         storySort: {
-            order: ['Introduction', 'Getting Started', 'Core', ['Components', 'Hooks', 'Themes']],
+            order: [
+                'Introduction',
+                'Getting started',
+                'Using the documentation',
+                'Core',
+                ['Components', 'Hooks', 'Themes'],
+                'Addons',
+                ['Themes'],
+            ],
         },
     },
 }

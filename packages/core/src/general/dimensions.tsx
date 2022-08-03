@@ -4,7 +4,7 @@ import { DimensionsContextProps } from './types'
 export const dimensionsContext = createContext({
     width: 0,
     height: 0,
-    margin: { top: 0, left: 0, bottom: 0, right: 0 },
+    padding: { top: 0, left: 0, bottom: 0, right: 0 },
     innerWidth: 0,
     innerHeight: 0,
 } as DimensionsContextProps)
@@ -12,15 +12,15 @@ export const dimensionsContext = createContext({
 export const DimensionsProvider = ({
     width,
     height,
-    margin,
+    padding,
     children,
-}: Pick<DimensionsContextProps, 'width' | 'height' | 'margin'> & { children: ReactNode }) => {
+}: Pick<DimensionsContextProps, 'width' | 'height' | 'padding'> & { children: ReactNode }) => {
     const value: DimensionsContextProps = {
         width,
         height,
-        margin,
-        innerWidth: width - margin.left - margin.right,
-        innerHeight: height - margin.top - margin.bottom,
+        padding,
+        innerWidth: width - padding.left - padding.right,
+        innerHeight: height - padding.top - padding.bottom,
     }
 
     return <dimensionsContext.Provider value={value}>{children}</dimensionsContext.Provider>

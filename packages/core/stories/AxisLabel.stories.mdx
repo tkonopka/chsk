@@ -1,0 +1,74 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { AxisLabel } from '../src'
+import { DivChartDecoratorWithAxis } from './DivChartDecorators'
+
+# Axis
+
+<Meta title="Core/Components/AxisLabel" />
+export const Template = args => <AxisLabel {...args} />
+
+`AxisLabel` draws text intended as a label for an axis.
+
+<ArgsTable of={AxisLabel} />
+
+Note that `AxisLabel` is intended to be wrapped in an `Axis` component.
+
+## Variants
+
+Predefined variants place a label near the top, right, bottom, or left axis. For brevity, the example below shows ticks on the bottom axis.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+        }}
+        component={AxisLabel}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Padding
+
+The distance between the axis line and the axis label is controlled by prop `padding`. The value can be positive (further away from the chart surface) or negative (moved toward the chart surface).
+
+<Canvas>
+    <Story
+        name="padding"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+            padding: -10,
+        }}
+        component={AxisLabel}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Anchor
+
+The position of the label along the axis is controlled by prop `anchor`.
+The value of this prop is often adjusted together with the css style `textAnchor`.
+
+<Canvas>
+    <Story
+        name="anchor"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+            anchor: 'end',
+            style: {
+                textAnchor: 'end',
+            },
+        }}
+        component={AxisLabel}
+        decorators={[DivChartDecoratorWithAxis]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

@@ -4,29 +4,42 @@ import { TicksProps } from './types'
 import { useTheme } from '../themes'
 import { Typography } from '../typography'
 
-export const Ticks = ({ variant, ticks, style, labelStyle }: TicksProps) => {
-    const horizontal = variant === 'top' || variant === 'bottom'
+export const AxisTicks = ({
+    variant,
+    ticks,
+    size,
+    padding,
+    rotate,
+    style,
+    labelStyle,
+}: TicksProps) => {
     const scales = useScales()
-    const scale = horizontal ? scales.scaleX : scales.scaleY
+    const theme = useTheme()
+    if (ticks === null) return null
 
+    const horizontal = variant === 'top' || variant === 'bottom'
+    const scale = horizontal ? scales.scaleX : scales.scaleY
     const tickValues: Array<unknown> = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
     const tickCoordinates: Array<number> = getTickCoordinates(scale, ticks)
 
-    const theme = useTheme()
-    const tickTheme = theme.tick[variant]
-    const tickSize = (tickTheme?.size as number) ?? 0
-    const tickPadding = (tickTheme?.padding as number) ?? 0
+    const tickTheme = theme.AxisTicks[variant]
+    const tickSize = size ?? (tickTheme?.size as number) ?? 0
+    const tickPadding = padding ?? (tickTheme?.padding as number) ?? 0
+    const tickRotate = rotate ?? (tickTheme?.rotate as number) ?? 0
     const tickTranslations =
         variant === 'top' || variant === 'bottom'
             ? tickCoordinates.map(v => [v, 0])
             : tickCoordinates.map(v => [0, v])
-
     const xMultiplier = variant === 'right' ? 1 : -1
     const yMultiplier = variant === 'top' ? -1 : 1
+    const labelX = horizontal ? 0 : tickPadding * xMultiplier
+    const labelY = horizontal ? tickPadding * yMultiplier : 0
+    const transformTranslate = 'translate(' + labelX + ',' + labelY + ')'
+    const transformRotate = tickRotate === 0 ? '' : 'rotate(' + String(Number(tickRotate)) + ')'
 
     const tickMarks = tickTranslations.map((translations, i) => (
         <g
-            role="tick"
+            role="tick-group"
             transform={'translate(' + translations[0] + ', ' + translations[1] + ')'}
             key={'tick-' + variant + '-' + i}
         >
@@ -39,12 +52,12 @@ export const Ticks = ({ variant, ticks, style, labelStyle }: TicksProps) => {
                 style={style}
             />
             <Typography
-                x={horizontal ? 0 : tickPadding * xMultiplier}
-                y={horizontal ? tickPadding * yMultiplier : 0}
+                x={0}
+                y={0}
+                transform={transformTranslate + transformRotate}
                 style={labelStyle}
                 variant={'tickLabel'}
                 className={variant}
-                wrap={true}
             >
                 {tickValues[i] as string}
             </Typography>

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { MarginSpec } from './general'
+import { PaddingSpec } from './general'
 import { ThemeSpec } from './themes'
 import { ScaleSpec } from './scales'
 
@@ -12,8 +12,8 @@ export interface ChartProps {
     width: number
     /** height of the chart */
     height: number
-    /** margin **/
-    margin: MarginSpec
+    /** padding **/
+    padding: PaddingSpec
     /** data array **/
     data: DataSpec
     /** scale for horizontal axis */

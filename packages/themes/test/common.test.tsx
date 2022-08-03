@@ -2,6 +2,6 @@ import { classicTheme } from '../src'
 
 describe('classic theme', () => {
     it('add', () => {
-        expect(classicTheme).toHaveProperty('tick')
+        expect(classicTheme).toHaveProperty('AxisTicks')
     })
 })

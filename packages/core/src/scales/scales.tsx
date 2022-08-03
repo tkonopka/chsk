@@ -75,17 +75,17 @@ export const scalesContext = createContext({
 export const ScalesProvider = ({
     width,
     height,
-    margin,
+    padding,
     scaleX,
     scaleY,
     children,
-}: Pick<DimensionsContextProps, 'width' | 'height' | 'margin'> & {
+}: Pick<DimensionsContextProps, 'width' | 'height' | 'padding'> & {
     scaleX: ScaleSpec
     scaleY: ScaleSpec
     children: ReactNode
 }) => {
-    const innerWidth = width - margin.left - margin.right
-    const innerHeight = height - margin.top - margin.bottom
+    const innerWidth = width - padding.left - padding.right
+    const innerHeight = height - padding.top - padding.bottom
     const value: ScalesContextProps = {
         scaleX: createScale({ axis: 'x', size: innerWidth, scale: scaleX }),
         scaleY: createScale({ axis: 'y', size: innerHeight, scale: scaleY }),

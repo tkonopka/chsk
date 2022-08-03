@@ -13,9 +13,9 @@ export interface ThemeSpec {
     surface?: Record<string, Partial<CSSProperties>>
     rect?: Record<string, Partial<CSSProperties>>
     circle?: Record<string, Partial<CSSProperties>>
-    axis?: SideRecords
-    tick?: SideRecords
-    axisLabel?: SideRecords
+    Axis?: SideRecords
+    AxisLabel?: SideRecords
+    AxisTicks?: SideRecords
 }
 
 export interface CompleteThemeSpec {
@@ -24,7 +24,7 @@ export interface CompleteThemeSpec {
     surface: Record<string, Partial<CSSProperties>>
     rect: Record<string, Partial<CSSProperties>>
     circle: Record<string, Partial<CSSProperties>>
-    axis: SideRecords
-    tick: SideRecords
-    axisLabel: SideRecords
+    Axis: SideRecords
+    AxisLabel: SideRecords
+    AxisTicks: SideRecords
 }
