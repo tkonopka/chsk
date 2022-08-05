@@ -3,11 +3,12 @@ import { CompleteThemeSpec } from './types'
 
 export const emptyTheme: CompleteThemeSpec = {
     typography: {},
-    surface: {},
     line: {},
+    polygon: {},
     rect: {},
     circle: {},
     Axis: {},
     AxisLabel: {},
     AxisTicks: {},
+    Colors: [],
 }

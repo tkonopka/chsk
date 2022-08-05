@@ -1,4 +1,4 @@
-import { mergeTheme, defaultTheme, Chart, Grid } from '../src'
+import { mergeTheme, defaultTheme, Chart } from '../src'
 import { ThemeSpec } from '../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from './helpers'
@@ -19,15 +19,15 @@ describe('themes', () => {
 
     it('merge replaces an existing property', () => {
         const customTheme: ThemeSpec = {
-            surface: {
+            rect: {
                 inner: {
                     fill: '#0000dd',
                 },
             },
         }
         const result = mergeTheme(defaultTheme, customTheme)
-        expect(defaultTheme['surface']['inner']).toHaveProperty('fill', '#eeeeee')
-        expect(result['surface']['inner']).toHaveProperty('fill', '#0000dd')
+        expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#eeeeee')
+        expect(result['rect']['inner']).toHaveProperty('fill', '#0000dd')
     })
 })
 

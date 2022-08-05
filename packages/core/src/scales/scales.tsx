@@ -67,7 +67,7 @@ export const getTickCoordinates = (
     return tickValues?.map(v => scale(v) as number)
 }
 
-export const scalesContext = createContext({
+export const ScalesContext = createContext({
     scaleX: scaleLinear(),
     scaleY: scaleLinear(),
 } as ScalesContextProps)
@@ -90,7 +90,7 @@ export const ScalesProvider = ({
         scaleX: createScale({ axis: 'x', size: innerWidth, scale: scaleX }),
         scaleY: createScale({ axis: 'y', size: innerHeight, scale: scaleY }),
     }
-    return <scalesContext.Provider value={value}>{children}</scalesContext.Provider>
+    return <ScalesContext.Provider value={value}>{children}</ScalesContext.Provider>
 }
 
-export const useScales = () => useContext(scalesContext)
+export const useScales = () => useContext(ScalesContext)

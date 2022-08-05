@@ -1,24 +1,25 @@
 {
-    "name": "@chask/themes",
+    "name": "@chask/scatter",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
-    "description": "Components for theming charts",
-    "main": "./dist/chask-themes.cjs.js",
-    "module": "./dist/chask-themes.es.js",
+    "description": "Components for scatter plots",
+    "main": "./dist/chask-scatter.cjs.js",
+    "module": "./dist/chask-scatter.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chask.git",
-        "directory": "packages/themes"
+        "directory": "packages/scatter"
     },
     "scripts": {
         "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "build": "PACKAGE=themes rollup -c ../../rollup.config.js"
+        "build": "PACKAGE=scatter rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0"
+        "@chask/core": "^0.1.0",
+        "d3-scale": "^4.0.2"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",

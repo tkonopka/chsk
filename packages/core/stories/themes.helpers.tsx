@@ -1,4 +1,4 @@
-import { Axis, BackgroundSurface, Chart, Grid, Typography } from '../src'
+import { Axis, BackgroundSurface, Chart, GridLines, Typography, View } from '../src'
 import { ChartProps, ThemeSpec } from '../src'
 
 export const customTheme: ThemeSpec = {
@@ -8,7 +8,7 @@ export const customTheme: ThemeSpec = {
             fontWeight: 400,
         },
     },
-    surface: {
+    rect: {
         inner: {
             fill: '#f6f6f6',
         },
@@ -48,6 +48,8 @@ export const CharWithAxisGridProps = {
     width: 400,
     height: 300,
     padding: { top: 40, right: 40, bottom: 60, left: 60 },
+}
+export const CharWithAxisGridViewProps = {
     scaleX: {
         variant: 'linear',
         min: 0,
@@ -69,14 +71,16 @@ export const ChartWithAxisGrid = (args: ChartProps) => {
 
     return (
         <Chart {...props}>
-            <BackgroundSurface variant={'inner'} />
-            <Grid variant={'x'} values={5} />
-            <Grid variant={'y'} values={5} />
-            <Axis variant={'left'} label={'Values (a.u.)'} />
-            <Axis variant={'bottom'} label={'Values (a.u.)'} />
-            <Typography x={0} y={-16} variant={'title'}>
-                Chart title
-            </Typography>
+            <View {...CharWithAxisGridViewProps}>
+                <BackgroundSurface variant={'inner'} />
+                <GridLines variant={'x'} values={5} />
+                <GridLines variant={'y'} values={5} />
+                <Axis variant={'left'} label={'Values (a.u.)'} />
+                <Axis variant={'bottom'} label={'Values (a.u.)'} />
+                <Typography x={0} y={-16} variant={'title'}>
+                    Chart title
+                </Typography>
+            </View>
         </Chart>
     )
 }

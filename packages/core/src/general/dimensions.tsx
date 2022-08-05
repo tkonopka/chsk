@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { DimensionsContextProps } from './types'
 
-export const dimensionsContext = createContext({
+export const DimensionsContext = createContext({
     width: 0,
     height: 0,
     padding: { top: 0, left: 0, bottom: 0, right: 0 },
@@ -23,7 +23,7 @@ export const DimensionsProvider = ({
         innerHeight: height - padding.top - padding.bottom,
     }
 
-    return <dimensionsContext.Provider value={value}>{children}</dimensionsContext.Provider>
+    return <DimensionsContext.Provider value={value}>{children}</DimensionsContext.Provider>
 }
 
-export const useDimensions = () => useContext(dimensionsContext)
+export const useDimensions = () => useContext(DimensionsContext)

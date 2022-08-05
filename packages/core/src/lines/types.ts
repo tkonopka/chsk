@@ -6,7 +6,7 @@ export interface GridProps extends SvgElementVariantBaseProps {
     /** positions for grid lines */
     values: number | number[] | string[]
     /** expansion of lines at the start and end of the scale */
-    expansion?: [number, number]
+    expansion?: number | [number, number]
 }
 
 export interface LineProps extends SvgElementVariantBaseProps {

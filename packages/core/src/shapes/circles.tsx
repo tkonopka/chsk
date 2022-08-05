@@ -7,9 +7,9 @@ export const getCircleStyles = (id: string) => {
 
 export const Circle = ({
     variant = 'default',
-    cx = 0,
-    cy = 0,
-    r = 0,
+    cx,
+    cy,
+    r,
     className,
     style,
     setRole = true,

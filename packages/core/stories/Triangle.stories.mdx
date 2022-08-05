@@ -1,19 +1,19 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Circle } from '../src'
+import { Chart, BackgroundSurface, Triangle } from '../src'
 import { DivChartDecorator } from './DivChartDecorators'
 
-# Circle
+# Triangle
 
-<Meta title="Core/Components/Circle" />
-export const Template = args => <Circle {...args} />
+<Meta title="Core/Components/Triangle" />
+export const Template = args => <Triangle {...args} />
 
-`Circle` displays a circle shape.
+`Triangle` displays a triangle shape.
 
-<ArgsTable of={Circle} />
+<ArgsTable of={Triangle} />
 
-## Examples
+## Styles
 
-Circles can be tuned using css.
+Triangles can be styled using css.
 
 <Canvas>
     <Story
@@ -24,7 +24,7 @@ Circles can be tuned using css.
             cy: 110,
             r: 20,
         }}
-        component={Circle}
+        component={Triangle}
         decorators={[DivChartDecorator]}
     >
         {Template.bind({})}

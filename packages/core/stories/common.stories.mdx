@@ -1,0 +1,73 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Common props" />
+
+# Common props
+
+Some props appear in common in the APIs of many `@chask/core` components. These props perform a similar function across all components, and for brevity are not documented extensively in the pages dedicated to individual components. Nonetheless, these props are an integral part of the chask framework.
+
+## `className`
+
+The prop `className` accepts a string. Its value is passed to the svg as a class.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+<Circle r={2} class={'special'}} />
+
+// resulting SVG code
+
+<circle role="default" r="2" class="special"></circle>
+`} />
+
+The svg class affects the appearance of the graphical components, but only if style definitions within a `<style>` tag include entries that correspond that class. In chask, such style definitions are set through themes.
+
+## `setRole`
+
+The prop `setRole` toggles the `role` attribute in the svg graphic. By default, the `setRole` prop is set to `true` so that the graphic includes some semantic information (see pseudo-code example on this pages). It is possible to remove those tags.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+<Circle r={2} setRole={false} />
+
+// resulting SVG code
+
+<circle r="2"></circle>
+`} />
+
+## `style`
+
+The prop `style` accepts objects with css definitions. These custom styles are applied inline to individual svg components.
+
+As an example, the pseudo-code below shows the definition of `Circle` component and the resulting code in the svg graphic.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+<Circle r={2} style={{ stroke: 'red', strokeWidth: '2px' }} />
+
+// resulting SVG code
+
+<circle role="default" r="2" style="stroke: red; stroke-width: 2px;"></circle>
+`} />
+
+## `variant`
+
+The prop `variant` is a convenient way to apply both a semantic role and a visual style.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+<Typography variant={'title'}>Title</Typography>
+
+// resulting SVG code
+
+<text role="title" class="title">Title</circle>
+`} />
+
+In practice, this is a practical way to pull information from the chart theme.

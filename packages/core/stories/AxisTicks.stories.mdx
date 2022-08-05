@@ -90,6 +90,7 @@ Tick labels can be rotated using the prop `rotate`. Note that adjusting the angl
         args={{
             variant: 'bottom',
             ticks: 5,
+            padding: 10,
             rotate: -90,
             labelStyle: {
                 textAnchor: 'end',
@@ -114,7 +115,7 @@ Labels can be formatted with a custom function through the prop `format`.
             variant: 'bottom',
             ticks: 5,
             padding: 10,
-            format: (v) => v + "%"
+            format: v => v + '%',
         }}
         component={AxisTicks}
         decorators={[DivChartDecoratorWithAxis]}

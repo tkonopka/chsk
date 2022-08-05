@@ -1,11 +1,6 @@
 import { BackgroundSurfaceProps, SurfaceProps } from './types'
 import { useDimensions } from './dimensions'
-import { getStyles } from '../themes'
 import { composeClassName } from '../themes'
-
-export const getSurfaceStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'surface', component: 'rect' })
-}
 
 export const Surface = ({
     variant,

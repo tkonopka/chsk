@@ -7,7 +7,7 @@ import { Typography } from '../typography'
 // special formatting functions
 const stringFormat = (v: unknown) => String(v)
 // emptyFormat always returns an empty string; the if-else construct avoids lint warnings
-const emptyFormat = (v: unknown) => v ? '' : ''
+const emptyFormat = (v: unknown) => (v ? '' : '')
 
 const getFormatFunction = (format: undefined | null | TickFormatType) => {
     if (format === undefined) return stringFormat
@@ -53,7 +53,6 @@ export const AxisTicks = ({
 
     const tickMarks = tickTranslations.map((translations, i) => (
         <g
-            role="tick-group"
             transform={'translate(' + translations[0] + ', ' + translations[1] + ')'}
             key={'tick-' + variant + '-' + i}
         >

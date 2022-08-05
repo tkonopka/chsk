@@ -11,13 +11,13 @@ export interface SvgElementVariantBaseProps {
     style?: Partial<CSSProperties>
 }
 
+// two names for the same object type - suitable in different contexts
 export type MarginSpec = {
     top: number
     bottom: number
     left: number
     right: number
 }
-// just a different name
 export type PaddingSpec = MarginSpec
 
 export type DimensionsContextProps = {

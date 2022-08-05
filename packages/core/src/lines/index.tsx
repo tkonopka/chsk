@@ -1,3 +1,3 @@
 export * from './lines'
-export * from './grid'
+export * from './gridlines'
 export * from './types'

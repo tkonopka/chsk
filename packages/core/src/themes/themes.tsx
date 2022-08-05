@@ -7,11 +7,11 @@ export const mergeTheme = (baseTheme: CompleteThemeSpec, customTheme: ThemeSpec)
     return merge(cloneDeep(baseTheme), customTheme)
 }
 
-export const themeContext = createContext(defaultTheme as CompleteThemeSpec)
+export const ThemeContext = createContext(defaultTheme as CompleteThemeSpec)
 
 export const ThemeProvider = ({ theme, children }: { theme: ThemeSpec; children: ReactNode }) => {
     const mergedTheme: CompleteThemeSpec = mergeTheme(defaultTheme, theme)
-    return <themeContext.Provider value={mergedTheme}>{children}</themeContext.Provider>
+    return <ThemeContext.Provider value={mergedTheme}>{children}</ThemeContext.Provider>
 }
 
-export const useTheme = () => useContext(themeContext)
+export const useTheme = () => useContext(ThemeContext)

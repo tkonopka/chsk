@@ -10,25 +10,21 @@ export const defaultTheme: CompleteThemeSpec = {
             fill: '#333333',
         },
         title: {
-            fontFamily: 'sans-serif',
             fontWeight: 600,
             fontSize: '18px',
             fill: '#333333',
         },
         subtitle: {
-            fontFamily: 'sans-serif',
             fontSize: '14px',
             fill: '#777777',
         },
         axisLabel: {
-            fontFamily: 'sans-serif',
             fontSize: '14px',
             fill: '#333333',
             textAnchor: 'middle' as const,
             dominantBaseline: 'middle' as const,
         },
         tickLabel: {
-            fontFamily: 'sans-serif',
             fontSize: '12px',
             fill: '#333333',
         },
@@ -61,7 +57,7 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 1,
         },
         grid: {
-            stroke: '#bbbbbb',
+            stroke: '#cccccc',
             strokeWidth: 1,
         },
         axis: {
@@ -74,7 +70,17 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 2,
         },
     },
-    surface: {
+    polygon: {
+        default: {
+            stroke: '#333333',
+            strokeWidth: 0,
+        },
+    },
+    rect: {
+        default: {
+            stroke: '#333333',
+            strokeWidth: 0,
+        },
         inner: {
             fill: '#eeeeee',
             fillOpacity: 1,
@@ -82,12 +88,6 @@ export const defaultTheme: CompleteThemeSpec = {
         outer: {
             fill: '#f4f4f4',
             fillOpacity: 1,
-        },
-    },
-    rect: {
-        default: {
-            stroke: '#333333',
-            strokeWidth: 0,
         },
     },
     circle: {
@@ -148,4 +148,5 @@ export const defaultTheme: CompleteThemeSpec = {
             padding: 9,
         },
     },
+    Colors: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],
 }

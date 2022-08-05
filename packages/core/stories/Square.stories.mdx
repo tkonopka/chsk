@@ -1,0 +1,34 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Square } from '../src'
+import { DivChartDecorator } from './DivChartDecorators'
+
+# Square
+
+<Meta title="Core/Components/Square" />
+export const Template = args => <Square {...args} />
+
+`Square` displays a square shape.
+
+<ArgsTable of={Square} />
+
+Geometrically, squares are a special types of rectangles. Similar in chask, square shapes can be produced using the `Rectangle` component. Indeed, `Rectangle` is a more versatile component with more features than `Square`. However, `Square` is relevant in that its position is always set via the shape's center.
+
+## Styles
+
+Squares can be styled using css.
+
+<Canvas>
+    <Story
+        name="styled"
+        args={{
+            style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
+            cx: 160,
+            cy: 110,
+            r: 20,
+        }}
+        component={Square}
+        decorators={[DivChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

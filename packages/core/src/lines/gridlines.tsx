@@ -3,7 +3,7 @@ import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './lines'
 
-export const Grid = ({
+export const GridLines = ({
     variant,
     values,
     expansion = [0, 0],
@@ -16,6 +16,9 @@ export const Grid = ({
     const isX = variant === 'x'
     const scale = isX ? scales.scaleX : scales.scaleY
     const tickCoordinates: Array<number> = getTickCoordinates(scale, values)
+    const [e1, e2] = Array.isArray(expansion)
+        ? [expansion[0], expansion[1]]
+        : [expansion, expansion]
 
     let result
     if (isX) {
@@ -23,8 +26,8 @@ export const Grid = ({
             <Line
                 x1={v}
                 x2={v}
-                y1={0 - expansion[1]}
-                y2={dimensions.innerHeight + expansion[0]}
+                y1={-e1}
+                y2={dimensions.innerHeight + e2}
                 variant={'grid'}
                 key={'grid-x-' + i}
                 className={className}
@@ -35,8 +38,8 @@ export const Grid = ({
     } else {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
-                x1={-expansion[0]}
-                x2={dimensions.innerWidth + expansion[1]}
+                x1={-e1}
+                x2={dimensions.innerWidth + e2}
                 y1={v}
                 y2={v}
                 variant={'grid'}
