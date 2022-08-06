@@ -1,0 +1,108 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Axis } from '../src'
+import { ChartDecorator } from './decorators'
+
+# Axis
+
+<Meta title="Core/Components/Axis" />
+export const Template = args => <Axis {...args} />
+
+`Axis` draws an axis on a chart.
+
+<ArgsTable of={Axis} />
+
+Note that `Axis` is a composite component that draws a line, a label, and ticks marks with labels.
+The axis definition can be provided in a shorthand form, or in a long form using `AxisLine`, `AxisLabel`, and `AxisTicks` components.
+
+<Source
+    language="javascript"
+    code={`
+// shorthand
+
+<Axis variant={'top'} ticks={5} label={'axis label'} />
+
+// longform
+
+<Axis variant={'top'}>
+    <AxisTicks variant={'top'} ticks={5} />
+    <AxisLine variant={'top'} />
+    <AxisLabel variant={'top'} />axis label</AxisLabel>
+</Axis>
+`} />
+
+Because `Axis` is a shorthand form, it provides a very limited set of tuning props, selected as those perceived to be the most commonly adjusted features on axes. For fine-grained control of the underlying components, use the longform notation.
+
+## Variants
+
+Predefined variants place an axis on the top, right, bottom, or left sides of a chart.
+
+<Canvas>
+    <Story
+        name="top"
+        args={{
+            variant: 'top',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="right"
+        args={{
+            variant: 'right',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="bottom"
+        args={{
+            variant: 'bottom',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="left"
+        args={{
+            variant: 'left',
+            label: 'axis label',
+            ticks: 5,
+        }}
+        component={Axis}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Padding
+
+By default, axes are positioned exactly on the border of the charting surface. They can be offset using the prop `padding`.
+
+<Canvas>
+    <Story
+        name="axis padding"
+        args={{
+            variant: 'bottom',
+            label: 'axis label',
+            ticks: 5,
+            padding: 10,
+        }}
+        component={Axis}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

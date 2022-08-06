@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Line } from '../src'
-import { DivChartDecoratorLargeMargin } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # Line
 
@@ -26,7 +26,7 @@ There are a number of predefined variants, which can be activated via the prop `
             y2: 86,
         }}
         component={Line}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -36,11 +36,11 @@ There are a number of predefined variants, which can be activated via the prop `
             variant: 'grid',
             x1: 0,
             y1: 40,
-            x2: 280,
+            x2: 320,
             y2: 40,
         }}
         component={Line}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -67,7 +67,7 @@ It is possible to adjust individual lines using css styles.
             },
         }}
         component={Line}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -75,9 +75,9 @@ It is possible to adjust individual lines using css styles.
         name="dasharray"
         args={{
             variant: 'default',
-            x1: 0,
+            x1: 40,
             y1: 0,
-            x2: 280,
+            x2: 320,
             y2: 80,
             style: {
                 stroke: '#222222',
@@ -87,7 +87,7 @@ It is possible to adjust individual lines using css styles.
             },
         }}
         component={Line}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

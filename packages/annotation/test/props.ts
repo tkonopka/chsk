@@ -7,9 +7,8 @@ export const scaleProps = {
 }
 
 export const chartProps = {
-    width: 400,
-    height: 300,
-    padding: { top: 20, right: 20, bottom: 20, left: 20 },
+    size: [400, 300] as [number, number],
+    padding: [40, 40, 40, 40] as [number, number, number, number],
 }
 
 export const viewProps = {

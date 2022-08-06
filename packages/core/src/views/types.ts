@@ -1,4 +1,4 @@
-import { PaddingSpec } from '../general'
+import { PaddingSpec, SizeSpec } from '../general'
 import { ScaleSpec } from '../scales'
 import { ReactNode } from 'react'
 
@@ -14,10 +14,8 @@ export interface ContainerProps {
     x?: number
     /** y coordinate */
     y?: number
-    /** width */
-    width?: number
-    /** height */
-    height?: number
+    /** width and size */
+    size?: SizeSpec
     /** padding **/
     padding?: PaddingSpec
     /** children components */

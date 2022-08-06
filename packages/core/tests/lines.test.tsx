@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, GridLines, Line, View } from '../src'
-import { chartProps, viewProps } from './helpers'
+import { chartProps, viewProps } from './props'
 
 describe('Line', () => {
     it('creates a default line', () => {
@@ -86,11 +86,7 @@ describe('GridLines', () => {
 
     it('creates expanded lines (asymmetric)', () => {
         render(
-            <Chart
-                {...chartProps}
-                width={400}
-                padding={{ top: 20, right: 20, bottom: 20, left: 20 }}
-            >
+            <Chart {...chartProps} size={[400, 300]} padding={[20, 20, 20, 20]}>
                 <View {...viewProps}>
                     <GridLines variant="y" values={6} expansion={[10, 40]} />
                 </View>
@@ -105,11 +101,7 @@ describe('GridLines', () => {
 
     it('creates expanded lines (symmetric)', () => {
         render(
-            <Chart
-                {...chartProps}
-                width={400}
-                padding={{ top: 20, right: 20, bottom: 20, left: 20 }}
-            >
+            <Chart {...chartProps} size={[400, 300]} padding={[20, 20, 20, 20]}>
                 <View {...viewProps}>
                     <GridLines variant="y" values={6} expansion={10} />
                 </View>

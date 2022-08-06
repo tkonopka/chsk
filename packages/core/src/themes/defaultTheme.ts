@@ -1,13 +1,15 @@
-// default theme object
-
 import { CompleteThemeSpec } from './types'
 
 export const defaultTheme: CompleteThemeSpec = {
-    typography: {
+    text: {
         default: {
             fontFamily: 'sans-serif',
             fontSize: '14px',
             fill: '#333333',
+        },
+        label: {
+            textAnchor: 'middle',
+            dominantBaseline: 'middle',
         },
         title: {
             fontWeight: 600,

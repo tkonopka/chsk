@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, BackgroundSurface, Surface } from '../src'
-import { chartProps } from './helpers'
+import { chartProps } from './props'
 
 describe('BackgroundSurface', () => {
     it('creates inner surface', () => {
@@ -10,7 +10,6 @@ describe('BackgroundSurface', () => {
             </Chart>
         )
         const result = screen.getByRole('inner')
-        //screen.debug(result)
         expect(result.getAttribute('x')).toBe('0')
         expect(result.getAttribute('y')).toBe('0')
     })
@@ -41,7 +40,7 @@ describe('Surface', () => {
     it('creates surface', () => {
         render(
             <Chart {...chartProps}>
-                <Surface x={0} y={0} width={50} height={50} />
+                <Surface x={0} y={0} size={[50, 50]} />
             </Chart>
         )
         const result = screen.getByRole('chart-content')
@@ -50,7 +49,7 @@ describe('Surface', () => {
     it('creates surface without role', () => {
         render(
             <Chart {...chartProps}>
-                <Surface x={0} y={0} width={50} height={50} setRole={false} />
+                <Surface x={0} y={0} size={[50, 50]} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content')

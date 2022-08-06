@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Square } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # Square
 
@@ -27,7 +27,7 @@ Squares can be styled using css.
             r: 20,
         }}
         component={Square}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

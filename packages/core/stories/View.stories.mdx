@@ -1,0 +1,13 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, View } from '../src'
+
+# View
+
+<Meta title="Core/Components/View" />
+export const Template = args => <View {...args} />
+
+`View` is an organizational component. It does not display any visual elements on a chart, but it manages internal chart state. In particular, it prepares data for display, and defines the scales for the axes.
+
+<ArgsTable of={View} />
+
+For examples, see the documentation for components such as `Axis`, which rely on the definitions of scales in `View` to display axes and tick marks.

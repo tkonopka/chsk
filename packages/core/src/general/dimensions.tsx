@@ -1,27 +1,31 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { DimensionsContextProps } from './types'
 
+// indexes for padding arrays
+export const TOP = 0,
+    RIGHT = 1,
+    BOTTOM = 2,
+    LEFT = 3
+// indexes for size arrays
+export const WIDTH = 0,
+    HEIGHT = 1
+
 export const DimensionsContext = createContext({
-    width: 0,
-    height: 0,
-    padding: { top: 0, left: 0, bottom: 0, right: 0 },
-    innerWidth: 0,
-    innerHeight: 0,
+    size: [0, 0],
+    padding: [0, 0, 0, 0],
+    innerSize: [0, 0],
 } as DimensionsContextProps)
 
 export const DimensionsProvider = ({
-    width,
-    height,
+    size,
     padding,
     children,
-}: Pick<DimensionsContextProps, 'width' | 'height' | 'padding'> & { children: ReactNode }) => {
-    const value: DimensionsContextProps = {
-        width,
-        height,
-        padding,
-        innerWidth: width - padding.left - padding.right,
-        innerHeight: height - padding.top - padding.bottom,
-    }
+}: Pick<DimensionsContextProps, 'size' | 'padding'> & { children: ReactNode }) => {
+    const innerSize: [number, number] = [
+        size[WIDTH] - padding[LEFT] - padding[RIGHT],
+        size[HEIGHT] - padding[TOP] - padding[BOTTOM],
+    ]
+    const value: DimensionsContextProps = { size, padding, innerSize }
 
     return <DimensionsContext.Provider value={value}>{children}</DimensionsContext.Provider>
 }

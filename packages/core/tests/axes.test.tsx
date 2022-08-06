@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis, AxisTicks, View } from '../src'
-import { chartProps, viewProps } from './helpers'
+import { chartProps, viewProps } from './props'
 
 describe('Axis', () => {
     it('creates top axis', () => {
@@ -87,12 +87,7 @@ describe('Axis', () => {
             },
         }
         render(
-            <Chart
-                {...chartProps}
-                width={400}
-                padding={{ top: 40, bottom: 40, left: 40, right: 40 }}
-                theme={customTheme}
-            >
+            <Chart {...chartProps} size={[400, 300]} padding={[40, 40, 40, 40]} theme={customTheme}>
                 <View {...viewProps}>
                     <Axis variant="top" ticks={6} label={'axis label'} />
                 </View>
@@ -111,12 +106,7 @@ describe('Axis', () => {
             },
         }
         render(
-            <Chart
-                {...chartProps}
-                width={400}
-                padding={{ top: 40, bottom: 40, left: 40, right: 40 }}
-                theme={customTheme}
-            >
+            <Chart {...chartProps} size={[400, 300]} padding={[40, 40, 40, 40]} theme={customTheme}>
                 <View {...viewProps}>
                     <Axis variant="top" ticks={6} label={'axis label'} />
                 </View>

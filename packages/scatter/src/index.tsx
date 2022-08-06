@@ -1,1 +1,2 @@
-export * from './series'
+export * from './Scatter'
+export * from './ScatterSeries'

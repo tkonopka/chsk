@@ -1,8 +1,9 @@
-import { Axis, BackgroundSurface, Chart, GridLines, Typography, View } from '../src'
+import { Axis, BackgroundSurface, Chart, GridLines, Text, View } from '../src'
 import { ChartProps, ThemeSpec } from '../src'
+import { ViewProps } from '../dist/types'
 
 export const customTheme: ThemeSpec = {
-    typography: {
+    text: {
         // title in regular font weight
         title: {
             fontWeight: 400,
@@ -45,11 +46,10 @@ export const customTheme: ThemeSpec = {
 }
 
 export const CharWithAxisGridProps = {
-    width: 400,
-    height: 300,
-    padding: { top: 40, right: 40, bottom: 60, left: 60 },
+    size: [400, 300] as [number, number],
+    padding: [40, 40, 60, 60] as [number, number, number, number],
 }
-export const CharWithAxisGridViewProps = {
+export const CharWithAxisGridViewProps: Pick<ViewProps, 'scaleX' | 'scaleY' | 'data'> = {
     scaleX: {
         variant: 'linear',
         min: 0,
@@ -77,9 +77,9 @@ export const ChartWithAxisGrid = (args: ChartProps) => {
                 <GridLines variant={'y'} values={5} />
                 <Axis variant={'left'} label={'Values (a.u.)'} />
                 <Axis variant={'bottom'} label={'Values (a.u.)'} />
-                <Typography x={0} y={-16} variant={'title'}>
+                <Text x={0} y={-16} variant={'title'}>
                     Chart title
-                </Typography>
+                </Text>
             </View>
         </Chart>
     )

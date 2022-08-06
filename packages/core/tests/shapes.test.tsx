@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Circle, InvertedTriangle, Rectangle, Square, Triangle } from '../src'
-import { chartProps } from './helpers'
+import { chartProps } from './props'
 
 describe('Circle', () => {
     it('creates a default circle', () => {

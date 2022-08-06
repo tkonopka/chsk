@@ -1,7 +1,7 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface } from '../src'
 import { customTheme, ChartWithAxisGrid } from './themes.helpers'
-import { DivDecorator } from './DivChartDecorators'
+import { DivDecorator } from './decorators'
 
 <Meta title="Core/Themes" />
 export const Template = args => <ChartWithAxisGrid {...args} />
@@ -25,7 +25,7 @@ for text, surface, line, and tick components.
     language="javascript"
     code={`
 const customTheme = {
-  typography: {
+  text: {
     // title in regular font weight
     title: {
       fontWeight: 400,

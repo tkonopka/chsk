@@ -1,13 +1,12 @@
 import { BackgroundSurfaceProps, SurfaceProps } from './types'
-import { useDimensions } from './dimensions'
+import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, useDimensions, WIDTH } from './dimensions'
 import { composeClassName } from '../themes'
 
 export const Surface = ({
     variant,
     x,
     y,
-    width,
-    height,
+    size,
     className,
     style,
     setRole = true,
@@ -18,8 +17,8 @@ export const Surface = ({
             role={setRole ? variant : undefined}
             x={x}
             y={y}
-            width={width}
-            height={height}
+            width={size[WIDTH]}
+            height={size[HEIGHT]}
             className={compositeClassName}
             style={style}
         />
@@ -28,24 +27,27 @@ export const Surface = ({
 
 export const BackgroundSurface = ({
     variant = 'inner',
-    expansion = { top: 0, right: 0, bottom: 0, left: 0 },
+    expansion = [0, 0, 0, 0],
     className,
     style,
     setRole = true,
 }: BackgroundSurfaceProps) => {
     const dimensions = useDimensions()
     const isOuter = variant === 'outer'
-    const x = isOuter ? -dimensions.padding.left : 0
-    const y = isOuter ? -dimensions.padding.top : 0
-    const width = isOuter ? dimensions.width : dimensions.innerWidth
-    const height = isOuter ? dimensions.height : dimensions.innerHeight
+    const x = isOuter ? -dimensions.padding[LEFT] : 0
+    const y = isOuter ? -dimensions.padding[TOP] : 0
+    const width = isOuter ? dimensions.size[WIDTH] : dimensions.innerSize[WIDTH]
+    const height = isOuter ? dimensions.size[HEIGHT] : dimensions.innerSize[HEIGHT]
+    const surfaceSize: [number, number] = [
+        width + expansion[LEFT] + expansion[RIGHT],
+        height + expansion[TOP] + expansion[BOTTOM],
+    ]
     return (
         <Surface
             variant={variant}
-            x={x - expansion.left}
-            y={y - expansion.top}
-            width={width + expansion.left + expansion.right}
-            height={height + expansion.top + expansion.bottom}
+            x={x - expansion[LEFT]}
+            y={y - expansion[TOP]}
+            size={surfaceSize}
             className={className}
             style={style}
             setRole={setRole}

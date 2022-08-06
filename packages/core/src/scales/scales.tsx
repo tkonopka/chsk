@@ -8,7 +8,7 @@ import {
     ScaleSpec,
 } from './types'
 import { createContext, ReactNode, useContext } from 'react'
-import { DimensionsContextProps } from '../general'
+import { BOTTOM, DimensionsContextProps, LEFT, RIGHT, TOP } from '../general'
 
 export const createContinuousScale = ({
     variant = 'linear',
@@ -73,19 +73,19 @@ export const ScalesContext = createContext({
 } as ScalesContextProps)
 
 export const ScalesProvider = ({
-    width,
-    height,
+    size,
     padding,
     scaleX,
     scaleY,
     children,
-}: Pick<DimensionsContextProps, 'width' | 'height' | 'padding'> & {
+}: Pick<DimensionsContextProps, 'size' | 'padding'> & {
     scaleX: ScaleSpec
     scaleY: ScaleSpec
     children: ReactNode
 }) => {
-    const innerWidth = width - padding.left - padding.right
-    const innerHeight = height - padding.top - padding.bottom
+    const [width, height] = size
+    const innerWidth = width - padding[LEFT] - padding[RIGHT]
+    const innerHeight = height - padding[TOP] - padding[BOTTOM]
     const value: ScalesContextProps = {
         scaleX: createScale({ axis: 'x', size: innerWidth, scale: scaleX }),
         scaleY: createScale({ axis: 'y', size: innerHeight, scale: scaleY }),

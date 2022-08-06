@@ -1,8 +1,7 @@
-// empty theme object
 import { CompleteThemeSpec } from './types'
 
 export const emptyTheme: CompleteThemeSpec = {
-    typography: {},
+    text: {},
     line: {},
     polygon: {},
     rect: {},

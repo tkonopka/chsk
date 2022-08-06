@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Circle } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # Circle
 
@@ -25,7 +25,7 @@ Circles can be tuned using css.
             r: 20,
         }}
         component={Circle}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

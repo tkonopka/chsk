@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Surface } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # Surface
 
@@ -23,11 +23,10 @@ Surfaces can be tuned using css.
             style: { fill: '#dd9999' },
             x: 30,
             y: 20,
-            width: 160,
-            height: 90,
+            size: [160, 90],
         }}
         component={Surface}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -38,11 +37,10 @@ Surfaces can be tuned using css.
             style: { fill: '#dd9999', stroke: '#662222', strokeWidth: '2px' },
             x: 50,
             y: -20,
-            width: 160,
-            height: 90,
+            size: [160, 90],
         }}
         component={Surface}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

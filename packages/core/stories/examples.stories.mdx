@@ -1,4 +1,4 @@
-import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import {
     Chart,
     BackgroundSurface,
@@ -7,15 +7,13 @@ import {
     AxisLine,
     AxisTicks,
     GridLines,
-    Typography,
+    Text,
     View,
 } from '../src'
-import { DivDecorator } from './DivChartDecorators'
 import { CharWithAxisGridProps as commonProps } from './themes.helpers'
 import { CharWithAxisGridViewProps as commonViewProps } from './themes.helpers'
 
 <Meta title="Core/Examples" />
-export const Template = args => <ChartWithAxisGrid {...args} />
 
 # Examples
 
@@ -29,7 +27,7 @@ Core components can be combined to produce distinctive chart skeletons.
             <View {...commonViewProps}>
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
-                <Typography x={0} y={-20} variant="title" children="Title" />
+                <Text x={0} y={-20} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -45,7 +43,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} />
                 <GridLines variant={'y'} />
-                <Typography y={-20} variant="title" children="Title" />
+                <Text y={-20} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -70,7 +68,7 @@ Core components can be combined to produce distinctive chart skeletons.
                     values={5}
                     style={{ stroke: '#ffffff', strokeWidth: '2px' }}
                 />
-                <Typography y={-20} variant="title" children="Title" />
+                <Text y={-20} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -109,7 +107,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 </Axis>
                 <Axis variant={'right'} ticks={null} padding={10} />
                 <Axis variant={'top'} ticks={null} padding={10} />
-                <Typography
+                <Text
                     x={140}
                     y={-22}
                     variant="title"
@@ -158,7 +156,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Axis variant={'top'} ticks={null} padding={12}>
                     <AxisTicks variant={'top'} ticks={5} size={-5} format={null} />
                 </Axis>
-                <Typography
+                <Text
                     x={140}
                     y={-26}
                     variant="title"
@@ -177,9 +175,9 @@ Core components can be combined to produce distinctive chart skeletons.
         <Chart
             id="small-labels"
             {...commonProps}
-            padding={{ top: 55, right: 50, bottom: 55, left: 60 }}
+            padding={[50, 50, 55, 60]}
             theme={{
-                typography: {
+                text: {
                     tickLabel: { fontSize: '11px', fill: '#777777' },
                     axisLabel: { fontSize: '13px', fill: '#555555' },
                 },
@@ -208,7 +206,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Axis variant={'left'} ticks={null}>
                     <AxisTicks variant={'left'} ticks={5} size={0} padding={6} />
                 </Axis>
-                <Typography x={-6} y={-28} variant={'axisLabel'} children={'y-axis (a.u.)'} />
+                <Text x={-6} y={-28} variant={'axisLabel'} children={'y-axis (a.u.)'} />
             </View>
         </Chart>
     </Story>

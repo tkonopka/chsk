@@ -1,5 +1,7 @@
 import { CSSProperties } from 'react'
 
+export type CssProps = Partial<CSSProperties>
+
 export interface SvgElementVariantBaseProps {
     /** variant */
     variant?: 'default' | string
@@ -8,29 +10,23 @@ export interface SvgElementVariantBaseProps {
     /** determines if a role is included in the svg source */
     setRole?: boolean
     /** css style */
-    style?: Partial<CSSProperties>
+    style?: CssProps
 }
 
-// two names for the same object type - suitable in different contexts
-export type MarginSpec = {
-    top: number
-    bottom: number
-    left: number
-    right: number
-}
-export type PaddingSpec = MarginSpec
+// size is an array [ width, height]
+export type SizeSpec = [number, number]
+
+// padding and extensions are arrays [top, right, bottom, left]
+export type PaddingSpec = [number, number, number, number]
+export type ExpansionSpec = PaddingSpec
 
 export type DimensionsContextProps = {
-    /** outer width of the chart */
-    width: number
-    /** outer height of the chart */
-    height: number
+    /** outer size of the chart */
+    size: SizeSpec
     /** padding */
     padding: PaddingSpec
-    /** inner width of the chart */
-    innerWidth: number
-    /** outer height of the chart */
-    innerHeight: number
+    /** inner size of chart / view */
+    innerSize: SizeSpec
 }
 
 export interface SurfaceProps extends SvgElementVariantBaseProps {
@@ -40,15 +36,13 @@ export interface SurfaceProps extends SvgElementVariantBaseProps {
     x: number
     /** y coordinate of top-left surface corner */
     y: number
-    /** width */
-    width: number
-    /** height */
-    height: number
+    /** width and height */
+    size: SizeSpec
 }
 
 export interface BackgroundSurfaceProps extends SvgElementVariantBaseProps {
     /** variant */
     variant?: 'inner' | 'outer'
     /** expansion of background surface */
-    expansion?: MarginSpec
+    expansion?: ExpansionSpec
 }

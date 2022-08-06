@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # BackgroundSurface
 
@@ -23,7 +23,7 @@ There are two preset variants: `inner` and `outer`.
             style: { fill: '#eeeeee' },
         }}
         component={BackgroundSurface}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -34,7 +34,7 @@ There are two preset variants: `inner` and `outer`.
             style: { fill: '#eeeeee' },
         }}
         component={BackgroundSurface}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -45,9 +45,8 @@ It is also possible to use them together.
 <Canvas>
     <Story name="multiple surfaces">
         <Chart
-            width={400}
-            height={300}
-            padding={{ top: 40, right: 40, bottom: 40, left: 40 }}
+            size={[400, 300]}
+            padding={[40, 40, 40, 40]}
             data={[]}
             scaleX={{
                 variant: 'linear',
@@ -80,7 +79,7 @@ stretches a surface in four directions.
             expansion: { top: 40, bottom: 0, left: 0, right: 40 },
         }}
         component={BackgroundSurface}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

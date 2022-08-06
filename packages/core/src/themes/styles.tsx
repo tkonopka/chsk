@@ -1,5 +1,5 @@
 import { useTheme } from './themes'
-import { getTypographyStyles } from '../typography'
+import { getTextStyles } from '../typography'
 import { getLineStyles } from '../lines'
 import { getShapeStyles } from '../shapes'
 import { CSSProperties } from 'react'
@@ -31,7 +31,7 @@ export const getStyles = ({
     component,
 }: {
     chartId: string
-    themeKey: 'typography' | 'line' | 'circle' | 'rect' | 'polygon'
+    themeKey: 'circle' | 'line' | 'polygon' | 'rect' | 'text'
     component: string
 }) => {
     const theme = useTheme()
@@ -52,7 +52,7 @@ export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] 
     if (styles.length === 0) return null
     const styleDefinitions = styles
         ?.map(styleType => {
-            if (styleType === 'typography') return getTypographyStyles(chartId)
+            if (styleType === 'text') return getTextStyles(chartId)
             if (styleType === 'line') return getLineStyles(chartId)
             if (styleType === 'shape') return getShapeStyles(chartId)
             return null

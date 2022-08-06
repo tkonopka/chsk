@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Axis } from '../src'
-import { DivChartDecoratorLargeMargin } from './DivChartDecorators'
+import { ChartViewDecorator } from './decorators'
 
 # Axis
 
@@ -45,7 +45,7 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
             ticks: 5,
         }}
         component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -57,7 +57,7 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
             ticks: 5,
         }}
         component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -69,7 +69,7 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
             ticks: 5,
         }}
         component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -81,7 +81,7 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
             ticks: 5,
         }}
         component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -101,7 +101,7 @@ By default, axes are positioned exactly on the border of the charting surface. T
             padding: 10,
         }}
         component={Axis}
-        decorators={[DivChartDecoratorLargeMargin]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>

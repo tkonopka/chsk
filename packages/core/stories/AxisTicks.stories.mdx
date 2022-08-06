@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { AxisTicks } from '../src'
-import { DivChartDecoratorWithAxis } from './DivChartDecorators'
+import { ChartAxisDecorator } from './decorators'
 
 # AxisTicks
 
@@ -24,7 +24,7 @@ Predefined variants draw ticks on the top, right, bottom, or left axis. For brev
             variant: 'bottom',
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -43,7 +43,7 @@ Props `size` and `padding` control the length of the tick lines and the space be
             padding: 30,
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -61,7 +61,7 @@ The position of ticks can be specified as an integer (to suggest a number of tic
             ticks: 5,
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -72,7 +72,7 @@ The position of ticks can be specified as an integer (to suggest a number of tic
             ticks: [0, 20, 50, 90, 100],
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -98,7 +98,7 @@ Tick labels can be rotated using the prop `rotate`. Note that adjusting the angl
             },
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -118,7 +118,7 @@ Labels can be formatted with a custom function through the prop `format`.
             format: v => v + '%',
         }}
         component={AxisTicks}
-        decorators={[DivChartDecoratorWithAxis]}
+        decorators={[ChartAxisDecorator]}
     >
         {Template.bind({})}
     </Story>

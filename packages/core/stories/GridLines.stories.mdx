@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, GridLines } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartViewDecorator } from './decorators'
 
 # GridLines
 
@@ -23,7 +23,7 @@ There are a number of predefined variants, which can be activated via the prop `
             values: 5,
         }}
         component={GridLines}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -34,7 +34,7 @@ There are a number of predefined variants, which can be activated via the prop `
             values: 5,
         }}
         component={GridLines}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -49,12 +49,12 @@ Grid lines can be styled using css. Below are examples with both horizontal and 
         name="dashed grid lines"
         args={{}}
         component={GridLines}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartViewDecorator]}
     >
         <GridLines variant="y" values={4} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
         <GridLines variant="x" values={5} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
     </Story>
-    <Story name="negative lines" args={{}} component={GridLines} decorators={[DivChartDecorator]}>
+    <Story name="negative lines" args={{}} component={GridLines} decorators={[ChartViewDecorator]}>
         <GridLines variant="y" values={5} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
         <GridLines variant="x" values={8} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
     </Story>
@@ -65,7 +65,12 @@ Grid lines can be styled using css. Below are examples with both horizontal and 
 Positions can be set via the prop `values`.
 
 <Canvas>
-    <Story name="custom positions" args={{}} component={GridLines} decorators={[DivChartDecorator]}>
+    <Story
+        name="custom positions"
+        args={{}}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
         <GridLines
             variant="y"
             values={[0, 10, 20, 50, 80, 90, 100]}
@@ -75,9 +80,9 @@ Positions can be set via the prop `values`.
     </Story>
 </Canvas>
 
-## Line extent
+## Expansion
 
-By default, grid lines run across the entire chart surface. It is possible to adjust their extent them using the prop `expansion`.
+By default, grid lines run across the entire chart view. It is possible to adjust their extent - make them longer or shorter - using the prop `expansion`.
 
 <Canvas>
     <Story
@@ -88,7 +93,7 @@ By default, grid lines run across the entire chart surface. It is possible to ad
             style: { stroke: '#555555' },
         }}
         component={GridLines}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartViewDecorator]}
     >
         {Template.bind({})}
     </Story>

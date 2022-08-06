@@ -4,11 +4,11 @@ import { Meta, Source } from '@storybook/addon-docs'
 
 # Common props
 
-Some props appear in common in the APIs of many `@chask/core` components. These props perform a similar function across all components, and for brevity are not documented extensively in the pages dedicated to individual components. Nonetheless, these props are an integral part of the chask framework.
+Some props appear in common in the APIs of many `@chask/core` components. These common props perform a similar function across all components. To avoid repetition in the documentation, these props are outlined below instead of in the the pages dedicated to individual components.
 
 ## `className`
 
-The prop `className` accepts a string. Its value is passed to the svg as a class.
+The prop `className` accepts a string. Its value is passed to an svg component as a class.
 
 <Source
     language="javascript"
@@ -21,7 +21,7 @@ The prop `className` accepts a string. Its value is passed to the svg as a class
 <circle role="default" r="2" class="special"></circle>
 `} />
 
-The svg class affects the appearance of the graphical components, but only if style definitions within a `<style>` tag include entries that correspond that class. In chask, such style definitions are set through themes.
+The class affects the appearance of the graphical components, but only if style definitions within a `<style>` tag include entries that correspond that class. In chask, such style definitions are set through themes.
 
 ## `setRole`
 

@@ -1,12 +1,12 @@
 import { useDimensions } from '../general'
 import { useTheme } from '../themes'
 import { AxisLabelProps, AxisLineProps, AxisProps, SideType } from './types'
-import { Typography } from '../typography'
+import { Text } from '../typography'
 import { Line } from '../lines'
 import { AxisTicks } from './ticks'
 
 // produce a 'transform' string for the entire axis
-const getAxisTranslate = ({
+export const getAxisTranslate = ({
     variant,
     padding,
     width,
@@ -45,7 +45,7 @@ export const AxisLabel = ({
     const dimensions = useDimensions()
     if (children === undefined || children === '') return null
 
-    const { innerWidth: width, innerHeight: height } = dimensions
+    const [width, height] = dimensions.innerSize
     const themeProps = theme.AxisLabel[variant]
     const labelPadding = padding ?? (themeProps?.padding as number) ?? 0
     const labelAnchor = anchor ?? themeProps?.anchor ?? 0.5
@@ -63,7 +63,7 @@ export const AxisLabel = ({
     const rotation = labelRotate === 0 ? '' : ' rotate(' + String(Number(labelRotate)) + ')'
 
     return (
-        <Typography
+        <Text
             x={0}
             y={0}
             variant={'axisLabel'}
@@ -73,7 +73,7 @@ export const AxisLabel = ({
             setRole={setRole}
         >
             {children}
-        </Typography>
+        </Text>
     )
 }
 
@@ -81,7 +81,7 @@ export const AxisLabel = ({
 export const AxisLine = ({ variant, className, style, setRole }: AxisLineProps) => {
     const horizontal = variant === 'top' || variant === 'bottom'
     const dimensions = useDimensions()
-    const { innerWidth: width, innerHeight: height } = dimensions
+    const [width, height] = dimensions.innerSize
     return (
         <Line
             x1={0}
@@ -108,7 +108,7 @@ export const Axis = ({
 }: AxisProps) => {
     const theme = useTheme()
     const dimensions = useDimensions()
-    const { innerWidth: width, innerHeight: height } = dimensions
+    const [width, height] = dimensions.innerSize
     const axisTheme = theme.Axis[variant]
     const axisPadding = padding ?? (axisTheme?.padding as number) ?? 0
 

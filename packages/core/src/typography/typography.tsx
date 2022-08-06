@@ -1,11 +1,11 @@
 import { composeClassName, getStyles } from '../themes'
-import { TypographyProps } from './types'
+import { TextProps } from './types'
 
-export const getTypographyStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'typography', component: 'text' })
+export const getTextStyles = (id: string) => {
+    return getStyles({ chartId: id, themeKey: 'text', component: 'text' })
 }
 
-export const Typography = ({
+export const Text = ({
     x = 0,
     y = 0,
     variant = 'default',
@@ -14,7 +14,7 @@ export const Typography = ({
     style,
     className,
     setRole = true,
-}: TypographyProps) => {
+}: TextProps) => {
     if (children === undefined || children === '') return null
 
     const isDefault = variant === 'default'
@@ -23,8 +23,8 @@ export const Typography = ({
     return (
         <text
             role={setRole ? variant : undefined}
-            x={x}
-            y={y}
+            x={x === 0 ? undefined : x}
+            y={y === 0 ? undefined : y}
             style={style}
             transform={transform}
             className={compositeClassName}

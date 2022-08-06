@@ -1,38 +1,25 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Typography } from '../src'
+import { Chart, BackgroundSurface, Text } from '../src'
 
-# Typography
+# Text
 
-<Meta title="Core/Components/Typography" />
-export const Template = args => <Typography {...args} />
+<Meta title="Core/Components/Text" />
+export const Template = args => <Text {...args} />
 
-export const DivChartDecorator = Story => (
-    <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
-        <Chart
-            width={400}
-            height={200}
-            padding={{ top: 60, right: 60, bottom: 60, left: 60 }}
-            data={[]}
-            scaleX={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            scaleY={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-        >
-            <BackgroundSurface variant={'inner'} />
-            {Story()}
-        </Chart>
-    </div>
+export const ChartDecorator = Story => (
+    <Chart
+        size={[400, 200]}
+        padding={[60, 60, 60, 60]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <BackgroundSurface variant={'inner'} />
+        {Story()}
+    </Chart>
 )
 
-The `Typography` component places a single text element on a chart.
+The `Text` component places a single text element on a chart.
 
-<ArgsTable of={Typography} />
+<ArgsTable of={Text} />
 
 ## Variants
 
@@ -46,8 +33,8 @@ There are a number of predefined variants, which can be activated via the prop `
             children: 'Primary heading',
             y: -20,
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -58,8 +45,8 @@ There are a number of predefined variants, which can be activated via the prop `
             children: 'Secondary heading',
             y: -10,
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -71,8 +58,8 @@ There are a number of predefined variants, which can be activated via the prop `
             x: 140,
             y: 115,
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -84,8 +71,8 @@ There are a number of predefined variants, which can be activated via the prop `
             x: 0,
             y: 85,
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -111,8 +98,8 @@ The text elements can be adjusted individually using css styles and svg transfor
                 alignmentBaseline: 'middle',
             },
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -133,8 +120,8 @@ The text elements can be adjusted individually using css styles and svg transfor
             },
             transform: 'translate(140, 40) rotate(-10)',
         }}
-        component={Typography}
-        decorators={[DivChartDecorator]}
+        component={Text}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>

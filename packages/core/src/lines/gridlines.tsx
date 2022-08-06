@@ -13,6 +13,7 @@ export const GridLines = ({
 }: GridProps) => {
     const scales = useScales()
     const dimensions = useDimensions()
+    const [width, height] = dimensions.innerSize
     const isX = variant === 'x'
     const scale = isX ? scales.scaleX : scales.scaleY
     const tickCoordinates: Array<number> = getTickCoordinates(scale, values)
@@ -27,7 +28,7 @@ export const GridLines = ({
                 x1={v}
                 x2={v}
                 y1={-e1}
-                y2={dimensions.innerHeight + e2}
+                y2={height + e2}
                 variant={'grid'}
                 key={'grid-x-' + i}
                 className={className}
@@ -39,7 +40,7 @@ export const GridLines = ({
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
                 x1={-e1}
-                x2={dimensions.innerWidth + e2}
+                x2={width + e2}
                 y1={v}
                 y2={v}
                 variant={'grid'}

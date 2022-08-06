@@ -1,8 +1,10 @@
 import { ThemeSpec } from '@chask/core'
 
+export const ALICE = 0
+export const BOB = 1
+
 export const classicTheme: ThemeSpec = {
-    typography: {},
-    surface: {},
+    text: {},
     line: {},
     circle: {},
     rect: {},

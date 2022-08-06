@@ -1,7 +1,7 @@
 import { mergeTheme, defaultTheme, Chart } from '../src'
 import { ThemeSpec } from '../src'
 import { render, screen } from '@testing-library/react'
-import { chartProps } from './helpers'
+import { chartProps } from './props'
 
 describe('themes', () => {
     it('merge adds a new property', () => {

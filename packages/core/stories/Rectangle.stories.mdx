@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Rectangle } from '../src'
-import { DivChartDecorator } from './DivChartDecorators'
+import { ChartDecorator } from './decorators'
 
 # Rectangle
 
@@ -28,7 +28,7 @@ To use those coordinates as the center of the rectangle instead, set the prop `c
             center: true,
         }}
         component={Rectangle}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -51,7 +51,7 @@ Rectangle corners can be rounded by setting props `rx` and `ry`.
             ry: 20,
         }}
         component={Rectangle}
-        decorators={[DivChartDecorator]}
+        decorators={[ChartDecorator]}
     >
         {Template.bind({})}
     </Story>
