@@ -4,65 +4,26 @@ import { Chart } from '@chask/core'
 import { chartProps } from './props'
 
 describe('BoxedLabel', () => {
-    it('creates a label (top)', () => {
+    it('creates a default boxed label', () => {
         render(
             <Chart {...chartProps}>
-                <BoxedLabel variant={'top'} size={20}>
+                <BoxedLabel position={[0, 0]} size={[60, 20]}>
                     Label
                 </BoxedLabel>
             </Chart>
         )
-        const result = screen.getByRole('boxed-label-top')
-        expect(result?.querySelector('rect')?.getAttribute('height')).toBe('20')
-        expect(result?.querySelector('text')?.textContent).toBe('Label')
-    })
-
-    it('creates a label (bottom)', () => {
-        render(
-            <Chart {...chartProps}>
-                <BoxedLabel variant={'bottom'} size={20}>
-                    Label
-                </BoxedLabel>
-            </Chart>
-        )
-        const result = screen.getByRole('boxed-label-bottom')
-        expect(result?.querySelector('rect')?.getAttribute('height')).toBe('20')
-        expect(result?.querySelector('text')?.textContent).toBe('Label')
-    })
-
-    it('creates a label (left)', () => {
-        render(
-            <Chart {...chartProps}>
-                <BoxedLabel variant={'left'} size={20}>
-                    Label
-                </BoxedLabel>
-            </Chart>
-        )
-        const result = screen.getByRole('boxed-label-left')
-        expect(result?.querySelector('rect')?.getAttribute('width')).toBe('20')
-        expect(result?.querySelector('text')?.textContent).toBe('Label')
-    })
-
-    it('creates a label (right)', () => {
-        render(
-            <Chart {...chartProps}>
-                <BoxedLabel variant={'right'} size={20}>
-                    Label
-                </BoxedLabel>
-            </Chart>
-        )
-        const result = screen.getByRole('boxed-label-right')
-        expect(result?.querySelector('rect')?.getAttribute('width')).toBe('20')
-        expect(result?.querySelector('text')?.textContent).toBe('Label')
+        const result = screen.getAllByRole('boxed-label')
+        expect(result[0].querySelector('rect')?.getAttribute('height')).toBe('20')
+        expect(result[0].querySelector('text')?.textContent).toBe('Label')
     })
 
     it('avoids drawing when there are not children', () => {
         render(
             <Chart {...chartProps}>
-                <BoxedLabel variant={'top'} size={20} />
+                <BoxedLabel position={[0, 0]} size={[60, 20]} />
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label-top')
+        const result = screen.queryByRole('boxed-label')
         expect(result).toBeNull()
     })
 })

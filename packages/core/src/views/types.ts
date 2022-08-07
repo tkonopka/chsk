@@ -1,4 +1,4 @@
-import { PaddingSpec, SizeSpec } from '../general'
+import { PositionSpec, SideSizeSpec, SizeSpec } from '../general'
 import { ScaleSpec } from '../scales'
 import { ReactNode } from 'react'
 
@@ -9,15 +9,19 @@ export type DataContextProps = {
     data: DataSpec
 }
 
+export type AnchorSpec = [number, number]
+
 export interface ContainerProps {
-    /** x coordinate */
-    x?: number
-    /** y coordinate */
-    y?: number
-    /** width and size */
+    /** position as an array [x, y] */
+    position?: PositionSpec
+    /** position relative to current container size */
+    positionRelative?: boolean
+    /** size as an array [width, height] */
     size?: SizeSpec
+    /** anchor point of container relative to position */
+    anchor?: AnchorSpec
     /** padding **/
-    padding?: PaddingSpec
+    padding?: SideSizeSpec
     /** children components */
     children?: ReactNode
 }

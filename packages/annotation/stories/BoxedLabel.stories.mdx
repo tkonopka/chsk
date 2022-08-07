@@ -9,19 +9,22 @@ import { ChartDecorator } from './decorators'
 
 export const Template = args => <BoxedLabel {...args} />
 
-`BoxedLabel` displays a text label enclosed in a rectangle. The label is positioned on the edge of a chart.
+`BoxedLabel` displays a text label enclosed in a rectangle.
 
 <ArgsTable of={BoxedLabel} />
 
-## Variants
+`BoxedLabel` is closely related to `BoxedTitle`, but it offers more low-level control over positioning.
 
-The labels can be placed on the top, right, bottom, or left side of a chart.
+## Position
+
+The prop `position` marks a location on the chart / view. This can be specified with absolute values `[x, y]`, or as fractions of the chart / view dimensions together with a prop `positionRelative`.
 
 <Canvas>
     <Story
-        name="top"
+        name="absolute position"
         args={{
-            variant: 'top',
+            position: [50, 30],
+            size: [40, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
             children: 'Title',
         }}
@@ -31,35 +34,13 @@ The labels can be placed on the top, right, bottom, or left side of a chart.
         {Template.bind({})}
     </Story>
     <Story
-        name="right"
+        name="relative position"
         args={{
-            variant: 'right',
+            position: [0.5, 0.5],
+            size: [120, 26],
+            positionRelative: true,
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
-            children: 'Title',
-        }}
-        component={BoxedLabel}
-        decorators={[ChartDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="left"
-        args={{
-            variant: 'left',
-            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
-            children: 'Title',
-        }}
-        component={BoxedLabel}
-        decorators={[ChartDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="bottom"
-        args={{
-            variant: 'bottom',
-            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
-            children: 'Title',
+            children: 'Relative position',
         }}
         component={BoxedLabel}
         decorators={[ChartDecorator]}
@@ -68,38 +49,20 @@ The labels can be placed on the top, right, bottom, or left side of a chart.
     </Story>
 </Canvas>
 
-## Offsets
+## Anchors
 
-Boxes can be positioned away from the chart boundary via the prop `offset`.
+The prop `anchor` determines what part of the label is aligned with the point on the chart designated by `position`.
 
 <Canvas>
     <Story
-        name="offset"
+        name="anchor top-left corner"
         args={{
-            variant: 'top',
+            position: [0, 0],
+            positionRelative: true,
+            anchor: [0, 0],
+            size: [180, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
-            offset: 10,
-            children: 'Title',
-        }}
-        component={BoxedLabel}
-        decorators={[ChartDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-## Expansion
-
-It is possible to adjust the extent of the box via the prop `expansion`.
-
-<Canvas>
-    <Story
-        name="small expansion"
-        args={{
-            variant: 'top',
-            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '2px' },
-            expansion: -2,
-            children: 'Title',
+            children: 'Anchor in top-left corner',
         }}
         component={BoxedLabel}
         decorators={[ChartDecorator]}
@@ -107,56 +70,14 @@ It is possible to adjust the extent of the box via the prop `expansion`.
         {Template.bind({})}
     </Story>
     <Story
-        name="large expansion"
+        name="anchor top-right corner"
         args={{
-            variant: 'top',
-            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '2px' },
-            expansion: 30,
-            offset: 0,
-            children: 'Title',
-        }}
-        component={BoxedLabel}
-        decorators={[ChartDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-Note a small negative expansion can balance a non-zero color border.
-
-## Extent
-
-By default, the rectangle spans across the entire view. To specify an absolute extent instead, use the prop `extent`.
-
-<Canvas>
-    <Story
-        name="custom extent"
-        args={{
-            variant: 'top',
-            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '2px' },
-            extent: 80,
-            children: 'Title',
-        }}
-        component={BoxedLabel}
-        decorators={[ChartDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-## Corners
-
-Box corners can be adjusted using props `rx` and `ry`.
-
-<Canvas>
-    <Story
-        name="rounded corners"
-        args={{
-            variant: 'top',
+            position: [1, 0],
+            positionRelative: true,
+            anchor: [1, 0],
+            size: [180, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
-            rx: 6,
-            ry: 6,
-            children: 'Title',
+            children: 'Anchor in top-right corner',
         }}
         component={BoxedLabel}
         decorators={[ChartDecorator]}
@@ -165,25 +86,62 @@ Box corners can be adjusted using props `rx` and `ry`.
     </Story>
 </Canvas>
 
-## Content
+## Translations
 
-The content of the label can be an object
+The prop `translate` accepts an array `[x, y]`, which shifts the position of the label. The translation works together with other props, in particular `position`, and it can be used to place a label off-center or adjacent to a corner.
 
 <Canvas>
-    <Story name="custom content">
-        <Chart
-            size={[400, 300]}
-            padding={[60, 60, 60, 60]}
-            style={{ display: 'inline-block' }}
-        >
-            <BackgroundSurface variant={'inner'} />
-            <BoxedLabel
-                variant={'top'}
-                boxStyle={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
-            >
-                <Triangle cy={2} r={8} style={{ fill: '#dd4444' }} />
-            </BoxedLabel>
-        </Chart>
+    <Story
+        name="translate above center"
+        args={{
+            position: [0.5, 0.5],
+            positionRelative: true,
+            translate: [0, -40],
+            size: [120, 26],
+            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
+            children: 'above-center',
+        }}
+        component={BoxedLabel}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="translate away from corner"
+        args={{
+            position: [0, 0],
+            translate: [-10, -10],
+            anchor: [1, 1],
+            size: [22, 22],
+            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
+            children: 'A',
+        }}
+        component={BoxedLabel}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Rotation
+
+It is possible to style the box as well as the text.
+
+<Canvas>
+    <Story
+        name="rotation"
+        args={{
+            position: [0.5, 0.5],
+            positionRelative: true,
+            size: [80, 26],
+            rotate: 15,
+            boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
+            children: 'rotated',
+        }}
+        component={BoxedLabel}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>
 
@@ -195,10 +153,14 @@ It is possible to style the box as well as the text.
     <Story
         name="styling"
         args={{
-            variant: 'top',
+            position: [1, 0],
+            positionRelative: true,
+            anchor: [1, 0],
+            translate: [-10, 10],
+            size: [22, 22],
             boxStyle: { fill: '#994444', strokeWidth: '0px' },
-            textStyle: { fill: '#ffffff' },
-            children: 'Title',
+            textStyle: { fill: '#ffffff', fontWeight: 600 },
+            children: '1',
         }}
         component={BoxedLabel}
         decorators={[ChartDecorator]}

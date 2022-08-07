@@ -1,6 +1,6 @@
-import { SvgElementVariantBaseProps } from '../general'
+import { SvgElementVariantProps } from '../general'
 
-export interface GridProps extends SvgElementVariantBaseProps {
+export interface GridProps extends SvgElementVariantProps {
     /** variant */
     variant: 'x' | 'y'
     /** positions for grid lines */
@@ -9,7 +9,7 @@ export interface GridProps extends SvgElementVariantBaseProps {
     expansion?: number | [number, number]
 }
 
-export interface LineProps extends SvgElementVariantBaseProps {
+export interface LineProps extends SvgElementVariantProps {
     /** starting x coordinate */
     x1: number
     /** starting y coordinate */

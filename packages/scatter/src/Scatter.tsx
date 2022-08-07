@@ -1,8 +1,7 @@
 import { ScatterProps } from './types'
 
 export const Scatter = ({
-    x = 0,
-    y = 0,
+    position,
     size,
     padding,
     data,

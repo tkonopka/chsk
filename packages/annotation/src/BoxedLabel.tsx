@@ -1,12 +1,24 @@
 import { BoxedLabelProps } from './types'
-import { getAxisTranslate, Rectangle, Text, useDimensions } from '@chask/core'
+import {
+    BOTTOM,
+    composeClassName,
+    getAnchoredOrigin,
+    LEFT,
+    Rectangle,
+    RIGHT,
+    Text,
+    TOP,
+    useDimensions,
+} from '@chask/core'
 
 export const BoxedLabel = ({
-    variant,
-    offset = 0,
-    size = 26,
-    extent,
-    expansion = 0,
+    position,
+    positionRelative = false,
+    size = [26, 100],
+    translate = [0, 0],
+    anchor = [0.5, 0.5],
+    rotate = 0,
+    expansion = [0, 0, 0, 0],
     rx,
     ry,
     boxStyle,
@@ -17,40 +29,40 @@ export const BoxedLabel = ({
     children,
 }: BoxedLabelProps) => {
     const dimensions = useDimensions()
-
     if (children === undefined || children === '') return null
 
-    const horizontal = variant === 'top' || variant === 'bottom'
-    const vertical = variant === 'left' || variant === 'right'
+    // compute effective x, y position for top-left corner or box
+    let [x, y] = getAnchoredOrigin({
+        position,
+        positionRelative,
+        size,
+        anchor,
+        parentSize: dimensions.innerSize,
+    })
+    // adjust to get the box center
+    x += size[0] / 2 + translate[0]
+    y += size[1] / 2 + translate[1]
 
-    // translation toward a corner of an axis
-    const [width, height] = dimensions.innerSize
-    const translation = getAxisTranslate({ variant, padding: offset, width, height })
-
-    // effective extent (width/height) of the rectangle
-    const effectiveExtent = extent ?? (horizontal ? width : height) + expansion
+    // compute effective size
+    const effectiveSize = [
+        size[0] + expansion[LEFT] + expansion[RIGHT],
+        size[1] + expansion[TOP] + expansion[BOTTOM],
+    ]
 
     // location and rotation of center of label
-    let x = 0,
-        y = 0
-    if (variant === 'left') x -= size / 2
-    if (variant === 'right') x += size / 2
-    if (variant === 'top') y -= size / 2
-    if (variant === 'bottom') y += size / 2
-    if (vertical) y += 0.5 * height
-    if (horizontal) x += 0.5 * width
-    const rotate = variant === 'left' ? -90 : variant === 'right' ? 90 : 0
-    const labelTranslation = 'translate(' + x + ',' + y + ')'
-    const labelRotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
+    const translation = 'translate(' + x + ',' + y + ')'
+    const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
-    const compositeClassName = ['label boxed-label', className].join(' ')
+    let compositeClassName: string | undefined = className ?? ''
+    if (compositeClassName.search("boxed-label") < 0) {
+        compositeClassName = composeClassName(['label boxed-label', className])
+    }
 
     // content of the label - text or custom node
     const content =
         typeof children === 'string' ? (
             <Text
                 variant={'boxed-label'}
-                transform={labelTranslation + labelRotation}
                 className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}
@@ -58,22 +70,22 @@ export const BoxedLabel = ({
                 {children}
             </Text>
         ) : (
-            <g transform={labelTranslation + labelRotation}>{children}</g>
+            children
         )
 
     return (
         <g
-            transform={translation}
+            transform={translation + rotation}
             style={style}
             className={compositeClassName}
-            role={setRole ? 'boxed-label-' + variant : undefined}
+            role={setRole ? 'boxed-label' : undefined}
         >
             <Rectangle
                 variant={'boxed-label'}
-                x={x}
-                y={y}
-                width={vertical ? size : effectiveExtent}
-                height={vertical ? effectiveExtent : size}
+                x={0}
+                y={0}
+                width={effectiveSize[0]}
+                height={effectiveSize[1]}
                 rx={rx}
                 ry={ry}
                 center={true}

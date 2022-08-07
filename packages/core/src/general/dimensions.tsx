@@ -1,14 +1,6 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { DimensionsContextProps } from './types'
-
-// indexes for padding arrays
-export const TOP = 0,
-    RIGHT = 1,
-    BOTTOM = 2,
-    LEFT = 3
-// indexes for size arrays
-export const WIDTH = 0,
-    HEIGHT = 1
+import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
 
 export const DimensionsContext = createContext({
     size: [0, 0],

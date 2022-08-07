@@ -1,6 +1,6 @@
-import { SvgElementVariantBaseProps } from '../general'
+import { SvgElementVariantProps } from '../general'
 
-export interface TextProps extends SvgElementVariantBaseProps {
+export interface TextProps extends SvgElementVariantProps {
     /** x coordinate */
     x?: number
     /** y coordinate */

@@ -46,6 +46,7 @@ describe('Surface', () => {
         const result = screen.getByRole('chart-content')
         expect(result.querySelectorAll('rect')).toHaveLength(1)
     })
+
     it('creates surface without role', () => {
         render(
             <Chart {...chartProps}>

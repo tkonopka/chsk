@@ -1,5 +1,6 @@
 import { BackgroundSurfaceProps, SurfaceProps } from './types'
-import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, useDimensions, WIDTH } from './dimensions'
+import { useDimensions } from './dimensions'
+import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
 import { composeClassName } from '../themes'
 
 export const Surface = ({

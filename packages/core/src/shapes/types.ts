@@ -1,6 +1,6 @@
-import { SvgElementVariantBaseProps } from '../general'
+import { SvgElementVariantProps } from '../general'
 
-export interface CircleProps extends SvgElementVariantBaseProps {
+export interface CircleProps extends SvgElementVariantProps {
     /** x coordinate */
     cx?: number
     /** y coordinate */
@@ -9,7 +9,7 @@ export interface CircleProps extends SvgElementVariantBaseProps {
     r?: number
 }
 
-export interface RectangleProps extends SvgElementVariantBaseProps {
+export interface RectangleProps extends SvgElementVariantProps {
     /** x coordinate */
     x: number
     /** y coordinate */
