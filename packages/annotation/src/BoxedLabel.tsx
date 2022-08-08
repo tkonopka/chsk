@@ -54,7 +54,7 @@ export const BoxedLabel = ({
     const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
     let compositeClassName: string | undefined = className ?? ''
-    if (compositeClassName.search("boxed-label") < 0) {
+    if (compositeClassName.search('boxed-label') < 0) {
         compositeClassName = composeClassName(['label boxed-label', className])
     }
 

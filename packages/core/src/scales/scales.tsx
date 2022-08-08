@@ -67,30 +67,37 @@ export const getTickCoordinates = (
     return tickValues?.map(v => scale(v) as number)
 }
 
+export const getScales = ({
+    size,
+    padding,
+    scaleX,
+    scaleY,
+}: Pick<DimensionsContextProps, 'size' | 'padding'> & {
+    scaleX: ScaleSpec
+    scaleY: ScaleSpec
+}): ScalesContextProps => {
+    const [width, height] = size
+    const innerWidth = width - padding[LEFT] - padding[RIGHT]
+    const innerHeight = height - padding[TOP] - padding[BOTTOM]
+    return {
+        scaleX: createScale({ axis: 'x', size: innerWidth, scale: scaleX }),
+        scaleY: createScale({ axis: 'y', size: innerHeight, scale: scaleY }),
+    }
+}
+
 export const ScalesContext = createContext({
     scaleX: scaleLinear(),
     scaleY: scaleLinear(),
 } as ScalesContextProps)
 
 export const ScalesProvider = ({
-    size,
-    padding,
-    scaleX,
-    scaleY,
+    scales,
     children,
-}: Pick<DimensionsContextProps, 'size' | 'padding'> & {
-    scaleX: ScaleSpec
-    scaleY: ScaleSpec
+}: {
+    scales: ScalesContextProps
     children: ReactNode
 }) => {
-    const [width, height] = size
-    const innerWidth = width - padding[LEFT] - padding[RIGHT]
-    const innerHeight = height - padding[TOP] - padding[BOTTOM]
-    const value: ScalesContextProps = {
-        scaleX: createScale({ axis: 'x', size: innerWidth, scale: scaleX }),
-        scaleY: createScale({ axis: 'y', size: innerHeight, scale: scaleY }),
-    }
-    return <ScalesContext.Provider value={value}>{children}</ScalesContext.Provider>
+    return <ScalesContext.Provider value={scales}>{children}</ScalesContext.Provider>
 }
 
 export const useScales = () => useContext(ScalesContext)

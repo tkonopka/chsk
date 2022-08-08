@@ -1,0 +1,98 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, Triangle } from '@chask/core'
+import { Scatter, ScatterSeries } from '../src'
+import { ChartScatterDecorator } from './decorators'
+import dataBigO from './dataBigO.json'
+
+# ScatterSeries
+
+<Meta title="Addons/Scatter/ScatterSeries" />
+export const Template = args => <ScatterSeries {...args} />
+
+`ScatterSeries` draws points on a scatter plot view.
+
+<ArgsTable of={ScatterSeries} />
+
+The examples on this page use a dataset with several series, which have ids `linear`, `logarithmic`, `linearithmic`, and quadratic`.
+
+## Single series
+
+Charts can display individual series by setting the prop `series`.
+
+<Canvas>
+    <Story
+        name="a series"
+        args={{
+            series: 'linear',
+            symbolStyle: { fill: '#dd3333' },
+        }}
+        component={ScatterSeries}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="another series"
+        args={{
+            series: 'quadratic',
+            symbolStyle: { fill: '#dd3333' },
+        }}
+        component={ScatterSeries}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Multiple series
+
+It is possible to use the `ScatterSeries` component multiple times and thus overlay multiple series.
+
+<Canvas>
+    <Story name="multiple series">
+        <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+            <Scatter
+                data={dataBigO}
+                x={'x'}
+                y={'y'}
+                r={5}
+                scaleX={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 8,
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 64,
+                }}
+            >
+                <Axis variant={'bottom'} label={'size of input'} />
+                <Axis variant={'left'} label={'running time'} ticks={5} />
+                <ScatterSeries series={'linear'} symbolStyle={{ fill: '#dd3333' }} />
+                <ScatterSeries series={'quadratic'} symbolStyle={{ fill: '#6666ee' }} />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Symbol
+
+Symbols can be adjusted with prop `symbol`.
+
+<Canvas>
+    <Story
+        name="symbol"
+        args={{
+            series: 'quadratic',
+            symbolStyle: { fill: '#ffdd66', stroke: '#222222', strokeWidth: '2px' },
+            symbol: Triangle,
+        }}
+        component={ScatterSeries}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that the prop `symbol` requires a function. Some symbol functions are available in the `@chask/core` package: see `Circle`, `Diamond`, `Square`, `Triangle`, and `InvertedTriangle`.

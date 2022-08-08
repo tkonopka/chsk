@@ -5,8 +5,11 @@
 node_modules
 coverage
 storybook-static
-/packages/*/dist
-packagess/*/coverage
+packages/*/dist
+packages/*/coverage
+packages/*/src/*.d.ts
+packages/*/src/**/*.d.ts
+packages/*/src/**/*.map
 
 # temporary
 tmp

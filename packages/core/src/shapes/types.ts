@@ -1,4 +1,5 @@
 import { SvgElementVariantProps } from '../general'
+import { ReactNode } from 'react'
 
 export interface CircleProps extends SvgElementVariantProps {
     /** x coordinate */
@@ -25,3 +26,7 @@ export interface RectangleProps extends SvgElementVariantProps {
     /** center the rectangle around (x, y) */
     center?: boolean
 }
+
+export type SymbolProps = CircleProps
+
+export type SymbolFunction = (props: SymbolProps) => ReactNode

@@ -6,7 +6,7 @@ import { Chart, BackgroundSurface, View } from '../src'
 <Meta title="Core/Components/View" />
 export const Template = args => <View {...args} />
 
-`View` is an organizational component. It does not display any visual elements on a chart, but it manages internal chart state. In particular, it prepares data for display, and defines the scales for the axes.
+`View` is an organizational component that manages chart state. It does not display any visual elements on a chart, but it prepares data for display. In particular, it defines scales for the axes and prepares data for plotting.
 
 <ArgsTable of={View} />
 

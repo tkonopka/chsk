@@ -3,6 +3,8 @@ import { CSSProperties } from 'react'
 export type CssProps = Partial<CSSProperties>
 
 export interface SvgElementProps {
+    /** key */
+    key?: string | number
     /** class string */
     className?: string
     /** determines if a role is included in the svg source */
@@ -25,11 +27,14 @@ export type SizeSpec = [number, number]
 // padding and extensions are arrays [top, right, bottom, left]
 export type SideSizeSpec = [number, number, number, number]
 
-export type DimensionsContextProps = {
+export type DimensionsProviderBaseProps = {
     /** outer size of the chart */
     size: SizeSpec
     /** padding */
     padding: SideSizeSpec
+}
+
+export type DimensionsContextProps = DimensionsProviderBaseProps & {
     /** inner size of chart / view */
     innerSize: SizeSpec
 }

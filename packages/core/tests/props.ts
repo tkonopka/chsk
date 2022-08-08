@@ -1,4 +1,4 @@
-// objects used in test suites
+// objects used in tests
 
 export const scaleProps = {
     variant: 'linear' as const,

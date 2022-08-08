@@ -1,9 +1,10 @@
 import { ScaleBand, ScaleLinear, ScaleLogarithmic } from 'd3-scale'
 
-export type AxisScale =
-    | ScaleLinear<number, number>
-    | ScaleLogarithmic<number, number>
-    | ScaleBand<string>
+export type ContinuousAxisScale = ScaleLinear<number, number> | ScaleLogarithmic<number, number>
+
+export type BandAxisScale = ScaleBand<string>
+
+export type AxisScale = ContinuousAxisScale | BandAxisScale
 
 export type ContinuousScaleSpec = {
     /** type of scale */

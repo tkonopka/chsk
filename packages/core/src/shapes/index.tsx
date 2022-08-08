@@ -1,5 +1,4 @@
 export * from './circles'
+export * from './polygons'
 export * from './rects'
-export * from './shapes'
-export * from './triangles'
 export * from './types'

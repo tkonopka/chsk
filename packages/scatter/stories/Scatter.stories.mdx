@@ -1,0 +1,15 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Axis } from '@chask/core'
+import { Scatter } from '../src'
+import dataBigO from './dataBigO.json'
+
+# Scatter
+
+<Meta title="Addons/Scatter/Scatter" />
+export const Template = args => <Scatter {...args} />
+
+`Scatter` sets up a view for a scatter plot.
+
+<ArgsTable of={Scatter} />
+
+Note that `Scatter` is an organizational component and it does not actually draw any visual elements. As such, it's features are best observed in examples that include other components, for example `ScatterSeries`.

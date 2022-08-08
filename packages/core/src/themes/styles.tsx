@@ -1,7 +1,6 @@
 import { useTheme } from './themes'
 import { getTextStyles } from '../typography'
 import { getLineStyles } from '../lines'
-import { getShapeStyles } from '../shapes'
 import { CSSProperties } from 'react'
 
 // turn js styles into a string of inline-css styles
@@ -46,6 +45,22 @@ export const getStyles = ({
             return leading + '.' + variant + ' { ' + cssStyle + ' }'
         })
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
+}
+
+export const getCircleStyles = (id: string) => {
+    return getStyles({ chartId: id, themeKey: 'circle', component: 'circle' })
+}
+
+export const getRectStyles = (id: string) => {
+    return getStyles({ chartId: id, themeKey: 'rect', component: 'rect' })
+}
+
+export const getPolygonStyles = (id: string) => {
+    return getStyles({ chartId: id, themeKey: 'polygon', component: 'polygon' })
+}
+
+export const getShapeStyles = (id: string) => {
+    return getCircleStyles(id).concat(getRectStyles(id)).concat(getPolygonStyles(id))
 }
 
 export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] }) => {

@@ -1,9 +1,5 @@
-import { composeClassName, getStyles } from '../themes'
-import { CircleProps, RectangleProps } from './types'
-
-export const getRectStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'rect', component: 'rect' })
-}
+import { composeClassName } from '../themes'
+import { RectangleProps, SymbolProps } from './types'
 
 export const Rectangle = ({
     variant = 'default',
@@ -17,6 +13,7 @@ export const Rectangle = ({
     className,
     style,
     setRole = true,
+    key,
 }: RectangleProps) => {
     const compositeClassName = composeClassName([
         variant === 'default' ? undefined : variant,
@@ -24,6 +21,7 @@ export const Rectangle = ({
     ])
     return (
         <rect
+            key={key}
             role={setRole ? variant : undefined}
             x={center ? x - width / 2 : x}
             y={center ? y - height / 2 : y}
@@ -40,7 +38,7 @@ export const Rectangle = ({
 // length of half a side of a square with an area matching a circle r=1
 const squareHalfSide = Math.sqrt(Math.PI) / 2
 
-// a special type of rectangle (props are the same as for circle)
+// a special type of rectangle
 export const Square = ({
     variant = 'default',
     cx = 0,
@@ -49,7 +47,8 @@ export const Square = ({
     className,
     style,
     setRole = true,
-}: CircleProps) => {
+    key,
+}: SymbolProps) => {
     const compositeClassName = composeClassName([
         variant === 'default' ? undefined : variant,
         className,
@@ -57,6 +56,7 @@ export const Square = ({
     const scaledHalfSide = squareHalfSide * r
     return (
         <rect
+            key={key}
             role={setRole ? variant : undefined}
             x={cx - scaledHalfSide}
             y={cy - scaledHalfSide}
