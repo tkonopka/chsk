@@ -1,19 +1,17 @@
-import { composeClassName } from '../themes'
 import { SymbolProps } from './types'
-import { roundDecimalPlaces } from '../general/'
-
-// constants below are scaled for an equilateral triangle with area equivalent to a circle r=1
+import { PositionSpec } from '../general/'
+import { Polygon } from './Polygon'
 
 // distance from center of equilateral triangle to one of the vertices
 const equilateralArm = 2 * Math.sqrt(Math.PI / (3 * Math.sqrt(3)))
 // length of a side of an equilateral triangle of unit area
 const equilateralSide = Math.sqrt(3) * equilateralArm
 
-// because of sharp angles, triangles with equal areas to circles "look" bigger than circles
-// introduce a visual perception factor here
+// triangles with equal areas to circles "look" bigger than circles
+// so introduce a visual perception factor here
 const equilateralVisualFactor = 0.95
 
-// coordinates for vertices
+// coordinates for vertices of an equilateral triangle
 const equilateralCoordinates = [
     [0, -equilateralArm * equilateralVisualFactor],
     [
@@ -37,23 +35,18 @@ export const Triangle = ({
     setRole = true,
     key,
 }: SymbolProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
+    const points: Array<PositionSpec> = equilateralCoordinates.map(coords => [
+        cx + coords[0] * r,
+        cy + coords[1] * r,
     ])
-    const points = equilateralCoordinates.map(
-        coords =>
-            roundDecimalPlaces(cx + coords[0] * r, 2) +
-            ',' +
-            roundDecimalPlaces(cy + coords[1] * r, 2)
-    )
     return (
-        <polygon
-            key={key}
-            role={setRole ? variant : undefined}
-            points={points.join(' ')}
+        <Polygon
+            variant={variant}
+            points={points}
+            className={className}
             style={style}
-            className={compositeClassName}
+            setRole={setRole}
+            key={key}
         />
     )
 }
@@ -70,30 +63,24 @@ export const InvertedTriangle = ({
     setRole = true,
     key,
 }: SymbolProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
+    const points: Array<PositionSpec> = equilateralCoordinates.map(coords => [
+        cx + coords[0] * r,
+        cy - coords[1] * r,
     ])
-    const points = equilateralCoordinates.map(
-        coords =>
-            roundDecimalPlaces(cx + coords[0] * r, 2) +
-            ',' +
-            roundDecimalPlaces(cy - coords[1] * r, 2)
-    )
     return (
-        <polygon
+        <Polygon
             key={key}
-            role={setRole ? variant : undefined}
-            points={points.join(' ')}
+            variant={variant}
+            points={points}
             style={style}
-            className={compositeClassName}
+            className={className}
+            setRole={setRole}
         />
     )
 }
 
 // distance from diamond center to one of its corners, scaled so that area matches a circle with r=1
 const diamondEdge = Math.sqrt(Math.PI / 2)
-
 const diamondVisualFactor = 0.98
 
 // coordinates for vertices
@@ -115,23 +102,17 @@ export const Diamond = ({
     setRole = true,
     key,
 }: SymbolProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
-    ])
-    const points = diamondCoordinates.map(
-        coords =>
-            roundDecimalPlaces(cx + coords[0] * r, 2) +
-            ',' +
-            roundDecimalPlaces(cy - coords[1] * r, 2)
-    )
+    const points: Array<PositionSpec> = diamondCoordinates.map(coords => [
+                cx + coords[0] * r, cy - coords[1] * r
+        ])
     return (
-        <polygon
+        <Polygon
             key={key}
-            role={setRole ? variant : undefined}
-            points={points.join(' ')}
+            variant={variant}
+            points={points}
             style={style}
-            className={compositeClassName}
+            className={className}
+            setRole={setRole}
         />
     )
 }

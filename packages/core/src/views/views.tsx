@@ -29,6 +29,3 @@ export const View = ({
         </DimensionsProvider>
     )
 }
-
-//<ProcessedDataProvider data={data}>
-//</ProcessedDataProvider>

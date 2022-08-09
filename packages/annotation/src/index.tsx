@@ -1,3 +1,3 @@
-export * from './BoxedLabel'
-export * from './BoxedTitle'
-export * from './types'
+export * from './arrows'
+export * from './boxes'
+export * from './intervals'

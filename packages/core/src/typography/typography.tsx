@@ -1,9 +1,5 @@
-import { composeClassName, getStyles } from '../themes'
+import { composeClassName } from '../themes'
 import { TextProps } from './types'
-
-export const getTextStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'text', component: 'text' })
-}
 
 export const Text = ({
     x = 0,

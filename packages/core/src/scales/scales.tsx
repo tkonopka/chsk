@@ -6,6 +6,7 @@ import {
     ContinuousScaleSpec,
     BandScaleSpec,
     ScaleSpec,
+    ContinuousAxisScale,
 } from './types'
 import { createContext, ReactNode, useContext } from 'react'
 import { BOTTOM, DimensionsContextProps, LEFT, RIGHT, TOP } from '../general'
@@ -44,9 +45,16 @@ export const createScale = ({
     return createContinuousScale({ axis, size, ...scale })
 }
 
+export const isContinuousAxisScale = (scale: AxisScale): scale is ContinuousAxisScale => {
+    return 'ticks' in scale
+}
+
 /** get an array of ticks in the scale domain */
 export const getTicks = (scale: AxisScale, ticks: number | undefined) => {
-    if ('ticks' in scale) return scale.ticks(ticks) as Array<number>
+    if (isContinuousAxisScale(scale)) {
+        if (ticks === undefined) return scale.ticks(4) as Array<number>
+        return scale.ticks(ticks) as Array<number>
+    }
     return scale.domain()
 }
 

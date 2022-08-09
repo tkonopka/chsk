@@ -1,7 +1,9 @@
 import { ScatterDataItem, ScatterProcessedDataItem, ScatterProps } from './types'
 import {
+    AccessorFunction,
     ContinuousAxisScale,
     DimensionsProvider,
+    getAccessor,
     getScales,
     OriginalDataProvider,
     ScalesProvider,
@@ -10,33 +12,20 @@ import {
 import { useMemo } from 'react'
 import { PreparedScatterDataProvider, ProcessedScatterDataProvider } from './contexts'
 
-type DataItem = Record<string, unknown>
-type AccessorFunction = (item: DataItem) => unknown
-
-const getAccessor = (k: number | string | AccessorFunction): AccessorFunction => {
-    if (typeof k === 'number') {
-        return () => k
-    }
-    if (typeof k === 'string') {
-        return (item: DataItem) => item[k]
-    }
-    return (item: DataItem) => k(item)
-}
-
 // turn raw data into a minimal format
 const processData = (
     seriesData: ScatterDataItem,
     index: number,
-    getX: AccessorFunction,
-    getY: AccessorFunction,
-    getR: AccessorFunction
+    getX: AccessorFunction<number>,
+    getY: AccessorFunction<number>,
+    getR: AccessorFunction<number>
 ): ScatterProcessedDataItem => {
     return {
         id: seriesData.id,
         index,
-        x: seriesData.data.map(item => getX(item) as number),
-        y: seriesData.data.map(item => getY(item) as number),
-        r: seriesData.data.map(item => getR(item) as number),
+        x: seriesData.data.map(item => getX(item)),
+        y: seriesData.data.map(item => getY(item)),
+        r: seriesData.data.map(item => getR(item)),
     }
 }
 
@@ -85,7 +74,7 @@ export const Scatter = ({
     // process and prepare data
     const getX = useMemo(() => getAccessor(x), [x])
     const getY = useMemo(() => getAccessor(y), [y])
-    const getR = useMemo(() => getAccessor(r), [r])
+    const getR = useMemo(() => (typeof r === 'number' ? () => r : getAccessor(r)), [r])
     const processedData = data.map((seriesData, seriesIndex) =>
         processData(seriesData, seriesIndex, getX, getY, getR)
     )

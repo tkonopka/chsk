@@ -58,7 +58,7 @@ The position of ticks can be specified as an integer (to suggest a number of tic
         name="number"
         args={{
             variant: 'bottom',
-            ticks: 5,
+            ticks: 10,
         }}
         component={AxisTicks}
         decorators={[ChartAxisDecorator]}
@@ -89,7 +89,6 @@ Tick labels can be rotated using the prop `rotate`. Note that adjusting the angl
         name="rotation"
         args={{
             variant: 'bottom',
-            ticks: 5,
             padding: 10,
             rotate: -90,
             labelStyle: {
@@ -113,7 +112,6 @@ Labels can be formatted with a custom function through the prop `format`.
         name="format"
         args={{
             variant: 'bottom',
-            ticks: 5,
             padding: 10,
             format: v => v + '%',
         }}

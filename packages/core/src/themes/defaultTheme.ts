@@ -72,6 +72,13 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 2,
         },
     },
+    path: {
+        default: {
+            stroke: '#222222',
+            strokeWidth: 2,
+            fill: 'transparent' as const,
+        },
+    },
     polygon: {
         default: {
             stroke: '#333333',

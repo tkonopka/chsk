@@ -1,13 +1,13 @@
 import { Circle } from '@chask/core'
-import { ScatterSeriesProps } from './types'
+import { ScatterPointsProps } from './types'
 import { usePreparedScatterData } from './contexts'
 
-export const ScatterSeries = ({
+export const ScatterPoints = ({
     series,
     symbol = Circle,
     symbolStyle,
     symbolClassName,
-}: ScatterSeriesProps) => {
+}: ScatterPointsProps) => {
     const preparedData = usePreparedScatterData()
     const seriesIndex = preparedData.seriesIndexes[series]
     if (seriesIndex === undefined) return null
@@ -28,7 +28,7 @@ export const ScatterSeries = ({
     )
 
     return (
-        <g role={'scatter-series'} key={'scatter-series-' + seriesIndex}>
+        <g role={'scatter-points'} key={'scatter-points-' + seriesIndex}>
             {dots}
         </g>
     )

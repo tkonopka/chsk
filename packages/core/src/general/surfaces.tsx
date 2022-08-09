@@ -3,6 +3,7 @@ import { useDimensions } from './dimensions'
 import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
 import { composeClassName } from '../themes'
 
+/** TO DO - consider removing this in favor of Rectangle */
 export const Surface = ({
     variant,
     x,

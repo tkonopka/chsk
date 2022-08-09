@@ -1,3 +1,5 @@
 export * from './contexts'
 export * from './Scatter'
-export * from './ScatterSeries'
+export * from './ScatterCurve'
+export * from './ScatterInterval'
+export * from './ScatterPoints'

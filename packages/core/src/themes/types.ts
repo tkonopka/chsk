@@ -10,6 +10,7 @@ export interface SideRecords {
 export interface ThemeSpec {
     circle?: Record<string, Partial<CSSProperties>>
     line?: Record<string, Partial<CSSProperties>>
+    path?: Record<string, Partial<CSSProperties>>
     polygon?: Record<string, Partial<CSSProperties>>
     rect?: Record<string, Partial<CSSProperties>>
     text?: Record<string, Partial<CSSProperties>>
@@ -22,6 +23,7 @@ export interface ThemeSpec {
 export interface CompleteThemeSpec {
     circle: Record<string, Partial<CSSProperties>>
     line: Record<string, Partial<CSSProperties>>
+    path: Record<string, Partial<CSSProperties>>
     polygon: Record<string, Partial<CSSProperties>>
     rect: Record<string, Partial<CSSProperties>>
     text: Record<string, Partial<CSSProperties>>

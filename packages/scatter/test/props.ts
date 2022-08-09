@@ -1,4 +1,4 @@
-import dataBigO from '../stories/dataBigO.json'
+import data from '../stories/dataPolynomials.json'
 
 export const chartProps = {
     size: [400, 300] as [number, number],
@@ -6,7 +6,7 @@ export const chartProps = {
 }
 
 export const scatterProps = {
-    data: dataBigO,
+    data: data,
     x: 'x',
     y: 'y',
     r: 5,

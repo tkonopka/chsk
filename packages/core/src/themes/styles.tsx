@@ -1,6 +1,4 @@
 import { useTheme } from './themes'
-import { getTextStyles } from '../typography'
-import { getLineStyles } from '../lines'
 import { CSSProperties } from 'react'
 
 // turn js styles into a string of inline-css styles
@@ -26,15 +24,13 @@ export const composeClassName = function (names: Array<string | undefined>) {
 // get string with css-formatted styles
 export const getStyles = ({
     chartId,
-    themeKey,
     component,
 }: {
     chartId: string
-    themeKey: 'circle' | 'line' | 'polygon' | 'rect' | 'text'
-    component: string
+    component: 'circle' | 'line' | 'path' | 'polygon' | 'rect' | 'text'
 }) => {
     const theme = useTheme()
-    const subTheme = theme[themeKey]
+    const subTheme = theme[component]
     return Object.keys(subTheme)
         .map(variant => {
             const cssStyle = cssStyleString(subTheme[variant])
@@ -47,16 +43,28 @@ export const getStyles = ({
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
 }
 
+export const getLineStyles = (id: string) => {
+    return getStyles({ chartId: id, component: 'line' })
+}
+
+export const getPathStyles = (id: string) => {
+    return getStyles({ chartId: id, component: 'path' })
+}
+
+export const getTextStyles = (id: string) => {
+    return getStyles({ chartId: id, component: 'text' })
+}
+
 export const getCircleStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'circle', component: 'circle' })
+    return getStyles({ chartId: id, component: 'circle' })
 }
 
 export const getRectStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'rect', component: 'rect' })
+    return getStyles({ chartId: id, component: 'rect' })
 }
 
 export const getPolygonStyles = (id: string) => {
-    return getStyles({ chartId: id, themeKey: 'polygon', component: 'polygon' })
+    return getStyles({ chartId: id, component: 'polygon' })
 }
 
 export const getShapeStyles = (id: string) => {
@@ -70,6 +78,7 @@ export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] 
             if (styleType === 'text') return getTextStyles(chartId)
             if (styleType === 'line') return getLineStyles(chartId)
             if (styleType === 'shape') return getShapeStyles(chartId)
+            if (styleType === 'path') return getPathStyles(chartId)
             return null
         })
         .flat()

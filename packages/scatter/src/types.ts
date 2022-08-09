@@ -1,5 +1,12 @@
-import { ContinuousScaleSpec, CssProps, SymbolFunction, SymbolProps, ViewProps } from '@chask/core'
-import { ReactNode } from 'react'
+import {
+    AccessorFunction,
+    ContinuousScaleSpec,
+    CssProps,
+    CurveSpec,
+    SvgElementVariantProps,
+    SymbolFunction,
+    ViewProps,
+} from '@chask/core'
 
 export type ScatterDataItem = {
     id: string
@@ -25,11 +32,11 @@ export type ScatterDataContextProps = {
 
 export interface ScatterProps extends ViewProps {
     /** key or function to extract x-axis values from raw data */
-    x: string
+    x: string | AccessorFunction<number>
     /** key or function to extract y-axis values from raw data */
-    y: string
+    y: string | AccessorFunction<number>
     /** radius for dots, or key or function to extract radius from raw data */
-    r: number
+    r: number | string | AccessorFunction<number>
     /** data */
     data: Array<ScatterDataItem>
     /** scale for horizontal axis */
@@ -38,13 +45,31 @@ export interface ScatterProps extends ViewProps {
     scaleY: ContinuousScaleSpec
 }
 
-export interface ScatterSeriesProps {
+export interface ScatterPointsProps {
     /** series id */
     series: string
     /** symbol for individual data points */
-    symbol?: (props: SymbolProps) => ReactNode
+    symbol?: SymbolFunction
     /** style class for data points */
     symbolClassName?: string
     /** style for data points */
     symbolStyle?: CssProps
+}
+
+export interface ScatterCurveProps extends SvgElementVariantProps {
+    /** series id */
+    series: string
+    /** curve type */
+    curve?: CurveSpec
+}
+
+export interface ScatterIntervalProps extends SvgElementVariantProps {
+    /** series id */
+    series: string
+    /** key or function to extract lower bound for interval */
+    lower: string | AccessorFunction<number>
+    /** key or function to extract upper bound for interval */
+    upper: string | AccessorFunction<number>
+    /** curve type */
+    curve?: CurveSpec
 }

@@ -1,4 +1,4 @@
-import { SvgElementVariantProps } from '../general'
+import { PositionSpec, SvgElementVariantProps } from '../general'
 import { ReactNode } from 'react'
 
 export interface CircleProps extends SvgElementVariantProps {
@@ -25,6 +25,11 @@ export interface RectangleProps extends SvgElementVariantProps {
     ry?: number
     /** center the rectangle around (x, y) */
     center?: boolean
+}
+
+export interface PolygonProps extends SvgElementVariantProps {
+    /** points */
+    points: PositionSpec[]
 }
 
 export type SymbolProps = CircleProps

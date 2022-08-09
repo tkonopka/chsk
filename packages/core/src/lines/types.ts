@@ -1,4 +1,4 @@
-import { SvgElementVariantProps } from '../general'
+import { PositionSpec, SvgElementVariantProps } from '../general'
 
 export interface GridProps extends SvgElementVariantProps {
     /** variant */
@@ -20,4 +20,33 @@ export interface LineProps extends SvgElementVariantProps {
     y2: number
     /** variant */
     variant?: 'default' | 'axis' | 'tick' | 'grid'
+}
+
+// curves that pass through all the specified points
+export type PointCurveSpec =
+    | 'Linear'
+    | 'MonotoneX'
+    | 'MonotoneY'
+    | 'Natural'
+    | 'Step'
+    | 'StepAfter'
+    | 'StepBefore'
+
+// curves that use data points as guides (may not satisfy all curve criteria on edges)
+export type OpenCurveSpec = 'BasisOpen' | 'CardinalOpen' | 'CatmullRomOpen'
+
+// curves that form closed shapes
+export type ClosedCurveSpec = 'BasisClosed' | 'CardinalClosed' | 'CatmullRomClosed' | 'LinearClosed'
+
+export type CurveSpec = PointCurveSpec | OpenCurveSpec | ClosedCurveSpec
+
+export type CurveFunction = (xy: PositionSpec[]) => string | null
+
+export interface PathProps extends SvgElementVariantProps {
+    /** array of coordinates */
+    points: PositionSpec[]
+    /** curve type */
+    curve: CurveSpec
+    /** variant */
+    variant?: 'default' | string
 }

@@ -1,4 +1,4 @@
-import { BoxedTitle } from '../src'
+import { BoxedTitle } from '../src/boxes'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { chartProps } from './props'

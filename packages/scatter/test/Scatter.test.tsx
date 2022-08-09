@@ -19,9 +19,9 @@ describe('Scatter', () => {
             </Chart>
         )
 
-        // the dataset has four series
-        expect(data.seriesIds).toHaveLength(4)
-        expect(data.data).toHaveLength(4)
+        // the dataset has two series
+        expect(data.seriesIds).toHaveLength(2)
+        expect(data.data).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
@@ -39,8 +39,8 @@ describe('Scatter', () => {
             </Chart>
         )
 
-        // the dataset has four series
-        expect(data.seriesIds).toHaveLength(4)
-        expect(data.data).toHaveLength(4)
+        // the dataset has two series
+        expect(data.seriesIds).toHaveLength(2)
+        expect(data.data).toHaveLength(2)
     })
 })

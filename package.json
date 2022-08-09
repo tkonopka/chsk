@@ -13,7 +13,7 @@
     ],
     "license": "MIT",
     "scripts": {
-        "init": "lerna bootstrap --hoist",
+        "bootstrap": "lerna bootstrap --hoist",
         "prettier": "prettier --write .",
         "eslint": "eslint packages/*/{src,test}/**/*{js,ts,tsx}",
         "lint": "lerna run lint --stream",

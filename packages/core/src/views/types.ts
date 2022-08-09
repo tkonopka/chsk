@@ -2,11 +2,9 @@ import { PositionSpec, SideSizeSpec, SizeSpec } from '../general'
 import { ScaleSpec } from '../scales'
 import { ReactNode } from 'react'
 
-export type DataSpec = undefined | null | Array<Record<string, unknown>>
-
 export type DataContextProps = {
     /** data */
-    data: DataSpec
+    data: Array<Record<string, unknown>>
 }
 
 export type AnchorSpec = [number, number]
@@ -28,7 +26,7 @@ export interface ContainerProps {
 
 export interface ViewProps extends ContainerProps {
     /** data array **/
-    data: DataSpec
+    data: Array<Record<string, unknown>>
     /** scale for horizontal axis */
     scaleX: ScaleSpec
     /** scale for vertical axis */

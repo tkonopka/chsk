@@ -56,3 +56,6 @@ export interface BackgroundSurfaceProps extends SvgElementVariantProps {
     /** expansion of background surface */
     expansion?: SideSizeSpec
 }
+
+export type DataItem = Record<string, unknown>
+export type AccessorFunction<T> = (item: DataItem) => T

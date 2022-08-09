@@ -19,12 +19,12 @@ The axis definition can be provided in a shorthand form, or in a long form using
     code={`
 // shorthand
 
-<Axis variant={'top'} ticks={5} label={'axis label'} />
+<Axis variant={'top'} label={'axis label'} />
 
 // longform
 
 <Axis variant={'top'}>
-    <AxisTicks variant={'top'} ticks={5} />
+    <AxisTicks variant={'top'} />
     <AxisLine variant={'top'} />
     <AxisLabel variant={'top'} />axis label</AxisLabel>
 </Axis>
@@ -42,7 +42,6 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
         args={{
             variant: 'top',
             label: 'axis label',
-            ticks: 5,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}
@@ -54,7 +53,6 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
         args={{
             variant: 'right',
             label: 'axis label',
-            ticks: 5,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}
@@ -66,7 +64,6 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
         args={{
             variant: 'bottom',
             label: 'axis label',
-            ticks: 5,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}
@@ -78,7 +75,6 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
         args={{
             variant: 'left',
             label: 'axis label',
-            ticks: 5,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}
@@ -97,7 +93,6 @@ By default, axes are positioned exactly on the border of the charting surface. T
         args={{
             variant: 'bottom',
             label: 'axis label',
-            ticks: 5,
             padding: 10,
         }}
         component={Axis}

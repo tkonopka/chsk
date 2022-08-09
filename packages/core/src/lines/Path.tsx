@@ -1,25 +1,24 @@
 import { composeClassName } from '../themes'
-import { LineProps } from './types'
+import { PathProps } from './types'
+import { getLineGenerator } from './curves'
+import { useMemo } from 'react'
 
-export const Line = ({
-    x1,
-    y1,
-    x2,
-    y2,
+export const Path = ({
+    points,
+    curve = 'Linear',
     variant = 'default',
     className,
     setRole = true,
     style,
-}: LineProps) => {
+}: PathProps) => {
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const generator = useMemo(() => getLineGenerator(curve), [curve])
+    const d = generator(points)
     return (
-        <line
+        <path
+            d={d ?? undefined}
             role={setRole ? variant : undefined}
-            x1={x1}
-            y1={y1}
-            x2={x2}
-            y2={y2}
             style={style}
             className={compositeClassName}
         />

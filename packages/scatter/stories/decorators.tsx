@@ -1,12 +1,12 @@
 import { ReactNode } from 'react'
 import { Chart, Axis } from '@chask/core'
 import { Scatter } from '../src/'
-import dataBigO from './dataBigO.json'
+import data from './dataPolynomials.json'
 
 export const ChartScatterDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Scatter
-            data={dataBigO}
+            data={data}
             x={'x'}
             y={'y'}
             r={5}
@@ -21,8 +21,8 @@ export const ChartScatterDecorator = (Story: () => ReactNode) => (
                 max: 64,
             }}
         >
-            <Axis variant={'bottom'} label={'size of input'} />
-            <Axis variant={'left'} label={'running time'} ticks={5} />
+            <Axis variant={'bottom'} label={'x (a. u.)'} />
+            <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
             {Story()}
         </Scatter>
     </Chart>

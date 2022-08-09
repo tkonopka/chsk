@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View, getAnchoredOrigin } from '../src'
-import { chartProps } from './props'
+import { chartProps, viewProps } from './props'
 
 describe('getAnchoredOrigin', () => {
     it('computes origin - top-left position with top-left anchor', () => {
@@ -78,8 +78,12 @@ describe('getAnchoredOrigin', () => {
 
 describe('View', () => {
     it('creates view', () => {
-        render(<Chart {...chartProps}></Chart>)
-        const result = screen.getByRole('chart-content')
-        expect(1 + 1).toBe(2)
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}></View>
+            </Chart>
+        )
+        const result = screen.getByRole('view')
+        expect(result).toBeDefined()
     })
 })

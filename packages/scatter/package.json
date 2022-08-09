@@ -18,8 +18,7 @@
         "build": "PACKAGE=scatter rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0",
-        "d3-scale": "^4.0.2"
+        "@chask/core": "^0.1.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",
