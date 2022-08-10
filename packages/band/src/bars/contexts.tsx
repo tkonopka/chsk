@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { BarPreparedDataContextProps, BarProcessedDataContextProps } from './types'
 
 // two similar contexts
-// - processed data - for internal representations of raw data values
+// - processed data - for internal representations of raw dataGroups values
 // - prepared data - for holding coordinates and plot-ready values
 
 export const BarProcessedDataContext = createContext({

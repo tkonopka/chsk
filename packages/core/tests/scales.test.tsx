@@ -56,6 +56,7 @@ describe('createBandScale', () => {
         const ab = result('b') - result('a')
         const cd = result('d') - result('c')
         expect(cd).toBeGreaterThan(ab)
+        expect(cd - ab).toBeGreaterThan(5)
     })
 })
 

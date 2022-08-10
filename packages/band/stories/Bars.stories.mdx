@@ -1,17 +1,11 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis, Triangle } from '@chask/core'
 import { Bar, Bars } from '../src'
-import {
-    ChartBarH0S0Decorator,
-    ChartBarH0S1Decorator,
-    ChartBarH1S0Decorator,
-    ChartBarH1S1Decorator,
-} from './decorators'
-import data from './dataSmall.json'
+import { ChartBarH0S1Decorator } from './decorators'
 
 # Bars
 
-<Meta title="Addons/Band/Bars" />
+<Meta title="Charts/Band/Bars" />
 export const Template = args => <Bars {...args} />
 
 `Bars` draws a set of rectangles to display a bar chart.
@@ -19,25 +13,6 @@ export const Template = args => <Bars {...args} />
 <ArgsTable of={Bars} />
 
 Note that the `Bars` component is intended to be used within a `Bar` component. The `Bars` component is the one that draws the bars, but actually much of the layout is determined by the parent component `Bar`. The examples on this page demonstrate the features in both `Bar` and `Bars`.
-
-## Orientation and Stacking
-
-Props `horizontal` and `stacking` determine the direction of the bars and whether they appear one-after-the-other or side-by-side.
-
-<Canvas>
-    <Story name="vertical, grouped" component={Bars} decorators={[ChartBarH0S0Decorator]}>
-        {Template.bind({})}
-    </Story>
-    <Story name="vertical, stacked" component={Bars} decorators={[ChartBarH0S1Decorator]}>
-        {Template.bind({})}
-    </Story>
-    <Story name="horizontal, grouped" component={Bars} decorators={[ChartBarH1S0Decorator]}>
-        {Template.bind({})}
-    </Story>
-    <Story name="horizontal, stacked" component={Bars} decorators={[ChartBarH1S1Decorator]}>
-        {Template.bind({})}
-    </Story>
-</Canvas>
 
 ## Rounded corners
 

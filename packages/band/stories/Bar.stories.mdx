@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, BackgroundSurface, Axis } from '@chask/core'
-import { Bar } from '../src'
+import { Bar, Bars } from '../src'
+import { ChartDecorator, commonBarProps } from './decorators'
+import dataSingles from './dataSingles'
 
 # Bar
 
-<Meta title="Addons/Band/Bar" />
+<Meta title="Charts/Band/Bar" />
 export const Template = args => <Bar {...args} />
 
 `Bar` sets up a view for a bar plot.
@@ -12,3 +14,227 @@ export const Template = args => <Bar {...args} />
 <ArgsTable of={Bar} />
 
 `Bar` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Bars`.
+
+The examples in this page showcase `Bar` by automatically using `Bars` as a child component. Note that to create a complete bar chart, additional components would normally be employed, for example adding axes, grid lines, and labels.
+
+## Orientation and Stacking
+
+Props `horizontal` and `stacking` determine the direction of the bars and whether they appear one-after-the-other or side-by-side.
+
+<Canvas>
+    <Story
+        name="vertical, grouped"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: false,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="vertical, stacked"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: true,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="horizontal, grouped"
+        args={{
+            ...commonBarProps,
+            horizontal: true,
+            stacked: false,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="horizontal, stacked"
+        args={{
+            ...commonBarProps,
+            horizontal: true,
+            stacked: true,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Band padding
+
+The specification of the band axis through prop `scaleIndex` controls the spacing between the edges and the bars (`paddingOuter`) and between groups of bars (`paddingInner`).
+
+<Canvas>
+    <Story
+        name="large outer padding"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: true,
+            scaleIndex: {
+                variant: 'band',
+                domain: ['alpha', 'beta'],
+                paddingOuter: 0.8,
+                paddingInner: 0.1,
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="large inner padding"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: true,
+            scaleIndex: {
+                variant: 'band',
+                domain: ['alpha', 'beta'],
+                paddingOuter: 0.1,
+                paddingInner: 0.8,
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Bar padding
+
+For grouped bars, an additional padding prop `barPadding` controls the space between bars within one group.
+
+<Canvas>
+    <Story
+        name="large bar padding"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: false,
+            barPadding: 0.8,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="zero bar padding"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: false,
+            barPadding: 0.0,
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Keys
+
+The prop `keys` determines the number of subgroups that are incorporated into the chart. Below, both examples use a grouped bar layout based on the same data as above. The second chart uses a single key, and thus displays a simple bar chart.
+
+<Canvas>
+    <Story
+        name="two keys"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: false,
+            keys: ['x', 'y'],
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="single key"
+        args={{
+            ...commonBarProps,
+            horizontal: false,
+            stacked: false,
+            keys: ['x'],
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Custom spacing
+
+By default, bars are arranged with equal spacing along the axis. It is possible to assign a custom spacing through the prop `scaleIndex`. Below, the two examples use a new dataset that yields seven bars.
+
+<Canvas>
+    <Story
+        name="equal spacing"
+        args={{
+            ...commonBarProps,
+            data: dataSingles,
+            keys: ['value'],
+            horizontal: false,
+            stacked: false,
+            scaleIndex: {
+                variant: 'band',
+                domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                padding: 0.2,
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="custom spacing"
+        args={{
+            ...commonBarProps,
+            data: dataSingles,
+            keys: ['value'],
+            horizontal: false,
+            stacked: false,
+            scaleIndex: {
+                variant: 'band',
+                domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+                padding: 0.2,
+                extraPadding: { E: 0.9 },
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

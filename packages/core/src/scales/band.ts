@@ -24,8 +24,8 @@ export const createBandScale = ({
     const positions: Record<string, number> = {}
     domain.forEach(item => {
         const extra = extraPadding[item] ?? 0
-        positions[item] = position + extra
-        position += step
+        positions[item] = position + extra * step
+        position += step + extra * step
     })
 
     // build output object

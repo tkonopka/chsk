@@ -15,7 +15,7 @@ import {
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
 
-// turn raw data into a minimal array-based format
+// turn raw dataGroups into a minimal array-based format
 const processData = (
     seriesData: BarDataItem,
     index: number,
@@ -28,7 +28,7 @@ const processData = (
     }
 }
 
-// turn processed data into view-specific coordinates
+// turn processed dataGroups into view-specific coordinates
 const prepareData = (
     seriesData: BarProcessedDataItem,
     indexScale: BandAxisScale,
@@ -127,8 +127,8 @@ export const Bar = ({
         seriesIndexes[seriesData.id] = seriesIndex
     })
 
-    console.log('Bar')
-    console.log('horizontal: ' + horizontal + ' stacked ' + stacked)
+    //console.log('Bar')
+    //console.log('horizontal: ' + horizontal + ' stacked ' + stacked)
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
         () =>
