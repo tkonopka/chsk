@@ -1,46 +1,51 @@
 import { render } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, useProcessedScatterData, usePreparedScatterData } from '../src'
-import { chartProps, scatterProps } from './props'
-import { ScatterDataContextProps } from '../src'
+import {
+    Bar,
+    BarPreparedDataContextProps,
+    BarProcessedDataContextProps,
+    useBarPreparedData,
+    useBarProcessedData,
+} from '../src'
+import { chartProps, barProps } from './props'
 
-describe('Scatter', () => {
+describe('Bar', () => {
     it('defines processed data', () => {
-        let data: ScatterDataContextProps = { data: [], seriesIndexes: {} }
+        let data: BarProcessedDataContextProps = { data: [], seriesIndexes: {} }
         const GetProcessedData = () => {
-            data = useProcessedScatterData()
+            data = useBarProcessedData()
             return null
         }
 
         render(
             <Chart {...chartProps}>
-                <Scatter {...scatterProps}>
+                <Bar {...barProps}>
                     <GetProcessedData />
-                </Scatter>
+                </Bar>
             </Chart>
         )
 
-        // the dataset has two series
+        // the dataset has two indexes
         expect(Object.keys(data.seriesIndexes)).toHaveLength(2)
         expect(data.data).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
-        let data: ScatterDataContextProps = { data: [], seriesIndexes: {} }
+        let data: BarPreparedDataContextProps = { data: [], seriesIndexes: {} }
         const GetPreparedData = () => {
-            data = usePreparedScatterData()
+            data = useBarPreparedData()
             return null
         }
 
         render(
             <Chart {...chartProps}>
-                <Scatter {...scatterProps}>
+                <Bar {...barProps}>
                     <GetPreparedData />
-                </Scatter>
+                </Bar>
             </Chart>
         )
 
-        // the dataset has two series
+        // the dataset has two indexes
         expect(Object.keys(data.seriesIndexes)).toHaveLength(2)
         expect(data.data).toHaveLength(2)
     })

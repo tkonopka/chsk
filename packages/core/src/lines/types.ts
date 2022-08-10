@@ -1,10 +1,10 @@
 import { PositionSpec, SvgElementVariantProps } from '../general'
 
-export interface GridProps extends SvgElementVariantProps {
+export interface GridLinesProps extends SvgElementVariantProps {
     /** variant */
     variant: 'x' | 'y'
     /** positions for grid lines */
-    values: number | number[] | string[]
+    values?: number | number[] | string[]
     /** expansion of lines at the start and end of the scale */
     expansion?: number | [number, number]
 }

@@ -7,26 +7,23 @@ import { ScatterDataContextProps } from './types'
 
 export const ProcessedScatterDataContext = createContext({
     data: [],
-    seriesIds: [],
     seriesIndexes: {},
 } as ScatterDataContextProps)
 
 export const PreparedScatterDataContext = createContext({
     data: [],
-    seriesIds: [],
     seriesIndexes: {},
 } as ScatterDataContextProps)
 
 export const ProcessedScatterDataProvider = ({
     data,
-    seriesIds,
     seriesIndexes,
     children,
 }: ScatterDataContextProps & {
     auxData?: Record<string, unknown>
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIds, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes }), [data])
     return (
         <ProcessedScatterDataContext.Provider value={value}>
             {children}
@@ -36,21 +33,18 @@ export const ProcessedScatterDataProvider = ({
 
 export const PreparedScatterDataProvider = ({
     data,
-    seriesIds,
     seriesIndexes,
     children,
 }: ScatterDataContextProps & {
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIds, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes }), [data])
     return (
         <PreparedScatterDataContext.Provider value={value}>
             {children}
         </PreparedScatterDataContext.Provider>
     )
 }
-
-// hooks for the contexts
 
 export const useProcessedScatterData = () => useContext(ProcessedScatterDataContext)
 export const usePreparedScatterData = () => useContext(PreparedScatterDataContext)

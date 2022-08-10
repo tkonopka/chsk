@@ -1,4 +1,4 @@
-import { GridProps } from './types'
+import { GridLinesProps } from './types'
 import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './lines'
@@ -10,7 +10,7 @@ export const GridLines = ({
     className,
     style,
     setRole = true,
-}: GridProps) => {
+}: GridLinesProps) => {
     const scales = useScales()
     const dimensions = useDimensions()
     const [width, height] = dimensions.innerSize

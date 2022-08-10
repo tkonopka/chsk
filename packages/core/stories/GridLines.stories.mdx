@@ -20,7 +20,6 @@ There are a number of predefined variants, which can be activated via the prop `
         name="grid x"
         args={{
             variant: 'x',
-            values: 5,
         }}
         component={GridLines}
         decorators={[ChartViewDecorator]}
@@ -31,7 +30,6 @@ There are a number of predefined variants, which can be activated via the prop `
         name="grid y"
         args={{
             variant: 'y',
-            values: 5,
         }}
         component={GridLines}
         decorators={[ChartViewDecorator]}
@@ -51,12 +49,24 @@ Grid lines can be styled using css. Below are examples with both horizontal and 
         component={GridLines}
         decorators={[ChartViewDecorator]}
     >
-        <GridLines variant="y" values={4} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
-        <GridLines variant="x" values={5} style={{ strokeDasharray: '4 4', stroke: '#555555' }} />
+        <>
+            <GridLines
+                variant="y"
+                values={4}
+                style={{ strokeDasharray: '4 4', stroke: '#555555' }}
+            />
+            <GridLines
+                variant="x"
+                values={5}
+                style={{ strokeDasharray: '4 4', stroke: '#555555' }}
+            />
+        </>
     </Story>
     <Story name="negative lines" args={{}} component={GridLines} decorators={[ChartViewDecorator]}>
-        <GridLines variant="y" values={5} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
-        <GridLines variant="x" values={8} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
+        <>
+            <GridLines variant="y" values={5} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
+            <GridLines variant="x" values={8} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
+        </>
     </Story>
 </Canvas>
 
@@ -71,12 +81,14 @@ Positions can be set via the prop `values`.
         component={GridLines}
         decorators={[ChartViewDecorator]}
     >
-        <GridLines
-            variant="y"
-            values={[0, 10, 20, 50, 80, 90, 100]}
-            style={{ stroke: '#777777' }}
-        />
-        <GridLines variant="x" values={[0, 65, 85, 95, 100]} style={{ stroke: '#777777' }} />
+        <>
+            <GridLines
+                variant={'y'}
+                values={[0, 10, 20, 50, 80, 90, 100]}
+                style={{ stroke: '#777777' }}
+            />
+            <GridLines variant={'x'} values={[0, 65, 85, 95, 100]} style={{ stroke: '#777777' }} />
+        </>
     </Story>
 </Canvas>
 
@@ -88,7 +100,6 @@ By default, grid lines run across the entire chart view. It is possible to adjus
     <Story
         name="line extent"
         args={{
-            values: 5,
             expansion: [10, 25],
             style: { stroke: '#555555' },
         }}

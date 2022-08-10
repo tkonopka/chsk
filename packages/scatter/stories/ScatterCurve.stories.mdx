@@ -19,9 +19,11 @@ The examples on this page use a dataset with series with ids `linear` and `quadr
 
 ## Curves
 
+The prop `curve` controls the type of interpolation between points.
+
 <Canvas>
     <Story
-        name="a series"
+        name="linear curve"
         args={{
             series: 'quadratic',
             curve: 'Linear',
@@ -33,7 +35,7 @@ The examples on this page use a dataset with series with ids `linear` and `quadr
         {Template.bind({})}
     </Story>
     <Story
-        name="step"
+        name="step curve"
         args={{
             series: 'quadratic',
             curve: 'Step',
@@ -48,7 +50,7 @@ The examples on this page use a dataset with series with ids `linear` and `quadr
 
 ## Multiple series
 
-It is possible to use `ScatterCurve` multiple times to overlay multiple series.
+Use `ScatterCurve` multiple times to overlay multiple series. Each series can have a distinct curve setting and css style.
 
 <Canvas>
     <Story name="multiple series">
@@ -70,8 +72,12 @@ It is possible to use `ScatterCurve` multiple times to overlay multiple series.
                 }}
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
-                <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
-                <ScatterCurve series={'linear'} curve="Step" style={{ stroke: '#dd3333' }} />
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <ScatterCurve
+                    series={'linear'}
+                    curve="Step"
+                    style={{ stroke: '#dd3333', strokeWidth: 3 }}
+                />
                 <ScatterCurve series={'quadratic'} curve="Linear" style={{ stroke: '#6666ee' }} />
             </Scatter>
         </Chart>

@@ -32,7 +32,7 @@ describe('GridLines', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <GridLines variant="x" values={6} />
+                    <GridLines variant="x" />
                 </View>
             </Chart>
         )

@@ -103,8 +103,9 @@ export const Diamond = ({
     key,
 }: SymbolProps) => {
     const points: Array<PositionSpec> = diamondCoordinates.map(coords => [
-                cx + coords[0] * r, cy - coords[1] * r
-        ])
+        cx + coords[0] * r,
+        cy - coords[1] * r,
+    ])
     return (
         <Polygon
             key={key}

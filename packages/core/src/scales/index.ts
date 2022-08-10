@@ -1,2 +1,5 @@
+export * from './contexts'
+export * from './band'
+export * from './continuous'
 export * from './scales'
 export * from './types'

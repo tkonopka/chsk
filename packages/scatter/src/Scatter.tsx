@@ -66,9 +66,8 @@ export const Scatter = ({
 
     // assemble information about series
     const seriesIndexes: Record<string, number> = {}
-    const seriesIds: string[] = data.map((seriesData, seriesIndex) => {
+    data.forEach((seriesData, seriesIndex) => {
         seriesIndexes[seriesData.id] = seriesIndex
-        return seriesData.id
     })
 
     // process and prepare data
@@ -89,15 +88,10 @@ export const Scatter = ({
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
-                <ProcessedScatterDataProvider
-                    data={processedData}
-                    seriesIds={seriesIds}
-                    seriesIndexes={seriesIndexes}
-                >
+                <ProcessedScatterDataProvider data={processedData} seriesIndexes={seriesIndexes}>
                     <ScalesProvider scales={scales}>
                         <PreparedScatterDataProvider
                             data={preparedData}
-                            seriesIds={seriesIds}
                             seriesIndexes={seriesIndexes}
                         >
                             <g role="view-scatter" transform={translate}>

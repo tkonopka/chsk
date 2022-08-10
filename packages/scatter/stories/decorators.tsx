@@ -22,7 +22,7 @@ export const ChartScatterDecorator = (Story: () => ReactNode) => (
             }}
         >
             <Axis variant={'bottom'} label={'x (a. u.)'} />
-            <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
+            <Axis variant={'left'} label={'y (a. u.)'} />
             {Story()}
         </Scatter>
     </Chart>

@@ -1,0 +1,14 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Axis } from '@chask/core'
+import { Bar } from '../src'
+
+# Bar
+
+<Meta title="Addons/Band/Bar" />
+export const Template = args => <Bar {...args} />
+
+`Bar` sets up a view for a bar plot.
+
+<ArgsTable of={Bar} />
+
+`Bar` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Bars`.

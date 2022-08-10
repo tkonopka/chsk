@@ -58,14 +58,8 @@ Core components can be combined to produce distinctive chart skeletons.
                 <BackgroundSurface variant={'inner'} style={{ fill: '#f0f0f0' }} />
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
-                <GridLines
-                    variant={'x'}
-                    style={{ stroke: '#ffffff', strokeWidth: '2px' }}
-                />
-                <GridLines
-                    variant={'y'}
-                    style={{ stroke: '#ffffff', strokeWidth: '2px' }}
-                />
+                <GridLines variant={'x'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
+                <GridLines variant={'y'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
                 <Text y={-20} variant="title" children="Title" />
             </View>
         </Chart>
@@ -179,10 +173,7 @@ Core components can be combined to produce distinctive chart skeletons.
         >
             <View {...commonViewProps}>
                 <BackgroundSurface variant={'outer'} style={{ fill: '#f4f4f4' }} />
-                <GridLines
-                    variant={'y'}
-                    style={{ stroke: '#aaaaaa', strokeWidth: '1px' }}
-                />
+                <GridLines variant={'y'} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
                 <Axis variant={'bottom'} ticks={null}>
                     <AxisTicks variant={'bottom'} ticks={5} size={5} padding={10} />
                     <AxisLine

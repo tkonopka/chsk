@@ -1,3 +1,5 @@
+import prettier from 'prettier/standalone'
+import prettierBabel from 'prettier/parser-babel'
 import './docs.css'
 
 export const parameters = {
@@ -21,5 +23,12 @@ export const parameters = {
                 ['Scatter', 'Themes'],
             ],
         },
+    },
+    docs: {
+        transformSource: input =>
+            prettier.format(input, {
+                parser: 'babel',
+                plugins: [prettierBabel],
+            }),
     },
 }

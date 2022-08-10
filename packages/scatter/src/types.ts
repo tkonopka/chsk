@@ -24,8 +24,6 @@ export type ScatterProcessedDataItem = {
 export type ScatterDataContextProps = {
     /** data */
     data: Array<ScatterProcessedDataItem>
-    /** series ids */
-    seriesIds: string[]
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
 }
