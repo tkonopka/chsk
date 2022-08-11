@@ -1,0 +1,99 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, GridLines } from '@chask/core'
+import { Scatter, ScatterArea, ScatterPoints, ScatterCurve } from '../src'
+import { ChartScatterDecorator } from './decorators'
+import { generateScatterSeriesWithInterval } from './generators'
+
+# ScatterArea
+
+<Meta title="Charts/Scatter/ScatterArea" />
+export const Template = args => <ScatterArea {...args} />
+
+`ScatterArea` draws a polygon bounded by a series and a constant baseline.
+
+<ArgsTable of={ScatterArea} />
+
+export const dataWithInterval = [
+    generateScatterSeriesWithInterval(
+        'A',
+        Array(16)
+            .fill(0)
+            .map((v, i) => i),
+        x => 1 + 0.3 * x + Math.random() * 1.5,
+        [-0.8, 1.0]
+    ),
+]
+
+## Baseline
+
+The prop `baseline` determines the vertical extent of the curve
+
+<Canvas>
+    <Story
+        name="default baseline"
+        args={{
+            series: 'quadratic',
+            curve: 'Linear',
+            style: { fill: '#dd3333', strokeWidth: 0, opacity: 0.5 },
+        }}
+        component={ScatterArea}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="custom baseline"
+        args={{
+            series: 'quadratic',
+            curve: 'Linear',
+            baseline: 30,
+            style: { fill: '#dd3333', strokeWidth: 0, opacity: 0.5 },
+        }}
+        component={ScatterArea}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Layering
+
+The `ScatterArea` component is often used together with `ScatterCurve`.
+
+<Canvas>
+    <Story name="composite">
+        <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+            <Scatter
+                data={dataWithInterval}
+                x={'x'}
+                y={'y'}
+                r={6}
+                scaleX={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 15,
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    min: 0,
+                    max: 10,
+                }}
+            >
+                <Axis variant={'bottom'} label={'x (a. u.)'} />
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <GridLines variant={'y'} ticks={5} />
+                <ScatterArea
+                    series={'A'}
+                    baseline={0}
+                    curve="Natural"
+                    style={{ fill: '#dd4444', opacity: 0.1, strokeWidth: 0 }}
+                />
+                <ScatterCurve
+                    series={'A'}
+                    curve="Natural"
+                    style={{ stroke: '#dd4444', strokeWidth: 3 }}
+                />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>

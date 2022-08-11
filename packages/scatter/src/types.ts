@@ -7,6 +7,7 @@ import {
     SymbolFunction,
     ViewProps,
 } from '@chask/core'
+import { ReactNode } from 'react'
 
 export type ScatterDataItem = {
     id: string
@@ -61,13 +62,29 @@ export interface ScatterCurveProps extends SvgElementVariantProps {
     curve?: CurveSpec
 }
 
-export interface ScatterIntervalProps extends SvgElementVariantProps {
-    /** series id */
-    series: string
+export interface ScatterIntervalProps extends ScatterCurveProps {
     /** key or function to extract lower bound for interval */
     lower: string | AccessorFunction<number>
     /** key or function to extract upper bound for interval */
     upper: string | AccessorFunction<number>
-    /** curve type */
-    curve?: CurveSpec
+}
+
+export interface ScatterAreaProps extends ScatterCurveProps {
+    /** base for the area polygon */
+    baseline?: number
+}
+
+export type ScatterSeriesLayer = 'area' | 'curve' | 'interval' | 'points'
+
+export interface ScatterSeriesProps extends ScatterPointsProps, ScatterAreaProps {
+    /** list of components to display */
+    layers: ScatterSeriesLayer[]
+    /** styles for areas */
+    areaStyle?: CssProps
+    /** styles for curve */
+    curveStyle?: CssProps
+    /** styles for points */
+    symbolStyle?: CssProps
+    /** child components */
+    children?: ReactNode
 }

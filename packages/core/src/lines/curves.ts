@@ -1,5 +1,6 @@
 import { merge } from 'lodash'
 import {
+    area,
     line,
     curveBasisOpen,
     curveBasisClosed,
@@ -16,8 +17,8 @@ import {
     curveStepAfter,
     curveStepBefore,
 } from 'd3-shape'
-import { CurveFunction, CurveSpec } from './types'
-import { PositionSpec } from '../general'
+import { AreaFunction, CurveFunction, CurveSpec } from './types'
+import { PositionIntervalSpec, PositionSpec } from '../general'
 
 const pointCurves = {
     Linear: curveLinear,
@@ -41,8 +42,17 @@ const closedCurves = {
 }
 const allCurves = merge(closedCurves, openCurves, pointCurves)
 
-export const getLineGenerator = (curve: CurveSpec): CurveFunction => {
+// creates a line generator that accepts data points in format [x, y]
+export const createLineGenerator = (curve: CurveSpec): CurveFunction => {
     return line()
         .defined((d: PositionSpec) => d[0] !== null && d[1] !== null)
-        .curve(allCurves[curve])
+        .curve(allCurves[curve] ?? curveLinear)
+}
+
+// creates an area generator that accepts data in format [x, y, y0]
+export const createAreaGenerator = (curve: CurveSpec): AreaFunction => {
+    return area<PositionIntervalSpec>()
+        .defined((d: PositionIntervalSpec) => d[0] !== null && d[1] !== null && d[2] !== null)
+        .y0((d: PositionIntervalSpec) => d[2])
+        .curve(allCurves[curve] ?? curveLinear)
 }

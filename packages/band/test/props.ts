@@ -1,4 +1,4 @@
-import data from '../stories/dataSmall.json'
+import dataGroups from '../stories/dataGroups.json'
 import { BarProps } from '../src'
 
 export const chartProps = {
@@ -7,7 +7,7 @@ export const chartProps = {
 }
 
 export const barProps: BarProps = {
-    data: data,
+    data: dataGroups,
     keys: ['x', 'y', 'z'],
     scaleIndex: {
         variant: 'band' as const,

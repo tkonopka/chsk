@@ -1,17 +1,18 @@
+import { ReactNode } from 'react'
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis, GridLines } from '@chask/core'
-import { Scatter, ScatterInterval, ScatterPoints, ScatterCurve } from '../src'
+import { Scatter, ScatterSeries } from '../src'
 import { ChartScatterDecorator } from './decorators'
 import { generateScatterSeriesWithInterval } from './generators'
 
-# ScatterInterval
+# ScatterSeries
 
-<Meta title="Charts/Scatter/ScatterInterval" />
-export const Template = args => <ScatterInterval {...args} />
+<Meta title="Charts/Scatter/ScatterSeries" />
+export const Template = args => <ScatterSeries {...args} />
 
-`ScatterInterval` draws a polygon intended as an interval around a curve
+`ScatterSeries` is a convenience component that combines the capabilities of `ScatterArea`, `ScatterCurve`, `ScatterInterval`, and `ScatterPoints`.
 
-<ArgsTable of={ScatterInterval} />
+<ArgsTable of={ScatterSeries} />
 
 export const dataWithInterval = [
     generateScatterSeriesWithInterval(
@@ -22,18 +23,28 @@ export const dataWithInterval = [
         x => 1 + 0.3 * x + Math.random() * 1.5,
         [-0.8, 1.0]
     ),
+    generateScatterSeriesWithInterval(
+        'B',
+        Array(16)
+            .fill(0)
+            .map((v, i) => i),
+        x => 8 - 0.3 * x + Math.random() * 1.5,
+        [-0.8, 1.0]
+    ),
 ]
 
-## Example
+## Layers
+
+The prop `layers` controls the amount of information that is displayed about a series. Setting the prop to an array `['curve', 'points']`, for example, can display a curve and data points. An array with an additional `'area'` would add an area polygon.
 
 <Canvas>
-    <Story name="interval">
+    <Story name="curve and points">
         <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
             <Scatter
                 data={dataWithInterval}
                 x={'x'}
                 y={'y'}
-                r={6}
+                r={4}
                 scaleX={{
                     variant: 'linear',
                     min: 0,
@@ -46,32 +57,27 @@ export const dataWithInterval = [
                 }}
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
-                <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
-                <GridLines variant={'y'} ticks={5} />
-                <ScatterInterval
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <GridLines variant={'y'} />
+                <ScatterSeries
                     series={'A'}
-                    curve="Natural"
-                    lower={'lo'}
-                    upper={'hi'}
-                    style={{ fill: '#dd4444', strokeWidth: 0 }}
+                    layers={['curve', 'points']}
+                    curveStyle={{ stroke: '#dd3333' }}
+                    symbolStyle={{ fill: '#dd3333' }}
                 />
             </Scatter>
         </Chart>
     </Story>
 </Canvas>
 
-## Layering with curves and points
-
-`ScatterInterval` component is often used as a background for points or curves.
-
 <Canvas>
-    <Story name="composite">
+    <Story name="area, curve, and points">
         <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
             <Scatter
                 data={dataWithInterval}
                 x={'x'}
                 y={'y'}
-                r={6}
+                r={4}
                 scaleX={{
                     variant: 'linear',
                     min: 0,
@@ -84,23 +90,14 @@ export const dataWithInterval = [
                 }}
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
-                <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
-                <GridLines variant={'y'} ticks={5} />
-                <ScatterInterval
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <GridLines variant={'y'} />
+                <ScatterSeries
                     series={'A'}
-                    curve="Natural"
-                    lower={'lo'}
-                    upper={'hi'}
-                    style={{ fill: '#dd4444', opacity: 0.1, strokeWidth: 0 }}
-                />
-                <ScatterCurve
-                    series={'A'}
-                    curve="Natural"
-                    style={{ stroke: '#dd4444', strokeWidth: 3 }}
-                />
-                <ScatterPoints
-                    series={'A'}
-                    symbolStyle={{ stroke: '#dd4444', strokeWidth: 2, fill: '#ffffff' }}
+                    layers={['area', 'curve', 'points']}
+                    areaStyle={{ fill: '#dd3333', opacity: 0.1 }}
+                    curveStyle={{ stroke: '#dd3333' }}
+                    symbolStyle={{ fill: '#dd3333' }}
                 />
             </Scatter>
         </Chart>

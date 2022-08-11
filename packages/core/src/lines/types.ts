@@ -1,4 +1,4 @@
-import { PositionSpec, SvgElementVariantProps } from '../general'
+import { PositionIntervalSpec, PositionSpec, SvgElementVariantProps } from '../general'
 
 export interface GridLinesProps extends SvgElementVariantProps {
     /** variant */
@@ -40,7 +40,9 @@ export type ClosedCurveSpec = 'BasisClosed' | 'CardinalClosed' | 'CatmullRomClos
 
 export type CurveSpec = PointCurveSpec | OpenCurveSpec | ClosedCurveSpec
 
-export type CurveFunction = (xy: PositionSpec[]) => string | null
+export type CurveFunction = (xy: Array<PositionSpec>) => string | null
+
+export type AreaFunction = (xy: Array<PositionIntervalSpec>) => string | null
 
 export interface PathProps extends SvgElementVariantProps {
     /** array of coordinates */

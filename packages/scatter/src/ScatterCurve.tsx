@@ -1,6 +1,13 @@
 import { Path, PositionSpec } from '@chask/core'
-import { ScatterCurveProps } from './types'
+import { ScatterCurveProps, ScatterProcessedDataItem } from './types'
 import { usePreparedScatterData } from './contexts'
+
+export const getScatterCurvePoints = (data: ScatterProcessedDataItem) => {
+    const x = data.x
+    const y = data.y
+    const result: Array<PositionSpec> = x.map((v: number, i: number) => [v, y[i]])
+    return result
+}
 
 export const ScatterCurve = ({
     series,
@@ -13,11 +20,8 @@ export const ScatterCurve = ({
     const preparedData = usePreparedScatterData()
     const seriesIndex = preparedData.seriesIndexes[series]
     if (seriesIndex === undefined) return null
-    const data = preparedData.data[seriesIndex]
 
-    const x = data.x
-    const y = data.y
-    const points: Array<PositionSpec> = x.map((v: number, i: number) => [v, y[i]])
+    const points = getScatterCurvePoints(preparedData.data[seriesIndex])
 
     return (
         <g role={'scatter-curve'} key={'scatter-curve-' + seriesIndex}>

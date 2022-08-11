@@ -21,6 +21,9 @@ export interface SvgElementVariantProps extends SvgElementProps {
 // position as an array [x, y]
 export type PositionSpec = [number, number]
 
+// a position with an interval [x, y1, y0]
+export type PositionIntervalSpec = [number, number, number]
+
 // size as an array [width, height]
 export type SizeSpec = [number, number]
 
