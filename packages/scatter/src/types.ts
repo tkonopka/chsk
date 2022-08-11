@@ -6,11 +6,11 @@ import {
     SvgElementVariantProps,
     SymbolFunction,
     ViewProps,
+    WithId,
 } from '@chask/core'
 import { ReactNode } from 'react'
 
-export type ScatterDataItem = {
-    id: string
+export type ScatterDataItem = WithId & {
     data: Array<Record<string, unknown>>
 }
 
@@ -29,7 +29,7 @@ export type ScatterDataContextProps = {
     seriesIndexes: Record<string, number>
 }
 
-export interface ScatterProps extends ViewProps {
+export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
     /** key or function to extract x-axis values from raw data */
     x: string | AccessorFunction<number>
     /** key or function to extract y-axis values from raw data */

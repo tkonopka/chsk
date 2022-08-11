@@ -36,13 +36,11 @@ export const dataWithInterval = [
                 r={6}
                 scaleX={{
                     variant: 'linear',
-                    min: 0,
-                    max: 15,
+                    domain: [0, 'auto'],
                 }}
                 scaleY={{
                     variant: 'linear',
-                    min: 0,
-                    max: 10,
+                    domain: [0, 'auto'],
                 }}
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
@@ -74,18 +72,16 @@ export const dataWithInterval = [
                 r={6}
                 scaleX={{
                     variant: 'linear',
-                    min: 0,
-                    max: 15,
+                    domain: [0, 'auto'],
                 }}
                 scaleY={{
                     variant: 'linear',
-                    min: 0,
-                    max: 10,
+                    domain: [0, 'auto'],
                 }}
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
-                <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
-                <GridLines variant={'y'} ticks={5} />
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <GridLines variant={'y'} />
                 <ScatterInterval
                     series={'A'}
                     curve="Natural"

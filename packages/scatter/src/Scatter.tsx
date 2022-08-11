@@ -1,15 +1,22 @@
+import { useMemo } from 'react'
+import { cloneDeep } from 'lodash'
 import { ScatterDataItem, ScatterProcessedDataItem, ScatterProps } from './types'
 import {
     AccessorFunction,
     ContinuousAxisScale,
     DimensionsProvider,
     getAccessor,
-    getScales,
+    createScales,
+    createContinuousScaleProps,
     OriginalDataProvider,
     ScalesProvider,
     useView,
+    ContinuousScaleProps,
+    ContinuousScaleSpec,
+    isScaleWithDomain,
+    getMinMax,
+    getIdIndexes,
 } from '@chask/core'
-import { useMemo } from 'react'
 import { PreparedScatterDataProvider, ProcessedScatterDataProvider } from './contexts'
 
 // turn raw data into a minimal format
@@ -44,6 +51,23 @@ const prepareData = (
     }
 }
 
+const getScaleProps = (
+    data: Array<ScatterProcessedDataItem>,
+    scaleSpecX: ContinuousScaleSpec,
+    scaleSpecY: ContinuousScaleSpec
+) => {
+    const result = { scalePropsX: cloneDeep(scaleSpecX), scalePropsY: cloneDeep(scaleSpecY) }
+    if (!isScaleWithDomain(scaleSpecX)) {
+        const domain = getMinMax(data.map(seriesData => seriesData.x).flat())
+        result.scalePropsX = createContinuousScaleProps(scaleSpecX, domain)
+    }
+    if (!isScaleWithDomain(scaleSpecY)) {
+        const domain = getMinMax(data.map(seriesData => seriesData.y).flat())
+        result.scalePropsY = createContinuousScaleProps(scaleSpecY, domain)
+    }
+    return result as { scalePropsX: ContinuousScaleProps; scalePropsY: ContinuousScaleProps }
+}
+
 export const Scatter = ({
     // layout
     position = [0, 0],
@@ -62,21 +86,21 @@ export const Scatter = ({
     children,
 }: ScatterProps) => {
     const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
-    const scales = getScales({ ...dimsProps, scaleX, scaleY })
+    const seriesIndexes = useMemo(() => getIdIndexes(data), [data])
 
-    // assemble information about series
-    const seriesIndexes: Record<string, number> = {}
-    data.forEach((seriesData, seriesIndex) => {
-        seriesIndexes[seriesData.id] = seriesIndex
-    })
-
-    // process and prepare data
+    // process dataset
     const getX = useMemo(() => getAccessor(x), [x])
     const getY = useMemo(() => getAccessor(y), [y])
     const getR = useMemo(() => (typeof r === 'number' ? () => r : getAccessor(r)), [r])
     const processedData = data.map((seriesData, seriesIndex) =>
         processData(seriesData, seriesIndex, getX, getY, getR)
     )
+
+    // set up scales
+    const { scalePropsX, scalePropsY } = getScaleProps(processedData, scaleX, scaleY)
+    const scales = createScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+
+    // compute coordinates
     const preparedData = processedData.map(seriesData =>
         prepareData(
             seriesData,

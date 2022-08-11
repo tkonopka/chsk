@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { Chart, Axis, BackgroundSurface, GridLines } from '@chask/core'
 import { Bar } from '../src/'
 import dataGroups from './dataGroups.json'
-import { BarProps } from '../dist/types'
+import { BarProps } from '../src'
 
 export const commonBarProps: Pick<BarProps, 'data' | 'keys' | 'scaleIndex' | 'scaleValue'> = {
     data: dataGroups,
@@ -14,8 +14,7 @@ export const commonBarProps: Pick<BarProps, 'data' | 'keys' | 'scaleIndex' | 'sc
     },
     scaleValue: {
         variant: 'linear',
-        min: 0,
-        max: 100,
+        domain: [0, 'auto'],
     },
 }
 
@@ -28,16 +27,7 @@ export const ChartDecorator = (Story: () => ReactNode) => (
 
 export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Bar
-            {...commonBarProps}
-            horizontal={false}
-            stacked={true}
-            scaleValue={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-        >
+        <Bar {...commonBarProps} horizontal={false} stacked={true}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a. u.)'} />

@@ -6,15 +6,13 @@ const defaultScaleX = createContinuousScale({
     variant: 'linear',
     axis: 'y',
     size: 1,
-    min: 0,
-    max: 1,
+    domain: [0, 1],
 })
 const defaultScaleY = createContinuousScale({
     variant: 'linear',
     axis: 'y',
     size: 1,
-    min: 0,
-    max: 1,
+    domain: [0, 1],
 })
 
 export const ScalesContext = createContext({

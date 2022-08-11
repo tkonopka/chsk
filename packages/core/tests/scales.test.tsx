@@ -1,5 +1,9 @@
-import { createBandScale } from '../src/scales'
-import { createContinuousScale } from '../src/scales'
+import {
+    createBandScale,
+    createContinuousScale,
+    getTickCoordinates,
+    getMinMax,
+} from '../src/scales'
 
 describe('createBandScale', () => {
     it('creates band scale without padding', () => {
@@ -58,6 +62,46 @@ describe('createBandScale', () => {
         expect(cd).toBeGreaterThan(ab)
         expect(cd - ab).toBeGreaterThan(5)
     })
+
+    it('extract tick coordinates for center of bands', () => {
+        const scale = createBandScale({
+            domain: ['a', 'b', 'c', 'd'],
+            size: 120,
+            padding: 0,
+        })
+        // four bands [0, 30], [30, 60], [60, 90], [90, 120]
+        // default ticks should be at the center of the band interval
+        const result = getTickCoordinates(scale, undefined)
+        expect(result).toHaveLength(4)
+        const expected = [15, 45, 75, 105]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('extract tick coordinates for band start positions', () => {
+        const scale = createBandScale({
+            domain: ['a', 'b', 'c', 'd'],
+            size: 120,
+            padding: 0,
+        })
+        // four bands [0, 30], [30, 60], [60, 90], [90, 120]
+        const result = getTickCoordinates(scale, undefined, -0.5)
+        expect(result).toHaveLength(4)
+        const expected = [0, 30, 60, 90]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('extract tick coordinates for band end positions', () => {
+        const scale = createBandScale({
+            domain: ['a', 'b', 'c', 'd'],
+            size: 120,
+            padding: 0,
+        })
+        // four bands [0, 30], [30, 60], [60, 90], [90, 120]
+        const result = getTickCoordinates(scale, undefined, +0.5)
+        expect(result).toHaveLength(4)
+        const expected = [30, 60, 90, 120]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
 })
 
 describe('createContinuousScale', () => {
@@ -65,8 +109,7 @@ describe('createContinuousScale', () => {
         const result = createContinuousScale({
             variant: 'linear',
             axis: 'x',
-            min: 0,
-            max: 10,
+            domain: [0, 10],
             size: 100,
         })
         expect(result(0)).toEqual(0)
@@ -78,8 +121,7 @@ describe('createContinuousScale', () => {
         const result = createContinuousScale({
             variant: 'linear',
             axis: 'y',
-            min: 0,
-            max: 10,
+            domain: [0, 10],
             size: 100,
         })
         // for y-axis, the ordering is reversed
@@ -92,12 +134,48 @@ describe('createContinuousScale', () => {
         const result = createContinuousScale({
             variant: 'log',
             axis: 'x',
-            min: 1,
-            max: 100,
+            domain: [1, 100],
             size: 100,
         })
         expect(result(1)).toEqual(0)
         expect(result(10)).toEqual(50)
         expect(result(100)).toEqual(100)
+    })
+
+    it('continuous scales have zero bandwidth', () => {
+        const result = createContinuousScale({
+            variant: 'linear',
+            axis: 'x',
+            domain: [1, 100],
+            size: 100,
+        })
+        expect('bandwidth' in result).toBeTruthy()
+        expect(result.bandwidth ? result.bandwidth() : null).toEqual(0)
+    })
+
+    it('extract tick coordinates', () => {
+        const scale = createContinuousScale({
+            variant: 'linear',
+            axis: 'x',
+            domain: [0, 100],
+            size: 200,
+        })
+        const result = getTickCoordinates(scale, 6)
+        const expected = [0, 40, 80, 120, 160, 200]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+})
+
+describe('getMinMax', () => {
+    it('computes min and max from non-empty array', () => {
+        const result = getMinMax([3, 6, 4, 9, 0, -1])
+        expect(result[0]).toEqual(-1)
+        expect(result[1]).toEqual(9)
+    })
+
+    it('computes min and max from empty array', () => {
+        const result = getMinMax([])
+        expect(result[0]).toEqual(1)
+        expect(result[1]).toEqual(1)
     })
 })

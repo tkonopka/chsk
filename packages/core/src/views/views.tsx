@@ -1,5 +1,5 @@
 import { DimensionsProvider } from '../general'
-import { getScales, ScalesProvider } from '../scales'
+import { createScales, ScalesProvider } from '../scales'
 import { ViewProps } from './types'
 import { OriginalDataProvider } from './contexts'
 import { useView } from './hooks'
@@ -16,7 +16,7 @@ export const View = ({
     children,
 }: ViewProps) => {
     const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
-    const scales = getScales({ ...dimsProps, scaleX, scaleY })
+    const scales = createScales({ ...dimsProps, scaleX, scaleY })
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>

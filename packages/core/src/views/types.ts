@@ -1,6 +1,10 @@
 import { PositionSpec, SideSizeSpec, SizeSpec } from '../general'
-import { ScaleSpec } from '../scales'
+import { ScaleProps } from '../scales'
 import { ReactNode } from 'react'
+
+export type WithId = {
+    id: string
+}
 
 export type DataContextProps = {
     /** data */
@@ -28,7 +32,7 @@ export interface ViewProps extends ContainerProps {
     /** data array **/
     data: Array<Record<string, unknown>>
     /** scale for horizontal axis */
-    scaleX: ScaleSpec
+    scaleX: ScaleProps
     /** scale for vertical axis */
-    scaleY: ScaleSpec
+    scaleY: ScaleProps
 }

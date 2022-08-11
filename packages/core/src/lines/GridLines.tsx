@@ -1,11 +1,13 @@
+import { uniq } from 'lodash'
 import { GridLinesProps } from './types'
 import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
-import { Line } from './lines'
+import { Line } from './Line'
 
 export const GridLines = ({
     variant,
     values,
+    shift = [0],
     expansion = [0, 0],
     className,
     style,
@@ -16,7 +18,11 @@ export const GridLines = ({
     const [width, height] = dimensions.innerSize
     const isX = variant === 'x'
     const scale = isX ? scales.scaleX : scales.scaleY
-    const tickCoordinates: Array<number> = getTickCoordinates(scale, values)
+
+    // compute locations for tick marks, avoiding drawing multiple lines with uniq
+    const tickCoordinates = uniq(shift.map(s => getTickCoordinates(scale, values, s)).flat())
+
+    // extension of gridlines across the natural view boundaries
     const [e1, e2] = Array.isArray(expansion)
         ? [expansion[0], expansion[1]]
         : [expansion, expansion]

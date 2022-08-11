@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, GridLines } from '../src'
-import { ChartViewDecorator } from './decorators'
+import { Chart, Axis, GridLines } from '../src'
+import { ChartViewDecorator, ChartBandViewDecorator } from './decorators'
 
 # GridLines
 
@@ -105,6 +105,36 @@ By default, grid lines run across the entire chart view. It is possible to adjus
         }}
         component={GridLines}
         decorators={[ChartViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Band scales
+
+For band scales, grid lines appear at the center of each band by defaut. It is possible to move the guide lines using prop `shift`, which takes an array of values. The values are multiples of the bandwidth.
+
+<Canvas>
+    <Story
+        name="band"
+        args={{
+            variant: 'y',
+            style: { stroke: '#aaaaaa' },
+        }}
+        component={GridLines}
+        decorators={[ChartBandViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="between bands"
+        args={{
+            variant: 'y',
+            shift: [-0.5, 0.5],
+            style: { stroke: '#aaaaaa' },
+        }}
+        component={GridLines}
+        decorators={[ChartBandViewDecorator]}
     >
         {Template.bind({})}
     </Story>

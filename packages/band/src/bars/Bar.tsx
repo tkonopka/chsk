@@ -1,16 +1,25 @@
 import { useMemo } from 'react'
+import { cloneDeep } from 'lodash'
 import {
+    createScales,
     AccessorFunction,
     BandAxisScale,
     DimensionsProvider,
     getAccessor,
-    getScales,
     LinearAxisScale,
     OriginalDataProvider,
     PositionSpec,
     ScalesProvider,
     SizeSpec,
     useView,
+    getIdIndexes,
+    isScaleWithDomain,
+    getMinMax,
+    BandScaleSpec,
+    LinearScaleSpec,
+    createContinuousScaleProps,
+    BandScaleProps,
+    LinearScaleProps,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
@@ -92,6 +101,32 @@ const prepareData = (
     }
 }
 
+const getScaleProps = (
+    data: Array<BarProcessedDataItem>,
+    scaleSpecIndex: BandScaleSpec,
+    scaleSpecValue: LinearScaleSpec,
+    stacked: boolean
+) => {
+    const result = {
+        scalePropsIndex: cloneDeep(scaleSpecIndex),
+        scalePropsValue: cloneDeep(scaleSpecValue),
+    }
+    if (!isScaleWithDomain(scaleSpecIndex)) {
+        result.scalePropsIndex.domain = data.map(d => d.id)
+    }
+    if (!isScaleWithDomain(scaleSpecValue)) {
+        const values = data.map(seriesData => seriesData.value)
+        const domain = stacked
+            ? getMinMax(values.map(series => series.reduce((acc, v) => v + acc, 0)))
+            : getMinMax(values.flat())
+        result.scalePropsValue = createContinuousScaleProps(
+            scaleSpecValue,
+            domain
+        ) as LinearScaleProps
+    }
+    return result as { scalePropsIndex: BandScaleProps; scalePropsValue: LinearScaleProps }
+}
+
 export const Bar = ({
     // layout
     position = [0, 0],
@@ -111,24 +146,10 @@ export const Bar = ({
     children,
 }: BarProps) => {
     const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
-    const scaleX = horizontal ? scaleValue : scaleIndex
-    const scaleY = horizontal ? scaleIndex : scaleValue
-    const scales = getScales({ ...dimsProps, scaleX, scaleY })
-    const indexScale = horizontal
-        ? (scales.scaleY as BandAxisScale)
-        : (scales.scaleX as BandAxisScale)
-    const valueScale = horizontal
-        ? (scales.scaleX as LinearAxisScale)
-        : (scales.scaleY as LinearAxisScale)
-
-    // assemble information about series
-    const seriesIndexes: Record<string, number> = {}
-    data.forEach((seriesData, seriesIndex) => {
-        seriesIndexes[seriesData.id] = seriesIndex
-    })
-
-    //console.log('Bar')
+    const seriesIndexes: Record<string, number> = useMemo(() => getIdIndexes(data), [data])
     //console.log('horizontal: ' + horizontal + ' stacked ' + stacked)
+
+    // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
         () =>
@@ -138,6 +159,23 @@ export const Bar = ({
         [data, keyAccessors]
     )
     //console.log('processed: ' + JSON.stringify(processedData))
+
+    const { scalePropsIndex, scalePropsValue } = getScaleProps(
+        processedData,
+        scaleIndex,
+        scaleValue,
+        stacked
+    )
+    const scaleX = horizontal ? scalePropsValue : scalePropsIndex
+    const scaleY = horizontal ? scalePropsIndex : scalePropsValue
+    const scales = createScales({ ...dimsProps, scaleX, scaleY })
+
+    const indexScale = horizontal
+        ? (scales.scaleY as BandAxisScale)
+        : (scales.scaleX as BandAxisScale)
+    const valueScale = horizontal
+        ? (scales.scaleX as LinearAxisScale)
+        : (scales.scaleY as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
     const bandwidth = indexScale.bandwidth()

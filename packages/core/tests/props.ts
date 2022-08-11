@@ -2,8 +2,7 @@
 
 export const scaleProps = {
     variant: 'linear' as const,
-    min: 0,
-    max: 100,
+    domain: [0, 100] as [number, number],
 }
 
 export const chartProps = {

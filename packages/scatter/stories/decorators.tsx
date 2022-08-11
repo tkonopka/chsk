@@ -12,13 +12,11 @@ export const ChartScatterDecorator = (Story: () => ReactNode) => (
             r={5}
             scaleX={{
                 variant: 'linear',
-                min: 0,
-                max: 8,
+                domain: [0, 'auto'],
             }}
             scaleY={{
                 variant: 'linear',
-                min: 0,
-                max: 64,
+                domain: [0, 'auto'],
             }}
         >
             <Axis variant={'bottom'} label={'x (a. u.)'} />

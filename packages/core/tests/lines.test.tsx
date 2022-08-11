@@ -43,7 +43,9 @@ describe('GridLines', () => {
     it('creates vertical grid lines', () => {
         render(
             <Chart {...chartProps}>
-                <GridLines variant="y" values={6} />
+                <View {...viewProps}>
+                    <GridLines variant="y" values={6} />
+                </View>
             </Chart>
         )
         const result = screen.getByRole('grid-y')
@@ -55,7 +57,7 @@ describe('GridLines', () => {
             <Chart {...chartProps}>
                 <View
                     {...viewProps}
-                    scaleX={{ variant: 'log' as const, min: 1, max: 100, nice: true }}
+                    scaleX={{ variant: 'log' as const, domain: [1, 100], nice: true }}
                 >
                     <GridLines variant="y" values={6} />
                 </View>
@@ -72,7 +74,7 @@ describe('GridLines', () => {
             <Chart {...chartProps}>
                 <View
                     {...viewProps}
-                    scaleX={{ variant: 'log' as const, min: 1, max: 100, nice: 2 }}
+                    scaleX={{ variant: 'log' as const, domain: [1, 100], nice: 2 }}
                 >
                     <GridLines variant="y" values={6} />
                 </View>

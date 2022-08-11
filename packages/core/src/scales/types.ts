@@ -31,22 +31,31 @@ export type ContinuousAxisScale = LinearAxisScale | LogAxisScale
 
 export type AxisScale = ContinuousAxisScale | BandAxisScale
 
+export type MinMaxSpec = [number, number]
+
 export type ContinuousScaleSpec = {
     /** type of scale */
     variant: 'linear' | 'log'
-    /** min domain value */
-    min: number
-    /** max domain value */
-    max: number
+    /** domain min and max */
+    domain?: [number | 'auto', number | 'auto'] | 'auto'
     /** clamp */
     clamp?: boolean
     /** nice */
     nice?: boolean | number
 }
+export type ContinuousScaleProps = ContinuousScaleSpec & {
+    /** domain min and max */
+    domain: MinMaxSpec
+}
 
 export type LinearScaleSpec = ContinuousScaleSpec & {
     /** type of scale */
     variant: 'linear'
+}
+
+export type LinearScaleProps = LinearScaleSpec & {
+    /** domain min and max */
+    domain: [number, number]
 }
 
 export type LogScaleSpec = ContinuousScaleSpec & {
@@ -58,7 +67,7 @@ export type BandScaleSpec = {
     /** type of scale */
     variant: 'band'
     /** all keys in the domain */
-    domain: string[]
+    domain?: string[] | 'auto'
     /** padding (multiple of scale step size); overridden by paddingOuter and paddingInner */
     padding?: number
     /** padding between edges of range and first/last bands (multiple of scale step size) */
@@ -69,14 +78,14 @@ export type BandScaleSpec = {
     extraPadding?: Record<string, number>
 }
 
+export type BandScaleProps = BandScaleSpec & {
+    /** all keys in the domain */
+    domain: string[]
+}
+
 export type ScaleSpec = ContinuousScaleSpec | BandScaleSpec
 
-export type ScaleProps = {
-    /** axis for scale */
-    axis?: undefined | 'x' | 'y'
-    /** size of output */
-    size: number
-}
+export type ScaleProps = ContinuousScaleProps | BandScaleProps
 
 export type ScalesContextProps = {
     /** scale for X axis*/

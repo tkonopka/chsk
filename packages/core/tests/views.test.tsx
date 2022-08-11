@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View, getAnchoredOrigin } from '../src'
+import { Chart, View, getAnchoredOrigin, getIdIndexes } from '../src'
 import { chartProps, viewProps } from './props'
 
 describe('getAnchoredOrigin', () => {
@@ -85,5 +85,17 @@ describe('View', () => {
         )
         const result = screen.getByRole('view')
         expect(result).toBeDefined()
+    })
+})
+
+describe('getIdsMap', () => {
+    it('get a map from string ids to integers', () => {
+        const testdata = [
+            { id: 'A', x: 0 },
+            { id: 'Z', x: 100 },
+        ]
+        const result = getIdIndexes(testdata)
+        expect(result['A']).toBe(0)
+        expect(result['Z']).toBe(1)
     })
 })

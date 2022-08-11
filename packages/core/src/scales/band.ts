@@ -1,6 +1,7 @@
 import { BandAxisScale, BandScaleSpec } from './types'
 
-// a scale function similar to D3's createBandScale
+// creates a scale function similar to D3's createBandScale
+// but this object will have more custom features, including extraPadding for specified bands
 export const createBandScale = ({
     domain,
     size,
@@ -8,7 +9,8 @@ export const createBandScale = ({
     paddingInner,
     paddingOuter,
     extraPadding = {},
-}: Omit<BandScaleSpec, 'variant'> & {
+}: Omit<BandScaleSpec, 'variant' | 'domain'> & {
+    domain: string[]
     size: number
 }): BandAxisScale => {
     const n = domain.length

@@ -6,15 +6,13 @@ import {
     RectangleProps,
     SizeSpec,
     ViewProps,
+    WithId,
 } from '@chask/core'
 import { ReactNode } from 'react'
 
-export type BarDataItem = Record<string, unknown> & {
-    id: string
-}
+export type BarDataItem = WithId & Record<string, unknown>
 
-export type BarProcessedDataItem = {
-    id: string
+export type BarProcessedDataItem = WithId & {
     index: number
     value: Array<number>
 }
@@ -26,8 +24,7 @@ export type BarProcessedDataContextProps = {
     seriesIndexes: Record<string, number>
 }
 
-export type BarPreparedDataItem = {
-    id: string
+export type BarPreparedDataItem = WithId & {
     index: number
     position: Array<PositionSpec>
     size: Array<SizeSpec>

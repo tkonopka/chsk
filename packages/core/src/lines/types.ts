@@ -5,6 +5,8 @@ export interface GridLinesProps extends SvgElementVariantProps {
     variant: 'x' | 'y'
     /** positions for grid lines */
     values?: number | number[] | string[]
+    /** shift gridlines compared to natural tick position (multiple of bandwidth) */
+    shift?: number[]
     /** expansion of lines at the start and end of the scale */
     expansion?: number | [number, number]
 }
