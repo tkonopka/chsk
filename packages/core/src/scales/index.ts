@@ -1,4 +1,5 @@
 export * from './contexts'
+export * from './coordinates'
 export * from './band'
 export * from './continuous'
 export * from './scales'

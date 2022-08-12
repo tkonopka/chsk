@@ -2,18 +2,21 @@ import { BoxedLabelProps } from './types'
 import {
     BOTTOM,
     composeClassName,
+    getAbsolutePosition,
     getAnchoredOrigin,
     LEFT,
     Rectangle,
     RIGHT,
+    SizeSpec,
     Text,
     TOP,
     useDimensions,
+    useScales,
 } from '@chask/core'
 
 export const BoxedLabel = ({
     position,
-    positionRelative = false,
+    units = 'absolute',
     size = [26, 100],
     translate = [0, 0],
     anchor = [0.5, 0.5],
@@ -29,24 +32,20 @@ export const BoxedLabel = ({
     children,
 }: BoxedLabelProps) => {
     const dimensions = useDimensions()
+    const scales = useScales()
     if (children === undefined || children === '') return null
 
     // compute effective x, y position for top-left corner or box
-    let [x, y] = getAnchoredOrigin({
-        position,
-        positionRelative,
-        size,
-        anchor,
-        parentSize: dimensions.innerSize,
-    })
+    const absPos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
+    let [x, y] = getAnchoredOrigin(absPos, size, anchor)
     // adjust to get the box center
     x += size[0] / 2 + translate[0]
     y += size[1] / 2 + translate[1]
 
-    // compute effective size
-    const effectiveSize = [
-        size[0] + expansion[LEFT] + expansion[RIGHT],
-        size[1] + expansion[TOP] + expansion[BOTTOM],
+    // adjust (enlarge/shrink) the effective size
+    const absSize: SizeSpec = [
+        (size[0] += expansion[LEFT] + expansion[RIGHT]),
+        (size[1] += expansion[TOP] + expansion[BOTTOM]),
     ]
 
     // location and rotation of center of label
@@ -84,8 +83,8 @@ export const BoxedLabel = ({
                 variant={'boxed-label'}
                 x={0}
                 y={0}
-                width={effectiveSize[0]}
-                height={effectiveSize[1]}
+                width={absSize[0]}
+                height={absSize[1]}
                 rx={rx}
                 ry={ry}
                 center={true}

@@ -8,7 +8,6 @@ import {
     getAccessor,
     LinearAxisScale,
     OriginalDataProvider,
-    PositionSpec,
     ScalesProvider,
     SizeSpec,
     useView,
@@ -20,6 +19,7 @@ import {
     createContinuousScaleProps,
     BandScaleProps,
     LinearScaleProps,
+    NumericPositionSpec,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
@@ -51,7 +51,7 @@ const prepareData = (
     const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
     const zero = valueScale(0)
 
-    const position: Array<PositionSpec> = []
+    const position: Array<NumericPositionSpec> = []
     const size: Array<SizeSpec> = []
     if (horizontal) {
         values.forEach(v => {
@@ -119,6 +119,8 @@ const getScaleProps = (
         const domain = stacked
             ? getMinMax(values.map(series => series.reduce((acc, v) => v + acc, 0)))
             : getMinMax(values.flat())
+        domain[0] = Math.min(0, domain[0])
+        domain[1] = Math.max(0, domain[1])
         result.scalePropsValue = createContinuousScaleProps(
             scaleSpecValue,
             domain
@@ -130,9 +132,9 @@ const getScaleProps = (
 export const Bar = ({
     // layout
     position = [0, 0],
-    positionRelative = false,
+    size = [1, 1],
+    units = 'relative',
     anchor = [0, 0],
-    size,
     padding = [0, 0, 0, 0],
     // content
     data,
@@ -145,9 +147,8 @@ export const Bar = ({
     //
     children,
 }: BarProps) => {
-    const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
+    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const seriesIndexes: Record<string, number> = useMemo(() => getIdIndexes(data), [data])
-    //console.log('horizontal: ' + horizontal + ' stacked ' + stacked)
 
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
@@ -158,7 +159,6 @@ export const Bar = ({
             ),
         [data, keyAccessors]
     )
-    //console.log('processed: ' + JSON.stringify(processedData))
 
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
         processedData,
@@ -193,7 +193,6 @@ export const Bar = ({
             ),
         [processedData, horizontal, stacked, indexScale, valueScale, barWidth, barGap]
     )
-    //console.log('prepared: ' + JSON.stringify(preparedData))
 
     return (
         <DimensionsProvider {...dimsProps}>

@@ -20,7 +20,7 @@ export const createContinuousScale = ({
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
 
-    const result: GenericAxisScale<number, number> = scale
+    const result = scale as unknown as GenericAxisScale<number, number>
     result.variant = variant
     result.bandwidth = () => 0
 

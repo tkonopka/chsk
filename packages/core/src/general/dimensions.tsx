@@ -4,20 +4,27 @@ import {
     DimensionsProviderBaseProps,
     SideSizeSpec,
     SizeSpec,
+    SizeUnit,
 } from './types'
 import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
 
-export const getDimensionsProps = ({
-    size,
-    dimensions,
-    padding,
-}: {
-    size?: SizeSpec
-    dimensions: DimensionsContextProps
+export const getAbsoluteSize = (
+    size: SizeSpec,
+    unit: SizeUnit,
+    referenceSize: SizeSpec
+): SizeSpec => {
+    if (unit === 'relative') return [size[0] * referenceSize[0], size[1] * referenceSize[1]]
+    return [size[0], size[1]]
+}
+
+export const getDimensionsProps = (
+    size: SizeSpec,
+    units: SizeUnit,
+    referenceSize: SizeSpec,
     padding: SideSizeSpec
-}): DimensionsProviderBaseProps => {
+): DimensionsProviderBaseProps => {
     return {
-        size: size ?? dimensions.innerSize,
+        size: getAbsoluteSize(size, units, referenceSize),
         padding,
     }
 }

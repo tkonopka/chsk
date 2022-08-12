@@ -5,6 +5,8 @@ import {
     SvgElementVariantProps,
     SideType,
     SideSizeSpec,
+    PositionSpec,
+    SizeSpec,
 } from '@chask/core'
 import { ReactNode } from 'react'
 
@@ -25,7 +27,9 @@ interface BoxedTextProps {
 
 export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedTextProps {
     /** position of center of label */
-    position: [number, number]
+    position: PositionSpec
+    /** size of box (in absolute units) */
+    size: SizeSpec
     /** additional translation */
     translate?: [number, number]
     /** anchor */
@@ -37,7 +41,7 @@ export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedT
 export interface BoxedTitleProps extends SvgElementVariantProps, BoxedTextProps {
     /** variant, side of the chart */
     variant: SideType
-    /** size of box orthogonal to axis */
+    /** absolute size of box in direction orthogonal to the axis */
     size?: number
     /** distance from axis */
     offset?: number

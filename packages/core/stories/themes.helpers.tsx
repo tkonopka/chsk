@@ -52,13 +52,11 @@ export const CharWithAxisGridProps = {
 export const CharWithAxisGridViewProps: Pick<ViewProps, 'scaleX' | 'scaleY' | 'data'> = {
     scaleX: {
         variant: 'linear',
-        min: 0,
-        max: 100,
+        domain: [0, 100],
     },
     scaleY: {
         variant: 'linear',
-        min: 0,
-        max: 100,
+        domain: [0, 100],
     },
     data: [],
 }

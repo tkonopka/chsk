@@ -6,16 +6,16 @@ import { useView } from './hooks'
 
 export const View = ({
     position = [0, 0],
-    positionRelative = false,
-    padding = [0, 0, 0, 0],
+    size = [1, 1],
+    units = 'relative',
     anchor = [0, 0],
-    size,
+    padding = [0, 0, 0, 0],
     data = [],
     scaleX,
     scaleY,
     children,
 }: ViewProps) => {
-    const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
+    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const scales = createScales({ ...dimsProps, scaleX, scaleY })
     return (
         <DimensionsProvider {...dimsProps}>

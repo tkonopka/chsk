@@ -18,13 +18,18 @@ export interface SvgElementVariantProps extends SvgElementProps {
     variant?: 'default' | string
 }
 
+/** unit that determines interpretation of position/size arrays */
+export type PositionUnit = 'absolute' | 'relative' | 'view'
+
 // position as an array [x, y]
-export type PositionSpec = [number, number]
+export type PositionSpec = [number | string, number | string]
+export type NumericPositionSpec = [number, number]
 
 // a position with an interval [x, y1, y0]
-export type PositionIntervalSpec = [number, number, number]
+export type NumericPositionIntervalSpec = [number, number, number]
 
 // size as an array [width, height]
+export type SizeUnit = 'absolute' | 'relative'
 export type SizeSpec = [number, number]
 
 // padding and extensions are arrays [top, right, bottom, left]

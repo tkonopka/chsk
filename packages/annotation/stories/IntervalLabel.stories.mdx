@@ -1,0 +1,150 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, BackgroundSurface, Triangle } from '@chask/core'
+import { IntervalLabel } from '../src'
+import { ChartBandViewAxisDecorator, ChartLinearViewAxisDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/IntervalLabel" />
+
+# IntervalLabel
+
+export const Template = args => <IntervalLabel {...args} />
+
+`IntervalLabel` displays a line segment and a text label.
+
+<ArgsTable of={IntervalLabel} />
+
+## Band labels
+
+`IntervalLabel` can be used on band scales to designate groups. Props `start` and `end` control the extent of the line segment.
+By default, line edges coincide with the centers of the designated bands, but they can be extended via a prop `extension`.
+
+<Canvas>
+    <Story
+        name="band centers"
+        args={{
+            start: ['A', 104],
+            end: ['D', 104],
+            rotate: 0,
+            textStyle: { textAnchor: 'middle' },
+            children: 'A - D',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="band edges"
+        args={{
+            start: ['A', 104],
+            end: ['D', 104],
+            expansion: [0.5, 0.5],
+            rotate: 0,
+            textStyle: { textAnchor: 'middle' },
+            children: 'A - D (extended)',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Text positioning
+
+By default, the text label is placed at the center of the interval. The label can be aligned along the line using prop `align` and displaced from the line using prop `translate`.
+
+<Canvas>
+    <Story
+        name="left aligned"
+        args={{
+            start: ['B', 104],
+            end: ['E', 104],
+            align: 0,
+            expansion: [0.5, 0.5],
+            textStyle: { textAnchor: 'start' },
+            children: 'left aligned',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="below line"
+        args={{
+            start: ['D', -16],
+            end: ['F', -16],
+            translate: [0, 18],
+            align: 0.5,
+            expansion: [0.5, 0.5],
+            textStyle: { textAnchor: 'middle' },
+            children: 'below line',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Text rotation
+
+Use prop `rotate` to adjust the orientation of the text, for example for vertical lines.
+
+<Canvas>
+    <Story
+        name="vertical line, horizontal label"
+        args={{
+            start: [104, 100],
+            end: [104, 60],
+            align: 0.5,
+            translate: [10, 0],
+            textStyle: { textAnchor: 'start' },
+            children: 'label',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartLinearViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="vertical label"
+        args={{
+            start: [104, 100],
+            end: [104, 60],
+            translate: [10, 0],
+            rotate: 90,
+            align: 0.5,
+            textStyle: { textAnchor: 'middle' },
+            children: 'rotated',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartLinearViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Both the line and the text can be styled using css.
+
+<Canvas>
+    <Story
+        name="styling"
+        args={{
+            start: ['D', 104],
+            end: ['F', 104],
+            align: 0.5,
+            translate: [0, -6],
+            textStyle: { textAnchor: 'middle', fontWeight: 600, fill: '#dd2222', fontSize: 11 },
+            lineStyle: { stroke: '#dd2222', strokeWidth: 2 },
+            children: '★★★',
+        }}
+        component={IntervalLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

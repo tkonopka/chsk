@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Path, PositionSpec } from '../src'
+import { Chart, Path, NumericPositionSpec } from '../src'
 import { chartProps } from './props'
 
-const threePoints: PositionSpec[] = [
+const threePoints: NumericPositionSpec[] = [
     [20, 100],
     [60, 20],
     [100, 80],

@@ -1,11 +1,11 @@
-import { Path, PositionSpec } from '@chask/core'
+import { NumericPositionSpec, Path } from '@chask/core'
 import { ScatterCurveProps, ScatterProcessedDataItem } from './types'
 import { usePreparedScatterData } from './contexts'
 
 export const getScatterCurvePoints = (data: ScatterProcessedDataItem) => {
     const x = data.x
     const y = data.y
-    const result: Array<PositionSpec> = x.map((v: number, i: number) => [v, y[i]])
+    const result: Array<NumericPositionSpec> = x.map((v: number, i: number) => [v, y[i]])
     return result
 }
 

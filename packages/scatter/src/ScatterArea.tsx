@@ -3,8 +3,7 @@ import {
     createAreaGenerator,
     CurveSpec,
     isContinuousAxisScale,
-    PositionIntervalSpec,
-    PositionSpec,
+    NumericPositionIntervalSpec,
     useScales,
 } from '@chask/core'
 import { ScatterAreaProps, ScatterDataContextProps } from './types'
@@ -27,11 +26,7 @@ const getScatterAreaD = ({
 }) => {
     const base = scaleY(baseline)
     const points = getScatterCurvePoints(preparedData.data[seriesIndex])
-    const pointIntervals: Array<PositionIntervalSpec> = points.map((d: PositionSpec) => [
-        d[0],
-        d[1],
-        base,
-    ])
+    const pointIntervals: Array<NumericPositionIntervalSpec> = points.map(d => [d[0], d[1], base])
     const generator = createAreaGenerator(curve)
     return generator(pointIntervals) ?? ''
 }

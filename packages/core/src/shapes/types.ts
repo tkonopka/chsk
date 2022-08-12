@@ -1,4 +1,4 @@
-import { PositionSpec, SvgElementVariantProps } from '../general'
+import { NumericPositionSpec, SvgElementVariantProps } from '../general'
 import { ReactNode } from 'react'
 
 export interface CircleProps extends SvgElementVariantProps {
@@ -29,7 +29,7 @@ export interface RectangleProps extends SvgElementVariantProps {
 
 export interface PolygonProps extends SvgElementVariantProps {
     /** points */
-    points: PositionSpec[]
+    points: NumericPositionSpec[]
 }
 
 export type SymbolProps = CircleProps

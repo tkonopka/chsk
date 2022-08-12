@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { SvgElementVariantProps } from '../general'
 
 export interface TextProps extends SvgElementVariantProps {
@@ -10,5 +11,5 @@ export interface TextProps extends SvgElementVariantProps {
     /** transform */
     transform?: string
     /** text content **/
-    children?: string
+    children?: ReactNode
 }

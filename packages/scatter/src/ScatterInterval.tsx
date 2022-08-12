@@ -6,7 +6,7 @@ import {
     DataContextProps,
     getAccessor,
     isContinuousAxisScale,
-    PositionIntervalSpec,
+    NumericPositionIntervalSpec,
     useOriginalData,
     useScales,
 } from '@chask/core'
@@ -37,7 +37,7 @@ const getScatterIntervalD = ({
     const lowerValues = originalSeriesData.map(item => scaleY(getLower(item)))
     const upperValues = originalSeriesData.map(item => scaleY(getUpper(item)))
     const x = preparedData.data[seriesIndex].x
-    const pointIntervals: Array<PositionIntervalSpec> = x.map((v: number, i: number) => [
+    const pointIntervals: Array<NumericPositionIntervalSpec> = x.map((v: number, i: number) => [
         v,
         lowerValues[i],
         upperValues[i],

@@ -18,7 +18,7 @@ import {
     curveStepBefore,
 } from 'd3-shape'
 import { AreaFunction, CurveFunction, CurveSpec } from './types'
-import { PositionIntervalSpec, PositionSpec } from '../general'
+import { NumericPositionIntervalSpec, NumericPositionSpec } from '../general'
 
 const pointCurves = {
     Linear: curveLinear,
@@ -45,14 +45,16 @@ const allCurves = merge(closedCurves, openCurves, pointCurves)
 // creates a line generator that accepts data points in format [x, y]
 export const createLineGenerator = (curve: CurveSpec): CurveFunction => {
     return line()
-        .defined((d: PositionSpec) => d[0] !== null && d[1] !== null)
+        .defined((d: NumericPositionSpec) => d[0] !== null && d[1] !== null)
         .curve(allCurves[curve] ?? curveLinear)
 }
 
 // creates an area generator that accepts data in format [x, y, y0]
 export const createAreaGenerator = (curve: CurveSpec): AreaFunction => {
-    return area<PositionIntervalSpec>()
-        .defined((d: PositionIntervalSpec) => d[0] !== null && d[1] !== null && d[2] !== null)
-        .y0((d: PositionIntervalSpec) => d[2])
+    return area<NumericPositionIntervalSpec>()
+        .defined(
+            (d: NumericPositionIntervalSpec) => d[0] !== null && d[1] !== null && d[2] !== null
+        )
+        .y0((d: NumericPositionIntervalSpec) => d[2])
         .curve(allCurves[curve] ?? curveLinear)
 }

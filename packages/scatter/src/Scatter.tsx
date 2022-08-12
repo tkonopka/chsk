@@ -71,9 +71,9 @@ const getScaleProps = (
 export const Scatter = ({
     // layout
     position = [0, 0],
-    positionRelative = false,
+    size = [1, 1],
+    units = 'relative',
     anchor = [0, 0],
-    size,
     padding = [0, 0, 0, 0],
     // content
     data,
@@ -85,7 +85,7 @@ export const Scatter = ({
     //
     children,
 }: ScatterProps) => {
-    const { dimsProps, translate } = useView({ position, positionRelative, size, padding, anchor })
+    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const seriesIndexes = useMemo(() => getIdIndexes(data), [data])
 
     // process dataset

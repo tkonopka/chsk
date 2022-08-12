@@ -8,7 +8,7 @@ export interface GenericAxisScale<Domain, Range> {
     /** scale domain */
     domain: () => Domain[]
     /** bandwidth - only provides useful information for band scales */
-    bandwidth?: () => number
+    bandwidth: () => number
     /** ticks */
     ticks: (v?: number) => Domain[]
 }

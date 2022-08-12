@@ -2,7 +2,7 @@ import {
     BandScaleSpec,
     CssProps,
     LinearScaleSpec,
-    PositionSpec,
+    NumericPositionSpec,
     RectangleProps,
     SizeSpec,
     ViewProps,
@@ -26,7 +26,7 @@ export type BarProcessedDataContextProps = {
 
 export type BarPreparedDataItem = WithId & {
     index: number
-    position: Array<PositionSpec>
+    position: Array<NumericPositionSpec>
     size: Array<SizeSpec>
 }
 
