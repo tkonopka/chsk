@@ -44,21 +44,7 @@ It is also possible to use them together.
 
 <Canvas>
     <Story name="multiple surfaces">
-        <Chart
-            size={[400, 300]}
-            padding={[40, 40, 40, 40]}
-            data={[]}
-            scaleX={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-            scaleY={{
-                variant: 'linear',
-                min: 0,
-                max: 100,
-            }}
-        >
+        <Chart size={[400, 300]} padding={[40, 40, 40, 40]}>
             <BackgroundSurface variant={'outer'} style={{ fill: '#eeeeee' }} />
             <BackgroundSurface variant={'inner'} style={{ fill: '#cccccc' }} />
         </Chart>

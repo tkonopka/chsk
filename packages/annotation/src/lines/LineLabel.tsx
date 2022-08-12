@@ -1,7 +1,7 @@
-import { IntervalLabelProps } from './types'
+import { LineLabelProps } from './types'
 import { getAbsolutePosition, Line, useDimensions, useScales, Text } from '@chask/core'
 
-export const IntervalLabel = ({
+export const LineLabel = ({
     start,
     end,
     units = 'view',
@@ -9,13 +9,15 @@ export const IntervalLabel = ({
     align = 0.5,
     rotate = 0,
     expansion = [0, 0],
+    markerStart,
+    markerEnd,
     className,
     style,
     lineStyle,
     textStyle,
     setRole = true,
     children,
-}: IntervalLabelProps) => {
+}: LineLabelProps) => {
     const dimensions = useDimensions()
     const scales = useScales()
 
@@ -35,7 +37,6 @@ export const IntervalLabel = ({
     const translation = 'translate(' + textPos[0] + ',' + textPos[1] + ')'
     const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
-    // <g transform={translation + rotation}>
     return (
         <g style={style} className={className} role={setRole ? 'interval-label' : undefined}>
             <Line
@@ -44,6 +45,8 @@ export const IntervalLabel = ({
                 y1={absStart[1]}
                 x2={absEnd[0]}
                 y2={absEnd[1]}
+                markerStart={markerStart}
+                markerEnd={markerEnd}
                 className={className}
                 style={lineStyle}
                 setRole={setRole}

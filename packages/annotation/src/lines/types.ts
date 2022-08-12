@@ -1,7 +1,16 @@
-import { SvgElementProps, PositionSpec, PositionUnit, SizeSpec, CssProps } from '@chask/core'
+import {
+    SvgElementProps,
+    PositionSpec,
+    PositionUnit,
+    SizeSpec,
+    CssProps,
+    LineProps,
+} from '@chask/core'
 import { ReactNode } from 'react'
 
-export interface IntervalLabelProps extends SvgElementProps {
+export interface LineLabelProps
+    extends SvgElementProps,
+        Pick<LineProps, 'markerStart' | 'markerEnd'> {
     /** start position */
     start: PositionSpec
     /** end position */

@@ -7,6 +7,8 @@ export const Line = ({
     x2,
     y2,
     variant = 'default',
+    markerStart,
+    markerEnd,
     className,
     setRole = true,
     style,
@@ -22,6 +24,8 @@ export const Line = ({
             y2={y2}
             style={style}
             className={compositeClassName}
+            markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
+            markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
         />
     )
 }

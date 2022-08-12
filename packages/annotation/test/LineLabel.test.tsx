@@ -1,16 +1,16 @@
-import { IntervalLabel } from '../src/intervals'
+import { LineLabel } from '../src/lines'
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chask/core'
 import { chartProps, viewProps } from './props'
 
-describe('IntervalLabel', () => {
+describe('LineLabel', () => {
     it('creates a line with absolute coordinates', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <IntervalLabel start={[0, 0]} end={[60, 0]} units={'absolute'}>
+                    <LineLabel start={[0, 0]} end={[60, 0]} units={'absolute'}>
                         Label
-                    </IntervalLabel>
+                    </LineLabel>
                 </View>
             </Chart>
         )
@@ -26,9 +26,9 @@ describe('IntervalLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <IntervalLabel start={[0, 0]} end={[0.5, 0]} units={'relative'}>
+                    <LineLabel start={[0, 0]} end={[0.5, 0]} units={'relative'}>
                         Label
-                    </IntervalLabel>
+                    </LineLabel>
                 </View>
             </Chart>
         )
@@ -41,9 +41,9 @@ describe('IntervalLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <IntervalLabel start={[0, 0]} end={[80, 0]} units={'relative'}>
+                    <LineLabel start={[0, 0]} end={[80, 0]} units={'relative'}>
                         Label
-                    </IntervalLabel>
+                    </LineLabel>
                 </View>
             </Chart>
         )
@@ -56,9 +56,9 @@ describe('IntervalLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <IntervalLabel start={[0, 0]} end={[1, 0]} rotate={45}>
+                    <LineLabel start={[0, 0]} end={[1, 0]} rotate={45}>
                         Label
-                    </IntervalLabel>
+                    </LineLabel>
                 </View>
             </Chart>
         )
@@ -70,9 +70,9 @@ describe('IntervalLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <IntervalLabel start={[0, 0]} end={[1, 0]} setRole={false}>
+                    <LineLabel start={[0, 0]} end={[1, 0]} setRole={false}>
                         Label
-                    </IntervalLabel>
+                    </LineLabel>
                 </View>
             </Chart>
         )

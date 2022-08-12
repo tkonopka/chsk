@@ -1,3 +1,2 @@
-export * from './arrows'
 export * from './boxes'
-export * from './intervals'
+export * from './lines'

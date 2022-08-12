@@ -5,7 +5,6 @@ import cleanup from 'rollup-plugin-cleanup'
 import { terser } from 'rollup-plugin-terser'
 
 const pkg = process.env.PACKAGE
-const isWatching = process.env.ROLLUP_WATCH === 'TRUE'
 
 // The config assumes rollup -c is invoked from a package/${pkg} directory
 // The build commands assume they are executed from the root directory
@@ -35,7 +34,7 @@ const commonPlugins = [
         modulesOnly: true,
     }),
     babel(babelConfig),
-    !isWatching && terser(),
+    terser(),
     cleanup(),
 ]
 
@@ -59,10 +58,7 @@ const configs = [
             }
         },
     },
-]
-
-if (!isWatching) {
-    configs.push({
+    {
         input,
         external: ['react', 'react/jsx-runtime'],
         output: {
@@ -77,8 +73,8 @@ if (!isWatching) {
                 return
             }
         },
-    })
-    configs.push({
+    },
+    {
         input,
         external: ['react', 'react-dom', 'prop-types', 'react/jsx-runtime'],
         output: {
@@ -100,7 +96,7 @@ if (!isWatching) {
                 return
             }
         },
-    })
-}
+    },
+]
 
 export default configs

@@ -26,6 +26,10 @@ export interface LineProps extends SvgElementVariantProps {
     y2: number
     /** variant */
     variant?: 'default' | 'axis' | 'tick' | 'grid' | string
+    /** identifier for start marker */
+    markerStart?: string
+    /** identifier for end marker */
+    markerEnd?: string
 }
 
 // curves that pass through all the specified points
