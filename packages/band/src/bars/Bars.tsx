@@ -22,6 +22,7 @@ export const Bars = ({ bar = Rectangle, rx, ry, className, style }: BarsProps) =
                 ry: ry,
                 className: className,
                 style: style,
+                variant: 'bar',
                 setRole: false,
             })
             bars.push(result)

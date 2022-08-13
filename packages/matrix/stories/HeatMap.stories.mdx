@@ -1,0 +1,49 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart } from '@chask/core'
+import { HeatMap, HeatMapCells } from '../src'
+import { ChartDecorator, commonProps } from './decorators'
+
+# HeatMap
+
+<Meta title="Charts/Matrix/HeatMap" />
+
+export const Template = args => <HeatMap {...args} />
+
+`HeatMap` sets up a view for a heat map.
+
+<ArgsTable of={HeatMap} />
+
+`HeatMap` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `HeatMapCells`.
+
+The examples in this page showcase `HeatMap` by automatically using `HeatMapCells` as a child component. Note that to create a complete chart, additional components would normally be employed, for example adding axes and labels.
+
+## Scales
+
+By default, the rows and columns in the heatmap are placed directly adjacent to each other, i.e. without any padding. They can be spaced by adjusting the scales for the x and y axes.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            ...commonProps,
+            children: <HeatMapCells />,
+        }}
+        component={HeatMap}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="with padding"
+        args={{
+            ...commonProps,
+            scaleX: { variant: 'band', padding: 0.15 },
+            scaleY: { variant: 'band', padding: 0.15 },
+            children: <HeatMapCells />,
+        }}
+        component={HeatMap}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

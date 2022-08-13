@@ -1,0 +1,38 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, Triangle } from '@chask/core'
+import { HeatMap, HeatMapCells } from '../src'
+import { ChartHeatMapDecorator } from './decorators'
+
+# HeatMapCells
+
+<Meta title="Charts/Matrix/HeatMapCells" />
+export const Template = args => <HeatMapCells {...args} />
+
+`HeatMapCells` draws a set of rectangles to produce a heat map matrix.
+
+<ArgsTable of={HeatMapCells} />
+
+Note that `HeatMapCells` is intended to be used within a `HeatMap` component.
+
+## Rounded corners
+
+It is possible to draw the rectangles with rounded corners through props `rx` and `ry`.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{ style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="rounded corners"
+        args={{ rx: 8, ry: 8, style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

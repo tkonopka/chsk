@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { Scatter, ScatterSeries } from '../src/scatter'
-import { chartProps, scatterProps } from './props'
+import { scatterProps } from './props'
 
 describe('ScatterSeries', () => {
     it('creates paths for area and curve', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps}>
                     <ScatterSeries series={'quadratic'} layers={['curve', 'area']} />
                 </Scatter>
@@ -20,7 +20,7 @@ describe('ScatterSeries', () => {
 
     it('creates paths for points', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps}>
                     <ScatterSeries series={'quadratic'} layers={['points']} />
                 </Scatter>
@@ -32,7 +32,7 @@ describe('ScatterSeries', () => {
 
     it('skips work when a series id does not exist', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps}>
                     <ScatterSeries series={'non-existent'} layers={['curve']} />
                 </Scatter>

@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { Scatter, ScatterInterval } from '../src/scatter'
-import { chartProps, scatterProps } from './props'
+import { scatterProps } from './props'
 import { generateScatterSeriesWithInterval } from '../stories/generators'
 
 export const dataWithInterval = [
@@ -18,7 +18,7 @@ export const dataWithInterval = [
 describe('ScatterInterval', () => {
     it('creates a path', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps} data={dataWithInterval}>
                     <ScatterInterval series={'A'} lower={'lo'} upper={'hi'} />
                 </Scatter>
@@ -30,7 +30,7 @@ describe('ScatterInterval', () => {
 
     it('skips work when a series id does not exist', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps} data={dataWithInterval}>
                     <ScatterInterval series={'non-existent'} lower={'lo'} upper={'hi'} />
                 </Scatter>

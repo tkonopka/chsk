@@ -1,14 +1,66 @@
 import {
     createBandScale,
     createContinuousScale,
+    createScale,
     getTickCoordinates,
     getMinMax,
     getAbsolutePosition,
+    isBandAxisScale,
+    isContinuousAxisScale,
+    isLinearAxisScale,
+    isLogAxisScale,
+    isScaleWithDomain,
     ScalesContextProps,
 } from '../src/scales'
 
+describe('createScale', () => {
+    it('creates a band scale', () => {
+        const result = createScale({
+            size: 100,
+            axis: 'x',
+            scaleProps: {
+                variant: 'band',
+                domain: ['a', 'b'],
+                padding: 0,
+            },
+        })
+        expect(isBandAxisScale(result)).toBeTruthy()
+        expect(isContinuousAxisScale(result)).toBeFalsy()
+    })
+
+    it('creates a linear scale', () => {
+        const result = createScale({
+            axis: 'x',
+            size: 100,
+            scaleProps: {
+                variant: 'linear',
+                domain: [0, 10],
+            },
+        })
+        expect(isBandAxisScale(result)).toBeFalsy()
+        expect(isContinuousAxisScale(result)).toBeTruthy()
+        expect(isLinearAxisScale(result)).toBeTruthy()
+        expect(isLogAxisScale(result)).toBeFalsy()
+    })
+
+    it('creates a log scale', () => {
+        const result = createScale({
+            axis: 'x',
+            size: 100,
+            scaleProps: {
+                variant: 'log',
+                domain: [1, 10],
+            },
+        })
+        expect(isBandAxisScale(result)).toBeFalsy()
+        expect(isContinuousAxisScale(result)).toBeTruthy()
+        expect(isLinearAxisScale(result)).toBeFalsy()
+        expect(isLogAxisScale(result)).toBeTruthy()
+    })
+})
+
 describe('createBandScale', () => {
-    it('creates band scale without padding', () => {
+    it('creates a scale without padding', () => {
         const result = createBandScale({
             domain: ['a', 'b'],
             size: 100,
@@ -20,7 +72,7 @@ describe('createBandScale', () => {
         expect(result('b')).toEqual(75)
     })
 
-    it('creates band scale with outer padding', () => {
+    it('creates a scale with outer padding', () => {
         const result = createBandScale({
             domain: ['a', 'b'],
             size: 100,
@@ -36,7 +88,7 @@ describe('createBandScale', () => {
         expect(result('b')).toEqual(50 + 12.5)
     })
 
-    it('creates band scale with inner padding', () => {
+    it('creates a scale with inner padding', () => {
         const result = createBandScale({
             domain: ['a', 'b'],
             size: 100,
@@ -50,7 +102,7 @@ describe('createBandScale', () => {
         expect(Math.round(result('b'))).toEqual(Math.round((100 * 5) / 6))
     })
 
-    it('creates band scale with extra padding', () => {
+    it('creates a scale with extra padding', () => {
         const result = createBandScale({
             domain: ['a', 'b', 'c', 'd'],
             size: 100,
@@ -165,6 +217,45 @@ describe('createContinuousScale', () => {
         const result = getTickCoordinates(scale, 6)
         const expected = [0, 40, 80, 120, 160, 200]
         expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+})
+
+describe('isScaleWithDomain', () => {
+    it('checks band scale with domain', () => {
+        const result = isScaleWithDomain({ variant: 'band', domain: ['a', 'b'] })
+        expect(result).toBeTruthy()
+    })
+
+    it('checks band scale with auto domain', () => {
+        const result = isScaleWithDomain({ variant: 'band', domain: 'auto' })
+        expect(result).toBeFalsy()
+    })
+
+    it('checks band scale without domain', () => {
+        const result = isScaleWithDomain({ variant: 'band' })
+        expect(result).toBeFalsy()
+    })
+
+    it('checks linear scale with domain', () => {
+        const result = isScaleWithDomain({ variant: 'linear', domain: [0, 20] })
+        expect(result).toBeTruthy()
+    })
+
+    it('checks linear scale with auto domain', () => {
+        const result = isScaleWithDomain({ variant: 'linear', domain: 'auto' })
+        expect(result).toBeFalsy()
+    })
+
+    it('checks linear scale with part-auto domain', () => {
+        const resultA = isScaleWithDomain({ variant: 'linear', domain: [0, 'auto'] })
+        expect(resultA).toBeFalsy()
+        const resultB = isScaleWithDomain({ variant: 'linear', domain: ['auto', 0] })
+        expect(resultB).toBeFalsy()
+    })
+
+    it('checks linear scale without domain', () => {
+        const result = isScaleWithDomain({ variant: 'linear' })
+        expect(result).toBeFalsy()
     })
 })
 

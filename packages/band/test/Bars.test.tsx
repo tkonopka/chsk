@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { Bar, Bars } from '../src'
-import { chartProps, barProps } from './props'
+import { barProps } from './props'
 
 describe('Bars', () => {
     it('defines grouped bars (vertical)', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar {...barProps} stacked={false}>
                     <Bars />
                 </Bar>
@@ -19,7 +19,7 @@ describe('Bars', () => {
 
     it('defines stacked bars (vertical)', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar {...barProps} stacked={true}>
                     <Bars />
                 </Bar>
@@ -32,7 +32,7 @@ describe('Bars', () => {
 
     it('defines grouped bars (horizontal)', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar {...barProps} stacked={false} horizontal={true}>
                     <Bars />
                 </Bar>

@@ -1,0 +1,33 @@
+{
+    "name": "@chask/matrix",
+    "version": "0.1.0",
+    "author": "Tomasz Konopka",
+    "description": "Components for bar plots and box plots",
+    "main": "./dist/chask-matrix.cjs.js",
+    "module": "./dist/chask-matrix.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tkonopka/chask.git",
+        "directory": "packages/matrix"
+    },
+    "scripts": {
+        "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
+        "test": "jest",
+        "test-coverage": "jest --coverage",
+        "build": "PACKAGE=matrix rollup -c ../../rollup.config.js && tsc"
+    },
+    "dependencies": {
+        "@chask/core": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">= 17.0.2 < 19.0.0",
+        "react-dom": ">= 17.0.2 < 19.0.0"
+    },
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/"
+    ]
+}

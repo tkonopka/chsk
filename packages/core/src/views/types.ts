@@ -33,7 +33,7 @@ export interface ViewProps extends ContainerProps {
     /** data array **/
     data?: Array<Record<string, unknown>>
     /** scale for horizontal axis */
-    scaleX: ScaleProps
+    scaleX?: ScaleProps
     /** scale for vertical axis */
-    scaleY: ScaleProps
+    scaleY?: ScaleProps
 }

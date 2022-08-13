@@ -1,11 +1,6 @@
 import dataGroups from '../stories/dataGroups.json'
 import { BarProps } from '../src'
 
-export const chartProps = {
-    size: [400, 300] as [number, number],
-    padding: [40, 40, 40, 40] as [number, number, number, number],
-}
-
 export const barProps: BarProps = {
     data: dataGroups,
     keys: ['x', 'y', 'z'],

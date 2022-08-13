@@ -73,7 +73,17 @@ describe('getAnchoredOrigin', () => {
 })
 
 describe('View', () => {
-    it('creates view', () => {
+    it('creates view with default props', () => {
+        render(
+            <Chart {...chartProps}>
+                <View />
+            </Chart>
+        )
+        const result = screen.getByRole('view')
+        expect(result).toBeDefined()
+    })
+
+    it('creates view with complete props', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}></View>

@@ -21,7 +21,6 @@ export const isScaleWithDomain = (
     const domain = scaleSpec.domain
     if (domain === undefined || typeof domain === 'string') return false
     if (scaleSpec.variant === 'band') return true
-    if (domain.length !== 2) return false
     return domain.map(v => Number(typeof v === 'number')).reduce((acc, v) => acc + v, 0) === 2
 }
 

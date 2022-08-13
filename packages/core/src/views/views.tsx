@@ -1,5 +1,10 @@
 import { DimensionsProvider } from '../general'
-import { createScales, ScalesProvider } from '../scales'
+import {
+    createContinuousScaleProps,
+    createScales,
+    defaultLinearScaleSpec,
+    ScalesProvider,
+} from '../scales'
 import { ViewProps } from './types'
 import { OriginalDataProvider } from './contexts'
 import { useView } from './hooks'
@@ -11,8 +16,8 @@ export const View = ({
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     data = [],
-    scaleX,
-    scaleY,
+    scaleX = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
+    scaleY = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     children,
 }: ViewProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })

@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { Scatter, ScatterPoints } from '../src/scatter'
-import { chartProps, scatterProps } from './props'
+import { scatterProps } from './props'
 
 describe('ScatterPoints', () => {
     it('creates a series of circles', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps}>
                     <ScatterPoints series={'linear'} />
                 </Scatter>
@@ -18,7 +18,7 @@ describe('ScatterPoints', () => {
 
     it('skips work when a series id does not exist', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Scatter {...scatterProps}>
                     <ScatterPoints series={'non-existent'} />
                 </Scatter>

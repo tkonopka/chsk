@@ -13,7 +13,7 @@ import {
     useBarPreparedData,
     useBarProcessedData,
 } from '../src'
-import { chartProps, barProps } from './props'
+import { barProps } from './props'
 
 const dummyBandScale = createBandScale({ domain: ['a'], size: 100 })
 const dummyLinearScale = createContinuousScale({
@@ -25,39 +25,39 @@ const dummyLinearScale = createContinuousScale({
 
 describe('Bar', () => {
     it('defines processed data', () => {
-        let data: BarProcessedDataContextProps = { data: [], seriesIndexes: {} }
+        let processed: BarProcessedDataContextProps = { data: [], seriesIndexes: {} }
         const GetProcessedData = () => {
-            data = useBarProcessedData()
+            processed = useBarProcessedData()
             return null
         }
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar {...barProps}>
                     <GetProcessedData />
                 </Bar>
             </Chart>
         )
         // the dataset has two indexes
-        expect(Object.keys(data.seriesIndexes)).toHaveLength(2)
-        expect(data.data).toHaveLength(2)
+        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
+        expect(processed.data).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
-        let data: BarPreparedDataContextProps = { data: [], seriesIndexes: {} }
+        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {} }
         const GetPreparedData = () => {
-            data = useBarPreparedData()
+            prepared = useBarPreparedData()
             return null
         }
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar {...barProps}>
                     <GetPreparedData />
                 </Bar>
             </Chart>
         )
         // the dataset has two indexes
-        expect(Object.keys(data.seriesIndexes)).toHaveLength(2)
-        expect(data.data).toHaveLength(2)
+        expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
+        expect(prepared.data).toHaveLength(2)
     })
 
     it('auto-detects scales (vertical)', () => {
@@ -71,7 +71,7 @@ describe('Bar', () => {
             return null
         }
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar
                     {...barProps}
                     stacked={true}
@@ -99,7 +99,7 @@ describe('Bar', () => {
             return null
         }
         render(
-            <Chart {...chartProps}>
+            <Chart>
                 <Bar
                     {...barProps}
                     stacked={true}
