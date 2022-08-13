@@ -1,39 +1,15 @@
-import { BackgroundSurfaceProps, SurfaceProps } from './types'
+import { SurfaceProps } from './types'
 import { useDimensions } from './dimensions'
 import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
 import { composeClassName } from '../themes'
 
-/** TO DO - consider removing this in favor of Rectangle */
 export const Surface = ({
-    variant,
-    x,
-    y,
-    size,
-    className,
-    style,
-    setRole = true,
-}: SurfaceProps) => {
-    const compositeClassName = composeClassName([variant, className])
-    return (
-        <rect
-            role={setRole ? variant : undefined}
-            x={x}
-            y={y}
-            width={size[WIDTH]}
-            height={size[HEIGHT]}
-            className={compositeClassName}
-            style={style}
-        />
-    )
-}
-
-export const BackgroundSurface = ({
     variant = 'inner',
     expansion = [0, 0, 0, 0],
     className,
     style,
     setRole = true,
-}: BackgroundSurfaceProps) => {
+}: SurfaceProps) => {
     const dimensions = useDimensions()
     const isOuter = variant === 'outer'
     const x = isOuter ? -dimensions.padding[LEFT] : 0
@@ -44,15 +20,16 @@ export const BackgroundSurface = ({
         width + expansion[LEFT] + expansion[RIGHT],
         height + expansion[TOP] + expansion[BOTTOM],
     ]
+    const compositeClassName = composeClassName([variant, className])
     return (
-        <Surface
-            variant={variant}
+        <rect
+            role={setRole ? 'surface-' + variant : undefined}
             x={x - expansion[LEFT]}
             y={y - expansion[TOP]}
-            size={surfaceSize}
-            className={className}
+            width={surfaceSize[WIDTH]}
+            height={surfaceSize[HEIGHT]}
+            className={compositeClassName}
             style={style}
-            setRole={setRole}
         />
     )
 }

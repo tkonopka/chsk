@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis, BackgroundSurface, GridLines } from '@chask/core'
+import { Chart, Axis, Surface, GridLines } from '@chask/core'
 import { Bar } from '../src/'
 import dataGroups from './dataGroups.json'
 import { BarProps } from '../src'
@@ -20,7 +20,7 @@ export const commonBarProps: Pick<BarProps, 'data' | 'keys' | 'scaleIndex' | 'sc
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <BackgroundSurface variant={'inner'} />
+        <Surface variant={'inner'} />
         {Story()}
     </Chart>
 )

@@ -1,21 +1,21 @@
 {
-    "name": "@chask/scatter",
+    "name": "@chask/continuous",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
-    "description": "Components for scatter plots",
-    "main": "./dist/chask-scatter.cjs.js",
-    "module": "./dist/chask-scatter.es.js",
+    "description": "Components for charts with continuous scales",
+    "main": "./dist/chask-continuous.cjs.js",
+    "module": "./dist/chask-continuous.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chask.git",
-        "directory": "packages/scatter"
+        "directory": "packages/continuous"
     },
     "scripts": {
         "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
         "test": "jest",
         "test-coverage": "jest --coverage",
-        "build": "PACKAGE=scatter rollup -c ../../rollup.config.js && tsc"
+        "build": "PACKAGE=continuous rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
         "@chask/core": "^0.1.0"

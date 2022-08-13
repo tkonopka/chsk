@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, ScatterInterval } from '../src'
+import { Scatter, ScatterInterval } from '../src/scatter'
 import { chartProps, scatterProps } from './props'
 import { generateScatterSeriesWithInterval } from '../stories/generators'
 

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, ScatterCurve } from '../src'
+import { Scatter, ScatterCurve } from '../src/scatter'
 import { chartProps, scatterProps } from './props'
 
 describe('ScatterCurve', () => {

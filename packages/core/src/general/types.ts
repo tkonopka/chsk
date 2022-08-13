@@ -50,17 +50,6 @@ export type DimensionsContextProps = DimensionsProviderBaseProps & {
 export interface SurfaceProps extends SvgElementVariantProps {
     /** variant */
     variant?: 'inner' | 'outer'
-    /** x coordinate of top-left surface corner */
-    x: number
-    /** y coordinate of top-left surface corner */
-    y: number
-    /** width and height */
-    size: SizeSpec
-}
-
-export interface BackgroundSurfaceProps extends SvgElementVariantProps {
-    /** variant */
-    variant?: 'inner' | 'outer'
     /** expansion of background surface */
     expansion?: SideSizeSpec
 }

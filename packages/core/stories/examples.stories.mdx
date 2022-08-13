@@ -1,15 +1,5 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
-import {
-    Chart,
-    BackgroundSurface,
-    Axis,
-    AxisLabel,
-    AxisLine,
-    AxisTicks,
-    GridLines,
-    Text,
-    View,
-} from '../src'
+import { Chart, Surface, Axis, AxisLabel, AxisLine, AxisTicks, GridLines, Text, View } from '../src'
 import { CharWithAxisGridProps as commonProps } from './themes.helpers'
 import { CharWithAxisGridViewProps as commonViewProps } from './themes.helpers'
 
@@ -55,7 +45,7 @@ Core components can be combined to produce distinctive chart skeletons.
     <Story name="inverse grid">
         <Chart {...commonProps}>
             <View {...commonViewProps}>
-                <BackgroundSurface variant={'inner'} style={{ fill: '#f0f0f0' }} />
+                <Surface variant={'inner'} style={{ fill: '#f0f0f0' }} />
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
@@ -72,7 +62,7 @@ Core components can be combined to produce distinctive chart skeletons.
     <Story name="boxed">
         <Chart {...commonProps}>
             <View {...commonViewProps}>
-                <BackgroundSurface
+                <Surface
                     variant={'inner'}
                     style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
                     expansion={[10, 10, 10, 10]}
@@ -115,7 +105,7 @@ Core components can be combined to produce distinctive chart skeletons.
     <Story name="boxed with grid">
         <Chart {...commonProps}>
             <View {...commonViewProps}>
-                <BackgroundSurface
+                <Surface
                     variant={'inner'}
                     style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
                     expansion={[10, 10, 10, 10]}
@@ -172,7 +162,7 @@ Core components can be combined to produce distinctive chart skeletons.
             }}
         >
             <View {...commonViewProps}>
-                <BackgroundSurface variant={'outer'} style={{ fill: '#f4f4f4' }} />
+                <Surface variant={'outer'} style={{ fill: '#f4f4f4' }} />
                 <GridLines variant={'y'} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
                 <Axis variant={'bottom'} ticks={null}>
                     <AxisTicks variant={'bottom'} ticks={5} size={5} padding={10} />

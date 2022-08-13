@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, BackgroundSurface, View, Axis } from '../src'
+import { Chart, Surface, View, Axis } from '../src'
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart
@@ -7,7 +7,7 @@ export const ChartDecorator = (Story: () => ReactNode) => (
         padding={[40, 40, 40, 40]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
-        <BackgroundSurface variant={'inner'} />
+        <Surface variant={'inner'} />
         {Story()}
     </Chart>
 )
@@ -29,7 +29,7 @@ export const ChartViewDecorator = (Story: () => ReactNode) => (
             }}
             data={[]}
         >
-            <BackgroundSurface variant={'inner'} />
+            <Surface variant={'inner'} />
             {Story()}
         </View>
     </Chart>
@@ -52,7 +52,7 @@ export const ChartAxisDecorator = (Story: () => ReactNode) => (
             }}
             data={[]}
         >
-            <BackgroundSurface variant={'inner'} />
+            <Surface variant={'inner'} />
             <Axis variant={'bottom'} ticks={null}>
                 {Story()}
             </Axis>
@@ -83,7 +83,7 @@ export const ChartBandViewDecorator = (Story: () => ReactNode) => (
             }}
             data={[]}
         >
-            <BackgroundSurface variant={'inner'} />
+            <Surface variant={'inner'} />
             {Story()}
             <Axis variant={'left'} />
         </View>

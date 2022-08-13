@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Surface } from '../src'
+import { Chart, Surface } from '../src'
 import { ChartDecorator } from './decorators'
 
 # Surface
@@ -7,23 +7,20 @@ import { ChartDecorator } from './decorators'
 <Meta title="Core/Components/Surface" />
 export const Template = args => <Surface {...args} />
 
-`Surface` displays a rectangle.
+`Surface` provides a rectangle intended as a background.
 
 <ArgsTable of={Surface} />
 
-## Examples
+## Variants
 
-Surfaces can be tuned using css.
+There are two preset variants: `inner` and `outer`.
 
 <Canvas>
     <Story
-        name="fill color"
+        name="inner surface"
         args={{
-            variant: 'custom',
-            style: { fill: '#dd9999' },
-            x: 30,
-            y: 20,
-            size: [160, 90],
+            variant: 'inner',
+            style: { fill: '#eeeeee' },
         }}
         component={Surface}
         decorators={[ChartDecorator]}
@@ -31,13 +28,40 @@ Surfaces can be tuned using css.
         {Template.bind({})}
     </Story>
     <Story
-        name="stroke color"
+        name="outer surface"
         args={{
-            variant: 'custom',
-            style: { fill: '#dd9999', stroke: '#662222', strokeWidth: '2px' },
-            x: 50,
-            y: -20,
-            size: [160, 90],
+            variant: 'outer',
+            style: { fill: '#eeeeee' },
+        }}
+        component={Surface}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+It is also possible to use them together.
+
+<Canvas>
+    <Story name="multiple surfaces">
+        <Chart size={[400, 300]} padding={[40, 40, 40, 40]}>
+            <Surface variant={'outer'} style={{ fill: '#eeeeee' }} />
+            <Surface variant={'inner'} style={{ fill: '#cccccc' }} />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Expansion
+
+The predefined variants can be adjusted via the prop `expansion`, which stretches a surface in four directions.
+
+<Canvas>
+    <Story
+        name="expanded"
+        args={{
+            variant: 'inner',
+            style: { fill: '#eeeeee' },
+            expansion: [ 40, 0, 0, 0 ],
         }}
         component={Surface}
         decorators={[ChartDecorator]}

@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Triangle, ArrowMarker, View, Axis, GridLines } from '@chask/core'
+import { Chart, Surface, Triangle, ArrowMarker, View, Axis, GridLines } from '@chask/core'
 import { LineLabel } from '../src'
 import { ChartBandViewAxisDecorator, ChartLinearViewAxisDecorator } from './decorators'
 
@@ -149,7 +149,7 @@ Both the line and the text can be styled using css. The line accepts arrow marke
     </Story>
     <Story name="arrow">
         <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-            <BackgroundSurface variant={'inner'} />
+            <Surface variant={'inner'} />
             <View
                 scaleX={{
                     variant: 'band',

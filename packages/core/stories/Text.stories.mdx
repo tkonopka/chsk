@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Text } from '../src'
+import { Chart, Surface, Text } from '../src'
 
 # Text
 
@@ -12,7 +12,7 @@ export const ChartDecorator = Story => (
         padding={[60, 60, 60, 60]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
-        <BackgroundSurface variant={'inner'} />
+        <Surface variant={'inner'} />
         {Story()}
     </Chart>
 )

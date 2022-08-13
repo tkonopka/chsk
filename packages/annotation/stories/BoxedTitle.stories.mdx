@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BackgroundSurface, Triangle } from '@chask/core'
+import { Chart, Surface, Triangle } from '@chask/core'
 import { BoxedTitle } from '../src'
 import { ChartDecorator } from './decorators'
 
@@ -154,7 +154,7 @@ The content of the label can be an object
 <Canvas>
     <Story name="custom content">
         <Chart size={[400, 300]} padding={[60, 60, 60, 60]} style={{ display: 'inline-block' }}>
-            <BackgroundSurface variant={'inner'} />
+            <Surface variant={'inner'} />
             <BoxedTitle
                 variant={'top'}
                 boxStyle={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
