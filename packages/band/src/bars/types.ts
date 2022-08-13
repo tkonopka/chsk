@@ -22,6 +22,8 @@ export type BarProcessedDataContextProps = {
     data: Array<BarProcessedDataItem>
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
+    /** list of keys */
+    keys: string[]
 }
 
 export type BarPreparedDataItem = WithId & {
@@ -35,6 +37,8 @@ export type BarPreparedDataContextProps = {
     data: Array<BarPreparedDataItem>
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
+    /** list of keys */
+    keys: string[]
 }
 
 export interface BarProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {

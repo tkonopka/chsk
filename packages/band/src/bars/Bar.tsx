@@ -197,9 +197,17 @@ export const Bar = ({
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
-                <BarProcessedDataProvider data={processedData} seriesIndexes={seriesIndexes}>
+                <BarProcessedDataProvider
+                    data={processedData}
+                    seriesIndexes={seriesIndexes}
+                    keys={keys}
+                >
                     <ScalesProvider scales={scales}>
-                        <BarPreparedDataProvider data={preparedData} seriesIndexes={seriesIndexes}>
+                        <BarPreparedDataProvider
+                            data={preparedData}
+                            seriesIndexes={seriesIndexes}
+                            keys={keys}
+                        >
                             <g role="view-bar" transform={translate}>
                                 {children}
                             </g>

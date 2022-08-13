@@ -25,7 +25,7 @@ const dummyLinearScale = createContinuousScale({
 
 describe('Bar', () => {
     it('defines processed data', () => {
-        let processed: BarProcessedDataContextProps = { data: [], seriesIndexes: {} }
+        let processed: BarProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetProcessedData = () => {
             processed = useBarProcessedData()
             return null
@@ -37,13 +37,14 @@ describe('Bar', () => {
                 </Bar>
             </Chart>
         )
-        // the dataset has two indexes
+        // the dataset has two indexes and three keys
         expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
         expect(processed.data).toHaveLength(2)
+        expect(processed.keys).toHaveLength(3)
     })
 
     it('defines prepared data', () => {
-        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {} }
+        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
             prepared = useBarPreparedData()
             return null
@@ -55,9 +56,10 @@ describe('Bar', () => {
                 </Bar>
             </Chart>
         )
-        // the dataset has two indexes
+        // the dataset has two indexes and three keys
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
         expect(prepared.data).toHaveLength(2)
+        expect(prepared.keys).toHaveLength(3)
     })
 
     it('auto-detects scales (vertical)', () => {

@@ -8,22 +8,25 @@ import { BarPreparedDataContextProps, BarProcessedDataContextProps } from './typ
 export const BarProcessedDataContext = createContext({
     data: [],
     seriesIndexes: {},
+    keys: [],
 } as BarProcessedDataContextProps)
 
 export const BarPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
+    keys: [],
 } as BarPreparedDataContextProps)
 
 export const BarProcessedDataProvider = ({
     data,
     seriesIndexes,
+    keys,
     children,
 }: BarProcessedDataContextProps & {
     auxData?: Record<string, unknown>
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])
     return (
         <BarProcessedDataContext.Provider value={value}>
             {children}
@@ -34,11 +37,12 @@ export const BarProcessedDataProvider = ({
 export const BarPreparedDataProvider = ({
     data,
     seriesIndexes,
+    keys,
     children,
 }: BarPreparedDataContextProps & {
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])
     return (
         <BarPreparedDataContext.Provider value={value}>{children}</BarPreparedDataContext.Provider>
     )
