@@ -1,4 +1,4 @@
-import { ScalesContextProps } from './types'
+import { AxisScale, ScalesContextProps } from './types'
 import { PositionSpec, PositionUnit, SizeSpec } from '../general'
 import { isContinuousAxisScale } from './scales'
 
@@ -10,17 +10,21 @@ export const getAbsolutePosition = (
     dimensions: SizeSpec,
     scales: ScalesContextProps
 ): [number, number] => {
+    return [
+        getAbsoluteCoordinate(position[0], unit, dimensions[0], scales.scaleX),
+        getAbsoluteCoordinate(position[1], unit, dimensions[1], scales.scaleY),
+    ]
+}
+
+export const getAbsoluteCoordinate = (
+    v: number | string,
+    unit: PositionUnit,
+    dimension: number,
+    scale: AxisScale
+) => {
     if (unit === 'view') {
-        const x = isContinuousAxisScale(scales.scaleX)
-            ? scales.scaleX(Number(position[0]))
-            : scales.scaleX(String(position[0]))
-        const y = isContinuousAxisScale(scales.scaleY)
-            ? scales.scaleY(Number(position[1]))
-            : scales.scaleY(String(position[1]))
-        return [x, y]
+        return isContinuousAxisScale(scale) ? scale(Number(v)) : scale(String(v))
     }
-    const x = Number(position[0])
-    const y = Number(position[1])
-    if (unit === 'relative') return [x * dimensions[0], y * dimensions[1]]
-    return [x, y]
+    if (unit === 'relative') return Number(v) * dimension
+    return Number(v)
 }

@@ -10,10 +10,8 @@ export const Polygon = ({
     setRole = true,
     key,
 }: PolygonProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
-    ])
+    const compositeClassName =
+        variant === 'default' ? className : composeClassName([variant, className])
     const pointsString = points
         .map(coords => roundDecimalPlaces(coords[0], 2) + ',' + roundDecimalPlaces(coords[1], 2))
         .join(' ')

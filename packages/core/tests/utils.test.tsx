@@ -1,4 +1,4 @@
-import { roundDecimalPlaces } from '../src'
+import { roundDecimalPlaces, rad2deg } from '../src'
 
 describe('roundDecimalPlaces', () => {
     it('rounds to 1 decimal place', () => {
@@ -19,5 +19,12 @@ describe('roundDecimalPlaces', () => {
     it('rounds to 5 decimal places', () => {
         expect(String(roundDecimalPlaces(1.0 / 3, 5))).toBe('0.33333')
         expect(String(roundDecimalPlaces(100 / 3, 5))).toBe('33.33333')
+    })
+})
+
+describe('radians and degrees', () => {
+    it('simple conversion', () => {
+        expect(Math.round(rad2deg(Math.PI))).toEqual(180)
+        expect(Math.round(rad2deg(Math.PI / 2))).toEqual(90)
     })
 })

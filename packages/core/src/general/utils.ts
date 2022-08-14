@@ -6,3 +6,8 @@ export const roundDecimalPlaces = (x: number, n: number) => {
     const pow10 = Math.pow(10, n)
     return Math.round(x * pow10) / pow10
 }
+
+/** convert radians to degrees */
+export const rad2deg = (x: number) => {
+    return (180 * x) / Math.PI
+}

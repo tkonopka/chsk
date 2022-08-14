@@ -15,10 +15,8 @@ export const Rectangle = ({
     setRole = true,
     key,
 }: RectangleProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
-    ])
+    const compositeClassName =
+        variant === 'default' ? className : composeClassName([variant, className])
     return (
         <rect
             key={key}

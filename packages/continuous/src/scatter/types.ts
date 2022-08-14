@@ -3,6 +3,8 @@ import {
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
+    NumericPositionSpec,
+    PositionUnit,
     SvgElementVariantProps,
     SymbolFunction,
     ViewProps,
@@ -60,6 +62,23 @@ export interface ScatterCurveProps extends SvgElementVariantProps {
     series: string
     /** curve type */
     curve?: CurveSpec
+}
+
+export interface ScatterLabelProps extends SvgElementVariantProps {
+    /** series id */
+    series: string
+    /** position along the x-axis */
+    x: number
+    /** absolute or relative units for position x */
+    units?: PositionUnit
+    /** translation with respect to data point */
+    translate?: NumericPositionSpec
+    /** rotation */
+    rotate?: number
+    /** set rotation automatically */
+    autoRotate?: boolean
+    /** child components */
+    children?: ReactNode
 }
 
 export interface ScatterIntervalProps extends ScatterCurveProps {

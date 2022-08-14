@@ -84,5 +84,5 @@ export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] 
         .flat()
         .filter(layer => layer !== null)
         .join('\n')
-    return <style role="styles">{styleDefinitions}</style>
+    return <style>{styleDefinitions}</style>
 }

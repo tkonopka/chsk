@@ -30,10 +30,8 @@ export const Square = ({
     setRole = true,
     key,
 }: SymbolProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
-    ])
+    const compositeClassName =
+        variant === 'default' ? className : composeClassName([variant, className])
     const scaledHalfSide = squareHalfSide * r
     return (
         <rect

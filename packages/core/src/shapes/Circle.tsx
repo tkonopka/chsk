@@ -11,10 +11,8 @@ export const Circle = ({
     setRole = true,
     key,
 }: CircleProps) => {
-    const compositeClassName = composeClassName([
-        variant === 'default' ? undefined : variant,
-        className,
-    ])
+    const compositeClassName =
+        variant === 'default' ? className : composeClassName([variant, className])
     return (
         <circle
             key={key}
