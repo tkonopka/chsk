@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Circle, Diamond, InvertedTriangle, Rectangle, Square, Triangle } from '../src'
+import {Chart, Circle, Diamond, GoldenRect, InvertedTriangle, Rectangle, Square, Triangle} from '../src'
 import { chartProps } from './props'
 
 describe('Circle', () => {
@@ -150,17 +150,17 @@ describe('Square', () => {
     it('creates a default square without role', () => {
         render(
             <Chart {...chartProps}>
-                <Triangle setRole={false} />
+                <Square setRole={false} />
             </Chart>
         )
-        const result = screen.getByRole('chart-content').querySelector('polygon')
+        const result = screen.getByRole('chart-content').querySelector('rect')
         expect(result?.getAttribute('role')).toBeNull()
     })
 
     it('creates a custom square', () => {
         render(
             <Chart {...chartProps}>
-                <Circle variant={'test'} cx={10} cy={20} r={5} setRole={true} />
+                <Square variant={'test'} cx={10} cy={20} r={5} setRole={true} />
             </Chart>
         )
         const result = screen.getByRole('test')
@@ -168,6 +168,31 @@ describe('Square', () => {
         const width = result?.getAttribute('width')
         const height = result?.getAttribute('height')
         expect(width).toBe(height)
+    })
+})
+
+describe('GoldenRect', () => {
+    it('creates a default golden rectangle', () => {
+        render(
+            <Chart {...chartProps}>
+                <GoldenRect />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('role')).toContain('default')
+        const width = result?.getAttribute('width')
+        const height = result?.getAttribute('height')
+        expect(Number(width)).toBeGreaterThan(Number(height))
+    })
+
+    it('creates a default square without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <GoldenRect setRole={false} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('role')).toBeNull()
     })
 })
 

@@ -1,0 +1,34 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, GoldenRect } from '../src'
+import { ChartDecorator } from './decorators'
+
+# GoldenRect
+
+<Meta title="Core/Components/GoldenRect" />
+export const Template = args => <GoldenRect {...args} />
+
+`GoldenRect` displays a rectangular symbol with width-height proportions set to the golden ratio (phi = 1.618).
+
+<ArgsTable of={GoldenRect} />
+
+Geometrically, golden rectangles are just rectangles and can be created using the versatile `Rectangle` component.  However, `GoldenRect` is relevant in that its API is equivalent to `Circle` and other symbols like `Triangle` or `Diamond`. This component can be used, for example, in legends.
+
+## Styles
+
+The symbol can be styled using css.
+
+<Canvas>
+    <Story
+        name="styled"
+        args={{
+            style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
+            cx: 160,
+            cy: 110,
+            r: 20,
+        }}
+        component={GoldenRect}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
