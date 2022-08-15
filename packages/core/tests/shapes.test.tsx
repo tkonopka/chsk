@@ -1,5 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import {Chart, Circle, Diamond, GoldenRect, InvertedTriangle, Rectangle, Square, Triangle} from '../src'
+import {
+    Chart,
+    Circle,
+    Diamond,
+    GoldenRect,
+    InvertedTriangle,
+    Rectangle,
+    Square,
+    Triangle,
+} from '../src'
 import { chartProps } from './props'
 
 describe('Circle', () => {

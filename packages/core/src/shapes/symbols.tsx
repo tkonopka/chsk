@@ -53,23 +53,23 @@ const goldenRectWidth = Math.sqrt(Math.PI * phi) * goldenRectVisualFactor
 const goldenRectHeight = Math.sqrt(Math.PI / phi) * goldenRectVisualFactor
 
 export const GoldenRect = ({
-       variant = 'default',
-       cx = 0,
-       cy = 0,
-       r = 1,
-       className,
-       style,
-       setRole = true,
-       key,
-   }: SymbolProps) => {
+    variant = 'default',
+    cx = 0,
+    cy = 0,
+    r = 1,
+    className,
+    style,
+    setRole = true,
+    key,
+}: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     return (
         <rect
             key={key}
             role={setRole ? variant : undefined}
-            x={cx - (r * goldenRectWidth / 2)}
-            y={cy - (r * goldenRectHeight / 2)}
+            x={cx - (r * goldenRectWidth) / 2}
+            y={cy - (r * goldenRectHeight) / 2}
             width={r * goldenRectWidth}
             height={r * goldenRectHeight}
             style={style}
@@ -77,7 +77,6 @@ export const GoldenRect = ({
         />
     )
 }
-
 
 /** Triangles */
 
