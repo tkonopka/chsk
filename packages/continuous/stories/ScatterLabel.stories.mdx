@@ -7,7 +7,7 @@ import data from './dataPolynomials.json'
 
 # ScatterLabel
 
-<Meta title="Charts/Scatter/ScatterLabel" />
+<Meta title="Charts/Continuous/ScatterLabel" />
 export const Template = args => <ScatterLabel {...args} />
 
 `ScatterLabel` draws a label on a scatter plot.
@@ -51,11 +51,11 @@ From the base position computed from the `x` and from the series data, the label
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
                 <Axis variant={'left'} label={'y (a. u.)'} />
                 <ScatterPoints
-                    series="A"
+                    ids={['A']}
                     symbolStyle={{ fill: '#ffffff', stroke: '#333333', strokeWidth: 1 }}
                 />
                 <ScatterLabel
-                    series="A"
+                    ids={['A']}
                     x={0.5}
                     units={'relative'}
                     translate={[0, -60]}
@@ -93,7 +93,7 @@ The label can be rotated with prop `rotate`. Alternatively, a prop `autoRotate` 
     <Story
         name="auto rotation"
         args={{
-            series: 'quadratic',
+            ids: ['quadratic'],
             x: 6,
             units: 'view',
             translate: [0, -10],

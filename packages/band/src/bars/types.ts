@@ -59,12 +59,12 @@ export interface BarProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
 }
 
 export interface BarsProps {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+    /** keys to display (default to all keys) */
+    keys?: string[]
     /** symbol for individual data points */
     bar?: (props: RectangleProps) => ReactNode
-    /** horizontal corner radius */
-    rx?: number
-    /** vertical corner radius */
-    ry?: number
     /** style class */
     className?: string
     /** css style */

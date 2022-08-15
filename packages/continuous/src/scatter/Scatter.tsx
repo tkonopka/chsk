@@ -17,7 +17,7 @@ import {
     getMinMax,
     getIdIndexes,
 } from '@chask/core'
-import { PreparedScatterDataProvider, ProcessedScatterDataProvider } from './contexts'
+import { ScatterPreparedDataProvider, ScatterProcessedDataProvider } from './contexts'
 
 // turn raw data into a minimal format
 const processData = (
@@ -87,6 +87,7 @@ export const Scatter = ({
 }: ScatterProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const seriesIndexes = useMemo(() => getIdIndexes(data), [data])
+    const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
     // process dataset
     const getX = useMemo(() => getAccessor(x), [x])
@@ -112,18 +113,23 @@ export const Scatter = ({
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
-                <ProcessedScatterDataProvider data={processedData} seriesIndexes={seriesIndexes}>
+                <ScatterProcessedDataProvider
+                    data={processedData}
+                    seriesIndexes={seriesIndexes}
+                    seriesIds={seriesIds}
+                >
                     <ScalesProvider scales={scales}>
-                        <PreparedScatterDataProvider
+                        <ScatterPreparedDataProvider
                             data={preparedData}
                             seriesIndexes={seriesIndexes}
+                            seriesIds={seriesIds}
                         >
                             <g role="view-scatter" transform={translate}>
                                 {children}
                             </g>
-                        </PreparedScatterDataProvider>
+                        </ScatterPreparedDataProvider>
                     </ScalesProvider>
-                </ProcessedScatterDataProvider>
+                </ScatterProcessedDataProvider>
             </OriginalDataProvider>
         </DimensionsProvider>
     )

@@ -8,7 +8,7 @@ describe('ScatterArea', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterArea series={'quadratic'} />
+                    <ScatterArea ids={['quadratic']} />
                 </Scatter>
             </Chart>
         )
@@ -20,7 +20,7 @@ describe('ScatterArea', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterArea series={'non-existent'} />
+                    <ScatterArea ids={['non-existent']} />
                 </Scatter>
             </Chart>
         )

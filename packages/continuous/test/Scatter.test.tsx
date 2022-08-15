@@ -1,14 +1,14 @@
 import { render } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, useProcessedScatterData, usePreparedScatterData } from '../src/scatter'
+import { Scatter, useScatterProcessedData, useScatterPreparedData } from '../src/scatter'
 import { scatterProps } from './props'
 import { ScatterDataContextProps } from '../src/scatter'
 
 describe('Scatter', () => {
     it('defines processed data', () => {
-        let processed: ScatterDataContextProps = { data: [], seriesIndexes: {} }
+        let processed: ScatterDataContextProps = { data: [], seriesIndexes: {}, seriesIds: [] }
         const GetProcessedData = () => {
-            processed = useProcessedScatterData()
+            processed = useScatterProcessedData()
             return null
         }
         render(
@@ -24,9 +24,9 @@ describe('Scatter', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: ScatterDataContextProps = { data: [], seriesIndexes: {} }
+        let prepared: ScatterDataContextProps = { data: [], seriesIndexes: {}, seriesIds: [] }
         const GetPreparedData = () => {
-            prepared = usePreparedScatterData()
+            prepared = useScatterPreparedData()
             return null
         }
         render(

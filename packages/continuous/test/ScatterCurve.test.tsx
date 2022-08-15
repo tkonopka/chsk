@@ -8,7 +8,7 @@ describe('ScatterCurve', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterCurve series={'linear'} />
+                    <ScatterCurve ids={['linear']} />
                 </Scatter>
             </Chart>
         )
@@ -20,7 +20,7 @@ describe('ScatterCurve', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterCurve series={'non-existent'} />
+                    <ScatterCurve ids={['non-existent']} />
                 </Scatter>
             </Chart>
         )

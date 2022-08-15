@@ -6,7 +6,7 @@ import { generateScatterSeriesWithInterval } from './generators'
 
 # ScatterArea
 
-<Meta title="Charts/Scatter/ScatterArea" />
+<Meta title="Charts/Continuous/ScatterArea" />
 export const Template = args => <ScatterArea {...args} />
 
 `ScatterArea` draws a polygon bounded by a series and a constant baseline.
@@ -32,7 +32,7 @@ The prop `baseline` determines the vertical extent of the curve
     <Story
         name="default baseline"
         args={{
-            series: 'quadratic',
+            ids: ['quadratic'],
             curve: 'Linear',
             style: { fill: '#dd3333', strokeWidth: 0, opacity: 0.5 },
         }}
@@ -44,7 +44,7 @@ The prop `baseline` determines the vertical extent of the curve
     <Story
         name="custom baseline"
         args={{
-            series: 'quadratic',
+            ids: ['quadratic'],
             curve: 'Linear',
             baseline: 30,
             style: { fill: '#dd3333', strokeWidth: 0, opacity: 0.5 },
@@ -81,13 +81,13 @@ The `ScatterArea` component is often used together with `ScatterCurve`.
                 <Axis variant={'left'} label={'y (a. u.)'} />
                 <GridLines variant={'y'} />
                 <ScatterArea
-                    series={'A'}
+                    ids={['A']}
                     baseline={0}
                     curve="Natural"
                     style={{ fill: '#dd4444', opacity: 0.1, strokeWidth: 0 }}
                 />
                 <ScatterCurve
-                    series={'A'}
+                    ids={['A']}
                     curve="Natural"
                     style={{ stroke: '#dd4444', strokeWidth: 3 }}
                 />

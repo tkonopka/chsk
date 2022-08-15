@@ -8,7 +8,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel series={'linear'} x={4}>
+                    <ScatterLabel ids={['linear']} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -22,7 +22,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel series={'non-existent'} x={4}>
+                    <ScatterLabel ids={['non-existent']} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -36,7 +36,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel series={'linear'} x={4.2} autoRotate={true}>
+                    <ScatterLabel ids={['linear']} x={4.2} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -52,7 +52,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel series={'linear'} x={4.8} autoRotate={true}>
+                    <ScatterLabel ids={['linear']} x={4.8} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>

@@ -94,7 +94,7 @@ describe('View', () => {
     })
 })
 
-describe('getIdsMap', () => {
+describe('getIdsIndexes', () => {
     it('get a map from string ids to integers', () => {
         const testdata = [
             { id: 'A', x: 0 },

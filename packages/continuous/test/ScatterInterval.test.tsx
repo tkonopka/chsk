@@ -20,7 +20,7 @@ describe('ScatterInterval', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={dataWithInterval}>
-                    <ScatterInterval series={'A'} lower={'lo'} upper={'hi'} />
+                    <ScatterInterval ids={['A']} lower={'lo'} upper={'hi'} />
                 </Scatter>
             </Chart>
         )
@@ -32,7 +32,7 @@ describe('ScatterInterval', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={dataWithInterval}>
-                    <ScatterInterval series={'non-existent'} lower={'lo'} upper={'hi'} />
+                    <ScatterInterval ids={['non-existent']} lower={'lo'} upper={'hi'} />
                 </Scatter>
             </Chart>
         )

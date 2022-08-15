@@ -29,6 +29,8 @@ export type ScatterDataContextProps = {
     data: Array<ScatterProcessedDataItem>
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
+    /** all series ids */
+    seriesIds: string[]
 }
 
 export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
@@ -47,8 +49,8 @@ export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
 }
 
 export interface ScatterPointsProps {
-    /** series id */
-    series: string
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
     /** symbol for individual data points */
     symbol?: SymbolFunction
     /** style class for data points */
@@ -58,15 +60,15 @@ export interface ScatterPointsProps {
 }
 
 export interface ScatterCurveProps extends SvgElementVariantProps {
-    /** series id */
-    series: string
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
     /** curve type */
     curve?: CurveSpec
 }
 
 export interface ScatterLabelProps extends SvgElementVariantProps {
-    /** series id */
-    series: string
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
     /** position along the x-axis */
     x: number
     /** absolute or relative units for position x */
@@ -104,6 +106,4 @@ export interface ScatterSeriesProps extends ScatterPointsProps, ScatterAreaProps
     curveStyle?: CssProps
     /** styles for points */
     symbolStyle?: CssProps
-    /** child components */
-    children?: ReactNode
 }

@@ -5,46 +5,50 @@ import { ScatterDataContextProps } from './types'
 // - processed data - for internal representations of raw data values
 // - prepared data - for holding coordinates and plot-ready values
 
-export const ProcessedScatterDataContext = createContext({
+export const ScatterProcessedDataContext = createContext({
     data: [],
     seriesIndexes: {},
+    seriesIds: [],
 } as ScatterDataContextProps)
 
-export const PreparedScatterDataContext = createContext({
+export const ScatterPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
+    seriesIds: [],
 } as ScatterDataContextProps)
 
-export const ProcessedScatterDataProvider = ({
+export const ScatterProcessedDataProvider = ({
     data,
     seriesIndexes,
+    seriesIds,
     children,
 }: ScatterDataContextProps & {
     auxData?: Record<string, unknown>
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes, seriesIds }), [data])
     return (
-        <ProcessedScatterDataContext.Provider value={value}>
+        <ScatterProcessedDataContext.Provider value={value}>
             {children}
-        </ProcessedScatterDataContext.Provider>
+        </ScatterProcessedDataContext.Provider>
     )
 }
 
-export const PreparedScatterDataProvider = ({
+export const ScatterPreparedDataProvider = ({
     data,
     seriesIndexes,
+    seriesIds,
     children,
 }: ScatterDataContextProps & {
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIndexes }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes, seriesIds }), [data])
     return (
-        <PreparedScatterDataContext.Provider value={value}>
+        <ScatterPreparedDataContext.Provider value={value}>
             {children}
-        </PreparedScatterDataContext.Provider>
+        </ScatterPreparedDataContext.Provider>
     )
 }
 
-export const useProcessedScatterData = () => useContext(ProcessedScatterDataContext)
-export const usePreparedScatterData = () => useContext(PreparedScatterDataContext)
+export const useScatterProcessedData = () => useContext(ScatterProcessedDataContext)
+export const useScatterPreparedData = () => useContext(ScatterPreparedDataContext)

@@ -8,7 +8,7 @@ describe('ScatterSeries', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterSeries series={'quadratic'} layers={['curve', 'area']} />
+                    <ScatterSeries ids={['quadratic']} layers={['curve', 'area']} />
                 </Scatter>
             </Chart>
         )
@@ -22,7 +22,7 @@ describe('ScatterSeries', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterSeries series={'quadratic'} layers={['points']} />
+                    <ScatterSeries ids={['quadratic']} layers={['points']} />
                 </Scatter>
             </Chart>
         )
@@ -34,7 +34,7 @@ describe('ScatterSeries', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterSeries series={'non-existent'} layers={['curve']} />
+                    <ScatterSeries ids={['non-existent']} layers={['curve']} />
                 </Scatter>
             </Chart>
         )

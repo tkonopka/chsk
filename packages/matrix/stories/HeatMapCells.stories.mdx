@@ -14,22 +14,25 @@ export const Template = args => <HeatMapCells {...args} />
 
 Note that `HeatMapCells` is intended to be used within a `HeatMap` component.
 
-## Rounded corners
+## Data subsets
 
-It is possible to draw the rectangles with rounded corners through props `rx` and `ry`.
+By default, `HeatMapCells` shows the entire dataset. To display subsets, use props `ids` and `keys`.
 
 <Canvas>
     <Story
-        name="default"
-        args={{ style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        name="selected ids"
+        args={{
+            ids: ['alpha', 'beta'],
+            style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' },
+        }}
         component={HeatMapCells}
         decorators={[ChartHeatMapDecorator]}
     >
         {Template.bind({})}
     </Story>
     <Story
-        name="rounded corners"
-        args={{ rx: 8, ry: 8, style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        name="selected keys"
+        args={{ keys: ['x', 'y'], style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
         component={HeatMapCells}
         decorators={[ChartHeatMapDecorator]}
     >

@@ -11,7 +11,7 @@ import {
     useScales,
 } from '@chask/core'
 import { ScatterDataContextProps, ScatterIntervalProps } from './types'
-import { usePreparedScatterData } from './contexts'
+import { useScatterPreparedData } from './contexts'
 import { useMemo } from 'react'
 
 const getScatterIntervalD = ({
@@ -47,7 +47,7 @@ const getScatterIntervalD = ({
 }
 
 export const ScatterInterval = ({
-    series,
+    ids,
     lower,
     upper,
     curve = 'Linear',
@@ -56,30 +56,38 @@ export const ScatterInterval = ({
     className,
     setRole,
 }: ScatterIntervalProps) => {
-    const preparedData = usePreparedScatterData()
+    const preparedData = useScatterPreparedData()
     const originalData = useOriginalData()
     const scaleY = useScales().scaleY
-    const seriesIndex = preparedData.seriesIndexes[series]
-    if (seriesIndex === undefined) return null
     if (!isContinuousAxisScale(scaleY)) return null
 
-    const d = useMemo(
-        () =>
-            getScatterIntervalD({
-                seriesIndex,
-                originalData,
-                preparedData,
-                scaleY,
-                lower,
-                upper,
-                curve,
-            }),
-        [seriesIndex, originalData, preparedData, scaleY, lower, upper, curve]
-    )
+    const result = (ids ?? preparedData.seriesIds).map(id => {
+        const seriesIndex = preparedData.seriesIndexes[id]
+        if (seriesIndex === undefined) return null
+        const d = useMemo(
+            () =>
+                getScatterIntervalD({
+                    seriesIndex,
+                    originalData,
+                    preparedData,
+                    scaleY,
+                    lower,
+                    upper,
+                    curve,
+                }),
+            [seriesIndex, originalData, preparedData, scaleY, lower, upper, curve]
+        )
+        return (
+            <g role={'scatter-interval'} key={'scatter-interval-' + seriesIndex}>
+                <path
+                    d={d}
+                    role={setRole ? variant : undefined}
+                    style={style}
+                    className={className}
+                />
+            </g>
+        )
+    })
 
-    return (
-        <g role={'scatter-interval'} key={'scatter-interval-' + seriesIndex}>
-            <path d={d} role={setRole ? variant : undefined} style={style} className={className} />
-        </g>
-    )
+    return <>{result.filter(v => v !== null)}</>
 }

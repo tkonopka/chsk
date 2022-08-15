@@ -7,7 +7,7 @@ import { generateScatterSeriesWithInterval } from './generators'
 
 # ScatterSeries
 
-<Meta title="Charts/Scatter/ScatterSeries" />
+<Meta title="Charts/Continuous/ScatterSeries" />
 export const Template = args => <ScatterSeries {...args} />
 
 `ScatterSeries` is a convenience component that combines the capabilities of `ScatterArea`, `ScatterCurve`, `ScatterInterval`, and `ScatterPoints`.
@@ -58,7 +58,7 @@ The prop `layers` controls the amount of information that is displayed about a s
                 <Axis variant={'left'} label={'y (a. u.)'} />
                 <GridLines variant={'y'} />
                 <ScatterSeries
-                    series={'A'}
+                    ids={['A']}
                     layers={['curve', 'points']}
                     curveStyle={{ stroke: '#dd3333' }}
                     symbolStyle={{ fill: '#dd3333' }}
@@ -89,7 +89,7 @@ The prop `layers` controls the amount of information that is displayed about a s
                 <Axis variant={'left'} label={'y (a. u.)'} />
                 <GridLines variant={'y'} />
                 <ScatterSeries
-                    series={'A'}
+                    ids={['A']}
                     layers={['area', 'curve', 'points']}
                     areaStyle={{ fill: '#dd3333', opacity: 0.1 }}
                     curveStyle={{ stroke: '#dd3333' }}

@@ -20,7 +20,7 @@ export const parameters = {
                 'Core',
                 ['Overview', 'Components', 'Hooks', 'Common props', 'Themes', 'Examples'],
                 'Charts',
-                ['Scatter', ['Overview'], 'Band', ['Overview'], 'Matrix', ['Overview']],
+                ['Band', ['Overview'], 'Continuous', ['Overview'], 'Matrix', ['Overview']],
                 'Addons',
                 ['Annotation', ['Overview'], 'Themes', ['Overview']],
             ],

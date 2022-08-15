@@ -1,5 +1,22 @@
-import dataGroups from '../stories/dataGroups.json'
 import { BarProps } from '../src'
+import { BarDataItem } from '../dist/types'
+
+const dataGroups: Array<BarDataItem> = [
+    {
+        id: 'alpha',
+        label: 'alpha',
+        x: 55,
+        y: 35,
+        z: 10,
+    },
+    {
+        id: 'beta',
+        label: 'beta',
+        x: 35,
+        y: 25,
+        z: 15,
+    },
+]
 
 export const barProps: BarProps = {
     data: dataGroups,

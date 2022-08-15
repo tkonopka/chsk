@@ -7,7 +7,7 @@ import {
     useScales,
 } from '@chask/core'
 import { ScatterAreaProps, ScatterDataContextProps } from './types'
-import { usePreparedScatterData } from './contexts'
+import { useScatterPreparedData } from './contexts'
 import { getScatterCurvePoints } from './ScatterCurve'
 import { useMemo } from 'react'
 
@@ -32,7 +32,7 @@ const getScatterAreaD = ({
 }
 
 export const ScatterArea = ({
-    series,
+    ids,
     baseline = 0,
     curve = 'Linear',
     variant = 'default',
@@ -40,20 +40,28 @@ export const ScatterArea = ({
     className,
     setRole,
 }: ScatterAreaProps) => {
-    const preparedData = usePreparedScatterData()
+    const preparedData = useScatterPreparedData()
     const scaleY = useScales().scaleY
-    const seriesIndex = preparedData.seriesIndexes[series]
-    if (seriesIndex === undefined) return null
     if (!isContinuousAxisScale(scaleY)) return null
 
-    const d = useMemo(
-        () => getScatterAreaD({ seriesIndex, preparedData, curve, scaleY, baseline }),
-        [seriesIndex, preparedData, curve, scaleY, baseline]
-    )
+    const result = (ids ?? preparedData.seriesIds).map(id => {
+        const seriesIndex = preparedData.seriesIndexes[id]
+        if (seriesIndex === undefined) return null
+        const d = useMemo(
+            () => getScatterAreaD({ seriesIndex, preparedData, curve, scaleY, baseline }),
+            [seriesIndex, preparedData, curve, scaleY, baseline]
+        )
+        return (
+            <g role={'scatter-area'} key={'scatter-area-' + seriesIndex}>
+                <path
+                    d={d}
+                    role={setRole ? variant : undefined}
+                    style={style}
+                    className={className}
+                />
+            </g>
+        )
+    })
 
-    return (
-        <g role={'scatter-area'} key={'scatter-area-' + seriesIndex}>
-            <path d={d} role={setRole ? variant : undefined} style={style} className={className} />
-        </g>
-    )
+    return <>{result.filter(v => v !== null)}</>
 }

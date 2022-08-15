@@ -24,7 +24,7 @@ import {
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
 
-// turn raw dataGroups into a minimal array-based format
+// turn raw data into a minimal array-based format
 const processData = (
     seriesData: BarDataItem,
     index: number,
@@ -37,7 +37,7 @@ const processData = (
     }
 }
 
-// turn processed dataGroups into view-specific coordinates
+// turn processed data into view-specific coordinates
 const prepareData = (
     seriesData: BarProcessedDataItem,
     indexScale: BandAxisScale,
@@ -47,31 +47,31 @@ const prepareData = (
     barWidthGap: [number, number]
 ): BarPreparedDataItem => {
     const [barWidth, barGap] = barWidthGap
-    const values = seriesData.value.map(v => valueScale(v))
-    const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
     const zero = valueScale(0)
-
+    let coords = seriesData.value.map(v => valueScale(v))
+    const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
     const position: Array<NumericPositionSpec> = []
     const size: Array<SizeSpec> = []
     if (horizontal) {
-        values.forEach(v => {
+        coords.forEach(v => {
             size.push([v, barWidth])
         })
     } else {
-        values.forEach(v => {
+        coords.forEach(v => {
             size.push([barWidth, zero - v])
         })
     }
+    coords = coords.map(v => v ?? zero)
     if (stacked) {
         if (horizontal) {
             let left = zero
-            values.forEach(v => {
+            coords.forEach(v => {
                 position.push([left, bandStart])
                 left += v
             })
         } else {
             let offset = 0
-            values.forEach(v => {
+            coords.forEach(v => {
                 position.push([bandStart, v - offset])
                 offset += zero - v
             })
@@ -80,13 +80,13 @@ const prepareData = (
         // not stacked
         if (horizontal) {
             let top = bandStart
-            values.forEach(() => {
+            coords.forEach(() => {
                 position.push([zero, top])
                 top += barWidth + barGap
             })
         } else {
             let left = bandStart
-            values.forEach(v => {
+            coords.forEach(v => {
                 position.push([left, v])
                 left += barWidth + barGap
             })
@@ -116,9 +116,9 @@ const getScaleProps = (
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
         const values = data.map(seriesData => seriesData.value)
-        const domain = stacked
-            ? getMinMax(values.map(series => series.reduce((acc, v) => v + acc, 0)))
-            : getMinMax(values.flat())
+        const sumValues = (values: number[]) =>
+            values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
+        const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())
         domain[0] = Math.min(0, domain[0])
         domain[1] = Math.max(0, domain[1])
         result.scalePropsValue = createContinuousScaleProps(

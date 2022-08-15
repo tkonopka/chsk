@@ -1,34 +1,52 @@
 import { Rectangle } from '@chask/core'
-import { BarPreparedDataItem, BarsProps } from './types'
+import { BarPreparedDataContextProps, BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './contexts'
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
+import { isFinite } from 'lodash'
 
-export const Bars = ({ bar = Rectangle, rx, ry, className, style }: BarsProps) => {
+// get set objects containing ids and keys to display
+const getIdKeySets = (
+    ids: string[] | undefined,
+    keys: string[] | undefined,
+    preparedData: BarPreparedDataContextProps
+) => {
+    const idSet = ids ? new Set(ids) : new Set(Object.keys(preparedData.seriesIndexes))
+    const keySet = keys ? new Set(keys) : new Set(preparedData.keys)
+    return { idSet, keySet }
+}
+
+export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps) => {
     const preparedData = useBarPreparedData()
     const data = preparedData.data
-    if (data.length === 0) return null
 
-    const bars: Array<ReactNode> = []
-    data.forEach((seriesData: BarPreparedDataItem) => {
-        seriesData.position.map((pos, i) => {
-            const size = seriesData.size[i]
-            const result = bar({
-                key: 'bar-' + seriesData.index + '-' + i,
-                x: pos[0],
-                y: pos[1],
-                width: size[0],
-                height: size[1],
-                rx: rx,
-                ry: ry,
-                className: className,
-                style: style,
-                variant: 'bar',
-                setRole: false,
+    const { idSet, keySet } = useMemo(
+        () => getIdKeySets(ids, keys, preparedData),
+        [ids, keys, preparedData]
+    )
+    const bars: Array<ReactNode> = data
+        .map((seriesData: BarPreparedDataItem) => {
+            if (!idSet.has(seriesData.id)) return null
+            return seriesData.position.map((pos, i) => {
+                if (!keySet.has(preparedData.keys[i])) return null
+                const size = seriesData.size[i]
+                if (!isFinite(size[0]) || !isFinite(size[1])) return null
+                return bar({
+                    key: 'bar-' + seriesData.index + '-' + i,
+                    x: pos[0],
+                    y: pos[1],
+                    width: size[0],
+                    height: size[1],
+                    className: className,
+                    style: style,
+                    variant: 'bar',
+                    setRole: false,
+                })
             })
-            bars.push(result)
         })
-    })
+        .flat()
+        .filter(v => v !== null)
 
+    if (bars.length === 0) return null
     return (
         <g role={'bar-bars'} key={'bar-bars'}>
             {bars}

@@ -3,6 +3,7 @@ import { Chart } from '@chask/core'
 import { Bar, Bars } from '../src'
 import { ChartDecorator, commonBarProps } from './decorators'
 import dataSingles from './dataSingles'
+import dataMissing from './dataMissing'
 
 # Bar
 
@@ -16,6 +17,27 @@ export const Template = args => <Bar {...args} />
 `Bar` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Bars`.
 
 The examples in this page showcase `Bar` by automatically using `Bars` as a child component. Note that to create a complete bar chart, additional components would normally be employed, for example adding axes, grid lines, and labels.
+
+## Data
+
+The data should be prepared as an array of objects. All objects should contain a string identifier `'id'`. Other keys with numeric values can be used to display bars.
+
+The pseudocode below shows one data item with an identifier and three numeric values.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "x": 55,
+    "y": 35,
+    "z": 10
+  },
+  ...
+]
+`}
+/>
 
 ## Orientation and Stacking
 
@@ -191,7 +213,7 @@ The prop `keys` determines the number of subgroups that are incorporated into th
 
 ## Custom spacing
 
-By default, bars are arranged with equal spacing along the axis. It is possible to assign a custom spacing through the prop `scaleIndex`. Below, the two examples use a new dataset that yields seven bars.
+By default, bars are arranged with equal spacing along the axis. It is possible to assign a custom spacing through the prop `scaleIndex`. Below, two examples use a dataset with seven bars.
 
 <Canvas>
     <Story
@@ -227,6 +249,53 @@ By default, bars are arranged with equal spacing along the axis. It is possible 
                 domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
                 padding: 0.2,
                 extraPadding: { E: 0.9 },
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Missing data items
+
+Datasets may have missing/omitted values. For example, the dataset below has three data series with different keys. Key 'x' is present for series 'alpha' but it is not present for series 'beta'.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "x": 85
+  },
+  {
+    "id": "beta",
+    "y": 45
+  },
+  {
+    "id": "gamma",
+    "z": 60
+  }
+]
+`}
+/>
+
+Bars that would correspond to id-key combinations with missing values are omitted. This behavior can be used to draw a 'stacked' bar chart that appears like a regular bar chart, but where bars appear with different colors.
+
+<Canvas>
+    <Story
+        name="missing keys"
+        args={{
+            ...commonBarProps,
+            data: dataMissing,
+            horizontal: false,
+            stacked: true,
+            scaleIndex: {
+                variant: 'band',
+                padding: 0.2,
             },
             children: <Bars />,
         }}

@@ -6,7 +6,7 @@ import data from './dataPolynomials.json'
 
 # ScatterPoints
 
-<Meta title="Charts/Scatter/ScatterPoints" />
+<Meta title="Charts/Continuous/ScatterPoints" />
 export const Template = args => <ScatterPoints {...args} />
 
 `ScatterPoints` draws points on a scatter plot view.
@@ -17,13 +17,12 @@ The examples on this page use a dataset with series with ids `linear` and `quadr
 
 ## Series
 
-Charts can display individual series by setting the prop `series`.
+Charts can display the entire dataset, or individual data series by setting the prop `ids`.
 
 <Canvas>
     <Story
-        name="a series"
+        name="entire dataset"
         args={{
-            series: 'linear',
             symbolStyle: { fill: '#dd3333' },
         }}
         component={ScatterPoints}
@@ -32,9 +31,9 @@ Charts can display individual series by setting the prop `series`.
         {Template.bind({})}
     </Story>
     <Story
-        name="another series"
+        name="single series"
         args={{
-            series: 'quadratic',
+            ids: ['quadratic'],
             symbolStyle: { fill: '#dd3333' },
         }}
         component={ScatterPoints}
@@ -67,8 +66,8 @@ It is possible to use the `ScatterPoints` component multiple times and thus over
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
                 <Axis variant={'left'} label={'y (a. u.)'} />
-                <ScatterPoints series={'linear'} symbolStyle={{ fill: '#dd3333' }} />
-                <ScatterPoints series={'quadratic'} symbolStyle={{ fill: '#6666ee' }} />
+                <ScatterPoints ids={['linear']} symbolStyle={{ fill: '#dd3333' }} />
+                <ScatterPoints ids={['quadratic']} symbolStyle={{ fill: '#6666ee' }} />
             </Scatter>
         </Chart>
     </Story>
@@ -82,7 +81,7 @@ Symbols can be adjusted with prop `symbol`.
     <Story
         name="symbol"
         args={{
-            series: 'quadratic',
+            ids: ['quadratic'],
             symbolStyle: { fill: '#ffdd66', stroke: '#222222', strokeWidth: '2px' },
             symbol: Triangle,
         }}

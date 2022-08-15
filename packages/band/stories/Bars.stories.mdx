@@ -14,14 +14,22 @@ export const Template = args => <Bars {...args} />
 
 Note that the `Bars` component is intended to be used within a `Bar` component. The `Bars` component is the one that draws the bars, but actually much of the layout is determined by `Bar`.
 
-## Rounded corners
+## Data subsets
 
-It is possible to draw the rectangles with rounded corners through props `rx` and `ry`.
+By default, `Bars` draws the entire dataset. To draw subsets of bars, set the props `ids` and `keys`.
 
 <Canvas>
     <Story
-        name="rounded corners"
-        args={{ rx: 6, ry: 6, style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        name="selected ids"
+        args={{ ids: ['alpha'], style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        component={Bars}
+        decorators={[ChartBarH0S1Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="selected keys"
+        args={{ keys: ['x', 'y'], style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
         component={Bars}
         decorators={[ChartBarH0S1Decorator]}
     >
