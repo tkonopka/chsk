@@ -157,5 +157,9 @@ export const defaultTheme: CompleteThemeSpec = {
             padding: 9,
         },
     },
-    Colors: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],
+    Colors: {
+        categorical: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],
+        sequential: 'schemeYlOrBr',
+        diverging: 'schemeBrBG',
+    },
 }

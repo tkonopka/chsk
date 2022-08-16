@@ -1,3 +1,7 @@
+// types for axis scales, color scales, and size scales
+
+/** Axis */
+
 // a general type for scales
 // this is designed to overlap with d3, but also includes optional fields
 export interface GenericAxisScale<Domain, Range> {
@@ -87,11 +91,94 @@ export type ScaleSpec = ContinuousScaleSpec | BandScaleSpec
 
 export type ScaleProps = ContinuousScaleProps | BandScaleProps
 
+/** Color */
+
+const d3schemes = [
+    'Accent',
+    'Blues',
+    'BrBG',
+    'BuGn',
+    'BuPu',
+    'Category10',
+    'Dark2',
+    'GnBu',
+    'Greens',
+    'Greys',
+    'OrRd',
+    'Oranges',
+    'PRGn',
+    'Paired',
+    'Pastel1',
+    'Pastel2',
+    'PiYG',
+    'PuBu',
+    'PuBuGn',
+    'PuOr',
+    'PuRd',
+    'Purples',
+    'RdBu',
+    'RdGy',
+    'RdPu',
+    'RdYlBu',
+    'RdYlGn',
+    'Reds',
+    'Set1',
+    'Set2',
+    'Set3',
+    'Spectral',
+    'Tableau10',
+    'YlGn',
+    'YlGnBu',
+    'YlOrBr',
+    'YlOrRd',
+] as const
+
+export type D3Scheme = typeof d3schemes[number]
+
+export type CategoricalScaleSpec = {
+    variant: 'categorical'
+    colors: D3Scheme | string[] | string[][]
+    size?: number
+}
+export type CategoricalScaleProps = CategoricalScaleSpec
+
+export type SequentialScaleSpec = {
+    variant: 'sequential'
+    colors: D3Scheme | string[]
+    domain: [number | 'auto', number | 'auto'] | 'auto'
+}
+export type SequentialScaleProps = SequentialScaleSpec & {
+    domain: [number, number]
+}
+
+export type DivergingScaleSpec = {
+    variant: 'diverging'
+    colors: D3Scheme | string[]
+    domain: [number | 'auto', number | 'auto', number | 'auto'] | 'auto'
+}
+export type DivergingScaleProps = DivergingScaleSpec & {
+    domain: [number, number, number]
+}
+
+export type ColorScaleSpec = CategoricalScaleSpec | SequentialScaleSpec | DivergingScaleSpec
+export type ColorScaleProps = CategoricalScaleProps | SequentialScaleProps | DivergingScaleProps
+
+export type ColorScale = {
+    /** ColorScale is a function */
+    (v: number): string
+    /** annotation about the type of scale */
+    variant?: 'categorical' | 'sequential' | 'diverging'
+}
+
+/** Context */
+
 export type ScalesContextProps = {
     /** scale for X axis*/
-    scaleX: AxisScale
+    x: AxisScale
     /** scale for Y axis */
-    scaleY: AxisScale
-    /** indicator whether a chart is in horizontal mode */
-    horizontal: null | boolean
+    y: AxisScale
+    /** scale for size */
+    size: AxisScale
+    /** scale for color */
+    color: ColorScale
 }

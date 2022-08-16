@@ -1,5 +1,7 @@
-import { useTheme } from './themes'
+import { cloneDeep, merge } from 'lodash'
+import { useTheme } from './context'
 import { CSSProperties } from 'react'
+import { CssProps } from '../general'
 
 // turn js styles into a string of inline-css styles
 export const cssStyleString = (style: CSSProperties): string => {
@@ -82,7 +84,15 @@ export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] 
             return null
         })
         .flat()
-        .filter(layer => layer !== null)
+        .filter(v => v)
         .join('\n')
     return <style>{styleDefinitions}</style>
+}
+
+export const addColor = (style: CssProps | undefined, color: string) => {
+    if (!style) return { fill: color, stroke: color }
+    let result = cloneDeep(style)
+    if (!result.fill) result = merge(result, { fill: color })
+    if (!result.stroke) result = merge(result, { stroke: color })
+    return result
 }

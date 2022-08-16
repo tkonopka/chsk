@@ -23,7 +23,7 @@ Charts can display the entire dataset, or individual data series by setting the 
     <Story
         name="entire dataset"
         args={{
-            symbolStyle: { fill: '#dd3333' },
+            symbolStyle: { stroke: '#333333', strokeWidth: 1 },
         }}
         component={ScatterPoints}
         decorators={[ChartScatterDecorator]}
@@ -34,7 +34,7 @@ Charts can display the entire dataset, or individual data series by setting the 
         name="single series"
         args={{
             ids: ['quadratic'],
-            symbolStyle: { fill: '#dd3333' },
+            symbolStyle: { stroke: '#333333', strokeWidth: 1 },
         }}
         component={ScatterPoints}
         decorators={[ChartScatterDecorator]}
@@ -66,8 +66,8 @@ It is possible to use the `ScatterPoints` component multiple times and thus over
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
                 <Axis variant={'left'} label={'y (a. u.)'} />
-                <ScatterPoints ids={['linear']} symbolStyle={{ fill: '#dd3333' }} />
-                <ScatterPoints ids={['quadratic']} symbolStyle={{ fill: '#6666ee' }} />
+                <ScatterPoints ids={['linear']} />
+                <ScatterPoints ids={['quadratic']} />
             </Scatter>
         </Chart>
     </Story>
@@ -82,7 +82,7 @@ Symbols can be adjusted with prop `symbol`.
         name="symbol"
         args={{
             ids: ['quadratic'],
-            symbolStyle: { fill: '#ffdd66', stroke: '#222222', strokeWidth: '2px' },
+            symbolStyle: { stroke: '#222222', strokeWidth: 1 },
             symbol: Triangle,
         }}
         component={ScatterPoints}

@@ -1,7 +1,8 @@
 import { useMemo } from 'react'
 import { cloneDeep } from 'lodash'
 import {
-    createScales,
+    createAxisScales,
+    createColorScale,
     AccessorFunction,
     BandAxisScale,
     DimensionsProvider,
@@ -20,6 +21,9 @@ import {
     BandScaleProps,
     LinearScaleProps,
     NumericPositionSpec,
+    defaultBandScaleSpec,
+    defaultLinearScaleWithZeroSpec,
+    defaultCategoricalScaleSpec,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
@@ -142,8 +146,9 @@ export const Bar = ({
     horizontal = false,
     stacked = false,
     barPadding = 0,
-    scaleIndex,
-    scaleValue,
+    scaleIndex = defaultBandScaleSpec,
+    scaleValue = defaultLinearScaleWithZeroSpec,
+    scaleColor = defaultCategoricalScaleSpec,
     //
     children,
 }: BarProps) => {
@@ -168,14 +173,11 @@ export const Bar = ({
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue
-    const scales = createScales({ ...dimsProps, scaleX, scaleY })
+    const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
+    scales.color = createColorScale(scaleColor)
 
-    const indexScale = horizontal
-        ? (scales.scaleY as BandAxisScale)
-        : (scales.scaleX as BandAxisScale)
-    const valueScale = horizontal
-        ? (scales.scaleX as LinearAxisScale)
-        : (scales.scaleY as LinearAxisScale)
+    const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
+    const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
     const bandwidth = indexScale.bandwidth()

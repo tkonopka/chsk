@@ -1,7 +1,6 @@
 import { scaleLog, scaleLinear } from 'd3-scale'
 import { ContinuousAxisScale, ContinuousScaleSpec, GenericAxisScale } from './types'
 
-// creates a continuous scale using D3's scaleLog or scaleLinear
 export const createContinuousScale = ({
     variant,
     axis,
@@ -9,7 +8,7 @@ export const createContinuousScale = ({
     domain,
     clamp = false,
     nice = false,
-}: Omit<ContinuousScaleSpec, 'min' | 'max'> & {
+}: ContinuousScaleSpec & {
     domain: [number, number]
     size: number
     axis: 'x' | 'y'

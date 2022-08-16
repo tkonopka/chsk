@@ -1,7 +1,7 @@
 import { DimensionsProvider } from '../general'
 import {
     createContinuousScaleProps,
-    createScales,
+    createAxisScales,
     defaultLinearScaleSpec,
     ScalesProvider,
 } from '../scales'
@@ -21,7 +21,7 @@ export const View = ({
     children,
 }: ViewProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
-    const scales = createScales({ ...dimsProps, scaleX, scaleY })
+    const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>

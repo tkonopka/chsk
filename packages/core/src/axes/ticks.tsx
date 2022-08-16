@@ -30,7 +30,7 @@ export const AxisTicks = ({
     if (ticks === null) return null
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const scale = horizontal ? scales.scaleX : scales.scaleY
+    const scale = horizontal ? scales.x : scales.y
     const tickValues: Array<unknown> = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
     const tickCoordinates: Array<number> = getTickCoordinates(scale, ticks)
 

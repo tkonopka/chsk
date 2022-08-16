@@ -1,4 +1,4 @@
-import { Rectangle } from '@chask/core'
+import { addColor, Rectangle, useScales } from '@chask/core'
 import { BarPreparedDataContextProps, BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './contexts'
 import { ReactNode, useMemo } from 'react'
@@ -17,12 +17,23 @@ const getIdKeySets = (
 
 export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps) => {
     const preparedData = useBarPreparedData()
+    const colorScale = useScales().color
     const data = preparedData.data
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
         [ids, keys, preparedData]
     )
+
+    const styles = useMemo(
+        () =>
+            preparedData.keys.map((k, i) => {
+                const keyColor = colorScale(i)
+                return addColor(style, keyColor)
+            }),
+        [preparedData, style, colorScale]
+    )
+
     const bars: Array<ReactNode> = data
         .map((seriesData: BarPreparedDataItem) => {
             if (!idSet.has(seriesData.id)) return null
@@ -37,14 +48,14 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
                     width: size[0],
                     height: size[1],
                     className: className,
-                    style: style,
+                    style: styles[i],
                     variant: 'bar',
                     setRole: false,
                 })
             })
         })
         .flat()
-        .filter(v => v !== null)
+        .filter(v => v)
 
     if (bars.length === 0) return null
     return (

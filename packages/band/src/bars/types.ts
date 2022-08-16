@@ -1,5 +1,6 @@
 import {
     BandScaleSpec,
+    CategoricalScaleSpec,
     CssProps,
     LinearScaleSpec,
     NumericPositionSpec,
@@ -53,9 +54,11 @@ export interface BarProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
     /** padding between non-stacked bars */
     barPadding?: number
     /** scale for horizontal axis */
-    scaleIndex: BandScaleSpec
+    scaleIndex?: BandScaleSpec
     /** scale for vertical axis */
-    scaleValue: LinearScaleSpec
+    scaleValue?: LinearScaleSpec
+    /** scale for colors */
+    scaleColor?: CategoricalScaleSpec
 }
 
 export interface BarsProps {

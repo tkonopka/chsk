@@ -12,8 +12,8 @@ const data4x3 = [
     {
         id: 'beta',
         x: 0,
-        y: 0,
-        z: 0,
+        y: 15,
+        z: 30,
     },
     {
         id: 'gamma',

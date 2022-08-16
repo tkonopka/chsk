@@ -3,6 +3,9 @@ import {
     Chart,
     createBandScale,
     createContinuousScale,
+    defaultDivergingScale,
+    defaultSequentialScale,
+    defaultSizeScale,
     ScalesContextProps,
     useScales,
 } from '@chask/core'
@@ -64,9 +67,10 @@ describe('Bar', () => {
 
     it('auto-detects scales (vertical)', () => {
         let scales: ScalesContextProps = {
-            scaleX: dummyBandScale,
-            scaleY: dummyLinearScale,
-            horizontal: null,
+            x: dummyBandScale,
+            y: dummyLinearScale,
+            size: defaultSizeScale,
+            color: defaultSequentialScale,
         }
         const GetScales = () => {
             scales = useScales()
@@ -86,15 +90,16 @@ describe('Bar', () => {
         )
         // the dataset has two groups alpha and beta
         // when stacked, the alpha group goes from baseline 0 to top 100
-        expect(scales.scaleX.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.scaleY.domain()).toEqual([0, 100])
+        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
+        expect(scales.y.domain()).toEqual([0, 100])
     })
 
     it('auto-detects scales (horizontal)', () => {
         let scales: ScalesContextProps = {
-            scaleX: dummyBandScale,
-            scaleY: dummyLinearScale,
-            horizontal: null,
+            x: dummyBandScale,
+            y: dummyLinearScale,
+            size: defaultSizeScale,
+            color: defaultDivergingScale,
         }
         const GetScales = () => {
             scales = useScales()
@@ -115,7 +120,7 @@ describe('Bar', () => {
         )
         // the dataset has two groups alpha and beta
         // when stacked, the alpha group goes from baseline 0 to top 100
-        expect(scales.scaleY.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.scaleX.domain()).toEqual([0, 100])
+        expect(scales.y.domain()).toEqual(['alpha', 'beta'])
+        expect(scales.x.domain()).toEqual([0, 100])
     })
 })

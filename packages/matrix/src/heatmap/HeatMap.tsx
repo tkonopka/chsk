@@ -5,13 +5,18 @@ import {
     AccessorFunction,
     DimensionsProvider,
     getAccessor,
-    createScales,
+    createAxisScales,
+    createColorScale,
     OriginalDataProvider,
     ScalesProvider,
     useView,
     getIdIndexes,
     BandScaleSpec,
     BandScaleProps,
+    SequentialScaleSpec,
+    getMinMax,
+    DivergingScaleSpec,
+    ColorScaleProps,
 } from '@chask/core'
 import { ProcessedHeatMapDataProvider } from './contexts'
 
@@ -40,9 +45,34 @@ const getScaleProps = (
     return result as { scalePropsX: BandScaleProps; scalePropsY: BandScaleProps }
 }
 
+const getColorScaleProps = (
+    data: HeatMapProcessedDataItem[],
+    scaleSpec: SequentialScaleSpec | DivergingScaleSpec
+): ColorScaleProps => {
+    const result = cloneDeep(scaleSpec)
+    const minmax = getMinMax(data.map(item => item.value).flat())
+    if (result.domain === 'auto' || result.domain === undefined) {
+        result.domain = result.variant === 'diverging' ? [minmax[0], 0, minmax[1]] : minmax
+    } else {
+        if (result.domain[0] === 'auto') {
+            result.domain[0] = minmax[0]
+        }
+        const lastIndex = result.domain.length - 1
+        if (result.domain[lastIndex] === 'auto') {
+            result.domain[lastIndex] = minmax[1]
+        }
+    }
+    return result as ColorScaleProps
+}
+
 const defaultHeatMapScaleSpec: BandScaleSpec = {
     variant: 'band',
     padding: 0,
+}
+const defaultHeatMapColorScaleSpec: SequentialScaleSpec = {
+    variant: 'sequential',
+    colors: 'Blues',
+    domain: [0, 'auto'],
 }
 
 export const HeatMap = ({
@@ -57,6 +87,7 @@ export const HeatMap = ({
     keys,
     scaleX = defaultHeatMapScaleSpec,
     scaleY = defaultHeatMapScaleSpec,
+    scaleColor = defaultHeatMapColorScaleSpec,
     //
     children,
 }: HeatMapProps) => {
@@ -75,7 +106,8 @@ export const HeatMap = ({
     )
 
     const { scalePropsX, scalePropsY } = getScaleProps(seriesIds, keys, scaleX, scaleY)
-    const scales = createScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    scales.color = createColorScale(getColorScaleProps(processedData, scaleColor))
 
     return (
         <DimensionsProvider {...dimsProps}>

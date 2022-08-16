@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { BandAxisScale, Rectangle, useScales } from '@chask/core'
+import { addColor, BandAxisScale, Rectangle, useScales } from '@chask/core'
 import { HeatMapCellsProps, HeatMapDataContextProps, HeatMapProcessedDataItem } from './types'
 import { useProcessedHeatMapData } from './contexts'
 
@@ -23,24 +23,28 @@ export const HeatMapCells = ({
 }: HeatMapCellsProps) => {
     const processedData = useProcessedHeatMapData()
     const scales = useScales()
+    const colorScale = scales.color
     const data = processedData.data
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, processedData),
         [ids, keys, processedData]
     )
 
-    const scaleX = scales.scaleX as BandAxisScale
-    const scaleY = scales.scaleY as BandAxisScale
+    const scaleX = scales.x as BandAxisScale
+    const scaleY = scales.y as BandAxisScale
     const x = processedData.keys.map(k => scaleX(k))
-    const width = scales.scaleX.bandwidth()
-    const height = scales.scaleY.bandwidth()
+    const width = scales.x.bandwidth()
+    const height = scales.y.bandwidth()
 
     const cells = data
         .map((seriesData: HeatMapProcessedDataItem) => {
             if (!idSet.has(seriesData.id)) return null
             const y = scaleY(seriesData.id)
+            const values = seriesData.value
             return seriesData.value.map((v, i) => {
                 if (!keySet.has(processedData.keys[i])) return null
+                const color = colorScale(values[i])
+                const cellStyle = addColor(style, color)
                 return cell({
                     key: 'cell-' + seriesData.index + '-' + i,
                     x: x[i],
@@ -48,7 +52,7 @@ export const HeatMapCells = ({
                     width,
                     height,
                     className,
-                    style,
+                    style: cellStyle,
                     center: true,
                     variant: 'cell',
                     setRole: false,

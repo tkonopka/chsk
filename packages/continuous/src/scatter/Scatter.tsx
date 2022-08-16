@@ -6,7 +6,7 @@ import {
     ContinuousAxisScale,
     DimensionsProvider,
     getAccessor,
-    createScales,
+    createAxisScales,
     createContinuousScaleProps,
     OriginalDataProvider,
     ScalesProvider,
@@ -16,6 +16,9 @@ import {
     isScaleWithDomain,
     getMinMax,
     getIdIndexes,
+    defaultLinearScaleSpec,
+    createColorScale,
+    defaultCategoricalScaleSpec,
 } from '@chask/core'
 import { ScatterPreparedDataProvider, ScatterProcessedDataProvider } from './contexts'
 
@@ -80,8 +83,9 @@ export const Scatter = ({
     x,
     y,
     r,
-    scaleX,
-    scaleY,
+    scaleX = defaultLinearScaleSpec,
+    scaleY = defaultLinearScaleSpec,
+    scaleColor = defaultCategoricalScaleSpec,
     //
     children,
 }: ScatterProps) => {
@@ -99,15 +103,12 @@ export const Scatter = ({
 
     // set up scales
     const { scalePropsX, scalePropsY } = getScaleProps(processedData, scaleX, scaleY)
-    const scales = createScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    scales.color = createColorScale(scaleColor)
 
     // compute coordinates
     const preparedData = processedData.map(seriesData =>
-        prepareData(
-            seriesData,
-            scales.scaleX as ContinuousAxisScale,
-            scales.scaleY as ContinuousAxisScale
-        )
+        prepareData(seriesData, scales.x as ContinuousAxisScale, scales.y as ContinuousAxisScale)
     )
 
     return (

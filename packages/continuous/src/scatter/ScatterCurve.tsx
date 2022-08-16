@@ -1,4 +1,4 @@
-import { NumericPositionSpec, Path } from '@chask/core'
+import { addColor, NumericPositionSpec, Path, useScales } from '@chask/core'
 import { ScatterCurveProps, ScatterProcessedDataItem } from './types'
 import { useScatterPreparedData } from './contexts'
 
@@ -19,10 +19,13 @@ export const ScatterCurve = ({
     setRole,
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()
+    const colorScale = useScales().color
 
     const result = (ids ?? preparedData.seriesIds).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        const seriesStyle = addColor(style, colorScale(seriesIndex))
+        seriesStyle.fill = undefined
         const points = getScatterCurvePoints(preparedData.data[seriesIndex])
         return (
             <g role={'scatter-curve'} key={'scatter-curve-' + seriesIndex}>
@@ -31,12 +34,12 @@ export const ScatterCurve = ({
                     curve={curve}
                     variant={variant}
                     className={className}
-                    style={style}
+                    style={seriesStyle}
                     setRole={setRole}
                 />
             </g>
         )
     })
 
-    return <>{result.filter(v => v !== null)}</>
+    return <>{result.filter(v => v)}</>
 }

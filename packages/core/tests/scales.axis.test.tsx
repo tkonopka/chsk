@@ -1,7 +1,9 @@
 import {
     createBandScale,
     createContinuousScale,
-    createScale,
+    createAxisScale,
+    defaultCategoricalScale,
+    defaultSizeScale,
     getTickCoordinates,
     getMinMax,
     getAbsolutePosition,
@@ -15,7 +17,7 @@ import {
 
 describe('createScale', () => {
     it('creates a band scale', () => {
-        const result = createScale({
+        const result = createAxisScale({
             size: 100,
             axis: 'x',
             scaleProps: {
@@ -29,7 +31,7 @@ describe('createScale', () => {
     })
 
     it('creates a linear scale', () => {
-        const result = createScale({
+        const result = createAxisScale({
             axis: 'x',
             size: 100,
             scaleProps: {
@@ -44,7 +46,7 @@ describe('createScale', () => {
     })
 
     it('creates a log scale', () => {
-        const result = createScale({
+        const result = createAxisScale({
             axis: 'x',
             size: 100,
             scaleProps: {
@@ -286,9 +288,10 @@ describe('getCoordinates', () => {
         size: 100,
     })
     const customScales: ScalesContextProps = {
-        scaleX: customBandScale,
-        scaleY: customLinearScale,
-        horizontal: null,
+        x: customBandScale,
+        y: customLinearScale,
+        color: defaultCategoricalScale,
+        size: defaultSizeScale,
     }
 
     it('accepts inputs in absolute units', () => {

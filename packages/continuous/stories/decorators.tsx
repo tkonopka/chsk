@@ -44,7 +44,7 @@ export const ChartScatterQuadraticDecorator = (Story: () => ReactNode) => (
         >
             <Axis variant={'bottom'} label={'x (a. u.)'} />
             <Axis variant={'left'} label={'y (a. u.)'} />
-            <ScatterCurve series="quadratic" />
+            <ScatterCurve ids={['quadratic']} />
             {Story()}
         </Scatter>
     </Chart>

@@ -17,7 +17,7 @@ export const GridLines = ({
     const dimensions = useDimensions()
     const [width, height] = dimensions.innerSize
     const isX = variant === 'x'
-    const scale = isX ? scales.scaleX : scales.scaleY
+    const scale = isX ? scales.x : scales.y
 
     // compute locations for tick marks, avoiding drawing multiple lines with uniq
     const tickCoordinates = uniq(shift.map(s => getTickCoordinates(scale, values, s)).flat())

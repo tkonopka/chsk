@@ -1,4 +1,4 @@
-import { mergeTheme, defaultTheme, Chart } from '../src'
+import { mergeTheme, defaultTheme, Chart, addColor } from '../src'
 import { ThemeSpec } from '../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from './props'
@@ -39,5 +39,30 @@ describe('styles', () => {
         // so there isn't anything to test here
         const result = screen.getByRole('chart-content')
         expect(result).toBeDefined()
+    })
+})
+
+describe('addColor', () => {
+    it('adds to an existing style ', () => {
+        const result = addColor({ strokeWidth: 1 }, 'blue')
+        expect(result.fill).toEqual('blue')
+        expect(result.stroke).toEqual('blue')
+    })
+
+    it('adds to an empty style ', () => {
+        const result = addColor(undefined, 'blue')
+        expect(result.fill).toEqual('blue')
+    })
+
+    it('does not over-ride an existing fill ', () => {
+        const result = addColor({ fill: 'red' }, 'blue')
+        expect(result.fill).toEqual('red')
+        expect(result.stroke).toEqual('blue')
+    })
+
+    it('does not over-ride an existing stroke ', () => {
+        const result = addColor({ stroke: 'red' }, 'blue')
+        expect(result.fill).toEqual('blue')
+        expect(result.stroke).toEqual('red')
     })
 })

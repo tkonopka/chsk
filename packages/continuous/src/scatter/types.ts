@@ -1,5 +1,6 @@
 import {
     AccessorFunction,
+    CategoricalScaleSpec,
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
@@ -43,9 +44,11 @@ export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
     /** data */
     data: Array<ScatterDataItem>
     /** scale for horizontal axis */
-    scaleX: ContinuousScaleSpec
+    scaleX?: ContinuousScaleSpec
     /** scale for vertical axis */
-    scaleY: ContinuousScaleSpec
+    scaleY?: ContinuousScaleSpec
+    /** scale for colors */
+    scaleColor?: CategoricalScaleSpec
 }
 
 export interface ScatterPointsProps {

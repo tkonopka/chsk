@@ -27,7 +27,6 @@ The prop `curve` controls the type of interpolation between points.
         args={{
             ids: ['quadratic'],
             curve: 'Linear',
-            style: { stroke: '#dd3333' },
         }}
         component={ScatterCurve}
         decorators={[ChartScatterDecorator]}
@@ -39,7 +38,6 @@ The prop `curve` controls the type of interpolation between points.
         args={{
             ids: ['quadratic'],
             curve: 'Step',
-            style: { stroke: '#dd3333' },
         }}
         component={ScatterCurve}
         decorators={[ChartScatterDecorator]}
@@ -71,12 +69,12 @@ Use `ScatterCurve` multiple times to overlay multiple series. Each series can ha
             >
                 <Axis variant={'bottom'} label={'x (a. u.)'} />
                 <Axis variant={'left'} label={'y (a. u.)'} />
+                <ScatterCurve ids={['linear']} curve="Step" style={{ strokeWidth: 3 }} />
                 <ScatterCurve
-                    ids={['linear']}
-                    curve="Step"
-                    style={{ stroke: '#dd3333', strokeWidth: 3 }}
+                    ids={['quadratic']}
+                    curve="Linear"
+                    style={{ strokeDasharray: '6 6', strokeWidth: 3 }}
                 />
-                <ScatterCurve ids={['quadratic']} curve="Linear" style={{ stroke: '#6666ee' }} />
             </Scatter>
         </Chart>
     </Story>

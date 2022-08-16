@@ -37,7 +37,7 @@ export const ScatterLabel = ({
         const data = preparedData.data[seriesIndex]
         if (data.x.length === 0) return null
         // convert input x to a coordinate and search for the closest data points
-        const value = getAbsoluteCoordinate(x, units, dimensions.innerSize[0], scales.scaleX)
+        const value = getAbsoluteCoordinate(x, units, dimensions.innerSize[0], scales.x)
         const pointIndex = getClosestPointToX(value, data)
         let point = [data.x[pointIndex], data.y[pointIndex]]
         if (autoRotate) {
@@ -67,5 +67,5 @@ export const ScatterLabel = ({
         )
     })
 
-    return <>{result.filter(v => v !== null)}</>
+    return <>{result.filter(v => v)}</>
 }

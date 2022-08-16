@@ -22,8 +22,8 @@ export const LineLabel = ({
     const scales = useScales()
 
     // coordinates for line segment
-    const xExpansion = scales.scaleX.bandwidth() * expansion[0]
-    const yExpansion = scales.scaleY.bandwidth() * expansion[1]
+    const xExpansion = scales.x.bandwidth() * expansion[0]
+    const yExpansion = scales.y.bandwidth() * expansion[1]
     let absStart = getAbsolutePosition(start, units, dimensions.innerSize, scales)
     let absEnd = getAbsolutePosition(end, units, dimensions.innerSize, scales)
     absStart = [absStart[0] - xExpansion, absStart[1] - yExpansion]

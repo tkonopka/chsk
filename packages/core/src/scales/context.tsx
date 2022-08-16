@@ -1,10 +1,11 @@
 import { createContinuousScale } from './continuous'
 import { createContext, ReactNode, useContext } from 'react'
 import { ScalesContextProps } from './types'
+import { defaultCategoricalScale } from './defaults'
 
 const defaultScaleX = createContinuousScale({
     variant: 'linear',
-    axis: 'y',
+    axis: 'x',
     size: 1,
     domain: [0, 1],
 })
@@ -16,9 +17,11 @@ const defaultScaleY = createContinuousScale({
 })
 
 export const ScalesContext = createContext({
-    scaleX: defaultScaleX,
-    scaleY: defaultScaleY,
+    x: defaultScaleX,
+    y: defaultScaleY,
     horizontal: null,
+    color: defaultCategoricalScale,
+    size: defaultScaleX,
 } as ScalesContextProps)
 
 export const ScalesProvider = ({

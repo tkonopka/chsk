@@ -14,6 +14,7 @@ import {
 } from './types'
 import { createBandScale } from './band'
 import { createContinuousScale } from './continuous'
+import { defaultCategoricalScale, defaultSizeScale } from './defaults'
 
 export const isScaleWithDomain = (
     scaleSpec: ScaleSpec
@@ -56,7 +57,7 @@ export const isLogAxisScale = (scale: AxisScale): scale is LogAxisScale => {
     return scale.variant === 'log'
 }
 
-export const createScale = ({
+export const createAxisScale = ({
     axis = 'x',
     size = 100,
     scaleProps,
@@ -74,7 +75,7 @@ export const createScale = ({
     return createContinuousScale({ axis, size, ...scaleProps })
 }
 
-export const createScales = ({
+export const createAxisScales = ({
     size,
     padding,
     scaleX,
@@ -86,11 +87,12 @@ export const createScales = ({
     const [width, height] = size
     const innerWidth = width - padding[LEFT] - padding[RIGHT]
     const innerHeight = height - padding[TOP] - padding[BOTTOM]
-    const horizontal = scaleY.variant === 'band' && scaleX.variant !== 'band'
+    //const horizontal = scaleY.variant === 'band' && scaleX.variant !== 'band'
     return {
-        scaleX: createScale({ axis: 'x', size: innerWidth, scaleProps: scaleX }),
-        scaleY: createScale({ axis: 'y', size: innerHeight, scaleProps: scaleY }),
-        horizontal,
+        x: createAxisScale({ axis: 'x', size: innerWidth, scaleProps: scaleX }),
+        y: createAxisScale({ axis: 'y', size: innerHeight, scaleProps: scaleY }),
+        size: defaultSizeScale,
+        color: defaultCategoricalScale,
     }
 }
 
@@ -115,11 +117,4 @@ export const getTickCoordinates = (
     }
     const scaledShift = Number(shift) * scale.bandwidth()
     return tickValues.map(v => scale(String(v)) + scaledShift)
-}
-
-export const getMinMax = (values: Array<number>): [number, number] => {
-    const min = values.reduce((acc, v) => Math.min(acc, v), values[0])
-    const max = values.reduce((acc, v) => Math.max(acc, v), values[0])
-    if (min === undefined && max === undefined) return [1, 1]
-    return [min, max]
 }

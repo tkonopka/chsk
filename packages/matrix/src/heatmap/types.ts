@@ -1,4 +1,12 @@
-import { BandScaleSpec, CssProps, RectangleProps, ViewProps, WithId } from '@chask/core'
+import {
+    BandScaleSpec,
+    CssProps,
+    DivergingScaleSpec,
+    RectangleProps,
+    SequentialScaleSpec,
+    ViewProps,
+    WithId,
+} from '@chask/core'
 import { ReactNode } from 'react'
 
 export type HeatMapDataItem = WithId & Record<string, unknown>
@@ -26,6 +34,8 @@ export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
     scaleX?: BandScaleSpec
     /** scale for vertical axis */
     scaleY?: BandScaleSpec
+    /** scale for colors */
+    scaleColor?: SequentialScaleSpec | DivergingScaleSpec
 }
 
 export interface HeatMapCellsProps {

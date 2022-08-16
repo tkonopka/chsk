@@ -1,6 +1,6 @@
 import { AxisScale, ScalesContextProps } from './types'
 import { PositionSpec, PositionUnit, SizeSpec } from '../general'
-import { isContinuousAxisScale } from './scales'
+import { isContinuousAxisScale } from './axis'
 
 // converts a position, possibly expressed in relative units or in view-specific values,
 // into absolute numbers suitable for svg elements
@@ -11,8 +11,8 @@ export const getAbsolutePosition = (
     scales: ScalesContextProps
 ): [number, number] => {
     return [
-        getAbsoluteCoordinate(position[0], unit, dimensions[0], scales.scaleX),
-        getAbsoluteCoordinate(position[1], unit, dimensions[1], scales.scaleY),
+        getAbsoluteCoordinate(position[0], unit, dimensions[0], scales.x),
+        getAbsoluteCoordinate(position[1], unit, dimensions[1], scales.y),
     ]
 }
 

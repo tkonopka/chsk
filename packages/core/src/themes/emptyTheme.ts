@@ -10,5 +10,5 @@ export const emptyTheme: CompleteThemeSpec = {
     Axis: {},
     AxisLabel: {},
     AxisTicks: {},
-    Colors: [],
+    Colors: {},
 }

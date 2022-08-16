@@ -1,4 +1,4 @@
-import { Circle } from '@chask/core'
+import { addColor, Circle, useScales } from '@chask/core'
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './contexts'
 
@@ -9,10 +9,12 @@ export const ScatterPoints = ({
     symbolClassName,
 }: ScatterPointsProps) => {
     const preparedData = useScatterPreparedData()
+    const colorScale = useScales().color
 
     const result = (ids ?? preparedData.seriesIds).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        const seriesStyle = addColor(symbolStyle, colorScale(seriesIndex))
         const data = preparedData.data[seriesIndex]
         const x = data.x
         const y = data.y
@@ -23,7 +25,7 @@ export const ScatterPoints = ({
                 cy: y[i],
                 r: r,
                 className: symbolClassName,
-                style: symbolStyle,
+                style: seriesStyle,
                 setRole: false,
             })
         )
@@ -34,5 +36,5 @@ export const ScatterPoints = ({
         )
     })
 
-    return <>{result.filter(v => v !== null)}</>
+    return <>{result.filter(v => v)}</>
 }

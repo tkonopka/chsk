@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useContext } from 'react'
 import { CompleteThemeSpec, ThemeSpec } from './types'
 import { defaultTheme } from './defaultTheme'
-import { merge, cloneDeep } from 'lodash'
+import { cloneDeep, merge } from 'lodash'
 
 export const mergeTheme = (baseTheme: CompleteThemeSpec, customTheme: ThemeSpec) => {
     return merge(cloneDeep(baseTheme), customTheme)

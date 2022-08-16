@@ -7,6 +7,12 @@ export interface SideRecords {
     right?: Record<string, unknown>
 }
 
+export interface ThemeColorSpec {
+    categorical?: string | string[]
+    diverging?: string | string[]
+    sequential?: string | string[]
+}
+
 export interface ThemeSpec {
     circle?: Record<string, Partial<CSSProperties>>
     line?: Record<string, Partial<CSSProperties>>
@@ -17,7 +23,7 @@ export interface ThemeSpec {
     Axis?: SideRecords
     AxisLabel?: SideRecords
     AxisTicks?: SideRecords
-    Colors?: string | Array<string>
+    Colors?: ThemeColorSpec
 }
 
 export interface CompleteThemeSpec {
@@ -30,5 +36,5 @@ export interface CompleteThemeSpec {
     Axis: SideRecords
     AxisLabel: SideRecords
     AxisTicks: SideRecords
-    Colors: string | Array<string>
+    Colors: ThemeColorSpec
 }

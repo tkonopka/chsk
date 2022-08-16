@@ -23,7 +23,7 @@ By default, `HeatMapCells` shows the entire dataset. To display subsets, use pro
         name="selected ids"
         args={{
             ids: ['alpha', 'beta'],
-            style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' },
+            style: { strokeWidth: 1, stroke: '#222222' },
         }}
         component={HeatMapCells}
         decorators={[ChartHeatMapDecorator]}
@@ -32,7 +32,7 @@ By default, `HeatMapCells` shows the entire dataset. To display subsets, use pro
     </Story>
     <Story
         name="selected keys"
-        args={{ keys: ['x', 'y'], style: { fill: '#dddddd', strokeWidth: 1, stroke: '#222222' } }}
+        args={{ keys: ['x', 'y'], style: { strokeWidth: 1, stroke: '#222222' } }}
         component={HeatMapCells}
         decorators={[ChartHeatMapDecorator]}
     >

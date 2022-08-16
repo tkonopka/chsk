@@ -1,4 +1,5 @@
 import {
+    addColor,
     ContinuousAxisScale,
     createAreaGenerator,
     CurveSpec,
@@ -41,12 +42,15 @@ export const ScatterArea = ({
     setRole,
 }: ScatterAreaProps) => {
     const preparedData = useScatterPreparedData()
-    const scaleY = useScales().scaleY
+    const scales = useScales()
+    const scaleY = scales.y
+    const colorScale = scales.color
     if (!isContinuousAxisScale(scaleY)) return null
 
     const result = (ids ?? preparedData.seriesIds).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        const seriesStyle = addColor(style, colorScale(seriesIndex))
         const d = useMemo(
             () => getScatterAreaD({ seriesIndex, preparedData, curve, scaleY, baseline }),
             [seriesIndex, preparedData, curve, scaleY, baseline]
@@ -56,12 +60,12 @@ export const ScatterArea = ({
                 <path
                     d={d}
                     role={setRole ? variant : undefined}
-                    style={style}
+                    style={seriesStyle}
                     className={className}
                 />
             </g>
         )
     })
 
-    return <>{result.filter(v => v !== null)}</>
+    return <>{result.filter(v => v)}</>
 }
