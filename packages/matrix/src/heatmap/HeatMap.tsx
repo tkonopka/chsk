@@ -8,6 +8,7 @@ import {
     createAxisScales,
     createColorScale,
     OriginalDataProvider,
+    ProcessedDataProvider,
     ScalesProvider,
     useView,
     getIdIndexes,
@@ -18,7 +19,6 @@ import {
     DivergingScaleSpec,
     ColorScaleProps,
 } from '@chask/core'
-import { ProcessedHeatMapDataProvider } from './contexts'
 
 // turn raw dataGroups into a minimal array-based format
 const processData = (
@@ -75,6 +75,16 @@ const defaultHeatMapColorScaleSpec: SequentialScaleSpec = {
     domain: [0, 'auto'],
 }
 
+export const isHeatMapProcessedData = (
+    data: Array<unknown>
+): data is Array<HeatMapProcessedDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        return 'id' in item && 'index' in item && 'value' in item
+    })
+    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
+}
+
 export const HeatMap = ({
     // layout
     position = [0, 0],
@@ -112,7 +122,7 @@ export const HeatMap = ({
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
-                <ProcessedHeatMapDataProvider
+                <ProcessedDataProvider
                     data={processedData}
                     seriesIndexes={seriesIndexes}
                     keys={keys}
@@ -122,7 +132,7 @@ export const HeatMap = ({
                             {children}
                         </g>
                     </ScalesProvider>
-                </ProcessedHeatMapDataProvider>
+                </ProcessedDataProvider>
             </OriginalDataProvider>
         </DimensionsProvider>
     )

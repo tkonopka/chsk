@@ -18,7 +18,7 @@ import { Polygon } from './Polygon'
 /** Rectangles */
 
 const squareVisualFactor = 0.96
-const squareHalfSide = Math.sqrt(Math.PI) * squareVisualFactor
+const squareHalfSide = 0.5 * Math.sqrt(Math.PI) * squareVisualFactor
 
 export const Square = ({
     variant = 'default',

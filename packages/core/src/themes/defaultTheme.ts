@@ -46,6 +46,13 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'middle' as const,
             dominantBaseline: 'hanging' as const,
         },
+        legendTitle: {
+            textAnchor: 'start' as const,
+        },
+        legendLabel: {
+            textAnchor: 'start' as const,
+            dominantBaseline: 'middle' as const,
+        },
         footnote: {
             fontFamily: 'sans-serif',
             fontSize: '11px',
@@ -156,6 +163,13 @@ export const defaultTheme: CompleteThemeSpec = {
             size: 5,
             padding: 9,
         },
+    },
+    Legend: {
+        horizontal: false,
+        itemSize: [60, 20],
+        firstOffset: [0, -8],
+        r: 8,
+        labelOffset: [14, 0],
     },
     Colors: {
         categorical: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],

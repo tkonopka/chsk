@@ -1,0 +1,102 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, GridLines } from '@chask/core'
+import { Scatter, ScatterInterval, ScatterCurve } from '../src'
+import { ChartScatterDecorator } from './decorators'
+import { generateScatterSeriesWithInterval } from './generators'
+
+# ScatterInterval
+
+<Meta title="Charts/XY/ScatterInterval" />
+export const Template = args => <ScatterInterval {...args} />
+
+`ScatterInterval` draws a polygon intended as an interval around a curve
+
+<ArgsTable of={ScatterInterval} />
+
+export const dataWithInterval = [
+    generateScatterSeriesWithInterval(
+        'A',
+        Array(16)
+            .fill(0)
+            .map((v, i) => i),
+        x => 1 + 0.3 * x + Math.random() * 1.5,
+        [-0.8, 1.0]
+    ),
+]
+
+## Example
+
+<Canvas>
+    <Story name="interval">
+        <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+            <Scatter
+                data={dataWithInterval}
+                x={'x'}
+                y={'y'}
+                r={6}
+                scaleX={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                    nice: true,
+                }}
+            >
+                <Axis variant={'bottom'} label={'x (a. u.)'} />
+                <Axis variant={'left'} label={'y (a. u.)'} ticks={5} />
+                <GridLines variant={'y'} ticks={5} />
+                <ScatterInterval
+                    ids={['A']}
+                    curve="Natural"
+                    lower={'lo'}
+                    upper={'hi'}
+                    style={{ fill: '#dd4444', strokeWidth: 0 }}
+                />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Layering with curves and points
+
+`ScatterInterval` components are often used as supportive elements, for example for curves.
+
+<Canvas>
+    <Story name="composite">
+        <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+            <Scatter
+                data={dataWithInterval}
+                x={'x'}
+                y={'y'}
+                r={6}
+                scaleX={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                    nice: true,
+                }}
+            >
+                <Axis variant={'bottom'} label={'x (a. u.)'} />
+                <Axis variant={'left'} label={'y (a. u.)'} />
+                <GridLines variant={'y'} />
+                <ScatterInterval
+                    ids={['A']}
+                    curve="Natural"
+                    lower={'lo'}
+                    upper={'hi'}
+                    style={{ fill: '#dd4444', opacity: 0.1, strokeWidth: 0 }}
+                />
+                <ScatterCurve
+                    ids={['A']}
+                    curve="Natural"
+                    style={{ stroke: '#dd4444', strokeWidth: 3 }}
+                />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>

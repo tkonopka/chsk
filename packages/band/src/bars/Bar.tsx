@@ -9,6 +9,7 @@ import {
     getAccessor,
     LinearAxisScale,
     OriginalDataProvider,
+    ProcessedDataProvider,
     ScalesProvider,
     SizeSpec,
     useView,
@@ -26,7 +27,7 @@ import {
     defaultCategoricalScaleSpec,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
-import { BarPreparedDataProvider, BarProcessedDataProvider } from './contexts'
+import { BarPreparedDataProvider } from './context'
 
 // turn raw data into a minimal array-based format
 const processData = (
@@ -133,6 +134,14 @@ const getScaleProps = (
     return result as { scalePropsIndex: BandScaleProps; scalePropsValue: LinearScaleProps }
 }
 
+export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProcessedDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        return 'id' in item && 'index' in item && 'value' in item
+    })
+    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
+}
+
 export const Bar = ({
     // layout
     position = [0, 0],
@@ -199,7 +208,7 @@ export const Bar = ({
     return (
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
-                <BarProcessedDataProvider
+                <ProcessedDataProvider
                     data={processedData}
                     seriesIndexes={seriesIndexes}
                     keys={keys}
@@ -215,7 +224,7 @@ export const Bar = ({
                             </g>
                         </BarPreparedDataProvider>
                     </ScalesProvider>
-                </BarProcessedDataProvider>
+                </ProcessedDataProvider>
             </OriginalDataProvider>
         </DimensionsProvider>
     )

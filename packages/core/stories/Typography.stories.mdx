@@ -1,0 +1,128 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Typography } from '../src'
+
+# Typography
+
+<Meta title="Core/Components/Typography" />
+export const Template = args => <Typography {...args} />
+
+export const ChartDecorator = Story => (
+    <Chart
+        size={[400, 200]}
+        padding={[60, 60, 60, 60]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <Surface variant={'inner'} />
+        {Story()}
+    </Chart>
+)
+
+The `Text` component places a single text element on a chart.
+
+<ArgsTable of={Typography} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`.
+
+<Canvas>
+    <Story
+        name="title"
+        args={{
+            variant: 'title',
+            children: 'Primary heading',
+            y: -20,
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="subtitle"
+        args={{
+            variant: 'subtitle',
+            children: 'Secondary heading',
+            y: -10,
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="axisLabel"
+        args={{
+            variant: 'axisLabel',
+            children: 'axis label',
+            x: 140,
+            y: 115,
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="tickLabel"
+        args={{
+            variant: 'tickLabel',
+            children: 'tick label',
+            x: 0,
+            y: 85,
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+In the examples above, the prop `variant` determines the visual style for the text.
+Positions are set manually to suggest how the visual styles might be used within a chart.
+
+## Styles
+
+The text elements can be adjusted individually using css styles and svg transforms.
+
+<Canvas>
+    <Story
+        name="color"
+        args={{
+            variant: 'title',
+            children: 'Title in color',
+            x: 0,
+            y: -30,
+            style: {
+                fill: '#dd4444',
+                alignmentBaseline: 'middle',
+            },
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="rotation"
+        args={{
+            variant: 'default',
+            children: 'Text with custom style',
+            x: 0,
+            y: 0,
+            style: {
+                fill: '#222222',
+                fontFamily: 'serif',
+                letterSpacing: 2,
+                fontSize: '20px',
+                textAnchor: 'middle',
+                alignmentBaseline: 'middle',
+            },
+            transform: 'translate(140, 40) rotate(-10)',
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

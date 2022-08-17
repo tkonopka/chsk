@@ -2,6 +2,7 @@ import {
     BandScaleSpec,
     CssProps,
     DivergingScaleSpec,
+    ProcessedDataContextProps,
     RectangleProps,
     SequentialScaleSpec,
     ViewProps,
@@ -16,13 +17,9 @@ export type HeatMapProcessedDataItem = WithId & {
     value: Array<number>
 }
 
-export type HeatMapDataContextProps = {
+export type HeatMapDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<HeatMapProcessedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {

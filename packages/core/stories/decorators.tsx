@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Surface, View, Axis } from '../src'
+import { Chart, Surface, View, Axis, Legend, LegendTitle } from '../src'
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart
@@ -86,6 +86,62 @@ export const ChartBandViewDecorator = (Story: () => ReactNode) => (
             <Surface variant={'inner'} />
             {Story()}
             <Axis variant={'left'} />
+        </View>
+    </Chart>
+)
+
+export const ChartForLegendDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[80, 80, 80, 80]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View>
+            <Surface variant={'inner'} />
+            {Story()}
+        </View>
+    </Chart>
+)
+
+export const ChartWithRightLegendDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[20, 100, 20, 20]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View>
+            <Surface variant={'inner'} />
+            <Legend
+                position={[280, 0]}
+                units={'absolute'}
+                size={[100, 80]}
+                anchor={[0, 0]}
+                padding={[12, 10, 12, 10]}
+            >
+                {Story()}
+            </Legend>
+        </View>
+    </Chart>
+)
+
+export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[20, 100, 20, 20]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View>
+            <Surface variant={'inner'} />
+            <Legend
+                position={[280, 0]}
+                units={'absolute'}
+                size={[100, 80]}
+                anchor={[0, 0]}
+                padding={[12, 10, 12, 10]}
+            >
+                <LegendTitle>Legend title</LegendTitle>
+                {Story()}
+            </Legend>
         </View>
     </Chart>
 )

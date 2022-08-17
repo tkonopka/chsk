@@ -8,7 +8,7 @@ import {
     Rectangle,
     RIGHT,
     SizeSpec,
-    Text,
+    Typography,
     TOP,
     useDimensions,
     useScales,
@@ -60,14 +60,14 @@ export const BoxedLabel = ({
     // content of the label - text or custom node
     const content =
         typeof children === 'string' ? (
-            <Text
+            <Typography
                 variant={'boxed-label'}
                 className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}
             >
                 {children}
-            </Text>
+            </Typography>
         ) : (
             children
         )

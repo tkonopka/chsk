@@ -1,4 +1,4 @@
-import { Axis, Surface, Chart, GridLines, Text, View } from '../src'
+import { Axis, Surface, Chart, GridLines, Typography, View } from '../src'
 import { ChartProps, ThemeSpec } from '../src'
 import { ViewProps } from '../dist/types'
 
@@ -75,9 +75,9 @@ export const ChartWithAxisGrid = (args: ChartProps) => {
                 <GridLines variant={'y'} values={5} />
                 <Axis variant={'left'} label={'Values (a.u.)'} />
                 <Axis variant={'bottom'} label={'Values (a.u.)'} />
-                <Text x={0} y={-16} variant={'title'}>
+                <Typography x={0} y={-16} variant={'title'}>
                     Chart title
-                </Text>
+                </Typography>
             </View>
         </Chart>
     )

@@ -10,5 +10,6 @@ export const emptyTheme: CompleteThemeSpec = {
     Axis: {},
     AxisLabel: {},
     AxisTicks: {},
+    Legend: {},
     Colors: {},
 }

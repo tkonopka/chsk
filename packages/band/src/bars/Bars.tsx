@@ -1,6 +1,6 @@
 import { addColor, Rectangle, useScales } from '@chask/core'
 import { BarPreparedDataContextProps, BarPreparedDataItem, BarsProps } from './types'
-import { useBarPreparedData } from './contexts'
+import { useBarPreparedData } from './context'
 import { ReactNode, useMemo } from 'react'
 import { isFinite } from 'lodash'
 

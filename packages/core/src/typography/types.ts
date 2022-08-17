@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { SvgElementVariantProps } from '../general'
 
-export interface TextProps extends SvgElementVariantProps {
+export interface TypographyProps extends SvgElementVariantProps {
     /** x coordinate */
     x?: number
     /** y coordinate */

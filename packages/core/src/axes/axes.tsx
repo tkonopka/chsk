@@ -1,7 +1,7 @@
 import { useDimensions } from '../general'
 import { useTheme } from '../themes'
 import { AxisLabelProps, AxisLineProps, AxisProps, SideType } from './types'
-import { Text } from '../typography'
+import { Typography } from '../typography'
 import { Line } from '../lines'
 import { AxisTicks } from './ticks'
 
@@ -63,7 +63,7 @@ export const AxisLabel = ({
     const rotation = labelRotate === 0 ? '' : ' rotate(' + String(Number(labelRotate)) + ')'
 
     return (
-        <Text
+        <Typography
             x={0}
             y={0}
             variant={'axisLabel'}
@@ -73,7 +73,7 @@ export const AxisLabel = ({
             setRole={setRole}
         >
             {children}
-        </Text>
+        </Typography>
     )
 }
 

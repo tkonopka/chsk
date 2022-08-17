@@ -6,9 +6,20 @@ export type WithId = {
     id: string
 }
 
-export type DataContextProps = {
+export type OriginalDataContextProps = {
     /** data */
     data: Array<Record<string, unknown>>
+}
+
+export type ProcessedDataContextProps = {
+    /** data */
+    data: Array<unknown>
+    /** map from series ids to indexes */
+    seriesIndexes: Record<string, number>
+    /** list of keys */
+    keys: string[]
+    /** list of labels */
+    /** labels: string[] */
 }
 
 /** alignment values in [0, 1] for x and y axes */

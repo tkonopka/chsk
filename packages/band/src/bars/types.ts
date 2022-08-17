@@ -4,6 +4,7 @@ import {
     CssProps,
     LinearScaleSpec,
     NumericPositionSpec,
+    ProcessedDataContextProps,
     RectangleProps,
     SizeSpec,
     ViewProps,
@@ -18,13 +19,9 @@ export type BarProcessedDataItem = WithId & {
     value: Array<number>
 }
 
-export type BarProcessedDataContextProps = {
+export type BarProcessedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<BarProcessedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type BarPreparedDataItem = WithId & {

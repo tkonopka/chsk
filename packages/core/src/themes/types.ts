@@ -1,4 +1,5 @@
 import { CSSProperties } from 'react'
+import { NumericPositionSpec, SizeSpec } from '../general'
 
 export interface SideRecords {
     top?: Record<string, unknown>
@@ -13,6 +14,14 @@ export interface ThemeColorSpec {
     sequential?: string | string[]
 }
 
+export interface ThemeLegendSpec {
+    horizontal?: boolean
+    itemSize?: SizeSpec
+    firstOffset?: NumericPositionSpec
+    r?: number
+    labelOffset?: NumericPositionSpec
+}
+
 export interface ThemeSpec {
     circle?: Record<string, Partial<CSSProperties>>
     line?: Record<string, Partial<CSSProperties>>
@@ -23,6 +32,7 @@ export interface ThemeSpec {
     Axis?: SideRecords
     AxisLabel?: SideRecords
     AxisTicks?: SideRecords
+    Legend?: ThemeLegendSpec
     Colors?: ThemeColorSpec
 }
 
@@ -36,5 +46,6 @@ export interface CompleteThemeSpec {
     Axis: SideRecords
     AxisLabel: SideRecords
     AxisTicks: SideRecords
+    Legend: ThemeLegendSpec
     Colors: ThemeColorSpec
 }

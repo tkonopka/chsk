@@ -1,5 +1,5 @@
 import { LineLabelProps } from './types'
-import { getAbsolutePosition, Line, useDimensions, useScales, Text } from '@chask/core'
+import { getAbsolutePosition, Line, useDimensions, useScales, Typography } from '@chask/core'
 
 export const LineLabel = ({
     start,
@@ -51,7 +51,7 @@ export const LineLabel = ({
                 style={lineStyle}
                 setRole={setRole}
             />
-            <Text
+            <Typography
                 variant={'interval-label'}
                 transform={translation + rotation}
                 className={className}
@@ -59,7 +59,7 @@ export const LineLabel = ({
                 setRole={setRole}
             >
                 {children}
-            </Text>
+            </Typography>
         </g>
     )
 }

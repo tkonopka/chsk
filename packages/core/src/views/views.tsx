@@ -6,7 +6,7 @@ import {
     ScalesProvider,
 } from '../scales'
 import { ViewProps } from './types'
-import { OriginalDataProvider } from './contexts'
+import { OriginalDataProvider, ProcessedDataProvider } from './contexts'
 import { useView } from './hooks'
 
 export const View = ({
@@ -26,9 +26,11 @@ export const View = ({
         <DimensionsProvider {...dimsProps}>
             <OriginalDataProvider data={data}>
                 <ScalesProvider scales={scales}>
-                    <g role="view" transform={translate}>
-                        {children}
-                    </g>
+                    <ProcessedDataProvider data={data} seriesIndexes={{}} keys={[]}>
+                        <g role="view" transform={translate}>
+                            {children}
+                        </g>
+                    </ProcessedDataProvider>
                 </ScalesProvider>
             </OriginalDataProvider>
         </DimensionsProvider>

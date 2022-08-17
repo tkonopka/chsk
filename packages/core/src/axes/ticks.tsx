@@ -2,7 +2,7 @@ import { Line } from '../lines'
 import { getTickCoordinates, getTicks, useScales } from '../scales'
 import { TickFormatType, TicksProps } from './types'
 import { useTheme } from '../themes'
-import { Text } from '../typography'
+import { Typography } from '../typography'
 
 // special formatting functions
 const stringFormat = (v: unknown) => String(v)
@@ -64,7 +64,7 @@ export const AxisTicks = ({
                 variant={'tick'}
                 style={style}
             />
-            <Text
+            <Typography
                 x={0}
                 y={0}
                 transform={transformTranslate + transformRotate}
@@ -73,7 +73,7 @@ export const AxisTicks = ({
                 className={variant}
             >
                 {tickFormat(tickValues[i] as string)}
-            </Text>
+            </Typography>
         </g>
     ))
 

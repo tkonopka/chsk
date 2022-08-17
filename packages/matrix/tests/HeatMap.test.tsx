@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
-import { Chart } from '@chask/core'
-import { HeatMap, useProcessedHeatMapData } from '../src/heatmap'
+import { Chart, useProcessedData } from '@chask/core'
+import { HeatMap, isHeatMapProcessedData } from '../src/heatmap'
 import { heatmapProps } from './props'
 import { HeatMapDataContextProps } from '../src/heatmap'
 
@@ -8,9 +8,14 @@ const keysXYZ = ['x', 'y', 'z']
 
 describe('HeatMap', () => {
     it('defines processed data', () => {
-        let processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetProcessedData = () => {
-            processed = useProcessedHeatMapData()
+            const temp = useProcessedData()
+            if (isHeatMapProcessedData(temp.data)) {
+                processed.data = temp.data
+                processed.seriesIndexes = temp.seriesIndexes
+                processed.keys = temp.keys
+            }
             return null
         }
         render(

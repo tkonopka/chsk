@@ -1,0 +1,47 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Legend, LegendItem, GoldenRect, Square, Circle } from '../src'
+import { ChartWithRightLegendTitleDecorator } from './decorators'
+
+# LegendItem
+
+<Meta title="Core/Components/LegendItem" />
+export const Template = args => <LegendItem {...args} />
+
+`LegendItem` draws one entry in a legend.
+
+<ArgsTable of={LegendItem} />
+
+## Symbols and labels
+
+<Canvas>
+    <Story
+        name="rectangle symbols"
+        args={{
+            position: [0, 16],
+            r: 10,
+            symbol: GoldenRect,
+            symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
+            label: 'label',
+            labelOffset: [16, 0],
+        }}
+        component={LegendItem}
+        decorators={[ChartWithRightLegendTitleDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="circle symbols"
+        args={{
+            position: [0, 16],
+            r: 7,
+            symbol: Circle,
+            symbolStyle: { fill: '#dd3333', strokeWidth: 0 },
+            label: 'label',
+            labelOffset: [16, 0],
+        }}
+        component={LegendItem}
+        decorators={[ChartWithRightLegendTitleDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

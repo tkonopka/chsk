@@ -1,0 +1,33 @@
+{
+    "name": "@chask/xy",
+    "version": "0.1.0",
+    "author": "Tomasz Konopka",
+    "description": "Components for charts with xy scales",
+    "main": "./dist/chask-xy.cjs.js",
+    "module": "./dist/chask-xy.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tkonopka/chask.git",
+        "directory": "packages/xy"
+    },
+    "scripts": {
+        "lint": "eslint ./{src,test}/**/*{js,ts,tsx}",
+        "test": "jest",
+        "test-coverage": "jest --coverage",
+        "build": "PACKAGE=xy rollup -c ../../rollup.config.js && tsc"
+    },
+    "dependencies": {
+        "@chask/core": "^0.1.0"
+    },
+    "peerDependencies": {
+        "react": ">= 17.0.2 < 19.0.0",
+        "react-dom": ">= 17.0.2 < 19.0.0"
+    },
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/"
+    ]
+}
