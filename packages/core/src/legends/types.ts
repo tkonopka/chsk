@@ -21,7 +21,9 @@ export interface LegendItemProps extends SvgElementProps {
     colorIndex?: number
 }
 
-export interface LegendProps extends ContainerProps, Omit<LegendItemProps, 'position' | 'label' | 'colorIndex'> {
+export interface LegendProps
+    extends ContainerProps,
+        Omit<LegendItemProps, 'position' | 'label' | 'colorIndex'> {
     /** size of a single legend item */
     itemSize?: SizeSpec
     /** legend title */
