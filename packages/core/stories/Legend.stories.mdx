@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Legend, Rectangle } from '../src'
-import { ChartForLegendDecorator } from './decorators'
+import { Legend, Rectangle, Surface } from '../src'
+import { ChartForLegendDecorator, ChartForLegend2Decorator } from './decorators'
 
 # Legend
 
@@ -27,7 +27,7 @@ In the examples below, the gray area is the current view, and the blue rectangle
             size: [60, 80],
             units: 'absolute',
             anchor: [0, 0.5],
-            children: <Rectangle x={0} y={0} width={60} height={80} style={{ fill: '#aabbee' }} />,
+            children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
         decorators={[ChartForLegendDecorator]}
@@ -41,7 +41,7 @@ In the examples below, the gray area is the current view, and the blue rectangle
             size: [60, 80],
             units: 'absolute',
             anchor: [0, 1],
-            children: <Rectangle x={0} y={0} width={60} height={80} style={{ fill: '#aabbee' }} />,
+            children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
         decorators={[ChartForLegendDecorator]}
@@ -55,7 +55,7 @@ In the examples below, the gray area is the current view, and the blue rectangle
             size: [60, 80],
             units: 'absolute',
             anchor: [1, 1],
-            children: <Rectangle x={0} y={0} width={60} height={80} style={{ fill: '#aabbee' }} />,
+            children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
         decorators={[ChartForLegendDecorator]}
@@ -69,7 +69,7 @@ In the examples below, the gray area is the current view, and the blue rectangle
             size: [140, 60],
             units: 'absolute',
             anchor: [0.5, 0],
-            children: <Rectangle x={0} y={0} width={140} height={60} style={{ fill: '#aabbee' }} />,
+            children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
         decorators={[ChartForLegendDecorator]}
@@ -91,7 +91,7 @@ A prop `padding` introduces space between the legend's bounding container (deter
             units: 'absolute',
             anchor: [0, 0.5],
             padding: [0, 12, 0, 12],
-            children: <Rectangle x={0} y={0} width={60} height={80} style={{ fill: '#aabbee' }} />,
+            children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
         decorators={[ChartForLegendDecorator]}
@@ -102,8 +102,66 @@ A prop `padding` introduces space between the legend's bounding container (deter
 
 Note that adding padding can have a very similar effect to adjusting the position and size. This is just a convenience prop that makes the API consistent with other container-based components.
 
-## Content
+## Orientation of content
 
-When `Legend` is used without any child elements, it automatically creates a title and entries for relevant colors and labels. This functionality is dependent on the dataset associated with the view. This functionality is demonstrated in the `@chask/band` and `@chask/xy` packages.
+When `Legend` is used without any child elements, it automatically creates a title and entries for relevant colors and labels. The entries are extracted from the `useProcessedData` hook, which return view-specific information.
 
-Alternatively, the legend content can be constructed manually using `LegendTitle` and `LegendItem` components.
+The content can be arranged vertically or horizontally.
+
+<Canvas>
+    <Story
+        name="automatic content, vertical"
+        args={{
+            position: [240, 0],
+            size: [60, 80],
+            units: 'absolute',
+            anchor: [0, 0],
+            padding: [0, 8, 0, 8],
+            itemSize: [80, 24],
+            itemPadding: [2, 2, 2, 2],
+            title: 'Legend title',
+        }}
+        component={Legend}
+        decorators={[ChartForLegend2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="automatic content, horizontal 1"
+        args={{
+            position: [0, 0],
+            size: [240, 70],
+            units: 'absolute',
+            anchor: [0, 1],
+            padding: [6, 0, 6, 0],
+            itemSize: [80, 24],
+            firstOffset: [-80, 24],
+            itemPadding: [2, 2, 2, 2],
+            horizontal: true,
+            title: 'Legend title',
+        }}
+        component={Legend}
+        decorators={[ChartForLegend2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="automatic content, horizontal 2"
+        args={{
+            position: [0, 140],
+            size: [240, 60],
+            units: 'absolute',
+            anchor: [0, 0],
+            padding: [16, 0, 0, 0],
+            itemSize: [70, 20],
+            itemPadding: [2, 2, 2, 2],
+            firstOffset: [0, 0],
+            horizontal: true,
+            title: 'Legend: ',
+        }}
+        component={Legend}
+        decorators={[ChartForLegend2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

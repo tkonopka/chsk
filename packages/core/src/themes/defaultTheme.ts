@@ -48,6 +48,7 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         legendTitle: {
             textAnchor: 'start' as const,
+            dominantBaseline: 'middle' as const,
         },
         legendLabel: {
             textAnchor: 'start' as const,
@@ -104,6 +105,9 @@ export const defaultTheme: CompleteThemeSpec = {
         outer: {
             fill: '#f4f4f4',
             fillOpacity: 1,
+        },
+        legendItem: {
+            fill: '#ffffff00',
         },
     },
     circle: {
@@ -166,8 +170,10 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     Legend: {
         horizontal: false,
+        align: 'left' as const,
         itemSize: [60, 20],
-        firstOffset: [0, -8],
+        itemPadding: [4, 4, 4, 4],
+        firstOffset: [0, 0],
         r: 8,
         labelOffset: [14, 0],
     },

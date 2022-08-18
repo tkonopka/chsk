@@ -90,13 +90,31 @@ export const ChartBandViewDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const viewSeriesIndexesKeys = {
+    seriesIndexes: { X: 0, Y: 1 },
+    keys: ['alpha', 'beta', 'gamma'],
+}
+
 export const ChartForLegendDecorator = (Story: () => ReactNode) => (
     <Chart
         size={[400, 300]}
         padding={[80, 80, 80, 80]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
-        <View>
+        <View data={viewSeriesIndexesKeys}>
+            <Surface variant={'inner'} />
+            {Story()}
+        </View>
+    </Chart>
+)
+
+export const ChartForLegend2Decorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[80, 120, 80, 40]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View data={viewSeriesIndexesKeys}>
             <Surface variant={'inner'} />
             {Story()}
         </View>
@@ -109,7 +127,7 @@ export const ChartWithRightLegendDecorator = (Story: () => ReactNode) => (
         padding={[20, 100, 20, 20]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
-        <View>
+        <View data={viewSeriesIndexesKeys}>
             <Surface variant={'inner'} />
             <Legend
                 position={[280, 0]}
@@ -130,7 +148,7 @@ export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
         padding={[20, 100, 20, 20]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
-        <View>
+        <View data={viewSeriesIndexesKeys}>
             <Surface variant={'inner'} />
             <Legend
                 position={[280, 0]}
@@ -139,7 +157,7 @@ export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
                 anchor={[0, 0]}
                 padding={[12, 10, 12, 10]}
             >
-                <LegendTitle>Legend title</LegendTitle>
+                <LegendTitle position={[0, 0]}>Legend title</LegendTitle>
                 {Story()}
             </Legend>
         </View>

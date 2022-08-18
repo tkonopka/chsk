@@ -15,3 +15,9 @@ export const viewProps = {
     scaleX: scaleProps,
     scaleY: scaleProps,
 }
+
+export const dataViewProps = {
+    data: [{ keys: ['x', 'y', 'z'] }, { seriesIndexes: { A: 0, B: 1 } }],
+    scaleX: scaleProps,
+    scaleY: scaleProps,
+}

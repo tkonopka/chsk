@@ -40,9 +40,16 @@ export interface ContainerProps {
     children?: ReactNode
 }
 
+export type ViewSeriesKeys = {
+    /** prepared map from series ids to integers */
+    seriesIndexes: Record<string, number>
+    /** array of keys for a view */
+    keys: string[]
+}
+
 export interface ViewProps extends ContainerProps {
     /** data array **/
-    data?: Array<Record<string, unknown>>
+    data?: Array<Record<string, unknown>> | ViewSeriesKeys
     /** scale for horizontal axis */
     scaleX?: ScaleProps
     /** scale for vertical axis */

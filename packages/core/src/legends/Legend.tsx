@@ -3,6 +3,7 @@ import { useProcessedData, useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useTheme } from '../themes'
 import { LegendItem } from './LegendItem'
+import { DimensionsProvider } from '../general'
 
 export const Legend = ({
     // layout of container
@@ -13,6 +14,8 @@ export const Legend = ({
     padding = [0, 0, 0, 0],
     // organization of items within the container
     itemSize,
+    itemPadding,
+    align,
     horizontal = false,
     firstOffset,
     // title
@@ -30,28 +33,15 @@ export const Legend = ({
     setRole = true,
     children,
 }: LegendProps) => {
-    const theme = useTheme()
+    const theme = useTheme().Legend
     const data = useProcessedData()
-    const { translate } = useView({ position, size, units, anchor, padding })
+    const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
 
-    // settings from theme or from props
-    const iSize = itemSize ?? theme.Legend.itemSize ?? [40, 10]
-    const fOffset = firstOffset ?? theme.Legend.firstOffset ?? [0, 0]
-    const lOffset = labelOffset ?? theme.Legend.labelOffset ?? [0, 0]
-    const symbolR = r ?? theme.Legend.r ?? 1
-
-    if (children) {
-        return (
-            <g
-                role={setRole ? 'legend' : undefined}
-                transform={translate}
-                style={style}
-                className={className}
-            >
-                {children}
-            </g>
-        )
-    }
+    // settings from props (preferred) or from theme
+    const iSize = itemSize ?? theme.itemSize
+    const fOffset = firstOffset ?? theme.firstOffset
+    const lOffset = labelOffset ?? theme.labelOffset
+    const symbolR = r ?? theme.r
 
     // book-keeping for position of legend item position
     const pos = [0, 0]
@@ -66,7 +56,10 @@ export const Legend = ({
         return (
             <LegendItem
                 key={'legend-item-' + i}
-                position={[pos[0] * i * step[0], pos[1] + i * step[1]]}
+                position={[pos[0] + i * step[0], pos[1] + i * step[1]]}
+                size={itemSize}
+                padding={itemPadding}
+                align={align}
                 r={symbolR}
                 symbol={symbol}
                 symbolStyle={symbolStyle}
@@ -80,16 +73,33 @@ export const Legend = ({
     })
 
     return (
-        <g
-            role={setRole ? 'legend' : undefined}
-            transform={translate}
-            style={style}
-            className={className}
-        >
-            <LegendTitle key={'legend-title'} x={0} y={0} style={titleStyle} setRole={setRole}>
-                {title}
-            </LegendTitle>
-            {items}
-        </g>
+        <DimensionsProvider {...dimsProps}>
+            <g
+                role={setRole ? 'legend' : undefined}
+                transform={translate}
+                style={style}
+                className={className}
+            >
+                {children ? (
+                    children
+                ) : (
+                    <>
+                        <LegendTitle
+                            key={'legend-title'}
+                            position={[0, 0]}
+                            size={itemSize}
+                            padding={itemPadding}
+                            translate={[0, symbolR]}
+                            align={align}
+                            style={titleStyle}
+                            setRole={setRole}
+                        >
+                            {title}
+                        </LegendTitle>
+                        {items}
+                    </>
+                )}
+            </g>
+        </DimensionsProvider>
     )
 }

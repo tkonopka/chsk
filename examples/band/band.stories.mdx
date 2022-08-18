@@ -1,0 +1,95 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, GridLines, Legend } from '@chask/core'
+import { Bar, Bars } from '@chask/band'
+import { generateBandData } from './generators'
+
+<Meta title="Gallery/Bar charts" />
+
+# Examples of bar charts
+
+## Stacked charts
+
+export const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
+export const stackedKeys = ['alpha', 'beta', 'gamma', 'delta', 'epsilon']
+export const stackedData = generateBandData({
+    ids: stackedIds,
+    keys: stackedKeys,
+    interval: [5, 25],
+})
+
+<Canvas>
+    <Story name="stacked, vertical">
+        <Chart
+            id="stacked-vertical"
+            size={[600, 400]}
+            padding={[40, 120, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar
+                data={stackedData}
+                keys={stackedKeys}
+                stacked={true}
+                scaleIndex={{
+                    variant: 'band',
+                    domain: stackedIds,
+                    padding: 0.2,
+                }}
+            >
+                <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                <Axis variant={'bottom'} />
+                <Axis variant={'left'} />
+                <Bars />
+                <Legend
+                    position={[440, 0]}
+                    size={[80, 80]}
+                    units={'absolute'}
+                    anchor={[0, 0]}
+                    padding={[0, 12, 0, 12]}
+                    itemSize={[80, 24]}
+                    itemPadding={[2, 2, 2, 2]}
+                    title={'Legend Title'}
+                />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="stacked, horizontal">
+        <Chart
+            id="stacked-vertical"
+            size={[600, 400]}
+            padding={[80, 40, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar
+                data={stackedData}
+                keys={stackedKeys}
+                stacked={true}
+                scaleIndex={{
+                    variant: 'band',
+                    domain: stackedIds,
+                    padding: 0.2,
+                }}
+                horizontal={true}
+            >
+                <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                <Axis variant={'bottom'} />
+                <Axis variant={'left'} />
+                <Bars />
+                <Legend
+                    position={[0, -10]}
+                    size={[300, 80]}
+                    units={'absolute'}
+                    horizontal={true}
+                    anchor={[0, 1]}
+                    padding={[20, 0, 20, 0]}
+                    itemSize={[85, 24]}
+                    itemPadding={[2, 2, 2, 2]}
+                    firstOffset={[-85, 24]}
+                    title={'Legend Title'}
+                />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>

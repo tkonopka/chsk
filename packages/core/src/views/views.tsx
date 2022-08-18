@@ -22,11 +22,21 @@ export const View = ({
 }: ViewProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
+
+    const isArray = Array.isArray(data)
+    const dataArray = isArray ? data : []
+    const keys = isArray ? [] : data.keys
+    const seriesIndexes = isArray ? {} : data.seriesIndexes
+
     return (
         <DimensionsProvider {...dimsProps}>
-            <OriginalDataProvider data={data}>
+            <OriginalDataProvider data={dataArray}>
                 <ScalesProvider scales={scales}>
-                    <ProcessedDataProvider data={data} seriesIndexes={{}} keys={[]}>
+                    <ProcessedDataProvider
+                        data={dataArray}
+                        seriesIndexes={seriesIndexes}
+                        keys={keys}
+                    >
                         <g role="view" transform={translate}>
                             {children}
                         </g>

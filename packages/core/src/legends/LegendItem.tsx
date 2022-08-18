@@ -1,15 +1,20 @@
 import { LegendItemProps } from './types'
-import { GoldenRect } from '../shapes'
+import { Rectangle, Square } from '../shapes'
 import { useProcessedData } from '../views'
 import { Typography } from '../typography'
 import { useTheme } from '../themes'
 import { useScales } from '../scales'
 import { addColor } from '../themes'
+import { LEFT, RIGHT, TOP } from '../general'
 
 export const LegendItem = ({
     position,
+    size,
+    padding,
+    translate = [0, 0],
+    align,
     r,
-    symbol = GoldenRect,
+    symbol = Square,
     symbolStyle,
     label,
     labelStyle,
@@ -21,19 +26,40 @@ export const LegendItem = ({
 }: LegendItemProps) => {
     const data = useProcessedData()
     const colorScale = useScales().color
-    const theme = useTheme()
+    const theme = useTheme().Legend
 
-    const offset = labelOffset ?? theme.Legend.labelOffset
     const cIndex = colorIndex ?? data.keys.indexOf(label ?? '')
+    const itemSize = size ?? theme.itemSize
+    const itemPadding = padding ?? theme.itemPadding
     const itemStyle = addColor(symbolStyle, colorScale(cIndex))
-    const itemR = r ?? theme.Legend.r ?? 1
+    const itemR = r ?? theme.r
+    const itemAlign = align ?? theme.align
+    const labOffset = labelOffset ?? theme.labelOffset
 
-    const translate = 'translate(' + (position[0] + itemR) + ',' + (position[1] + itemR) + ')'
+    // determine position of symbol and text label
+    const symbolPos = [itemR + itemPadding[LEFT], itemR + itemPadding[TOP]]
+    if (itemAlign === 'right') {
+        symbolPos[0] = itemSize[0] - itemPadding[RIGHT] - itemR
+    } else if (itemAlign === 'middle') {
+        symbolPos[0] =
+            itemPadding[LEFT] + (itemSize[0] - itemPadding[LEFT] - itemPadding[RIGHT]) / 2
+    }
+    const labelPos = [symbolPos[0] + labOffset[0], itemR + labOffset[1] + itemPadding[TOP]]
+
+    const transform = 'translate(' + position[0] + ',' + position[1] + ')'
     return (
-        <g role={setRole ? 'legend-item' : undefined} transform={translate} style={style}>
+        <g role={setRole ? 'legend-item' : undefined} transform={transform} style={style}>
+            <Rectangle
+                variant="legendItem"
+                x={0}
+                y={0}
+                width={itemSize[0]}
+                height={itemSize[1]}
+                setRole={false}
+            />
             {symbol({
-                cx: 0,
-                cy: 0,
+                cx: symbolPos[0] + translate[0],
+                cy: symbolPos[1] + translate[1],
                 r: itemR,
                 className,
                 style: itemStyle,
@@ -41,8 +67,8 @@ export const LegendItem = ({
             })}
             <Typography
                 variant={'legendLabel'}
-                x={offset[0]}
-                y={offset[1]}
+                x={labelPos[0] + translate[0]}
+                y={labelPos[1] + translate[1]}
                 style={labelStyle}
                 setRole={false}
             >
