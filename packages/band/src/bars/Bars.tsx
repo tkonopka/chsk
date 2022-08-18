@@ -5,7 +5,7 @@ import { ReactNode, useMemo } from 'react'
 import { isFinite } from 'lodash'
 
 // get set objects containing ids and keys to display
-const getIdKeySets = (
+export const getIdKeySets = (
     ids: string[] | undefined,
     keys: string[] | undefined,
     preparedData: BarPreparedDataContextProps
@@ -59,7 +59,7 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
 
     if (bars.length === 0) return null
     return (
-        <g role={'bar-bars'} key={'bar-bars'}>
+        <g role={'bars'} key={'bars'}>
             {bars}
         </g>
     )

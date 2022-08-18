@@ -6,7 +6,7 @@ import {
     SizeSpec,
     SizeUnit,
 } from './types'
-import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
+import { getInnerSize } from './utils'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
@@ -40,12 +40,7 @@ export const DimensionsProvider = ({
     padding,
     children,
 }: DimensionsProviderBaseProps & { children: ReactNode }) => {
-    const innerSize: [number, number] = [
-        size[WIDTH] - padding[LEFT] - padding[RIGHT],
-        size[HEIGHT] - padding[TOP] - padding[BOTTOM],
-    ]
-    const value: DimensionsContextProps = { size, padding, innerSize }
-
+    const value: DimensionsContextProps = { size, padding, innerSize: getInnerSize(size, padding) }
     return <DimensionsContext.Provider value={value}>{children}</DimensionsContext.Provider>
 }
 

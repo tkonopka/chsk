@@ -1,0 +1,63 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, AxisTicks, GridLines } from '@chask/core'
+import { Bar, Bars, BarsLabels } from '../src'
+
+# BarsLabels
+
+<Meta title="Addons/Band/BarsLabels" />
+export const Template = args => <BarsLabels {...args} />
+
+`BarsLabels` draws a set of labels on a bar chart.
+
+<ArgsTable of={BarsLabels} />
+
+## Alignment of labels
+
+On horizontal charts, labels can be positioned near the baseline or near the edge of the bars.
+
+For small bars, the labels can be omitted, or automatically located beside the bars.
+
+export const barsLabelsData = [
+    { id: 'alpha', value: 85 },
+    { id: 'beta', value: 60 },
+    { id: 'gamma', value: 50 },
+    { id: 'delta', value: 25 },
+    { id: 'epsilon', value: 5 },
+]
+
+<Canvas>
+    <Chart size={[400, 220]} padding={[30, 20, 30, 60]} style={{ display: 'inline-block' }}>
+        <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
+            <GridLines variant={'x'} />
+            <Axis variant={'left'} ticks={null}>
+              <AxisTicks variant={'left'} size={0} />
+            </Axis>
+            <Bars />
+            <BarsLabels
+                padding={[2, 8, 2, 8]}
+                align={[0, 0.5]}
+                showOuter={true}
+                style={{ textAnchor: 'start' }}
+                styleOuter={{ fill: '#222222', textAnchor: 'start' }}
+            />
+        </Bar>
+    </Chart>
+
+    <Chart size={[400, 220]} padding={[30, 20, 30, 60]} style={{ display: 'inline-block' }}>
+        <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
+            <GridLines variant={'x'} />
+            <Axis variant={'left'} ticks={null}>
+              <AxisTicks variant={'left'} size={0} />
+            </Axis>
+            <Bars />
+            <BarsLabels
+                padding={[2, 8, 2, 8]}
+                align={[1, 0.5]}
+                showOuter={true}
+                style={{ textAnchor: 'end' }}
+                styleOuter={{ fill: '#222222', textAnchor: 'start' }}
+            />
+        </Bar>
+    </Chart>
+
+</Canvas>

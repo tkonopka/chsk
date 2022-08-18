@@ -1,7 +1,7 @@
 import { Typography } from '../typography'
 import { LEFT, RIGHT, TOP } from '../general'
 import { LegendTitleProps } from './types'
-import {useTheme} from "../themes";
+import { useTheme } from '../themes'
 
 export const LegendTitle = ({
     position,

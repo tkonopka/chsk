@@ -2,6 +2,7 @@ import {
     BandScaleSpec,
     CategoricalScaleSpec,
     CssProps,
+    LabelLocationSpec,
     LinearScaleSpec,
     NumericPositionSpec,
     ProcessedDataContextProps,
@@ -69,4 +70,23 @@ export interface BarsProps {
     className?: string
     /** css style */
     style?: CssProps
+}
+
+export interface BarsLabelsProps extends LabelLocationSpec {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+    /** keys to display (default to all keys) */
+    keys?: string[]
+    /** format for text */
+    format?: (v: string | number) => string
+    /** minimum size for displaying a label */
+    minSize?: SizeSpec
+    /** toggle visibility of labels outside of small bars */
+    showOuter?: boolean
+    /** style class */
+    className?: string
+    /** css style */
+    style?: CssProps
+    /** css style for outer label */
+    styleOuter?: CssProps
 }

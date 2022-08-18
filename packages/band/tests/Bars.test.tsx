@@ -12,7 +12,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         // the data has two groups of three bars each
         expect(result.querySelectorAll('rect')).toHaveLength(6)
     })
@@ -25,7 +25,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         // the data has two groups of three bars each
         expect(result.querySelectorAll('rect')).toHaveLength(6)
     })
@@ -38,7 +38,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         // the data has two groups of three bars each
         expect(result.querySelectorAll('rect')).toHaveLength(6)
     })
@@ -73,7 +73,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         // the data has two groups with one bar each
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
@@ -88,7 +88,7 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for 'alpha' - three bars for keys x, y, z
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tickLabel')
@@ -106,7 +106,7 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
-        const result = screen.getByRole('bar-bars')
+        const result = screen.getByRole('bars')
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 

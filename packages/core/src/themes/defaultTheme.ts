@@ -54,6 +54,13 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'start' as const,
             dominantBaseline: 'middle' as const,
         },
+        barLabel: {
+            fontSize: '11px',
+            fontWeight: 600,
+            textAnchor: 'middle' as const,
+            dominantBaseline: 'middle' as const,
+            fill: '#ffffff',
+        },
         footnote: {
             fontFamily: 'sans-serif',
             fontSize: '11px',
