@@ -1,3 +1,4 @@
+import { FC, ReactNode } from 'react'
 import {
     AccessorFunction,
     CategoricalScaleSpec,
@@ -8,11 +9,10 @@ import {
     PositionUnit,
     ProcessedDataContextProps,
     SvgElementVariantProps,
-    SymbolFunction,
+    SymbolProps,
     ViewProps,
     WithId,
 } from '@chask/core'
-import { ReactNode } from 'react'
 
 export type ScatterDataItem = WithId & {
     data: Array<Record<string, unknown>>
@@ -51,7 +51,7 @@ export interface ScatterPointsProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** symbol for individual data points */
-    symbol?: SymbolFunction
+    symbol?: FC<SymbolProps>
     /** style class for data points */
     symbolClassName?: string
     /** style for data points */

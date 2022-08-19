@@ -8,7 +8,6 @@ export const Polygon = ({
     className,
     style,
     setRole = true,
-    key,
 }: PolygonProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
@@ -17,7 +16,6 @@ export const Polygon = ({
         .join(' ')
     return (
         <polygon
-            key={key}
             role={setRole ? variant : undefined}
             points={pointsString}
             style={style}

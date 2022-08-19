@@ -1,5 +1,4 @@
 import { NumericPositionSpec, SvgElementVariantProps } from '../general'
-import { ReactNode } from 'react'
 
 export interface CircleProps extends SvgElementVariantProps {
     /** x coordinate */
@@ -33,5 +32,3 @@ export interface PolygonProps extends SvgElementVariantProps {
 }
 
 export type SymbolProps = CircleProps
-
-export type SymbolFunction = (props: SymbolProps) => ReactNode

@@ -1,7 +1,7 @@
 import { addColor, Rectangle, useScales } from '@chask/core'
 import { BarPreparedDataContextProps, BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
-import { ReactNode, useMemo } from 'react'
+import { ReactNode, createElement, useMemo } from 'react'
 import { isFinite } from 'lodash'
 
 // get set objects containing ids and keys to display
@@ -41,7 +41,7 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
                 if (!keySet.has(preparedData.keys[i])) return null
                 const size = seriesData.size[i]
                 if (!isFinite(size[0]) || !isFinite(size[1])) return null
-                return bar({
+                return createElement(bar, {
                     key: 'bar-' + seriesData.index + '-' + i,
                     x: pos[0],
                     y: pos[1],
@@ -63,4 +63,5 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
             {bars}
         </g>
     )
+    return <Rectangle x={0} y={0} width={10} height={10} key={'abc'} />
 }

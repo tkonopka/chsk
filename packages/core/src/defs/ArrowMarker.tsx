@@ -34,7 +34,6 @@ export const ArrowMarker = ({
     size = 10,
     width = 1,
     style,
-    key,
 }: ArrowMarkerProps) => {
     let d = ''
     const w = Math.min(1, Math.max(0, width))
@@ -47,7 +46,6 @@ export const ArrowMarker = ({
     }
     return (
         <marker
-            key={key}
             id={id}
             viewBox={'0 0 ' + (size + 2) + ' ' + (size + 2)}
             refX={(3 * size) / 4}

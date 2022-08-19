@@ -1,7 +1,7 @@
+import { ReactNode, FC } from 'react'
 import { CssProps, NumericPositionSpec, SideSizeSpec, SizeSpec, SvgElementProps } from '../general'
 import { ContainerProps } from '../views'
-import { SymbolFunction } from '../shapes'
-import { ReactNode } from 'react'
+import { SymbolProps } from '../shapes'
 
 export interface LegendTitleProps extends SvgElementProps {
     /** position of symbol */
@@ -22,7 +22,7 @@ export interface LegendItemProps extends LegendTitleProps {
     /** size of symbol */
     r?: number
     /** symbol function */
-    symbol?: SymbolFunction
+    symbol?: FC<SymbolProps>
     /** style for symbol */
     symbolStyle?: CssProps
     /** text label */

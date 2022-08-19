@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { addColor, Circle, useScales } from '@chask/core'
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './context'
@@ -19,7 +20,7 @@ export const ScatterPoints = ({
         const x = data.x
         const y = data.y
         const dots = data.r.map((r: number, i: number) =>
-            symbol({
+            createElement(symbol, {
                 key: 'point-' + seriesIndex + '-' + i,
                 cx: x[i],
                 cy: y[i],

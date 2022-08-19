@@ -13,13 +13,11 @@ export const Rectangle = ({
     className,
     style,
     setRole = true,
-    key,
 }: RectangleProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     return (
         <rect
-            key={key}
             role={setRole ? variant : undefined}
             x={center ? x - width / 2 : x}
             y={center ? y - height / 2 : y}

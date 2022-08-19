@@ -28,14 +28,12 @@ export const Square = ({
     className,
     style,
     setRole = true,
-    key,
 }: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     const scaledHalfSide = squareHalfSide * r
     return (
         <rect
-            key={key}
             role={setRole ? variant : undefined}
             x={cx - scaledHalfSide}
             y={cy - scaledHalfSide}
@@ -60,13 +58,11 @@ export const GoldenRect = ({
     className,
     style,
     setRole = true,
-    key,
 }: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     return (
         <rect
-            key={key}
             role={setRole ? variant : undefined}
             x={cx - (r * goldenRectWidth) / 2}
             y={cy - (r * goldenRectHeight) / 2}
@@ -102,7 +98,6 @@ export const Triangle = ({
     className,
     style,
     setRole = true,
-    key,
 }: SymbolProps) => {
     const points: Array<NumericPositionSpec> = equilateralCoordinates.map(coords => [
         cx + coords[0] * r,
@@ -115,7 +110,6 @@ export const Triangle = ({
             className={className}
             style={style}
             setRole={setRole}
-            key={key}
         />
     )
 }
@@ -130,7 +124,6 @@ export const InvertedTriangle = ({
     className,
     style,
     setRole = true,
-    key,
 }: SymbolProps) => {
     const points: Array<NumericPositionSpec> = equilateralCoordinates.map(coords => [
         cx + coords[0] * r,
@@ -138,7 +131,6 @@ export const InvertedTriangle = ({
     ])
     return (
         <Polygon
-            key={key}
             variant={variant}
             points={points}
             style={style}
@@ -168,7 +160,6 @@ export const Diamond = ({
     className,
     style,
     setRole = true,
-    key,
 }: SymbolProps) => {
     const points: Array<NumericPositionSpec> = diamondCoordinates.map(coords => [
         cx + coords[0] * r,
@@ -176,7 +167,6 @@ export const Diamond = ({
     ])
     return (
         <Polygon
-            key={key}
             variant={variant}
             points={points}
             style={style}

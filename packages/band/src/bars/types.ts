@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import {
     BandScaleSpec,
     CategoricalScaleSpec,
@@ -11,7 +12,6 @@ import {
     ViewProps,
     WithId,
 } from '@chask/core'
-import { ReactNode } from 'react'
 
 export type BarDataItem = WithId & Record<string, unknown>
 
@@ -65,7 +65,7 @@ export interface BarsProps {
     /** keys to display (default to all keys) */
     keys?: string[]
     /** symbol for individual data points */
-    bar?: (props: RectangleProps) => ReactNode
+    bar?: FC<RectangleProps>
     /** style class */
     className?: string
     /** css style */

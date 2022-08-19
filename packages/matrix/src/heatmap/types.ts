@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import {
     BandScaleSpec,
     CssProps,
@@ -8,7 +9,6 @@ import {
     ViewProps,
     WithId,
 } from '@chask/core'
-import { ReactNode } from 'react'
 
 export type HeatMapDataItem = WithId & Record<string, unknown>
 
@@ -41,7 +41,7 @@ export interface HeatMapCellsProps {
     /** keys to display (default to all keys) */
     keys?: string[]
     /** symbol for individual data points */
-    cell?: (props: RectangleProps) => ReactNode
+    cell?: FC<RectangleProps>
     /** style class */
     className?: string
     /** css style */

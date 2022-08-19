@@ -11,6 +11,4 @@ export interface ArrowMarkerProps {
     width?: number
     /** style for path */
     style?: CssProps
-    /** key */
-    key?: string
 }

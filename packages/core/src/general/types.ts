@@ -3,8 +3,6 @@ import { CSSProperties } from 'react'
 export type CssProps = Partial<CSSProperties>
 
 export interface SvgElementProps {
-    /** key */
-    key?: string | number
     /** class string */
     className?: string
     /** determines if a role is included in the svg source */

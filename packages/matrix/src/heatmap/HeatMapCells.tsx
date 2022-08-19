@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import {
     addColor,
     BandAxisScale,
@@ -54,7 +54,7 @@ export const HeatMapCells = ({
                 if (!keySet.has(processedData.keys[i])) return null
                 const color = colorScale(values[i])
                 const cellStyle = addColor(style, color)
-                return cell({
+                return createElement(cell, {
                     key: 'cell-' + seriesData.index + '-' + i,
                     x: x[i],
                     y: y,
