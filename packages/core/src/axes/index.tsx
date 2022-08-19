@@ -1,3 +1,5 @@
-export * from './axes'
-export * from './ticks'
+export * from './Axis'
+export * from './AxisLine'
+export * from './AxisLabel'
+export * from './AxisTicks'
 export * from './types'

@@ -8,6 +8,7 @@ export const defaultTheme: CompleteThemeSpec = {
             fill: '#333333',
         },
         label: {
+            fontSize: '12px',
             textAnchor: 'middle',
             dominantBaseline: 'middle',
         },
@@ -53,13 +54,6 @@ export const defaultTheme: CompleteThemeSpec = {
         legendLabel: {
             textAnchor: 'start' as const,
             dominantBaseline: 'middle' as const,
-        },
-        barLabel: {
-            fontSize: '11px',
-            fontWeight: 600,
-            textAnchor: 'middle' as const,
-            dominantBaseline: 'middle' as const,
-            fill: '#ffffff',
         },
         footnote: {
             fontFamily: 'sans-serif',
@@ -125,16 +119,16 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     Axis: {
         top: {
-            padding: 0, // distance between chart surface and axis
+            offset: 0, // distance between chart surface and axis
         },
         bottom: {
-            padding: 0,
+            offset: 0,
         },
         left: {
-            padding: 0,
+            offset: 0,
         },
         right: {
-            padding: 0,
+            offset: 0,
         },
     },
     AxisLabel: {

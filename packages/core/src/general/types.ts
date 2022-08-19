@@ -60,6 +60,8 @@ export type LabelLocationSpec = {
     padding?: SideSizeSpec
     /** alignment for origin of label */
     align?: NumericPositionSpec
+    /** additional translation */
+    translate?: NumericPositionSpec
     /** style for text */
     style?: CssProps
 }

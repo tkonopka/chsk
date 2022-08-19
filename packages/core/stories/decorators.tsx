@@ -53,9 +53,7 @@ export const ChartAxisDecorator = (Story: () => ReactNode) => (
             data={[]}
         >
             <Surface variant={'inner'} />
-            <Axis variant={'bottom'} ticks={null}>
-                {Story()}
-            </Axis>
+            <Axis variant={'bottom'}>{Story()}</Axis>
         </View>
     </Chart>
 )

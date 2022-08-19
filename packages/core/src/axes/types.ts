@@ -13,7 +13,7 @@ export interface AxisProps extends SvgElementVariantProps {
     /** text label for axis */
     label?: string
     /** offset from chart surface */
-    padding?: number
+    offset?: number
     /** components rendered within the axis frame */
     children?: ReactNode
 }
