@@ -23,6 +23,7 @@ export const BarsLabels = ({
     align = [0.5, 0.5],
     translate = [0, 0],
     className,
+    setRole = false,
     style,
     showOuter = false,
     styleOuter,
@@ -65,7 +66,7 @@ export const BarsLabels = ({
                         y={labelPos[Y] + translate[Y]}
                         className={compositeClassName}
                         style={labelStyle}
-                        setRole={false}
+                        setRole={setRole}
                     >
                         {value}
                     </Typography>

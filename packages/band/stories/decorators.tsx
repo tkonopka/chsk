@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, Axis, Surface, GridLines } from '@chask/core'
-import { Bar } from '../src/'
+import { Bar, Bars } from '../src/'
 import dataGroups from './dataGroups.json'
 import { BarProps } from '../src'
 
@@ -31,6 +31,30 @@ export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a. u.)'} />
+            {Story()}
+        </Bar>
+    </Chart>
+)
+
+export const ChartHorizontalGroupedBarDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 240]} padding={[60, 60, 60, 60]} style={{ display: 'inline-block' }}>
+        <Bar {...commonBarProps} horizontal={true} stacked={false}>
+            <GridLines variant={'x'} />
+            <Bars />
+            <Axis variant={'top'} label={'Values (a. u.)'} />
+            <Axis variant={'left'} />
+            {Story()}
+        </Bar>
+    </Chart>
+)
+
+export const ChartHorizontalStackedBarDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 240]} padding={[60, 60, 60, 60]} style={{ display: 'inline-block' }}>
+        <Bar {...commonBarProps} horizontal={true} stacked={true}>
+            <GridLines variant={'x'} />
+            <Bars />
+            <Axis variant={'top'} label={'Values (a. u.)'} />
+            <Axis variant={'left'} />
             {Story()}
         </Bar>
     </Chart>
