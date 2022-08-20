@@ -1,15 +1,7 @@
-import {
-    composeClassName,
-    getAlignPosition,
-    getInnerSize,
-    Typography,
-    useProcessedData,
-    X,
-    Y,
-} from '@chask/core'
+import { composeClassName, Label, useProcessedData, X, Y } from '@chask/core'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
-import { ReactNode, useMemo } from 'react'
+import { createElement, ReactNode, useMemo } from 'react'
 import { isFinite } from 'lodash'
 import { getIdKeySets } from './Bars'
 import { isBarProcessedData } from './Bar'
@@ -27,6 +19,7 @@ export const BarsLabels = ({
     style,
     showOuter = false,
     styleOuter,
+    component = Label,
 }: BarsLabelsProps) => {
     const processedData = useProcessedData().data
     const preparedData = useBarPreparedData()
@@ -47,29 +40,29 @@ export const BarsLabels = ({
                 if (!keySet.has(preparedData.keys[i])) return null
                 const size = seriesData.size[i]
                 if (!isFinite(size[X]) || !isFinite(size[Y])) return null
-                const innerSize = getInnerSize(size, padding)
-                const labelPos = getAlignPosition(pos, size, padding, align)
+                const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
                 let labelStyle = style
                 let compositeClassName = innerClassName
-                if (innerSize[0] < minSize[0] || innerSize[1] < minSize[1]) {
+                if (size[0] < minSize[0] || size[1] < minSize[1]) {
                     if (!showOuter) return null
                     labelStyle = styleOuter
-                    labelPos[X] = getAlignPosition(pos, size, padding, [0, align[1]])[X] + size[X]
+                    center[X] += size[X]
                     compositeClassName = outerClassName
                 }
                 const value = format(processedData[j].value[i])
-                return (
-                    <Typography
-                        key={'bar-label-' + j + '-' + i}
-                        variant={'label'}
-                        x={labelPos[X] + translate[X]}
-                        y={labelPos[Y] + translate[Y]}
-                        className={compositeClassName}
-                        style={labelStyle}
-                        setRole={setRole}
-                    >
-                        {value}
-                    </Typography>
+                return createElement(
+                    component,
+                    {
+                        key: 'bar-label-' + j + '-' + i,
+                        position: [center[X] + translate[X], center[Y] + translate[Y]],
+                        size,
+                        align,
+                        padding,
+                        className: compositeClassName,
+                        style: labelStyle,
+                        setRole: setRole,
+                    },
+                    value
                 )
             })
         })

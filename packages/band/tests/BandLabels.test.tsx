@@ -8,7 +8,7 @@ describe('BandLabels', () => {
         render(
             <Chart>
                 <Bar {...barProps} horizontal={true} keys={['x']}>
-                    <BandLabels/>
+                    <BandLabels />
                 </Bar>
             </Chart>
         )

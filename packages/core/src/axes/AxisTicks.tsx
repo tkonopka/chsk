@@ -65,8 +65,6 @@ export const AxisTicks = ({
                 style={style}
             />
             <Typography
-                x={0}
-                y={0}
                 transform={transformTranslate + transformRotate}
                 style={labelStyle}
                 variant={'tickLabel'}

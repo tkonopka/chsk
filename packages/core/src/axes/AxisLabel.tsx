@@ -43,8 +43,6 @@ export const AxisLabel = ({
 
     return (
         <Typography
-            x={0}
-            y={0}
             variant={'axisLabel'}
             transform={'translate(' + x + ', ' + y + ')' + rotation}
             style={style}

@@ -4,6 +4,7 @@ import {
     CategoricalScaleSpec,
     CssProps,
     LabelLocationSpec,
+    LabelProps,
     LinearScaleSpec,
     NumericPositionSpec,
     ProcessedDataContextProps,
@@ -11,7 +12,6 @@ import {
     SizeSpec,
     SizeUnit,
     SvgElementProps,
-    TypographyProps,
     ViewProps,
     WithId,
 } from '@chask/core'
@@ -80,6 +80,8 @@ export interface BarsLabelsProps extends SvgElementProps, LabelLocationSpec {
     ids?: string[]
     /** keys to display (default to all keys) */
     keys?: string[]
+    /** additional translation (in absolute units) */
+    translate?: SizeSpec
     /** format for text */
     format?: (v: string | number) => string
     /** minimum size for displaying a label */
@@ -88,6 +90,8 @@ export interface BarsLabelsProps extends SvgElementProps, LabelLocationSpec {
     showOuter?: boolean
     /** css style for outer label */
     styleOuter?: CssProps
+    /** components used to render label */
+    component?: FC<LabelProps>
 }
 
 export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
@@ -99,8 +103,10 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
     size?: SizeSpec
     /** units */
     unit?: SizeUnit
+    /** additional translation (in absolute units) */
+    translate?: SizeSpec
     /** format for text */
     format?: (v: Record<string, unknown>) => string
     /** components used to render label */
-    component?: FC<TypographyProps>
+    component?: FC<LabelProps>
 }

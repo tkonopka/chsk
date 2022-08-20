@@ -5,7 +5,7 @@ import {
     ScalesContextProps,
     SizeSpec,
     SizeUnit,
-    Typography,
+    Label,
     useDimensions,
     useOriginalData,
     useScales,
@@ -37,8 +37,10 @@ export const BandLabels = ({
     unit = 'relative',
     translate = [0, 0],
     /** settings for inside labels */
+    align,
+    padding,
     format = (v: Record<string, unknown>) => String(v['id']),
-    component = Typography,
+    component = Label,
     className,
     setRole = false,
     style,
@@ -58,8 +60,7 @@ export const BandLabels = ({
     const valuePos = getAbsoluteValuePos(position, unit, dimensions.innerSize, scales, horizontal)
     const labelSize: SizeSpec =
         unit === 'relative' ? [size[0] * bandwidth, size[1] * bandwidth] : size
-    const compositeClassName = composeClassName(['barLabel', className])
-    console.log('labelSize: ' + labelSize)
+    const compositeClassName = composeClassName(['bandLabel', className])
 
     const labels: Array<ReactNode> = data
         .map((seriesData: BarPreparedDataItem, j: number) => {
@@ -67,17 +68,21 @@ export const BandLabels = ({
             const value = format(originalData[j])
             const indexPos = indexScale(seriesData.id)
             const pos = horizontal ? [valuePos, indexPos] : [indexPos, valuePos]
-            return createElement(component, {
-                key: 'band-label-' + j,
-                x: pos[0] + translate[0],
-                y: pos[1] + translate[1],
-                //position: [pos[0] + translate[0], pos[1] + translate[1]],
-                //size: size,
-                className: compositeClassName,
-                style: style,
-                variant: 'label',
-                setRole: setRole,
-            }, value)
+            return createElement(
+                component,
+                {
+                    key: 'band-label-' + j,
+                    position: [pos[X] + translate[X], pos[Y] + translate[Y]],
+                    size: labelSize,
+                    align,
+                    padding,
+                    className: compositeClassName,
+                    style: style,
+                    variant: 'label',
+                    setRole: setRole,
+                },
+                value
+            )
         })
         .flat()
         .filter(v => v)

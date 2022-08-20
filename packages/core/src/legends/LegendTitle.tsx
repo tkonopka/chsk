@@ -30,8 +30,7 @@ export const LegendTitle = ({
 
     return (
         <Typography
-            x={x}
-            y={y}
+            position={[x, y]}
             variant={'legendTitle'}
             className={className}
             style={style}

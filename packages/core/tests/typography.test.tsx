@@ -30,9 +30,7 @@ describe('Typography', () => {
     it('creates a default text at specific location', () => {
         render(
             <Chart {...chartProps}>
-                <Typography x={20} y={50}>
-                    default
-                </Typography>
+                <Typography position={[20, 50]}>default</Typography>
             </Chart>
         )
         const result = screen.getByText('default')

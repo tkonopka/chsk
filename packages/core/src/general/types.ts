@@ -54,14 +54,3 @@ export interface SurfaceProps extends SvgElementVariantProps {
 
 export type DataItem = Record<string, unknown>
 export type AccessorFunction<T> = (item: DataItem) => T
-
-export type LabelLocationSpec = {
-    /** space between container and label */
-    padding?: SideSizeSpec
-    /** alignment for origin of label */
-    align?: NumericPositionSpec
-    /** additional translation */
-    translate?: NumericPositionSpec
-    /** style for text */
-    style?: CssProps
-}

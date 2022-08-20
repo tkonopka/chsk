@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart, Axis, AxisLabel, AxisLine, AxisTicks, GridLines, Legend } from '@chask/core'
-import { Bar, Bars, BarsLabels } from '@chask/band'
-import { generateBarData, generateKeyValues } from './generators'
+import { StackedVerticalBandChart, StackedHorizontalBandChart } from './stacked.charts.tsx'
+import { MultipleViewsBandChart } from './multiview.charts'
+import { BandLabelsChart } from './bandlabels.charts'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -9,213 +9,30 @@ import { generateBarData, generateKeyValues } from './generators'
 
 ## Stacked charts
 
-export const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
-export const stackedKeys = ['alpha', 'beta', 'gamma', 'delta', 'epsilon']
-export const stackedData = generateBarData({
-    ids: stackedIds,
-    keys: stackedKeys,
-    interval: [5, 25],
-})
-
 <Canvas>
     <Story name="stacked, vertical">
-        <Chart
-            id="stacked-vertical"
-            size={[600, 400]}
-            padding={[40, 120, 60, 60]}
-            style={{ display: 'inline-block' }}
-        >
-            <Bar
-                data={stackedData}
-                keys={stackedKeys}
-                stacked={true}
-                scaleIndex={{
-                    variant: 'band',
-                    domain: stackedIds,
-                    padding: 0.2,
-                }}
-            >
-                <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
-                <Axis variant={'bottom'} />
-                <Axis variant={'left'} />
-                <Bars />
-                <Legend
-                    position={[440, 300]}
-                    size={[80, 120]}
-                    units={'absolute'}
-                    anchor={[0, 1]}
-                    padding={[0, 12, 0, 12]}
-                    r={10.5}
-                    itemSize={[80, 20]}
-                    itemPadding={[2, 2, 2, 2]}
-                    title={'Legend Title'}
-                />
-            </Bar>
-        </Chart>
+        <StackedVerticalBandChart />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="stacked, horizontal">
-        <Chart
-            id="stacked-vertical"
-            size={[600, 400]}
-            padding={[90, 40, 30, 60]}
-            style={{ display: 'inline-block' }}
-        >
-            <Bar
-                data={stackedData}
-                keys={stackedKeys}
-                stacked={true}
-                scaleIndex={{
-                    variant: 'band',
-                    domain: stackedIds,
-                    padding: 0.2,
-                }}
-                horizontal={true}
-            >
-                <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
-                <Axis variant={'top'} />
-                <Axis variant={'left'} />
-                <Bars />
-                <Legend
-                    position={[0, -30]}
-                    size={[300, 80]}
-                    units={'absolute'}
-                    horizontal={true}
-                    anchor={[0, 1]}
-                    padding={[20, 0, 20, 0]}
-                    r={10.5}
-                    itemSize={[85, 20]}
-                    itemPadding={[2, 2, 2, 2]}
-                    firstOffset={[-85, 24]}
-                    title={'Legend Title'}
-                />
-            </Bar>
-        </Chart>
+        <StackedHorizontalBandChart />
     </Story>
 </Canvas>
 
 ## Multiple views
 
-export const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
-export const multiviewKeys = ['alpha', 'beta', 'gamma']
-export const multiviewData = [
-    generateKeyValues(
-        { id: 'A', alpha: 75 + Math.floor(Math.random() * 15) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-    generateKeyValues(
-        { id: 'B', alpha: 60 + Math.floor(Math.random() * 15) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-    generateKeyValues(
-        { id: 'C', alpha: 50 + Math.floor(Math.random() * 10) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-    generateKeyValues(
-        { id: 'D', alpha: 30 + Math.floor(Math.random() * 10) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-    generateKeyValues(
-        { id: 'E', alpha: 10 + Math.floor(Math.random() * 5) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-    generateKeyValues(
-        { id: 'F', alpha: 5 + Math.floor(Math.random() * 5) },
-        ['beta', 'gamma'],
-        [5, 75]
-    ),
-]
-
-export const multiviewTheme = {
-    line: {
-        axis: {
-            visibility: 'visible',
-            strokeWidth: 2,
-        },
-    },
-    text: {
-        axisLabel: {
-            textAnchor: 'start',
-            dominantBaseline: 'auto',
-            fontWeight: 600,
-        },
-        barLabel: {
-            textAnchor: 'start',
-            fill: '#ffffff',
-        },
-        'barLabel.out': {
-            fill: '#222222',
-        },
-    },
-}
-
-export const multiviewBarProps = {
-    size: [0.333, 1],
-    units: 'relative',
-    stacked: true,
-    horizontal: true,
-    data: multiviewData,
-    scaleIndex: {
-        variant: 'band',
-        domain: stackedIds,
-        padding: 0.2,
-        paddingOuter: 0.1,
-    },
-    scaleValue: {
-        variant: 'linear',
-        domain: [0, 100],
-    },
-}
-
 <Canvas>
     <Story name="multiple views">
-        <Chart
-            id="multiview"
-            size={[600, 300]}
-            padding={[40, 40, 40, 60]}
-            style={{ display: 'inline-block' }}
-            theme={multiviewTheme}
-        >
-            <Bar position={[0, 0]} {...multiviewBarProps} keys={['alpha']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Alpha'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={null} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-                <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} size={0} />
-                </Axis>
-            </Bar>
-            <Bar position={[0.35, 0]} {...multiviewBarProps} keys={['beta']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Beta'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={null} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            </Bar>
-            <Bar position={[0.7, 0]} {...multiviewBarProps} keys={['gamma']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Gamma'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={null} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            </Bar>
-        </Chart>
+        <MultipleViewsBandChart />
+    </Story>
+</Canvas>
+
+## Band labels
+
+<Canvas>
+    <Story name="band labels">
+        <BandLabelsChart />
     </Story>
 </Canvas>

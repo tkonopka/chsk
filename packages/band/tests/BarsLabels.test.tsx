@@ -9,7 +9,7 @@ describe('BarsLabels', () => {
         render(
             <Chart>
                 <Bar {...barProps} horizontal={true} keys={['x']}>
-                    <BarsLabels/>
+                    <BarsLabels />
                 </Bar>
             </Chart>
         )
@@ -25,7 +25,7 @@ describe('BarsLabels', () => {
         render(
             <Chart>
                 <Bar {...barProps} horizontal={true} keys={['x']}>
-                    <BarsLabels align={[0, 0.5]}/>
+                    <BarsLabels align={[0, 0.5]} />
                 </Bar>
             </Chart>
         )
@@ -40,7 +40,7 @@ describe('BarsLabels', () => {
         render(
             <Chart>
                 <Bar {...barProps} horizontal={true} stacked={true}>
-                    <BarsLabels minSize={[0, 0]}/>
+                    <BarsLabels minSize={[0, 0]} />
                 </Bar>
             </Chart>
         )
@@ -53,7 +53,7 @@ describe('BarsLabels', () => {
         render(
             <Chart size={[500, 400]}>
                 <Bar {...barProps} horizontal={true} stacked={false}>
-                    <BarsLabels minSize={[200, 10]}/>
+                    <BarsLabels minSize={[200, 10]} />
                 </Bar>
             </Chart>
         )

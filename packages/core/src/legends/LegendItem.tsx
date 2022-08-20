@@ -67,8 +67,7 @@ export const LegendItem = ({
             })}
             <Typography
                 variant={'legendLabel'}
-                x={labelPos[0] + translate[0]}
-                y={labelPos[1] + translate[1]}
+                position={[labelPos[0] + translate[0], labelPos[1] + translate[1]]}
                 style={labelStyle}
                 setRole={false}
             >
