@@ -1,4 +1,4 @@
-import { NumericPositionSpec, SideSizeSpec, SizeSpec } from './types'
+import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from './types'
 import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH, X, Y } from './constants'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
@@ -16,7 +16,7 @@ export const rad2deg = (x: number) => {
 }
 
 /** get inner size given a padding vector */
-export const getInnerSize = (size: SizeSpec, padding: SideSizeSpec): SizeSpec => {
+export const getInnerSize = (size: SizeSpec, padding: FourSideSizeSpec): SizeSpec => {
     return [
         size[WIDTH] - padding[LEFT] - padding[RIGHT],
         size[HEIGHT] - padding[TOP] - padding[BOTTOM],
@@ -27,7 +27,7 @@ export const getInnerSize = (size: SizeSpec, padding: SideSizeSpec): SizeSpec =>
 export const getAlignPosition = (
     pos: NumericPositionSpec,
     size: SizeSpec,
-    padding: SideSizeSpec,
+    padding: FourSideSizeSpec,
     align: SizeSpec
 ): NumericPositionSpec => {
     const innerSize = getInnerSize(size, padding)

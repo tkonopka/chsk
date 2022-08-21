@@ -1,19 +1,8 @@
 import { addColor, Rectangle, useScales } from '@chask/core'
-import { BarPreparedDataContextProps, BarPreparedDataItem, BarsProps } from './types'
+import { getIdKeySets } from '../bands'
+import { BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
-import { isFinite } from 'lodash'
-
-// get set objects containing ids and keys to display
-export const getIdKeySets = (
-    ids: string[] | undefined,
-    keys: string[] | undefined,
-    preparedData: BarPreparedDataContextProps
-) => {
-    const idSet = ids ? new Set(ids) : new Set(Object.keys(preparedData.seriesIndexes))
-    const keySet = keys ? new Set(keys) : new Set(preparedData.keys)
-    return { idSet, keySet }
-}
 
 export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps) => {
     const preparedData = useBarPreparedData()
@@ -40,7 +29,7 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
             return seriesData.position.map((pos, i) => {
                 if (!keySet.has(preparedData.keys[i])) return null
                 const size = seriesData.size[i]
-                if (!isFinite(size[0]) || !isFinite(size[1])) return null
+                if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
                 return createElement(bar, {
                     key: 'bar-' + seriesData.index + '-' + i,
                     x: pos[0],
@@ -58,10 +47,5 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
         .filter(v => v)
 
     if (bars.length === 0) return null
-    return (
-        <g role={'bars'} key={'bars'}>
-            {bars}
-        </g>
-    )
-    return <Rectangle x={0} y={0} width={10} height={10} key={'abc'} />
+    return <g role={'bars'}>{bars}</g>
 }

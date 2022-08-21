@@ -11,11 +11,12 @@ import {
     useScales,
     X,
     Y,
+    useProcessedData,
+    RecordWithId,
 } from '@chask/core'
-import { BarPreparedDataItem, BandLabelsProps } from './types'
-import { useBarPreparedData } from './context'
+import { BandLabelsProps } from './types'
 import { createElement, ReactNode, useMemo } from 'react'
-import { getIdKeySets } from './Bars'
+import { getIdKeySets } from './utils'
 
 // get absolute position along the value axis
 const getAbsoluteValuePos = (
@@ -46,15 +47,16 @@ export const BandLabels = ({
     style,
 }: BandLabelsProps) => {
     const originalData = useOriginalData().data
-    const preparedData = useBarPreparedData()
+    const processedData = useProcessedData()
     const dimensions = useDimensions()
     const scales = useScales()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const bandwidth = indexScale.bandwidth()
-    const data = preparedData.data
+    const data = processedData.data
+    const keyPrefix = 'band-label-'
 
-    const { idSet } = useMemo(() => getIdKeySets(ids, [], preparedData), [ids, preparedData])
+    const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
 
     // label position and details
     const valuePos = getAbsoluteValuePos(position, unit, dimensions.innerSize, scales, horizontal)
@@ -63,7 +65,7 @@ export const BandLabels = ({
     const compositeClassName = composeClassName(['bandLabel', className])
 
     const labels: Array<ReactNode> = data
-        .map((seriesData: BarPreparedDataItem, j: number) => {
+        .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
             const value = format(originalData[j])
             const indexPos = indexScale(seriesData.id)
@@ -71,7 +73,7 @@ export const BandLabels = ({
             return createElement(
                 component,
                 {
-                    key: 'band-label-' + j,
+                    key: keyPrefix + j,
                     position: [pos[X] + translate[X], pos[Y] + translate[Y]],
                     size: labelSize,
                     align,
@@ -88,9 +90,5 @@ export const BandLabels = ({
         .filter(v => v)
 
     if (labels.length === 0) return null
-    return (
-        <g role={'band-labels'} key={'band-labels'}>
-            {labels}
-        </g>
-    )
+    return <g role={'band-labels'}>{labels}</g>
 }

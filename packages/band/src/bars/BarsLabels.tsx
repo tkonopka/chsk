@@ -1,9 +1,8 @@
+import { createElement, ReactNode, useMemo } from 'react'
 import { composeClassName, Label, useProcessedData, X, Y } from '@chask/core'
+import { getIdKeySets } from '../bands'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
-import { createElement, ReactNode, useMemo } from 'react'
-import { isFinite } from 'lodash'
-import { getIdKeySets } from './Bars'
 import { isBarProcessedData } from './Bar'
 
 export const BarsLabels = ({
@@ -39,7 +38,7 @@ export const BarsLabels = ({
             return seriesData.position.map((pos, i) => {
                 if (!keySet.has(preparedData.keys[i])) return null
                 const size = seriesData.size[i]
-                if (!isFinite(size[X]) || !isFinite(size[Y])) return null
+                if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
                 const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
                 let labelStyle = style
                 let compositeClassName = innerClassName
@@ -70,9 +69,5 @@ export const BarsLabels = ({
         .filter(v => v)
 
     if (labels.length === 0) return null
-    return (
-        <g role={'bars-labels'} key={'bars-labels'}>
-            {labels}
-        </g>
-    )
+    return <g role={'bars-labels'}>{labels}</g>
 }

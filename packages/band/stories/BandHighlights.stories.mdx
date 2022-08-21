@@ -1,0 +1,75 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, AxisTicks, GridLines } from '@chask/core'
+import { Bar, Bars, BandHighlights } from '../src'
+import { commonBarProps } from './decorators'
+import dataGroups from './dataGroups'
+
+# BandHighlights
+
+<Meta title="Addons/Band/BandHighlights" />
+export const Template = args => <BandHighlights {...args} />
+
+`BandHighlights` creates rectangles that highlight bands.
+
+<ArgsTable of={BandHighlights} />
+
+## Hovering
+
+Hover the mouse on the examples below to see the highlights.
+
+<Canvas>
+    <Story name="highlights 1">
+        <Chart
+            id={'bh1'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true} stacked={false}>
+                <BandHighlights style={{ fill: '#eeeeee' }} />
+                <Bars />
+                <Axis variant={'top'} label={'Values (a. u.)'} />
+                <Axis variant={'left'} />
+            </Bar>
+        </Chart>
+    </Story>
+    <Story name="highlights 2">
+        <Chart
+            id={'bh2'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true} stacked={false}>
+                <BandHighlights style={{ fill: '#eeeeee' }} />
+                <Bars style={{ 'pointer-events': 'none' }} />
+                <Axis variant={'top'} label={'Values (a. u.)'} />
+                <Axis variant={'left'} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+When a band contains content, for example bars in a bar chart, then hovering on that content may not activate the highlight (see example above, left). To make the highlight visible, the style on that content must include `pointer-events: 'none'`. This can be set inline (see example above, right), or via themes.
+
+## Static highlights
+
+To create static highlights on a subset of bands, use prop `ids` to specify the bands and set the opacity to a fixed value.
+
+<Canvas>
+    <Story name="static">
+        <Chart
+            id={'bh2'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true} stacked={false}>
+                <BandHighlights ids={['alpha']} style={{ fill: '#dddddd', opacity: 1 }} />
+                <Bars />
+                <Axis variant={'top'} label={'Values (a. u.)'} />
+                <Axis variant={'left'} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>

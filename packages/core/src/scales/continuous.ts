@@ -22,6 +22,7 @@ export const createContinuousScale = ({
     const result = scale as unknown as GenericAxisScale<number, number>
     result.variant = variant
     result.bandwidth = () => 0
+    result.step = () => 0
 
     return result as ContinuousAxisScale
 }

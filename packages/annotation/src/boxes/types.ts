@@ -3,16 +3,18 @@ import {
     CssProps,
     ContainerProps,
     SvgElementVariantProps,
+    AlignSpec,
     SideType,
-    SideSizeSpec,
+    FourSideSizeSpec,
     PositionSpec,
     SizeSpec,
+    TranslateSpec,
 } from '@chask/core'
 import { ReactNode } from 'react'
 
 interface BoxedTextProps {
     /** expansion of box size */
-    expansion?: SideSizeSpec
+    expansion?: FourSideSizeSpec
     /** horizontal radius of box */
     rx?: number
     /** vertical radius of box */
@@ -31,9 +33,9 @@ export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedT
     /** size of box (in absolute units) */
     size: SizeSpec
     /** additional translation */
-    translate?: [number, number]
+    translate?: TranslateSpec
     /** anchor */
-    anchor?: [number, number]
+    anchor?: AlignSpec
     /** rotation */
     rotate?: number
 }

@@ -13,7 +13,7 @@ import {
     ScalesProvider,
     SizeSpec,
     useView,
-    getIdIndexes,
+    getIndexes,
     isScaleWithDomain,
     getMinMax,
     BandScaleSpec,
@@ -162,7 +162,7 @@ export const Bar = ({
     children,
 }: BarProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
-    const seriesIndexes: Record<string, number> = useMemo(() => getIdIndexes(data), [data])
+    const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])

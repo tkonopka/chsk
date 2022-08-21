@@ -1,5 +1,4 @@
 export * from './context'
-export * from './BandLabels'
 export * from './Bar'
 export * from './Bars'
 export * from './BarsLabels'

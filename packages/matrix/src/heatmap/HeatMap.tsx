@@ -11,7 +11,7 @@ import {
     ProcessedDataProvider,
     ScalesProvider,
     useView,
-    getIdIndexes,
+    getIndexes,
     BandScaleSpec,
     BandScaleProps,
     SequentialScaleSpec,
@@ -102,7 +102,7 @@ export const HeatMap = ({
     children,
 }: HeatMapProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
-    const seriesIndexes = useMemo(() => getIdIndexes(data), [data])
+    const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
     // collect raw data into an array-based format format

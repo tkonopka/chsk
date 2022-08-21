@@ -1,4 +1,4 @@
-import { PositionSpec, SideSizeSpec, SizeSpec, SizeUnit } from '../general'
+import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit } from '../general'
 import { ScaleProps } from '../scales'
 import { ReactNode } from 'react'
 
@@ -6,14 +6,16 @@ export type WithId = {
     id: string
 }
 
+export type RecordWithId = WithId & Record<string, unknown>
+
 export type OriginalDataContextProps = {
     /** data */
-    data: Array<Record<string, unknown>>
+    data: Array<RecordWithId>
 }
 
 export type ProcessedDataContextProps = {
     /** data */
-    data: Array<unknown>
+    data: Array<RecordWithId>
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
     /** list of keys */
@@ -35,7 +37,7 @@ export interface ContainerProps {
     /** anchor point of container relative to position */
     anchor?: AnchorSpec
     /** padding (absolute values) **/
-    padding?: SideSizeSpec
+    padding?: FourSideSizeSpec
     /** children components */
     children?: ReactNode
 }
@@ -49,7 +51,7 @@ export type ViewSeriesKeys = {
 
 export interface ViewProps extends ContainerProps {
     /** data array **/
-    data?: Array<Record<string, unknown>> | ViewSeriesKeys
+    data?: Array<RecordWithId> | ViewSeriesKeys
     /** scale for horizontal axis */
     scaleX?: ScaleProps
     /** scale for vertical axis */

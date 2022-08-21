@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react'
-import { NumericPositionSpec, SideSizeSpec, SizeSpec } from '../general'
+import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from '../general'
 
 export interface SideRecords {
     top?: Record<string, unknown>
@@ -23,7 +23,7 @@ export interface ThemeLegendSpec {
     horizontal?: boolean
     align?: 'left' | 'middle' | 'right'
     itemSize?: SizeSpec
-    itemPadding?: SideSizeSpec
+    itemPadding?: FourSideSizeSpec
     firstOffset?: NumericPositionSpec
     r?: number
     labelOffset?: NumericPositionSpec
@@ -32,7 +32,7 @@ export interface CompleteThemeLegendSpec {
     horizontal: boolean
     align: 'left' | 'middle' | 'right'
     itemSize: SizeSpec
-    itemPadding: SideSizeSpec
+    itemPadding: FourSideSizeSpec
     firstOffset: NumericPositionSpec
     r: number
     labelOffset: NumericPositionSpec

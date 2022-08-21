@@ -3,7 +3,7 @@ import {
     LEFT,
     NumericPositionSpec,
     PositionSpec,
-    SideSizeSpec,
+    FourSideSizeSpec,
     SizeSpec,
     SizeUnit,
     TOP,
@@ -30,7 +30,7 @@ export const useView = ({
     position: PositionSpec
     size: SizeSpec
     units: SizeUnit
-    padding: SideSizeSpec
+    padding: FourSideSizeSpec
     anchor: AnchorSpec
 }) => {
     const dimensions = useDimensions()

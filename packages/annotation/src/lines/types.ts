@@ -5,6 +5,8 @@ import {
     SizeSpec,
     CssProps,
     LineProps,
+    TranslateSpec,
+    TwoSideSizeSpec,
 } from '@chask/core'
 import { ReactNode } from 'react'
 
@@ -18,11 +20,11 @@ export interface LineLabelProps
     /** units for start and end positions */
     units?: PositionUnit
     /** expansion of interval (multiples of bandwidth) */
-    expansion?: [number, number]
+    expansion?: TwoSideSizeSpec
     /** alignment for text label in [0, 1] */
     align?: number
     /** translation for text label */
-    translate?: [number, number]
+    translate?: TranslateSpec
     /** rotation of text label */
     rotate?: number
     /** padding for text label */

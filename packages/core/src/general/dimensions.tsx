@@ -2,7 +2,7 @@ import { createContext, ReactNode, useContext } from 'react'
 import {
     DimensionsContextProps,
     DimensionsProviderBaseProps,
-    SideSizeSpec,
+    FourSideSizeSpec,
     SizeSpec,
     SizeUnit,
 } from './types'
@@ -21,7 +21,7 @@ export const getDimensionsProps = (
     size: SizeSpec,
     units: SizeUnit,
     referenceSize: SizeSpec,
-    padding: SideSizeSpec
+    padding: FourSideSizeSpec
 ): DimensionsProviderBaseProps => {
     return {
         size: getAbsoluteSize(size, units, referenceSize),

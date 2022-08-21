@@ -1,5 +1,12 @@
 import { ReactNode, FC } from 'react'
-import { CssProps, NumericPositionSpec, SideSizeSpec, SizeSpec, SvgElementProps } from '../general'
+import {
+    CssProps,
+    NumericPositionSpec,
+    FourSideSizeSpec,
+    SizeSpec,
+    SvgElementProps,
+    TranslateSpec,
+} from '../general'
 import { ContainerProps } from '../views'
 import { SymbolProps } from '../shapes'
 
@@ -9,11 +16,11 @@ export interface LegendTitleProps extends SvgElementProps {
     /** size of a single legend item */
     size?: SizeSpec
     /** padding for a single legend item */
-    padding?: SideSizeSpec
+    padding?: FourSideSizeSpec
     /** alignment of symbol and text */
     align?: 'left' | 'middle' | 'right'
     /** additional translation */
-    translate?: NumericPositionSpec
+    translate?: TranslateSpec
     /** children components */
     children?: ReactNode
 }
@@ -45,7 +52,7 @@ export interface LegendProps
     /** size of a single legend item */
     itemSize?: SizeSpec
     /** padding for a single legend item */
-    itemPadding?: SideSizeSpec
+    itemPadding?: FourSideSizeSpec
     /** legend title */
     title?: string
     /** style for legend title */

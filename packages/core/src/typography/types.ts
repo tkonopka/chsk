@@ -1,5 +1,11 @@
 import { ReactNode } from 'react'
-import { NumericPositionSpec, SideSizeSpec, SizeSpec, SvgElementVariantProps } from '../general'
+import {
+    NumericPositionSpec,
+    FourSideSizeSpec,
+    SizeSpec,
+    SvgElementVariantProps,
+    AlignSpec,
+} from '../general'
 
 export interface TypographyProps extends SvgElementVariantProps {
     /** position */
@@ -16,9 +22,9 @@ export type LabelLocationSpec = {
     /** size of bounding container */
     size?: SizeSpec
     /** space between container and label */
-    padding?: SideSizeSpec
+    padding?: FourSideSizeSpec
     /** alignment for origin of label */
-    align?: NumericPositionSpec
+    align?: AlignSpec
 }
 
 export interface LabelProps extends TypographyProps, LabelLocationSpec {

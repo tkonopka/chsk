@@ -13,14 +13,14 @@ export interface GenericAxisScale<Domain, Range> {
     domain: () => Domain[]
     /** bandwidth - only provides useful information for band scales */
     bandwidth: () => number
+    /** width/size of one band, including padding */
+    step: () => number
     /** ticks */
     ticks: (v?: number) => Domain[]
 }
 
 export type BandAxisScale = GenericAxisScale<string, number> & {
     variant: 'band'
-    /** bandwidth - with/size of one band */
-    bandwidth: () => number
 }
 
 export type LinearAxisScale = GenericAxisScale<number, number> & {

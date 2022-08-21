@@ -5,11 +5,11 @@ import {
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
-    NumericPositionSpec,
     PositionUnit,
     ProcessedDataContextProps,
     SvgElementVariantProps,
     SymbolProps,
+    TranslateSpec,
     ViewProps,
     WithId,
 } from '@chask/core'
@@ -73,7 +73,7 @@ export interface ScatterLabelProps extends SvgElementVariantProps {
     /** absolute or relative units for position x */
     units?: PositionUnit
     /** translation with respect to data point */
-    translate?: NumericPositionSpec
+    translate?: TranslateSpec
     /** rotation */
     rotate?: number
     /** set rotation automatically */
