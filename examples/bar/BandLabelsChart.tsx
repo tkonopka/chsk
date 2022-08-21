@@ -3,15 +3,15 @@ import { Bar, Bars, BandLabels } from '@chask/band'
 import { BoxedLabel } from '@chask/annotation'
 import { generateBarData } from './generators'
 
-export const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
-export const stackedKeys = ['alpha', 'beta', 'gamma']
-export const stackedData = generateBarData({
+const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
+const stackedKeys = ['alpha', 'beta', 'gamma']
+const stackedData = generateBarData({
     ids: stackedIds,
     keys: stackedKeys,
     interval: [5, 25],
 })
 
-export const StyledBoxedLabel = (props: LabelProps) => {
+const StyledBoxedLabel = (props: LabelProps) => {
     return (
         <BoxedLabel
             {...props}
@@ -45,7 +45,7 @@ export const BandLabelsChart = () => {
                 }}
             >
                 <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
-                <Axis variant={'bottom'} label={'Value (a. u.)'} />
+                <Axis variant={'bottom'} label={'Value (a.u.)'} />
                 <Axis variant={'left'} />
                 <Bars />
                 <BandLabels

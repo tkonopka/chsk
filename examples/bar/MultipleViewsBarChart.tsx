@@ -11,8 +11,8 @@ import {
 import { Bar, BarDataItem, Bars, BarsLabels } from '@chask/band'
 import { generateKeyValues } from './generators'
 
-export const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
-export const multiviewData: Array<BarDataItem> = [
+const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
+const multiviewData: Array<BarDataItem> = [
     generateKeyValues(
         { id: 'A', alpha: 75 + Math.floor(Math.random() * 15) },
         ['beta', 'gamma'],
@@ -68,7 +68,7 @@ export const multiviewTheme: ThemeSpec = {
     },
 }
 
-export const multiviewBarProps = {
+const multiviewBarProps = {
     size: [0.333, 1] as SizeSpec,
     units: 'relative' as const,
     stacked: true,
@@ -86,15 +86,9 @@ export const multiviewBarProps = {
     },
 }
 
-export const MultipleViewsBandChart = () => {
+export const MultipleViewsBarChart = () => {
     return (
-        <Chart
-            id="multiview"
-            size={[600, 300]}
-            padding={[40, 40, 40, 60]}
-            style={{ display: 'inline-block' }}
-            theme={multiviewTheme}
-        >
+        <Chart id="multiview" size={[600, 300]} padding={[40, 40, 40, 60]} theme={multiviewTheme}>
             <Bar position={[0, 0]} {...multiviewBarProps} keys={['alpha']}>
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>

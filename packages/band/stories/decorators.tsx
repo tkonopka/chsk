@@ -30,7 +30,7 @@ export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
         <Bar {...commonBarProps} horizontal={false} stacked={true}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
-            <Axis variant={'left'} label={'Values (a. u.)'} />
+            <Axis variant={'left'} label={'Values (a.u.)'} />
             {Story()}
         </Bar>
     </Chart>
@@ -41,7 +41,7 @@ export const ChartHorizontalGroupedBarDecorator = (Story: () => ReactNode) => (
         <Bar {...commonBarProps} horizontal={true} stacked={false}>
             <GridLines variant={'x'} />
             <Bars />
-            <Axis variant={'top'} label={'Values (a. u.)'} />
+            <Axis variant={'top'} label={'Values (a.u.)'} />
             <Axis variant={'left'} />
             {Story()}
         </Bar>
@@ -53,7 +53,7 @@ export const ChartHorizontalStackedBarDecorator = (Story: () => ReactNode) => (
         <Bar {...commonBarProps} horizontal={true} stacked={true}>
             <GridLines variant={'x'} />
             <Bars />
-            <Axis variant={'top'} label={'Values (a. u.)'} />
+            <Axis variant={'top'} label={'Values (a.u.)'} />
             <Axis variant={'left'} />
             {Story()}
         </Bar>
