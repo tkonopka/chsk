@@ -27,6 +27,7 @@ export interface ThemeLegendSpec {
     firstOffset?: NumericPositionSpec
     r?: number
     labelOffset?: NumericPositionSpec
+    scaleSize?: SizeSpec
 }
 export interface CompleteThemeLegendSpec {
     horizontal: boolean
@@ -36,6 +37,7 @@ export interface CompleteThemeLegendSpec {
     firstOffset: NumericPositionSpec
     r: number
     labelOffset: NumericPositionSpec
+    scaleSize: SizeSpec
 }
 
 export interface ThemeSpec {

@@ -1,4 +1,4 @@
-import { CssProps } from '../general'
+import { CssProps, NumericPositionSpec } from '../general'
 
 export interface ArrowMarkerProps {
     /** variant of arrowhead */
@@ -11,4 +11,17 @@ export interface ArrowMarkerProps {
     width?: number
     /** style for path */
     style?: CssProps
+}
+
+export interface LinearGradientProps {
+    /** identifier for the gradient */
+    id: string
+    /** start position */
+    start: NumericPositionSpec
+    /** end position */
+    end: NumericPositionSpec
+    /** color stops */
+    stops: string[]
+    /** offsets for color stops */
+    offsets?: number[]
 }

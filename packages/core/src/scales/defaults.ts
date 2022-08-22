@@ -53,7 +53,7 @@ export const defaultSizeScale = createContinuousScale({
     variant: 'linear',
     axis: 'x',
     domain: [0, 0],
-    size: 1,
+    size: 0,
 })
 
 export const defaultCategoricalScale = createCategoricalScale(defaultCategoricalScaleSpec)

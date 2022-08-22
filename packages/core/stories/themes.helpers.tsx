@@ -1,6 +1,6 @@
+import { ReactNode } from 'react'
 import { Axis, Surface, Chart, GridLines, Typography, View } from '../src'
-import { ChartProps, ThemeSpec } from '../src'
-import { ViewProps } from '../dist/types'
+import { ChartProps, ThemeSpec, ViewProps } from '../src'
 
 export const customTheme: ThemeSpec = {
     text: {
@@ -75,10 +75,14 @@ export const ChartWithAxisGrid = (args: ChartProps) => {
                 <GridLines variant={'y'} values={5} />
                 <Axis variant={'left'} label={'Values (a.u.)'} />
                 <Axis variant={'bottom'} label={'Values (a.u.)'} />
-                <Typography x={0} y={-16} variant={'title'}>
+                <Typography position={[0, -16]} variant={'title'}>
                     Chart title
                 </Typography>
             </View>
         </Chart>
     )
 }
+
+export const DivDecorator = (Story: () => ReactNode) => (
+    <div style={{ margin: '0.5em', display: 'inline-block' }}>{Story()}</div>
+)

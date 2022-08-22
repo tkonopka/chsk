@@ -4,11 +4,11 @@
 
 // a general type for scales
 // this is designed to overlap with d3, but also includes optional fields
-export interface GenericAxisScale<Domain, Range> {
+export interface GenericScale<Domain, Range> {
     /** AxisScale is a function */
     (v: Domain): Range
-    /** annotation about the type of scale */
-    variant?: 'log' | 'linear' | 'band'
+    /** type of scale */
+    variant?: 'log' | 'linear' | 'band' | 'sequential' | 'diverging' | 'categorical'
     /** scale domain */
     domain: () => Domain[]
     /** bandwidth - only provides useful information for band scales */
@@ -19,15 +19,15 @@ export interface GenericAxisScale<Domain, Range> {
     ticks: (v?: number) => Domain[]
 }
 
-export type BandAxisScale = GenericAxisScale<string, number> & {
+export type BandAxisScale = GenericScale<string, number> & {
     variant: 'band'
 }
 
-export type LinearAxisScale = GenericAxisScale<number, number> & {
+export type LinearAxisScale = GenericScale<number, number> & {
     variant: 'linear'
 }
 
-export type LogAxisScale = GenericAxisScale<number, number> & {
+export type LogAxisScale = GenericScale<number, number> & {
     variant: 'log'
 }
 
@@ -163,12 +163,19 @@ export type DivergingScaleProps = DivergingScaleSpec & {
 export type ColorScaleSpec = CategoricalScaleSpec | SequentialScaleSpec | DivergingScaleSpec
 export type ColorScaleProps = CategoricalScaleProps | SequentialScaleProps | DivergingScaleProps
 
-export type ColorScale = {
-    /** ColorScale is a function */
-    (v: number): string
-    /** annotation about the type of scale */
-    variant?: 'categorical' | 'sequential' | 'diverging'
+export type SequentialColorScale = GenericScale<number, string> & {
+    variant: 'sequential'
 }
+export type DivergingColorScale = GenericScale<number, string> & {
+    variant: 'diverging'
+}
+export type CategoricalColorScale = GenericScale<number, string> & {
+    variant: 'categorical'
+}
+
+export type ContinuousColorScale = SequentialColorScale | DivergingColorScale
+
+export type ColorScale = SequentialColorScale | DivergingColorScale | CategoricalColorScale
 
 /** Context */
 

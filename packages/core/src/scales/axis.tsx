@@ -87,34 +87,10 @@ export const createAxisScales = ({
     const [width, height] = size
     const innerWidth = width - padding[LEFT] - padding[RIGHT]
     const innerHeight = height - padding[TOP] - padding[BOTTOM]
-    //const horizontal = scaleY.variant === 'band' && scaleX.variant !== 'band'
     return {
         x: createAxisScale({ axis: 'x', size: innerWidth, scaleProps: scaleX }),
         y: createAxisScale({ axis: 'y', size: innerHeight, scaleProps: scaleY }),
         size: defaultSizeScale,
         color: defaultCategoricalScale,
     }
-}
-
-/** get an array of ticks in the scale domain */
-export const getTicks = (scale: AxisScale, ticks: number | undefined) => {
-    if (isContinuousAxisScale(scale)) {
-        if (ticks === undefined) return scale.ticks(4) as Array<number>
-        return scale.ticks(ticks) as Array<number>
-    }
-    return scale.domain()
-}
-
-/** get an array of ticks in the scale range */
-export const getTickCoordinates = (
-    scale: AxisScale,
-    values: undefined | number | number[] | string[],
-    shift = 0
-) => {
-    const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
-    if (isContinuousAxisScale(scale)) {
-        return tickValues.map(v => scale(Number(v)))
-    }
-    const scaledShift = Number(shift) * scale.bandwidth()
-    return tickValues.map(v => scale(String(v)) + scaledShift)
 }

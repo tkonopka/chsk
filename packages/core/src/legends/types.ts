@@ -42,6 +42,15 @@ export interface LegendItemProps extends LegendTitleProps {
     colorIndex?: number
 }
 
+export interface LegendColorScaleProps extends LegendTitleProps {
+    /** size of the color scale */
+    size?: SizeSpec
+    /** horizontal gradient */
+    horizontal?: boolean
+    /** number, or location, of ticks */
+    ticks?: number[] | number
+}
+
 export interface LegendProps
     extends SvgElementProps,
         ContainerProps,
@@ -49,6 +58,8 @@ export interface LegendProps
             LegendItemProps,
             'align' | 'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelOffset'
         > {
+    /** legend type */
+    variant?: 'list' | 'color' | 'size'
     /** size of a single legend item */
     itemSize?: SizeSpec
     /** padding for a single legend item */
@@ -61,4 +72,6 @@ export interface LegendProps
     horizontal?: boolean
     /** offset/translate first item relative to default position */
     firstOffset?: NumericPositionSpec
+    /** size for scale */
+    scaleSize?: SizeSpec
 }

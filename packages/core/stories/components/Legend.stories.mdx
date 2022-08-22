@@ -1,6 +1,10 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Legend, Rectangle, Surface } from '../src'
-import { ChartForLegendDecorator, ChartForLegend2Decorator } from './decorators'
+import { Legend, Rectangle, Surface } from '../../src'
+import {
+    ChartForLegendDecorator,
+    ChartForLegend2Decorator,
+    ChartForColorLegendDecorator,
+} from './decorators'
 
 # Legend
 
@@ -102,7 +106,7 @@ A prop `padding` introduces space between the legend's bounding container (deter
 
 Note that adding padding can have a very similar effect to adjusting the position and size. This is just a convenience prop that makes the API consistent with other container-based components.
 
-## Orientation of content
+## Categorical content
 
 When `Legend` is used without any child elements, it automatically creates a title and entries for relevant colors and labels. The entries are extracted from the `useProcessedData` hook, which return view-specific information.
 
@@ -110,7 +114,7 @@ The content can be arranged vertically or horizontally.
 
 <Canvas>
     <Story
-        name="automatic content, vertical"
+        name="list, vertical"
         args={{
             position: [240, 0],
             size: [60, 80],
@@ -127,7 +131,7 @@ The content can be arranged vertically or horizontally.
         {Template.bind({})}
     </Story>
     <Story
-        name="automatic content, horizontal 1"
+        name="list, horizontal 1"
         args={{
             position: [0, 0],
             size: [240, 70],
@@ -146,7 +150,7 @@ The content can be arranged vertically or horizontally.
         {Template.bind({})}
     </Story>
     <Story
-        name="automatic content, horizontal 2"
+        name="list, horizontal 2"
         args={{
             position: [0, 140],
             size: [240, 60],
@@ -161,6 +165,32 @@ The content can be arranged vertically or horizontally.
         }}
         component={Legend}
         decorators={[ChartForLegend2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Color scales
+
+With color scale
+
+<Canvas>
+    <Story
+        name="colors, vertical"
+        args={{
+            variant: 'color',
+            position: [240, 0],
+            size: [60, 100],
+            units: 'absolute',
+            anchor: [0, 0],
+            padding: [0, 8, 0, 8],
+            itemSize: [80, 24],
+            itemPadding: [2, 2, 2, 2],
+            title: 'Legend title',
+            scaleSize: [12, 80],
+        }}
+        component={Legend}
+        decorators={[ChartForColorLegendDecorator]}
     >
         {Template.bind({})}
     </Story>

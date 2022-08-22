@@ -18,6 +18,7 @@ export const emptyTheme: CompleteThemeSpec = {
         firstOffset: [0, 0],
         r: 8,
         labelOffset: [14, 0],
+        scaleSize: [8, 80],
     },
     Colors: {
         categorical: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],

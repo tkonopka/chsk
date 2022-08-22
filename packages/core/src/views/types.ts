@@ -1,5 +1,5 @@
 import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit } from '../general'
-import { ScaleProps } from '../scales'
+import { ColorScaleProps, ContinuousScaleProps, ContinuousScaleSpec, ScaleProps } from '../scales'
 import { ReactNode } from 'react'
 
 export type WithId = {
@@ -56,4 +56,8 @@ export interface ViewProps extends ContainerProps {
     scaleX?: ScaleProps
     /** scale for vertical axis */
     scaleY?: ScaleProps
+    /** scale for color */
+    scaleColor?: ColorScaleProps
+    /** scale for size */
+    scaleSize?: ContinuousScaleProps
 }

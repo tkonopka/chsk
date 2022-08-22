@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Typography } from '../src'
+import { Chart, Typography, Label } from '../src'
 import { chartProps } from './props'
 
 describe('Typography', () => {
@@ -86,5 +86,30 @@ describe('Typography', () => {
         expect(result.textContent).toBe('In color')
         expect(result.getAttribute('style')).toContain('font-size: 12px')
         expect(result.getAttribute('style')).toContain('fill: #ff0000')
+    })
+})
+
+describe('Label', () => {
+    it('creates a label component', () => {
+        render(
+            <Chart {...chartProps}>
+                <Label>default</Label>
+            </Chart>
+        )
+        const result = screen.getByText('default')
+        expect(result.getAttribute('x')).toBeNull()
+        expect(result.getAttribute('y')).toBeNull()
+        expect(result.getAttribute('role')).toBe('label')
+        expect(result.getAttribute('class')).toBe('label')
+    })
+
+    it('skips creating component when content is empty', () => {
+        render(
+            <Chart {...chartProps}>
+                <Label />
+            </Chart>
+        )
+        const label = screen.queryByRole('label')
+        expect(label).toBeNull()
     })
 })

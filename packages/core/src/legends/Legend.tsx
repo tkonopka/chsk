@@ -1,11 +1,15 @@
+import { ReactNode } from 'react'
 import { LegendProps } from './types'
 import { useProcessedData, useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useTheme } from '../themes'
 import { LegendItem } from './LegendItem'
-import { DimensionsProvider } from '../general'
+import {DimensionsProvider, NumericPositionSpec} from '../general'
+import { useScales } from '../scales'
+import {LegendColorScale} from "./LegendColorScale";
 
 export const Legend = ({
+    variant = 'list',
     // layout of container
     position = [1, 0.5],
     units = 'relative',
@@ -21,12 +25,14 @@ export const Legend = ({
     // title
     title,
     titleStyle,
-    // details for individual items
+    // only for discrete items
     r,
     symbol,
     symbolStyle,
     labelStyle,
     labelOffset,
+    // only for color scale
+    scaleSize,
     // general svg
     className,
     style,
@@ -34,17 +40,19 @@ export const Legend = ({
     children,
 }: LegendProps) => {
     const theme = useTheme().Legend
+    const scales = useScales()
     const data = useProcessedData()
     const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
 
     // settings from props (preferred) or from theme
     const iSize = itemSize ?? theme.itemSize
+    const sSize = scaleSize ?? theme.scaleSize
     const fOffset = firstOffset ?? theme.firstOffset
     const lOffset = labelOffset ?? theme.labelOffset
     const symbolR = r ?? theme.r
 
     // book-keeping for position of legend item position
-    const pos = [0, 0]
+    const pos: NumericPositionSpec = [0, 0]
     const step = horizontal ? [iSize[0], 0] : [0, iSize[1]]
     if (title) {
         pos[0] += step[0] + fOffset[0]
@@ -52,25 +60,39 @@ export const Legend = ({
     }
 
     // legend content
-    const items = data.keys.map((k: string, i: number) => {
-        return (
-            <LegendItem
-                key={'legend-item-' + i}
-                position={[pos[0] + i * step[0], pos[1] + i * step[1]]}
-                size={itemSize}
-                padding={itemPadding}
-                align={align}
-                r={symbolR}
-                symbol={symbol}
-                symbolStyle={symbolStyle}
-                label={k}
-                labelStyle={labelStyle}
-                labelOffset={lOffset}
-                colorIndex={i}
-                setRole={setRole}
+    let content: ReactNode | null | ReactNode[] = null
+    console.log("Legend variant: "+variant)
+    console.log("scale variant: "+scales.color.variant)
+    if (variant === 'list' && scales.color.variant === 'categorical') {
+        content = data.keys.map((k: string, i: number) => {
+            return (
+                <LegendItem
+                    key={'legend-item-' + i}
+                    position={[pos[0] + i * step[0], pos[1] + i * step[1]]}
+                    size={itemSize}
+                    padding={itemPadding}
+                    align={align}
+                    r={symbolR}
+                    symbol={symbol}
+                    symbolStyle={symbolStyle}
+                    label={k}
+                    labelStyle={labelStyle}
+                    labelOffset={lOffset}
+                    colorIndex={i}
+                    setRole={setRole}
+                />
+            )
+        })
+    } else if (variant === 'color' && scales.color.variant !== 'categorical') {
+        console.log("Legend color with variant "+scales.color.variant)
+        content = (
+            <LegendColorScale
+                key={'legend-color-scale'}
+                size={sSize}
+                position={pos}
             />
         )
-    })
+    }
 
     return (
         <DimensionsProvider {...dimsProps}>
@@ -96,7 +118,7 @@ export const Legend = ({
                         >
                             {title}
                         </LegendTitle>
-                        {items}
+                        {content}
                     </>
                 )}
             </g>

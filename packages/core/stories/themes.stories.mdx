@@ -1,7 +1,6 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart } from '../src'
-import { customTheme, ChartWithAxisGrid } from './themes.helpers'
-import { DivDecorator } from './decorators'
+import { customTheme, ChartWithAxisGrid, DivDecorator } from './themes.helpers'
 
 <Meta title="Core/Themes" />
 export const Template = args => <ChartWithAxisGrid {...args} />
@@ -9,13 +8,13 @@ export const Template = args => <ChartWithAxisGrid {...args} />
 # Themes
 
 Themes set global styles for a chart.
-By setting styles once and not for individual components, themes can make chart definitions less verbose.
+By setting styles globally and not for individual components, themes make code less verbose.
 Themes also help in preparing multiple charts with a consistent appearance.
 
 <div className="sidenote">
-    **Side note**: This page describes how to use the theme syntax with a minimal example. For
-    additional information, including about ready-made themes, see the [themes
-    addon](/?path=/docs/addons-themes-complete-themes--page).
+    **Side note**: This page describes the theme syntax with a minimal example. For additional
+    information, including about ready-made themes, see the [themes
+    addon](/?path=/docs/addons-themes-overview--page).
 </div>
 
 A theme object is a nested dictionary. For example, the object below changes styles

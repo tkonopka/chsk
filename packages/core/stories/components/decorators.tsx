@@ -1,5 +1,9 @@
 import { ReactNode } from 'react'
-import { Chart, Surface, View, Axis, Legend, LegendTitle } from '../src'
+import { Chart, Surface, View, Axis, Legend, LegendTitle, ColorScaleProps } from '../../src'
+
+export const DivDecorator = (Story: () => ReactNode) => (
+    <div style={{ margin: '0.5em', display: 'inline-block' }}>{Story()}</div>
+)
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart
@@ -56,10 +60,6 @@ export const ChartAxisDecorator = (Story: () => ReactNode) => (
             <Axis variant={'bottom'}>{Story()}</Axis>
         </View>
     </Chart>
-)
-
-export const DivDecorator = (Story: () => ReactNode) => (
-    <div style={{ margin: '0.5em', display: 'inline-block' }}>{Story()}</div>
 )
 
 export const ChartBandViewDecorator = (Story: () => ReactNode) => (
@@ -158,6 +158,25 @@ export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
                 <LegendTitle position={[0, 0]}>Legend title</LegendTitle>
                 {Story()}
             </Legend>
+        </View>
+    </Chart>
+)
+
+const scaleBluesSpec: ColorScaleProps = {
+    variant: 'sequential',
+    colors: 'Blues',
+    domain: [0, 100],
+}
+
+export const ChartForColorLegendDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[40, 120, 80, 40]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View data={viewSeriesIndexesKeys} scaleColor={scaleBluesSpec}>
+            <Surface variant={'inner'} />
+            {Story()}
         </View>
     </Chart>
 )
