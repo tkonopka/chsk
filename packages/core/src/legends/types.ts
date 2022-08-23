@@ -34,7 +34,7 @@ export interface LegendItemProps extends LegendTitleProps {
     /** style for symbol */
     symbolStyle?: CssProps
     /** text label */
-    label?: string
+    label: string
     /** style for text label */
     labelStyle?: CssProps
     /** offset of label from symbol */

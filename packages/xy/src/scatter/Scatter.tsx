@@ -20,6 +20,7 @@ import {
     defaultLinearScaleSpec,
     createColorScale,
     defaultCategoricalScaleSpec,
+    useDisabledKeys,
 } from '@chask/core'
 import { ScatterPreparedDataProvider } from './context'
 
@@ -101,6 +102,7 @@ export const Scatter = ({
     children,
 }: ScatterProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { disabledKeys } = useDisabledKeys()
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
@@ -121,6 +123,7 @@ export const Scatter = ({
     const preparedData = processedData.map(seriesData =>
         prepareData(seriesData, scales.x as ContinuousAxisScale, scales.y as ContinuousAxisScale)
     )
+    console.log(disabledKeys)
 
     return (
         <DimensionsProvider {...dimsProps}>

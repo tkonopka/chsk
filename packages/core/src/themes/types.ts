@@ -42,6 +42,7 @@ export interface CompleteThemeLegendSpec {
 
 export interface ThemeSpec {
     circle?: Record<string, Partial<CSSProperties>>
+    g?: Record<string, Partial<CSSProperties>>
     line?: Record<string, Partial<CSSProperties>>
     path?: Record<string, Partial<CSSProperties>>
     polygon?: Record<string, Partial<CSSProperties>>
@@ -56,6 +57,7 @@ export interface ThemeSpec {
 
 export interface CompleteThemeSpec {
     circle: Record<string, Partial<CSSProperties>>
+    g: Record<string, Partial<CSSProperties>>
     line: Record<string, Partial<CSSProperties>>
     path: Record<string, Partial<CSSProperties>>
     polygon: Record<string, Partial<CSSProperties>>
@@ -67,3 +69,6 @@ export interface CompleteThemeSpec {
     Legend: CompleteThemeLegendSpec
     Colors: CompleteThemeColorSpec
 }
+
+export const svgBaseComponents = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'] as const
+export type SvgBaseComponent = typeof svgBaseComponents[number]

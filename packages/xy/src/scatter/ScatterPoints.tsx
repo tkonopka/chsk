@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import { addColor, Circle, useScales } from '@chask/core'
+import { addColor, Circle, OpacityMotion, useDisabledKeys, useScales } from '@chask/core'
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './context'
 
@@ -11,8 +11,10 @@ export const ScatterPoints = ({
 }: ScatterPointsProps) => {
     const preparedData = useScatterPreparedData()
     const colorScale = useScales().color
+    const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {
+        if (disabledKeys.has(id)) return null
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
         const seriesStyle = addColor(symbolStyle, colorScale(seriesIndex))
@@ -31,9 +33,13 @@ export const ScatterPoints = ({
             })
         )
         return (
-            <g role={'scatter-points'} key={'scatter-points-' + seriesIndex}>
+            <OpacityMotion
+                key={'scatter-points-' + seriesIndex}
+                role={'scatter-points'}
+                firstRender={firstRender}
+            >
                 {dots}
-            </g>
+            </OpacityMotion>
         )
     })
 

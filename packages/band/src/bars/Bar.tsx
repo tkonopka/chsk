@@ -25,6 +25,7 @@ import {
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
     defaultCategoricalScaleSpec,
+    useDisabledKeys,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -49,11 +50,14 @@ const prepareData = (
     valueScale: LinearAxisScale,
     horizontal: boolean,
     stacked: boolean,
-    barWidthGap: [number, number]
+    barWidthGap: [number, number],
+    disabled: boolean[]
 ): BarPreparedDataItem => {
     const [barWidth, barGap] = barWidthGap
     const zero = valueScale(0)
-    let coords = seriesData.value.map(v => valueScale(v))
+    let coords = seriesData.value.map((v, i) => {
+        return disabled[i] ? zero : valueScale(v)
+    })
     const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
     const position: Array<NumericPositionSpec> = []
     const size: Array<SizeSpec> = []
@@ -162,6 +166,7 @@ export const Bar = ({
     children,
 }: BarProps) => {
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { disabledKeys } = useDisabledKeys()
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
     // collect raw data into an array-based format format
@@ -194,15 +199,33 @@ export const Bar = ({
     const barStep = nKeys === 1 ? bandwidth : bandwidth / (nKeys - Math.min(1, barPadding))
     const barWidth = nKeys === 1 || stacked ? bandwidth : barStep * (1 - barPadding)
     const barGap = barStep * barPadding
+    const disabledKeysBools = useMemo(
+        () => keys.map(k => disabledKeys.has(k)),
+        [keys, Array.from(disabledKeys)]
+    )
     const preparedData = useMemo(
         () =>
             processedData.map(seriesData =>
-                prepareData(seriesData, indexScale, valueScale, horizontal, stacked, [
-                    barWidth,
-                    barGap,
-                ])
+                prepareData(
+                    seriesData,
+                    indexScale,
+                    valueScale,
+                    horizontal,
+                    stacked,
+                    [barWidth, barGap],
+                    disabledKeysBools
+                )
             ),
-        [processedData, horizontal, stacked, indexScale, valueScale, barWidth, barGap]
+        [
+            processedData,
+            horizontal,
+            stacked,
+            indexScale,
+            valueScale,
+            barWidth,
+            barGap,
+            disabledKeysBools,
+        ]
     )
 
     return (

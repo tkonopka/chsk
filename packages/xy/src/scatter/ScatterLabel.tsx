@@ -1,4 +1,12 @@
-import { getAbsoluteCoordinate, rad2deg, Typography, useDimensions, useScales } from '@chask/core'
+import {
+    getAbsoluteCoordinate,
+    rad2deg,
+    OpacityMotion,
+    Typography,
+    useDimensions,
+    useScales,
+    useDisabledKeys,
+} from '@chask/core'
 import { ScatterLabelProps, ScatterProcessedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 
@@ -30,10 +38,12 @@ export const ScatterLabel = ({
     const preparedData = useScatterPreparedData()
     const scales = useScales()
     const dimensions = useDimensions()
+    const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        if (disabledKeys.has(id)) return null
         const data = preparedData.data[seriesIndex]
         if (data.x.length === 0) return null
         // convert input x to a coordinate and search for the closest data points
@@ -55,15 +65,21 @@ export const ScatterLabel = ({
             'translate(' + (point[0] + translate[0]) + ',' + (point[1] + translate[1]) + ')'
         const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
         return (
-            <Typography
+            <OpacityMotion
                 key={'scatter-label-' + seriesIndex}
-                variant={'scatter-label'}
-                transform={translation + rotation}
-                className={className}
-                style={style}
+                role={'scatter-label'}
+                firstRender={firstRender}
             >
-                {children}
-            </Typography>
+                <Typography
+                    variant={'scatterLabel'}
+                    transform={translation + rotation}
+                    className={className}
+                    style={style}
+                    setRole={false}
+                >
+                    {children}
+                </Typography>
+            </OpacityMotion>
         )
     })
 

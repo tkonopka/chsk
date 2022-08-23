@@ -1,5 +1,13 @@
 import { createElement, ReactNode, useMemo } from 'react'
-import { composeClassName, Label, useProcessedData, X, Y } from '@chask/core'
+import {
+    composeClassName,
+    Label,
+    OpacityMotion,
+    useDisabledKeys,
+    useProcessedData,
+    X,
+    Y,
+} from '@chask/core'
 import { getIdKeySets } from '../bands'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
@@ -23,6 +31,8 @@ export const BarsLabels = ({
     const processedData = useProcessedData().data
     const preparedData = useBarPreparedData()
     const data = preparedData.data
+    const { disabledKeys, firstRender } = useDisabledKeys()
+
     if (!isBarProcessedData(processedData)) return null
 
     const { idSet, keySet } = useMemo(
@@ -32,42 +42,48 @@ export const BarsLabels = ({
     const innerClassName = composeClassName(['barLabel', className])
     const outerClassName = composeClassName(['barLabel out', className])
 
-    const labels: Array<ReactNode> = data
-        .map((seriesData: BarPreparedDataItem, j: number) => {
+    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+        if (!keySet.has(k)) return null
+        if (disabledKeys.has(k)) return null
+        const labels = data.map((seriesData: BarPreparedDataItem, j) => {
             if (!idSet.has(seriesData.id)) return null
-            return seriesData.position.map((pos, i) => {
-                if (!keySet.has(preparedData.keys[i])) return null
-                const size = seriesData.size[i]
-                if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
-                const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
-                let labelStyle = style
-                let compositeClassName = innerClassName
-                if (size[0] < minSize[0] || size[1] < minSize[1]) {
-                    if (!showOuter) return null
-                    labelStyle = styleOuter
-                    center[X] += size[X]
-                    compositeClassName = outerClassName
-                }
-                const value = format(processedData[j].value[i])
-                return createElement(
-                    component,
-                    {
-                        key: 'bar-label-' + j + '-' + i,
-                        position: [center[X] + translate[X], center[Y] + translate[Y]],
-                        size,
-                        align,
-                        padding,
-                        className: compositeClassName,
-                        style: labelStyle,
-                        setRole: setRole,
-                    },
-                    value
-                )
-            })
+            const size = seriesData.size[i]
+            const pos = seriesData.position[i]
+            if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
+            const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
+            let labelStyle = style
+            let compositeClassName = innerClassName
+            if (size[0] < minSize[0] || size[1] < minSize[1]) {
+                if (!showOuter) return null
+                labelStyle = styleOuter
+                center[X] += size[X]
+                compositeClassName = outerClassName
+            }
+            const value = format(processedData[j].value[i])
+            return createElement(
+                component,
+                {
+                    key: 'bar-label-' + j + '-' + i,
+                    position: [center[X] + translate[X], center[Y] + translate[Y]],
+                    size,
+                    align,
+                    padding,
+                    className: compositeClassName,
+                    style: labelStyle,
+                    setRole: setRole,
+                },
+                value
+            )
         })
-        .flat()
-        .filter(v => v)
+        if (labels.length === 0) return null
 
-    if (labels.length === 0) return null
-    return <g role={'bars-labels'}>{labels}</g>
+        return (
+            <OpacityMotion key={'bars-labels-' + i} role={'bars-labels'} firstRender={firstRender}>
+                {labels}
+            </OpacityMotion>
+        )
+    })
+
+    if (result.length === 0) return null
+    return <>{result}</>
 }

@@ -1,0 +1,20 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Hooks/useDisabledKeys" />
+
+# `useDisabledKeys`
+
+The `useDisabledKeys` hook retrieves information about 'keys' that have been disabled, for example via the legend.
+
+<Source
+    language="javascript"
+    code={`
+import { useDisabledKeys } from '@chask/core'
+
+// in a JSX component:
+const { disabledKeys, firstRender } = useChartData()
+`} />
+
+-   `disabledKeys` will be a set of string containing those 'keys' that have been marked as disabled.
+
+-   `firstRender` will be a boolean value. The value is a guess that indicates whether or not the set of disabled keys has been manipulated before or not.

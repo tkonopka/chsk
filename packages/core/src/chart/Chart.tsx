@@ -10,7 +10,7 @@ export const Chart = ({
     padding = [40, 40, 40, 40],
     theme = emptyTheme,
     data = {},
-    styles = ['text', 'line', 'shape', 'path'],
+    styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
     style,
     children,
 }: ChartProps) => {

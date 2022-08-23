@@ -5,6 +5,8 @@ import {
     CurveSpec,
     isContinuousAxisScale,
     NumericPositionIntervalSpec,
+    OpacityMotion,
+    useDisabledKeys,
     useScales,
 } from '@chask/core'
 import { ScatterAreaProps, ScatterDataContextProps } from './types'
@@ -45,25 +47,31 @@ export const ScatterArea = ({
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
+    const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isContinuousAxisScale(scaleY)) return null
 
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         const d = useMemo(
             () => getScatterAreaD({ seriesIndex, preparedData, curve, scaleY, baseline }),
             [seriesIndex, preparedData, curve, scaleY, baseline]
         )
         return (
-            <g role={'scatter-area'} key={'scatter-area-' + seriesIndex}>
+            <OpacityMotion
+                role={'scatter-area'}
+                key={'scatter-area-' + seriesIndex}
+                firstRender={firstRender}
+            >
                 <path
                     d={d}
                     role={setRole ? variant : undefined}
                     style={seriesStyle}
                     className={className}
                 />
-            </g>
+            </OpacityMotion>
         )
     })
 

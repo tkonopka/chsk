@@ -7,9 +7,4 @@ describe('Chart', () => {
         render(<Chart />)
         expect(screen.getByRole('chart-content')).toBeDefined()
     })
-
-    it('ignores unrecognized style codes', () => {
-        render(<Chart {...chartProps} styles={['text', 'zzz']} />)
-        expect(screen.getByRole('chart-content')).toBeDefined()
-    })
 })

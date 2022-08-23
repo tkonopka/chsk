@@ -15,7 +15,7 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
-        expect(result.textContent).toBe('Label')
+        expect(result.querySelector('text')?.textContent).toBe('Label')
     })
 
     it('skips work for non-existent series', () => {
@@ -43,9 +43,9 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
-        expect(result.textContent).toBe('Label')
+        expect(result.querySelector('text')?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(result.getAttribute('transform')).toContain('rotate(-')
+        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(-')
     })
 
     it('uses auto-rotation (different x)', () => {
@@ -59,8 +59,8 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
-        expect(result.textContent).toBe('Label')
+        expect(result.querySelector('text')?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(result.getAttribute('transform')).toContain('rotate(-')
+        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(-')
     })
 })

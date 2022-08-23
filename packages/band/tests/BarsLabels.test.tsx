@@ -13,7 +13,7 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bars-labels')
+        const result = screen.getByRole('view-bar')
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // center-aligned, so they labels should be at different x-coordinates
@@ -29,7 +29,7 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bars-labels')
+        const result = screen.getByRole('view-bar')
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // left-aligned, so labels should be at equal x-coordinates
@@ -44,7 +44,7 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bars-labels')
+        const result = screen.getByRole('view-bar')
         // the data has two groups of three bars each
         expect(result.querySelectorAll('text')).toHaveLength(6)
     })
@@ -57,7 +57,7 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bars-labels')
+        const result = screen.getByRole('view-bar')
         const labels = result.querySelectorAll('text')
         // some bars are bound to be smaller than 200/500
         expect(labels.length).toBeGreaterThan(0)
@@ -72,7 +72,7 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('bars-labels')
+        const result = screen.getByRole('view-bar')
         // some bars are bound to be smaller than 200/500
         expect(result.querySelectorAll('text')).toHaveLength(6)
     })

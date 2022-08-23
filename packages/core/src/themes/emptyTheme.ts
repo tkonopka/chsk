@@ -2,6 +2,7 @@ import { CompleteThemeSpec } from './types'
 
 export const emptyTheme: CompleteThemeSpec = {
     text: {},
+    g: {},
     line: {},
     path: {},
     polygon: {},

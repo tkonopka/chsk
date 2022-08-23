@@ -2,6 +2,7 @@ import { cloneDeep, merge } from 'lodash'
 import { useTheme } from './context'
 import { CSSProperties } from 'react'
 import { CssProps } from '../general'
+import { SvgBaseComponent } from './types'
 
 // turn js styles into a string of inline-css styles
 export const cssStyleString = (style: CSSProperties): string => {
@@ -24,13 +25,7 @@ export const composeClassName = function (names: Array<string | undefined>) {
 }
 
 // get string with css-formatted styles
-export const getStyles = ({
-    chartId,
-    component,
-}: {
-    chartId: string
-    component: 'circle' | 'line' | 'path' | 'polygon' | 'rect' | 'text'
-}) => {
+export const getStyles = (chartId: string, component: SvgBaseComponent) => {
     const theme = useTheme()
     const subTheme = theme[component]
     return Object.keys(subTheme)
@@ -45,44 +40,10 @@ export const getStyles = ({
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
 }
 
-export const getLineStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'line' })
-}
-
-export const getPathStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'path' })
-}
-
-export const getTextStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'text' })
-}
-
-export const getCircleStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'circle' })
-}
-
-export const getRectStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'rect' })
-}
-
-export const getPolygonStyles = (id: string) => {
-    return getStyles({ chartId: id, component: 'polygon' })
-}
-
-export const getShapeStyles = (id: string) => {
-    return getCircleStyles(id).concat(getRectStyles(id)).concat(getPolygonStyles(id))
-}
-
-export const Styles = ({ chartId, styles }: { chartId: string; styles: string[] }) => {
+export const Styles = ({ chartId, styles }: { chartId: string; styles: SvgBaseComponent[] }) => {
     if (styles.length === 0) return null
     const styleDefinitions = styles
-        ?.map(styleType => {
-            if (styleType === 'text') return getTextStyles(chartId)
-            if (styleType === 'line') return getLineStyles(chartId)
-            if (styleType === 'shape') return getShapeStyles(chartId)
-            if (styleType === 'path') return getPathStyles(chartId)
-            return null
-        })
+        ?.map(styleType => getStyles(chartId, styleType))
         .flat()
         .filter(v => v)
         .join('\n')
@@ -95,4 +56,9 @@ export const addColor = (style: CssProps | undefined, color: string) => {
     if (!result.fill) result = merge(result, { fill: color })
     if (!result.stroke) result = merge(result, { stroke: color })
     return result
+}
+
+export const addOpacity = (style: CssProps | undefined, opacity: number) => {
+    if (!style) return { opacity }
+    return merge(cloneDeep(style), { opacity })
 }

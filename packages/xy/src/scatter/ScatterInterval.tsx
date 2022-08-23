@@ -10,6 +10,8 @@ import {
     NumericPositionIntervalSpec,
     useOriginalData,
     useScales,
+    OpacityMotion,
+    useDisabledKeys,
 } from '@chask/core'
 import { ScatterDataContextProps, ScatterIntervalProps } from './types'
 import { useScatterPreparedData } from './context'
@@ -62,11 +64,14 @@ export const ScatterInterval = ({
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
+    const { disabledKeys, firstRender } = useDisabledKeys()
+
     if (!isContinuousAxisScale(scaleY)) return null
 
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
+        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         const d = useMemo(
             () =>
@@ -82,14 +87,18 @@ export const ScatterInterval = ({
             [seriesIndex, originalData, preparedData, scaleY, lower, upper, curve]
         )
         return (
-            <g role={'scatter-interval'} key={'scatter-interval-' + seriesIndex}>
+            <OpacityMotion
+                role={'scatter-interval'}
+                key={'scatter-interval-' + seriesIndex}
+                firstRender={firstRender}
+            >
                 <path
                     d={d}
                     role={setRole ? variant : undefined}
                     style={seriesStyle}
                     className={className}
                 />
-            </g>
+            </OpacityMotion>
         )
     })
 

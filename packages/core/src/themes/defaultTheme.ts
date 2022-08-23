@@ -62,6 +62,11 @@ export const defaultTheme: CompleteThemeSpec = {
             fontStyle: 'italic',
         },
     },
+    g: {
+        'legendItem:hover': {
+            cursor: 'pointer',
+        },
+    },
     line: {
         default: {
             stroke: '#222222',

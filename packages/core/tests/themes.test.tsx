@@ -1,4 +1,4 @@
-import { mergeTheme, defaultTheme, Chart, addColor } from '../src'
+import { mergeTheme, defaultTheme, Chart, addColor, addOpacity } from '../src'
 import { ThemeSpec } from '../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from './props'
@@ -64,5 +64,17 @@ describe('addColor', () => {
         const result = addColor({ stroke: 'red' }, 'blue')
         expect(result.fill).toEqual('blue')
         expect(result.stroke).toEqual('red')
+    })
+})
+
+describe('addOpacity', () => {
+    it('add to an existing style ', () => {
+        const result = addOpacity({ stroke: 'red' }, 0.75)
+        expect(result.opacity).toEqual(0.75)
+    })
+
+    it('add to an empty style ', () => {
+        const result = addOpacity(undefined, 0.5)
+        expect(result.opacity).toEqual(0.5)
     })
 })
