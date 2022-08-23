@@ -30,26 +30,7 @@ Predefined variants draw ticks on the top, right, bottom, or left axis. For brev
     </Story>
 </Canvas>
 
-## Size and padding
-
-Props `size` and `padding` control the length of the tick lines and the space between the axis and the text labels, respectively. These two props are often used together.
-
-<Canvas>
-    <Story
-        name="size and padding"
-        args={{
-            variant: 'bottom',
-            size: 15,
-            padding: 30,
-        }}
-        component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-## Position
+## Tick marks
 
 The position of ticks can be specified as an integer (to suggest a number of tick marks) or as an array (to specify all the tick positions).
 
@@ -80,17 +61,36 @@ The position of ticks can be specified as an integer (to suggest a number of tic
 
 Note that suggestions for the number of tick marks are approximate and the actual number of ticks may differ; the actual positions are computed by [d3-scale](https://github.com/d3/d3-scale).
 
+## Tick size and label position
+
+Props `tickSize` and `labelOffset` control the length of the tick lines and the space between the axis and the text labels, respectively. These two props are often used together.
+
+<Canvas>
+    <Story
+        name="size and padding"
+        args={{
+            variant: 'bottom',
+            tickSize: 15,
+            labelOffset: 30,
+        }}
+        component={AxisTicks}
+        decorators={[ChartAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Rotation
 
-Tick labels can be rotated using the prop `rotate`. Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
+Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
 
 <Canvas>
     <Story
         name="rotation"
         args={{
             variant: 'bottom',
-            padding: 10,
-            rotate: -90,
+            labelOffset: 10,
+            labelRotate: -90,
             labelStyle: {
                 textAnchor: 'end',
                 dominantBaseline: 'middle',
@@ -103,17 +103,17 @@ Tick labels can be rotated using the prop `rotate`. Note that adjusting the angl
     </Story>
 </Canvas>
 
-## Format
+## Label format
 
-Labels can be formatted with a custom function through the prop `format`.
+Labels can be formatted with a custom function through the prop `labelFormat`.
 
 <Canvas>
     <Story
         name="format"
         args={{
             variant: 'bottom',
-            padding: 10,
-            format: v => v + '%',
+            labelOffset: 10,
+            labelFormat: v => v + '%',
         }}
         component={AxisTicks}
         decorators={[ChartAxisDecorator]}

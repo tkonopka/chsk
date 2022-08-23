@@ -177,6 +177,8 @@ export type ContinuousColorScale = SequentialColorScale | DivergingColorScale
 
 export type ColorScale = SequentialColorScale | DivergingColorScale | CategoricalColorScale
 
+export type Scale = ColorScale | AxisScale
+
 /** Context */
 
 export type ScalesContextProps = {

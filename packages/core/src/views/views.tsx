@@ -7,7 +7,6 @@ import {
     createColorScale,
     createContinuousScale,
     createColorScaleProps,
-    defaultCategoricalScale,
     defaultCategoricalScaleSpec,
 } from '../scales'
 import { ViewProps } from './types'

@@ -172,7 +172,7 @@ The content can be arranged vertically or horizontally.
 
 ## Color scales
 
-With color scale
+The legend can display a continuous color scale by setting prop `variant`.
 
 <Canvas>
     <Story
@@ -188,6 +188,28 @@ With color scale
             itemPadding: [2, 2, 2, 2],
             title: 'Legend title',
             scaleSize: [12, 80],
+            firstOffset: [0, 10],
+        }}
+        component={Legend}
+        decorators={[ChartForColorLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="colors, horizontal"
+        args={{
+            variant: 'color',
+            horizontal: true,
+            position: [120, 180],
+            padding: [10, 0, 10, 0],
+            size: [120, 60],
+            units: 'absolute',
+            anchor: [0.5, 0],
+            itemSize: [90, 24],
+            itemPadding: [2, 2, 2, 2],
+            title: 'Legend title',
+            scaleSize: [120, 12],
+            firstOffset: [-90, 20],
         }}
         component={Legend}
         decorators={[ChartForColorLegendDecorator]}

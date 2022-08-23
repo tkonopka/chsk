@@ -133,40 +133,40 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     AxisLabel: {
         top: {
-            padding: 40, // distance between axis and axis label
+            offset: 40, // distance between axis and axis label
             anchor: 0.5, // relative position of axis label
         },
         bottom: {
-            padding: 40,
+            offset: 40,
             anchor: 0.5,
         },
         left: {
-            padding: 45,
+            offset: 45,
             anchor: 0.5,
             rotate: -90,
         },
         right: {
-            padding: 45,
+            offset: 45,
             anchor: 0.5,
             rotate: 90,
         },
     },
     AxisTicks: {
         top: {
-            size: 5,
-            padding: 9,
+            tickSize: 5,
+            labelOffset: 9,
         },
         bottom: {
-            size: 5,
-            padding: 9,
+            tickSize: 5,
+            labelOffset: 9,
         },
         left: {
-            size: 5,
-            padding: 9,
+            tickSize: 5,
+            labelOffset: 9,
         },
         right: {
-            size: 5,
-            padding: 9,
+            tickSize: 5,
+            labelOffset: 9,
         },
     },
     Legend: {

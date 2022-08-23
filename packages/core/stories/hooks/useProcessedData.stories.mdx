@@ -1,0 +1,22 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Hooks/useProcessedData" />
+
+# `useProcessedData`
+
+The `useProcessedData` hook returns an object with a summary about a dataset.
+
+<Source
+    language="javascript"
+    code={`
+import { useProcessedData } from '@chask/core'
+
+// in a JSX component:
+const { seriesIndexes, keys, data } = useProcessedData()
+`} />
+
+-   `seriesIndexes` will be an object/dictionary/map from string identifiers to integer indexes. This is intended to summarize the primary elements that appear in a chart, for example the content that will correspond to a group of bars on a bar chart.
+
+-   `keys` will be an array of strings. This is intended to convey secondary elements, for example identifiers that will correspond to individual bars in a stacked bar chart.
+
+-   `data` will hold a custom object, the structure of which will depend on the particular chart view.

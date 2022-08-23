@@ -12,7 +12,7 @@ const getAnchorFraction = (anchor: string | number | unknown) => {
 
 export const AxisLabel = ({
     variant,
-    padding,
+    offset,
     anchor,
     rotate,
     className,
@@ -26,17 +26,17 @@ export const AxisLabel = ({
 
     const [width, height] = dimensions.innerSize
     const themeProps = theme.AxisLabel[variant]
-    const labelPadding = padding ?? (themeProps?.padding as number) ?? 0
+    const labelOffset = offset ?? (themeProps?.offset as number) ?? 0
     const labelAnchor = anchor ?? themeProps?.anchor ?? 0.5
     const labelRotate = rotate ?? themeProps?.rotate ?? 0
     const anchorFraction = getAnchorFraction(labelAnchor)
 
     let x = 0,
         y = 0
-    if (variant === 'left') x -= labelPadding
-    if (variant === 'right') x += labelPadding
-    if (variant === 'top') y -= labelPadding
-    if (variant === 'bottom') y += labelPadding
+    if (variant === 'left') x -= labelOffset
+    if (variant === 'right') x += labelOffset
+    if (variant === 'top') y -= labelOffset
+    if (variant === 'bottom') y += labelOffset
     if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * height
     if (variant === 'top' || variant === 'bottom') x += anchorFraction * width
     const rotation = labelRotate === 0 ? '' : ' rotate(' + String(Number(labelRotate)) + ')'

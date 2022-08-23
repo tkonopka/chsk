@@ -1,5 +1,5 @@
 import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit } from '../general'
-import { ColorScaleProps, ContinuousScaleProps, ContinuousScaleSpec, ScaleProps } from '../scales'
+import { ColorScaleProps, ContinuousScaleProps, ScaleProps } from '../scales'
 import { ReactNode } from 'react'
 
 export type WithId = {
@@ -20,8 +20,6 @@ export type ProcessedDataContextProps = {
     seriesIndexes: Record<string, number>
     /** list of keys */
     keys: string[]
-    /** list of labels */
-    /** labels: string[] */
 }
 
 /** alignment values in [0, 1] for x and y axes */

@@ -103,6 +103,31 @@ describe('Label', () => {
         expect(result.getAttribute('class')).toBe('label')
     })
 
+    it('avoids setting classname default', () => {
+        render(
+            <Chart {...chartProps}>
+                <Label variant={'default'}>label</Label>
+            </Chart>
+        )
+        const result = screen.getByText('label')
+        expect(result.getAttribute('class')).toBeNull()
+    })
+
+    it('creates a custom label component', () => {
+        render(
+            <Chart {...chartProps}>
+                <Label position={[10, 20]} variant={'custom'} setRole={false}>
+                    abcd
+                </Label>
+            </Chart>
+        )
+        const result = screen.getByText('abcd')
+        expect(result.getAttribute('x')).toBe('10')
+        expect(result.getAttribute('y')).toBe('20')
+        expect(result.getAttribute('role')).toBeNull()
+        expect(result.getAttribute('class')).toContain('custom')
+    })
+
     it('skips creating component when content is empty', () => {
         render(
             <Chart {...chartProps}>

@@ -9,7 +9,7 @@ export interface AxisProps extends SvgElementVariantProps {
     /** type of axis */
     variant: SideType
     /** specification for tick positions */
-    ticks?: TickType | null
+    ticks?: TickType
     /** text label for axis */
     label?: string
     /** offset from chart surface */
@@ -26,8 +26,8 @@ export interface AxisLineProps extends SvgElementVariantProps {
 export interface AxisLabelProps extends SvgElementVariantProps {
     /** type of axis */
     variant: SideType
-    /** offset between axis line and label */
-    padding?: number
+    /** distance between axis line and label */
+    offset?: number
     /** position of label along the axis */
     anchor?: 'start' | 'middle' | 'end' | number
     /** rotation angle (degrees) */
@@ -38,21 +38,21 @@ export interface AxisLabelProps extends SvgElementVariantProps {
 
 export type TickFormatType = (v: unknown) => string
 
-export interface TicksProps extends SvgElementVariantProps {
+export interface AxisTicksProps extends SvgElementVariantProps {
     /** type of axis */
     variant: SideType
     /** specification for tick positions **/
-    ticks?: TickType | null
+    ticks?: TickType
     /** length of tick lines */
-    size?: number
-    /** padding between axis and tick labels */
-    padding?: number
-    /** rotation angle (degrees) */
-    rotate?: number
-    /** format */
-    format?: undefined | null | TickFormatType
+    tickSize?: number
     /** style for tick marks (line) */
-    style?: Partial<CSSProperties>
+    tickStyle?: Partial<CSSProperties>
+    /** distance between axis and tick labels */
+    labelOffset?: number
+    /** rotation angle (degrees) */
+    labelRotate?: number
+    /** format */
+    labelFormat?: undefined | null | TickFormatType
     /** style for tick labels (text) */
     labelStyle?: Partial<CSSProperties>
 }

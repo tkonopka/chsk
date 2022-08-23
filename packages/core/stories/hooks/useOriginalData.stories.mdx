@@ -1,0 +1,19 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Hooks/useOriginalData" />
+
+# `useOriginalData`
+
+The `useOriginalData` hook returns an object holding the dataset provided to a chart view.
+
+<Source
+    language="javascript"
+    code={`
+import { useOriginalData } from '@chask/core'
+
+// in a JSX component:
+const { data } = useOriginalData()
+`} />
+
+Object `data` will hold the dataset provided to the current view.
+The dataset is guaranteed to be in the original format.

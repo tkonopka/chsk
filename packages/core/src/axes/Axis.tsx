@@ -1,4 +1,4 @@
-import { useDimensions } from '../general'
+import { SizeSpec, useDimensions, X, Y } from '../general'
 import { useTheme } from '../themes'
 import { AxisProps, SideType } from './types'
 import { AxisLine } from './AxisLine'
@@ -9,18 +9,16 @@ import { AxisTicks } from './AxisTicks'
 export const getAxisTranslate = ({
     variant,
     offset,
-    width,
-    height,
+    size,
 }: {
     variant: SideType
     offset: number
-    width: number
-    height: number
+    size: SizeSpec
 }) => {
     if (variant === 'left') return 'translate(' + -offset + ',0)'
     if (variant === 'top') return 'translate(0,' + -offset + ')'
-    if (variant === 'bottom') return 'translate(0,' + (height + offset) + ')'
-    return 'translate(' + (width + offset) + ',0)'
+    if (variant === 'bottom') return 'translate(0,' + (size[Y] + offset) + ')'
+    return 'translate(' + (size[X] + offset) + ',0)'
 }
 
 export const Axis = ({
@@ -35,14 +33,17 @@ export const Axis = ({
 }: AxisProps) => {
     const theme = useTheme()
     const dimensions = useDimensions()
-    const [width, height] = dimensions.innerSize
     const axisTheme = theme.Axis[variant]
     const axisOffset = offset ?? (axisTheme?.offset as number) ?? 0
 
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}
-            transform={getAxisTranslate({ variant, offset: axisOffset, width, height })}
+            transform={getAxisTranslate({
+                variant,
+                offset: axisOffset,
+                size: dimensions.innerSize,
+            })}
             className={className}
             style={style}
         >

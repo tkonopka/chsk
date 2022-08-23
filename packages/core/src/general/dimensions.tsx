@@ -10,10 +10,10 @@ import { getInnerSize } from './utils'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
-    unit: SizeUnit,
+    units: SizeUnit,
     referenceSize: SizeSpec
 ): SizeSpec => {
-    if (unit === 'relative') return [size[0] * referenceSize[0], size[1] * referenceSize[1]]
+    if (units === 'relative') return [size[0] * referenceSize[0], size[1] * referenceSize[1]]
     return [size[0], size[1]]
 }
 

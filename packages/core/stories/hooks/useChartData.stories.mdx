@@ -1,0 +1,20 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Hooks/useChartData" />
+
+# `useChartData`
+
+The `useChartData` hook returns a pair of objects that can be used to manage miscellaneous chart state.
+
+<Source
+    language="javascript"
+    code={`
+import { useChartData } from '@chask/core'
+
+// in a JSX component:
+const { data, setData } = useChartData()
+`} />
+
+-   `data` will be a generic object, which will be empty by default.
+
+-   `setData` will be a function that can be used to update the chart state.

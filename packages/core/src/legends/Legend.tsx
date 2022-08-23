@@ -4,9 +4,9 @@ import { useProcessedData, useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useTheme } from '../themes'
 import { LegendItem } from './LegendItem'
-import {DimensionsProvider, NumericPositionSpec} from '../general'
+import { DimensionsProvider, NumericPositionSpec } from '../general'
 import { useScales } from '../scales'
-import {LegendColorScale} from "./LegendColorScale";
+import { LegendColorScale } from './LegendColorScale'
 
 export const Legend = ({
     variant = 'list',
@@ -61,8 +61,6 @@ export const Legend = ({
 
     // legend content
     let content: ReactNode | null | ReactNode[] = null
-    console.log("Legend variant: "+variant)
-    console.log("scale variant: "+scales.color.variant)
     if (variant === 'list' && scales.color.variant === 'categorical') {
         content = data.keys.map((k: string, i: number) => {
             return (
@@ -84,11 +82,12 @@ export const Legend = ({
             )
         })
     } else if (variant === 'color' && scales.color.variant !== 'categorical') {
-        console.log("Legend color with variant "+scales.color.variant)
         content = (
             <LegendColorScale
                 key={'legend-color-scale'}
+                variant={horizontal ? 'bottom' : 'right'}
                 size={sSize}
+                padding={itemPadding}
                 position={pos}
             />
         )

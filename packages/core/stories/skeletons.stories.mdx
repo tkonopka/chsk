@@ -13,11 +13,13 @@ import {
 import { CharWithAxisGridProps as commonProps } from './themes.helpers'
 import { CharWithAxisGridViewProps as commonViewProps } from './themes.helpers'
 
-<Meta title="Core/Examples" />
+<Meta title="Core/Skeletons" />
 
-# Examples
+# Chart skeletons
 
 Core components can be combined to produce distinctive chart skeletons.
+
+(Chart skeletons are charts that only display chart infrastructure, for example axes and labels, but do not yet display data.)
 
 ## Simple
 
@@ -27,7 +29,7 @@ Core components can be combined to produce distinctive chart skeletons.
             <View {...commonViewProps}>
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
-                <Typography x={0} y={-20} variant="title" children="Title" />
+                <Typography position={[0, -20]} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -43,7 +45,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} />
                 <GridLines variant={'y'} />
-                <Typography y={-20} variant="title" children="Title" />
+                <Typography position={[0, -20]} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -60,7 +62,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
                 <GridLines variant={'y'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
-                <Typography y={-20} variant="title" children="Title" />
+                <Typography position={[0, -20]} variant="title" children="Title" />
             </View>
         </Chart>
     </Story>
@@ -77,29 +79,28 @@ Core components can be combined to produce distinctive chart skeletons.
                     style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
                     expansion={[10, 10, 10, 10]}
                 />
-                <Axis variant={'bottom'} ticks={null} padding={10}>
+                <Axis variant={'bottom'} offset={10}>
                     <AxisTicks
                         variant={'bottom'}
-                        size={5}
-                        padding={8}
+                        tickSize={5}
+                        labelOffset={8}
                         style={{ strokeWidth: '1px' }}
                     />
-                    <AxisLabel variant={'bottom'} padding={36} children={'x-axis (a.u.)'} />
+                    <AxisLabel variant={'bottom'} offset={36} children={'x-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'left'} ticks={null} padding={10}>
+                <Axis variant={'left'} offset={10}>
                     <AxisTicks
                         variant={'left'}
-                        size={5}
-                        padding={8}
+                        tickSize={5}
+                        labelOffset={8}
                         style={{ strokeWidth: '1px' }}
                     />
-                    <AxisLabel variant={'left'} padding={44} children={'y-axis (a.u.)'} />
+                    <AxisLabel variant={'left'} offset={44} children={'y-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'right'} ticks={null} padding={10} />
-                <Axis variant={'top'} ticks={null} padding={10} />
+                <Axis variant={'right'} ticks={[]} offset={10} />
+                <Axis variant={'top'} ticks={[]} offset={10} />
                 <Typography
-                    x={140}
-                    y={-22}
+                    position={[140, -22]}
                     variant="title"
                     children="Title"
                     style={{ textAnchor: 'middle' }}
@@ -118,7 +119,7 @@ Core components can be combined to produce distinctive chart skeletons.
                 <Surface
                     variant={'inner'}
                     style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
-                    expansion={[10, 10, 10, 10]}
+                    expansion={[12, 12, 12, 12]}
                 />
                 <GridLines
                     variant={'x'}
@@ -130,23 +131,22 @@ Core components can be combined to produce distinctive chart skeletons.
                     expansion={[12, 12]}
                     style={{ stroke: '#aaaaaa', strokeDasharray: '5 5' }}
                 />
-                <Axis variant={'bottom'} ticks={null} padding={12}>
-                    <AxisTicks variant={'bottom'} ticks={5} size={-5} padding={6} />
-                    <AxisLabel variant={'bottom'} padding={36} children={'x-axis (a.u.)'} />
+                <Axis variant={'bottom'} ticks={null} offset={12}>
+                    <AxisTicks variant={'bottom'} ticks={5} tickSize={-5} labelOffset={6} />
+                    <AxisLabel variant={'bottom'} offset={36} children={'x-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'left'} ticks={null} padding={12}>
-                    <AxisTicks variant={'left'} ticks={5} size={-5} padding={6} />
-                    <AxisLabel variant={'left'} padding={44} children={'y-axis (a.u.)'} />
+                <Axis variant={'left'} ticks={null} offset={12}>
+                    <AxisTicks variant={'left'} ticks={5} tickSize={-5} labelOffset={6} />
+                    <AxisLabel variant={'left'} offset={44} children={'y-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'right'} ticks={null} padding={12}>
-                    <AxisTicks variant={'right'} ticks={5} size={-5} format={null} />
+                <Axis variant={'right'} ticks={null} offset={12}>
+                    <AxisTicks variant={'right'} ticks={5} tickSize={-5} labelFormat={null} />
                 </Axis>
-                <Axis variant={'top'} ticks={null} padding={12}>
-                    <AxisTicks variant={'top'} ticks={5} size={-5} format={null} />
+                <Axis variant={'top'} ticks={null} offset={12}>
+                    <AxisTicks variant={'top'} ticks={5} tickSize={-5} labelFormat={null} />
                 </Axis>
                 <Typography
-                    x={140}
-                    y={-26}
+                    position={[140, -26]}
                     variant="title"
                     children="Title"
                     style={{ textAnchor: 'middle' }}
@@ -174,8 +174,8 @@ Core components can be combined to produce distinctive chart skeletons.
             <View {...commonViewProps}>
                 <Surface variant={'outer'} style={{ fill: '#f4f4f4' }} />
                 <GridLines variant={'y'} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
-                <Axis variant={'bottom'} ticks={null}>
-                    <AxisTicks variant={'bottom'} ticks={5} size={5} padding={10} />
+                <Axis variant={'bottom'}>
+                    <AxisTicks variant={'bottom'} ticks={5} tickSize={5} labelOffset={10} />
                     <AxisLine
                         variant={'bottom'}
                         style={{ visibility: 'visible', stroke: '#222222', strokeWidth: '2px' }}
@@ -183,14 +183,14 @@ Core components can be combined to produce distinctive chart skeletons.
                     <AxisLabel
                         variant={'bottom'}
                         anchor={'end'}
-                        padding={32}
+                        offset={32}
                         children={'x-axis (a.u.)'}
                     />
                 </Axis>
-                <Axis variant={'left'} ticks={null}>
-                    <AxisTicks variant={'left'} ticks={5} size={0} padding={6} />
+                <Axis variant={'left'}>
+                    <AxisTicks variant={'left'} ticks={5} tickSize={0} labelOffset={6} />
                 </Axis>
-                <Typography x={-6} y={-28} variant={'axisLabel'} children={'y-axis (a.u.)'} />
+                <Typography position={[-6, -28]} variant={'axisLabel'} children={'y-axis (a.u.)'} />
             </View>
         </Chart>
     </Story>

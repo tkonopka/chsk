@@ -22,7 +22,7 @@ export type HeatMapDataContextProps = ProcessedDataContextProps & {
     data: Array<HeatMapProcessedDataItem>
 }
 
-export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
+export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
     /** data */
     data: Array<HeatMapDataItem>
     /** list of all keys associated with a heatmap row */

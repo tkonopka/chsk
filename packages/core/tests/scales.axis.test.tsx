@@ -198,7 +198,7 @@ describe('createContinuousScale', () => {
         expect(result(100)).toEqual(100)
     })
 
-    it('continuous scales have zero bandwidth', () => {
+    it('continuous scales have zero bandwidth and zero step', () => {
         const result = createContinuousScale({
             variant: 'linear',
             axis: 'x',
@@ -207,6 +207,8 @@ describe('createContinuousScale', () => {
         })
         expect('bandwidth' in result).toBeTruthy()
         expect(result.bandwidth ? result.bandwidth() : null).toEqual(0)
+        expect('step' in result).toBeTruthy()
+        expect(result.step ? result.step() : null).toEqual(0)
     })
 
     it('extract tick coordinates', () => {

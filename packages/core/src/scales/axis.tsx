@@ -1,7 +1,7 @@
 import { cloneDeep } from 'lodash'
 import { BOTTOM, DimensionsContextProps, LEFT, RIGHT, TOP } from '../general'
 import {
-    AxisScale,
+    Scale,
     ScalesContextProps,
     ScaleSpec,
     ContinuousAxisScale,
@@ -11,6 +11,7 @@ import {
     ContinuousScaleSpec,
     ContinuousScaleProps,
     BandScaleProps,
+    AxisScale,
 } from './types'
 import { createBandScale } from './band'
 import { createContinuousScale } from './continuous'
@@ -41,19 +42,23 @@ export const createContinuousScaleProps = (
     return result as ContinuousScaleProps
 }
 
-export const isBandAxisScale = (scale: AxisScale): scale is BandAxisScale => {
+export const isAxisScale = (scale: Scale): scale is AxisScale => {
+    return scale.variant === 'band' || scale.variant === 'linear' || scale.variant === 'log'
+}
+
+export const isBandAxisScale = (scale: Scale): scale is BandAxisScale => {
     return scale.variant === 'band'
 }
 
-export const isContinuousAxisScale = (scale: AxisScale): scale is ContinuousAxisScale => {
+export const isContinuousAxisScale = (scale: Scale): scale is ContinuousAxisScale => {
     return scale.variant === 'linear' || scale.variant === 'log'
 }
 
-export const isLinearAxisScale = (scale: AxisScale): scale is LinearAxisScale => {
+export const isLinearAxisScale = (scale: Scale): scale is LinearAxisScale => {
     return scale.variant === 'linear'
 }
 
-export const isLogAxisScale = (scale: AxisScale): scale is LogAxisScale => {
+export const isLogAxisScale = (scale: Scale): scale is LogAxisScale => {
     return scale.variant === 'log'
 }
 

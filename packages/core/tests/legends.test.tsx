@@ -18,7 +18,7 @@ const scaleSequential: ColorScaleProps = {
     domain: [0, 100],
 }
 
-describe.skip('Legend (items)', () => {
+describe('Legend (items)', () => {
     it('creates a legend with categorical colors', () => {
         render(
             <Chart {...chartProps}>
@@ -47,11 +47,11 @@ describe('Legend (color)', () => {
         )
         const legend = screen.getByRole('legend')
         expect(legend).toBeDefined()
-        //const scale = screen.getByRole('legend-color-scale')
-        //expect(scale).toBeDefined()
+        const ticks = screen.getAllByRole('tick')
+        expect(ticks.length).toBeGreaterThan(2)
     })
 
-    it.skip('skips work when color scale is categorical', () => {
+    it('skips work when color scale is categorical', () => {
         render(
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>

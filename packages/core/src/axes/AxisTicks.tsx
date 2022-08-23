@@ -1,6 +1,6 @@
 import { Line } from '../lines'
-import { getTickCoordinates, getTicks, useScales } from '../scales'
-import { TickFormatType, TicksProps } from './types'
+import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
+import { TickFormatType, AxisTicksProps } from './types'
 import { useTheme } from '../themes'
 import { Typography } from '../typography'
 
@@ -15,43 +15,46 @@ const getFormatFunction = (format: undefined | null | TickFormatType) => {
     return format
 }
 
-export const AxisTicks = ({
+// create an array of tick marks (tick lines and tick labels)
+export const getScaleTicks = ({
     variant,
+    scale,
+    scaleSize,
     ticks,
-    size,
-    padding,
-    rotate,
-    format,
-    style,
+    tickSize,
+    labelOffset,
+    labelRotate,
+    labelFormat,
     labelStyle,
-}: TicksProps) => {
-    const scales = useScales()
+    tickStyle,
+}: AxisTicksProps & {
+    scale: Scale
+    scaleSize?: number // only relevant for color scales
+}) => {
     const theme = useTheme()
-    if (ticks === null) return null
+    const tickValues = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
+    if (tickValues.length === 0) return null
+    const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const scale = horizontal ? scales.x : scales.y
-    const tickValues: Array<unknown> = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
-    const tickCoordinates: Array<number> = getTickCoordinates(scale, ticks)
-
     const tickTheme = theme.AxisTicks[variant]
-    const tickSize = size ?? (tickTheme?.size as number) ?? 0
-    const tickPadding = padding ?? (tickTheme?.padding as number) ?? 0
-    const tickRotate = rotate ?? (tickTheme?.rotate as number) ?? 0
-    const tickTranslations =
-        variant === 'top' || variant === 'bottom'
-            ? tickCoordinates.map(v => [v, 0])
-            : tickCoordinates.map(v => [0, v])
+    const size = tickSize ?? (tickTheme?.tickSize as number) ?? 0
+    const offset = labelOffset ?? (tickTheme?.labelOffset as number) ?? 0
+    const rotate = labelRotate ?? (tickTheme?.labelRotate as number) ?? 0
+    const tickTranslations = horizontal
+        ? tickCoordinates.map(v => [v, 0])
+        : tickCoordinates.map(v => [0, v])
     const xMultiplier = variant === 'right' ? 1 : -1
     const yMultiplier = variant === 'top' ? -1 : 1
-    const labelX = horizontal ? 0 : tickPadding * xMultiplier
-    const labelY = horizontal ? tickPadding * yMultiplier : 0
+
+    const labelX = horizontal ? 0 : offset * xMultiplier
+    const labelY = horizontal ? offset * yMultiplier : 0
     const transformTranslate = 'translate(' + labelX + ',' + labelY + ')'
-    const transformRotate = tickRotate === 0 ? '' : 'rotate(' + String(Number(tickRotate)) + ')'
+    const transformRotate = rotate === 0 ? '' : 'rotate(' + Number(rotate) + ')'
 
-    const tickFormat = getFormatFunction(format)
+    const tickFormat = getFormatFunction(labelFormat)
 
-    const tickMarks = tickTranslations.map((translations, i) => (
+    return tickTranslations.map((translations, i) => (
         <g
             transform={'translate(' + translations[0] + ', ' + translations[1] + ')'}
             key={'tick-' + variant + '-' + i}
@@ -59,10 +62,10 @@ export const AxisTicks = ({
             <Line
                 x1={0}
                 y1={0}
-                x2={horizontal ? 0 : tickSize * xMultiplier}
-                y2={horizontal ? tickSize * yMultiplier : 0}
+                x2={horizontal ? 0 : size * xMultiplier}
+                y2={horizontal ? size * yMultiplier : 0}
                 variant={'tick'}
-                style={style}
+                style={tickStyle}
             />
             <Typography
                 transform={transformTranslate + transformRotate}
@@ -74,6 +77,32 @@ export const AxisTicks = ({
             </Typography>
         </g>
     ))
+}
 
+export const AxisTicks = ({
+    variant,
+    ticks,
+    tickSize,
+    labelOffset,
+    labelRotate,
+    labelFormat,
+    labelStyle,
+    tickStyle,
+}: AxisTicksProps) => {
+    const scales = useScales()
+
+    const tickMarks = getScaleTicks({
+        scale: variant === 'top' || variant === 'bottom' ? scales.x : scales.y,
+        variant,
+        ticks,
+        tickSize,
+        tickStyle,
+        labelStyle,
+        labelFormat,
+        labelOffset,
+        labelRotate,
+    })
+
+    if (tickMarks === null) return null
     return <g role={'axis-ticks'}>{tickMarks}</g>
 }

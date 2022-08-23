@@ -9,6 +9,7 @@ import {
 } from '../general'
 import { ContainerProps } from '../views'
 import { SymbolProps } from '../shapes'
+import { AxisTicksProps } from '../axes'
 
 export interface LegendTitleProps extends SvgElementProps {
     /** position of symbol */
@@ -42,13 +43,13 @@ export interface LegendItemProps extends LegendTitleProps {
     colorIndex?: number
 }
 
-export interface LegendColorScaleProps extends LegendTitleProps {
-    /** size of the color scale */
-    size?: SizeSpec
-    /** horizontal gradient */
-    horizontal?: boolean
+export interface LegendColorScaleProps extends LegendTitleProps, AxisTicksProps {
     /** number, or location, of ticks */
     ticks?: number[] | number
+    /** offset of color axis from default position */
+    offset?: number
+    /** identifier for gradient */
+    gradientId?: string
 }
 
 export interface LegendProps

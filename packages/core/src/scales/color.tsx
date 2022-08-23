@@ -2,19 +2,17 @@ import { cloneDeep } from 'lodash'
 import { createCategoricalScale } from './categorical'
 import { createDivergingScale } from './diverging'
 import { createSequentialScale } from './sequential'
-import {
-    AxisScale,
-    ColorScale,
-    ColorScaleProps,
-    ColorScaleSpec,
-    ContinuousColorScale, GenericScale
-} from './types'
+import { Scale, ColorScale, ColorScaleProps, ColorScaleSpec, ContinuousColorScale } from './types'
 
-export const isColorScale = (scale: AxisScale | ColorScale): scale is ColorScale => {
-    return scale.variant === 'sequential' || scale.variant === 'diverging' || scale.variant === 'categorical'
+export const isColorScale = (scale: Scale): scale is ColorScale => {
+    return (
+        scale.variant === 'sequential' ||
+        scale.variant === 'diverging' ||
+        scale.variant === 'categorical'
+    )
 }
 
-export const isContinuousColorScale = (scale: ColorScale): scale is ContinuousColorScale => {
+export const isContinuousColorScale = (scale: Scale): scale is ContinuousColorScale => {
     return scale.variant === 'sequential' || scale.variant === 'diverging'
 }
 
