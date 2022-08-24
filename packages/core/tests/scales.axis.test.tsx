@@ -7,6 +7,8 @@ import {
     getTickCoordinates,
     getMinMax,
     getAbsolutePosition,
+    isAxisScale,
+    isColorScale,
     isBandAxisScale,
     isContinuousAxisScale,
     isLinearAxisScale,
@@ -26,6 +28,8 @@ describe('createScale', () => {
                 padding: 0,
             },
         })
+        expect(isAxisScale(result)).toBeTruthy()
+        expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeTruthy()
         expect(isContinuousAxisScale(result)).toBeFalsy()
     })
@@ -39,6 +43,8 @@ describe('createScale', () => {
                 domain: [0, 10],
             },
         })
+        expect(isAxisScale(result)).toBeTruthy()
+        expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeFalsy()
         expect(isContinuousAxisScale(result)).toBeTruthy()
         expect(isLinearAxisScale(result)).toBeTruthy()
@@ -54,6 +60,8 @@ describe('createScale', () => {
                 domain: [1, 10],
             },
         })
+        expect(isAxisScale(result)).toBeTruthy()
+        expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeFalsy()
         expect(isContinuousAxisScale(result)).toBeTruthy()
         expect(isLinearAxisScale(result)).toBeFalsy()

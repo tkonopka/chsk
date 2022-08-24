@@ -93,22 +93,22 @@ export const MultipleViewsBarChart = () => {
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Alpha'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Alpha'} />
                 </Axis>
-                <Axis variant={'bottom'} ticks={null} />
+                <Axis variant={'bottom'} ticks={[]} />
                 <Bars />
                 <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} size={0} />
+                    <AxisTicks variant={'left'} tickSize={0} />
                 </Axis>
             </Bar>
             <Bar position={[0.35, 0]} {...multiviewBarProps} keys={['beta']}>
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Beta'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Beta'} />
                 </Axis>
-                <Axis variant={'bottom'} ticks={null} />
+                <Axis variant={'bottom'} ticks={[]} />
                 <Bars />
                 <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
             </Bar>
@@ -116,9 +116,9 @@ export const MultipleViewsBarChart = () => {
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} padding={10} children={'Gamma'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Gamma'} />
                 </Axis>
-                <Axis variant={'bottom'} ticks={null} />
+                <Axis variant={'bottom'} ticks={[]} />
                 <Bars />
                 <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
             </Bar>

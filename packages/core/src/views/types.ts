@@ -50,6 +50,8 @@ export type ViewSeriesKeys = {
 export interface ViewProps extends ContainerProps {
     /** data array **/
     data?: Array<RecordWithId> | ViewSeriesKeys
+    /** automatically adjust scales if/when data subsets become disabled */
+    autoRescale?: boolean
     /** scale for horizontal axis */
     scaleX?: ScaleProps
     /** scale for vertical axis */

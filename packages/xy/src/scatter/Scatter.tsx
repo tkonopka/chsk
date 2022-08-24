@@ -19,8 +19,9 @@ import {
     getIndexes,
     defaultLinearScaleSpec,
     createColorScale,
-    defaultCategoricalScaleSpec,
     useDisabledKeys,
+    useTheme,
+    createColorScaleProps,
 } from '@chask/core'
 import { ScatterPreparedDataProvider } from './context'
 
@@ -59,16 +60,24 @@ const prepareData = (
 const getScaleProps = (
     data: Array<ScatterProcessedDataItem>,
     scaleSpecX: ContinuousScaleSpec,
-    scaleSpecY: ContinuousScaleSpec
+    scaleSpecY: ContinuousScaleSpec,
+    disabled: boolean[]
 ) => {
     const result = { scalePropsX: cloneDeep(scaleSpecX), scalePropsY: cloneDeep(scaleSpecY) }
+    const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {
-        const domain = getMinMax(data.map(seriesData => seriesData.x).flat())
-        result.scalePropsX = createContinuousScaleProps(scaleSpecX, domain)
+        const x = data
+            .filter(filterDisabled)
+            .map(seriesData => seriesData.x)
+            .flat()
+        result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
-        const domain = getMinMax(data.map(seriesData => seriesData.y).flat())
-        result.scalePropsY = createContinuousScaleProps(scaleSpecY, domain)
+        const y = data
+            .filter(filterDisabled)
+            .map(seriesData => seriesData.y)
+            .flat()
+        result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
     }
     return result as { scalePropsX: ContinuousScaleProps; scalePropsY: ContinuousScaleProps }
 }
@@ -97,14 +106,21 @@ export const Scatter = ({
     r,
     scaleX = defaultLinearScaleSpec,
     scaleY = defaultLinearScaleSpec,
-    scaleColor = defaultCategoricalScaleSpec,
+    scaleColor,
+    autoRescale = true,
     //
     children,
 }: ScatterProps) => {
+    const theme = useTheme()
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const { disabledKeys } = useDisabledKeys()
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
+
+    const disabledBools = useMemo(
+        () => seriesIds.map(id => disabledKeys.has(id)),
+        [seriesIds, Array.from(disabledKeys)]
+    )
 
     // process dataset
     const getX = useMemo(() => getAccessor(x), [x])
@@ -115,15 +131,20 @@ export const Scatter = ({
     )
 
     // set up scales
-    const { scalePropsX, scalePropsY } = getScaleProps(processedData, scaleX, scaleY)
+    const { scalePropsX, scalePropsY } = getScaleProps(
+        processedData,
+        scaleX,
+        scaleY,
+        autoRescale ? disabledBools : Array(seriesIds.length).fill(false)
+    )
     const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
-    scales.color = createColorScale(scaleColor)
+    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical)
+    scales.color = createColorScale(scaleColorProps)
 
     // compute coordinates
     const preparedData = processedData.map(seriesData =>
         prepareData(seriesData, scales.x as ContinuousAxisScale, scales.y as ContinuousAxisScale)
     )
-    console.log(disabledKeys)
 
     return (
         <DimensionsProvider {...dimsProps}>

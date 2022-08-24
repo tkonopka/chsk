@@ -93,38 +93,3 @@ Symbols can be adjusted with prop `symbol`.
 </Canvas>
 
 Note that the prop `symbol` requires a function. Some symbol functions are available in the `@chask/core` package: see `Circle`, `Diamond`, `Square`, `Triangle`, and `InvertedTriangle`.
-
-## Toggling series
-
-Legends can be set to toggle visibility of certain series.
-
-<Canvas>
-    <Story name="interactivity">
-        <Chart size={[400, 300]} padding={[40, 120, 60, 60]} style={{ display: 'inline-block' }}>
-            <Scatter
-                data={data}
-                x={'x'}
-                y={'y'}
-                r={5}
-                scaleX={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-                scaleY={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-            >
-                <Axis variant={'bottom'} label={'x (a.u.)'} />
-                <Axis variant={'left'} label={'y (a.u.)'} />
-                <ScatterPoints />
-                <Legend
-                    position={[250, 60]}
-                    anchor={[0, 0.5]}
-                    units={'absolute'}
-                    title={'Polynomials'}
-                />
-            </Scatter>
-        </Chart>
-    </Story>
-</Canvas>

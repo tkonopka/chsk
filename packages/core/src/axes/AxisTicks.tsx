@@ -33,7 +33,7 @@ export const getScaleTicks = ({
 }) => {
     const theme = useTheme()
     const tickValues = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
-    if (tickValues.length === 0) return null
+    if (tickValues.length <= 1) return null
     const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'

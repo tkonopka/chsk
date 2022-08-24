@@ -1,6 +1,8 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart } from '@chask/core'
-import { Scatter } from '../src'
+import { Chart, Axis, Legend } from '@chask/core'
+import { Scatter, ScatterPoints } from '../src'
+import { ChartWithLegendDecorator, commonBarProps } from './decorators'
+import dataPolynomials from './dataPolynomials.json'
 
 # Scatter
 
@@ -12,3 +14,74 @@ export const Template = args => <Scatter {...args} />
 <ArgsTable of={Scatter} />
 
 `Scatter` is an organizational component and it does not actually draw any visual elements. However, it manages data representations that can be visualized with other components, for example `ScatterPoints` or `ScatterCurve`.
+
+## Axis scaling
+
+`Scatter` can set up x- and y-axes according to manual specifications, or determine relevant settings based on data. To demonstrate this, the examples below use `Scatter` (which doesn't create any visual elements) together with components that visualize axes and an example dataset.
+
+When the scales on the axes are determined automatically, `Scatter` will automatically adjust the scales when the data changes, for example when certain data series are toggled via a legend (example below, left). The automatic rescaling can be disabled via prop `autoRescale` (example below, right).
+
+export const PointsAndLegend = () => {
+    return (
+        <>
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} />
+            <ScatterPoints />
+            <Legend
+                position={[220, 60]}
+                anchor={[0, 0.5]}
+                units={'absolute'}
+                title={'Polynomials'}
+            />
+        </>
+    )
+}
+
+<Canvas>
+    <Story
+        name="auto-rescaling"
+        args={{
+            data: dataPolynomials,
+            x: 'x',
+            y: 'y',
+            r: 5,
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            autoRescale: true,
+            children: <PointsAndLegend />,
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="fixed scales"
+        args={{
+            data: dataPolynomials,
+            x: 'x',
+            y: 'y',
+            r: 5,
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            autoRescale: false,
+            children: <PointsAndLegend />,
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

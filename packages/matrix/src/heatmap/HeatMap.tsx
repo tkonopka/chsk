@@ -18,6 +18,7 @@ import {
     getMinMax,
     DivergingScaleSpec,
     ColorScaleProps,
+    useTheme,
 } from '@chask/core'
 
 // turn raw dataGroups into a minimal array-based format
@@ -69,11 +70,6 @@ const defaultHeatMapScaleSpec: BandScaleSpec = {
     variant: 'band',
     padding: 0,
 }
-const defaultHeatMapColorScaleSpec: SequentialScaleSpec = {
-    variant: 'sequential',
-    colors: 'Blues',
-    domain: [0, 'auto'],
-}
 
 export const isHeatMapProcessedData = (
     data: Array<unknown>
@@ -97,10 +93,11 @@ export const HeatMap = ({
     keys,
     scaleX = defaultHeatMapScaleSpec,
     scaleY = defaultHeatMapScaleSpec,
-    scaleColor = defaultHeatMapColorScaleSpec,
+    scaleColor,
     //
     children,
 }: HeatMapProps) => {
+    const theme = useTheme()
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
@@ -117,7 +114,9 @@ export const HeatMap = ({
 
     const { scalePropsX, scalePropsY } = getScaleProps(seriesIds, keys, scaleX, scaleY)
     const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
-    scales.color = createColorScale(getColorScaleProps(processedData, scaleColor))
+    scales.color = createColorScale(
+        getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
+    )
 
     return (
         <DimensionsProvider {...dimsProps}>

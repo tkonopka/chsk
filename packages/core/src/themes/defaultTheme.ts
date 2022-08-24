@@ -185,8 +185,20 @@ export const defaultTheme: CompleteThemeSpec = {
         scaleSize: [8, 80],
     },
     Colors: {
-        categorical: ['#dd0000', '#4059ad', '#f4ac45', '#56e39f', '#5c415d'],
-        sequential: 'schemeYlOrBr',
-        diverging: 'schemeBrBG',
+        categorical: {
+            variant: 'categorical',
+            colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
+            size: 6,
+        },
+        sequential: {
+            variant: 'sequential',
+            colors: 'YlOrBr' as const,
+            domain: 'auto',
+        },
+        diverging: {
+            variant: 'diverging',
+            colors: 'BrBG' as const,
+            domain: 'auto',
+        },
     },
 }

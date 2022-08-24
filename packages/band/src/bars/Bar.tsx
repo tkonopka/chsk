@@ -24,8 +24,9 @@ import {
     NumericPositionSpec,
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
-    defaultCategoricalScaleSpec,
     useDisabledKeys,
+    useTheme,
+    createColorScaleProps,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -114,7 +115,8 @@ const getScaleProps = (
     data: Array<BarProcessedDataItem>,
     scaleSpecIndex: BandScaleSpec,
     scaleSpecValue: LinearScaleSpec,
-    stacked: boolean
+    stacked: boolean,
+    disabled: boolean[]
 ) => {
     const result = {
         scalePropsIndex: cloneDeep(scaleSpecIndex),
@@ -124,7 +126,8 @@ const getScaleProps = (
         result.scalePropsIndex.domain = data.map(d => d.id)
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
-        const values = data.map(seriesData => seriesData.value)
+        const filterDisabled = (v: number, i: number) => !disabled[i]
+        const values = data.map(seriesData => seriesData.value.filter(filterDisabled))
         const sumValues = (values: number[]) =>
             values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
         const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())
@@ -158,13 +161,15 @@ export const Bar = ({
     keys,
     horizontal = false,
     stacked = false,
+    autoRescale = true,
     barPadding = 0,
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
-    scaleColor = defaultCategoricalScaleSpec,
+    scaleColor,
     //
     children,
 }: BarProps) => {
+    const theme = useTheme()
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const { disabledKeys } = useDisabledKeys()
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
@@ -179,16 +184,22 @@ export const Bar = ({
         [data, keyAccessors]
     )
 
+    const disabledKeysBools = useMemo(
+        () => keys.map(k => disabledKeys.has(k)),
+        [keys, Array.from(disabledKeys)]
+    )
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
         processedData,
         scaleIndex,
         scaleValue,
-        stacked
+        stacked,
+        autoRescale ? disabledKeysBools : Array(keys.length).fill(false)
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
-    scales.color = createColorScale(scaleColor)
+    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical)
+    scales.color = createColorScale(scaleColorProps)
 
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
@@ -199,10 +210,6 @@ export const Bar = ({
     const barStep = nKeys === 1 ? bandwidth : bandwidth / (nKeys - Math.min(1, barPadding))
     const barWidth = nKeys === 1 || stacked ? bandwidth : barStep * (1 - barPadding)
     const barGap = barStep * barPadding
-    const disabledKeysBools = useMemo(
-        () => keys.map(k => disabledKeys.has(k)),
-        [keys, Array.from(disabledKeys)]
-    )
     const preparedData = useMemo(
         () =>
             processedData.map(seriesData =>

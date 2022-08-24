@@ -7,11 +7,11 @@ import {
     createColorScale,
     createContinuousScale,
     createColorScaleProps,
-    defaultCategoricalScaleSpec,
 } from '../scales'
 import { ViewProps } from './types'
 import { OriginalDataProvider, ProcessedDataProvider } from './contexts'
 import { useView } from './hooks'
+import { useTheme } from '../themes'
 
 export const View = ({
     position = [0, 0],
@@ -22,13 +22,15 @@ export const View = ({
     data = [],
     scaleX = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleY = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
-    scaleColor = createColorScaleProps(defaultCategoricalScaleSpec, [0, 100]),
+    scaleColor,
     scaleSize = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     children,
 }: ViewProps) => {
+    const theme = useTheme()
     const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
-    scales.color = createColorScale(scaleColor)
+    const scaleColorProps = scaleColor ?? createColorScaleProps(theme.Colors.categorical, [0, 100])
+    scales.color = createColorScale(scaleColorProps)
     scales.size = createContinuousScale({ size: 100, ...scaleSize })
 
     const isArray = Array.isArray(data)

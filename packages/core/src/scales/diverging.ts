@@ -13,11 +13,9 @@ export const createDivergingScale = ({
 
     if (!Array.isArray(colors)) {
         const interpolateKey = 'interpolate' + colors
-        let interpolator: (t: number) => string
+        let interpolator: (t: number) => string = d3.interpolateBlues
         if (interpolateKey in d3) {
             interpolator = d3[interpolateKey as D3ScaleChromatic] as (t: number) => string
-        } else {
-            interpolator = d3.interpolateBlues
         }
         scale.interpolator(interpolator)
     } else {

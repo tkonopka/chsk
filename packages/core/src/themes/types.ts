@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
 import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from '../general'
+import { CategoricalScaleSpec, DivergingScaleSpec, SequentialScaleSpec } from '../scales'
 
 export interface SideRecords {
     top?: Record<string, unknown>
@@ -9,14 +10,14 @@ export interface SideRecords {
 }
 
 export interface ThemeColorSpec {
-    categorical?: string | string[]
-    diverging?: string | string[]
-    sequential?: string | string[]
+    categorical?: CategoricalScaleSpec
+    diverging?: DivergingScaleSpec
+    sequential?: SequentialScaleSpec
 }
 export interface CompleteThemeColorSpec {
-    categorical: string | string[]
-    diverging: string | string[]
-    sequential: string | string[]
+    categorical: CategoricalScaleSpec
+    diverging: DivergingScaleSpec
+    sequential: SequentialScaleSpec
 }
 
 export interface ThemeLegendSpec {

@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart } from '@chask/core'
+import { Chart, Axis, Legend } from '@chask/core'
 import { Bar, Bars } from '../src'
-import { ChartDecorator, commonBarProps } from './decorators'
+import { ChartDecorator, ChartWithLegendDecorator, commonBarProps } from './decorators'
 import dataSingles from './dataSingles'
 import dataMissing from './dataMissing'
 
@@ -301,6 +301,73 @@ Bars that would correspond to id-key combinations with missing values are omitte
         }}
         component={Bar}
         decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Axis Scaling
+
+Scales on the axes can be set manually, or determined automatically based on the data.
+
+When the scale on the value axis is set to automatic, it will automatically rescale/adjust when the data changes or when certain keys are toggled on or off using the legend (example below, left). The automatic rescaling can be disabled using prop `autoRescale` (example below, right).
+
+export const BarsAndLegend = () => {
+    return (
+        <>
+            <Bars />
+            <Axis variant={'left'} label={'values (a.u.)'} />
+            <Legend
+                position={[160, 200]}
+                size={[150, 20]}
+                units="absolute"
+                anchor={[0.5, 0]}
+                horizontal
+                itemPadding={[2, 2, 2, 2]}
+                itemSize={[50, 20]}
+                firstOffset={[0, 0]}
+                title=""
+            />
+        </>
+    )
+}
+
+<Canvas>
+    <Story
+        name="auto-rescaling"
+        args={{
+            ...commonBarProps,
+            data: dataMissing,
+            horizontal: false,
+            stacked: true,
+            scaleIndex: {
+                variant: 'band',
+                padding: 0.2,
+            },
+            autoRescale: true,
+            children: <BarsAndLegend />,
+        }}
+        component={Bar}
+        decorators={[ChartWithLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="fixed scales"
+        args={{
+            ...commonBarProps,
+            data: dataMissing,
+            horizontal: false,
+            stacked: true,
+            scaleIndex: {
+                variant: 'band',
+                padding: 0.2,
+            },
+            autoRescale: false,
+            children: <BarsAndLegend />,
+        }}
+        component={Bar}
+        decorators={[ChartWithLegendDecorator]}
     >
         {Template.bind({})}
     </Story>

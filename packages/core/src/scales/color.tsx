@@ -25,12 +25,13 @@ export const createColorScale = (props: ColorScaleProps) => {
 // complete domain information in a scale spec to create a scale props
 export const createColorScaleProps = (
     scaleSpec: ColorScaleSpec,
-    domain: [number, number]
+    domain?: [number, number]
 ): ColorScaleProps => {
     const result = cloneDeep(scaleSpec)
     if (result.variant === 'categorical') {
         return result as ColorScaleProps
     }
+    if (!domain) domain = [0, 100]
     if (result.domain === undefined || typeof result.domain === 'string') {
         result.domain = domain
     } else {
