@@ -1,7 +1,7 @@
-import data from '../stories/dataPolynomials.json'
+import dataPolynomials from './dataPolynomials.json'
 
 export const scatterProps = {
-    data: data,
+    data: dataPolynomials,
     x: 'x',
     y: 'y',
     r: 5,

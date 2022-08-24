@@ -28,7 +28,7 @@ export const LegendColorScale = ({
     const horizontal = variant === 'bottom' || variant === 'top'
     const scaleSize = horizontal ? size[X] : -size[Y]
     const domain = scale.domain()
-    const domainSize = domain[1] - domain[0]
+    const domainSize = domain[domain.length - 1] - domain[0]
     const nStops = 21
     const stops = Array(nStops)
         .fill(0)

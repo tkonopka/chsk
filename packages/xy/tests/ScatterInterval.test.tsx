@@ -2,17 +2,19 @@ import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
 import { Scatter, ScatterInterval } from '../src/scatter'
 import { scatterProps } from './props'
-import { generateScatterSeriesWithInterval } from '../stories/generators'
 
 export const dataWithInterval = [
-    generateScatterSeriesWithInterval(
-        'A',
-        Array(16)
-            .fill(0)
-            .map((v, i) => i),
-        (x: number) => 1 + 0.4 * x + Math.random() * 1.5,
-        [-0.5, 0.5]
-    ),
+    {
+        id: 'A',
+        data: [
+            { x: 0, y: 0, lo: 0, hi: 1 },
+            { x: 1, y: 1.5, lo: 1.0, hi: 2.0 },
+            { x: 2, y: 2.5, lo: 2.0, hi: 3.0 },
+            { x: 3, y: 2.0, lo: 1.5, hi: 2.5 },
+            { x: 4, y: 3.0, lo: 2.5, hi: 3.5 },
+            { x: 5, y: 4.0, lo: 3.5, hi: 4.5 },
+        ],
+    },
 ]
 
 describe('ScatterInterval', () => {

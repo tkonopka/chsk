@@ -15,11 +15,7 @@ const walksData = [
 
 export const RandomWalksChart = () => {
     return (
-        <Chart
-            id="random-walks"
-            size={[600, 400]}
-            padding={[60, 60, 60, 60]}
-        >
+        <Chart id="random-walks" size={[600, 400]} padding={[60, 60, 60, 60]}>
             <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />
             <Scatter
                 data={walksData}
@@ -50,21 +46,13 @@ export const RandomWalksChart = () => {
                     curve={'Natural'}
                     style={{ stroke: '#ffffff', strokeWidth: 7 }}
                 />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4 }}
-                />
+                <ScatterCurve ids={['alpha']} curve={'Natural'} style={{ strokeWidth: 4 }} />
                 <ScatterCurve
                     ids={['beta']}
                     curve={'Natural'}
                     style={{ stroke: '#ffffff', strokeWidth: 7 }}
                 />
-                <ScatterCurve
-                    ids={['beta']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4 }}
-                />
+                <ScatterCurve ids={['beta']} curve={'Natural'} style={{ strokeWidth: 4 }} />
                 <Typography variant={'title'} position={[0, -30]} children={'Two random walks'} />
             </Scatter>
         </Chart>

@@ -21,7 +21,7 @@ export const getTickCoordinates = (
     const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
     if (isColorScale(scale)) {
         const domain = scale.domain()
-        const domainSize = domain[1] - domain[0]
+        const domainSize = domain[domain.length - 1] - domain[0]
         const result = tickValues.map(v => (size * (Number(v) - domain[0])) / domainSize)
         // for vertical color scales (size < 0), adjust the mapping to make low-high go from bottom-to-top
         return size < 0 ? result.map(v => Math.abs(size) + v) : result

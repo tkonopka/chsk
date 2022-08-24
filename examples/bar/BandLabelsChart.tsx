@@ -27,11 +27,7 @@ const StyledBoxedLabel = (props: LabelProps) => {
 
 export const BandLabelsChart = () => {
     return (
-        <Chart
-            id="band-labels"
-            size={[600, 360]}
-            padding={[60, 120, 60, 60]}
-        >
+        <Chart id="band-labels" size={[600, 360]} padding={[60, 120, 60, 60]}>
             <Bar
                 data={stackedData}
                 keys={['alpha', 'beta']}

@@ -1,0 +1,23 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { SequentialHeatMapChart } from './SequentialHeatMapChart'
+import { DivergingHeatMapChart } from './DivergingHeatMapChart'
+
+<Meta title="Gallery/Heat maps" />
+
+# Examples of heat maps
+
+## Sequential colors
+
+<Canvas>
+    <Story name="sequential">
+        <SequentialHeatMapChart />
+    </Story>
+</Canvas>
+
+## Diverging colors
+
+<Canvas>
+    <Story name="diverging">
+        <DivergingHeatMapChart />
+    </Story>
+</Canvas>

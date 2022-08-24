@@ -1,23 +1,19 @@
 import { Chart, Axis, GridLines, Surface, Typography, Line } from '@chask/core'
 import { Scatter, ScatterArea, ScatterCurve } from '@chask/xy'
 import { generateRandomWalk } from './generators'
-import {LinearGradient} from "../../packages/core/src";
+import { LinearGradient } from '../../packages/core/src'
 
 const walkData = [
     {
         id: 'alpha',
-        data: generateRandomWalk(200).map(d => ({x: d.x, y: 100 + d.y})),
+        data: generateRandomWalk(200).map(d => ({ x: d.x, y: 100 + d.y })),
     },
 ]
 console.log(JSON.stringify(walkData))
 
 export const RandomWalkAreaChart = () => {
     return (
-        <Chart
-            id="random-walk-area"
-            size={[600, 400]}
-            padding={[60, 60, 60, 60]}
-        >
+        <Chart id="random-walk-area" size={[600, 400]} padding={[60, 60, 60, 60]}>
             <Scatter
                 data={walkData}
                 x={'x'}
@@ -42,18 +38,23 @@ export const RandomWalkAreaChart = () => {
                 />
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
-                <LinearGradient id={'area-grad'} start={[0, 0]} end={[0, 0.8]} stops={['#3f9cde', '#ffffff']} />
+                <LinearGradient
+                    id={'area-grad'}
+                    start={[0, 0]}
+                    end={[0, 0.8]}
+                    stops={['#3f9cde', '#ffffff']}
+                />
                 <ScatterArea
                     ids={['alpha']}
                     curve={'Natural'}
                     style={{ strokeWidth: 0, fill: 'url(#area-grad)', opacity: 0.25 }}
                 />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 3 }}
+                <ScatterCurve ids={['alpha']} curve={'Natural'} style={{ strokeWidth: 3 }} />
+                <Typography
+                    variant={'title'}
+                    position={[0, -30]}
+                    children={'Shifted random walk'}
                 />
-                <Typography variant={'title'} position={[0, -30]} children={'Shifted random walk'} />
             </Scatter>
         </Chart>
     )
