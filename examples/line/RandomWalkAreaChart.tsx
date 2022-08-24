@@ -1,28 +1,25 @@
 import { Chart, Axis, GridLines, Surface, Typography, Line } from '@chask/core'
-import { Scatter, ScatterCurve } from '@chask/xy'
+import { Scatter, ScatterArea, ScatterCurve } from '@chask/xy'
 import { generateRandomWalk } from './generators'
+import {LinearGradient} from "../../packages/core/src";
 
-const walksData = [
+const walkData = [
     {
         id: 'alpha',
-        data: generateRandomWalk(300),
-    },
-    {
-        id: 'beta',
-        data: generateRandomWalk(300),
+        data: generateRandomWalk(200).map(d => ({x: d.x, y: 100 + d.y})),
     },
 ]
+console.log(JSON.stringify(walkData))
 
-export const RandomWalksChart = () => {
+export const RandomWalkAreaChart = () => {
     return (
         <Chart
-            id="random-walks"
+            id="random-walk-area"
             size={[600, 400]}
             padding={[60, 60, 60, 60]}
         >
-            <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />
             <Scatter
-                data={walksData}
+                data={walkData}
                 x={'x'}
                 y={'y'}
                 r={3}
@@ -37,7 +34,7 @@ export const RandomWalksChart = () => {
                     nice: true,
                 }}
             >
-                <GridLines variant={'y'} style={{ stroke: '#bbbbbb' }} />
+                <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                 <GridLines
                     variant={'y'}
                     values={[0]}
@@ -45,27 +42,18 @@ export const RandomWalksChart = () => {
                 />
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
+                <LinearGradient id={'area-grad'} start={[0, 0]} end={[0, 0.8]} stops={['#3f9cde', '#ffffff']} />
+                <ScatterArea
+                    ids={['alpha']}
+                    curve={'Natural'}
+                    style={{ strokeWidth: 0, fill: 'url(#area-grad)', opacity: 0.25 }}
+                />
                 <ScatterCurve
                     ids={['alpha']}
                     curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7 }}
+                    style={{ strokeWidth: 3 }}
                 />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4 }}
-                />
-                <ScatterCurve
-                    ids={['beta']}
-                    curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7 }}
-                />
-                <ScatterCurve
-                    ids={['beta']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4 }}
-                />
-                <Typography variant={'title'} position={[0, -30]} children={'Two random walks'} />
+                <Typography variant={'title'} position={[0, -30]} children={'Shifted random walk'} />
             </Scatter>
         </Chart>
     )

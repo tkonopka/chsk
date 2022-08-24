@@ -1,14 +1,23 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { RandomWalksChart } from './RandomWalksChart'
+import { RandomWalkAreaChart } from './RandomWalkAreaChart'
 
 <Meta title="Gallery/Line charts" />
 
 # Examples of line charts
 
-## Two curves
+## Curves
 
 <Canvas>
     <Story name="random walks">
         <RandomWalksChart />
+    </Story>
+</Canvas>
+
+## Areas
+
+<Canvas>
+    <Story name="random walk with area">
+        <RandomWalkAreaChart />
     </Story>
 </Canvas>

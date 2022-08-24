@@ -74,7 +74,7 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         grid: {
             stroke: '#cccccc',
-            strokeWidth: 1,
+            strokeWidth: 0.5,
         },
         axis: {
             stroke: '#222222',

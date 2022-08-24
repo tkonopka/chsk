@@ -16,7 +16,6 @@ export const StackedVerticalBandChart = () => {
             id="stacked-vertical"
             size={[600, 400]}
             padding={[40, 120, 60, 60]}
-            style={{ display: 'inline-block' }}
         >
             <Bar
                 data={stackedData}
@@ -54,7 +53,6 @@ export const StackedHorizontalBandChart = () => {
             id="stacked-vertical"
             size={[600, 400]}
             padding={[90, 40, 30, 60]}
-            style={{ display: 'inline-block' }}
         >
             <Bar
                 data={stackedData}

@@ -24,10 +24,10 @@ const getScatterAreaD = ({
     seriesIndex: number
     preparedData: ScatterDataContextProps
     scaleY: ContinuousAxisScale
-    baseline: number
+    baseline?: number
     curve: CurveSpec
 }) => {
-    const base = scaleY(baseline)
+    const base = scaleY(baseline ?? scaleY.domain()[0])
     const points = getScatterCurvePoints(preparedData.data[seriesIndex])
     const pointIntervals: Array<NumericPositionIntervalSpec> = points.map(d => [d[0], d[1], base])
     const generator = createAreaGenerator(curve)
@@ -36,7 +36,7 @@ const getScatterAreaD = ({
 
 export const ScatterArea = ({
     ids,
-    baseline = 0,
+    baseline,
     curve = 'Linear',
     variant = 'default',
     style,
