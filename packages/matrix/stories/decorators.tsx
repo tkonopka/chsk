@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, Axis, GridLines } from '@chask/core'
-import { HeatMap, HeatMapProps } from '../src/'
+import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
 
 const data4x3 = [
     {
@@ -45,6 +45,32 @@ export const ChartHeatMapDecorator = (Story: () => ReactNode) => (
         <HeatMap {...commonProps}>
             <Axis variant={'top'} />
             <Axis variant={'left'} />
+            {Story()}
+        </HeatMap>
+    </Chart>
+)
+
+export const ChartHeatMapCellsDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[60, 40, 40, 60]} style={{ display: 'inline-block' }}>
+        <HeatMap {...commonProps}>
+            <Axis variant={'top'} />
+            <Axis variant={'left'} />
+            <HeatMapCells />
+            {Story()}
+        </HeatMap>
+    </Chart>
+)
+
+export const ChartHeatMapPaddedCellsDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[60, 40, 40, 60]} style={{ display: 'inline-block' }}>
+        <HeatMap
+            {...commonProps}
+            scaleX={{ variant: 'band', padding: 0.15, paddingOuter: 0.075 }}
+            scaleY={{ variant: 'band', padding: 0.15, paddingOuter: 0.075 }}
+        >
+            <Axis variant={'top'} />
+            <Axis variant={'left'} />
+            <HeatMapCells />
             {Story()}
         </HeatMap>
     </Chart>

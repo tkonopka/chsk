@@ -1,3 +1,4 @@
+// get min and max values in an array
 export const getMinMax = (values: Array<number>): [number, number] => {
     const min = values.reduce((acc, v) => Math.min(acc, v), values[0])
     const max = values.reduce((acc, v) => Math.max(acc, v), values[0])

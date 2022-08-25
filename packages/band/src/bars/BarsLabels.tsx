@@ -1,6 +1,7 @@
 import { createElement, ReactNode, useMemo } from 'react'
 import {
     composeClassName,
+    getIdKeySets,
     Label,
     OpacityMotion,
     useDisabledKeys,
@@ -8,7 +9,6 @@ import {
     X,
     Y,
 } from '@chask/core'
-import { getIdKeySets } from '../bands'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
 import { isBarProcessedData } from './Bar'

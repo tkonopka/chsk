@@ -36,3 +36,30 @@ export const getAlignPosition = (
         pos[Y] + padding[TOP] + innerSize[Y] * align[Y],
     ]
 }
+
+export const binSearch = (values: Array<number>, target: number): number => {
+    const n = values.length
+    if (n === 0) return 0
+    // basic binary search
+    let start = 0,
+        end = n - 1
+    while (start < end) {
+        const mid = Math.floor((end + start) / 2)
+        const value = values[mid]
+        if (target <= value) {
+            end = mid
+        }
+        if (target > value) {
+            start = mid + 1
+        }
+    }
+    // left-align to first index
+    while (start > 0 && target === values[start] && target === values[start - 1]) {
+        start -= 1
+    }
+    // special case when target is larger than last element
+    if (start === n - 1 && target > values[start]) {
+        start += 1
+    }
+    return start
+}

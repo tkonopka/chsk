@@ -1,5 +1,5 @@
 import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@chask/core'
-import { HeatMap, HeatMapCells } from '@chask/matrix'
+import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetUppercase } from '../utils'
 
@@ -45,6 +45,7 @@ export const DivergingHeatMapChart = () => {
                         ticks={['A', 'F', 'K', 'P', 'U', 'Z']}
                     />
                 </Axis>
+                <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Legend
                     variant={'color'}
                     horizontal={false}

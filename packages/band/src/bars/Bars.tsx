@@ -1,5 +1,11 @@
-import { addColor, OpacityMotion, Rectangle, useDisabledKeys, useScales } from '@chask/core'
-import { getIdKeySets } from '../bands'
+import {
+    addColor,
+    OpacityMotion,
+    Rectangle,
+    useDisabledKeys,
+    useScales,
+    getIdKeySets,
+} from '@chask/core'
 import { BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'

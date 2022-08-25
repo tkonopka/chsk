@@ -1,0 +1,60 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, Triangle } from '@chask/core'
+import { HeatMap, HeatMapHighlight } from '../src'
+import { ChartHeatMapCellsDecorator, ChartHeatMapPaddedCellsDecorator } from './decorators'
+
+# HeatMapHighlight
+
+<Meta title="Addons/Matrix/HeatMapHighlight" />
+export const Template = args => <HeatMapHighlight {...args} />
+
+`HeatMapHighlight` draws masks on a heatmap to focus attention on a specific row and column.
+
+<ArgsTable of={HeatMapHighlight} />
+
+## Interactivity
+
+`HeatMapHighlight` detects mouse movements and emphasizes a cell in the heatmap by masking other parts of the map.
+
+The effect works on maps with and without padding. The appearance of the masks can be tuned via the prop `style`.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            style: { fill: '#222222', opacity: 0.7 },
+        }}
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="padding"
+        args={{
+            style: { fill: '#992222', opacity: 0.3 },
+        }}
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapPaddedCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Data subsets
+
+To restrict the highlighting to a subset of rows and columns, use props `ids` and `keys`. In the example below, the highlights should activate only on the first few rows.
+
+<Canvas>
+    <Story
+        name="data subsets"
+        args={{
+            ids: ['alpha', 'beta'],
+            style: { fill: '#222222', opacity: 0.7 },
+        }}
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

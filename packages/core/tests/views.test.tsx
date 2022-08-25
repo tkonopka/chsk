@@ -4,6 +4,7 @@ import {
     View,
     getAnchoredOrigin,
     getIndexes,
+    getIdKeySets,
     NumericPositionSpec,
     SizeSpec,
     AnchorSpec,
@@ -74,18 +75,6 @@ describe('getAnchoredOrigin', () => {
     })
 })
 
-describe('getIdsIndexes', () => {
-    it('get a map from string ids to integers', () => {
-        const testdata = [
-            { id: 'A', x: 0 },
-            { id: 'Z', x: 100 },
-        ]
-        const result = getIndexes(testdata)
-        expect(result['A']).toBe(0)
-        expect(result['Z']).toBe(1)
-    })
-})
-
 describe('View', () => {
     it('creates view with default props', () => {
         render(
@@ -129,5 +118,39 @@ describe('View', () => {
         // the dataset has two indexes and three keys
         expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
         expect(processed.keys).toEqual(['a', 'b', 'c'])
+    })
+})
+
+describe('getIndexes', () => {
+    it('get a map from string ids to integers', () => {
+        const testdata = [
+            { id: 'A', x: 0 },
+            { id: 'Z', x: 100 },
+        ]
+        const result = getIndexes(testdata)
+        expect(result['A']).toBe(0)
+        expect(result['Z']).toBe(1)
+    })
+})
+
+describe('getIdKeySets', () => {
+    const tempSeriesIndexes = { A: 0, B: 1, C: 2 }
+    const tempKeys = ['x', 'y', 'z']
+    const tempProcessedDataProps: ProcessedDataContextProps = {
+        data: [],
+        seriesIndexes: tempSeriesIndexes,
+        keys: tempKeys,
+    }
+
+    it('gets all available ids and keys', () => {
+        const result = getIdKeySets(undefined, undefined, tempProcessedDataProps)
+        expect(Array.from(result.idSet).sort()).toEqual(['A', 'B', 'C'])
+        expect(Array.from(result.keySet).sort()).toEqual(['x', 'y', 'z'])
+    })
+
+    it('gets a subset of ids and keys', () => {
+        const result = getIdKeySets(['B'], ['z', 'y'], tempProcessedDataProps)
+        expect(Array.from(result.idSet).sort()).toEqual(['B'])
+        expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
     })
 })

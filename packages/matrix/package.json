@@ -18,7 +18,8 @@
         "build": "PACKAGE=matrix rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0"
+        "@chask/core": "^0.1.0",
+        "framer-motion": "^7.0.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",

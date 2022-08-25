@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import {
     BandAxisScale,
     composeClassName,
+    getIdKeySets,
     useDimensions,
     useScales,
     X,
@@ -11,7 +12,6 @@ import {
     RecordWithId,
 } from '@chask/core'
 import { BandHighlightsProps } from './types'
-import { getIdKeySets } from './utils'
 
 export const BandHighlights = ({
     ids,

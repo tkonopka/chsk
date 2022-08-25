@@ -35,15 +35,18 @@ export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'sca
     scaleColor?: SequentialScaleSpec | DivergingScaleSpec
 }
 
-export interface HeatMapCellsProps {
+export interface HeatMapHighlightProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** keys to display (default to all keys) */
     keys?: string[]
-    /** symbol for individual data points */
-    cell?: FC<RectangleProps>
     /** style class */
     className?: string
     /** css style */
     style?: CssProps
+}
+
+export interface HeatMapCellsProps extends HeatMapHighlightProps {
+    /** symbol for individual data points */
+    cell?: FC<RectangleProps>
 }

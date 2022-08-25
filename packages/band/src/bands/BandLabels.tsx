@@ -1,6 +1,7 @@
 import {
     BandAxisScale,
     composeClassName,
+    getIdKeySets,
     getAbsolutePosition,
     ScalesContextProps,
     SizeSpec,
@@ -16,7 +17,6 @@ import {
 } from '@chask/core'
 import { BandLabelsProps } from './types'
 import { createElement, ReactNode, useMemo } from 'react'
-import { getIdKeySets } from './utils'
 
 // get absolute position along the value axis
 const getAbsoluteValuePos = (

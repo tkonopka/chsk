@@ -1,7 +1,6 @@
-import { Chart, Axis, GridLines, Surface, Typography, Line } from '@chask/core'
+import { Chart, Axis, GridLines, Typography, LinearGradient } from '@chask/core'
 import { Scatter, ScatterArea, ScatterCurve } from '@chask/xy'
 import { generateRandomWalk } from './generators'
-import { LinearGradient } from '../../packages/core/src'
 
 const walkData = [
     {
@@ -9,7 +8,6 @@ const walkData = [
         data: generateRandomWalk(200).map(d => ({ x: d.x, y: 100 + d.y })),
     },
 ]
-console.log(JSON.stringify(walkData))
 
 export const RandomWalkAreaChart = () => {
     return (

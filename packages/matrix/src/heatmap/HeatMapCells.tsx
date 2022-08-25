@@ -1,25 +1,14 @@
 import { createElement, useMemo } from 'react'
 import {
     addColor,
+    getIdKeySets,
     BandAxisScale,
-    ProcessedDataContextProps,
     Rectangle,
     useProcessedData,
     useScales,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapProcessedData } from './HeatMap'
-
-// get set objects containing ids and keys to display
-const getIdKeySets = (
-    ids: string[] | undefined,
-    keys: string[] | undefined,
-    processedData: ProcessedDataContextProps
-) => {
-    const idSet = ids ? new Set(ids) : new Set(Object.keys(processedData.seriesIndexes))
-    const keySet = keys ? new Set(keys) : new Set(processedData.keys)
-    return { idSet, keySet }
-}
 
 export const HeatMapCells = ({
     ids,

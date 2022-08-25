@@ -1,5 +1,5 @@
 import { Chart, Axis, Legend, LegendTitle, LegendColorScale } from '@chask/core'
-import { HeatMap, HeatMapCells } from '@chask/matrix'
+import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetUppercase } from '../utils'
 
@@ -40,6 +40,7 @@ export const SequentialHeatMapChart = () => {
                     variant={'bottom'}
                     ticks={['A', 'C', 'E', 'G', 'I', 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Z']}
                 />
+                <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Legend
                     variant={'color'}
                     horizontal={false}
