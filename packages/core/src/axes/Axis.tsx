@@ -31,10 +31,9 @@ export const Axis = ({
     setRole = true,
     children,
 }: AxisProps) => {
-    const theme = useTheme()
+    const theme = useTheme().Axis
     const dimensions = useDimensions()
-    const axisTheme = theme.Axis[variant]
-    const axisOffset = offset ?? (axisTheme?.offset as number) ?? 0
+    const axisOffset = offset ?? (theme[variant]?.offset as number) ?? 0
 
     return (
         <g

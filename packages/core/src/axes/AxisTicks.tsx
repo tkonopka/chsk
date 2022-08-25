@@ -31,16 +31,15 @@ export const getScaleTicks = ({
     scale: Scale
     scaleSize?: number // only relevant for color scales
 }) => {
-    const theme = useTheme()
+    const theme = useTheme().AxisTicks[variant]
     const tickValues = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
     if (tickValues.length <= 1) return null
     const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const tickTheme = theme.AxisTicks[variant]
-    const size = tickSize ?? (tickTheme?.tickSize as number) ?? 0
-    const offset = labelOffset ?? (tickTheme?.labelOffset as number) ?? 0
-    const rotate = labelRotate ?? (tickTheme?.labelRotate as number) ?? 0
+    const size = tickSize ?? (theme?.tickSize as number) ?? 0
+    const offset = labelOffset ?? (theme?.labelOffset as number) ?? 0
+    const rotate = labelRotate ?? (theme?.labelRotate as number) ?? 0
     const tickTranslations = horizontal
         ? tickCoordinates.map(v => [v, 0])
         : tickCoordinates.map(v => [0, v])

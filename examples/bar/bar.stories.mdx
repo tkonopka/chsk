@@ -1,5 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { StackedVerticalBandChart, StackedHorizontalBandChart } from './stacked.charts.tsx'
+import { GroupedVerticalBandChart, GroupedHorizontalBandChart } from './grouped.charts.tsx'
 import { MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { BandLabelsChart } from './BandLabelsChart'
 
@@ -7,7 +8,21 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 # Examples of bar charts
 
-## Stacked charts
+## Grouped bars
+
+<Canvas>
+    <Story name="grouped, vertical">
+        <GroupedVerticalBandChart />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="grouped, horizontal">
+        <GroupedHorizontalBandChart />
+    </Story>
+</Canvas>
+
+## Stacked bars
 
 <Canvas>
     <Story name="stacked, vertical">

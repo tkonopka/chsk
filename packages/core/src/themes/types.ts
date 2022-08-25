@@ -1,12 +1,29 @@
 import { CSSProperties } from 'react'
-import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from '../general'
+import { NumericPositionSpec, FourSideSizeSpec, SizeSpec, CssProps } from '../general'
 import { CategoricalScaleSpec, DivergingScaleSpec, SequentialScaleSpec } from '../scales'
 
-export interface SideRecords {
-    top?: Record<string, unknown>
-    bottom?: Record<string, unknown>
-    left?: Record<string, unknown>
-    right?: Record<string, unknown>
+export interface SideRecords<T = Record<string, unknown>> {
+    top?: T
+    bottom?: T
+    left?: T
+    right?: T
+}
+
+export interface ThemeAxisSpec {
+    ticks?: number
+    offset?: number
+}
+export interface ThemeAxisLabelSpec {
+    offset?: number
+    anchor?: number
+    rotate?: number
+}
+export interface ThemeAxisTicksSpec {
+    tickSize?: number
+    labelOffset?: number
+    labelRotate?: number
+    labelStyle?: CssProps
+    tickStyle?: CssProps
 }
 
 export interface ThemeColorSpec {
@@ -49,9 +66,9 @@ export interface ThemeSpec {
     polygon?: Record<string, Partial<CSSProperties>>
     rect?: Record<string, Partial<CSSProperties>>
     text?: Record<string, Partial<CSSProperties>>
-    Axis?: SideRecords
-    AxisLabel?: SideRecords
-    AxisTicks?: SideRecords
+    Axis?: SideRecords<ThemeAxisSpec>
+    AxisLabel?: SideRecords<ThemeAxisLabelSpec>
+    AxisTicks?: SideRecords<ThemeAxisTicksSpec>
     Legend?: ThemeLegendSpec
     Colors?: ThemeColorSpec
 }
@@ -64,9 +81,9 @@ export interface CompleteThemeSpec {
     polygon: Record<string, Partial<CSSProperties>>
     rect: Record<string, Partial<CSSProperties>>
     text: Record<string, Partial<CSSProperties>>
-    Axis: SideRecords
-    AxisLabel: SideRecords
-    AxisTicks: SideRecords
+    Axis: SideRecords<ThemeAxisSpec>
+    AxisLabel: SideRecords<ThemeAxisLabelSpec>
+    AxisTicks: SideRecords<ThemeAxisTicksSpec>
     Legend: CompleteThemeLegendSpec
     Colors: CompleteThemeColorSpec
 }

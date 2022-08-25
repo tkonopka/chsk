@@ -20,15 +20,14 @@ export const AxisLabel = ({
     setRole,
     children,
 }: AxisLabelProps) => {
-    const theme = useTheme()
+    const theme = useTheme().AxisLabel[variant]
     const dimensions = useDimensions()
     if (children === undefined || children === '') return null
 
     const [width, height] = dimensions.innerSize
-    const themeProps = theme.AxisLabel[variant]
-    const labelOffset = offset ?? (themeProps?.offset as number) ?? 0
-    const labelAnchor = anchor ?? themeProps?.anchor ?? 0.5
-    const labelRotate = rotate ?? themeProps?.rotate ?? 0
+    const labelOffset = offset ?? theme?.offset ?? 0
+    const labelAnchor = anchor ?? theme?.anchor ?? 0.5
+    const labelRotate = rotate ?? theme?.rotate ?? 0
     const anchorFraction = getAnchorFraction(labelAnchor)
 
     let x = 0,
