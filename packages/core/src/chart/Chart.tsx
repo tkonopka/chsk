@@ -1,25 +1,30 @@
-import { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react'
-import { ChartProps, ChartRef } from './types'
+import { useImperativeHandle, useState } from 'react'
+import { ChartProps } from './types'
 import { DimensionsProvider, LEFT, TOP, WIDTH, HEIGHT } from '../general'
 import { emptyTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
 
-const ChartComponent = (
-    {
-        id = 'chask',
-        size = [500, 400],
-        padding = [40, 40, 40, 40],
-        theme = emptyTheme,
-        data = {},
-        styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
-        style,
-        children,
-    }: ChartProps,
-    ref: ForwardedRef<ChartRef>
-) => {
+/**
+ * Tried implementing this with forwardRef so that usage could be <Chart ref={myref} />
+ * However, that implementation caused troubled with storybook in docs mode.
+ * The implementation using a prop fref is less elegant, but works in storybook.
+ *
+ */
+
+export const Chart = ({
+    id = 'chask',
+    size = [500, 400],
+    padding = [40, 40, 40, 40],
+    theme = emptyTheme,
+    data = {},
+    styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
+    style,
+    children,
+    fref,
+}: ChartProps) => {
     // book-keeping for internal chart state
     const [state, setState] = useState(data)
-    useImperativeHandle(ref, () => ({
+    useImperativeHandle(fref, () => ({
         updateData(d) {
             setState({ ...state, ...d })
         },
@@ -58,5 +63,3 @@ const ChartComponent = (
         </ThemeProvider>
     )
 }
-
-export const Chart = forwardRef<ChartRef, ChartProps>(ChartComponent)

@@ -36,7 +36,7 @@ describe('Chart', () => {
             return null
         }
         render(
-            <Chart ref={ref}>
+            <Chart fref={ref}>
                 <GetChartData />
             </Chart>
         )

@@ -1,18 +1,18 @@
 import { Meta, Source } from '@storybook/addon-docs'
 
-<Meta title="Core/Hooks/useMilestone" />
+<Meta title="Core/Hooks/useMilestones" />
 
-# `useMilestone`
+# `useMilestones`
 
-The `useMilestone` hook retrieves the current chart 'milestone' string.
+The `useMilestones` hook retrieves a set of milestone strings.
 
 <Source
     language="javascript"
     code={`
-import { useMilestone } from '@chask/core'
+import { useMilestones } from '@chask/core'
 
 // in a JSX component:
-const milestone = useMilestone()
+const milestones = useMilestones()
 `} />
 
 Recall milestone strings are used to trigger animations with `MilestoneMotion`.

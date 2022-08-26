@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis, GridLines } from '@chask/core'
+import { Chart, Axis } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
 
 const data4x3 = [

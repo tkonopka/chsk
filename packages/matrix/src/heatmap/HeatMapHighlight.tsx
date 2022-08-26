@@ -63,6 +63,8 @@ const findZone = (
     return [intervals[X].slice(i - 1, i + 1), intervals[Y].slice(j - 1, j + 1)] as DetectorZone
 }
 
+const wh0 = { width: 0, height: 0 }
+
 const HeatMapHighlightMask = (
     zone: DetectorZone,
     size: SizeSpec,
@@ -79,16 +81,9 @@ const HeatMapHighlightMask = (
                 exit={{ opacity: 0 }}
             >
                 <motion.rect
-                    key={'mask-top-left'}
-                    initial={{
-                        x: 0,
-                        y: 0,
-                        width: 0,
-                        height: 0,
-                    }}
+                    // mask: top left
+                    initial={wh0}
                     animate={{
-                        x: 0,
-                        y: 0,
                         width: zone[X][0],
                         height: zone[Y][0],
                     }}
@@ -96,50 +91,32 @@ const HeatMapHighlightMask = (
                     className={className}
                 />
                 <motion.rect
-                    key={'mask-top-right'}
-                    initial={{
-                        x: width,
-                        y: 0,
-                        width: 0,
-                        height: 0,
-                    }}
+                    // mask: top-right
+                    transform={'translate(' + width + ',0)rotate(90)'}
+                    initial={wh0}
                     animate={{
-                        x: zone[X][1],
-                        y: 0,
-                        width: width - zone[X][1],
-                        height: zone[Y][0],
+                        height: width - zone[X][1],
+                        width: zone[Y][0],
                     }}
                     style={style}
                     className={className}
                 />
                 <motion.rect
-                    key={'mask-bottom-left'}
-                    initial={{
-                        x: 0,
-                        y: height,
-                        width: 0,
-                        height: 0,
-                    }}
+                    // mask: bottom-left
+                    initial={wh0}
+                    transform={'translate(0,' + height + ')rotate(-90)'}
                     animate={{
-                        x: 0,
-                        y: zone[Y][1],
-                        width: zone[X][0],
-                        height: height - zone[Y][1],
+                        width: height - zone[Y][1],
+                        height: zone[X][0],
                     }}
                     style={style}
                     className={className}
                 />
                 <motion.rect
-                    key={'mask-bottom-right'}
-                    initial={{
-                        x: width,
-                        y: height,
-                        width: 0,
-                        height: 0,
-                    }}
+                    // mask: bottom-right
+                    initial={wh0}
+                    transform={'translate(' + width + ',' + height + ')rotate(180)'}
                     animate={{
-                        x: zone[X][1],
-                        y: zone[Y][1],
                         width: width - zone[X][1],
                         height: height - zone[Y][1],
                     }}

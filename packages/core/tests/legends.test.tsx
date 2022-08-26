@@ -34,6 +34,30 @@ describe('Legend (items)', () => {
         const labels = legend.querySelectorAll('text')
         expect(labels).toHaveLength(3)
     })
+
+    it('creates legend items with role', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <Legend setRole={true} />
+                </View>
+            </Chart>
+        )
+        const items = screen.getAllByRole('legend-item')
+        expect(items).toHaveLength(3)
+        expect(items[0].getAttribute('role')).toContain('legend-item')
+    })
+
+    it('creates legend items without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <Legend setRole={false} />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('legend-item')).toHaveLength(0)
+    })
 })
 
 describe('Legend (color)', () => {

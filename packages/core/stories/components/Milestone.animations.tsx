@@ -43,7 +43,7 @@ export const EntryMilestones = () => {
                 <button onClick={() => toggleMilestone('right')}>Toggle milestone 'right'</button>
             </div>
             <Chart
-                ref={ref}
+                fref={ref}
                 size={[400, 300]}
                 padding={[40, 40, 40, 40]}
                 style={{ margin: '0.5em', border: 'solid 1px #aa3333' }}
@@ -76,7 +76,7 @@ export const ExitMilestones = () => {
                 <button onClick={() => toggleMilestone('right')}>Toggle milestone 'right'</button>
             </div>
             <Chart
-                ref={ref}
+                fref={ref}
                 size={[400, 300]}
                 padding={[40, 40, 40, 40]}
                 style={{ margin: '0.5em', border: 'solid 1px #aa3333' }}
@@ -117,7 +117,7 @@ export const EntryExitMilestones = ({
                 <button onClick={() => toggleMilestone('D')}>Toggle 'D'</button>
             </div>
             <Chart
-                ref={ref}
+                fref={ref}
                 size={[400, 300]}
                 padding={[40, 40, 40, 40]}
                 style={{ margin: '0.5em', border: 'solid 1px #aa3333' }}

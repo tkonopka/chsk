@@ -34,6 +34,6 @@ export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
     styles?: Array<SvgBaseComponent>
     /** css style for svg component */
     style?: CssProps
-    /** ref object */
-    ref?: Ref<ChartRef>
+    /** forwarded ref */
+    fref?: Ref<ChartRef>
 }
