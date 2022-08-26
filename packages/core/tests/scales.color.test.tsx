@@ -1,7 +1,12 @@
 import { createCategoricalScale } from '../src/scales/categorical'
 import { createSequentialScale } from '../src/scales/sequential'
 import { createDivergingScale } from '../src/scales/diverging'
-import { createColorScale } from '../src/scales/'
+import {
+    createColorScale,
+    createColorScaleProps,
+    DivergingScaleProps,
+    SequentialScaleProps,
+} from '../src/scales/'
 
 describe('createCategoricalScale', () => {
     it('categorical with custom colors', () => {
@@ -143,5 +148,62 @@ describe('createColorScale', () => {
         })
         expect(result(0)).toBe('rgb(0, 0, 0)')
         expect(result(1)).toBe('rgb(255, 255, 255)')
+    })
+})
+
+describe('createColorScaleProps', () => {
+    it('categorical', () => {
+        const result = createColorScaleProps({
+            variant: 'categorical',
+            colors: ['#000', '#fff'],
+        })
+        // for categorical scales, this is ts book-keeping to convert spec -> props
+        expect(result.colors).toHaveLength(2)
+    })
+
+    it('sequential', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'sequential',
+                colors: 'Blues',
+                domain: 'auto',
+            },
+            [0, 20]
+        ) as SequentialScaleProps
+        // assigns a numerical domain
+        expect(result.domain).toEqual([0, 20])
+    })
+
+    it('sequential with default domain', () => {
+        const result = createColorScaleProps({
+            variant: 'sequential',
+            colors: 'Blues',
+            domain: 'auto',
+        }) as SequentialScaleProps
+        // assigns a numerical domain
+        expect(result.domain).toEqual([0, 100])
+    })
+
+    it('diverging', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'diverging',
+                colors: ['#0000ff', '#ffffff', '#ff0000'],
+                domain: 'auto',
+            },
+            [-2, 0, 2]
+        ) as DivergingScaleProps
+        // assigns a numerical domain
+        expect(result.domain).toEqual([-2, 0, 2])
+    })
+
+    it('diverging with default domain', () => {
+        const result = createColorScaleProps({
+            variant: 'diverging',
+            colors: ['#0000ff', '#ffffff', '#ff0000'],
+            domain: 'auto',
+        }) as DivergingScaleProps
+        // assigns a numerical domain
+        expect(result.domain).toEqual([-100, 0, 100])
     })
 })

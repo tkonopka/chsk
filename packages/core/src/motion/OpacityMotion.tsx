@@ -1,15 +1,7 @@
-import { ReactNode } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { OpacityMotionProps } from './types'
 
-export const OpacityMotion = ({
-    role,
-    firstRender,
-    children,
-}: {
-    role: string
-    firstRender: boolean
-    children: ReactNode
-}) => {
+export const OpacityMotion = ({ role, firstRender, children }: OpacityMotionProps) => {
     return (
         <AnimatePresence>
             <motion.g

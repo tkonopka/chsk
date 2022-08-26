@@ -1,0 +1,67 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, MilestoneMotion } from '../../src'
+import { ChartViewDecorator } from './decorators'
+import { EntryMilestones, ExitMilestones, EntryExitMilestones } from './Milestone.animations'
+
+# MilestoneMotion
+
+<Meta title="Core/Components/MilestoneMotion" />
+export const Template = args => <MilestoneMotion {...args} />
+
+`MilestoneMotion` is an organizational component. It does not draw anything itself, but it controls when its children elements appear and disappear given chart milestones.
+
+<ArgsTable of={MilestoneMotion} />
+
+Charts keep track of a set of 'milestones', which can be toggled, for example using buttons. `MilestoneMotion` components detect changes in the milestones and trigger the visibility of their children elements.
+
+Examples on this page involve multiple components, including external buttons. For this reason, the code is more than a few lines long (the complete source code is available in the github repository). Despite length, however, the main usage of `MilestoneMotion` is to wrap other chart components. In the examples below, `MilestoneMotion` components are used to animate visible of chart axes.
+
+## Entry milestones
+
+Prop `initialOn` specifies the milestone at which a component should appear into view. Prop `initial` specifies the initial state of the entry animation.
+
+The example below uses a fade-in animation. Click on the buttons to toggle a milestone and observe the animation. The two milestones can be toggled independently of each other.
+
+<Canvas>
+    <Story name="entry milestones">
+        <EntryMilestones />
+    </Story>
+</Canvas>
+
+## Exit milestones
+
+Props `exitOn` and `exit` are analogous to `initialOn` and `initial`, respectively, except that they determine how components disappear.
+
+In the example below, the axes are present by default. Click on the buttons to toggle the milestones and observe the axes fade out.
+
+<Canvas>
+    <Story name="exit milestones">
+        <ExitMilestones />
+    </Story>
+</Canvas>
+
+## Entry and exit milestones
+
+The entry and exit settings can be used together. In the example below, the left and right axes are configured to be invisible and visible by default, respectively.
+
+<Canvas>
+    <Story name="entry and exit milestones">
+        <EntryExitMilestones initial={'hidden'} exit={'hidden'} />
+    </Story>
+</Canvas>
+
+Some sequences of button clicks may produce similar effects, or not produce any changes at all.
+
+For example, after setting milestone 'A', the left axis will be in view. In this state, toggling either milestone 'A' or 'B' will have the same effect, i.e. making the axis disappear. Revoking the 'A' milestone and triggering the exit milestone 'B' effectively give the same visual result.
+
+As another example, after setting milestones 'A' and then 'B', the left axis will first appear into view and then disappear. Toggling milestone 'A' to make the left axis appear will not produce any effect because milestone 'B' signals the component should be invisible.
+
+## Custom animations
+
+Props `initial` and `exit` can be set with custom objects that create complex animations. In the example below, the entry animations include a slide from the left side. The exit animations include a zoom-out effect.
+
+<Canvas>
+    <Story name="custom milestones">
+        <EntryExitMilestones initial={{ opacity: 0, x: -80 }} exit={{ opacity: 0, scale: 3 }} />
+    </Story>
+</Canvas>

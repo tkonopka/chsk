@@ -1,20 +1,40 @@
-import { useState } from 'react'
-import { ChartProps } from './types'
+import { ForwardedRef, forwardRef, useImperativeHandle, useState } from 'react'
+import { ChartProps, ChartRef } from './types'
 import { DimensionsProvider, LEFT, TOP, WIDTH, HEIGHT } from '../general'
 import { emptyTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
 
-export const Chart = ({
-    id = 'chask',
-    size = [500, 400],
-    padding = [40, 40, 40, 40],
-    theme = emptyTheme,
-    data = {},
-    styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
-    style,
-    children,
-}: ChartProps) => {
+const ChartComponent = (
+    {
+        id = 'chask',
+        size = [500, 400],
+        padding = [40, 40, 40, 40],
+        theme = emptyTheme,
+        data = {},
+        styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
+        style,
+        children,
+    }: ChartProps,
+    ref: ForwardedRef<ChartRef>
+) => {
+    // book-keeping for internal chart state
     const [state, setState] = useState(data)
+    useImperativeHandle(ref, () => ({
+        updateData(d) {
+            setState({ ...state, ...d })
+        },
+        toggleMilestone(milestone: string) {
+            const milestones = state?.milestones ?? new Set<string>()
+            if (milestones.has(milestone)) {
+                milestones.delete(milestone)
+            } else {
+                milestones.add(milestone)
+            }
+            setState({ ...state, milestones })
+        },
+    }))
+
+    // rendering
     const translate = 'translate(' + padding[LEFT] + ',' + padding[TOP] + ')'
     return (
         <ThemeProvider theme={theme}>
@@ -38,3 +58,5 @@ export const Chart = ({
         </ThemeProvider>
     )
 }
+
+export const Chart = forwardRef<ChartRef, ChartProps>(ChartComponent)

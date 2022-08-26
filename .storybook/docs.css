@@ -41,3 +41,16 @@ div.sidenote {
     padding: 0.5em 1.5em;
     background-color: #f8f8f8;
 }
+
+button {
+    margin: 0.5em;
+    padding: 0.25em 0.75em;
+    border-radius: 6px;
+    background-color: #eeeeee;
+    border: solid 1px #999999;
+}
+button:hover {
+    border: solid 1px #777777;
+    background-color: #ffffff;
+    cursor: pointer;
+}

@@ -82,7 +82,9 @@ describe('Axis', () => {
     it('places label at the end of the axis', () => {
         const customTheme = {
             AxisLabel: {
-                top: { anchor: 'end' },
+                top: {
+                    anchor: 1,
+                },
             },
         }
         render(
@@ -96,40 +98,6 @@ describe('Axis', () => {
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
         expect(label?.getAttribute('transform')).toContain('translate(320')
-    })
-
-    it('accepts an invalid label anchor', () => {
-        const customTheme = {
-            AxisLabel: {
-                top: { anchor: 'invalid' },
-            },
-        }
-        render(
-            <Chart {...chartProps} size={[400, 300]} padding={[40, 40, 40, 40]} theme={customTheme}>
-                <View {...viewProps}>
-                    <Axis variant="top" ticks={6} label={'axis label'} />
-                </View>
-            </Chart>
-        )
-        const label = screen.getByRole('axisLabel')
-        expect(label.textContent).toContain('axis label')
-    })
-
-    it('accepts a non-string and non-number as label anchor', () => {
-        const customTheme = {
-            AxisLabel: {
-                top: { anchor: [] },
-            },
-        }
-        render(
-            <Chart {...chartProps} theme={customTheme}>
-                <View {...viewProps}>
-                    <Axis variant="top" ticks={6} label="axis label" />
-                </View>
-            </Chart>
-        )
-        const label = screen.getByRole('axisLabel')
-        expect(label).not.toBeNull()
     })
 })
 

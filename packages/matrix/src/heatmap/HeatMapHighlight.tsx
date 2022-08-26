@@ -74,6 +74,7 @@ const HeatMapHighlightMask = (
         <AnimatePresence>
             <motion.g
                 role={'heatmap-highlight-mask'}
+                initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
             >
@@ -84,7 +85,6 @@ const HeatMapHighlightMask = (
                         y: 0,
                         width: 0,
                         height: 0,
-                        opacity: 0,
                     }}
                     animate={{
                         x: 0,
@@ -102,7 +102,6 @@ const HeatMapHighlightMask = (
                         y: 0,
                         width: 0,
                         height: 0,
-                        opacity: 0,
                     }}
                     animate={{
                         x: zone[X][1],
@@ -120,7 +119,6 @@ const HeatMapHighlightMask = (
                         y: height,
                         width: 0,
                         height: 0,
-                        opacity: 0,
                     }}
                     animate={{
                         x: 0,
@@ -138,7 +136,6 @@ const HeatMapHighlightMask = (
                         y: height,
                         width: 0,
                         height: 0,
-                        opacity: 0,
                     }}
                     animate={{
                         x: zone[X][1],
