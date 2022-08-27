@@ -1,4 +1,5 @@
-import { roundDecimalPlaces, rad2deg, binSearch } from '../src'
+import { roundDecimalPlaces, rad2deg } from '../src'
+import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {
     it('rounds to 1 decimal place', () => {
@@ -29,27 +30,29 @@ describe('radians and degrees', () => {
     })
 })
 
-describe('binSearch', () => {
+// this tests a function from lodash -
+// this is not strictly necessary but just checks the function satisfies local requirements
+describe('sortedIndex', () => {
     it('search in empty array', () => {
-        expect(binSearch([], 10)).toEqual(0)
+        expect(sortedIndex([], 10)).toEqual(0)
     })
 
     it('search in one-item array', () => {
-        expect(binSearch([10], 5)).toEqual(0)
-        expect(binSearch([10], 15)).toEqual(1)
-        expect(binSearch([10], 10)).toEqual(0)
+        expect(sortedIndex([10], 5)).toEqual(0)
+        expect(sortedIndex([10], 15)).toEqual(1)
+        expect(sortedIndex([10], 10)).toEqual(0)
     })
 
     it('search in array with unique items', () => {
         const array = [10, 20, 30]
-        expect(binSearch(array, 5)).toEqual(0)
-        expect(binSearch(array, 15)).toEqual(1)
-        expect(binSearch(array, 25)).toEqual(2)
-        expect(binSearch(array, 50)).toEqual(3)
+        expect(sortedIndex(array, 5)).toEqual(0)
+        expect(sortedIndex(array, 15)).toEqual(1)
+        expect(sortedIndex(array, 25)).toEqual(2)
+        expect(sortedIndex(array, 50)).toEqual(3)
     })
 
     it('search in array with repeated items', () => {
         const array = [10, 15, 20, 20, 20, 20, 20, 30]
-        expect(binSearch(array, 20)).toEqual(2)
+        expect(sortedIndex(array, 20)).toEqual(2)
     })
 })

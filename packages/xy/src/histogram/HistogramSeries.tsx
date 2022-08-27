@@ -1,0 +1,41 @@
+import { HistogramCurve } from './HistogramCurve'
+import { HistogramArea } from './HistogramArea'
+import { HistogramSeriesLayer, HistogramSeriesProps } from './types'
+
+export const HistogramSeries = ({
+    ids,
+    layers = ['area', 'curve'],
+    curve = 'MonotoneX',
+    variant = 'default',
+    areaStyle,
+    curveStyle,
+    className,
+    setRole,
+}: HistogramSeriesProps) => {
+    const commonProps = { variant, curve, className, setRole }
+    const result = layers.map((layer: HistogramSeriesLayer) => {
+        if (layer === 'curve') {
+            return (
+                <HistogramCurve
+                    key={'scatter-series-curves'}
+                    ids={ids}
+                    {...commonProps}
+                    style={curveStyle}
+                />
+            )
+        }
+        if (layer === 'area') {
+            return (
+                <HistogramArea
+                    key={'scatter-series-areas'}
+                    ids={ids}
+                    {...commonProps}
+                    style={areaStyle}
+                />
+            )
+        }
+        return null
+    })
+
+    return <>{result.filter(v => v)}</>
+}

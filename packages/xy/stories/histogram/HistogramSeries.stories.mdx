@@ -1,0 +1,35 @@
+import { ReactNode } from 'react'
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, GridLines } from '@chask/core'
+import { Histogram, HistogramSeries } from '../../src'
+import { ChartHistogramDecorator, sampleData } from './decorators'
+
+# HistogramSeries
+
+<Meta title="Addons/XY/HistogramSeries" />
+export const Template = args => <HistogramSeries {...args} />
+
+`HistogramSeries` is a convenience component that combines the capabilities of `HistogramArea` and `HistogramCurve`.
+
+<ArgsTable of={HistogramSeries} />
+
+## Layers
+
+The prop `layers` controls the amount of information that is displayed about a series. Setting the prop to an array `['area', curve']`, for example, can display an area polygon and a curve.
+
+<Canvas>
+    <Story name="area and curve">
+        <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+            <Histogram data={sampleData} breaks={12} density={true}>
+                <Axis variant={'bottom'} label={'x (a.u.)'} />
+                <Axis variant={'left'} label={'density'} />
+                <GridLines variant={'y'} />
+                <HistogramSeries
+                    layers={['area', 'curve']}
+                    curveStyle={{ strokeWidth: 2 }}
+                    areaStyle={{ opacity: 0.2 }}
+                />
+            </Histogram>
+        </Chart>
+    </Story>
+</Canvas>

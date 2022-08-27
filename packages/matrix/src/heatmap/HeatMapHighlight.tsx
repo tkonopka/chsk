@@ -1,4 +1,5 @@
 import { useCallback, useMemo, useRef, useState, MouseEvent } from 'react'
+import { sortedIndex } from 'lodash'
 import { AnimatePresence, m } from 'framer-motion'
 import {
     getIdKeySets,
@@ -9,7 +10,6 @@ import {
     X,
     Y,
     NumericPositionSpec,
-    binSearch,
     SizeSpec,
     CssProps,
 } from '@chask/core'
@@ -56,8 +56,8 @@ const findZone = (
     pos: NumericPositionSpec,
     intervals: [Array<number>, Array<number>]
 ): DetectorZone | null => {
-    const i = binSearch(intervals[X], pos[X])
-    const j = binSearch(intervals[Y], pos[Y])
+    const i = sortedIndex(intervals[X], pos[X])
+    const j = sortedIndex(intervals[Y], pos[Y])
     if (i % 2 == 0 || j % 2 == 0) return null
     if (i >= intervals[X].length || j >= intervals[Y].length) return null
     return [intervals[X].slice(i - 1, i + 1), intervals[Y].slice(j - 1, j + 1)] as DetectorZone

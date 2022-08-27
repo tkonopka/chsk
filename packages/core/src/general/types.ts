@@ -22,6 +22,7 @@ export type PositionUnit = 'absolute' | 'relative' | 'view'
 // position as an array [x, y]
 export type PositionSpec = [number | string, number | string]
 export type NumericPositionSpec = [number, number]
+export type XY = NumericPositionSpec
 
 // a position with an interval [x, y1, y0]
 export type NumericPositionIntervalSpec = [number, number, number]

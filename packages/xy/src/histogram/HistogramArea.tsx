@@ -1,47 +1,24 @@
 import {
     addColor,
-    ContinuousAxisScale,
-    createAreaGenerator,
-    CurveSpec,
     isContinuousAxisScale,
-    NumericPositionIntervalSpec,
     OpacityMotion,
     useDisabledKeys,
     useScales,
-    XY,
 } from '@chask/core'
-import { ScatterAreaProps } from './types'
-import { useScatterPreparedData } from './context'
-import { getScatterCurvePoints } from './ScatterCurve'
+import { getAreaD } from '../scatter/ScatterArea'
+import { HistogramCurveProps } from './types'
+import { useHistogramPreparedData } from './context'
 import { useMemo } from 'react'
 
-export const getAreaD = ({
-    points,
-    scaleY,
-    baseline,
-    curve,
-}: {
-    points: XY[]
-    scaleY: ContinuousAxisScale
-    baseline?: number
-    curve: CurveSpec
-}) => {
-    const base = scaleY(baseline ?? scaleY.domain()[0])
-    const pointIntervals: Array<NumericPositionIntervalSpec> = points.map(d => [d[0], d[1], base])
-    const generator = createAreaGenerator(curve)
-    return generator(pointIntervals) ?? ''
-}
-
-export const ScatterArea = ({
+export const HistogramArea = ({
     ids,
-    baseline,
-    curve = 'Linear',
+    curve = 'MonotoneX',
     variant = 'default',
     style,
     className,
     setRole,
-}: ScatterAreaProps) => {
-    const preparedData = useScatterPreparedData()
+}: HistogramCurveProps) => {
+    const preparedData = useHistogramPreparedData()
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
@@ -54,12 +31,12 @@ export const ScatterArea = ({
         areas[id] = useMemo(
             () =>
                 getAreaD({
-                    points: getScatterCurvePoints(preparedData.data[seriesIndex]),
+                    points: preparedData.data[seriesIndex].points,
                     curve,
                     scaleY,
-                    baseline,
+                    baseline: 0,
                 }),
-            [seriesIndex, preparedData, curve, scaleY, baseline]
+            [seriesIndex, preparedData, curve, scaleY]
         )
     })
 
@@ -70,8 +47,8 @@ export const ScatterArea = ({
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         return (
             <OpacityMotion
-                role={'scatter-area'}
-                key={'scatter-area-' + seriesIndex}
+                role={'histogram-area'}
+                key={'histogram-area-' + seriesIndex}
                 firstRender={firstRender}
             >
                 <path

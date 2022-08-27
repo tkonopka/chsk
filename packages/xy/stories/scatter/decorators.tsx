@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, Axis } from '@chask/core'
-import { Scatter, ScatterCurve } from '../src/'
+import { Scatter, ScatterCurve } from '../../src'
 import data from './dataPolynomials.json'
 
 export const ChartScatterDecorator = (Story: () => ReactNode) => (
@@ -50,7 +50,7 @@ export const ChartScatterQuadraticDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
-export const ChartWithLegendDecorator = (Story: () => ReactNode) => (
+export const ChartWithLegendSpaceDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 140, 60, 60]} style={{ display: 'inline-block' }}>
         {Story()}
     </Chart>
