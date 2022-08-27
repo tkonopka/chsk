@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState, MouseEvent } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import {
     getIdKeySets,
     BandAxisScale,
@@ -74,13 +74,13 @@ const HeatMapHighlightMask = (
     const [width, height] = size
     return (
         <AnimatePresence>
-            <motion.g
+            <m.g
                 role={'heatmap-highlight-mask'}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
             >
-                <motion.rect
+                <m.rect
                     // mask: top left
                     initial={wh0}
                     animate={{
@@ -90,7 +90,7 @@ const HeatMapHighlightMask = (
                     style={style}
                     className={className}
                 />
-                <motion.rect
+                <m.rect
                     // mask: top-right
                     transform={'translate(' + width + ',0)rotate(90)'}
                     initial={wh0}
@@ -101,7 +101,7 @@ const HeatMapHighlightMask = (
                     style={style}
                     className={className}
                 />
-                <motion.rect
+                <m.rect
                     // mask: bottom-left
                     initial={wh0}
                     transform={'translate(0,' + height + ')rotate(-90)'}
@@ -112,7 +112,7 @@ const HeatMapHighlightMask = (
                     style={style}
                     className={className}
                 />
-                <motion.rect
+                <m.rect
                     // mask: bottom-right
                     initial={wh0}
                     transform={'translate(' + width + ',' + height + ')rotate(180)'}
@@ -123,7 +123,7 @@ const HeatMapHighlightMask = (
                     style={style}
                     className={className}
                 />
-            </motion.g>
+            </m.g>
         </AnimatePresence>
     )
 }

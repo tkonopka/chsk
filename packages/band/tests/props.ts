@@ -1,5 +1,4 @@
-import { BarProps } from '../src'
-import { BarDataItem } from '../dist/types'
+import { BarProps, BarDataItem } from '../src'
 
 const dataGroups: Array<BarDataItem> = [
     {

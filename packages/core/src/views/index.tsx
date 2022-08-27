@@ -1,5 +1,6 @@
 export * from './contexts'
 export * from './hooks'
 export * from './types'
-export * from './views'
+export * from './BaseView'
+export * from './View'
 export * from './utils'

@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, m } from 'framer-motion'
 import { GAnimationProp, AnimationSpec, MilestoneMotionProps } from './types'
 import { useState } from 'react'
 import { motionPresets } from './presets'
@@ -49,14 +49,14 @@ export const MilestoneMotion = ({
     return (
         <AnimatePresence>
             {active && (
-                <motion.g
+                <m.g
                     role={role}
                     initial={getMotionValue(initial)}
                     animate={getMotionValue(animate)}
                     exit={getMotionValue(exit)}
                 >
                     {children}
-                </motion.g>
+                </m.g>
             )}
         </AnimatePresence>
     )

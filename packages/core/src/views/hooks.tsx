@@ -1,13 +1,15 @@
 import {
     getDimensionsProps,
-    LEFT,
     NumericPositionSpec,
     PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
     SizeUnit,
-    TOP,
     useDimensions,
+    X,
+    Y,
+    LEFT,
+    TOP,
 } from '../general'
 import { AnchorSpec } from './types'
 import { getAbsolutePosition, useScales } from '../scales'
@@ -17,7 +19,7 @@ export const getAnchoredOrigin = (
     size: SizeSpec,
     anchor: AnchorSpec
 ): NumericPositionSpec => {
-    return [position[0] - anchor[0] * size[0], position[1] - anchor[1] * size[1]]
+    return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
 }
 
 export const useView = ({
@@ -37,7 +39,8 @@ export const useView = ({
     const scales = useScales()
     const dimsProps = getDimensionsProps(size, units, dimensions.innerSize, padding)
     const pos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
-    const [x, y] = getAnchoredOrigin(pos, dimsProps.size, anchor)
-    const translate = 'translate(' + (x + padding[LEFT]) + ',' + (y + padding[TOP]) + ')'
-    return { dimensions, dimsProps, xy: [x, y], translate }
+    const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
+    const translate =
+        'translate(' + (origin[X] + padding[LEFT]) + ',' + (origin[Y] + padding[TOP]) + ')'
+    return { dimensions, dimsProps, origin, translate }
 }

@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import { cloneDeep } from 'lodash'
 import {
     createAxisScales,
     createColorScale,
     AccessorFunction,
     BandAxisScale,
-    DimensionsProvider,
     getAccessor,
     LinearAxisScale,
-    OriginalDataProvider,
-    ProcessedDataProvider,
-    ScalesProvider,
     SizeSpec,
     useView,
     getIndexes,
@@ -27,6 +24,7 @@ import {
     useDisabledKeys,
     useTheme,
     createColorScaleProps,
+    BaseView,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -170,7 +168,7 @@ export const Bar = ({
     children,
 }: BarProps) => {
     const theme = useTheme()
-    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const { disabledKeys } = useDisabledKeys()
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
@@ -236,26 +234,20 @@ export const Bar = ({
     )
 
     return (
-        <DimensionsProvider {...dimsProps}>
-            <OriginalDataProvider data={data}>
-                <ProcessedDataProvider
-                    data={processedData}
-                    seriesIndexes={seriesIndexes}
-                    keys={keys}
-                >
-                    <ScalesProvider scales={scales}>
-                        <BarPreparedDataProvider
-                            data={preparedData}
-                            seriesIndexes={seriesIndexes}
-                            keys={keys}
-                        >
-                            <g role="view-bar" transform={translate}>
-                                {children}
-                            </g>
-                        </BarPreparedDataProvider>
-                    </ScalesProvider>
-                </ProcessedDataProvider>
-            </OriginalDataProvider>
-        </DimensionsProvider>
+        <BaseView
+            role={'view-bar'}
+            position={origin}
+            size={dimsProps.size}
+            padding={dimsProps.padding}
+            originalData={data}
+            processedData={processedData}
+            seriesIndexes={seriesIndexes}
+            keys={keys}
+            scales={scales}
+        >
+            <BarPreparedDataProvider data={preparedData} seriesIndexes={seriesIndexes} keys={keys}>
+                <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            </BarPreparedDataProvider>
+        </BaseView>
     )
 }

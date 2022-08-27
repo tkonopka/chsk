@@ -1,15 +1,13 @@
 import { useMemo } from 'react'
 import { cloneDeep } from 'lodash'
 import { HeatMapDataItem, HeatMapProcessedDataItem, HeatMapProps } from './types'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     AccessorFunction,
-    DimensionsProvider,
+    BaseView,
     getAccessor,
     createAxisScales,
     createColorScale,
-    OriginalDataProvider,
-    ProcessedDataProvider,
-    ScalesProvider,
     useView,
     getIndexes,
     BandScaleSpec,
@@ -98,7 +96,7 @@ export const HeatMap = ({
     children,
 }: HeatMapProps) => {
     const theme = useTheme()
-    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
@@ -119,20 +117,18 @@ export const HeatMap = ({
     )
 
     return (
-        <DimensionsProvider {...dimsProps}>
-            <OriginalDataProvider data={data}>
-                <ProcessedDataProvider
-                    data={processedData}
-                    seriesIndexes={seriesIndexes}
-                    keys={keys}
-                >
-                    <ScalesProvider scales={scales}>
-                        <g role="view-heatmap" transform={translate}>
-                            {children}
-                        </g>
-                    </ScalesProvider>
-                </ProcessedDataProvider>
-            </OriginalDataProvider>
-        </DimensionsProvider>
+        <BaseView
+            role={'view-heatmap'}
+            position={origin}
+            size={dimsProps.size}
+            padding={dimsProps.padding}
+            originalData={data}
+            processedData={processedData}
+            seriesIndexes={seriesIndexes}
+            keys={keys}
+            scales={scales}
+        >
+            <LazyMotion features={domAnimation}>{children}</LazyMotion>
+        </BaseView>
     )
 }

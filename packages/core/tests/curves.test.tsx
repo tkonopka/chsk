@@ -1,5 +1,9 @@
-import { createLineGenerator, createAreaGenerator, NumericPositionSpec } from '../src'
-import { NumericPositionIntervalSpec } from '../dist/types'
+import {
+    createLineGenerator,
+    createAreaGenerator,
+    NumericPositionSpec,
+    NumericPositionIntervalSpec,
+} from '../src'
 
 describe('createLineGenerator', () => {
     it('creates a line generator', () => {

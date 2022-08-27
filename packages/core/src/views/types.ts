@@ -1,5 +1,5 @@
-import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit } from '../general'
-import { ColorScaleProps, ContinuousScaleProps, ScaleProps } from '../scales'
+import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit, NumericPositionSpec } from '../general'
+import { ColorScaleProps, ContinuousScaleProps, ScaleProps, ScalesContextProps } from '../scales'
 import { ReactNode } from 'react'
 
 export type WithId = {
@@ -60,4 +60,23 @@ export interface ViewProps extends ContainerProps {
     scaleColor?: ColorScaleProps
     /** scale for size */
     scaleSize?: ContinuousScaleProps
+}
+
+export interface BaseViewProps extends Pick<ProcessedDataContextProps, 'seriesIndexes' | 'keys'> {
+    /** position as an array [x, y] */
+    position: NumericPositionSpec
+    /** size as an array [width, height] */
+    size: SizeSpec
+    /** padding (absolute values) **/
+    padding: FourSideSizeSpec
+    /** original dataset */
+    originalData: Array<RecordWithId>
+    /** processed dataset */
+    processedData: Array<RecordWithId>
+    /** scales */
+    scales: ScalesContextProps
+    /** role */
+    role: string
+    /** children components */
+    children?: ReactNode
 }

@@ -1,17 +1,16 @@
-import { DimensionsProvider } from '../general'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     createContinuousScaleProps,
     createAxisScales,
     defaultLinearScaleSpec,
-    ScalesProvider,
     createColorScale,
     createContinuousScale,
     createColorScaleProps,
 } from '../scales'
 import { ViewProps } from './types'
-import { OriginalDataProvider, ProcessedDataProvider } from './contexts'
 import { useView } from './hooks'
 import { useTheme } from '../themes'
+import { BaseView } from './BaseView'
 
 export const View = ({
     position = [0, 0],
@@ -27,7 +26,7 @@ export const View = ({
     children,
 }: ViewProps) => {
     const theme = useTheme()
-    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
     const scaleColorProps = scaleColor ?? createColorScaleProps(theme.Colors.categorical, [0, 100])
     scales.color = createColorScale(scaleColorProps)
@@ -39,20 +38,18 @@ export const View = ({
     const seriesIndexes = isArray ? {} : data.seriesIndexes
 
     return (
-        <DimensionsProvider {...dimsProps}>
-            <OriginalDataProvider data={dataArray}>
-                <ScalesProvider scales={scales}>
-                    <ProcessedDataProvider
-                        data={dataArray}
-                        seriesIndexes={seriesIndexes}
-                        keys={keys}
-                    >
-                        <g role="view" transform={translate}>
-                            {children}
-                        </g>
-                    </ProcessedDataProvider>
-                </ScalesProvider>
-            </OriginalDataProvider>
-        </DimensionsProvider>
+        <BaseView
+            position={origin}
+            size={dimsProps.size}
+            padding={dimsProps.padding}
+            originalData={dataArray}
+            processedData={dataArray}
+            seriesIndexes={seriesIndexes}
+            keys={keys}
+            scales={scales}
+            role={'view'}
+        >
+            <LazyMotion features={domAnimation}>{children}</LazyMotion>
+        </BaseView>
     )
 }

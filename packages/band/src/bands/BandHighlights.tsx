@@ -1,5 +1,5 @@
 import { ReactNode, useMemo } from 'react'
-import { motion } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
     BandAxisScale,
     composeClassName,
@@ -43,7 +43,7 @@ export const BandHighlights = ({
             const x = horizontal ? -expansion[0] : indexPos - step / 2
             const y = horizontal ? indexPos - step / 2 : -expansion[0]
             return (
-                <motion.rect
+                <m.rect
                     key={keyPrefix + j}
                     x={x}
                     y={y}

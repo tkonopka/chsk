@@ -1,16 +1,13 @@
 import { useMemo } from 'react'
+import { LazyMotion, domAnimation } from 'framer-motion'
 import { cloneDeep } from 'lodash'
 import { ScatterDataItem, ScatterProcessedDataItem, ScatterProps } from './types'
 import {
     AccessorFunction,
     ContinuousAxisScale,
-    DimensionsProvider,
     getAccessor,
     createAxisScales,
     createContinuousScaleProps,
-    OriginalDataProvider,
-    ProcessedDataProvider,
-    ScalesProvider,
     useView,
     ContinuousScaleProps,
     ContinuousScaleSpec,
@@ -22,6 +19,7 @@ import {
     useDisabledKeys,
     useTheme,
     createColorScaleProps,
+    BaseView,
 } from '@chask/core'
 import { ScatterPreparedDataProvider } from './context'
 
@@ -112,7 +110,7 @@ export const Scatter = ({
     children,
 }: ScatterProps) => {
     const theme = useTheme()
-    const { dimsProps, translate } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const { disabledKeys } = useDisabledKeys()
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
@@ -147,26 +145,24 @@ export const Scatter = ({
     )
 
     return (
-        <DimensionsProvider {...dimsProps}>
-            <OriginalDataProvider data={data}>
-                <ProcessedDataProvider
-                    data={processedData}
-                    seriesIndexes={seriesIndexes}
-                    keys={seriesIds}
-                >
-                    <ScalesProvider scales={scales}>
-                        <ScatterPreparedDataProvider
-                            data={preparedData}
-                            seriesIndexes={seriesIndexes}
-                            keys={seriesIds}
-                        >
-                            <g role="view-scatter" transform={translate}>
-                                {children}
-                            </g>
-                        </ScatterPreparedDataProvider>
-                    </ScalesProvider>
-                </ProcessedDataProvider>
-            </OriginalDataProvider>
-        </DimensionsProvider>
+        <BaseView
+            role={'view-scatter'}
+            position={origin}
+            size={dimsProps.size}
+            padding={dimsProps.padding}
+            originalData={data}
+            processedData={processedData}
+            seriesIndexes={seriesIndexes}
+            keys={seriesIds}
+            scales={scales}
+        >
+            <ScatterPreparedDataProvider
+                data={preparedData}
+                seriesIndexes={seriesIndexes}
+                keys={seriesIds}
+            >
+                <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            </ScatterPreparedDataProvider>
+        </BaseView>
     )
 }
