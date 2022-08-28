@@ -106,3 +106,10 @@ export interface ScatterSeriesProps extends ScatterPointsProps, ScatterAreaProps
     /** styles for points */
     symbolStyle?: CssProps
 }
+
+export interface RegressionProps extends SvgElementVariantProps {
+    /** compute regressions for individual series or for pooled data */
+    variant?: 'series' | 'pooled'
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+}

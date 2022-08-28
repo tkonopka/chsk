@@ -41,6 +41,7 @@
         "@mdx-js/react": "^2.1.2",
         "@rollup/plugin-babel": "^5.3.1",
         "@rollup/plugin-node-resolve": "^13.3.0",
+        "@rollup/plugin-wasm": "^5.2.0",
         "@storybook/addon-actions": "^6.5.9",
         "@storybook/addon-essentials": "^6.5.9",
         "@storybook/addon-interactions": "^6.5.9",

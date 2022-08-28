@@ -1,4 +1,5 @@
 export * from './context'
+export * from './Regression'
 export * from './Scatter'
 export * from './ScatterArea'
 export * from './ScatterCurve'

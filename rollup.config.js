@@ -51,7 +51,7 @@ const configs = [
             name: `@chask/${pkg}`,
             sourcemap: true,
         },
-        plugins: [...commonPlugins],
+        plugins: commonPlugins,
         onwarn: function (message) {
             if (D3_WARNING.test(message)) {
                 return

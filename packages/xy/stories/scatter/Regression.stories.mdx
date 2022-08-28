@@ -1,0 +1,60 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Axis, Legend } from '@chask/core'
+import { Regression } from '../../src'
+import { generateScatterSeries } from './generators'
+import { ChartForRegressionDecorator } from './decorators'
+
+# Regression
+
+<Meta title="Addons/XY/Regression" />
+export const Template = args => <Regression {...args} />
+
+`Regression` computes and draws regression lines on a scatter plot.
+
+<ArgsTable of={Regression} />
+
+## Data subsets
+
+`Regression` produces best-fit lines for all data series by default. It is also possible to restrict drawing to specific data series.
+
+<Canvas>
+    <Story
+        name="all series"
+        args={{
+            style: { strokeWidth: 3 },
+        }}
+        component={Regression}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="individual series"
+        args={{
+            ids: ['A'],
+            style: { strokeWidth: 3 },
+        }}
+        component={Regression}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Pooled data
+
+By default, `Regression` treats individual data series. To produce a regression that combines several data series, set prop `variant` to 'pooled'. In the example below, toggle visibility of the data series and observe how the best-fit line changes.
+
+<Canvas>
+    <Story
+        name="pooled data"
+        args={{
+            variant: 'pooled',
+            style: { strokeWidth: 4, stroke: '#222222', strokeDasharray: '8 8' },
+        }}
+        component={Regression}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
