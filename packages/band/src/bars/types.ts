@@ -20,7 +20,7 @@ export type BarDataItem = WithId & Record<string, unknown>
 
 export type BarProcessedDataItem = WithId & {
     index: number
-    value: Array<number>
+    values: Array<number>
 }
 
 export type BarProcessedDataContextProps = ProcessedDataContextProps & {
@@ -52,8 +52,8 @@ export interface BarProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
     horizontal?: boolean
     /** display stacked bars */
     stacked?: boolean
-    /** padding between non-stacked bars */
-    barPadding?: number
+    /** padding between bars in the same group/index */
+    paddingInternal?: number
     /** scale for horizontal axis */
     scaleIndex?: BandScaleSpec
     /** scale for vertical axis */
@@ -68,7 +68,7 @@ export interface BarsProps {
     /** keys to display (default to all keys) */
     keys?: string[]
     /** symbol for individual data points */
-    bar?: FC<RectangleProps>
+    component?: FC<RectangleProps>
     /** style class */
     className?: string
     /** css style */

@@ -10,7 +10,7 @@ import { BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 
-export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps) => {
+export const Bars = ({ ids, keys, component = Rectangle, className, style }: BarsProps) => {
     const preparedData = useBarPreparedData()
     const colorScale = useScales().color
     const data = preparedData.data
@@ -40,7 +40,7 @@ export const Bars = ({ ids, keys, bar = Rectangle, className, style }: BarsProps
                     const pos = seriesData.position[i]
                     const size = seriesData.size[i]
                     if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
-                    return createElement(bar, {
+                    return createElement(component, {
                         key: 'bar-' + seriesData.index + '-' + i,
                         x: pos[0],
                         y: pos[1],

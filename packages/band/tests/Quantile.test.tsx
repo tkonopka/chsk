@@ -1,8 +1,6 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import {
     Chart,
-    createBandScale,
-    createContinuousScale,
     defaultDivergingScale,
     defaultSequentialScale,
     defaultSizeScale,
@@ -11,30 +9,24 @@ import {
     useScales,
 } from '@chask/core'
 import {
-    Bar,
-    BarPreparedDataContextProps,
-    BarProcessedDataContextProps,
-    isBarProcessedData,
-    useBarPreparedData,
+    Quantile,
+    QuantilePreparedDataContextProps,
+    QuantileProcessedDataContextProps,
+    isQuantileProcessedData,
+    useQuantilePreparedData,
 } from '../src'
-import { barProps, dummyBandScale, dummyLinearScale } from './props'
+import { quantileProps, dummyBandScale, dummyLinearScale } from './props'
 
-describe('Bar', () => {
-    it('creates a view', () => {
-        render(
-            <Chart>
-                <Bar {...barProps} />
-            </Chart>
-        )
-        const result = screen.getByRole('view-bar')
-        expect(result).toBeDefined()
-    })
-
+describe('Quantile', () => {
     it('defines processed data', () => {
-        const processed: BarProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: QuantileProcessedDataContextProps = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetProcessedData = () => {
             const temp = useProcessedData()
-            if (isBarProcessedData(temp.data)) {
+            if (isQuantileProcessedData(temp.data)) {
                 processed.data = temp.data
                 processed.keys = temp.keys
                 processed.seriesIndexes = temp.seriesIndexes
@@ -43,34 +35,34 @@ describe('Bar', () => {
         }
         render(
             <Chart>
-                <Bar {...barProps}>
+                <Quantile {...quantileProps}>
                     <GetProcessedData />
-                </Bar>
+                </Quantile>
             </Chart>
         )
-        // the dataset has two indexes and three keys
+        // the dataset has two indexes and two keys
         expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
         expect(processed.data).toHaveLength(2)
-        expect(processed.keys).toHaveLength(3)
+        expect(processed.keys).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
-        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: QuantilePreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
-            prepared = useBarPreparedData()
+            prepared = useQuantilePreparedData()
             return null
         }
         render(
             <Chart>
-                <Bar {...barProps}>
+                <Quantile {...quantileProps}>
                     <GetPreparedData />
-                </Bar>
+                </Quantile>
             </Chart>
         )
         // the dataset has two indexes and three keys
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
         expect(prepared.data).toHaveLength(2)
-        expect(prepared.keys).toHaveLength(3)
+        expect(prepared.keys).toHaveLength(2)
     })
 
     it('auto-detects scales (vertical)', () => {
@@ -86,20 +78,19 @@ describe('Bar', () => {
         }
         render(
             <Chart>
-                <Bar
-                    {...barProps}
-                    stacked={true}
+                <Quantile
+                    {...quantileProps}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales />
-                </Bar>
+                </Quantile>
             </Chart>
         )
         // the dataset has two groups alpha and beta
-        // when stacked, the alpha group goes from baseline 0 to top 100
+        // values are [0, 20] in the manual dataset
         expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([0, 100])
+        expect(scales.y.domain()).toEqual([0, 20])
     })
 
     it('auto-detects scales (horizontal)', () => {
@@ -115,20 +106,19 @@ describe('Bar', () => {
         }
         render(
             <Chart>
-                <Bar
-                    {...barProps}
-                    stacked={true}
+                <Quantile
+                    {...quantileProps}
                     horizontal={true}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales />
-                </Bar>
+                </Quantile>
             </Chart>
         )
         // the dataset has two groups alpha and beta
-        // when stacked, the alpha group goes from baseline 0 to top 100
+        // values are [0, 20] in the manual dataset
         expect(scales.y.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.x.domain()).toEqual([0, 100])
+        expect(scales.x.domain()).toEqual([0, 20])
     })
 })

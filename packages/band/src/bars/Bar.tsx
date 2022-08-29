@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { cloneDeep } from 'lodash'
 import {
     createAxisScales,
     createColorScale,
@@ -11,13 +10,6 @@ import {
     SizeSpec,
     useView,
     getIndexes,
-    isScaleWithDomain,
-    getMinMax,
-    BandScaleSpec,
-    LinearScaleSpec,
-    createContinuousScaleProps,
-    BandScaleProps,
-    LinearScaleProps,
     NumericPositionSpec,
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
@@ -28,6 +20,7 @@ import {
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
+import { getInternalWidthAndGap, getScaleProps } from './utils'
 
 // turn raw data into a minimal array-based format
 const processData = (
@@ -38,7 +31,7 @@ const processData = (
     return {
         id: seriesData.id,
         index,
-        value: accessors.map(f => Number(f(seriesData))),
+        values: accessors.map(f => Number(f(seriesData))),
     }
 }
 
@@ -54,7 +47,7 @@ const prepareData = (
 ): BarPreparedDataItem => {
     const [barWidth, barGap] = barWidthGap
     const zero = valueScale(0)
-    let coords = seriesData.value.map((v, i) => {
+    let coords = seriesData.values.map((v, i) => {
         return disabled[i] ? zero : valueScale(v)
     })
     const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
@@ -109,40 +102,10 @@ const prepareData = (
     }
 }
 
-const getScaleProps = (
-    data: Array<BarProcessedDataItem>,
-    scaleSpecIndex: BandScaleSpec,
-    scaleSpecValue: LinearScaleSpec,
-    stacked: boolean,
-    disabled: boolean[]
-) => {
-    const result = {
-        scalePropsIndex: cloneDeep(scaleSpecIndex),
-        scalePropsValue: cloneDeep(scaleSpecValue),
-    }
-    if (!isScaleWithDomain(scaleSpecIndex)) {
-        result.scalePropsIndex.domain = data.map(d => d.id)
-    }
-    if (!isScaleWithDomain(scaleSpecValue)) {
-        const filterDisabled = (v: number, i: number) => !disabled[i]
-        const values = data.map(seriesData => seriesData.value.filter(filterDisabled))
-        const sumValues = (values: number[]) =>
-            values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
-        const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())
-        domain[0] = Math.min(0, domain[0])
-        domain[1] = Math.max(0, domain[1])
-        result.scalePropsValue = createContinuousScaleProps(
-            scaleSpecValue,
-            domain
-        ) as LinearScaleProps
-    }
-    return result as { scalePropsIndex: BandScaleProps; scalePropsValue: LinearScaleProps }
-}
-
 export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProcessedDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'value' in item
+        return 'id' in item && 'index' in item && 'values' in item
     })
     return result.reduce((acc: boolean, v: boolean) => acc && v, true)
 }
@@ -160,7 +123,7 @@ export const Bar = ({
     horizontal = false,
     stacked = false,
     autoRescale = true,
-    barPadding = 0,
+    paddingInternal = 0,
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
     scaleColor,
@@ -203,11 +166,7 @@ export const Bar = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const bandwidth = indexScale.bandwidth()
-    const nKeys = keys.length
-    const barStep = nKeys === 1 ? bandwidth : bandwidth / (nKeys - Math.min(1, barPadding))
-    const barWidth = nKeys === 1 || stacked ? bandwidth : barStep * (1 - barPadding)
-    const barGap = barStep * barPadding
+    const [barWidth, barGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
     const preparedData = useMemo(
         () =>
             processedData.map(seriesData =>
