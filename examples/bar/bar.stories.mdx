@@ -2,6 +2,7 @@ import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { StackedVerticalBandChart, StackedHorizontalBandChart } from './stacked.charts.tsx'
 import { GroupedVerticalBandChart, GroupedHorizontalBandChart } from './grouped.charts.tsx'
 import { MultipleViewsBarChart } from './MultipleViewsBarChart'
+import { CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { BandLabelsChart } from './BandLabelsChart'
 
 <Meta title="Gallery/Bar charts" />
@@ -33,6 +34,14 @@ import { BandLabelsChart } from './BandLabelsChart'
 <Canvas>
     <Story name="stacked, horizontal">
         <StackedHorizontalBandChart />
+    </Story>
+</Canvas>
+
+## Custom layout
+
+<Canvas>
+    <Story name="custom layout">
+        <CustomGroupsBarChart />
     </Story>
 </Canvas>
 

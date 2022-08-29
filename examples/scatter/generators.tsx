@@ -1,14 +1,22 @@
-// create an array of objects with x,y coordinates
+type XYFunction = (x: number) => number
+
+// create an array of objects with coordinates
+// can produce objects with arbitrary keys {x, k1, k2, k3 }
 export const generateXYValues = (
     n: number,
-    funX: () => number,
-    funY: (x: number) => number
+    x: () => number,
+    keys: string[],
+    y: XYFunction[]
 ): Array<Record<string, unknown>> => {
     return Array(n)
         .fill(0)
         .map(() => {
-            const x = funX()
-            const y = funY(x)
-            return { x, y }
+            const item: Record<string, number> = {}
+            const v = x()
+            item['x'] = v
+            keys.forEach((k, i) => {
+                item[k] = y[i](v)
+            })
+            return item
         })
 }

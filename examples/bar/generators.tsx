@@ -1,4 +1,4 @@
-import { WithId } from '@chask/core'
+import { roundDecimalPlaces, WithId } from '@chask/core'
 
 // generate an array of records suitable for a Bar chart
 export const generateBarData = ({
@@ -28,4 +28,21 @@ export const generateKeyValues = (
         obj[k] = Math.round(interval[0] + Math.random() * intervalSize)
     })
     return obj
+}
+
+export const generateSortedValues = (n: number, interval: [number, number], dp = 0): number[] => {
+    const size = interval[1] - interval[0]
+    return Array(n)
+        .fill(0)
+        .map(i => interval[0] + size * Math.random())
+        .map(v => roundDecimalPlaces(v, dp))
+        .sort((a, b) => b - a)
+}
+
+export const generateIdentifiers = (n: number, size: number, prefix = 'A'): string[] => {
+    const ids = new Set<string>()
+    while (ids.size < n) {
+        ids.add(prefix + String(Math.floor(Math.random() * size)))
+    }
+    return Array.from(ids)
 }

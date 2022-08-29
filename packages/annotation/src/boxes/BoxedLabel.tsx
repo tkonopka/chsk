@@ -53,8 +53,8 @@ export const BoxedLabel = ({
     const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
     let compositeClassName: string | undefined = className ?? ''
-    if (compositeClassName.search('boxed-label') < 0) {
-        compositeClassName = composeClassName(['label boxed-label', className])
+    if (compositeClassName.search('boxedLabel') < 0) {
+        compositeClassName = composeClassName(['label boxedLabel', className])
     }
 
     // content of the label - text or custom node

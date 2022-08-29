@@ -16,32 +16,32 @@ const multiviewData: Array<BarDataItem> = [
     generateKeyValues(
         { id: 'A', alpha: 75 + Math.floor(Math.random() * 15) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
     generateKeyValues(
         { id: 'B', alpha: 60 + Math.floor(Math.random() * 15) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
     generateKeyValues(
         { id: 'C', alpha: 50 + Math.floor(Math.random() * 10) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
     generateKeyValues(
         { id: 'D', alpha: 30 + Math.floor(Math.random() * 10) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
     generateKeyValues(
         { id: 'E', alpha: 10 + Math.floor(Math.random() * 5) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
     generateKeyValues(
         { id: 'F', alpha: 5 + Math.floor(Math.random() * 5) },
         ['beta', 'gamma'],
-        [5, 75]
+        [5, 80]
     ),
 ]
 
@@ -86,42 +86,40 @@ const multiviewBarProps = {
     },
 }
 
-export const MultipleViewsBarChart = () => {
-    return (
-        <Chart id="multiview" size={[600, 300]} padding={[40, 40, 40, 60]} theme={multiviewTheme}>
-            <Bar position={[0, 0]} {...multiviewBarProps} keys={['alpha']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Alpha'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-                <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} tickSize={0} />
-                </Axis>
-            </Bar>
-            <Bar position={[0.35, 0]} {...multiviewBarProps} keys={['beta']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Beta'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            </Bar>
-            <Bar position={[0.7, 0]} {...multiviewBarProps} keys={['gamma']}>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10} children={'Gamma'} />
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            </Bar>
-        </Chart>
-    )
-}
+export const MultipleViewsBarChart = () => (
+    <Chart id="multiview" size={[600, 280]} padding={[40, 40, 40, 60]} theme={multiviewTheme}>
+        <Bar position={[0, 0]} {...multiviewBarProps} keys={['alpha']}>
+            <GridLines variant={'y'} shift={[-0.6]} />
+            <Axis variant={'top'}>
+                <AxisLine variant={'top'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Alpha'} />
+            </Axis>
+            <Axis variant={'bottom'} ticks={[]} />
+            <Bars />
+            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+            <Axis variant={'left'}>
+                <AxisTicks variant={'left'} tickSize={0} />
+            </Axis>
+        </Bar>
+        <Bar position={[0.35, 0]} {...multiviewBarProps} keys={['beta']}>
+            <GridLines variant={'y'} shift={[-0.6]} />
+            <Axis variant={'top'}>
+                <AxisLine variant={'top'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Beta'} />
+            </Axis>
+            <Axis variant={'bottom'} ticks={[]} />
+            <Bars />
+            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+        </Bar>
+        <Bar position={[0.7, 0]} {...multiviewBarProps} keys={['gamma']}>
+            <GridLines variant={'y'} shift={[-0.6]} />
+            <Axis variant={'top'}>
+                <AxisLine variant={'top'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Gamma'} />
+            </Axis>
+            <Axis variant={'bottom'} ticks={[]} />
+            <Bars />
+            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+        </Bar>
+    </Chart>
+)

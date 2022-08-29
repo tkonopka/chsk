@@ -18,9 +18,24 @@ export const cssStyleString = (style: CSSProperties): string => {
     return result.filter(x => x.indexOf('>') + x.indexOf('<') === -2).join('; ')
 }
 
+// turn hyphen-separated strings into camel case
+export const camelCase = (s: string | undefined): string | undefined => {
+    if (!s) return s
+    return s
+        .split('-')
+        .map((part, i) => {
+            if (i === 0) return part
+            return part.slice(0, 1).toUpperCase() + part.slice(1).toLowerCase()
+        })
+        .join('')
+}
+
 // turn an array of string into a single space-separate className string
 export const composeClassName = function (names: Array<string | undefined>) {
-    const result = names.filter(x => x !== undefined).join(' ')
+    const result = names
+        .filter(x => x !== undefined)
+        .map(x => camelCase(x))
+        .join(' ')
     return result === '' ? undefined : result
 }
 

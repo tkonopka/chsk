@@ -70,3 +70,9 @@ export const randomNormalValue = (mean: number, sd: number = 1) => {
     const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)
     return z * sd + mean
 }
+
+/** generate a random number from uniform distribution */
+export const randomUniformValue = (min: number, max: number) => {
+    const size = max - min
+    return min + Math.random() * size
+}
