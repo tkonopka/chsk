@@ -27,4 +27,16 @@ describe('HistogramCurve', () => {
         const result = screen.queryByRole('histogram-curve')
         expect(result).toBeNull()
     })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['uniform', 'normal']) }}>
+                <Histogram {...histogramProps}>
+                    <HistogramCurve />
+                </Histogram>
+            </Chart>
+        )
+        const result = screen.queryByRole('histogram-curve')
+        expect(result).toBeNull()
+    })
 })

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, ScatterLabel } from '../src/scatter'
+import { Scatter, ScatterArea, ScatterLabel } from '../src/scatter'
 import { scatterProps } from './props'
 
 describe('ScatterLabel', () => {
@@ -62,5 +62,19 @@ describe('ScatterLabel', () => {
         expect(result.querySelector('text')?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
         expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(-')
+    })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['linear']) }}>
+                <Scatter {...scatterProps}>
+                    <ScatterLabel ids={['linear']} x={4}>
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-label')
+        expect(result).toBeNull()
     })
 })

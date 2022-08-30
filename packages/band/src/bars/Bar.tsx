@@ -166,7 +166,7 @@ export const Bar = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [barWidth, barGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
+    const [barWidth, barGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal, stacked)
     const preparedData = useMemo(
         () =>
             processedData.map(seriesData =>

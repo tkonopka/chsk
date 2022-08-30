@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { RandomWalksChart } from './RandomWalksChart'
 import { RandomWalkAreaChart } from './RandomWalkAreaChart'
+import { LineOverlayChart } from './LineOverlayChart'
 
 <Meta title="Gallery/Line charts" />
 
@@ -19,5 +20,11 @@ import { RandomWalkAreaChart } from './RandomWalkAreaChart'
 <Canvas>
     <Story name="area gradient">
         <RandomWalkAreaChart />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="line overlays">
+        <LineOverlayChart />
     </Story>
 </Canvas>

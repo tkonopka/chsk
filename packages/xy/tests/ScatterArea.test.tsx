@@ -27,4 +27,16 @@ describe('ScatterArea', () => {
         const result = screen.queryByRole('scatter-area')
         expect(result).toBeNull()
     })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['linear', 'quadratic']) }}>
+                <Scatter {...scatterProps}>
+                    <ScatterArea />
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-area')
+        expect(result).toBeNull()
+    })
 })

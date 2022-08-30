@@ -45,12 +45,15 @@ export const getScaleProps = (
 export const getInternalWidthAndGap = (
     indexScale: BandAxisScale,
     keys: string[],
-    paddingInternal: number
+    paddingInternal: number,
+    stacked = false
 ): [number, number] => {
     const bandwidth = indexScale.bandwidth()
     const nKeys = keys.length
-    const barStep = nKeys === 1 ? bandwidth : bandwidth / (nKeys - Math.min(1, paddingInternal))
-    const width = nKeys === 1 ? barStep : barStep * (1 - paddingInternal)
-    const gap = barStep * paddingInternal
-    return [width, gap]
+    const noGap = nKeys === 1 || stacked
+    const width = noGap ? bandwidth : bandwidth / (nKeys - Math.min(1, paddingInternal))
+    if (noGap) {
+        return [width, 0]
+    }
+    return [width * (1 - paddingInternal), width * paddingInternal]
 }

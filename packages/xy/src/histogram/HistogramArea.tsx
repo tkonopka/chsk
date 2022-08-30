@@ -15,7 +15,7 @@ export const HistogramArea = ({
     curve = 'MonotoneX',
     variant = 'default',
     style,
-    className,
+    className = 'histogramArea',
     setRole,
 }: HistogramCurveProps) => {
     const preparedData = useHistogramPreparedData()

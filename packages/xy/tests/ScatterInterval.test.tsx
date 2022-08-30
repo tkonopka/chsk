@@ -41,4 +41,16 @@ describe('ScatterInterval', () => {
         const result = screen.queryByRole('scatter-interval')
         expect(result).toBeNull()
     })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['linear', 'quadratic']) }}>
+                <Scatter {...scatterProps}>
+                    <ScatterInterval lower={'lo'} upper={'hi'} />
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-interval')
+        expect(result).toBeNull()
+    })
 })

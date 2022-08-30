@@ -34,7 +34,6 @@ export const HistogramSeries = ({
                 />
             )
         }
-        return null
     })
 
     return <>{result.filter(v => v)}</>

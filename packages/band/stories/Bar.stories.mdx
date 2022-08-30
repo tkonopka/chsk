@@ -141,18 +141,18 @@ The specification of the band axis through prop `scaleIndex` controls the spacin
     </Story>
 </Canvas>
 
-## Bar padding
+## Internal padding
 
-For grouped bars, an additional padding prop `barPadding` controls the space between bars within one group.
+For grouped bars, an additional padding prop `paddingInternal` controls the space between bars within one group.
 
 <Canvas>
     <Story
-        name="large bar padding"
+        name="large internal padding"
         args={{
             ...commonBarProps,
             horizontal: false,
             stacked: false,
-            barPadding: 0.8,
+            paddingInternal: 0.8,
             children: <Bars />,
         }}
         component={Bar}
@@ -161,12 +161,12 @@ For grouped bars, an additional padding prop `barPadding` controls the space bet
         {Template.bind({})}
     </Story>
     <Story
-        name="zero bar padding"
+        name="zero internal padding"
         args={{
             ...commonBarProps,
             horizontal: false,
             stacked: false,
-            barPadding: 0.0,
+            paddingInternal: 0.0,
             children: <Bars />,
         }}
         component={Bar}
@@ -213,7 +213,7 @@ The prop `keys` determines the number of subgroups that are incorporated into th
 
 ## Custom spacing
 
-By default, bars are arranged with equal spacing along the axis. It is possible to assign a custom spacing through the prop `scaleIndex`. Below, two examples use a dataset with seven bars.
+By default, bars are arranged with equal spacing along the axis. It is possible to customize the spacing through the specification of the band scale, with prop `scaleIndex`. Below, the examples use a dataset with seven bars, and the second example applies extra padding before one of the bands.
 
 <Canvas>
     <Story

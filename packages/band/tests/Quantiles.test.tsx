@@ -74,4 +74,16 @@ describe('Quantiles', () => {
         const result = screen.getByRole('view-quantile')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['x', 'y']) }}>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                </Quantile>
+            </Chart>
+        )
+        const result = screen.getByRole('view-quantile')
+        expect(result.querySelectorAll('rect')).toHaveLength(0)
+    })
 })

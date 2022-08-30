@@ -38,7 +38,7 @@ export const ScatterArea = ({
     curve = 'Linear',
     variant = 'default',
     style,
-    className,
+    className = 'scatterArea',
     setRole,
 }: ScatterAreaProps) => {
     const preparedData = useScatterPreparedData()

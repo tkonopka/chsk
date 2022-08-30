@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Bar, BarsLabels } from '../src'
+import { Bar, Bars, BarsLabels } from '../src'
 import { barProps } from './props'
 
 describe('BarsLabels', () => {
@@ -94,6 +94,18 @@ describe('BarsLabels', () => {
             <Chart>
                 <Bar {...barProps}>
                     <BarsLabels keys={[]} />
+                </Bar>
+            </Chart>
+        )
+        const result = screen.getByRole('view-bar')
+        expect(result.querySelectorAll('text')).toHaveLength(0)
+    })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['x', 'y', 'z']) }}>
+                <Bar {...barProps}>
+                    <BarsLabels />
                 </Bar>
             </Chart>
         )

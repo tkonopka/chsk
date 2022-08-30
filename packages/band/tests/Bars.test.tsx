@@ -21,14 +21,20 @@ describe('Bars', () => {
 
     it('defines stacked bars (vertical)', () => {
         render(
-            <Chart>
+            <Chart size={[440, 340]} padding={[20, 20, 20, 20]}>
                 <Bar {...barProps} stacked={true}>
                     <Bars />
                 </Bar>
             </Chart>
         )
         const result = screen.getByRole('view-bar')
-        expect(result.querySelectorAll('rect')).toHaveLength(6)
+        const bars = result.querySelectorAll('rect')
+        expect(bars).toHaveLength(6)
+        // the chart view will have width 400
+        // there are two indexes (alpha, beta)
+        // so each bar should have width slightly smaller than 200 (allowing for padding)
+        expect(Number(bars[0].getAttribute('width'))).toBeGreaterThan(100)
+        expect(Number(bars[0].getAttribute('width'))).toBeLessThan(200)
     })
 
     it('defines grouped bars (horizontal)', () => {
@@ -119,6 +125,18 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
+        const result = screen.getByRole('view-bar')
+        expect(result.querySelectorAll('rect')).toHaveLength(0)
+    })
+
+    it('skips rendering when keys are disabled', () => {
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['x', 'y', 'z']) }}>
+                <Bar {...barProps}>
+                    <Bars />
+                </Bar>
+            </Chart>
+        )
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })

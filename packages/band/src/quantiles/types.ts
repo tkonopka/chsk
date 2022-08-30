@@ -1,10 +1,5 @@
 import { BarProps, BarsProps } from '../bars'
-import {
-    CssProps,
-    ProcessedDataContextProps,
-    SvgElementProps,
-    WithId,
-} from '@chask/core'
+import { CssProps, ProcessedDataContextProps, SvgElementProps, WithId } from '@chask/core'
 import { FC } from 'react'
 
 export type QuantileDataItem = WithId & Record<string, unknown>
@@ -20,7 +15,7 @@ export type ProcessedQuantileSummary = {
 export type QuantileProcessedDataItem = WithId & {
     index: number
     summaries: ProcessedQuantileSummary[]
-    // this will hold a subset of values from the summaries, a shortcut to compute domains for scales
+    // values will hold a subset from the summaries to shortcut computing domains for scales
     values: number[]
 }
 

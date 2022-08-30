@@ -96,6 +96,24 @@ describe('useDisabledKeys', () => {
         // after useEffect, the chart should re-render (firstRender = false)
         expect(result).toEqual([true, false])
     })
+
+    it('detects disabled keys', () => {
+        let result: string[] = []
+        const GetDisabledKeys = () => {
+            const temp = useDisabledKeys()
+            result = Array.from(temp.disabledKeys).sort()
+            return null
+        }
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['a', 'b']) }}>
+                <GetDisabledKeys />
+            </Chart>
+        )
+        // the render will have two stages:
+        // at first the chart state should be null (firstRender = true)
+        // after useEffect, the chart should re-render (firstRender = false)
+        expect(result).toEqual(['a', 'b'])
+    })
 })
 
 describe('useMilestones', () => {

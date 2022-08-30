@@ -22,7 +22,7 @@ export const ScatterCurve = ({
     curve = 'Linear',
     variant = 'default',
     style,
-    className,
+    className = 'scatterCurve',
     setRole,
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()

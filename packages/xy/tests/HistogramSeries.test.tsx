@@ -43,4 +43,16 @@ describe('HistogramSeries', () => {
         const result = screen.queryByRole('histogram-series')
         expect(result).toBeNull()
     })
+
+    it('skips work when layers are empty', () => {
+        render(
+            <Chart>
+                <Histogram {...histogramProps}>
+                    <HistogramSeries ids={['non-existent']} layers={[]} />
+                </Histogram>
+            </Chart>
+        )
+        const result = screen.queryByRole('histogram-series')
+        expect(result).toBeNull()
+    })
 })
