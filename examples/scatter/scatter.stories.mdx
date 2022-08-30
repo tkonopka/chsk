@@ -1,4 +1,5 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
 import { ClustersScatterChart } from './ClustersScatterChart'
 import { MultipleViewsScatterChart } from './MultipleViewsScatterChart'
 
@@ -10,7 +11,7 @@ import { MultipleViewsScatterChart } from './MultipleViewsScatterChart'
 
 <Canvas>
     <Story name="clusters">
-        <ClustersScatterChart />
+        <Controller chart={ClustersScatterChart} steps={['axes', 'legend', 'data']} />
     </Story>
 </Canvas>
 
@@ -18,6 +19,6 @@ import { MultipleViewsScatterChart } from './MultipleViewsScatterChart'
 
 <Canvas>
     <Story name="multiple views">
-        <MultipleViewsScatterChart />
+        <Controller chart={MultipleViewsScatterChart} steps={['legend', 'A', 'B', 'C']} />
     </Story>
 </Canvas>

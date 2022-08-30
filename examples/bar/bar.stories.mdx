@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
 import { StackedVerticalBandChart, StackedHorizontalBandChart } from './stacked.charts.tsx'
 import { GroupedVerticalBandChart, GroupedHorizontalBandChart } from './grouped.charts.tsx'
 import { MultipleViewsBarChart } from './MultipleViewsBarChart'
@@ -41,7 +42,7 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="custom layout">
-        <CustomGroupsBarChart />
+        <Controller chart={CustomGroupsBarChart} steps={['axes', 'A', 'B', 'C']} />
     </Story>
 </Canvas>
 

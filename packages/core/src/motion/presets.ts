@@ -1,4 +1,4 @@
-import { GAnimationProp } from './types'
+import { GAnimationProp, GTransitionProp } from './types'
 
 // presets for animations
 export const motionPresets: Record<string, GAnimationProp> = {
@@ -24,5 +24,11 @@ export const motionPresets: Record<string, GAnimationProp> = {
     doubleSize: {
         scale: 2,
         opacity: 0,
+    },
+}
+
+export const transitionPresets: Record<string, GTransitionProp> = {
+    default: {
+        delay: 0,
     },
 }

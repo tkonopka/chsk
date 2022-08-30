@@ -54,3 +54,16 @@ button:hover {
     background-color: #ffffff;
     cursor: pointer;
 }
+button.icon {
+    margin: 0em 0.5em 0em 0em;
+    padding: 0.25em 0.5em 0em 0.5em;
+}
+div.controller {
+    margin-bottom: 1em;
+}
+div.controller div.status {
+    display: inline-block;
+    line-height: 40px;
+    vertical-align: middle;
+    padding-bottom: 16px;
+}

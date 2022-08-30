@@ -5,12 +5,15 @@ import {
     AxisLine,
     AxisTicks,
     GridLines,
+    MilestoneMotion,
     ThemeSpec,
     RecordWithId,
+    Typography,
 } from '@chask/core'
 import { LineLabel } from '@chask/annotation'
 import { Bar, BarDataItem, Bars } from '@chask/band'
 import { generateIdentifiers, generateSortedValues } from './generators'
+import { MilestoneStory } from '../types'
 
 const ids = generateIdentifiers(17, 10000, 'S')
 const idsA = ids.slice(0, 5)
@@ -72,28 +75,28 @@ const customGroupsBarProps = {
 customGroupsBarProps.scaleIndex.extraPadding[idsB[0]] = 0.4
 customGroupsBarProps.scaleIndex.extraPadding[idsC[0]] = 0.4
 
-export const CustomGroupsBarChart = () => {
-    return (
-        <Chart
-            id="customGroups"
-            size={[600, 280]}
-            padding={[40, 40, 80, 60]}
-            theme={multiviewTheme}
-        >
-            <Bar position={[0, 0]} {...customGroupsBarProps}>
+export const CustomGroupsBarChart = ({ data, fref }: MilestoneStory) => (
+    <Chart
+        data={data}
+        fref={fref}
+        id="customGroups"
+        size={[600, 280]}
+        padding={[40, 40, 60, 75]}
+        theme={multiviewTheme}
+    >
+        <Bar position={[0, 0]} {...customGroupsBarProps}>
+            <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
                 <GridLines variant={'y'} />
-                <Bars />
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
-                    <AxisTicks
-                        variant={'bottom'}
-                        labelRotate={-40}
-                        labelOffset={8}
-                        labelStyle={{ textAnchor: 'end' }}
-                    />
-                    <AxisLabel variant={'bottom'} anchor={0.5} offset={62} children={'Samples'} />
                 </Axis>
+                <Typography variant={'axisLabel'} position={[-45, 206]}>
+                    Samples
+                </Typography>
                 <Axis variant={'left'} label={'Score (%)'} />
+            </MilestoneMotion>
+            <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                <Bars keys={['A']} />
                 <LineLabel
                     start={[idsA[0], 105]}
                     end={[idsA[idsA.length - 1], 105]}
@@ -101,6 +104,19 @@ export const CustomGroupsBarChart = () => {
                 >
                     Group A
                 </LineLabel>
+                <Axis variant={'bottom'}>
+                    <AxisLine variant={'bottom'} />
+                    <AxisTicks
+                        variant={'bottom'}
+                        ticks={idsA}
+                        labelRotate={-45}
+                        labelOffset={8}
+                        labelStyle={{ textAnchor: 'end' }}
+                    />
+                </Axis>
+            </MilestoneMotion>
+            <MilestoneMotion initial={'invisible'} initialOn={'B'}>
+                <Bars keys={['B']} />
                 <LineLabel
                     start={[idsB[0], 105]}
                     end={[idsB[idsB.length - 1], 105]}
@@ -108,6 +124,19 @@ export const CustomGroupsBarChart = () => {
                 >
                     Group B
                 </LineLabel>
+                <Axis variant={'bottom'}>
+                    <AxisLine variant={'bottom'} />
+                    <AxisTicks
+                        variant={'bottom'}
+                        ticks={idsB}
+                        labelRotate={-45}
+                        labelOffset={8}
+                        labelStyle={{ textAnchor: 'end' }}
+                    />
+                </Axis>
+            </MilestoneMotion>
+            <MilestoneMotion initial={'invisible'} initialOn={'C'}>
+                <Bars keys={['C']} />
                 <LineLabel
                     start={[idsC[0], 105]}
                     end={[idsC[idsC.length - 1], 105]}
@@ -115,7 +144,17 @@ export const CustomGroupsBarChart = () => {
                 >
                     others
                 </LineLabel>
-            </Bar>
-        </Chart>
-    )
-}
+                <Axis variant={'bottom'}>
+                    <AxisLine variant={'bottom'} />
+                    <AxisTicks
+                        variant={'bottom'}
+                        ticks={idsC}
+                        labelRotate={-45}
+                        labelOffset={8}
+                        labelStyle={{ textAnchor: 'end' }}
+                    />
+                </Axis>
+            </MilestoneMotion>
+        </Bar>
+    </Chart>
+)

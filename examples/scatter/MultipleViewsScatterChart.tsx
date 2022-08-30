@@ -3,15 +3,17 @@ import {
     Axis,
     GridLines,
     Legend,
+    MilestoneMotion,
     Surface,
     SizeSpec,
     getMinMax,
     ThemeSpec,
 } from '@chask/core'
 import { Scatter, ScatterPoints } from '@chask/xy'
+import { BoxedTitle } from '@chask/annotation'
 import { generateXYValues } from './generators'
 import { randomNormalValue } from '../utils'
-import { BoxedTitle } from '../../packages/annotation/src'
+import { MilestoneStory } from '../types'
 
 const multiviewData = [
     {
@@ -98,55 +100,74 @@ const multiviewTheme: ThemeSpec = {
     },
 }
 
-export const MultipleViewsScatterChart = () => (
+const enterAnimation = {
+    opacity: 0,
+    y: -20,
+}
+const enterTransition = {
+    duration: 0.8,
+    stiffness: 50,
+}
+
+export const MultipleViewsScatterChart = ({ data, fref }: MilestoneStory) => (
     <Chart
+        data={data}
+        fref={fref}
         id="multiple-views-scatter"
         size={[600, 280]}
         padding={[40, 120, 60, 60]}
         theme={multiviewTheme}
     >
         <Scatter position={[0, 0]} {...commonProps} y={'A'}>
-            <GridLines variant={'y'} />
-            <GridLines variant={'x'} />
-            <Surface />
-            <Axis variant={'bottom'} />
-            <Axis variant={'left'} label={'y values (a.u.)'} />
-            <ScatterPoints />
-            <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
-                Device A
-            </BoxedTitle>
-            <Legend
-                position={[440, 80]}
-                size={[80, 80]}
-                units={'absolute'}
-                anchor={[0, 0.5]}
-                padding={[0, 12, 0, 12]}
-                r={10.5}
-                itemSize={[80, 20]}
-                itemPadding={[2, 2, 2, 2]}
-                title={'Populations'}
-            />
+            <MilestoneMotion initial={enterAnimation} initialOn={'A'} transition={enterTransition}>
+                <GridLines variant={'y'} />
+                <GridLines variant={'x'} />
+                <Surface />
+                <Axis variant={'bottom'} />
+                <Axis variant={'left'} label={'y values (a.u.)'} />
+                <ScatterPoints />
+                <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
+                    Device A
+                </BoxedTitle>
+            </MilestoneMotion>
+            <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                <Legend
+                    position={[440, 80]}
+                    size={[80, 80]}
+                    units={'absolute'}
+                    anchor={[0, 0.5]}
+                    padding={[0, 12, 0, 12]}
+                    r={10.5}
+                    itemSize={[80, 20]}
+                    itemPadding={[2, 2, 2, 2]}
+                    title={'Populations'}
+                />
+            </MilestoneMotion>
         </Scatter>
-        <Scatter position={[0.35, 0]} {...commonProps} y={'B'}>
-            <GridLines variant={'y'} />
-            <GridLines variant={'x'} />
-            <Surface />
-            <Axis variant={'bottom'} label={'x values (a.u.)'} />
-            <ScatterPoints />
-            <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
-                Device B
-            </BoxedTitle>
-        </Scatter>
-        <Scatter position={[0.7, 0]} {...commonProps} y={'C'}>
-            <Surface />
-            <GridLines variant={'y'} />
-            <GridLines variant={'x'} />
-            <Surface />
-            <Axis variant={'bottom'} />
-            <ScatterPoints />
-            <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
-                Device C
-            </BoxedTitle>
-        </Scatter>
+        <MilestoneMotion initial={enterAnimation} initialOn={'B'} transition={enterTransition}>
+            <Scatter position={[0.35, 0]} {...commonProps} y={'B'}>
+                <GridLines variant={'y'} />
+                <GridLines variant={'x'} />
+                <Surface />
+                <Axis variant={'bottom'} label={'x values (a.u.)'} />
+                <ScatterPoints />
+                <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
+                    Device B
+                </BoxedTitle>
+            </Scatter>
+        </MilestoneMotion>
+        <MilestoneMotion initial={enterAnimation} initialOn={'C'} transition={enterTransition}>
+            <Scatter position={[0.7, 0]} {...commonProps} y={'C'}>
+                <Surface />
+                <GridLines variant={'y'} />
+                <GridLines variant={'x'} />
+                <Surface />
+                <Axis variant={'bottom'} />
+                <ScatterPoints />
+                <BoxedTitle variant={'top'} expansion={[0, 0, 0, 0]}>
+                    Device C
+                </BoxedTitle>
+            </Scatter>
+        </MilestoneMotion>
     </Chart>
 )

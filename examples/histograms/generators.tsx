@@ -4,7 +4,9 @@ import { randomNormalValue } from '../utils'
 export const generateHistogramValues = (n: number[], mean: number[], sd: number[]) => {
     const result: number[][] = []
     n.forEach((size, i) => {
-        const values: number[] = Array(size).fill(0).map(v => randomNormalValue(mean[i], sd[i]))
+        const values: number[] = Array(size)
+            .fill(0)
+            .map(v => randomNormalValue(mean[i], sd[i]))
         result.push(values)
     })
     return result.flat()
@@ -19,4 +21,3 @@ export const makeBreaks = (interval: [number, number], step: number) => {
     }
     return result
 }
-

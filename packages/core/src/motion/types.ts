@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { motionPresets } from './presets'
+import { motionPresets, transitionPresets } from './presets'
 
 export interface OpacityMotionProps {
     /** role string */
@@ -10,6 +10,14 @@ export interface OpacityMotionProps {
     children: ReactNode
 }
 
+/** settings for framer's 'transition' */
+export type GTransitionProp = {
+    duration?: number
+    delay?: number
+    stiffness?: number
+}
+
+/** selected settings for animating 'g' elements */
 export type GAnimationProp = {
     opacity?: number
     x?: number
@@ -18,6 +26,11 @@ export type GAnimationProp = {
     scale?: number
 }
 export type AnimationSpec = undefined | null | keyof typeof motionPresets | GAnimationProp
+export type AnimationTransitionSpec =
+    | undefined
+    | null
+    | keyof typeof transitionPresets
+    | GTransitionProp
 
 export interface MilestoneMotionProps {
     /** role string */
@@ -34,6 +47,8 @@ export interface MilestoneMotionProps {
     children: ReactNode
     /** base animation setting */
     animate?: AnimationSpec
+    /** transition settings */
+    transition?: AnimationTransitionSpec
     /** default visibility setting */
     visible?: boolean
 }

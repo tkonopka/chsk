@@ -1,7 +1,13 @@
 import { AnimatePresence, m } from 'framer-motion'
-import { GAnimationProp, AnimationSpec, MilestoneMotionProps } from './types'
+import {
+    GAnimationProp,
+    AnimationSpec,
+    MilestoneMotionProps,
+    AnimationTransitionSpec,
+    GTransitionProp,
+} from './types'
 import { useState } from 'react'
-import { motionPresets } from './presets'
+import { motionPresets, transitionPresets } from './presets'
 import { useMilestones } from '../chart'
 
 const getMotionValue = (a: AnimationSpec): undefined | GAnimationProp => {
@@ -13,6 +19,15 @@ const getMotionValue = (a: AnimationSpec): undefined | GAnimationProp => {
     return a
 }
 
+const getTransitionValue = (a: AnimationTransitionSpec): undefined | GTransitionProp => {
+    if (!a) return undefined
+    if (typeof a === 'string') {
+        if (a in transitionPresets) return transitionPresets[a]
+        return transitionPresets['default']
+    }
+    return a
+}
+
 export const MilestoneMotion = ({
     role,
     initial,
@@ -20,6 +35,7 @@ export const MilestoneMotion = ({
     exit,
     exitOn,
     animate = 'none',
+    transition,
     visible,
     children,
 }: MilestoneMotionProps) => {
@@ -54,6 +70,7 @@ export const MilestoneMotion = ({
                     initial={getMotionValue(initial)}
                     animate={getMotionValue(animate)}
                     exit={getMotionValue(exit)}
+                    transition={getTransitionValue(transition)}
                 >
                     {children}
                 </m.g>
