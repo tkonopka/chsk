@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { AxisTicks } from '../../src'
-import { ChartAxisDecorator } from './decorators'
+import { ChartBottomAxisDecorator } from './decorators'
 
 # AxisTicks
 
@@ -24,7 +24,7 @@ Predefined variants draw ticks on the top, right, bottom, or left axis. For brev
             variant: 'bottom',
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -42,7 +42,7 @@ The position of ticks can be specified as an integer (to suggest a number of tic
             ticks: 10,
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -53,7 +53,7 @@ The position of ticks can be specified as an integer (to suggest a number of tic
             ticks: [0, 20, 50, 90, 100],
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -74,7 +74,7 @@ Props `tickSize` and `labelOffset` control the length of the tick lines and the 
             labelOffset: 30,
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -97,7 +97,7 @@ Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the
             },
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -116,7 +116,7 @@ Labels can be formatted with a custom function through the prop `labelFormat`.
             labelFormat: v => v + '%',
         }}
         component={AxisTicks}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>

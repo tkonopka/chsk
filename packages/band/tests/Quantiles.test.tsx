@@ -43,7 +43,7 @@ describe('Quantiles', () => {
         const result = screen.getByRole('view-quantile')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
         // the chart should have an axis ready to display 'alpha' and 'beta'
-        const ticks = screen.getAllByRole('tickLabel')
+        const ticks = screen.getAllByRole('tick-label')
         expect(ticks).toHaveLength(2)
         expect(ticks[0].textContent).toEqual('alpha')
         expect(ticks[1].textContent).toEqual('beta')

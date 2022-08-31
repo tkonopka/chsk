@@ -1,25 +1,26 @@
-import { LegendItemProps } from './types'
 import { Rectangle, Square } from '../shapes'
 import { useProcessedData } from '../views'
 import { Typography } from '../typography'
-import { addOpacity, useTheme } from '../themes'
+import { addColor, addOpacity, themedProps } from '../themes'
 import { useScales } from '../scales'
-import { addColor } from '../themes'
 import { LEFT, RIGHT, TOP } from '../general'
 import { useChartData } from '../chart'
+import { defaultLegendItemProps } from './defaults'
+import { LegendItemProps } from './types'
 
-export const LegendItem = ({
+export const UnthemedLegendItem = ({
+    variant = 'legend-item',
     position,
-    size,
-    padding,
-    translate = [0, 0],
-    align,
-    r,
+    size = defaultLegendItemProps.size,
+    padding = defaultLegendItemProps.padding,
+    translate = defaultLegendItemProps.translate,
+    align = defaultLegendItemProps.align,
+    r = defaultLegendItemProps.r,
     symbol = Square,
     symbolStyle,
     label,
     labelStyle,
-    labelOffset,
+    labelOffset = defaultLegendItemProps.labelOffset,
     colorIndex,
     className,
     style,
@@ -27,26 +28,19 @@ export const LegendItem = ({
 }: LegendItemProps) => {
     const data = useProcessedData()
     const colorScale = useScales().color
-    const theme = useTheme().Legend
     const { data: chartData, setData: setChartData } = useChartData()
 
     const cIndex = colorIndex ?? data.keys.indexOf(label ?? '')
-    const itemSize = size ?? theme.itemSize
-    const itemPadding = padding ?? theme.itemPadding
     const itemStyle = addColor(symbolStyle, colorScale(cIndex))
-    const itemR = r ?? theme.r
-    const itemAlign = align ?? theme.align
-    const labOffset = labelOffset ?? theme.labelOffset
 
     // determine position of symbol and text label
-    const symbolPos = [itemR + itemPadding[LEFT], itemR + itemPadding[TOP]]
-    if (itemAlign === 'right') {
-        symbolPos[0] = itemSize[0] - itemPadding[RIGHT] - itemR
-    } else if (itemAlign === 'middle') {
-        symbolPos[0] =
-            itemPadding[LEFT] + (itemSize[0] - itemPadding[LEFT] - itemPadding[RIGHT]) / 2
+    const symbolPos = [r + padding[LEFT], r + padding[TOP]]
+    if (align === 'right') {
+        symbolPos[0] = size[0] - padding[RIGHT] - r
+    } else if (align === 'middle') {
+        symbolPos[0] = padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
     }
-    const labelPos = [symbolPos[0] + labOffset[0], itemR + labOffset[1] + itemPadding[TOP]]
+    const labelPos = [symbolPos[0] + labelOffset[0], r + labelOffset[1] + padding[TOP]]
 
     const handleClick = () => {
         const disabledKeys: Set<string> = chartData.disabledKeys ?? new Set<string>()
@@ -64,30 +58,30 @@ export const LegendItem = ({
 
     return (
         <g
-            role={setRole ? 'legend-item' : undefined}
+            role={setRole ? variant : undefined}
             transform={transform}
             style={gStyle}
-            className={'legendItem'}
+            className={variant}
             onClick={handleClick}
         >
             <Rectangle
-                variant="legendItem"
+                variant={variant}
                 x={0}
                 y={0}
-                width={itemSize[0]}
-                height={itemSize[1]}
+                width={size[0]}
+                height={size[1]}
                 setRole={false}
             />
             {symbol({
                 cx: symbolPos[0] + translate[0],
                 cy: symbolPos[1] + translate[1],
-                r: itemR,
+                r: r,
                 className,
                 style: itemStyle,
                 setRole: false,
             })}
             <Typography
-                variant={'legendLabel'}
+                variant={variant}
                 position={[labelPos[0] + translate[0], labelPos[1] + translate[1]]}
                 style={labelStyle}
                 className={className}
@@ -98,3 +92,7 @@ export const LegendItem = ({
         </g>
     )
 }
+
+export const LegendItem = (props: LegendItemProps) => (
+    <UnthemedLegendItem {...themedProps(props, 'LegendItem')} />
+)

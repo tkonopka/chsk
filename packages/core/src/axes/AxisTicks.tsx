@@ -1,8 +1,9 @@
 import { Line } from '../lines'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
-import { useTheme } from '../themes'
+import { themedProps, useTheme } from '../themes'
 import { Typography } from '../typography'
+import { defaultAxisTicksProps } from './defaults'
 
 // special formatting functions
 const stringFormat = (v: unknown) => String(v)
@@ -69,7 +70,7 @@ export const getScaleTicks = ({
             <Typography
                 transform={transformTranslate + transformRotate}
                 style={labelStyle}
-                variant={'tickLabel'}
+                variant={'tick-label'}
                 className={variant}
             >
                 {tickFormat(tickValues[i] as string)}
@@ -78,12 +79,12 @@ export const getScaleTicks = ({
     ))
 }
 
-export const AxisTicks = ({
+export const UnthemedAxisTicks = ({
     variant,
-    ticks,
-    tickSize,
-    labelOffset,
-    labelRotate,
+    ticks = defaultAxisTicksProps.ticks,
+    tickSize = defaultAxisTicksProps.tickSize,
+    labelOffset = defaultAxisTicksProps.labelOffset,
+    labelRotate = defaultAxisTicksProps.labelRotate,
     labelFormat,
     labelStyle,
     tickStyle,
@@ -105,3 +106,7 @@ export const AxisTicks = ({
     if (tickMarks === null) return null
     return <g role={'axis-ticks'}>{tickMarks}</g>
 }
+
+export const AxisTicks = (props: AxisTicksProps) => (
+    <UnthemedAxisTicks {...themedProps(props, 'AxisTicks')} />
+)

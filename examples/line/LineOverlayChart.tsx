@@ -72,7 +72,7 @@ export const LineOverlayChart = () => (
                 .map((id, i) => {
                     const moveUp = -33 * (nIds - i - 1)
                     return (
-                        <g transform={'translate(0,' + moveUp + ')'}>
+                        <g transform={'translate(0,' + moveUp + ')'} key={'layer-series-'+id}>
                             <ScatterSeries
                                 key={'series-' + i}
                                 ids={[id]}

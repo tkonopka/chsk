@@ -1,7 +1,6 @@
-import { SurfaceProps } from './types'
-import { useDimensions } from './dimensions'
-import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from './constants'
+import { useDimensions, BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from '../general'
 import { composeClassName } from '../themes'
+import { SurfaceProps } from './types'
 
 export const Surface = ({
     variant = 'inner',

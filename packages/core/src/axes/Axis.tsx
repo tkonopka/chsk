@@ -1,31 +1,18 @@
-import { SizeSpec, useDimensions, X, Y } from '../general'
+import { useDimensions } from '../general'
 import { useTheme } from '../themes'
-import { AxisProps, SideType } from './types'
+import { AxisProps } from './types'
 import { AxisLine } from './AxisLine'
 import { AxisLabel } from './AxisLabel'
 import { AxisTicks } from './AxisTicks'
+import { getAxisTranslate } from './utils'
+import { themedProps } from '../themes/utils'
+import { defaultAxisProps } from './defaults'
 
-// produce a 'transform' string for the entire axis
-export const getAxisTranslate = ({
-    variant,
-    offset,
-    size,
-}: {
-    variant: SideType
-    offset: number
-    size: SizeSpec
-}) => {
-    if (variant === 'left') return 'translate(' + -offset + ',0)'
-    if (variant === 'top') return 'translate(0,' + -offset + ')'
-    if (variant === 'bottom') return 'translate(0,' + (size[Y] + offset) + ')'
-    return 'translate(' + (size[X] + offset) + ',0)'
-}
-
-export const Axis = ({
+export const UnthemedAxis = ({
     variant,
     label,
-    ticks,
-    offset,
+    ticks = defaultAxisProps.ticks,
+    offset = defaultAxisProps.offset,
     className,
     style,
     setRole = true,
@@ -58,3 +45,5 @@ export const Axis = ({
         </g>
     )
 }
+
+export const Axis = (props: AxisProps) => <UnthemedAxis {...themedProps(props, 'Axis')} />

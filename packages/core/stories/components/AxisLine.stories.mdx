@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { AxisLine } from '../../src'
-import { ChartAxisDecorator } from './decorators'
+import { ChartBottomAxisDecorator } from './decorators'
 
 # Axis
 
@@ -27,7 +27,7 @@ Predefined variants place an axis line near the top, right, bottom, or left side
             },
         }}
         component={AxisLine}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -52,7 +52,7 @@ The line can be styled with custom css, for example to set the stroke color and 
             },
         }}
         component={AxisLine}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>

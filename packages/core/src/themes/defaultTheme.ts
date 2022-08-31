@@ -1,4 +1,14 @@
+import { defaultLegendItemProps, defaultLegendProps } from '../legends/defaults'
+import { defaultViewProps } from '../views/defaults'
+import {
+    defaultAxisLabelLeftProps,
+    defaultAxisLabelProps,
+    defaultAxisLabelRightProps,
+    defaultAxisProps,
+    defaultAxisTicksProps,
+} from '../axes/defaults'
 import { CompleteThemeSpec } from './types'
+import { cloneDeep } from 'lodash'
 
 export const defaultTheme: CompleteThemeSpec = {
     text: {
@@ -123,66 +133,35 @@ export const defaultTheme: CompleteThemeSpec = {
         },
     },
     Axis: {
-        top: {
-            offset: 0, // distance between chart surface and axis
-        },
-        bottom: {
-            offset: 0,
-        },
-        left: {
-            offset: 0,
-        },
-        right: {
-            offset: 0,
-        },
+        top: cloneDeep(defaultAxisProps),
+        bottom: cloneDeep(defaultAxisProps),
+        left: cloneDeep(defaultAxisProps),
+        right: cloneDeep(defaultAxisProps),
     },
     AxisLabel: {
-        top: {
-            offset: 40, // distance between axis and axis label
-            anchor: 0.5, // relative position of axis label
-        },
-        bottom: {
-            offset: 40,
-            anchor: 0.5,
-        },
-        left: {
-            offset: 45,
-            anchor: 0.5,
-            rotate: -90,
-        },
-        right: {
-            offset: 45,
-            anchor: 0.5,
-            rotate: 90,
-        },
+        top: cloneDeep(defaultAxisLabelProps),
+        bottom: cloneDeep(defaultAxisLabelProps),
+        left: cloneDeep(defaultAxisLabelLeftProps),
+        right: cloneDeep(defaultAxisLabelRightProps),
     },
     AxisTicks: {
-        top: {
-            tickSize: 5,
-            labelOffset: 9,
-        },
-        bottom: {
-            tickSize: 5,
-            labelOffset: 9,
-        },
-        left: {
-            tickSize: 5,
-            labelOffset: 9,
-        },
-        right: {
-            tickSize: 5,
-            labelOffset: 9,
-        },
+        top: cloneDeep(defaultAxisTicksProps),
+        bottom: cloneDeep(defaultAxisTicksProps),
+        left: cloneDeep(defaultAxisTicksProps),
+        right: cloneDeep(defaultAxisTicksProps),
     },
     Legend: {
-        horizontal: false,
-        align: 'left' as const,
-        itemSize: [60, 20],
-        itemPadding: [4, 4, 4, 4],
-        firstOffset: [0, 0],
-        r: 8,
-        labelOffset: [14, 0],
-        scaleSize: [8, 80],
+        list: cloneDeep(defaultLegendProps),
+        color: cloneDeep(defaultLegendProps),
+    },
+    LegendItem: {
+        default: cloneDeep(defaultLegendItemProps),
+    },
+    LegendTitle: {
+        default: cloneDeep(defaultLegendItemProps),
+    },
+    View: {
+        default: cloneDeep(defaultViewProps),
     },
     Colors: {
         categorical: {

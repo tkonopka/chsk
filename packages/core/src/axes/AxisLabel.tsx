@@ -1,7 +1,8 @@
 import { useDimensions } from '../general'
-import { useTheme } from '../themes'
 import { AxisLabelProps } from './types'
 import { Typography } from '../typography'
+import { themedProps } from '../themes'
+import { defaultAxisLabelProps } from './defaults'
 
 const anchorPresets: Record<string, number> = { start: 0, middle: 0.5, end: 1.0 }
 const getAnchorFraction = (anchor: string | number | unknown) => {
@@ -10,39 +11,35 @@ const getAnchorFraction = (anchor: string | number | unknown) => {
     return 0.5
 }
 
-export const AxisLabel = ({
+export const UnthemedAxisLabel = ({
     variant,
-    offset,
-    anchor,
-    rotate,
+    offset = defaultAxisLabelProps.offset,
+    anchor = defaultAxisLabelProps.anchor,
+    rotate = defaultAxisLabelProps.rotate,
     className,
     style,
     setRole,
     children,
 }: AxisLabelProps) => {
-    const theme = useTheme().AxisLabel[variant]
     const dimensions = useDimensions()
     if (children === undefined || children === '') return null
 
     const [width, height] = dimensions.innerSize
-    const labelOffset = offset ?? theme?.offset ?? 0
-    const labelAnchor = anchor ?? theme?.anchor ?? 0.5
-    const labelRotate = rotate ?? theme?.rotate ?? 0
-    const anchorFraction = getAnchorFraction(labelAnchor)
+    const anchorFraction = getAnchorFraction(anchor)
 
     let x = 0,
         y = 0
-    if (variant === 'left') x -= labelOffset
-    if (variant === 'right') x += labelOffset
-    if (variant === 'top') y -= labelOffset
-    if (variant === 'bottom') y += labelOffset
+    if (variant === 'left') x -= offset
+    if (variant === 'right') x += offset
+    if (variant === 'top') y -= offset
+    if (variant === 'bottom') y += offset
     if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * height
     if (variant === 'top' || variant === 'bottom') x += anchorFraction * width
-    const rotation = labelRotate === 0 ? '' : ' rotate(' + String(Number(labelRotate)) + ')'
+    const rotation = rotate === 0 ? '' : ' rotate(' + String(Number(rotate)) + ')'
 
     return (
         <Typography
-            variant={'axisLabel'}
+            variant={'axis-label'}
             transform={'translate(' + x + ', ' + y + ')' + rotation}
             style={style}
             className={className ?? variant}
@@ -52,3 +49,7 @@ export const AxisLabel = ({
         </Typography>
     )
 }
+
+export const AxisLabel = (props: AxisLabelProps) => (
+    <UnthemedAxisLabel {...themedProps(props, 'AxisLabel')} />
+)

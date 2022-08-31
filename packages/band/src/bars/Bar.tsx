@@ -17,6 +17,7 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
+    defaultViewProps,
 } from '@chask/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -112,11 +113,11 @@ export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProce
 
 export const Bar = ({
     // layout
-    position = [0, 0],
-    size = [1, 1],
-    units = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
+    position = defaultViewProps.position,
+    size = defaultViewProps.size,
+    units = defaultViewProps.units,
+    anchor = defaultViewProps.anchor,
+    padding = defaultViewProps.padding,
     // content
     data,
     keys,

@@ -1,4 +1,11 @@
-import { PositionSpec, FourSideSizeSpec, SizeSpec, SizeUnit, NumericPositionSpec } from '../general'
+import {
+    PositionSpec,
+    FourSideSizeSpec,
+    SizeSpec,
+    SizeUnit,
+    NumericPositionSpec,
+    SvgElementVariantProps,
+} from '../general'
 import { ColorScaleProps, ContinuousScaleProps, ScaleProps, ScalesContextProps } from '../scales'
 import { ReactNode } from 'react'
 
@@ -48,6 +55,8 @@ export type ViewSeriesKeys = {
 }
 
 export interface ViewProps extends ContainerProps {
+    /** variant of view */
+    variant?: 'default' | string
     /** data array **/
     data?: Array<RecordWithId> | ViewSeriesKeys
     /** automatically adjust scales if/when data subsets become disabled */
@@ -60,6 +69,22 @@ export interface ViewProps extends ContainerProps {
     scaleColor?: ColorScaleProps
     /** scale for size */
     scaleSize?: ContinuousScaleProps
+}
+
+export interface ViewThemedProps
+    extends Pick<
+        ViewProps,
+        'scaleX' | 'scaleY' | 'scaleSize' | 'units' | 'position' | 'anchor' | 'size' | 'padding'
+    > {
+    scaleX: ScaleProps
+    scaleY: ScaleProps
+    scaleColor: ColorScaleProps
+    scaleSize: ContinuousScaleProps
+    units: SizeUnit
+    position: NumericPositionSpec
+    anchor: NumericPositionSpec
+    size: SizeSpec
+    padding: FourSideSizeSpec
 }
 
 export interface BaseViewProps extends Pick<ProcessedDataContextProps, 'seriesIndexes' | 'keys'> {
@@ -79,4 +104,11 @@ export interface BaseViewProps extends Pick<ProcessedDataContextProps, 'seriesIn
     role: string
     /** children components */
     children?: ReactNode
+}
+
+export interface SurfaceProps extends SvgElementVariantProps {
+    /** variant */
+    variant?: 'inner' | 'outer'
+    /** expansion of background surface */
+    expansion?: FourSideSizeSpec
 }

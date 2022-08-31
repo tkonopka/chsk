@@ -12,24 +12,24 @@ export const classicTheme: ThemeSpec = {
     AxisLabel: {},
     AxisTicks: {
         top: {
-            size: -5,
-            padding: 5,
-            rotation: 0,
+            tickSize: -5,
+            labelOffset: 5,
+            labelRotate: 0,
         },
         bottom: {
-            size: -5,
-            padding: 5,
-            rotation: 0,
+            tickSize: -5,
+            labelOffset: 5,
+            labelRotate: 0,
         },
         left: {
-            size: -5,
-            padding: 5,
-            rotation: 0,
+            tickSize: -5,
+            labelOffset: 5,
+            labelRotate: 0,
         },
         right: {
-            size: -5,
-            padding: 5,
-            rotation: 0,
+            tickSize: -5,
+            labelOffset: 5,
+            labelRotate: 0,
         },
     },
 }

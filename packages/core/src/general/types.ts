@@ -52,12 +52,5 @@ export type DimensionsContextProps = DimensionsProviderBaseProps & {
     innerSize: SizeSpec
 }
 
-export interface SurfaceProps extends SvgElementVariantProps {
-    /** variant */
-    variant?: 'inner' | 'outer'
-    /** expansion of background surface */
-    expansion?: FourSideSizeSpec
-}
-
 export type DataItem = Record<string, unknown>
 export type AccessorFunction<T> = (item: DataItem) => T

@@ -12,6 +12,8 @@ import { SymbolProps } from '../shapes'
 import { AxisTicksProps } from '../axes'
 
 export interface LegendTitleProps extends SvgElementProps {
+    /** variant */
+    variant?: 'legend-title'
     /** position of symbol */
     position: NumericPositionSpec
     /** size of a single legend item */
@@ -26,7 +28,9 @@ export interface LegendTitleProps extends SvgElementProps {
     children?: ReactNode
 }
 
-export interface LegendItemProps extends LegendTitleProps {
+export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
+    /** variant */
+    variant?: 'legend-item'
     /** size of symbol */
     r?: number
     /** symbol function */
@@ -43,7 +47,20 @@ export interface LegendItemProps extends LegendTitleProps {
     colorIndex?: number
 }
 
-export interface LegendColorScaleProps extends LegendTitleProps, AxisTicksProps {
+export interface LegendItemThemedProps
+    extends Pick<
+        LegendItemProps,
+        'size' | 'padding' | 'translate' | 'align' | 'r' | 'labelOffset'
+    > {
+    size: SizeSpec
+    padding: FourSideSizeSpec
+    translate: NumericPositionSpec
+    align: 'left' | 'middle' | 'right'
+    r: number
+    labelOffset: NumericPositionSpec
+}
+
+export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {
     /** number, or location, of ticks */
     ticks?: number[] | number
     /** offset of color axis from default position */
@@ -75,4 +92,19 @@ export interface LegendProps
     firstOffset?: NumericPositionSpec
     /** size for scale */
     scaleSize?: SizeSpec
+}
+
+export interface LegendThemedProps
+    extends Pick<
+        LegendProps,
+        'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
+    > {
+    itemSize: SizeSpec
+    itemPadding: FourSideSizeSpec
+    horizontal: boolean
+    firstOffset: NumericPositionSpec
+    scaleSize: SizeSpec
+    align: 'left' | 'middle' | 'right'
+    r: number
+    labelOffset: NumericPositionSpec
 }

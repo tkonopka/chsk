@@ -3,7 +3,7 @@ import { SvgElementVariantProps } from '../general'
 
 export type SideType = 'top' | 'right' | 'left' | 'bottom'
 
-export type TickType = number | number[] | string[]
+export type TickType = undefined | number | number[] | string[]
 
 export interface AxisProps extends SvgElementVariantProps {
     /** type of axis */
@@ -16,6 +16,10 @@ export interface AxisProps extends SvgElementVariantProps {
     offset?: number
     /** components rendered within the axis frame */
     children?: ReactNode
+}
+export interface AxisThemedProps extends Pick<AxisProps, 'offset' | 'ticks'> {
+    offset: number
+    ticks: TickType
 }
 
 export interface AxisLineProps extends SvgElementVariantProps {
@@ -34,6 +38,12 @@ export interface AxisLabelProps extends SvgElementVariantProps {
     rotate?: number
     /** string label */
     children?: string
+}
+
+export interface AxisLabelThemedProps extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'rotate'> {
+    anchor: 'start' | 'middle' | 'end' | number
+    offset: number
+    rotate: number
 }
 
 export type TickFormatType = (v: unknown) => string
@@ -55,4 +65,12 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     labelFormat?: undefined | null | TickFormatType
     /** style for tick labels (text) */
     labelStyle?: Partial<CSSProperties>
+}
+
+export interface AxisTicksThemedProps
+    extends Pick<AxisTicksProps, 'ticks' | 'tickSize' | 'labelOffset' | 'labelRotate'> {
+    ticks: TickType
+    tickSize: number
+    labelOffset: number
+    labelRotate: number
 }

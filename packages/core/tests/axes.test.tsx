@@ -15,7 +15,7 @@ describe('Axis', () => {
         expect(axis).toBeDefined()
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axisLabel')
+        const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('top axis')
     })
 
@@ -31,7 +31,7 @@ describe('Axis', () => {
         expect(axis).toBeDefined()
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axisLabel')
+        const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('bottom axis')
     })
 
@@ -47,7 +47,7 @@ describe('Axis', () => {
         expect(axis).toBeDefined()
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axisLabel')
+        const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('left axis')
     })
 
@@ -63,7 +63,7 @@ describe('Axis', () => {
         expect(axis).toBeDefined()
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axisLabel')
+        const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('right axis')
     })
 
@@ -75,7 +75,7 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const label = screen.queryByRole('axisLabel')
+        const label = screen.queryByRole('axis-label')
         expect(label).toBeNull()
     })
 
@@ -94,7 +94,7 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const label = screen.getByRole('axisLabel')
+        const label = screen.getByRole('axis-label')
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
         expect(label?.getAttribute('transform')).toContain('translate(320')
@@ -113,7 +113,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('tickLabel')
+        const result = screen.getAllByRole('tick-label')
         expect(result[0].textContent).toContain('%')
     })
 
@@ -141,7 +141,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryAllByRole('tickLabel')
+        const result = screen.queryAllByRole('tick-label')
         expect(result).toHaveLength(0)
     })
 
@@ -155,7 +155,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryAllByRole('tickLabel')
+        const result = screen.queryAllByRole('tick-label')
         expect(result).toHaveLength(3)
     })
 
@@ -169,7 +169,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryAllByRole('tickLabel')
+        const result = screen.queryAllByRole('tick-label')
         expect(result[1].getAttribute('transform')).toContain('rotate(')
     })
 })

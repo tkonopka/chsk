@@ -54,7 +54,7 @@ export const LegendColorScale = ({
                 stops={stops}
             />
             <Rectangle
-                variant="legendColorScale"
+                variant="legend-color-scale"
                 x={0}
                 y={0}
                 width={size[0]}

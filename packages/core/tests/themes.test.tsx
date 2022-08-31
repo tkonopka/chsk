@@ -1,9 +1,9 @@
-import { mergeTheme, defaultTheme, Chart, addColor, addOpacity } from '../src'
-import { ThemeSpec } from '../src'
 import { render, screen } from '@testing-library/react'
+import { mergeTheme, defaultTheme, Chart, addColor, addOpacity, AxisProps } from '../src'
+import { ThemeSpec, themedProps } from '../src'
 import { chartProps } from './props'
 
-describe('themes', () => {
+describe('mergeTheme', () => {
     it('merge adds a new property', () => {
         const customTheme: ThemeSpec = {
             line: {
@@ -76,5 +76,36 @@ describe('addOpacity', () => {
     it('add to an empty style ', () => {
         const result = addOpacity(undefined, 0.5)
         expect(result.opacity).toEqual(0.5)
+    })
+})
+
+describe('themedProps', () => {
+    it('completes props from theme', () => {
+        const customTheme: ThemeSpec = {
+            Axis: {
+                top: {
+                    offset: 10,
+                },
+                bottom: {
+                    offset: 5,
+                },
+                left: {
+                    offset: 7,
+                },
+            },
+        }
+        let result: AxisProps = { variant: 'top' }
+        const GetThemedAxisProps = (props: AxisProps) => {
+            result = themedProps(props, 'Axis')
+            return null
+        }
+
+        render(
+            <Chart theme={customTheme}>
+                <GetThemedAxisProps variant={'top'} />
+            </Chart>
+        )
+        expect(result['variant']).toEqual('top')
+        expect(result['offset']).toEqual(10)
     })
 })

@@ -1,35 +1,28 @@
 import { LazyMotion, domAnimation } from 'framer-motion'
-import {
-    createContinuousScaleProps,
-    createAxisScales,
-    defaultLinearScaleSpec,
-    createColorScale,
-    createContinuousScale,
-    createColorScaleProps,
-} from '../scales'
+import { createAxisScales, createColorScale, createContinuousScale } from '../scales'
 import { ViewProps } from './types'
 import { useView } from './hooks'
-import { useTheme } from '../themes'
 import { BaseView } from './BaseView'
+import { themedProps } from '../themes'
+import { defaultViewProps } from './defaults'
 
-export const View = ({
-    position = [0, 0],
-    size = [1, 1],
-    units = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
+export const UnthemedView = ({
+    variant = 'default',
+    position = defaultViewProps.position,
+    size = defaultViewProps.size,
+    units = defaultViewProps.units,
+    anchor = defaultViewProps.anchor,
+    padding = defaultViewProps.padding,
     data = [],
-    scaleX = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
-    scaleY = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
-    scaleColor,
-    scaleSize = createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
+    scaleX = defaultViewProps.scaleX,
+    scaleY = defaultViewProps.scaleY,
+    scaleColor = defaultViewProps.scaleColor,
+    scaleSize = defaultViewProps.scaleSize,
     children,
 }: ViewProps) => {
-    const theme = useTheme()
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
-    const scaleColorProps = scaleColor ?? createColorScaleProps(theme.Colors.categorical, [0, 100])
-    scales.color = createColorScale(scaleColorProps)
+    scales.color = createColorScale(scaleColor)
     scales.size = createContinuousScale({ size: 100, ...scaleSize })
 
     const isArray = Array.isArray(data)
@@ -47,9 +40,11 @@ export const View = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
-            role={'view'}
+            role={variant === 'default' ? 'view' : 'view-' + variant}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>
         </BaseView>
     )
 }
+
+export const View = (props: ViewProps) => <UnthemedView {...themedProps(props, 'View')} />

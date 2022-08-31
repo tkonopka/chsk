@@ -2,13 +2,14 @@ import { ReactNode } from 'react'
 import { LegendProps } from './types'
 import { useProcessedData, useView } from '../views'
 import { LegendTitle } from './LegendTitle'
-import { useTheme } from '../themes'
+import { themedProps } from '../themes'
 import { LegendItem } from './LegendItem'
 import { DimensionsProvider, NumericPositionSpec } from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
+import { defaultLegendProps } from './defaults'
 
-export const Legend = ({
+export const UnthemedLegend = ({
     variant = 'list',
     // layout of container
     position = [1, 0.5],
@@ -17,46 +18,38 @@ export const Legend = ({
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     // organization of items within the container
-    itemSize,
-    itemPadding,
-    align,
-    horizontal = false,
-    firstOffset,
+    itemSize = defaultLegendProps.itemSize,
+    itemPadding = defaultLegendProps.itemPadding,
+    align = defaultLegendProps.align,
+    horizontal = defaultLegendProps.horizontal,
+    firstOffset = defaultLegendProps.firstOffset,
     // title
     title,
     titleStyle,
     // only for discrete items
-    r,
+    r = defaultLegendProps.r,
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset,
+    labelOffset = defaultLegendProps.labelOffset,
     // only for color scale
-    scaleSize,
+    scaleSize = defaultLegendProps.scaleSize,
     // general svg
     className,
     style,
     setRole = true,
     children,
 }: LegendProps) => {
-    const theme = useTheme().Legend
     const scales = useScales()
     const data = useProcessedData()
     const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
 
-    // settings from props (preferred) or from theme
-    const iSize = itemSize ?? theme.itemSize
-    const sSize = scaleSize ?? theme.scaleSize
-    const fOffset = firstOffset ?? theme.firstOffset
-    const lOffset = labelOffset ?? theme.labelOffset
-    const symbolR = r ?? theme.r
-
     // book-keeping for position of legend item position
     const pos: NumericPositionSpec = [0, 0]
-    const step = horizontal ? [iSize[0], 0] : [0, iSize[1]]
+    const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {
-        pos[0] += step[0] + fOffset[0]
-        pos[1] += step[1] + fOffset[1]
+        pos[0] += step[0] + firstOffset[0]
+        pos[1] += step[1] + firstOffset[1]
     }
 
     // legend content
@@ -65,17 +58,18 @@ export const Legend = ({
         content = data.keys.map((k: string, i: number) => {
             return (
                 <LegendItem
+                    variant={'legend-item'}
                     key={'legend-item-' + i}
                     position={[pos[0] + i * step[0], pos[1] + i * step[1]]}
                     size={itemSize}
                     padding={itemPadding}
                     align={align}
-                    r={symbolR}
+                    r={r}
                     symbol={symbol}
                     symbolStyle={symbolStyle}
                     label={k}
                     labelStyle={labelStyle}
-                    labelOffset={lOffset}
+                    labelOffset={labelOffset}
                     colorIndex={i}
                     setRole={setRole}
                 />
@@ -86,7 +80,7 @@ export const Legend = ({
             <LegendColorScale
                 key={'legend-color-scale'}
                 variant={horizontal ? 'bottom' : 'right'}
-                size={sSize}
+                size={scaleSize}
                 padding={itemPadding}
                 position={pos}
             />
@@ -107,10 +101,11 @@ export const Legend = ({
                     <>
                         <LegendTitle
                             key={'legend-title'}
+                            variant={'legend-title'}
                             position={[0, 0]}
                             size={itemSize}
                             padding={itemPadding}
-                            translate={[0, symbolR]}
+                            translate={[0, r]}
                             align={align}
                             style={titleStyle}
                             setRole={setRole}
@@ -124,3 +119,5 @@ export const Legend = ({
         </DimensionsProvider>
     )
 }
+
+export const Legend = (props: LegendProps) => <UnthemedLegend {...themedProps(props, 'Legend')} />

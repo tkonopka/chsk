@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { AxisLabel } from '../../src'
-import { ChartAxisDecorator } from './decorators'
+import { ChartBottomAxisDecorator, ChartLeftAxisDecorator } from './decorators'
 
 # Axis
 
@@ -15,36 +15,47 @@ Note that `AxisLabel` is intended to be wrapped in an `Axis` component.
 
 ## Variants
 
-Predefined variants place a label near the top, right, bottom, or left axis. For brevity, the example below shows ticks on the bottom axis.
+Predefined variants place a label near the top, right, bottom, or left axis. For brevity, the examples below shows labels on the bottom and left axes.
 
 <Canvas>
     <Story
-        name="default"
+        name="bottom axis"
         args={{
             variant: 'bottom',
             children: 'axis label',
         }}
         component={AxisLabel}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="left axis"
+        args={{
+            variant: 'left',
+            children: 'axis label',
+        }}
+        component={AxisLabel}
+        decorators={[ChartLeftAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-## Padding
+## Offset
 
-The distance between the axis line and the axis label is controlled by prop `padding`. The value can be positive (further away from the chart surface) or negative (moved toward the chart surface).
+The distance between the axis line and the axis label is controlled by prop `offset`. The value can be positive (further away from the chart surface) or negative (moved toward the chart surface).
 
 <Canvas>
     <Story
-        name="padding"
+        name="negative offset"
         args={{
             variant: 'bottom',
             children: 'axis label',
-            padding: -10,
+            offset: -10,
         }}
         component={AxisLabel}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -67,7 +78,7 @@ The value of this prop is often adjusted together with the css style `textAnchor
             },
         }}
         component={AxisLabel}
-        decorators={[ChartAxisDecorator]}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>

@@ -1,37 +1,35 @@
 import { Typography } from '../typography'
 import { LEFT, RIGHT, TOP } from '../general'
+import { themedProps } from '../themes'
 import { LegendTitleProps } from './types'
-import { useTheme } from '../themes'
+import { defaultLegendItemProps } from './defaults'
 
-export const LegendTitle = ({
+export const UnthemedLegendTitle = ({
+    variant = 'legend-title',
     position,
-    size,
-    padding,
-    align = 'left',
-    translate = [0, 0],
+    size = defaultLegendItemProps.size,
+    padding = defaultLegendItemProps.padding,
+    align = defaultLegendItemProps.align,
+    translate = defaultLegendItemProps.translate,
     className,
     style,
     setRole = true,
     children,
 }: LegendTitleProps) => {
-    const theme = useTheme().Legend
-    const itemPadding = padding ?? theme.itemPadding
-    const itemSize = size ?? theme.itemSize
-
     let x = position[0] + translate[0]
-    const y = position[1] + translate[1] + itemPadding[TOP]
+    const y = position[1] + translate[1] + padding[TOP]
     if (align === 'left') {
-        x += itemPadding[LEFT]
+        x += padding[LEFT]
     } else if (align === 'right') {
-        x += itemSize[0] - itemPadding[RIGHT]
+        x += size[0] - padding[RIGHT]
     } else if (align === 'middle') {
-        x += itemPadding[LEFT] + (itemSize[0] - itemPadding[LEFT] - itemPadding[RIGHT]) / 2
+        x += padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
     }
 
     return (
         <Typography
             position={[x, y]}
-            variant={'legendTitle'}
+            variant={variant}
             className={className}
             style={style}
             setRole={setRole}
@@ -40,3 +38,7 @@ export const LegendTitle = ({
         </Typography>
     )
 }
+
+export const LegendTitle = (props: LegendTitleProps) => (
+    <UnthemedLegendTitle {...themedProps(props, 'LegendTitle')} />
+)
