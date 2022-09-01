@@ -4,9 +4,50 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 # Chask
 
-'chask' is a charting library for React.
+`chask` is a charting library for React (javascript).
 
 The name `chask` stands for 'chart skeletons'.
-The library provides components that can be used to compose data-based visualizations.
+The library provides components that can be used to build data-based visualizations one piece at a time.
 
-To do
+## Why `chask`?
+
+There exist numerous charting libraries for javascript and for React. In particular, [d3](https://github.com/d3/d3) provides low-level tools for manipulating datasets and graphics. Libraries such as [recharts](https://github.com/recharts/recharts), [nivo](https://github.com/plouc/nivo), [reaviz](https://github.com/reaviz/reaviz), and others provide high-level interfaces in React to build complex visualizations.
+
+`chask` takes an approach that lies between the low-level capabilities of d3 and the high-level interfaces of React charting libraries. The intermediate space is suited for creating customized visualizations, including complex ones with multiple views and datasets.
+
+Some examples of `chask` charts are available in the [gallery](/?path=/docs/gallery).
+
+
+## Features
+
+### Reusable components
+
+`chask` provides re-usable components that can be applied in many chart types. For example, axes and legends can be used in both bar charts and scatter charts. A common implementation for these component means that they can be used with the same API, and also styled with the same visual styles and themes.
+
+### Base charts
+
+The library provides infrastructure for some commonly-used charts, for example bar charts, scatter charts, or heat maps.
+
+### Styles and themes
+
+All components can be customized using css. Visual styles are also adjustable via global themes. It is thus possible to quickly change the look-and-feel of charts by applying a different theme, and to create multiple charts with a consistent appearance.
+
+### Interactivity
+
+(Interactivity is currently limited; more on this coming soon).
+
+### Hooks
+
+The library exports React hooks that can be used in custom components. This enables custom components to access any information about a chart that it needs. For example, a custom component can access the chart dimensions, current dataset in raw format, current dataset in a processed format, scales used for axes, or theme.
+
+### Calculation
+
+Some `chask` components perform a limited amount of calculation on data. For example, the `Histogram` component in package `@chask/xy` performs data binning to summarize a data distribution. Component `Quantile` in package `@chask/band` computes quantiles to display box plots. Component `Regression` in package `@chask/xy` performs linear regression modeling to display a best-fit line.
+
+### Multiple views
+
+`chask` provides infrastructure to create charts with multiple 'views'. For example, it is possible to create side-by-side bar graphs or side-by-side scatter graphs within a single graphic.
+
+### Milestone animation
+
+The library provides a scheme to animate the content of a chart based on user interactions. This can be used, for example, to make chart elements appear in stages, as if in a chart 'walk-through'.

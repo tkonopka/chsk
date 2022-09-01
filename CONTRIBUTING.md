@@ -3,8 +3,8 @@
 ## Setup
 
 ```
-npm install    // install dependencies for the monorepo
-npm run init   // install further dependencies for the chask packages
+npm install         // install dependencies for the monorepo
+npm run bootstrap   // install further dependencies for the chask packages
 ```
 
 ## Development
@@ -24,27 +24,31 @@ npm run lint
 npm run build
 ```
 
-To focus development on one package, pass a `--scope` argument with the target package name.
+To focus development on one package, apply the same command from within that package's directory. 
 
 ```
-npm run lint --scope=@chask/core
-npm run build --scope=@chask/core
+cd packages/core
+npm run lint
+npm run build
+cd ../../
 ```
 
 ### Test
 
-Unit tests are managed using `jest` and `lerna`. The test suite can be executed as-is, or with coverage summary.
+Unit tests are managed using `jest` and `lerna`.
 
 ```
+npm run test            // basic test suite
+npm run test-coverage   // test suite with coverage (results will be package-specific)
+```
+
+To focus development on one package, apply the same commands from within that package's directory.
+
+```
+cd packages/core
 npm run test
 npm run test-coverage
-```
-
-To focus development on one package, pass a `--scope` argument with the target package name.
-
-```
-npm run test --scope=@chask/core
-npm run test-coverage --scope=@chask/core
+cd ../../
 ```
 
 ### Storybook
