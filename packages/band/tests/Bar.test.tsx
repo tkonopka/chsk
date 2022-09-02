@@ -1,8 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import {
     Chart,
-    createBandScale,
-    createContinuousScale,
     defaultDivergingScale,
     defaultSequentialScale,
     defaultSizeScale,
@@ -88,7 +86,7 @@ describe('Bar', () => {
             <Chart>
                 <Bar
                     {...barProps}
-                    stacked={true}
+                    variant={'stacked'}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
@@ -117,7 +115,7 @@ describe('Bar', () => {
             <Chart>
                 <Bar
                     {...barProps}
-                    stacked={true}
+                    variant={'stacked'}
                     horizontal={true}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}

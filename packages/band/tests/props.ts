@@ -1,4 +1,4 @@
-import { BarProps, BarDataItem, QuantileProps } from '../src'
+import { BarProps, BarDataItem, QuantileProps, StripProps } from '../src'
 import { createBandScale, createContinuousScale } from '@chask/core'
 
 export const dummyBandScale = createBandScale({ domain: ['a'], size: 100 })
@@ -44,7 +44,7 @@ const dataRawValues: Array<BarDataItem> = [
         id: 'alpha',
         label: 'alpha',
         x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-        y: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20],
+        y: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20].reverse(),
     },
     {
         id: 'beta',
@@ -57,6 +57,22 @@ const dataRawValues: Array<BarDataItem> = [
 export const quantileProps: QuantileProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
+    scaleIndex: {
+        variant: 'band' as const,
+        domain: ['alpha', 'beta'],
+    },
+    scaleValue: {
+        variant: 'linear' as const,
+        domain: [0, 100] as [number, number],
+    },
+}
+
+// props for strip charts are almost the same as for quantile plots
+// but create separate object for easier reading
+export const stripProps: StripProps = {
+    data: dataRawValues,
+    keys: ['x', 'y'],
+    r: 2,
     scaleIndex: {
         variant: 'band' as const,
         domain: ['alpha', 'beta'],

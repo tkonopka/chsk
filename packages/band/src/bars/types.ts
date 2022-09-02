@@ -43,7 +43,9 @@ export type BarPreparedDataContextProps = {
     keys: string[]
 }
 
-export interface BarProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
+export interface BarProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY'> {
+    /** variant */
+    variant?: 'grouped' | 'stacked'
     /** data */
     data: Array<BarDataItem>
     /** list of all keys associated with a band */

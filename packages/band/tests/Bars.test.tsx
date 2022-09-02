@@ -7,7 +7,7 @@ describe('Bars', () => {
     it('defines grouped bars (vertical)', () => {
         render(
             <Chart>
-                <Bar {...barProps} stacked={false}>
+                <Bar {...barProps} variant={'grouped'}>
                     <Bars />
                 </Bar>
             </Chart>
@@ -22,7 +22,7 @@ describe('Bars', () => {
     it('defines stacked bars (vertical)', () => {
         render(
             <Chart size={[440, 340]} padding={[20, 20, 20, 20]}>
-                <Bar {...barProps} stacked={true}>
+                <Bar {...barProps} variant={'stacked'}>
                     <Bars />
                 </Bar>
             </Chart>
@@ -40,7 +40,7 @@ describe('Bars', () => {
     it('defines grouped bars (horizontal)', () => {
         render(
             <Chart>
-                <Bar {...barProps} stacked={false} horizontal={true}>
+                <Bar {...barProps} variant={'grouped'} horizontal={true}>
                     <Bars />
                 </Bar>
             </Chart>
@@ -65,7 +65,7 @@ describe('Bars', () => {
                 <Bar
                     data={dataMissing}
                     keys={['x', 'y']}
-                    stacked={true}
+                    variant={'stacked'}
                     scaleIndex={{
                         variant: 'band' as const,
                         domain: ['X', 'Y'],

@@ -15,61 +15,64 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
-    getMinMax,
     defaultViewProps,
+    getMinMax,
 } from '@chask/core'
 import {
-    FiveNumbers,
-    QuantileDataItem,
-    QuantilePreparedDataItem,
-    QuantileProcessedDataItem,
-    QuantileProps,
+    StripDataItem,
+    StripPreparedDataItem,
+    StripProcessedDataItem,
+    StripProps,
+    StripVariant,
 } from './types'
-import { QuantilePreparedDataProvider } from './context'
-import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
-import { getQuantiles } from './utils'
+import { StripPreparedDataProvider } from './context'
+import { getInternalWidthAndGap, getScaleProps } from '../bars/utils'
+import { getStripInternalOrder } from './utils'
 
-// turn raw data into objects with computed quantile levels
+// turn raw data into a minimal array-based format
 const processData = (
-    data: Array<QuantileDataItem>,
+    data: Array<StripDataItem>,
     accessors: Array<AccessorFunction<unknown>>,
-    quantiles: FiveNumbers
-): Array<QuantileProcessedDataItem> => {
+    r: number,
+    variant: StripVariant
+): Array<StripProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
             const raw = f(seriesData) as number[]
             return {
-                values: getQuantiles(raw, quantiles) as FiveNumbers,
-                extrema: getMinMax(raw),
-                quantiles,
+                value: raw,
+                internal: getStripInternalOrder(variant, raw),
+                r: Array(raw.length).fill(r),
             }
         })
         return {
             id: seriesData.id,
             index,
-            summaries,
-            values: summaries.map(summary => summary.extrema).flat(),
+            data: summaries,
+            values: summaries.map(summary => getMinMax(summary.value)).flat(),
         }
     })
 }
 
 // turn processed data into view-specific coordinates
 const prepareData = (
-    data: Array<QuantileProcessedDataItem>,
+    data: Array<StripProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
     horizontal: boolean,
     width: number,
     gap: number
-): Array<QuantilePreparedDataItem> => {
+): Array<StripPreparedDataItem> => {
     return data.map(seriesData => {
         let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
-        const summaries = seriesData.summaries.map(summary => {
+        const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
+            const internalInterval = width / (summary.value.length - 1)
+            const internalStart = bandStart - width - gap
             return {
-                values: summary.values.map(v => valueScale(v)) as FiveNumbers,
-                quantiles: summary.quantiles as FiveNumbers,
-                extrema: summary.extrema.map(v => valueScale(v)) as [number, number],
+                value: summary.value.map(v => valueScale(v)),
+                internal: summary.internal.map(v => internalStart + v * internalInterval),
+                r: summary.r.map(v => v),
                 bandStart: bandStart - width - gap,
                 bandWidth: width,
             }
@@ -77,12 +80,12 @@ const prepareData = (
         return {
             id: seriesData.id,
             index: seriesData.index,
-            summaries,
+            data: summaries,
         }
     })
 }
 
-export const Quantile = ({
+export const Strip = ({
     // layout
     position = defaultViewProps.position,
     size = defaultViewProps.size,
@@ -92,7 +95,8 @@ export const Quantile = ({
     // content
     data,
     keys,
-    quantiles = [0.05, 0.25, 0.5, 0.75, 0.95],
+    variant = 'default',
+    r = 3,
     horizontal = false,
     autoRescale = true,
     paddingInternal = 0,
@@ -101,7 +105,7 @@ export const Quantile = ({
     scaleColor,
     //
     children,
-}: QuantileProps) => {
+}: StripProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
     const { disabledKeys } = useDisabledKeys()
@@ -110,8 +114,8 @@ export const Quantile = ({
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
-        () => processData(data, keyAccessors, quantiles),
-        [data, keyAccessors, quantiles]
+        () => processData(data, keyAccessors, r, variant),
+        [data, keyAccessors, r, variant]
     )
 
     const disabledKeysBools = useMemo(
@@ -134,15 +138,15 @@ export const Quantile = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
+    const [stripWidth, stripGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
     const preparedData = useMemo(
-        () => prepareData(processedData, indexScale, valueScale, horizontal, boxWidth, boxGap),
-        [processedData, indexScale, valueScale, horizontal, boxWidth, boxGap]
+        () => prepareData(processedData, indexScale, valueScale, horizontal, stripWidth, stripGap),
+        [processedData, horizontal, indexScale, valueScale, stripWidth, stripGap]
     )
 
     return (
         <BaseView
-            role={'view-quantile'}
+            role={'view-strip'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -152,13 +156,13 @@ export const Quantile = ({
             keys={keys}
             scales={scales}
         >
-            <QuantilePreparedDataProvider
+            <StripPreparedDataProvider
                 data={preparedData}
                 seriesIndexes={seriesIndexes}
                 keys={keys}
             >
                 <LazyMotion features={domAnimation}>{children}</LazyMotion>
-            </QuantilePreparedDataProvider>
+            </StripPreparedDataProvider>
         </BaseView>
     )
 }

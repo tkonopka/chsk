@@ -1,0 +1,64 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Square } from '@chask/core'
+import { Strip, Strips } from '../src'
+import { ChartStripHorizontalDecorator } from './decorators'
+
+# Strips
+
+<Meta title="Addons/Band/Strips" />
+export const Template = args => <Strips {...args} />
+
+`Strips` draws data points on a strip chart.
+
+<ArgsTable of={Strips} />
+
+Note that the `Strips` component is intended to be used within a `Strip` component. The `Strips` component is the one that draws data points, but much of the layout is determined by `Strip`.
+
+## Data subsets
+
+By default, `Strips` draws the entire dataset. To draw subsets, set the props `ids` and `keys`.
+
+<Canvas>
+    <Story
+        name="selected ids"
+        args={{
+            ids: ['alpha'],
+            symbolStyle: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={Strips}
+        decorators={[ChartStripHorizontalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="selected keys"
+        args={{
+            keys: ['x'],
+            symbolStyle: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={Strips}
+        decorators={[ChartStripHorizontalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Symbols
+
+Prop `component` accepts a function for rendering individual data points. The default function draws circles, but this can be replaced, for example, to create squares or other symbols.
+
+<Canvas>
+    <Story
+        name="symbols"
+        args={{
+            component: Square,
+            symbolStyle: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={Strips}
+        decorators={[ChartStripHorizontalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+See documentation in `@chask/core` for symbols `Circle`, `Diamond`, `Square`, `Triangle`, `InvertedTriangle`.

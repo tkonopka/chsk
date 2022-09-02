@@ -24,7 +24,7 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
             <Bar
                 data={rawData}
                 keys={stackedKeys}
-                stacked={true}
+                variant={'stacked'}
                 scaleIndex={{
                     variant: 'band',
                     domain: stackedIds,
@@ -63,7 +63,7 @@ export const StackedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
             <Bar
                 data={rawData}
                 keys={stackedKeys}
-                stacked={true}
+                variant={'stacked'}
                 scaleIndex={{
                     variant: 'band',
                     domain: stackedIds,

@@ -40,7 +40,7 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             data={rawData}
             keys={['alpha', 'beta']}
             horizontal={true}
-            stacked={true}
+            variant={'stacked'}
             scaleIndex={{
                 variant: 'band',
                 domain: stackedIds,

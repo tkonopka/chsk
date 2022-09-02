@@ -73,7 +73,7 @@ const multiviewTheme: ThemeSpec = {
 const multiviewBarProps = {
     size: [0.333, 1] as SizeSpec,
     units: 'relative' as const,
-    stacked: true,
+    variant: 'stacked' as const,
     horizontal: true,
     scaleIndex: {
         variant: 'band' as const,

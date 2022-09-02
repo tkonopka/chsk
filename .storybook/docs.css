@@ -90,13 +90,31 @@ div.controller-spacer {
 }
 div.controller button {
     margin: 0;
-    padding: 3px 5px;
+    padding: 2px 3px;
     border-radius: 5px;
     background-color: #ffffff;
     border: solid 1px #ffffff;
+    position: relative;
 }
 div.controller button:hover {
     border: solid 1px #f0f0f0;
     background-color: #f4f4f4;
     cursor: pointer;
+}
+div.controller span.tooltip {
+    visibility: hidden;
+    background-color: #262626;
+    color: #fff;
+    text-align: center;
+    padding: 5px 5px;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+    top: 35px;
+    left: 50%;
+    width: 120px;
+    margin-left: -60px;
+}
+div.controller button:hover span.tooltip {
+    visibility: visible;
 }

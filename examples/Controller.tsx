@@ -1,13 +1,13 @@
 import { createElement, useRef, useState } from 'react'
 import { ChartRef } from '@chask/core'
 import {
-    SkipPreviousIcon,
     ReplayIcon,
-    SkipNextIcon,
-    FastRewindIcon,
-    FastForwardIcon,
     defaultIconActiveFill as activeFill,
     defaultIconInactiveFill as inactiveFill,
+    FirstPageIcon,
+    LastPageIcon,
+    PreviousIcon,
+    NextIcon,
 } from './icons'
 import { ControllerProps, MilestoneStep } from './types'
 
@@ -91,18 +91,16 @@ export const Controller = ({ generator, chart, steps = [] }: ControllerProps) =>
                         <div className={'controller-spacer'} />
                         <div className={'controller-label'}>Milestones</div>
                         <button onClick={handleFastRewind}>
-                            <FastRewindIcon fill={index > 0 ? activeFill : inactiveFill} />
+                            <FirstPageIcon fill={index > 0 ? activeFill : inactiveFill} />
                         </button>
                         <button onClick={handlePrevious}>
-                            <SkipPreviousIcon fill={index > 0 ? activeFill : inactiveFill} />
+                            <PreviousIcon fill={index > 0 ? activeFill : inactiveFill} />
                         </button>
                         <button onClick={handleNext}>
-                            <SkipNextIcon fill={index < steps.length ? activeFill : inactiveFill} />
+                            <NextIcon fill={index < steps.length ? activeFill : inactiveFill} />
                         </button>
                         <button onClick={handleFastForward}>
-                            <FastForwardIcon
-                                fill={index < steps.length ? activeFill : inactiveFill}
-                            />
+                            <LastPageIcon fill={index < steps.length ? activeFill : inactiveFill} />
                         </button>
                         <div className={'controller-progress'}>
                             ({status} / {allSteps.length})
@@ -120,3 +118,13 @@ export const Controller = ({ generator, chart, steps = [] }: ControllerProps) =>
         </div>
     )
 }
+
+/**
+
+ <span className="tooltip">new dataset</span>
+ <span className="tooltip">initial state</span>
+ <span className="tooltip">previous milestone</span>
+ <span className="tooltip">next milestone</span>
+ <span className="tooltip">final state</span>
+
+ */

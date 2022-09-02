@@ -1,4 +1,4 @@
-// generate some synthetic data from a uniform distribution
+// generate n values from a uniform distribution
 export const generateUniformValues = (n: number, interval: [number, number]) => {
     const size = interval[1] - interval[0]
     return Array(n)

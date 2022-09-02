@@ -25,15 +25,14 @@ import { getInternalWidthAndGap, getScaleProps } from './utils'
 
 // turn raw data into a minimal array-based format
 const processData = (
-    seriesData: BarDataItem,
-    index: number,
+    data: Array<BarDataItem>,
     accessors: Array<AccessorFunction<unknown>>
-): BarProcessedDataItem => {
-    return {
+): Array<BarProcessedDataItem> => {
+    return data.map((seriesData, index) => ({
         id: seriesData.id,
         index,
         values: accessors.map(f => Number(f(seriesData))),
-    }
+    }))
 }
 
 // turn processed data into view-specific coordinates
@@ -103,14 +102,6 @@ const prepareData = (
     }
 }
 
-export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProcessedDataItem> => {
-    const result = data.map((item: unknown) => {
-        if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'values' in item
-    })
-    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
-}
-
 export const Bar = ({
     // layout
     position = defaultViewProps.position,
@@ -119,10 +110,10 @@ export const Bar = ({
     anchor = defaultViewProps.anchor,
     padding = defaultViewProps.padding,
     // content
+    variant = 'grouped',
     data,
     keys,
     horizontal = false,
-    stacked = false,
     autoRescale = true,
     paddingInternal = 0,
     scaleIndex = defaultBandScaleSpec,
@@ -138,24 +129,19 @@ export const Bar = ({
 
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
-    const processedData = useMemo(
-        () =>
-            data.map((seriesData, seriesIndex) =>
-                processData(seriesData, seriesIndex, keyAccessors)
-            ),
-        [data, keyAccessors]
-    )
+    const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
 
     const disabledKeysBools = useMemo(
         () => keys.map(k => disabledKeys.has(k)),
         [keys, Array.from(disabledKeys)]
     )
+    const stacked = variant === 'stacked'
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
         processedData,
         scaleIndex,
         scaleValue,
-        stacked,
-        autoRescale ? disabledKeysBools : Array(keys.length).fill(false)
+        autoRescale ? disabledKeysBools : Array(keys.length).fill(false),
+        stacked
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue

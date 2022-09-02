@@ -39,17 +39,16 @@ The pseudocode below shows one data item with an identifier and three numeric va
 `}
 />
 
-## Orientation and Stacking
+## Variants
 
-Props `horizontal` and `stacking` determine the direction of the bars and whether they appear one-after-the-other or side-by-side.
+Prop `variant' specifies whether the bar chart should be organized with groups of bars displayed side-by-side, or stacked one after the other.
 
 <Canvas>
     <Story
         name="vertical, grouped"
         args={{
             ...commonBarProps,
-            horizontal: false,
-            stacked: false,
+            variant: 'grouped',
             children: <Bars />,
         }}
         component={Bar}
@@ -61,8 +60,7 @@ Props `horizontal` and `stacking` determine the direction of the bars and whethe
         name="vertical, stacked"
         args={{
             ...commonBarProps,
-            horizontal: false,
-            stacked: true,
+            variant: 'stacked',
             children: <Bars />,
         }}
         component={Bar}
@@ -70,12 +68,19 @@ Props `horizontal` and `stacking` determine the direction of the bars and whethe
     >
         {Template.bind({})}
     </Story>
+</Canvas>
+
+## Orientation
+
+Prop `horizontal` determines the orientation of the bars.
+
+<Canvas>
     <Story
         name="horizontal, grouped"
         args={{
             ...commonBarProps,
             horizontal: true,
-            stacked: false,
+            variant: 'grouped',
             children: <Bars />,
         }}
         component={Bar}
@@ -88,7 +93,7 @@ Props `horizontal` and `stacking` determine the direction of the bars and whethe
         args={{
             ...commonBarProps,
             horizontal: true,
-            stacked: true,
+            variant: 'stacked',
             children: <Bars />,
         }}
         component={Bar}
@@ -107,8 +112,8 @@ The specification of the band axis through prop `scaleIndex` controls the spacin
         name="large outer padding"
         args={{
             ...commonBarProps,
+            variant: 'stacked',
             horizontal: false,
-            stacked: true,
             scaleIndex: {
                 variant: 'band',
                 paddingOuter: 0.8,
@@ -125,8 +130,8 @@ The specification of the band axis through prop `scaleIndex` controls the spacin
         name="large inner padding"
         args={{
             ...commonBarProps,
+            variant: 'stacked',
             horizontal: false,
-            stacked: true,
             scaleIndex: {
                 variant: 'band',
                 paddingOuter: 0.1,
@@ -151,7 +156,6 @@ For grouped bars, an additional padding prop `paddingInternal` controls the spac
         args={{
             ...commonBarProps,
             horizontal: false,
-            stacked: false,
             paddingInternal: 0.8,
             children: <Bars />,
         }}
@@ -165,7 +169,6 @@ For grouped bars, an additional padding prop `paddingInternal` controls the spac
         args={{
             ...commonBarProps,
             horizontal: false,
-            stacked: false,
             paddingInternal: 0.0,
             children: <Bars />,
         }}
@@ -186,7 +189,6 @@ The prop `keys` determines the number of subgroups that are incorporated into th
         args={{
             ...commonBarProps,
             horizontal: false,
-            stacked: false,
             keys: ['x', 'y'],
             children: <Bars />,
         }}
@@ -200,7 +202,6 @@ The prop `keys` determines the number of subgroups that are incorporated into th
         args={{
             ...commonBarProps,
             horizontal: false,
-            stacked: false,
             keys: ['x'],
             children: <Bars />,
         }}
@@ -223,7 +224,6 @@ By default, bars are arranged with equal spacing along the axis. It is possible 
             data: dataSingles,
             keys: ['value'],
             horizontal: false,
-            stacked: false,
             scaleIndex: {
                 variant: 'band',
                 domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
@@ -243,7 +243,6 @@ By default, bars are arranged with equal spacing along the axis. It is possible 
             data: dataSingles,
             keys: ['value'],
             horizontal: false,
-            stacked: false,
             scaleIndex: {
                 variant: 'band',
                 domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
@@ -290,9 +289,9 @@ Bars that would correspond to id-key combinations with missing values are omitte
         name="missing keys"
         args={{
             ...commonBarProps,
+            variant: 'stacked',
             data: dataMissing,
             horizontal: false,
-            stacked: true,
             scaleIndex: {
                 variant: 'band',
                 padding: 0.2,
@@ -337,9 +336,9 @@ export const BarsAndLegend = () => {
         name="auto-rescaling"
         args={{
             ...commonBarProps,
+            variant: 'stacked',
             data: dataMissing,
             horizontal: false,
-            stacked: true,
             scaleIndex: {
                 variant: 'band',
                 padding: 0.2,
@@ -356,9 +355,9 @@ export const BarsAndLegend = () => {
         name="fixed scales"
         args={{
             ...commonBarProps,
+            variant: 'stacked',
             data: dataMissing,
             horizontal: false,
-            stacked: true,
             scaleIndex: {
                 variant: 'band',
                 padding: 0.2,

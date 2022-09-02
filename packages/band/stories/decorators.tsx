@@ -1,12 +1,10 @@
 import { ReactNode } from 'react'
 import { Chart, Axis, Surface, GridLines } from '@chask/core'
-import { Bar, Bars, QuantileProps } from '../src/'
+import { Bar, Bars, BarProps, Quantile, QuantileProps, Strip, StripProps } from '../src/'
 import dataGroups from './dataGroups.json'
-import { BarProps } from '../src'
 import { generateUniformValues } from './generators'
-import { Quantile } from '../src/quantiles/Quantile'
 
-export const commonBarProps: Pick<BarProps, 'data' | 'keys' | 'scaleIndex' | 'scaleValue'> = {
+export const commonBarProps: BarProps = {
     data: dataGroups,
     keys: ['x', 'y', 'z'],
     scaleIndex: {
@@ -69,6 +67,8 @@ export const ChartWithLegendDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+/** quantile charts */
+
 export const dataRawValues = [
     {
         id: 'alpha',
@@ -82,10 +82,7 @@ export const dataRawValues = [
     },
 ]
 
-export const commonQuantileProps: Pick<
-    QuantileProps,
-    'data' | 'keys' | 'scaleIndex' | 'scaleValue'
-> = {
+export const commonQuantileProps: QuantileProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     scaleIndex: {
@@ -107,5 +104,34 @@ export const ChartQuantileHorizontalDecorator = (Story: () => ReactNode) => (
             <Axis variant={'left'} label={'Values (a.u.)'} />
             {Story()}
         </Quantile>
+    </Chart>
+)
+
+/** strip charts */
+
+export const commonStripProps: StripProps = {
+    data: dataRawValues,
+    keys: ['x', 'y'],
+    r: 3,
+    scaleIndex: {
+        variant: 'band',
+        domain: ['alpha', 'beta'],
+        padding: 0.2,
+    },
+    scaleValue: {
+        variant: 'linear',
+        domain: [0, 'auto'],
+    },
+    paddingInternal: 0.2,
+}
+
+export const ChartStripHorizontalDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Strip {...commonStripProps} horizontal={false}>
+            <GridLines variant={'y'} />
+            <Axis variant={'bottom'} />
+            <Axis variant={'left'} label={'Values (a.u.)'} />
+            {Story()}
+        </Strip>
     </Chart>
 )

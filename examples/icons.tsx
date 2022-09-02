@@ -8,13 +8,6 @@ type IconProps = {
 export const defaultIconActiveFill = '#777'
 export const defaultIconInactiveFill = '#ccc'
 
-// play icon: https://fonts.google.com/icons?icon.platform=web
-export const PlayIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
-    <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-        <path fill={fill} d="M8 19V5l11 7Zm2-7Zm0 3.35L15.25 12 10 8.65Z" />
-    </svg>
-)
-
 // replay icon: https://fonts.google.com/icons?icon.platform=web
 export const ReplayIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
@@ -25,36 +18,30 @@ export const ReplayIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     </svg>
 )
 
-// skip-next icon: https://fonts.google.com/icons?icon.platform=web
-export const SkipNextIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
+// chevron right icon: https://fonts.google.com/icons?icon.platform=web
+export const NextIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-        <path fill={fill} d="M16.5 18V6h2v12Zm-11 0V6l9 6Zm2-6Zm0 2.25L10.9 12 7.5 9.75Z" />
+        <path fill={fill} d="M9.4 18 8 16.6l4.6-4.6L8 7.4 9.4 6l6 6Z" />
     </svg>
 )
 
-// skip-previous icon: https://fonts.google.com/icons?icon.platform=web
-export const SkipPreviousIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
+// chevron left icon: https://fonts.google.com/icons?icon.platform=web
+export const PreviousIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-        <path fill={fill} d="M5.5 18V6h2v12Zm13 0-9-6 9-6Zm-2-6Zm0 2.25v-4.5L13.1 12Z" />
+        <path fill={fill} d="m14 18-6-6 6-6 1.4 1.4-4.6 4.6 4.6 4.6Z" />
     </svg>
 )
 
-// fast-rewind icon: https://fonts.google.com/icons?icon.platform=web
-export const FastRewindIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
+// first page icon: https://fonts.google.com/icons?icon.platform=web
+export const FirstPageIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-        <path
-            fill={fill}
-            d="m21.5 18-9-6 9-6Zm-10 0-9-6 9-6Zm-2-6Zm10 0Zm-10 2.25v-4.5L6.1 12Zm10 0v-4.5L16.1 12Z"
-        />
+        <path fill={fill} d="M6 18V6h2v12Zm11 0-6-6 6-6 1.4 1.4-4.6 4.6 4.6 4.6Z" />
     </svg>
 )
 
-// fast-forward icon: https://fonts.google.com/icons?icon.platform=web
-export const FastForwardIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
+// last page icon: https://fonts.google.com/icons?icon.platform=web
+export const LastPageIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
-        <path
-            fill={fill}
-            d="M2.5 18V6l9 6Zm10 0V6l9 6Zm-8-6Zm10 0Zm-10 2.25L7.9 12 4.5 9.75Zm10 0L17.9 12l-3.4-2.25Z"
-        />
+        <path fill={fill} d="m7 18-1.4-1.4 4.6-4.6-4.6-4.6L7 6l6 6Zm9 0V6h2v12Z" />
     </svg>
 )

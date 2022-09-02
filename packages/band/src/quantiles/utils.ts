@@ -1,3 +1,16 @@
+import { QuantileProcessedDataItem } from './types'
+
+export const isQuantileProcessedData = (
+    data: Array<unknown>
+): data is Array<QuantileProcessedDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        if (!('id' in item && 'index' in item)) return false
+        return 'summaries' in item
+    })
+    return result.every(Boolean)
+}
+
 // helper function to compute a quantile in a sorted array of values
 const getQuantile = (values: number[], quantile: number, n: number) => {
     const realIndex = n * Math.max(0, Math.min(1, quantile))

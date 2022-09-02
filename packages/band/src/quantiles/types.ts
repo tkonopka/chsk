@@ -6,7 +6,7 @@ export type QuantileDataItem = WithId & Record<string, unknown>
 
 export type FiveNumbers = [number, number, number, number, number]
 
-export type ProcessedQuantileSummary = {
+export type QuantileProcessedSummary = {
     values: FiveNumbers
     quantiles: FiveNumbers
     extrema: [number, number]
@@ -14,7 +14,7 @@ export type ProcessedQuantileSummary = {
 
 export type QuantileProcessedDataItem = WithId & {
     index: number
-    summaries: ProcessedQuantileSummary[]
+    summaries: QuantileProcessedSummary[]
     // values will hold a subset from the summaries to shortcut computing domains for scales
     values: number[]
 }
@@ -24,14 +24,14 @@ export type QuantileProcessedDataContextProps = ProcessedDataContextProps & {
     data: Array<QuantileProcessedDataItem>
 }
 
-export type PreparedQuantileSummary = ProcessedQuantileSummary & {
+export type QuantilePreparedSummary = QuantileProcessedSummary & {
     bandStart: number
     bandWidth: number
 }
 
 export type QuantilePreparedDataItem = WithId & {
     index: number
-    summaries: PreparedQuantileSummary[]
+    summaries: QuantilePreparedSummary[]
 }
 
 export type QuantilePreparedDataContextProps = {
@@ -45,7 +45,7 @@ export type QuantilePreparedDataContextProps = {
 
 export interface BoxAndWhiskersProps extends SvgElementProps {
     /** information with coordinates */
-    data: PreparedQuantileSummary
+    data: QuantilePreparedSummary
     /** orientation of the chart */
     horizontal: boolean
     /** style for box */

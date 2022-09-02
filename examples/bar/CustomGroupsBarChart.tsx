@@ -60,7 +60,7 @@ const multiviewTheme: ThemeSpec = {
 }
 
 const customGroupsBarProps = {
-    stacked: true,
+    variant: 'stacked' as const,
     horizontal: false,
     keys: ['A', 'B', 'C'],
     scaleIndex: {

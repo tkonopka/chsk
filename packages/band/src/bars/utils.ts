@@ -11,12 +11,20 @@ import {
 import { BarProcessedDataItem } from './types'
 import { cloneDeep } from 'lodash'
 
+export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProcessedDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        return 'id' in item && 'index' in item && 'values' in item
+    })
+    return result.every(Boolean)
+}
+
 export const getScaleProps = (
     data: Array<BarProcessedDataItem>,
     scaleSpecIndex: BandScaleSpec,
     scaleSpecValue: LinearScaleSpec,
-    stacked: boolean,
-    disabled: boolean[]
+    disabled: boolean[],
+    stacked = false
 ) => {
     const result = {
         scalePropsIndex: cloneDeep(scaleSpecIndex),

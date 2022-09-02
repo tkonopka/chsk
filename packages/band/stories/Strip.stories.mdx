@@ -1,0 +1,128 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Axis } from '@chask/core'
+import { Strip, Strips } from '../src'
+import { ChartDecorator, ChartWithLegendDecorator, commonStripProps } from './decorators'
+
+# Strip
+
+<Meta title="Addons/Band/Strip" />
+export const Template = args => <Strip {...args} />
+
+`Strip` sets up a view for a strip chart.
+
+<ArgsTable of={Strip} />
+
+`Strip` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Strips`.
+
+## Data
+
+The data should be prepared as an array of objects. All objects should contain a string identifier `'id'`. Other keys with numeric values can be used to display distributions.
+
+The pseudocode below shows one data item with an identifier and two numeric arrays.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "x": [1, 2, 3, ,...],
+    "y": [2, 4, 6, ...],
+  },
+  ...
+]
+`}
+/>
+
+## Variants
+
+Prop `variant` determines the pattern of data elements within a single strip.
+The default behavior places the elements in the order in which they appear in the dataset. It is also possible to explicitly randomize / shuffle the order, or to sort the elements in ascending or descending order.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            ...commonStripProps,
+            variant: 'default',
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="jitter"
+        args={{
+            ...commonStripProps,
+            variant: 'jitter',
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="ascending"
+        args={{
+            ...commonStripProps,
+            variant: 'ascending',
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="descending"
+        args={{
+            ...commonStripProps,
+            variant: 'descending',
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that in the example dataset, the data points are already randomized. So the default ordering and the jittered ordering should appear similarly randomized.
+
+## Orientation
+
+Prop `horizontal` arranges the strips in the horizontal direction.
+
+<Canvas>
+    <Story
+        name="vertical"
+        args={{
+            ...commonStripProps,
+            horizontal: false,
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="horizontal"
+        args={{
+            ...commonStripProps,
+            horizontal: true,
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Other features
+
+`Strip` supports many of the same features as `Bar`, for example, for adjusting padding. See the documentation for `Bar` for examples.

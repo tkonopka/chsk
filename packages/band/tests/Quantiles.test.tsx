@@ -30,7 +30,7 @@ describe('Quantiles', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 
-    it('displays bars only for specified ids', () => {
+    it('displays boxes only for specified ids', () => {
         render(
             <Chart>
                 <Quantile {...quantileProps}>
@@ -49,7 +49,7 @@ describe('Quantiles', () => {
         expect(ticks[1].textContent).toEqual('beta')
     })
 
-    it('displays bars only for specified keys', () => {
+    it('displays boxes only for specified keys', () => {
         render(
             <Chart>
                 <Quantile {...quantileProps}>
@@ -57,7 +57,7 @@ describe('Quantiles', () => {
                 </Quantile>
             </Chart>
         )
-        // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
+        // the chart should have only bars for key 'x' - for ids 'alpha' and 'beta'
         const result = screen.getByRole('view-quantile')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
