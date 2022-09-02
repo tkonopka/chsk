@@ -1,29 +1,26 @@
 name: storybook
 on:
-  push:
-    paths: ["examples/**", "packages/**"]
+    push:
+        paths: ['examples/**', 'packages/**']
 permissions:
-  contents: write
+    contents: write
 jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.4.2
-        with:
-          persist-credentials: false
-      - name: Install and Build
-        run: |
-          npm install
-          npm run bootstrap
-          npm run build
-          npm run build-storybook
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.4.0
-        with:
-          branch: gh-pages
-          folder: storybook-static
-          clean: true
-          target_folder: storybook-static
-
-
+    build-and-deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2.4.2
+              with:
+                  persist-credentials: false
+            - name: Install and Build
+              run: |
+                  npm install
+                  npm run bootstrap
+                  npm run build
+                  npm run build-storybook
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4.4.0
+              with:
+                  branch: gh-pages
+                  folder: storybook-static
+                  clean: true

@@ -19,23 +19,27 @@ const ids = generateIdentifiers(17, 10000, 'S')
 const idsA = ids.slice(0, 5)
 const idsB = ids.slice(5, 9)
 const idsC = ids.slice(9, 17)
-const valuesA = generateSortedValues(5, [25, 100])
-if (valuesA[1] < 95) valuesA[0] = 95
-const valuesB = generateSortedValues(4, [25, 80])
-const valuesC = generateSortedValues(8, [25, 80])
 
-const arrangeBarData = (ids: string[], values: number[], key: string): Array<RecordWithId> => {
-    return ids.map((id, index) => {
-        const item: RecordWithId = { id }
-        item[key] = values[index]
-        return item
-    })
+export const generateCustomGroupsBarData = () => {
+    const valuesA = generateSortedValues(5, [25, 100])
+    if (valuesA[1] < 95) valuesA[0] = 95
+    const valuesB = generateSortedValues(4, [25, 80])
+    const valuesC = generateSortedValues(8, [25, 80])
+
+    const arrangeBarData = (ids: string[], values: number[], key: string): Array<RecordWithId> => {
+        return ids.map((id, index) => {
+            const item: RecordWithId = { id }
+            item[key] = values[index]
+            return item
+        })
+    }
+
+    return arrangeBarData(idsA, valuesA, 'A')
+        .concat(arrangeBarData(idsB, valuesB, 'B'))
+        .concat(arrangeBarData(idsC, valuesC, 'C'))
 }
-const customGroupsData: Array<BarDataItem> = arrangeBarData(idsA, valuesA, 'A')
-    .concat(arrangeBarData(idsB, valuesB, 'B'))
-    .concat(arrangeBarData(idsC, valuesC, 'C'))
 
-export const multiviewTheme: ThemeSpec = {
+const multiviewTheme: ThemeSpec = {
     line: {
         axis: {
             visibility: 'visible',
@@ -58,7 +62,6 @@ export const multiviewTheme: ThemeSpec = {
 const customGroupsBarProps = {
     stacked: true,
     horizontal: false,
-    data: customGroupsData,
     keys: ['A', 'B', 'C'],
     scaleIndex: {
         variant: 'band' as const,
@@ -75,16 +78,16 @@ const customGroupsBarProps = {
 customGroupsBarProps.scaleIndex.extraPadding[idsB[0]] = 0.4
 customGroupsBarProps.scaleIndex.extraPadding[idsC[0]] = 0.4
 
-export const CustomGroupsBarChart = ({ data, fref }: MilestoneStory) => (
+export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
     <Chart
-        data={data}
+        data={chartData}
         fref={fref}
         id="customGroups"
         size={[600, 280]}
         padding={[40, 40, 60, 75]}
         theme={multiviewTheme}
     >
-        <Bar position={[0, 0]} {...customGroupsBarProps}>
+        <Bar position={[0, 0]} {...customGroupsBarProps} data={rawData}>
             <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>

@@ -4,11 +4,11 @@ import {
     ContinuousAxisScale,
     createAreaGenerator,
     CurveSpec,
-    OriginalDataContextProps,
+    RawDataContextProps,
     getAccessor,
     isContinuousAxisScale,
     NumericPositionIntervalSpec,
-    useOriginalData,
+    useRawData,
     useScales,
     OpacityMotion,
     useDisabledKeys,
@@ -19,7 +19,7 @@ import { useMemo } from 'react'
 
 const getScatterIntervalD = ({
     seriesIndex,
-    originalData,
+    rawData,
     preparedData,
     scaleY,
     lower,
@@ -27,7 +27,7 @@ const getScatterIntervalD = ({
     curve,
 }: {
     seriesIndex: number
-    originalData: OriginalDataContextProps
+    rawData: RawDataContextProps
     preparedData: ScatterDataContextProps
     scaleY: ContinuousAxisScale
     lower: string | AccessorFunction<number>
@@ -36,7 +36,7 @@ const getScatterIntervalD = ({
 }) => {
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
-    const originalSeriesData = originalData.data[seriesIndex].data as Array<Record<string, unknown>>
+    const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
     const lowerValues = originalSeriesData.map(item => scaleY(getLower(item)))
     const upperValues = originalSeriesData.map(item => scaleY(getUpper(item)))
     const x = preparedData.data[seriesIndex].x
@@ -60,7 +60,7 @@ export const ScatterInterval = ({
     setRole,
 }: ScatterIntervalProps) => {
     const preparedData = useScatterPreparedData()
-    const originalData = useOriginalData()
+    const rawData = useRawData()
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
@@ -77,14 +77,14 @@ export const ScatterInterval = ({
             () =>
                 getScatterIntervalD({
                     seriesIndex,
-                    originalData,
+                    rawData,
                     preparedData,
                     scaleY,
                     lower,
                     upper,
                     curve,
                 }),
-            [seriesIndex, originalData, preparedData, scaleY, lower, upper, curve]
+            [seriesIndex, rawData, preparedData, scaleY, lower, upper, curve]
         )
         return (
             <OpacityMotion

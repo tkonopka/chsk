@@ -58,12 +58,45 @@ button.icon {
     margin: 0em 0.5em 0em 0em;
     padding: 0.25em 0.5em 0em 0.5em;
 }
+
+/** controller for stories */
 div.controller {
-    margin-bottom: 1em;
+    margin: -10px -20px 20px -20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: solid 1px rgba(0, 0, 0, 0.1);
+    font-family: 'Nunito Sans', -apple-system, '.SFNSText-Regular', 'San Francisco',
+        BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #777;
 }
-div.controller div.status {
+
+div.controller-label,
+div.controller-progress {
     display: inline-block;
-    line-height: 40px;
+    line-height: 30px;
     vertical-align: middle;
     padding-bottom: 16px;
+    margin-right: 8px;
+}
+div.controller-progress {
+    margin-left: 8px;
+}
+div.controller-spacer {
+    display: inline-block;
+    margin-left: 12px;
+    margin-right: 12px;
+}
+div.controller button {
+    margin: 0;
+    padding: 3px 5px;
+    border-radius: 5px;
+    background-color: #ffffff;
+    border: solid 1px #ffffff;
+}
+div.controller button:hover {
+    border: solid 1px #f0f0f0;
+    background-color: #f4f4f4;
+    cursor: pointer;
 }

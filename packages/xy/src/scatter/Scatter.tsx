@@ -80,16 +80,6 @@ const getScaleProps = (
     return result as { scalePropsX: ContinuousScaleProps; scalePropsY: ContinuousScaleProps }
 }
 
-export const isScatterProcessedData = (
-    data: Array<unknown>
-): data is Array<ScatterProcessedDataItem> => {
-    const result = data.map((item: unknown) => {
-        if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'x' in item && 'y' in item && 'r' in item
-    })
-    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
-}
-
 export const Scatter = ({
     // layout
     position = [0, 0],

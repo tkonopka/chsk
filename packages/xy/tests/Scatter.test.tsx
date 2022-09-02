@@ -1,8 +1,12 @@
 import { render } from '@testing-library/react'
 import { Chart, useProcessedData } from '@chask/core'
-import { Scatter, useScatterPreparedData, isScatterProcessedData } from '../src/scatter'
+import {
+    Scatter,
+    useScatterPreparedData,
+    isScatterProcessedData,
+    ScatterDataContextProps,
+} from '../src/'
 import { scatterProps } from './props'
-import { ScatterDataContextProps } from '../src/scatter'
 
 describe('Scatter', () => {
     it('defines processed data', () => {

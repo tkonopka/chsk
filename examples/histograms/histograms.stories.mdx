@@ -1,7 +1,10 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
-import { LineHistogramChart } from './LineHistogramChart'
-import { MultipleViewsHistogramChart } from './MultipleViewsHistogramChart'
+import { generateLineHistogramData, LineHistogramChart } from './LineHistogramChart'
+import {
+    generateMultipleViewsHistogramData,
+    MultipleViewsHistogramChart,
+} from './MultipleViewsHistogramChart'
 
 <Meta title="Gallery/Histograms" />
 
@@ -12,6 +15,7 @@ import { MultipleViewsHistogramChart } from './MultipleViewsHistogramChart'
 <Canvas>
     <Story name="annotations">
         <Controller
+            generator={generateLineHistogramData}
             chart={LineHistogramChart}
             steps={['axes', 'data', 'primary-label', 'secondary-label']}
         />
@@ -23,6 +27,7 @@ import { MultipleViewsHistogramChart } from './MultipleViewsHistogramChart'
 <Canvas>
     <Story name="multiple views">
         <Controller
+            generator={generateMultipleViewsHistogramData}
             chart={MultipleViewsHistogramChart}
             steps={['subtitle', 'small', 'medium', 'large']}
         />

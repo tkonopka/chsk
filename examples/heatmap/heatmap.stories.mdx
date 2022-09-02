@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
-import { SequentialHeatMapChart } from './SequentialHeatMapChart'
-import { DivergingHeatMapChart } from './DivergingHeatMapChart'
+import { Controller } from '../Controller'
+import { generateSequentialHeatMapData, SequentialHeatMapChart } from './SequentialHeatMapChart'
+import { generateDivergingHeatMapData, DivergingHeatMapChart } from './DivergingHeatMapChart'
 
 <Meta title="Gallery/Heat maps" />
 
@@ -10,7 +11,7 @@ import { DivergingHeatMapChart } from './DivergingHeatMapChart'
 
 <Canvas>
     <Story name="sequential">
-        <SequentialHeatMapChart />
+        <Controller generator={generateSequentialHeatMapData} chart={SequentialHeatMapChart} />
     </Story>
 </Canvas>
 
@@ -18,6 +19,6 @@ import { DivergingHeatMapChart } from './DivergingHeatMapChart'
 
 <Canvas>
     <Story name="diverging">
-        <DivergingHeatMapChart />
+        <Controller generator={generateDivergingHeatMapData} chart={DivergingHeatMapChart} />
     </Story>
 </Canvas>

@@ -10,9 +10,11 @@ import {
 } from '@chask/core'
 import { Bar, BarDataItem, Bars, BarsLabels } from '@chask/band'
 import { generateKeyValues } from './generators'
+import { MilestoneStory } from '../types'
 
 const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
-const multiviewData: Array<BarDataItem> = [
+
+export const generateMultiViewsData = () => [
     generateKeyValues(
         { id: 'A', alpha: 75 + Math.floor(Math.random() * 15) },
         ['beta', 'gamma'],
@@ -45,7 +47,7 @@ const multiviewData: Array<BarDataItem> = [
     ),
 ]
 
-export const multiviewTheme: ThemeSpec = {
+const multiviewTheme: ThemeSpec = {
     line: {
         axis: {
             visibility: 'visible',
@@ -73,7 +75,6 @@ const multiviewBarProps = {
     units: 'relative' as const,
     stacked: true,
     horizontal: true,
-    data: multiviewData,
     scaleIndex: {
         variant: 'band' as const,
         domain: multiviewIds,
@@ -86,9 +87,16 @@ const multiviewBarProps = {
     },
 }
 
-export const MultipleViewsBarChart = () => (
-    <Chart id="multiview" size={[600, 280]} padding={[40, 40, 40, 60]} theme={multiviewTheme}>
-        <Bar position={[0, 0]} {...multiviewBarProps} keys={['alpha']}>
+export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
+    <Chart
+        fref={fref}
+        data={chartData}
+        id="multiview"
+        size={[600, 280]}
+        padding={[40, 40, 40, 60]}
+        theme={multiviewTheme}
+    >
+        <Bar position={[0, 0]} {...multiviewBarProps} data={rawData} keys={['alpha']}>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
@@ -101,7 +109,7 @@ export const MultipleViewsBarChart = () => (
                 <AxisTicks variant={'left'} tickSize={0} />
             </Axis>
         </Bar>
-        <Bar position={[0.35, 0]} {...multiviewBarProps} keys={['beta']}>
+        <Bar position={[0.35, 0]} {...multiviewBarProps} data={rawData} keys={['beta']}>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
@@ -111,7 +119,7 @@ export const MultipleViewsBarChart = () => (
             <Bars />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
         </Bar>
-        <Bar position={[0.7, 0]} {...multiviewBarProps} keys={['gamma']}>
+        <Bar position={[0.7, 0]} {...multiviewBarProps} data={rawData} keys={['gamma']}>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />

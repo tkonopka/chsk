@@ -1,7 +1,7 @@
 import { randomNormalValue } from '../utils'
 
 // create an array of values from superposed normal distributions
-export const generateHistogramValues = (n: number[], mean: number[], sd: number[]) => {
+export const generateMixedPopulation = (n: number[], mean: number[], sd: number[]) => {
     const result: number[][] = []
     n.forEach((size, i) => {
         const values: number[] = Array(size)

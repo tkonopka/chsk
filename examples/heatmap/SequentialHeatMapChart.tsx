@@ -2,6 +2,7 @@ import { Chart, Axis, Legend, LegendTitle, LegendColorScale } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetUppercase } from '../utils'
+import { MilestoneStory } from '../types'
 
 const ids = [
     'alpha',
@@ -20,13 +21,19 @@ const ids = [
     'xi',
 ]
 const keys = alphabetUppercase
-const sequentialData = generateHeatMapMatrixUniform(ids, keys)
+export const generateSequentialHeatMapData = () => generateHeatMapMatrixUniform(ids, keys)
 
-export const SequentialHeatMapChart = () => {
+export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
-        <Chart id="sequential-colors" size={[600, 400]} padding={[40, 140, 60, 60]}>
+        <Chart
+            data={chartData}
+            fref={fref}
+            id="sequential-colors"
+            size={[600, 400]}
+            padding={[40, 140, 60, 60]}
+        >
             <HeatMap
-                data={sequentialData}
+                data={rawData}
                 keys={keys}
                 scaleColor={{
                     variant: 'sequential',

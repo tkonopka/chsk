@@ -2,14 +2,17 @@ import { Chart, Axis, GridLines, LabelProps } from '@chask/core'
 import { Bar, Bars, BandLabels } from '@chask/band'
 import { BoxedLabel } from '@chask/annotation'
 import { generateBarData } from './generators'
+import { MilestoneStory } from '../types'
 
 const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
 const stackedKeys = ['alpha', 'beta', 'gamma']
-const stackedData = generateBarData({
-    ids: stackedIds,
-    keys: stackedKeys,
-    interval: [5, 25],
-})
+
+export const generateBandLabelsData = () =>
+    generateBarData({
+        ids: stackedIds,
+        keys: stackedKeys,
+        interval: [5, 25],
+    })
 
 const StyledBoxedLabel = (props: LabelProps) => {
     return (
@@ -25,10 +28,16 @@ const StyledBoxedLabel = (props: LabelProps) => {
     )
 }
 
-export const BandLabelsChart = () => (
-    <Chart id="band-labels" size={[600, 320]} padding={[60, 120, 60, 60]}>
+export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => (
+    <Chart
+        fref={fref}
+        data={chartData}
+        id="band-labels"
+        size={[600, 320]}
+        padding={[60, 120, 60, 60]}
+    >
         <Bar
-            data={stackedData}
+            data={rawData}
             keys={['alpha', 'beta']}
             horizontal={true}
             stacked={true}

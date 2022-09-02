@@ -61,7 +61,7 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'start' as const,
             dominantBaseline: 'middle' as const,
         },
-        legendLabel: {
+        legendItem: {
             textAnchor: 'start' as const,
             dominantBaseline: 'middle' as const,
         },

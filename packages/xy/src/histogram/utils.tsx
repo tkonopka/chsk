@@ -1,6 +1,23 @@
-import { createContinuousScale, getMinMax, XY } from '@chask/core'
+import { createContinuousScale, getMinMax, RawData, XY } from '@chask/core'
 import { sortedIndex } from 'lodash'
-import { HistogramDataItem } from './types'
+import { HistogramDataItem, HistogramProcessedDataItem } from './types'
+
+export const isHistogramProcessedData = (
+    data: Array<unknown>
+): data is Array<HistogramProcessedDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        return 'id' in item && 'index' in item && 'points' in item
+    })
+    return result.every(Boolean)
+}
+
+export const isHistogramData = (data: RawData): data is Array<HistogramDataItem> => {
+    const result = data.map(item => {
+        return 'id' in item && 'data' in item && Array.isArray(item.data)
+    })
+    return result.every(Boolean)
+}
 
 // create a series of [x, y] points such that:
 // - typical points capture the center of a bin and the height of the bin

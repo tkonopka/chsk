@@ -8,7 +8,7 @@ import {
     SizeUnit,
     Label,
     useDimensions,
-    useOriginalData,
+    useRawData,
     useScales,
     X,
     Y,
@@ -46,7 +46,7 @@ export const BandLabels = ({
     setRole = false,
     style,
 }: BandLabelsProps) => {
-    const originalData = useOriginalData().data
+    const rawData = useRawData().data
     const processedData = useProcessedData()
     const dimensions = useDimensions()
     const scales = useScales()
@@ -67,7 +67,7 @@ export const BandLabels = ({
     const labels: Array<ReactNode> = data
         .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
-            const value = format(originalData[j])
+            const value = format(rawData[j])
             const indexPos = indexScale(seriesData.id)
             const pos = horizontal ? [valuePos, indexPos] : [indexPos, valuePos]
             return createElement(

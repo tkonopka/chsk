@@ -14,10 +14,11 @@ export type WithId = {
 }
 
 export type RecordWithId = WithId & Record<string, unknown>
+export type RawData = Array<RecordWithId>
 
-export type OriginalDataContextProps = {
+export type RawDataContextProps = {
     /** data */
-    data: Array<RecordWithId>
+    data: RawData
 }
 
 export type ProcessedDataContextProps = {
@@ -58,7 +59,7 @@ export interface ViewProps extends ContainerProps {
     /** variant of view */
     variant?: 'default' | string
     /** data array **/
-    data?: Array<RecordWithId> | ViewSeriesKeys
+    data?: RawData | ViewSeriesKeys
     /** automatically adjust scales if/when data subsets become disabled */
     autoRescale?: boolean
     /** scale for horizontal axis */

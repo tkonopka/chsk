@@ -1,10 +1,18 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
-import { StackedVerticalBandChart, StackedHorizontalBandChart } from './stacked.charts.tsx'
-import { GroupedVerticalBandChart, GroupedHorizontalBandChart } from './grouped.charts.tsx'
-import { MultipleViewsBarChart } from './MultipleViewsBarChart'
-import { CustomGroupsBarChart } from './CustomGroupsBarChart'
-import { BandLabelsChart } from './BandLabelsChart'
+import {
+    generateStackedData,
+    StackedVerticalBandChart,
+    StackedHorizontalBandChart,
+} from './stacked.charts.tsx'
+import {
+    generateGroupedData,
+    GroupedVerticalBandChart,
+    GroupedHorizontalBandChart,
+} from './grouped.charts.tsx'
+import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
+import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
+import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -14,13 +22,13 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="grouped, vertical">
-        <GroupedVerticalBandChart />
+        <Controller generator={generateGroupedData} chart={GroupedVerticalBandChart} />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="grouped, horizontal">
-        <GroupedHorizontalBandChart />
+        <Controller generator={generateGroupedData} chart={GroupedHorizontalBandChart} />
     </Story>
 </Canvas>
 
@@ -28,13 +36,13 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="stacked, vertical">
-        <StackedVerticalBandChart />
+        <Controller generator={generateStackedData} chart={StackedVerticalBandChart} />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="stacked, horizontal">
-        <StackedHorizontalBandChart />
+        <Controller generator={generateStackedData} chart={StackedHorizontalBandChart} />
     </Story>
 </Canvas>
 
@@ -42,7 +50,11 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="custom layout">
-        <Controller chart={CustomGroupsBarChart} steps={['axes', 'A', 'B', 'C']} />
+        <Controller
+            generator={generateCustomGroupsBarData}
+            chart={CustomGroupsBarChart}
+            steps={['axes', 'A', 'B', 'C']}
+        />
     </Story>
 </Canvas>
 
@@ -50,7 +62,7 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="multiple views">
-        <MultipleViewsBarChart />
+        <Controller generator={generateMultiViewsData} chart={MultipleViewsBarChart} />
     </Story>
 </Canvas>
 
@@ -58,6 +70,6 @@ import { BandLabelsChart } from './BandLabelsChart'
 
 <Canvas>
     <Story name="band labels">
-        <BandLabelsChart />
+        <Controller generator={generateBandLabelsData} chart={BandLabelsChart} />
     </Story>
 </Canvas>

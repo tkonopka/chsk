@@ -1,7 +1,7 @@
 import { Rectangle, Square } from '../shapes'
 import { useProcessedData } from '../views'
 import { Typography } from '../typography'
-import { addColor, addOpacity, themedProps } from '../themes'
+import { addColor, addOpacity, camelCase, themedProps } from '../themes'
 import { useScales } from '../scales'
 import { LEFT, RIGHT, TOP } from '../general'
 import { useChartData } from '../chart'
@@ -61,7 +61,7 @@ export const UnthemedLegendItem = ({
             role={setRole ? variant : undefined}
             transform={transform}
             style={gStyle}
-            className={variant}
+            className={camelCase(variant)}
             onClick={handleClick}
         >
             <Rectangle

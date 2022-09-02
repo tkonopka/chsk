@@ -48,6 +48,19 @@ describe('Legend (items)', () => {
         expect(items[0].getAttribute('role')).toContain('legend-item')
     })
 
+    it('creates legend items with classname', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <Legend setRole={true} />
+                </View>
+            </Chart>
+        )
+        const items = screen.getAllByRole('legend-item')
+        expect(items).toHaveLength(3)
+        expect(items[0].getAttribute('class')).toContain('legendItem')
+    })
+
     it('creates legend items without role', () => {
         render(
             <Chart {...chartProps}>

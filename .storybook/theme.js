@@ -5,5 +5,5 @@ export default create({
 
     brandTitle: 'Chask',
     brandTarget: '_self',
-    brandUlr: '/?path=/docs/introduction--page'
+    brandUlr: '/?path=/docs/introduction--page',
 })

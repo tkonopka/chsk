@@ -1,6 +1,14 @@
 import { createElement, useRef, useState } from 'react'
 import { ChartRef } from '@chask/core'
-import { PreviousIcon, ReplayIcon, NextIcon } from './icons'
+import {
+    SkipPreviousIcon,
+    ReplayIcon,
+    SkipNextIcon,
+    FastRewindIcon,
+    FastForwardIcon,
+    defaultIconActiveFill as activeFill,
+    defaultIconInactiveFill as inactiveFill,
+} from './icons'
 import { ControllerProps, MilestoneStep } from './types'
 
 const isString = (m: MilestoneStep): m is string => typeof m === 'string'
@@ -23,7 +31,8 @@ const allMilestones = (steps: MilestoneStep[]) => {
 // controller accepts steps as array of string and numbers
 // strings are milestones for the chart
 // numbers are wait-times between milestones for auto-play
-export const Controller = ({ chart, steps }: ControllerProps) => {
+export const Controller = ({ generator, chart, steps = [] }: ControllerProps) => {
+    const [rawData, setRawData] = useState(generator())
     const ref = useRef<ChartRef>(null)
     const allSteps: string[] = steps.filter(isString) as string[]
     const [index, setIndex] = useState(steps.length)
@@ -34,7 +43,10 @@ export const Controller = ({ chart, steps }: ControllerProps) => {
     // number of strings from beginning up to index
     const status = steps.slice(0, index).filter(isString).length
 
-    const handleReplay = () => {
+    const handleRefresh = () => {
+        setRawData(generator())
+    }
+    const handleFastRewind = () => {
         ref?.current?.updateData({ milestones: new Set<string>() })
         setIndex(0)
     }
@@ -61,29 +73,48 @@ export const Controller = ({ chart, steps }: ControllerProps) => {
         }
         setIndex(i + 1)
     }
+    const handleFastForward = () => {
+        if (index >= steps.length) return
+        ref?.current?.updateData({ milestones: new Set<string>(finalState) })
+        setIndex(steps.length)
+    }
 
     return (
         <div>
             <div className={'controller'}>
-                <button className={'icon'} onClick={handleReplay}>
+                <div className={'controller-label'}>Data</div>
+                <button onClick={handleRefresh}>
                     <ReplayIcon />
                 </button>
-                <div style={{ minWidth: '1em', display: 'inline-block' }} />
-                <button className={'icon'} onClick={handlePrevious}>
-                    <PreviousIcon />
-                </button>
-                <button className={'icon'} onClick={handleNext}>
-                    <NextIcon />
-                </button>
-                <div style={{ minWidth: '1em', display: 'inline-block' }} />
-                <div className={'status'}>
-                    Status: {status} / {allSteps.length}
-                </div>
+                {steps.length > 0 ? (
+                    <>
+                        <div className={'controller-spacer'} />
+                        <div className={'controller-label'}>Milestones</div>
+                        <button onClick={handleFastRewind}>
+                            <FastRewindIcon fill={index > 0 ? activeFill : inactiveFill} />
+                        </button>
+                        <button onClick={handlePrevious}>
+                            <SkipPreviousIcon fill={index > 0 ? activeFill : inactiveFill} />
+                        </button>
+                        <button onClick={handleNext}>
+                            <SkipNextIcon fill={index < steps.length ? activeFill : inactiveFill} />
+                        </button>
+                        <button onClick={handleFastForward}>
+                            <FastForwardIcon
+                                fill={index < steps.length ? activeFill : inactiveFill}
+                            />
+                        </button>
+                        <div className={'controller-progress'}>
+                            ({status} / {allSteps.length})
+                        </div>
+                    </>
+                ) : null}
             </div>
             <div className={'chart'}>
                 {createElement(chart, {
-                    data: { milestones: finalState },
                     fref: ref,
+                    chartData: { milestones: finalState },
+                    rawData: rawData,
                 })}
             </div>
         </div>

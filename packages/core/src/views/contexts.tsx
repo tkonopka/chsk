@@ -1,19 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { OriginalDataContextProps, ProcessedDataContextProps } from './types'
+import { RawDataContextProps, ProcessedDataContextProps } from './types'
 
 /** Context for data in original format */
 
-export const OriginalDataContext = createContext({ data: [] } as OriginalDataContextProps)
+export const RawDataContext = createContext({ data: [] } as RawDataContextProps)
 
 export const OriginalDataProvider = ({
     data,
     children,
-}: OriginalDataContextProps & { children: ReactNode }) => {
+}: RawDataContextProps & { children: ReactNode }) => {
     const value = useMemo(() => ({ data }), [data])
-    return <OriginalDataContext.Provider value={value}>{children}</OriginalDataContext.Provider>
+    return <RawDataContext.Provider value={value}>{children}</RawDataContext.Provider>
 }
 
-export const useOriginalData = () => useContext(OriginalDataContext)
+export const useRawData = () => useContext(RawDataContext)
 
 /** Context for data in a processed format */
 

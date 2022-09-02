@@ -24,7 +24,7 @@ npm run lint
 npm run build
 ```
 
-To focus development on one package, apply the same command from within that package's directory. 
+To focus development on one package, apply the same command from within that package's directory.
 
 ```
 cd packages/core

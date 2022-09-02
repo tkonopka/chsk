@@ -76,16 +76,6 @@ const getScaleProps = (
     return result as { scalePropsX: ContinuousScaleProps; scalePropsY: ContinuousScaleProps }
 }
 
-export const isHistogramProcessedData = (
-    data: Array<unknown>
-): data is Array<HistogramProcessedDataItem> => {
-    const result = data.map((item: unknown) => {
-        if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'points' in item
-    })
-    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
-}
-
 export const Histogram = ({
     // layout
     position = [0, 0],

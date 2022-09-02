@@ -2,6 +2,7 @@ import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetUppercase } from '../utils'
+import { MilestoneStory } from '../types'
 
 const ids = [
     'alpha',
@@ -20,13 +21,20 @@ const ids = [
     'xi',
 ]
 const keys = alphabetUppercase
-const divergingData = generateHeatMapMatrixNormal(ids, keys)
 
-export const DivergingHeatMapChart = () => {
+export const generateDivergingHeatMapData = () => generateHeatMapMatrixNormal(ids, keys)
+
+export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
-        <Chart id="diverging-colors" size={[600, 400]} padding={[40, 140, 60, 60]}>
+        <Chart
+            data={chartData}
+            fref={fref}
+            id="diverging-colors"
+            size={[600, 400]}
+            padding={[40, 140, 60, 60]}
+        >
             <HeatMap
-                data={divergingData}
+                data={rawData}
                 keys={keys}
                 scaleColor={{
                     variant: 'diverging',
