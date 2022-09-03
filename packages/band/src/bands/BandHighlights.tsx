@@ -57,7 +57,7 @@ export const BandHighlights = ({
                 />
             )
         })
-        .filter(v => v)
+        .filter(Boolean)
 
     if (bands.length === 0) return null
     return <g role={'band-highlights'}>{bands}</g>

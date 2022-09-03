@@ -1,0 +1,28 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
+import { generateStripAndBoxData, StripAndBoxChart } from './StripAndBoxChart'
+import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStripChart'
+
+<Meta title="Gallery/Distribution charts" />
+
+# Examples of distribution charts (strips, quantiles)
+
+## Composite
+
+<Canvas>
+    <Story name="strips and quantiles">
+        <Controller
+            generator={generateStripAndBoxData}
+            chart={StripAndBoxChart}
+            steps={['axes', 'strips', 'quantiles', 'strips', 'strips']}
+        />
+    </Story>
+</Canvas>
+
+## Ranked
+
+<Canvas>
+    <Story name="waterfall strips">
+        <Controller generator={generateWaterfallStripData} chart={WaterfallStripChart} />
+    </Story>
+</Canvas>

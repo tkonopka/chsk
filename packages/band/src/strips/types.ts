@@ -4,17 +4,18 @@ import { BarProps, BarsProps } from '../bars'
 
 export type StripDataItem = WithId & Record<string, unknown>
 
-export type StripProcessedPoints = {
-    internal: number[]
-    value: number[]
-    r: number[]
-}
+export type StripProcessedPoints =
+    | undefined
+    | {
+          internal: number[]
+          value: number[]
+          r: number[]
+      }
 
 export type StripProcessedDataItem = WithId & {
     index: number
     data: StripProcessedPoints[]
-    // values will hold a subset from the summaries to shortcut computing domains for scales
-    values: number[]
+    domain: Array<[number, number]>
 }
 
 export type StripProcessedDataContextProps = ProcessedDataContextProps & {
@@ -22,10 +23,12 @@ export type StripProcessedDataContextProps = ProcessedDataContextProps & {
     data: Array<StripProcessedDataItem>
 }
 
-export type StripPreparedPoints = StripProcessedPoints & {
-    bandStart: number
-    bandWidth: number
-}
+export type StripPreparedPoints =
+    | undefined
+    | (StripProcessedPoints & {
+          bandStart: number
+          bandWidth: number
+      })
 
 export type StripPreparedDataItem = WithId & {
     index: number

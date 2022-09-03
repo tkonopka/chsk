@@ -36,5 +36,5 @@ export const HistogramSeries = ({
         }
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

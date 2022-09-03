@@ -59,7 +59,7 @@ export const BarsLabels = ({
                 center[X] += size[X]
                 compositeClassName = outerClassName
             }
-            const value = format(processedData[j].values[i])
+            const value = format(processedData[j].data[i])
             return createElement(
                 component,
                 {

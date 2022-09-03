@@ -60,7 +60,7 @@ export const Styles = ({ chartId, styles }: { chartId: string; styles: SvgBaseCo
     const styleDefinitions = styles
         ?.map(styleType => getStyles(chartId, styleType))
         .flat()
-        .filter(v => v)
+        .filter(Boolean)
         .join('\n')
     return <style>{styleDefinitions}</style>
 }

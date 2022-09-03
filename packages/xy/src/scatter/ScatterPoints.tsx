@@ -43,5 +43,5 @@ export const ScatterPoints = ({
         )
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chask/core'
-import { Bar, Bars } from '../src'
+import { Bar, BarDataItem, Bars } from '../src'
 import { barProps } from './props'
 
 describe('Bars', () => {
@@ -139,5 +139,28 @@ describe('Bars', () => {
         )
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
+    })
+
+    it('handles missing data', () => {
+        const dataMissingKeys: Array<BarDataItem> = [
+            {
+                id: 'alpha',
+                x: 55,
+                z: 10,
+            },
+            {
+                id: 'beta',
+                y: 25,
+            },
+        ]
+        render(
+            <Chart>
+                <Bar {...barProps} data={dataMissingKeys} scaleValue={{ variant: 'linear' }}>
+                    <Bars />
+                </Bar>
+            </Chart>
+        )
+        const result = screen.getByRole('view-bar')
+        expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
 })

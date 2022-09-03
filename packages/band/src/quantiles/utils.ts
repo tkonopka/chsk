@@ -5,8 +5,8 @@ export const isQuantileProcessedData = (
 ): data is Array<QuantileProcessedDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
-        if (!('id' in item && 'index' in item)) return false
-        return 'summaries' in item
+        if (!('id' in item && 'index' in item && 'data' in item && 'domain' in item)) return false
+        return true
     })
     return result.every(Boolean)
 }
@@ -24,6 +24,6 @@ const getQuantile = (values: number[], quantile: number, n: number) => {
 // compute a series of quantiles in a sorted array of values
 export const getQuantiles = (values: number[], quantiles: number[]) => {
     const n1 = values.length - 1
-    const sortedValues = values.map(v => v).sort((a, b) => a - b)
+    const sortedValues = [...values].sort((a, b) => a - b)
     return quantiles.map(v => getQuantile(sortedValues, v, n1))
 }

@@ -41,7 +41,7 @@ export type ContinuousScaleSpec = {
     /** type of scale */
     variant: 'linear' | 'log'
     /** domain min and max */
-    domain?: [number | 'auto', number | 'auto'] | 'auto'
+    domain?: [number, number] | [number, 'auto'] | ['auto', number] | 'auto'
     /** clamp */
     clamp?: boolean
     /** nice */

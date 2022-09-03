@@ -37,18 +37,20 @@ const processData = (
 ): Array<QuantileProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
-            const raw = f(seriesData) as number[]
+            const raw = f(seriesData)
+            if (!raw) return undefined
+            if (!Array.isArray(raw)) return undefined
             return {
-                values: getQuantiles(raw, quantiles) as FiveNumbers,
-                extrema: getMinMax(raw),
+                values: getQuantiles(raw as number[], quantiles) as FiveNumbers,
+                extrema: getMinMax(raw as number[]),
                 quantiles,
             }
         })
         return {
             id: seriesData.id,
             index,
-            summaries,
-            values: summaries.map(summary => summary.extrema).flat(),
+            data: summaries,
+            domain: summaries.map(summary => getMinMax(summary?.extrema ?? [])),
         }
     })
 }
@@ -64,8 +66,9 @@ const prepareData = (
 ): Array<QuantilePreparedDataItem> => {
     return data.map(seriesData => {
         let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
-        const summaries = seriesData.summaries.map(summary => {
+        const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
+            if (summary === undefined) return undefined
             return {
                 values: summary.values.map(v => valueScale(v)) as FiveNumbers,
                 quantiles: summary.quantiles as FiveNumbers,
@@ -77,7 +80,7 @@ const prepareData = (
         return {
             id: seriesData.id,
             index: seriesData.index,
-            summaries,
+            data: summaries,
         }
     })
 }
@@ -119,7 +122,8 @@ export const Quantile = ({
         [keys, Array.from(disabledKeys)]
     )
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
-        processedData,
+        processedData.map(d => d.id),
+        processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
         autoRescale ? disabledKeysBools : Array(keys.length).fill(false)

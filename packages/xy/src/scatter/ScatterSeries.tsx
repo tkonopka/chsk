@@ -53,5 +53,5 @@ export const ScatterSeries = ({
         return null
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

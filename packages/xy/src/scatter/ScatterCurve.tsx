@@ -54,5 +54,5 @@ export const ScatterCurve = ({
         )
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

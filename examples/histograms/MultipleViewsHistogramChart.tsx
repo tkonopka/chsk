@@ -11,8 +11,8 @@ import {
     Typography,
 } from '@chask/core'
 import { BoxedLabel } from '@chask/annotation'
-import { generateMixedPopulation, makeBreaks } from './generators'
 import { Histogram, HistogramCurve, isHistogramData } from '@chask/xy'
+import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 
 export const generateMultipleViewsHistogramData = () => [
@@ -30,7 +30,7 @@ export const generateMultipleViewsHistogramData = () => [
     },
 ]
 
-export const multiviewTheme: ThemeSpec = {
+const multiviewTheme: ThemeSpec = {
     line: {
         axis: {
             visibility: 'visible',
@@ -69,7 +69,7 @@ export const multiviewTheme: ThemeSpec = {
 const multiviewHistogramProps = {
     size: [0.333, 1] as SizeSpec,
     units: 'relative' as const,
-    breaks: makeBreaks([-3, 4], 0.4),
+    breaks: stepSequence([-3, 4], 0.4),
     density: true,
     scaleX: {
         variant: 'linear' as const,

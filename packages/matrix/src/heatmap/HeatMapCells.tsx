@@ -58,7 +58,7 @@ export const HeatMapCells = ({
             })
         })
         .flat()
-        .filter(v => v !== null)
+        .filter(Boolean)
 
     if (cells.length === 0) return null
     return (

@@ -27,7 +27,7 @@ export const ChartDecorator = (Story: () => ReactNode) => (
 
 export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Bar {...commonBarProps} horizontal={false} stacked={true}>
+        <Bar {...commonBarProps} horizontal={false} variant={'stacked'}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a.u.)'} />
@@ -38,7 +38,7 @@ export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
 
 export const ChartHorizontalGroupedBarDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 240]} padding={[60, 60, 60, 60]} style={{ display: 'inline-block' }}>
-        <Bar {...commonBarProps} horizontal={true} stacked={false}>
+        <Bar {...commonBarProps} horizontal={true} variant={'grouped'}>
             <GridLines variant={'x'} />
             <Bars />
             <Axis variant={'top'} label={'Values (a.u.)'} />
@@ -50,7 +50,7 @@ export const ChartHorizontalGroupedBarDecorator = (Story: () => ReactNode) => (
 
 export const ChartHorizontalStackedBarDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 240]} padding={[60, 60, 60, 60]} style={{ display: 'inline-block' }}>
-        <Bar {...commonBarProps} horizontal={true} stacked={true}>
+        <Bar {...commonBarProps} horizontal={true} variant={'stacked'}>
             <GridLines variant={'x'} />
             <Bars />
             <Axis variant={'top'} label={'Values (a.u.)'} />

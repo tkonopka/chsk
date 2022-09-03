@@ -76,3 +76,26 @@ export const randomUniformValue = (min: number, max: number) => {
     const size = max - min
     return min + Math.random() * size
 }
+
+// create an array of values from superposed normal distributions
+export const generateMixedPopulation = (n: number[], mean: number[], sd: number[]) => {
+    const result: number[][] = []
+    n.forEach((size, i) => {
+        const values: number[] = Array(Math.round(size))
+            .fill(0)
+            .map(v => randomNormalValue(mean[i], sd[i]))
+        result.push(values)
+    })
+    return result.flat()
+}
+
+// create an array of numbers in an interval
+export const stepSequence = (interval: [number, number], step: number = 1) => {
+    let x = interval[0]
+    const result = []
+    while (x < interval[1]) {
+        result.push(x)
+        x += step
+    }
+    return result
+}

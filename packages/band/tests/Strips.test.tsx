@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chask/core'
 import { Strip, Strips } from '../src'
-import { stripProps } from './props'
+import { dataMissingKeys, stripProps } from './props'
 
 describe('Strips', () => {
     it('creates strips of data points (vertical)', () => {
@@ -84,5 +84,19 @@ describe('Strips', () => {
         )
         const result = screen.getByRole('view-strip')
         expect(result.querySelectorAll('circle')).toHaveLength(0)
+    })
+
+    it('handles missing data', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps} data={dataMissingKeys}>
+                    <Strips />
+                </Strip>
+            </Chart>
+        )
+        const result = screen.getByRole('view-strip')
+        // dataset has values only in a selected id-key combos
+        const expected = Number(dataMissingKeys[0].x?.length) + Number(dataMissingKeys[1].y?.length)
+        expect(result.querySelectorAll('circle')).toHaveLength(expected)
     })
 })

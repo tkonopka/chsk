@@ -15,7 +15,7 @@ export const defaultTheme: CompleteThemeSpec = {
         default: {
             fontFamily: 'sans-serif',
             fontSize: '14px',
-            fill: '#333333',
+            fill: '#222222',
         },
         label: {
             fontSize: '12px',
@@ -25,7 +25,7 @@ export const defaultTheme: CompleteThemeSpec = {
         title: {
             fontWeight: 600,
             fontSize: '18px',
-            fill: '#333333',
+            fill: '#222222',
         },
         subtitle: {
             fontSize: '14px',
@@ -33,13 +33,13 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         axisLabel: {
             fontSize: '14px',
-            fill: '#333333',
+            fill: '#222222',
             textAnchor: 'middle' as const,
             dominantBaseline: 'middle' as const,
         },
         tickLabel: {
             fontSize: '12px',
-            fill: '#333333',
+            fill: '#222222',
         },
         'tickLabel.left': {
             textAnchor: 'end' as const,
@@ -68,7 +68,7 @@ export const defaultTheme: CompleteThemeSpec = {
         footnote: {
             fontFamily: 'sans-serif',
             fontSize: '11px',
-            fill: '#333333',
+            fill: '#444444',
             fontStyle: 'italic',
         },
     },

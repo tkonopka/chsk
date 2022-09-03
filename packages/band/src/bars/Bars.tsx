@@ -52,7 +52,7 @@ export const Bars = ({ ids, keys, component = Rectangle, className, style }: Bar
                         setRole: false,
                     })
                 })
-                .filter(v => v)
+                .filter(Boolean)
             if (bars.length === 0) return null
 
             return (
@@ -61,7 +61,7 @@ export const Bars = ({ ids, keys, component = Rectangle, className, style }: Bar
                 </OpacityMotion>
             )
         })
-        .filter(v => v)
+        .filter(Boolean)
 
     if (result.length === 0) return null
     return <>{result}</>

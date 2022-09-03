@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chask/core'
 import { Quantile, Quantiles } from '../src'
-import { quantileProps } from './props'
+import { dataMissingKeys, quantileProps } from './props'
 
 describe('Quantiles', () => {
     it('creates boxes and whiskers (vertical)', () => {
@@ -85,5 +85,17 @@ describe('Quantiles', () => {
         )
         const result = screen.getByRole('view-quantile')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
+    })
+
+    it('handles missing data', () => {
+        render(
+            <Chart>
+                <Quantile {...quantileProps} data={dataMissingKeys}>
+                    <Quantiles />
+                </Quantile>
+            </Chart>
+        )
+        const result = screen.getByRole('view-quantile')
+        expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 })

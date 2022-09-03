@@ -54,7 +54,7 @@ export const Quantiles = ({
             const items = data
                 .map((seriesData: QuantilePreparedDataItem) => {
                     if (!idSet.has(seriesData.id)) return null
-                    const summary = seriesData.summaries[i]
+                    const summary = seriesData.data[i]
                     return createElement(component, {
                         key: 'boxwhiskers-' + seriesData.index + '-' + i,
                         data: summary,
@@ -67,7 +67,7 @@ export const Quantiles = ({
                         setRole: true,
                     })
                 })
-                .filter(v => v)
+                .filter(Boolean)
             if (items.length === 0) return null
 
             return (
@@ -80,7 +80,7 @@ export const Quantiles = ({
                 </OpacityMotion>
             )
         })
-        .filter(v => v)
+        .filter(Boolean)
 
     if (result.length === 0) return null
     return <>{result}</>

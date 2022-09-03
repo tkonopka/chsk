@@ -11,6 +11,8 @@ export const BoxAndWhiskers = ({
     style,
     setRole,
 }: BoxAndWhiskersProps) => {
+    if (!data) return null
+
     const halfBand = data.bandWidth / 2
     const halfCap = whiskerCapWidth * halfBand
     const coords = horizontal ? data.values.map(v => v).reverse() : data.values

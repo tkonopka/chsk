@@ -38,6 +38,7 @@ export const Strips = ({ ids, keys, component = Circle, className, symbolStyle }
                 .map((seriesData: StripPreparedDataItem) => {
                     if (!idSet.has(seriesData.id)) return null
                     const summary = seriesData.data[i]
+                    if (!summary) return null
                     const x = horizontal ? summary.value : summary.internal
                     const y = horizontal ? summary.internal : summary.value
                     return summary.r.map((r: number, j: number) =>
@@ -52,7 +53,7 @@ export const Strips = ({ ids, keys, component = Circle, className, symbolStyle }
                         })
                     )
                 })
-                .filter(v => v)
+                .filter(Boolean)
                 .flat()
             if (items.length === 0) return null
 
@@ -62,7 +63,7 @@ export const Strips = ({ ids, keys, component = Circle, className, symbolStyle }
                 </OpacityMotion>
             )
         })
-        .filter(v => v)
+        .filter(Boolean)
 
     if (result.length === 0) return null
     return <>{result}</>

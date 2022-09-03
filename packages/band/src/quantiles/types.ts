@@ -6,17 +6,18 @@ export type QuantileDataItem = WithId & Record<string, unknown>
 
 export type FiveNumbers = [number, number, number, number, number]
 
-export type QuantileProcessedSummary = {
-    values: FiveNumbers
-    quantiles: FiveNumbers
-    extrema: [number, number]
-}
+export type QuantileProcessedSummary =
+    | undefined
+    | {
+          values: FiveNumbers
+          quantiles: FiveNumbers
+          extrema: [number, number]
+      }
 
 export type QuantileProcessedDataItem = WithId & {
     index: number
-    summaries: QuantileProcessedSummary[]
-    // values will hold a subset from the summaries to shortcut computing domains for scales
-    values: number[]
+    data: QuantileProcessedSummary[]
+    domain: Array<[number, number]>
 }
 
 export type QuantileProcessedDataContextProps = ProcessedDataContextProps & {
@@ -24,14 +25,16 @@ export type QuantileProcessedDataContextProps = ProcessedDataContextProps & {
     data: Array<QuantileProcessedDataItem>
 }
 
-export type QuantilePreparedSummary = QuantileProcessedSummary & {
-    bandStart: number
-    bandWidth: number
-}
+export type QuantilePreparedSummary =
+    | undefined
+    | (QuantileProcessedSummary & {
+          bandStart: number
+          bandWidth: number
+      })
 
 export type QuantilePreparedDataItem = WithId & {
     index: number
-    summaries: QuantilePreparedSummary[]
+    data: QuantilePreparedSummary[]
 }
 
 export type QuantilePreparedDataContextProps = {

@@ -51,7 +51,7 @@ export const GroupedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
                     padding: 0.2,
                 }}
             >
-                <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                <GridLines variant={'y'} />
                 <Axis variant={'bottom'} />
                 <Axis variant={'left'}>
                     <AxisLabel variant={'left'} offset={55} anchor={0.5}>

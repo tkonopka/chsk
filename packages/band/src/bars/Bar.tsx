@@ -28,11 +28,15 @@ const processData = (
     data: Array<BarDataItem>,
     accessors: Array<AccessorFunction<unknown>>
 ): Array<BarProcessedDataItem> => {
-    return data.map((seriesData, index) => ({
-        id: seriesData.id,
-        index,
-        values: accessors.map(f => Number(f(seriesData))),
-    }))
+    return data.map((seriesData, index) => {
+        const values = accessors.map(f => Number(f(seriesData)))
+        return {
+            id: seriesData.id,
+            index,
+            data: values,
+            domain: values.map(v => [0, v] as [number, number]),
+        }
+    })
 }
 
 // turn processed data into view-specific coordinates
@@ -47,7 +51,7 @@ const prepareData = (
 ): BarPreparedDataItem => {
     const [barWidth, barGap] = barWidthGap
     const zero = valueScale(0)
-    let coords = seriesData.values.map((v, i) => {
+    let coords = seriesData.data.map((v, i) => {
         return disabled[i] ? zero : valueScale(v)
     })
     const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
@@ -137,7 +141,8 @@ export const Bar = ({
     )
     const stacked = variant === 'stacked'
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
-        processedData,
+        processedData.map(d => d.id),
+        processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
         autoRescale ? disabledKeysBools : Array(keys.length).fill(false),
@@ -162,7 +167,7 @@ export const Bar = ({
                     indexScale,
                     valueScale,
                     horizontal,
-                    stacked,
+                    stacked || paddingInternal === null,
                     [barWidth, barGap],
                     disabledKeysBools
                 )

@@ -38,10 +38,12 @@ const processData = (
 ): Array<StripProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
-            const raw = f(seriesData) as number[]
+            const raw = f(seriesData)
+            if (!raw) return undefined
+            if (!Array.isArray(raw)) return undefined
             return {
-                value: raw,
-                internal: getStripInternalOrder(variant, raw),
+                value: raw as number[],
+                internal: getStripInternalOrder(variant, raw as number[]),
                 r: Array(raw.length).fill(r),
             }
         })
@@ -49,7 +51,7 @@ const processData = (
             id: seriesData.id,
             index,
             data: summaries,
-            values: summaries.map(summary => getMinMax(summary.value)).flat(),
+            domain: summaries.map(summary => getMinMax(summary?.value ?? [])),
         }
     })
 }
@@ -67,6 +69,7 @@ const prepareData = (
         let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
         const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
+            if (!summary) return undefined
             const internalInterval = width / (summary.value.length - 1)
             const internalStart = bandStart - width - gap
             return {
@@ -123,7 +126,8 @@ export const Strip = ({
         [keys, Array.from(disabledKeys)]
     )
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
-        processedData,
+        processedData.map(d => d.id),
+        processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
         autoRescale ? disabledKeysBools : Array(keys.length).fill(false)

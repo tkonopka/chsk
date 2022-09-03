@@ -20,7 +20,8 @@ export type BarDataItem = WithId & Record<string, unknown>
 
 export type BarProcessedDataItem = WithId & {
     index: number
-    values: Array<number>
+    data: Array<number>
+    domain: Array<[number, number]>
 }
 
 export type BarProcessedDataContextProps = ProcessedDataContextProps & {
@@ -52,10 +53,8 @@ export interface BarProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY
     keys: string[]
     /** display bands horizontally */
     horizontal?: boolean
-    /** display stacked bars */
-    stacked?: boolean
     /** padding between bars in the same group/index */
-    paddingInternal?: number
+    paddingInternal?: number | null
     /** scale for horizontal axis */
     scaleIndex?: BandScaleSpec
     /** scale for vertical axis */

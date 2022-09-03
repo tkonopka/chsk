@@ -282,7 +282,9 @@ Datasets may have missing/omitted values. For example, the dataset below has thr
 `}
 />
 
-Bars that would correspond to id-key combinations with missing values are omitted. This behavior can be used to draw a 'stacked' bar chart that appears like a regular bar chart, but where bars appear with different colors.
+Bars that would correspond to id-key combinations with missing values are omitted. This behavior can be used to draw a 'stacked' chart that appears like a regular bar chart, but where bars appear with different colors (below, first example).
+
+Another way to achieve the same result is to use the grouped variant, and set the prop `paddingInternal` to null. This will also draw multiple elements on top of each other (below, second example).
 
 <Canvas>
     <Story
@@ -292,6 +294,25 @@ Bars that would correspond to id-key combinations with missing values are omitte
             variant: 'stacked',
             data: dataMissing,
             horizontal: false,
+            scaleIndex: {
+                variant: 'band',
+                padding: 0.2,
+            },
+            children: <Bars />,
+        }}
+        component={Bar}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="null internal padding"
+        args={{
+            ...commonBarProps,
+            variant: 'grouped',
+            data: dataMissing,
+            horizontal: false,
+            paddingInternal: null,
             scaleIndex: {
                 variant: 'band',
                 padding: 0.2,

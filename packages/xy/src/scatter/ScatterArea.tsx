@@ -84,5 +84,5 @@ export const ScatterArea = ({
         )
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

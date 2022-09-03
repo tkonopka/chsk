@@ -5,7 +5,7 @@
 type IconProps = {
     fill?: string
 }
-export const defaultIconActiveFill = '#777'
+export const defaultIconActiveFill = '#555'
 export const defaultIconInactiveFill = '#ccc'
 
 // replay icon: https://fonts.google.com/icons?icon.platform=web

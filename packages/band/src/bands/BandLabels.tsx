@@ -87,7 +87,7 @@ export const BandLabels = ({
             )
         })
         .flat()
-        .filter(v => v)
+        .filter(Boolean)
 
     if (labels.length === 0) return null
     return <g role={'band-labels'}>{labels}</g>

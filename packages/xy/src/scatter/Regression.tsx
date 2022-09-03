@@ -118,7 +118,7 @@ const IndividualRegression = ({ ids, style, className, setRole }: RegressionProp
         )
     })
 
-    return <>{regressions.filter(v => v)}</>
+    return <>{regressions.filter(Boolean)}</>
 }
 
 export const Regression = ({

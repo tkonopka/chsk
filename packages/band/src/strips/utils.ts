@@ -5,7 +5,7 @@ export const isStripProcessedData = (
 ): data is Array<StripProcessedDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'values' in item
+        return 'id' in item && 'index' in item && 'data' in item && 'domain' in item
     })
     return result.every(Boolean)
 }

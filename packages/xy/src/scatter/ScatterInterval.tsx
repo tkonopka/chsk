@@ -102,5 +102,5 @@ export const ScatterInterval = ({
         )
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

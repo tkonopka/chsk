@@ -83,5 +83,5 @@ export const ScatterLabel = ({
         )
     })
 
-    return <>{result.filter(v => v)}</>
+    return <>{result.filter(Boolean)}</>
 }

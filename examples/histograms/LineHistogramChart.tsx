@@ -10,7 +10,7 @@ import {
 } from '@chask/core'
 import { Histogram, HistogramArea, HistogramCurve, isHistogramData } from '@chask/xy'
 import { LineLabel } from '@chask/annotation'
-import { generateMixedPopulation, makeBreaks } from './generators'
+import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 
 export const generateLineHistogramData = () => [
@@ -20,7 +20,7 @@ export const generateLineHistogramData = () => [
     },
 ]
 
-export const customHistogramTheme: ThemeSpec = {
+const customHistogramTheme: ThemeSpec = {
     line: {
         intervalLabel: {
             strokeWidth: 1,
@@ -41,14 +41,14 @@ export const customHistogramTheme: ThemeSpec = {
 }
 
 const customHistogramProps = {
-    breaks: makeBreaks([-3, 7], 0.2),
+    breaks: stepSequence([-3, 7], 0.2),
     scaleX: {
         variant: 'linear' as const,
         domain: [-3, 7] as [number, number],
     },
-    scaleValue: {
+    scaleY: {
         variant: 'linear' as const,
-        domain: [0, 50] as const,
+        domain: [0, 'auto' as const],
     },
 }
 

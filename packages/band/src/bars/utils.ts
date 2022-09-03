@@ -14,13 +14,14 @@ import { cloneDeep } from 'lodash'
 export const isBarProcessedData = (data: Array<unknown>): data is Array<BarProcessedDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'values' in item
+        return 'id' in item && 'index' in item && 'data' in item && 'domain' in item
     })
     return result.every(Boolean)
 }
 
 export const getScaleProps = (
-    data: Array<BarProcessedDataItem>,
+    ids: string[],
+    data: Array<[number, number][]>, // for each id, key, array with [min, max] values
     scaleSpecIndex: BandScaleSpec,
     scaleSpecValue: LinearScaleSpec,
     disabled: boolean[],
@@ -31,11 +32,11 @@ export const getScaleProps = (
         scalePropsValue: cloneDeep(scaleSpecValue),
     }
     if (!isScaleWithDomain(scaleSpecIndex)) {
-        result.scalePropsIndex.domain = data.map(d => d.id)
+        result.scalePropsIndex.domain = ids
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
-        const filterDisabled = (v: number, i: number) => !disabled[i]
-        const values = data.map(seriesData => seriesData.values.filter(filterDisabled))
+        const filterDisabled = (v: unknown, i: number) => !disabled[i]
+        const values = data.filter(filterDisabled).map(d => d.flat().filter(isFinite))
         const sumValues = (values: number[]) =>
             values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
         const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())
@@ -53,15 +54,16 @@ export const getScaleProps = (
 export const getInternalWidthAndGap = (
     indexScale: BandAxisScale,
     keys: string[],
-    paddingInternal: number,
+    paddingInternal: number | null,
     stacked = false
 ): [number, number] => {
     const bandwidth = indexScale.bandwidth()
     const nKeys = keys.length
-    const noGap = nKeys === 1 || stacked
-    const width = noGap ? bandwidth : bandwidth / (nKeys - Math.min(1, paddingInternal))
+    const padInternal = paddingInternal ? paddingInternal : 0
+    const noGap = nKeys === 1 || stacked || paddingInternal === null
+    const width = noGap ? bandwidth : bandwidth / (nKeys - Math.min(1, padInternal))
     if (noGap) {
-        return [width, 0]
+        return [width, -width]
     }
-    return [width * (1 - paddingInternal), width * paddingInternal]
+    return [width * (1 - padInternal), width * padInternal]
 }
