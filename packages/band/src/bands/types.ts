@@ -7,9 +7,10 @@ import {
     SvgElementProps,
     TranslateSpec,
     TwoSideSizeSpec,
+    WithInteractive,
 } from '@chask/core'
 
-export interface BandHighlightsProps extends SvgElementProps {
+export interface BandSurfaceProps extends SvgElementProps, WithInteractive {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** expansion along the value axis */
@@ -31,4 +32,9 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
     format?: (v: Record<string, unknown>) => string
     /** components used to render label */
     component?: FC<LabelProps>
+}
+
+export interface BandHighlightProps extends SvgElementProps {
+    /** target ids (defaults to all ids) */
+    ids?: string[]
 }

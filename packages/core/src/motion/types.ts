@@ -1,6 +1,11 @@
 import { ReactNode } from 'react'
 import { motionPresets, transitionPresets } from './presets'
 
+export type WithInteractive = {
+    /** activate interactive features */
+    interactive?: boolean
+}
+
 export interface OpacityMotionProps {
     /** role string */
     role: string

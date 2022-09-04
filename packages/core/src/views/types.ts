@@ -10,6 +10,7 @@ import { ColorScaleProps, ContinuousScaleProps, ScaleProps, ScalesContextProps }
 import { ReactNode } from 'react'
 
 export type WithId = {
+    /** identifier string */
     id: string
 }
 

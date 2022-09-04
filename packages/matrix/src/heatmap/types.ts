@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import {
     BandScaleSpec,
-    CssProps,
     DivergingScaleSpec,
     ProcessedDataContextProps,
     RectangleProps,
     SequentialScaleSpec,
+    SvgElementProps,
     ViewProps,
     WithId,
 } from '@chask/core'
@@ -35,15 +35,11 @@ export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'sca
     scaleColor?: SequentialScaleSpec | DivergingScaleSpec
 }
 
-export interface HeatMapHighlightProps {
-    /** ids to display (defaults to all ids) */
+export interface HeatMapHighlightProps extends SvgElementProps {
+    /** target ids (defaults to all ids) */
     ids?: string[]
     /** keys to display (default to all keys) */
     keys?: string[]
-    /** style class */
-    className?: string
-    /** css style */
-    style?: CssProps
 }
 
 export interface HeatMapCellsProps extends HeatMapHighlightProps {

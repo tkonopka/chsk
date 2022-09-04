@@ -12,7 +12,7 @@ describe('HeatMapHighlight', () => {
                 </HeatMap>
             </Chart>
         )
-        expect(screen.getByRole('detector')).toBeDefined()
+        expect(screen.getByRole('heatmap-detector')).toBeDefined()
         expect(screen.queryByRole('heatmap-highlight-mask')).toBeNull()
     })
 
@@ -25,7 +25,7 @@ describe('HeatMapHighlight', () => {
                 </HeatMap>
             </Chart>
         )
-        const detector = screen.getByRole('detector')
+        const detector = screen.getByRole('heatmap-detector')
         fireEvent.mouseMove(detector, { clientX: 40, clientY: 40 })
         expect(screen.getByRole('heatmap-highlight-mask')).toBeDefined()
         fireEvent.mouseLeave(detector)

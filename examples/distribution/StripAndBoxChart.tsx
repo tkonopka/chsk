@@ -1,9 +1,8 @@
 import { Chart, Axis, GridLines, MilestoneMotion, ThemeSpec, Legend, AxisLine } from '@chask/core'
+import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chask/band'
 import { generateMixedPopulation } from '../utils'
 import { MilestoneStory } from '../types'
-import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chask/band'
 
-const stripAndBoxIds = ['controls', 'A', 'B']
 const stripAndBoxKeys = ['x', 'y', 'z']
 
 export const generateStripAndBoxData = () => [

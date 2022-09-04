@@ -8,10 +8,10 @@ import {
     ThemeSpec,
     Typography,
 } from '@chask/core'
+import { BandHighlight, Quantile, Quantiles, Strip, Strips } from '@chask/band'
 import { generateMixedPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomNormalValue } from '../utils'
-import { Quantile, Quantiles, Strip, Strips } from '@chask/band'
 
 export const generateWaterfallStripData = () => {
     return alphabetGreek.map((id, i) => ({
@@ -49,6 +49,8 @@ const customProps = {
     keys: ['data'],
     scaleIndex: {
         variant: 'band' as const,
+        paddingOuter: 0.1,
+        paddingInner: 0.2,
     },
     scaleValue: {
         variant: 'linear' as const,
@@ -89,13 +91,14 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
             <Quantile
                 {...customProps}
                 data={rawData}
-                scaleIndex={{ variant: 'band', padding: 0.25 }}
+                scaleIndex={{ variant: 'band', paddingOuter: 0.15, paddingInner: 0.3 }}
             >
                 <Quantiles
                     boxStyle={{ visibility: 'hidden' }}
                     whiskerStyle={{ visibility: 'hidden' }}
                     medianStyle={{ stroke: '#dd0000', strokeWidth: 3, strokeLinecap: 'round' }}
                 />
+                <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
             </Quantile>
             <Typography variant={'title'} position={[0, -40]}>
                 Many distributions

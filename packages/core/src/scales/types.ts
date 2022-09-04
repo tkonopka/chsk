@@ -191,3 +191,9 @@ export type ScalesContextProps = {
     /** scale for color */
     color: ColorScale
 }
+
+/** Cartesian detector zones */
+
+// coordinates for one detector zone: [[xmin, xmax], [ymin, ymax]]
+export type DetectorZone = [[number, number], [number, number]]
+export type DetectorIntervals = [number[], number[]]

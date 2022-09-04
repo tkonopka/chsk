@@ -1,5 +1,4 @@
 import { useCallback, useMemo, useRef, useState, MouseEvent } from 'react'
-import { sortedIndex } from 'lodash'
 import { AnimatePresence, m } from 'framer-motion'
 import {
     getIdKeySets,
@@ -12,55 +11,25 @@ import {
     NumericPositionSpec,
     SizeSpec,
     CssProps,
+    createBandDetectorIntervals,
+    DetectorZone,
+    DetectorIntervals,
+    inZone,
+    findZone,
 } from '@chask/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapProcessedData } from './HeatMap'
 
-// coordinates for one heatmap cell: [[xmin, xmax], [ymin, ymax]]
-type DetectorZone = [[number, number], [number, number]]
-type DetectorIntervals = [number[], number[]]
-
-// use bands in a scale to create intervals associated with each index
-// result is an array with potentially many duplicates, e.g. [0, 1, 1, 2, 2, 3]
-// the duplicates are needed to support band scales with custom padding
 const createDetectorIntervals = (
     scaleX: BandAxisScale,
     scaleY: BandAxisScale,
     idsSet: Set<string>,
     keysSet: Set<string>
 ): DetectorIntervals => {
-    const createIntervals = (scale: BandAxisScale, targets: Set<string>) => {
-        const halfStep = scale.step() / 2
-        return scale
-            .domain()
-            .filter(item => targets.has(item))
-            .map(item => {
-                const value = scale(item)
-                return [value - halfStep, value + halfStep]
-            })
-            .flat()
-            .sort((a: number, b: number) => a - b)
-    }
-    return [createIntervals(scaleX, keysSet), createIntervals(scaleY, idsSet)]
-}
-
-// determine if cursor is inside current detection zone
-const inZone = (pos: NumericPositionSpec, zone: DetectorZone | null): boolean => {
-    if (zone === null) return false
-    return (
-        pos[X] >= zone[X][0] && pos[X] <= zone[X][1] && pos[Y] >= zone[Y][0] && pos[Y] <= zone[Y][1]
-    )
-}
-
-const findZone = (
-    pos: NumericPositionSpec,
-    intervals: [Array<number>, Array<number>]
-): DetectorZone | null => {
-    const i = sortedIndex(intervals[X], pos[X])
-    const j = sortedIndex(intervals[Y], pos[Y])
-    if (i % 2 == 0 || j % 2 == 0) return null
-    if (i >= intervals[X].length || j >= intervals[Y].length) return null
-    return [intervals[X].slice(i - 1, i + 1), intervals[Y].slice(j - 1, j + 1)] as DetectorZone
+    return [
+        createBandDetectorIntervals(scaleX, keysSet),
+        createBandDetectorIntervals(scaleY, idsSet),
+    ]
 }
 
 const wh0 = { width: 0, height: 0 }
@@ -128,7 +97,13 @@ const HeatMapHighlightMask = (
     )
 }
 
-export const HeatMapHighlight = ({ ids, keys, className, style }: HeatMapHighlightProps) => {
+export const HeatMapHighlight = ({
+    ids,
+    keys,
+    className,
+    setRole = true,
+    style,
+}: HeatMapHighlightProps) => {
     const processedData = useProcessedData()
     const scales = useScales()
     const dimensions = useDimensions()
@@ -167,7 +142,7 @@ export const HeatMapHighlight = ({ ids, keys, className, style }: HeatMapHighlig
     const detector = (
         <rect
             ref={detectorRef}
-            role={'detector'}
+            role={setRole ? 'heatmap-detector' : undefined}
             width={dimensions.innerSize[X]}
             height={dimensions.innerSize[Y]}
             style={{ opacity: 0.0 }}

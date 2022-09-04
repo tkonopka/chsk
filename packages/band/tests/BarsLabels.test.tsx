@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Bar, Bars, BarsLabels } from '../src'
+import { Bar, BarsLabels } from '../src'
 import { barProps } from './props'
 
 describe('BarsLabels', () => {
@@ -39,7 +39,7 @@ describe('BarsLabels', () => {
     it('creates labels for many bars', () => {
         render(
             <Chart>
-                <Bar {...barProps} horizontal={true} stacked={true}>
+                <Bar {...barProps} horizontal={true}>
                     <BarsLabels minSize={[0, 0]} />
                 </Bar>
             </Chart>
@@ -52,7 +52,7 @@ describe('BarsLabels', () => {
     it('skips labels for small bars', () => {
         render(
             <Chart size={[500, 400]}>
-                <Bar {...barProps} horizontal={true} stacked={false}>
+                <Bar {...barProps} horizontal={true}>
                     <BarsLabels minSize={[200, 10]} />
                 </Bar>
             </Chart>
@@ -67,7 +67,7 @@ describe('BarsLabels', () => {
     it('places labels outside bars', () => {
         render(
             <Chart size={[500, 400]}>
-                <Bar {...barProps} horizontal={true} stacked={false}>
+                <Bar {...barProps} horizontal={true}>
                     <BarsLabels minSize={[200, 10]} showOuter={true} />
                 </Bar>
             </Chart>

@@ -1,21 +1,43 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis } from '@chask/core'
-import { Bar, Bars, BandHighlights } from '../src'
+import { Bar, Bars, BandSurface } from '../src'
 import { commonBarProps } from './decorators'
 import dataGroups from './dataGroups'
 
-# BandHighlights
+# BandSurface
 
-<Meta title="Addons/Band/BandHighlights" />
-export const Template = args => <BandHighlights {...args} />
+<Meta title="Addons/Band/BandSurface" />
+export const Template = args => <BandSurface {...args} />
 
-`BandHighlights` creates rectangles that highlight bands.
+`BandSurface` creates rectangles that highlight bands.
 
-<ArgsTable of={BandHighlights} />
+<ArgsTable of={BandSurface} />
 
-## Hovering
+## Selective highlights
 
-Hover the mouse on the examples below to see the highlights.
+Use prop `ids` to specify the bands to highlight.
+
+<Canvas>
+    <Story name="static">
+        <Chart
+            id={'bh2'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true} stacked={false}>
+                <BandSurface ids={['alpha']} style={{ fill: '#dddddd' }} />
+                <Bars />
+                <Axis variant={'top'} label={'Values (a.u.)'} />
+                <Axis variant={'left'} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Interactivity
+
+Flag `interactive` activates interactivity. Hover the mouse on the examples below to make the surfaces appear.
 
 <Canvas>
     <Story name="highlights 1">
@@ -26,7 +48,7 @@ Hover the mouse on the examples below to see the highlights.
             style={{ display: 'inline-block' }}
         >
             <Bar {...commonBarProps} horizontal={true} stacked={false}>
-                <BandHighlights style={{ fill: '#eeeeee' }} />
+                <BandSurface interactive={true} style={{ fill: '#eeeeee' }} />
                 <Bars />
                 <Axis variant={'top'} label={'Values (a.u.)'} />
                 <Axis variant={'left'} />
@@ -41,7 +63,7 @@ Hover the mouse on the examples below to see the highlights.
             style={{ display: 'inline-block' }}
         >
             <Bar {...commonBarProps} horizontal={true} stacked={false}>
-                <BandHighlights style={{ fill: '#eeeeee' }} />
+                <BandSurface interactive={true} style={{ fill: '#eeeeee' }} />
                 <Bars style={{ 'pointer-events': 'none' }} />
                 <Axis variant={'top'} label={'Values (a.u.)'} />
                 <Axis variant={'left'} />
@@ -50,26 +72,4 @@ Hover the mouse on the examples below to see the highlights.
     </Story>
 </Canvas>
 
-When a band contains content, for example bars in a bar chart, then hovering on that content may not activate the highlight (see example above, left). To make the highlight visible, the style on that content must include `pointer-events: 'none'`. This can be set inline (see example above, right), or via themes.
-
-## Static highlights
-
-To create static highlights on a subset of bands, use prop `ids` to specify the bands and set the opacity to a fixed value.
-
-<Canvas>
-    <Story name="static">
-        <Chart
-            id={'bh2'}
-            size={[400, 240]}
-            padding={[60, 60, 60, 60]}
-            style={{ display: 'inline-block' }}
-        >
-            <Bar {...commonBarProps} horizontal={true} stacked={false}>
-                <BandHighlights ids={['alpha']} style={{ fill: '#dddddd', opacity: 1 }} />
-                <Bars />
-                <Axis variant={'top'} label={'Values (a.u.)'} />
-                <Axis variant={'left'} />
-            </Bar>
-        </Chart>
-    </Story>
-</Canvas>
+When a band contains content, for example bars in a bar chart, then hovering on that content may not activate the highlight (see first example above). To make the highlight visible, the style on that content must include `pointer-events: 'none'`. This can be set inline (see second example above), or via themes.

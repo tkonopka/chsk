@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Bar, BandHighlights, BandLabels } from '../src'
+import { Bar, BandSurface, BandLabels } from '../src'
 import { barProps } from './props'
 
 describe('BandHighlights', () => {
@@ -8,11 +8,11 @@ describe('BandHighlights', () => {
         render(
             <Chart>
                 <Bar {...barProps} horizontal={true} keys={['x']}>
-                    <BandHighlights />
+                    <BandSurface />
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('band-highlights')
+        const result = screen.getByRole('band-surface')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 
@@ -20,13 +20,13 @@ describe('BandHighlights', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
-                    <BandHighlights ids={['alpha']} setRole={true} />
+                    <BandSurface ids={['alpha']} setRole={true} />
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('band-highlights')
+        const result = screen.getByRole('band-surface')
         expect(result.querySelectorAll('rect')).toHaveLength(1)
-        const highlight = screen.getByRole('band-highlight-0')
+        const highlight = screen.getByRole('band-surface-0')
         expect(highlight).toBeDefined()
     })
 
@@ -34,7 +34,7 @@ describe('BandHighlights', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
-                    <BandHighlights ids={[]} />
+                    <BandSurface ids={[]} />
                 </Bar>
             </Chart>
         )
