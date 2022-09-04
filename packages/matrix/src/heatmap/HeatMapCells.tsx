@@ -6,22 +6,30 @@ import {
     Rectangle,
     useProcessedData,
     useScales,
+    createColorScale,
+    isContinuousAxisScale,
+    ScalesProvider,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapProcessedData } from './HeatMap'
+import { cloneDeep } from 'lodash'
 
 export const HeatMapCells = ({
     ids,
     keys,
     cell = Rectangle,
+    scaleColor,
     className,
     style,
+    children,
 }: HeatMapCellsProps) => {
     const processedData = useProcessedData()
     const scales = useScales()
-    const colorScale = scales.color
     const data = processedData.data
     if (!isHeatMapProcessedData(data)) return null
+
+    const colorScale = scaleColor ? createColorScale(scaleColor) : scales.color
+    const continuous: boolean = isContinuousAxisScale(colorScale)
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, processedData),
@@ -41,7 +49,9 @@ export const HeatMapCells = ({
             const values = seriesData.value
             return seriesData.value.map((v, i) => {
                 if (!keySet.has(processedData.keys[i])) return null
-                const color = colorScale(values[i])
+                const color = continuous
+                    ? colorScale(Number(values[i]))
+                    : colorScale(values[i] as number)
                 const cellStyle = addColor(style, color)
                 return createElement(cell, {
                     key: 'cell-' + seriesData.index + '-' + i,
@@ -60,10 +70,15 @@ export const HeatMapCells = ({
         .flat()
         .filter(Boolean)
 
-    if (cells.length === 0) return null
+    if (cells.length === 0 && !children) return null
+
+    const customScales = cloneDeep(scales)
+    customScales.color = colorScale
+
     return (
         <g role={'heatmap-cells'} key={'heatmap-cells'}>
             {cells}
+            <ScalesProvider scales={customScales}>{children}</ScalesProvider>
         </g>
     )
 }

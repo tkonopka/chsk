@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { HeatMap, HeatMapCells } from '../src'
-import { ChartDecorator, commonProps } from './decorators'
+import { ChartDecorator, commonProps, commonCategoricalProps } from './decorators'
 
 # HeatMap
 
@@ -16,9 +16,9 @@ export const Template = args => <HeatMap {...args} />
 
 The examples in this page showcase `HeatMap` by automatically using `HeatMapCells` as a child component. Note that to create a complete chart, additional components would normally be employed, for example adding axes and labels.
 
-## Scales
+## Layout
 
-By default, the rows and columns in the heatmap are placed directly adjacent to each other, i.e. without any padding. They can be spaced by adjusting the scales for the x and y axes.
+By default, the rows and columns in the heatmap are placed directly adjacent to each other. The space between rows and columns can be adjusted through props `scaleX` and `scaleY`.
 
 <Canvas>
     <Story
@@ -38,6 +38,24 @@ By default, the rows and columns in the heatmap are placed directly adjacent to 
             ...commonProps,
             scaleX: { variant: 'band', padding: 0.15 },
             scaleY: { variant: 'band', padding: 0.15 },
+            children: <HeatMapCells />,
+        }}
+        component={HeatMap}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Color scales
+
+`HeatMap` accepts both continuous and categorical color scales. Continuous scales are demonstrated in examples above. The chart below is based on a matrix of strings, and uses a categorical scale to color-code the data.
+
+<Canvas>
+    <Story
+        name="categorical"
+        args={{
+            ...commonCategoricalProps,
             children: <HeatMapCells />,
         }}
         component={HeatMap}

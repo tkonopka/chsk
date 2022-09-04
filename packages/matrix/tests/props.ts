@@ -34,3 +34,30 @@ export const heatmapProps = {
         variant: 'band' as const,
     },
 }
+
+const dataCategorical = [
+    {
+        id: 'alpha',
+        x: 'a',
+        y: 'b',
+    },
+    {
+        id: 'beta',
+        x: 'c',
+        y: 'd',
+    },
+]
+
+export const heatmapCategoricalProps = {
+    data: dataCategorical,
+    scaleX: {
+        variant: 'band' as const,
+    },
+    scaleY: {
+        variant: 'band' as const,
+    },
+    scaleColor: {
+        variant: 'categorical' as const,
+        colors: 'Blues' as const,
+    },
+}

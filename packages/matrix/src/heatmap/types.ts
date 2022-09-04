@@ -1,10 +1,12 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     BandScaleSpec,
-    DivergingScaleSpec,
+    CategoricalScaleProps,
+    ColorScaleSpec,
+    DivergingScaleProps,
     ProcessedDataContextProps,
     RectangleProps,
-    SequentialScaleSpec,
+    SequentialScaleProps,
     SvgElementProps,
     ViewProps,
     WithId,
@@ -14,7 +16,7 @@ export type HeatMapDataItem = WithId & Record<string, unknown>
 
 export type HeatMapProcessedDataItem = WithId & {
     index: number
-    value: Array<number>
+    value: Array<number | string>
 }
 
 export type HeatMapDataContextProps = ProcessedDataContextProps & {
@@ -32,7 +34,7 @@ export interface HeatMapProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'sca
     /** scale for vertical axis */
     scaleY?: BandScaleSpec
     /** scale for colors */
-    scaleColor?: SequentialScaleSpec | DivergingScaleSpec
+    scaleColor?: ColorScaleSpec
 }
 
 export interface HeatMapHighlightProps extends SvgElementProps {
@@ -45,4 +47,8 @@ export interface HeatMapHighlightProps extends SvgElementProps {
 export interface HeatMapCellsProps extends HeatMapHighlightProps {
     /** symbol for individual data points */
     cell?: FC<RectangleProps>
+    /** scale for colors */
+    scaleColor?: SequentialScaleProps | DivergingScaleProps | CategoricalScaleProps
+    /** children */
+    children?: ReactNode
 }

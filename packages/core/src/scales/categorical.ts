@@ -1,5 +1,5 @@
 import * as d3 from 'd3-scale-chromatic'
-import { CategoricalScaleProps, ColorScale } from './types'
+import { CategoricalColorScale, CategoricalScaleProps } from './types'
 
 type D3ScaleChromatic = keyof typeof d3
 
@@ -11,7 +11,8 @@ export const createCategoricalScale = ({
     variant,
     colors,
     size,
-}: CategoricalScaleProps): ColorScale => {
+    domain,
+}: CategoricalScaleProps): CategoricalColorScale => {
     // bring all input types to a common format as an array of color strings
     let allColors: unknown = colors
     if (!Array.isArray(colors)) {
@@ -36,10 +37,24 @@ export const createCategoricalScale = ({
     }
     nColors = Math.min(nColors, (allColors as unknown[]).length)
 
+    const domainMap: Record<string, number> = {}
+    domain.forEach((d, index) => {
+        domainMap[String(d)] = index
+    })
+
     // here, allColors should be a simple array of string, nColors is the number of colors
     const scaleColors: string[] = allColors as string[]
-    const result = (index: number) => scaleColors[index % nColors]
+    const result = (index: number | string) => {
+        if (typeof index === 'string') {
+            index = domainMap[index] ?? -1
+        }
+        return scaleColors[index % nColors]
+    }
     result.variant = variant
+    result.domain = () =>
+        Array(nColors)
+            .fill('')
+            .map((emptyColor, i) => domain[i] ?? emptyColor) as string[]
 
-    return result as ColorScale
+    return result as CategoricalColorScale
 }

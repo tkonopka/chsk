@@ -24,7 +24,7 @@ export type HistogramDataContextProps = ProcessedDataContextProps & {
     data: Array<HistogramProcessedDataItem>
 }
 
-export interface HistogramProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
+export interface HistogramProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
     /** data */
     data: Array<HistogramDataItem>
     /** breakpoints for bins */

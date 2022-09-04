@@ -1,37 +1,28 @@
 import { ReactNode } from 'react'
 import { Chart, Axis } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
+import { generateCategoricalHeatMapData, generateContinuousHeatMapData } from './generators'
 
-const data4x3 = [
-    {
-        id: 'alpha',
-        x: 10,
-        y: 20,
-        z: 30,
-    },
-    {
-        id: 'beta',
-        x: 0,
-        y: 15,
-        z: 30,
-    },
-    {
-        id: 'gamma',
-        x: 30,
-        y: 20,
-        z: 10,
-    },
-    {
-        id: 'epsilon',
-        x: 15,
-        y: 15,
-        z: 15,
-    },
-]
+const continuous4x3 = generateContinuousHeatMapData(
+    ['alpha', 'beta', 'gamma', 'delta'],
+    ['x', 'y', 'z'],
+    [0, 35]
+)
+const categorical4x3 = generateCategoricalHeatMapData(
+    ['alpha', 'beta', 'gamma', 'delta'],
+    ['x', 'y', 'z'],
+    ['a', 'b', 'c', 'd', 'e']
+)
 
 export const commonProps: Pick<HeatMapProps, 'data' | 'keys'> = {
-    data: data4x3,
+    data: continuous4x3,
     keys: ['x', 'y', 'z'],
+}
+
+export const commonCategoricalProps: Pick<HeatMapProps, 'data' | 'keys' | 'scaleColor'> = {
+    data: categorical4x3,
+    keys: ['x', 'y', 'z'],
+    scaleColor: { variant: 'categorical', colors: 'Category10' },
 }
 
 export const ChartDecorator = (Story: () => ReactNode) => (

@@ -10,6 +10,7 @@ const viewSeriesIndexesKeys = {
 const scaleCategorical: ColorScaleProps = {
     variant: 'categorical',
     colors: 'Category10',
+    domain: [],
 }
 
 const scaleSequential: ColorScaleProps = {

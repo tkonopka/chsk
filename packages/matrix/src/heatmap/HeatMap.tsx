@@ -12,24 +12,25 @@ import {
     getIndexes,
     BandScaleSpec,
     BandScaleProps,
-    SequentialScaleSpec,
     getMinMax,
-    DivergingScaleSpec,
     ColorScaleProps,
     useTheme,
+    CategoricalScaleProps,
+    ColorScaleSpec,
 } from '@chask/core'
 
 // turn raw dataGroups into a minimal array-based format
 const processData = (
-    seriesData: HeatMapDataItem,
-    index: number,
-    accessors: Array<AccessorFunction<unknown>>
-): HeatMapProcessedDataItem => {
-    return {
-        id: seriesData.id,
-        index,
-        value: accessors.map(f => Number(f(seriesData))),
-    }
+    data: Array<HeatMapDataItem>,
+    accessors: Array<AccessorFunction<string | number>>
+): Array<HeatMapProcessedDataItem> => {
+    return data.map((seriesData, index) => {
+        return {
+            id: seriesData.id,
+            index,
+            value: accessors.map(f => f(seriesData)),
+        }
+    })
 }
 
 const getScaleProps = (
@@ -46,10 +47,26 @@ const getScaleProps = (
 
 const getColorScaleProps = (
     data: HeatMapProcessedDataItem[],
-    scaleSpec: SequentialScaleSpec | DivergingScaleSpec
+    scaleSpec: ColorScaleSpec
 ): ColorScaleProps => {
     const result = cloneDeep(scaleSpec)
-    const minmax = getMinMax(data.map(item => item.value).flat())
+    if (scaleSpec.variant === 'categorical') {
+        const allValues = new Set<string>(
+            data
+                .map(item => item.value)
+                .flat()
+                .map(String)
+        )
+        result.domain = Array.from(allValues)
+        return result as CategoricalScaleProps
+    }
+    const minmax = getMinMax(
+        data
+            .map(item => item.value)
+            .flat()
+            .map(Number)
+            .filter(isFinite)
+    )
     if (result.domain === 'auto' || result.domain === undefined) {
         result.domain = result.variant === 'diverging' ? [minmax[0], 0, minmax[1]] : minmax
     } else {
@@ -101,14 +118,8 @@ export const HeatMap = ({
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
     // collect raw data into an array-based format format
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
-    const processedData = useMemo(
-        () =>
-            data.map((seriesData, seriesIndex) =>
-                processData(seriesData, seriesIndex, keyAccessors)
-            ),
-        [data, keyAccessors]
-    )
+    const keyAccessors = useMemo(() => keys.map(k => getAccessor<number | string>(k)), [keys])
+    const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
 
     const { scalePropsX, scalePropsY } = getScaleProps(seriesIds, keys, scaleX, scaleY)
     const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })

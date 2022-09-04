@@ -1,7 +1,7 @@
 import { roundDecimalPlaces, WithId } from '@chask/core'
 import { HeatMapDataItem } from '../src'
 
-export const generateHeatMapData = (
+export const generateContinuousHeatMapData = (
     ids: string[],
     keys: string[],
     interval: [number, number],
@@ -13,6 +13,20 @@ export const generateHeatMapData = (
         keys.forEach(
             k => (series[k] = roundDecimalPlaces(interval[0] + intervalSize * Math.random(), round))
         )
+        return series as HeatMapDataItem
+    })
+    return result
+}
+
+export const generateCategoricalHeatMapData = (
+    ids: string[],
+    keys: string[],
+    domain: string[]
+): Array<HeatMapDataItem> => {
+    const domainSize = domain.length
+    const result = ids.map((id: string) => {
+        const series: Record<string, unknown> = { id: id }
+        keys.forEach(k => (series[k] = domain[Math.floor(domainSize * Math.random())]))
         return series as HeatMapDataItem
     })
     return result

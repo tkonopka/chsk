@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { HeatMap, HeatMapCells } from '../src'
-import { heatmapProps } from './props'
+import { HeatMap, HeatMapCells, HeatMapDataContextProps } from '../src'
+import { heatmapCategoricalProps, heatmapProps } from './props'
 
 describe('HeatMapCells', () => {
     it('draws cells', () => {
@@ -41,5 +41,19 @@ describe('HeatMapCells', () => {
         const result = screen.getByRole('heatmap-cells')
         // the data has four rows and two columns (x, y)
         expect(result.querySelectorAll('rect')).toHaveLength(8)
+    })
+
+    it('accepts data in string form', () => {
+        const processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        render(
+            <Chart>
+                <HeatMap {...heatmapCategoricalProps} keys={['x', 'y']}>
+                    <HeatMapCells />
+                </HeatMap>
+            </Chart>
+        )
+        // the dataset has four cells
+        const result = screen.getByRole('heatmap-cells')
+        expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 })

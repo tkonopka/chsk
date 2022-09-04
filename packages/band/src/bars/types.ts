@@ -44,7 +44,7 @@ export type BarPreparedDataContextProps = {
     keys: string[]
 }
 
-export interface BarProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY'> {
+export interface BarProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY' | 'scaleColor'> {
     /** variant */
     variant?: 'grouped' | 'stacked'
     /** data */

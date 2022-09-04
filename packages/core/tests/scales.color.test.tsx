@@ -13,6 +13,7 @@ describe('createCategoricalScale', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff'],
+            domain: [],
         })
         expect(result(0)).toBe('#000')
         expect(result(1)).toBe('#fff')
@@ -21,11 +22,23 @@ describe('createCategoricalScale', () => {
         expect(result(3)).toBe('#fff')
     })
 
+    it('categorical with custom colors and domain', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: ['#000', '#fff'],
+            domain: ['x', 'y'],
+        })
+        expect(result('x')).toBe('#000')
+        expect(result('y')).toBe('#fff')
+        expect(result('z')).toBe(undefined)
+    })
+
     it('categorical with custom colors, restricted', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff', '#0f0'],
             size: 2,
+            domain: [],
         })
         expect(result(0)).toBe('#000')
         expect(result(1)).toBe('#fff')
@@ -36,6 +49,7 @@ describe('createCategoricalScale', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Category10',
+            domain: [],
         })
         // a few colors to compare - they should be different from each other
         const colors = [result(0), result(2), result(6)]
@@ -48,6 +62,7 @@ describe('createCategoricalScale', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
+            domain: [],
         })
         // a few colors to compare - they should be different from each other
         const colors = [result(0), result(3), result(6)]
@@ -61,6 +76,7 @@ describe('createCategoricalScale', () => {
             variant: 'categorical',
             colors: 'Blues',
             size: 5,
+            domain: [],
         })
         // a few colors to compare - they should be different from each other
         const colors = [result(0), result(4), result(5)]
@@ -125,6 +141,7 @@ describe('createColorScale', () => {
         const result = createColorScale({
             variant: 'categorical',
             colors: ['#000', '#fff'],
+            domain: ['a', 'b'],
         })
         expect(result(0)).toBe('#000')
         expect(result(1)).toBe('#fff')

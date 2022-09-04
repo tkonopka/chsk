@@ -56,7 +56,11 @@ export const defaultSizeScale = createContinuousScale({
     size: 0,
 })
 
-export const defaultCategoricalScale = createCategoricalScale(defaultCategoricalScaleSpec)
+export const defaultCategoricalScale = createCategoricalScale({
+    variant: 'categorical',
+    colors: 'Category10',
+    domain: [],
+})
 
 export const defaultSequentialScale = createSequentialScale({
     variant: 'sequential',

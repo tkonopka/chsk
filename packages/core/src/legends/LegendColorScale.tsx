@@ -1,7 +1,7 @@
 import { LegendColorScaleProps } from './types'
 import { LEFT, TOP, X, Y } from '../general'
 import { Rectangle } from '../shapes'
-import { useScales } from '../scales'
+import { isContinuousColorScale, useScales } from '../scales'
 import { LinearGradient } from '../defs'
 import { cloneDeep } from 'lodash'
 import { getAxisTranslate, getScaleTicks } from '../axes'
@@ -23,6 +23,7 @@ export const LegendColorScale = ({
     gradientId,
 }: LegendColorScaleProps) => {
     const scale = useScales().color
+    if (!isContinuousColorScale(scale)) return null
 
     // create a list of colors
     const horizontal = variant === 'bottom' || variant === 'top'

@@ -9,7 +9,7 @@ import {
 export const defaultViewProps: ViewThemedProps = {
     scaleX: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleY: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
-    scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, [0, 100]),
+    scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, []),
     scaleSize: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     units: 'relative' as const,
     position: [0, 0],

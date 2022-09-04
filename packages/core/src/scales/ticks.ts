@@ -1,12 +1,15 @@
 import { Scale } from './types'
 import { isContinuousAxisScale } from './axis'
-import { isColorScale, isContinuousColorScale } from './color'
+import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './color'
 
-/** get an array of ticks in the scale domain */
+/** get an array of (numeric) ticks in the scale domain */
 export const getTicks = (scale: Scale, ticks: number | undefined) => {
     if (isContinuousColorScale(scale) || isContinuousAxisScale(scale)) {
         if (ticks === undefined) return scale.ticks(4) as Array<number>
         return scale.ticks(ticks) as Array<number>
+    }
+    if (isCategoricalColorScale(scale)) {
+        return scale.domain().map((v, i) => i) as Array<number>
     }
     return scale.domain()
 }
@@ -20,6 +23,7 @@ export const getTickCoordinates = (
 ) => {
     const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
     if (isColorScale(scale)) {
+        if (isCategoricalColorScale(scale)) return []
         const domain = scale.domain()
         const domainSize = domain[domain.length - 1] - domain[0]
         const result = tickValues.map(v => (size * (Number(v) - domain[0])) / domainSize)

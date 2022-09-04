@@ -30,7 +30,7 @@ export type ScatterDataContextProps = ProcessedDataContextProps & {
     data: Array<ScatterProcessedDataItem>
 }
 
-export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY'> {
+export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
     /** key or function to extract x-axis values from raw data */
     x: string | AccessorFunction<number>
     /** key or function to extract y-axis values from raw data */

@@ -139,8 +139,11 @@ export type CategoricalScaleSpec = {
     variant: 'categorical'
     colors: D3Scheme | string[] | string[][]
     size?: number
+    domain?: string[]
 }
-export type CategoricalScaleProps = CategoricalScaleSpec
+export type CategoricalScaleProps = CategoricalScaleSpec & {
+    domain: string[]
+}
 
 export type SequentialScaleSpec = {
     variant: 'sequential'
@@ -169,7 +172,7 @@ export type SequentialColorScale = GenericScale<number, string> & {
 export type DivergingColorScale = GenericScale<number, string> & {
     variant: 'diverging'
 }
-export type CategoricalColorScale = GenericScale<number, string> & {
+export type CategoricalColorScale = GenericScale<number | string, string> & {
     variant: 'categorical'
 }
 
