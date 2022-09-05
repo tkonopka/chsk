@@ -53,13 +53,15 @@ describe('Rectangle', () => {
     it('creates a default rect', () => {
         render(
             <Chart {...chartProps}>
-                <Rectangle x={0} y={10} width={50} height={20} />
+                <Rectangle x={5} y={10} width={50} height={20} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
-        expect(result?.getAttribute('x')).toContain('0')
+        // position will be set via transforms in style
+        expect(result?.getAttribute('style')).toContain('5')
+        expect(result?.getAttribute('style')).toContain('10')
+        // size is set via attributes
         expect(result?.getAttribute('width')).toContain('50')
-        expect(result?.getAttribute('y')).toContain('10')
         expect(result?.getAttribute('height')).toContain('20')
         expect(result?.getAttribute('role')).toContain('default')
     })
@@ -74,16 +76,28 @@ describe('Rectangle', () => {
         expect(result?.getAttribute('role')).toBeNull()
     })
 
+    it('creates a default rect without animation', () => {
+        render(
+            <Chart {...chartProps}>
+                <Rectangle x={0} y={10} width={50} height={20} setRole={false} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('role')).toBeNull()
+    })
+
     it('creates a custom rect', () => {
         render(
             <Chart {...chartProps}>
-                <Rectangle variant={'test'} x={0} y={10} width={50} height={20} setRole={true} />
+                <Rectangle variant={'test'} x={5} y={10} width={50} height={20} setRole={true} />
             </Chart>
         )
         const result = screen.getByRole('test')
-        expect(result.getAttribute('x')).toContain('0')
+        // position
+        expect(result.getAttribute('style')).toContain('5')
+        expect(result.getAttribute('style')).toContain('10')
+        // dimensions
         expect(result.getAttribute('width')).toContain('50')
-        expect(result.getAttribute('y')).toContain('10')
         expect(result.getAttribute('height')).toContain('20')
         expect(result.getAttribute('role')).toContain('test')
     })
@@ -103,9 +117,11 @@ describe('Rectangle', () => {
             </Chart>
         )
         const result = screen.getByRole('test')
-        expect(result.getAttribute('x')).toContain('-25')
+        // position (center at 0, width 50, so left corner should be at x=-25)
+        expect(result.getAttribute('style')).toContain('-25')
+        expect(result.getAttribute('style')).toContain('-10')
+        // dimensions
         expect(result.getAttribute('width')).toContain('50')
-        expect(result.getAttribute('y')).toContain('-10')
         expect(result.getAttribute('height')).toContain('20')
     })
 })

@@ -64,6 +64,7 @@ export const HeatMapCells = ({
                     center: true,
                     variant: 'cell',
                     setRole: false,
+                    animated: false,
                 })
             })
         })

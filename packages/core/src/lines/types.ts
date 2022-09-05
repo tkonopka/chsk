@@ -55,10 +55,12 @@ export type CurveFunction = (xy: Array<NumericPositionSpec>) => string | null
 export type AreaFunction = (xy: Array<NumericPositionIntervalSpec>) => string | null
 
 export interface PathProps extends SvgElementVariantProps {
-    /** array of coordinates */
-    points: NumericPositionSpec[]
-    /** curve type */
-    curve: CurveSpec
     /** variant */
     variant?: 'default' | string
+    /** array of coordinates */
+    points?: NumericPositionSpec[]
+    /** curve type */
+    curve?: CurveSpec
+    /** path d argument (supersedes points and curve) */
+    d?: string
 }

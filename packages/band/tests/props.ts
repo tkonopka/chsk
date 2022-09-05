@@ -9,6 +9,11 @@ export const dummyLinearScale = createContinuousScale({
     axis: 'y',
 })
 
+export const getNumber = (s: string | undefined | null) => {
+    if (!s) return s
+    return Number(s.replace("px", ""))
+}
+
 const dataGroups: Array<BarDataItem> = [
     {
         id: 'alpha',

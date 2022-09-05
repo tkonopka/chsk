@@ -3,6 +3,7 @@ import {
     ContinuousAxisScale,
     createAreaGenerator,
     CurveSpec,
+    Path,
     isContinuousAxisScale,
     NumericPositionIntervalSpec,
     OpacityMotion,
@@ -74,9 +75,10 @@ export const ScatterArea = ({
                 key={'scatter-area-' + seriesIndex}
                 firstRender={firstRender}
             >
-                <path
+                <Path
+                    variant={variant}
                     d={areas[id]}
-                    role={setRole ? variant : undefined}
+                    setRole={setRole}
                     style={seriesStyle}
                     className={className}
                 />

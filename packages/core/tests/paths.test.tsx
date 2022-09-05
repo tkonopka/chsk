@@ -16,7 +16,6 @@ describe('Path', () => {
             </Chart>
         )
         const result = screen.getByRole('default')
-        //screen.debug(result)
         expect(result?.getAttribute('d')).toContain('M')
     })
 

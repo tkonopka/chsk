@@ -36,7 +36,7 @@ export const getScaleProps = (
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
         const filterDisabled = (v: unknown, i: number) => !disabled[i]
-        const values = data.filter(filterDisabled).map(d => d.flat().filter(isFinite))
+        const values = data.map(d => d.filter(filterDisabled).flat().filter(isFinite))
         const sumValues = (values: number[]) =>
             values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
         const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())

@@ -2,6 +2,7 @@ import {
     addColor,
     isContinuousAxisScale,
     OpacityMotion,
+    Path,
     useDisabledKeys,
     useScales,
 } from '@chask/core'
@@ -51,9 +52,10 @@ export const HistogramArea = ({
                 key={'histogram-area-' + seriesIndex}
                 firstRender={firstRender}
             >
-                <path
+                <Path
+                    variant={variant}
                     d={areas[id]}
-                    role={setRole ? variant : undefined}
+                    setRole={setRole}
                     style={seriesStyle}
                     className={className}
                 />

@@ -120,6 +120,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                             units={'absolute'}
                             title={'Flags'}
                             symbolStyle={{ stroke: '#222222', strokeWidth: 1 }}
+                            interactive={false}
                         />
                     </HeatMapCells>
                     <HeatMapSurface
