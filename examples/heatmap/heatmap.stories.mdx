@@ -10,6 +10,7 @@ import {
     generateDualContinuousHeatMapData,
     DualContinuousHeatMapChart,
 } from './DualContinuousHeatMapChart'
+import { generateFlagsHeatMapData, FlagsHeatMapChart } from './FlagsHeatMapChart'
 
 <Meta title="Gallery/Heat maps" />
 
@@ -47,6 +48,16 @@ import {
             generator={generateDualContinuousHeatMapData}
             chart={DualContinuousHeatMapChart}
             steps={['top', 'categorical', 'measurements', 'vowels', 'consonants']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="boolean flags">
+        <Controller
+            generator={generateFlagsHeatMapData}
+            chart={FlagsHeatMapChart}
+            steps={['samples', 'flags', 'heatmap']}
         />
     </Story>
 </Canvas>

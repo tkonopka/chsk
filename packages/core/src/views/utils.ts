@@ -10,13 +10,23 @@ export const getIndexes = (data: Array<WithId>): Record<string, number> => {
     return result
 }
 
+// helper to getIdKeySets
+const getSet = (values: string[] | undefined, allowed: Set<string>) => {
+    if (!values) return allowed
+    const result = new Set<string>(values)
+    values.map(v => {
+        if (!allowed.has(v)) result.delete(v)
+    })
+    return result
+}
+
 // get sets containing ids and keys to display (or sets of all available ids and keys)
 export const getIdKeySets = (
     ids: string[] | undefined,
     keys: string[] | undefined,
     processedData: ProcessedDataContextProps
 ) => {
-    const idSet = ids ? new Set(ids) : new Set(Object.keys(processedData.seriesIndexes))
-    const keySet = keys ? new Set(keys) : new Set(processedData.keys)
-    return { idSet, keySet }
+    const allIds = new Set(Object.keys(processedData.seriesIndexes))
+    const allKeys = new Set(processedData.keys)
+    return { idSet: getSet(ids, allIds), keySet: getSet(keys, allKeys) }
 }

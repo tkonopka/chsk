@@ -1,7 +1,7 @@
 import { Rectangle, Square } from '../shapes'
 import { useProcessedData } from '../views'
 import { Typography } from '../typography'
-import { addColor, addOpacity, camelCase, themedProps } from '../themes'
+import { addColor, addOpacity, camelCase, composeClassName, themedProps } from '../themes'
 import { useScales } from '../scales'
 import { LEFT, RIGHT, TOP } from '../general'
 import { useChartData } from '../chart'
@@ -76,7 +76,7 @@ export const UnthemedLegendItem = ({
                 cx: symbolPos[0] + translate[0],
                 cy: symbolPos[1] + translate[1],
                 r: r,
-                className,
+                className: composeClassName(['legendSymbol', className]),
                 style: itemStyle,
                 setRole: false,
             })}

@@ -153,4 +153,10 @@ describe('getIdKeySets', () => {
         expect(Array.from(result.idSet).sort()).toEqual(['B'])
         expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
     })
+
+    it('remove unnecessary ids and keys', () => {
+        const result = getIdKeySets(['B', 'Z'], ['z', 'y', 'w'], tempProcessedDataProps)
+        expect(Array.from(result.idSet).sort()).toEqual(['B'])
+        expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
+    })
 })

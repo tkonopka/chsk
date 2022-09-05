@@ -8,6 +8,7 @@ import {
     SvgElementProps,
     ViewProps,
     WithId,
+    WithInteractive,
 } from '@chask/core'
 
 export type HeatMapDataItem = WithId & Record<string, unknown>
@@ -49,4 +50,13 @@ export interface HeatMapCellsProps extends HeatMapHighlightProps {
     scaleColor?: ColorScaleProps
     /** children */
     children?: ReactNode
+}
+
+export interface HeatMapSurfaceProps extends SvgElementProps, WithInteractive {
+    /** interval of ids */
+    ids?: string[]
+    /** interval of keys */
+    keys?: string[]
+    /** expansion along the ids and keys axes */
+    expansion?: [[number, number], [number, number]]
 }
