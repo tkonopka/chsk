@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { LegendProps } from './types'
-import { useProcessedData, useView } from '../views'
+import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { themedProps } from '../themes'
 import { LegendItem } from './LegendItem'
@@ -41,7 +41,6 @@ export const UnthemedLegend = ({
     children,
 }: LegendProps) => {
     const scales = useScales()
-    const data = useProcessedData()
     const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
 
     // book-keeping for position of legend item position
@@ -55,7 +54,7 @@ export const UnthemedLegend = ({
     // legend content
     let content: ReactNode | null | ReactNode[] = null
     if (variant === 'list' && scales.color.variant === 'categorical') {
-        content = data.keys.map((k: string, i: number) => {
+        content = scales.color.domain().map((k: string | number, i: number) => {
             return (
                 <LegendItem
                     variant={'legend-item'}
@@ -67,7 +66,7 @@ export const UnthemedLegend = ({
                     r={r}
                     symbol={symbol}
                     symbolStyle={symbolStyle}
-                    label={k}
+                    label={String(k)}
                     labelStyle={labelStyle}
                     labelOffset={labelOffset}
                     colorIndex={i}

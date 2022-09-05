@@ -1,9 +1,10 @@
-import { render } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import {
     Chart,
     defaultDivergingScale,
     defaultSequentialScale,
     defaultSizeScale,
+    Legend,
     ScalesContextProps,
     useProcessedData,
     useScales,
@@ -226,5 +227,16 @@ describe('Strip', () => {
         // for second id, first key (x) should not have information
         expect(result[1].data[0]).toBeFalsy()
         expect(result[1].data[1]).not.toBeFalsy()
+    })
+
+    it('prepares color scale for legend', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps}>
+                    <Legend variant={'list'} />
+                </Strip>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
     })
 })

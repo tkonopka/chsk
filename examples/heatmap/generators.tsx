@@ -43,3 +43,20 @@ export const generateHeatMapMatrixUniform = (
         return item
     })
 }
+
+// create one object with an id
+export const generateHeatMapRowCategorical = (
+    id: string,
+    keys: string[],
+    categories: string[],
+    sorted = true
+) => {
+    const nCats = categories.length
+    const randomCats = Array(keys.length)
+        .fill(0)
+        .map(v => categories[Math.floor(Math.random() * nCats)])
+    if (sorted) randomCats.sort()
+    const result: WithId & Record<string, string | number> = { id }
+    keys.forEach((k, i) => (result[k] = randomCats[i]))
+    return result
+}

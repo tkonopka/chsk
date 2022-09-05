@@ -4,6 +4,7 @@ import {
     defaultDivergingScale,
     defaultSequentialScale,
     defaultSizeScale,
+    Legend,
     ScalesContextProps,
     useProcessedData,
     useScales,
@@ -128,5 +129,16 @@ describe('Bar', () => {
         // when stacked, the alpha group goes from baseline 0 to top 100
         expect(scales.y.domain()).toEqual(['alpha', 'beta'])
         expect(scales.x.domain()).toEqual([0, 100])
+    })
+
+    it('prepares color scale for legend', () => {
+        render(
+            <Chart>
+                <Bar {...barProps}>
+                    <Legend variant={'list'} />
+                </Bar>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('legend-item')).toHaveLength(3)
     })
 })

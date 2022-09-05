@@ -27,6 +27,30 @@ export const alphabetUppercase = [
     'Y',
     'Z',
 ]
+export const alphabetUppercaseVowels = ['A', 'E', 'I', 'O', 'U']
+export const alphabetUppercaseConsonants = [
+    'B',
+    'C',
+    'D',
+    'F',
+    'G',
+    'H',
+    'J',
+    'K',
+    'L',
+    'M',
+    'N',
+    'P',
+    'Q',
+    'R',
+    'S',
+    'T',
+    'V',
+    'W',
+    'X',
+    'Y',
+    'Z',
+]
 
 // letters of the Greek alphabet
 export const alphabetGreek = [

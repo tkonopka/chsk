@@ -25,7 +25,7 @@ export const createCategoricalScale = ({
         allColors = [colors]
     }
     // handle case when d3 returns an array of arrays, e.g. [undefined, undefined, ["red", "blue"]]
-    let nColors = (allColors as unknown[]).length
+    let nColors = Math.min(domain.length, (allColors as unknown[]).length)
     nColors = size ? Math.min(size, nColors) : nColors
     if (isNested(allColors as unknown[])) {
         nColors = (allColors as unknown[]).length - 1

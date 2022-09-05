@@ -2,12 +2,20 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateSequentialHeatMapData, SequentialHeatMapChart } from './SequentialHeatMapChart'
 import { generateDivergingHeatMapData, DivergingHeatMapChart } from './DivergingHeatMapChart'
+import {
+    generateCategoricalStripHeatMapData,
+    CategoricalStripHeatMapChart,
+} from './CategoricalStripHeatMapChart'
+import {
+    generateDualContinuousHeatMapData,
+    DualContinuousHeatMapChart,
+} from './DualContinuousHeatMapChart'
 
 <Meta title="Gallery/Heat maps" />
 
 # Examples of heat maps
 
-## Sequential colors
+## Continuous color schemes
 
 <Canvas>
     <Story name="sequential">
@@ -15,10 +23,30 @@ import { generateDivergingHeatMapData, DivergingHeatMapChart } from './Diverging
     </Story>
 </Canvas>
 
-## Diverging colors
-
 <Canvas>
     <Story name="diverging">
         <Controller generator={generateDivergingHeatMapData} chart={DivergingHeatMapChart} />
+    </Story>
+</Canvas>
+
+## Multiple legends
+
+<Canvas>
+    <Story name="categorical strip">
+        <Controller
+            generator={generateCategoricalStripHeatMapData}
+            chart={CategoricalStripHeatMapChart}
+            steps={['top', 'categorical', 'measurements', 'heatmap']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="dual continuous">
+        <Controller
+            generator={generateDualContinuousHeatMapData}
+            chart={DualContinuousHeatMapChart}
+            steps={['top', 'categorical', 'measurements', 'vowels', 'consonants']}
+        />
     </Story>
 </Canvas>

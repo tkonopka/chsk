@@ -1,12 +1,10 @@
 import { FC, ReactNode } from 'react'
 import {
     BandScaleSpec,
-    CategoricalScaleProps,
+    ColorScaleProps,
     ColorScaleSpec,
-    DivergingScaleProps,
     ProcessedDataContextProps,
     RectangleProps,
-    SequentialScaleProps,
     SvgElementProps,
     ViewProps,
     WithId,
@@ -48,7 +46,7 @@ export interface HeatMapCellsProps extends HeatMapHighlightProps {
     /** symbol for individual data points */
     cell?: FC<RectangleProps>
     /** scale for colors */
-    scaleColor?: SequentialScaleProps | DivergingScaleProps | CategoricalScaleProps
+    scaleColor?: ColorScaleProps
     /** children */
     children?: ReactNode
 }

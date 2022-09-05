@@ -10,7 +10,7 @@ const viewSeriesIndexesKeys = {
 const scaleCategorical: ColorScaleProps = {
     variant: 'categorical',
     colors: 'Category10',
-    domain: [],
+    domain: ['alpha', 'beta', 'gamma'],
 }
 
 const scaleSequential: ColorScaleProps = {
@@ -36,10 +36,10 @@ describe('Legend (items)', () => {
         expect(labels).toHaveLength(3)
     })
 
-    it('creates legend items with role', () => {
+    it('creates legend items with role and class', () => {
         render(
             <Chart {...chartProps}>
-                <View data={viewSeriesIndexesKeys}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend setRole={true} />
                 </View>
             </Chart>
@@ -47,18 +47,6 @@ describe('Legend (items)', () => {
         const items = screen.getAllByRole('legend-item')
         expect(items).toHaveLength(3)
         expect(items[0].getAttribute('role')).toContain('legend-item')
-    })
-
-    it('creates legend items with classname', () => {
-        render(
-            <Chart {...chartProps}>
-                <View data={viewSeriesIndexesKeys}>
-                    <Legend setRole={true} />
-                </View>
-            </Chart>
-        )
-        const items = screen.getAllByRole('legend-item')
-        expect(items).toHaveLength(3)
         expect(items[0].getAttribute('class')).toContain('legendItem')
     })
 

@@ -48,7 +48,7 @@ const customHistogramProps = {
     },
     scaleY: {
         variant: 'linear' as const,
-        domain: [0, 'auto' as const],
+        domain: [0, 'auto'] as [number, 'auto'],
     },
 }
 

@@ -13,7 +13,7 @@ describe('createCategoricalScale', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff'],
-            domain: [],
+            domain: ['a', 'b'],
         })
         expect(result(0)).toBe('#000')
         expect(result(1)).toBe('#fff')
@@ -38,18 +38,30 @@ describe('createCategoricalScale', () => {
             variant: 'categorical',
             colors: ['#000', '#fff', '#0f0'],
             size: 2,
-            domain: [],
+            domain: ['a', 'b', 'c'],
         })
         expect(result(0)).toBe('#000')
         expect(result(1)).toBe('#fff')
+        // size is restricted to 2, so color(2) should be the same as color(0)
         expect(result(2)).toBe('#000')
+    })
+
+    it('categorical with custom colors, empty domain', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: ['#000', '#fff', '#0f0'],
+            domain: [],
+        })
+        // the domain is empty so mappings should signal out-of range
+        expect(result(0)).toBeUndefined()
+        expect(result(1)).toBeUndefined()
     })
 
     it('categorical using d3 categorical scheme', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Category10',
-            domain: [],
+            domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
         // a few colors to compare - they should be different from each other
         const colors = [result(0), result(2), result(6)]
@@ -62,7 +74,7 @@ describe('createCategoricalScale', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
-            domain: [],
+            domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
         // a few colors to compare - they should be different from each other
         const colors = [result(0), result(3), result(6)]

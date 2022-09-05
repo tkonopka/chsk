@@ -1,27 +1,43 @@
-import { Chart, Axis, Legend, LegendTitle, LegendColorScale } from '@chask/core'
+import {
+    Chart,
+    Axis,
+    AxisLabel,
+    AxisTicks,
+    Legend,
+    LegendTitle,
+    LegendColorScale,
+    Surface,
+} from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
-import { alphabetUppercase } from '../utils'
+import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
 
-const ids = [
-    'alpha',
-    'beta',
-    'gamma',
-    'delta',
-    'epsilon',
-    'zero',
-    'eta',
-    'theta',
-    'iota',
-    'kappa',
-    'lambda',
-    'mu',
-    'nu',
-    'xi',
-]
-const keys = alphabetUppercase
+const ids = alphabetGreek
+const keys = alphabetGreek
 export const generateSequentialHeatMapData = () => generateHeatMapMatrixUniform(ids, keys)
+
+const customTheme = {
+    rect: {
+        legendColorScale: {
+            stroke: '#222222',
+            strokeWidth: 1,
+        },
+    },
+    AxisLabel: {
+        top: {
+            offset: 60,
+        },
+        left: {
+            offset: 70,
+        },
+    },
+    AxisTicks: {
+        top: {
+            labelRotate: -45,
+        },
+    },
+}
 
 export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -29,8 +45,9 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
             data={chartData}
             fref={fref}
             id="sequential-colors"
-            size={[600, 400]}
-            padding={[40, 140, 60, 60]}
+            size={[550, 470]}
+            padding={[80, 120, 40, 80]}
+            theme={customTheme}
         >
             <HeatMap
                 data={rawData}
@@ -42,16 +59,20 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 }}
             >
                 <HeatMapCells />
-                <Axis variant={'left'} />
-                <Axis
-                    variant={'bottom'}
-                    ticks={['A', 'C', 'E', 'G', 'I', 'K', 'M', 'O', 'Q', 'S', 'U', 'W', 'Z']}
-                />
+                <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
+                <Axis variant={'left'} label={'Samples'} />
+                <Axis variant={'top'}>
+                    <AxisTicks
+                        variant={'top'}
+                        labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                    />
+                    <AxisLabel variant={'top'}>Samples</AxisLabel>
+                </Axis>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Legend
                     variant={'color'}
                     horizontal={false}
-                    position={[420, 70]}
+                    position={[360, 70]}
                     size={[60, 180]}
                     anchor={[0, 0]}
                     units={'absolute'}
@@ -65,7 +86,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     <LegendColorScale
                         key={'legend-color-scale'}
                         variant={'right'}
-                        size={[10, 120]}
+                        size={[9, 120]}
                         padding={[0, 8, 0, 8]}
                         position={[0, 30]}
                         gradientId={'grad-sequential'}

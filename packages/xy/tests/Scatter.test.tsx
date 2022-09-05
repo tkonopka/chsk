@@ -1,5 +1,5 @@
-import { render } from '@testing-library/react'
-import { Chart, useProcessedData } from '@chask/core'
+import { render, screen } from '@testing-library/react'
+import { Chart, Legend, useProcessedData } from '@chask/core'
 import {
     Scatter,
     useScatterPreparedData,
@@ -48,5 +48,17 @@ describe('Scatter', () => {
         // the dataset has two series
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
         expect(prepared.data).toHaveLength(2)
+    })
+
+    it('prepares color scale for legend', () => {
+        render(
+            <Chart>
+                <Scatter {...scatterProps}>
+                    <Legend variant={'list'} />
+                </Scatter>
+            </Chart>
+        )
+        // dataset has two series, so two colors
+        expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
     })
 })

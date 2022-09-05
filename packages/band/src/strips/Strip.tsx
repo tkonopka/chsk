@@ -135,7 +135,7 @@ export const Strip = ({
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue
     const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical)
+    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
     scales.color = createColorScale(scaleColorProps)
 
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)

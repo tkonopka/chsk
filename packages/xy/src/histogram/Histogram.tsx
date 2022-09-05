@@ -119,7 +119,7 @@ export const Histogram = ({
         autoRescale ? disabledBools : Array(seriesIds.length).fill(false)
     )
     const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical)
+    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
     scales.color = createColorScale(scaleColorProps)
 
     // compute coordinates
