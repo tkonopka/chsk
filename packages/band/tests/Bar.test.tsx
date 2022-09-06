@@ -11,6 +11,7 @@ import {
 } from '@chask/core'
 import {
     Bar,
+    BarDataItem,
     BarPreparedDataContextProps,
     BarProcessedDataContextProps,
     isBarProcessedData,
@@ -140,5 +141,76 @@ describe('Bar', () => {
             </Chart>
         )
         expect(screen.queryAllByRole('legend-item')).toHaveLength(3)
+    })
+
+    const dataNegative: Array<BarDataItem> = [
+        {
+            id: 'alpha',
+            x: 50,
+            y: 30,
+            z: -20,
+        },
+        {
+            id: 'beta',
+            x: -60,
+            y: -20,
+            z: 10,
+        },
+    ]
+
+    it('auto-detects scales with negative numbers (horizontal)', () => {
+        let scales: ScalesContextProps = {
+            x: dummyBandScale,
+            y: dummyLinearScale,
+            size: defaultSizeScale,
+            color: defaultDivergingScale,
+        }
+        const GetScales = () => {
+            scales = useScales()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    data={dataNegative}
+                    variant={'stacked'}
+                    horizontal={true}
+                    scaleIndex={{ variant: 'band' }}
+                    scaleValue={{ variant: 'linear' }}
+                >
+                    <GetScales />
+                </Bar>
+            </Chart>
+        )
+        expect(scales.x.domain()).toEqual([-80, 80])
+    })
+
+    it('auto-detects scales with negative numbers (vertical)', () => {
+        let scales: ScalesContextProps = {
+            x: dummyBandScale,
+            y: dummyLinearScale,
+            size: defaultSizeScale,
+            color: defaultDivergingScale,
+        }
+        const GetScales = () => {
+            scales = useScales()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    data={dataNegative}
+                    variant={'stacked'}
+                    horizontal={false}
+                    scaleIndex={{ variant: 'band' }}
+                    scaleValue={{ variant: 'linear' }}
+                >
+                    <GetScales />
+                </Bar>
+            </Chart>
+        )
+        expect(scales.y.domain()).toEqual([-80, 80])
     })
 })

@@ -41,69 +41,70 @@ const processData = (
 
 // turn processed data into view-specific coordinates
 const prepareData = (
-    seriesData: BarProcessedDataItem,
+    data: Array<BarProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
     horizontal: boolean,
     stacked: boolean,
-    barWidthGap: [number, number],
+    barWidth: number,
+    barGap: number,
     disabled: boolean[]
-): BarPreparedDataItem => {
-    const [barWidth, barGap] = barWidthGap
+): Array<BarPreparedDataItem> => {
     const zero = valueScale(0)
-    let coords = seriesData.data.map((v, i) => {
-        return disabled[i] ? zero : valueScale(v)
+    return data.map(seriesData => {
+        let coords = seriesData.data.map((v, i) => {
+            return disabled[i] || !v ? 0 : valueScale(v) - zero
+        })
+        const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
+        const position: Array<NumericPositionSpec> = []
+        const size: Array<SizeSpec> = []
+        if (horizontal) {
+            coords.forEach(v => {
+                size.push([v, barWidth])
+            })
+        } else {
+            coords.forEach(v => {
+                size.push([barWidth, v])
+            })
+        }
+        coords = coords.map(v => v ?? zero)
+        if (stacked) {
+            if (horizontal) {
+                let left = zero
+                coords.forEach(v => {
+                    position.push([left, bandStart])
+                    left += v
+                })
+            } else {
+                let offset = zero
+                coords.forEach(v => {
+                    position.push([bandStart, offset])
+                    offset += v
+                })
+            }
+        } else {
+            // not stacked
+            if (horizontal) {
+                let top = bandStart
+                coords.forEach(() => {
+                    position.push([zero, top])
+                    top += barWidth + barGap
+                })
+            } else {
+                let left = bandStart
+                coords.forEach(() => {
+                    position.push([left, zero])
+                    left += barWidth + barGap
+                })
+            }
+        }
+        return {
+            id: seriesData.id,
+            index: seriesData.index,
+            position,
+            size,
+        }
     })
-    const bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
-    const position: Array<NumericPositionSpec> = []
-    const size: Array<SizeSpec> = []
-    if (horizontal) {
-        coords.forEach(v => {
-            size.push([v, barWidth])
-        })
-    } else {
-        coords.forEach(v => {
-            size.push([barWidth, zero - v])
-        })
-    }
-    coords = coords.map(v => v ?? zero)
-    if (stacked) {
-        if (horizontal) {
-            let left = zero
-            coords.forEach(v => {
-                position.push([left, bandStart])
-                left += v
-            })
-        } else {
-            let offset = 0
-            coords.forEach(v => {
-                position.push([bandStart, v - offset])
-                offset += zero - v
-            })
-        }
-    } else {
-        // not stacked
-        if (horizontal) {
-            let top = bandStart
-            coords.forEach(() => {
-                position.push([zero, top])
-                top += barWidth + barGap
-            })
-        } else {
-            let left = bandStart
-            coords.forEach(v => {
-                position.push([left, v])
-                left += barWidth + barGap
-            })
-        }
-    }
-
-    return {
-        id: seriesData.id,
-        index: seriesData.index,
-        position,
-        size,
-    }
 }
 
 export const Bar = ({
@@ -161,16 +162,15 @@ export const Bar = ({
     const [barWidth, barGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal, stacked)
     const preparedData = useMemo(
         () =>
-            processedData.map(seriesData =>
-                prepareData(
-                    seriesData,
-                    indexScale,
-                    valueScale,
-                    horizontal,
-                    stacked || paddingInternal === null,
-                    [barWidth, barGap],
-                    disabledKeysBools
-                )
+            prepareData(
+                processedData,
+                indexScale,
+                valueScale,
+                horizontal,
+                stacked || paddingInternal === null,
+                barWidth,
+                barGap,
+                disabledKeysBools
             ),
         [
             processedData,

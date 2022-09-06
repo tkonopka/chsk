@@ -13,6 +13,13 @@ export const generateGroupedData = () =>
         interval: [15, 95],
     })
 
+export const generateDivergingGroupedData = () =>
+    generateBarData({
+        ids: groupedIds,
+        keys: groupedKeys,
+        interval: [-95, 95],
+    })
+
 const groupedTheme: ThemeSpec = {
     text: {
         title: {
@@ -93,6 +100,58 @@ export const GroupedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
                     variant: 'band',
                     domain: groupedIds,
                     padding: 0.2,
+                }}
+                horizontal={true}
+            >
+                <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                <Axis variant={'top'} />
+                <Axis variant={'left'}>
+                    <AxisTicks
+                        variant={'left'}
+                        labelOffset={60}
+                        labelStyle={{ textAnchor: 'start' }}
+                    />
+                </Axis>
+                <Bars />
+                <Legend
+                    position={[-60, -22]}
+                    size={[300, 80]}
+                    units={'absolute'}
+                    horizontal={true}
+                    anchor={[0, 1]}
+                    padding={[20, 0, 20, 0]}
+                    r={10.5}
+                    itemSize={[85, 20]}
+                    itemPadding={[2, 0, 2, 0]}
+                    firstOffset={[-85, 24]}
+                    title={'Measurements (arbitrary values)'}
+                />
+            </Bar>
+        </Chart>
+    )
+}
+
+export const GroupedHorizontalAutoBandChart = ({ fref, chartData, rawData }: MilestoneStory) => {
+    return (
+        <Chart
+            fref={fref}
+            data={chartData}
+            id="grouped-autoscale"
+            size={[480, 280]}
+            padding={[80, 40, 30, 80]}
+            theme={groupedTheme}
+        >
+            <Bar
+                data={rawData}
+                keys={groupedKeys}
+                scaleIndex={{
+                    variant: 'band',
+                    domain: groupedIds,
+                    padding: 0.2,
+                }}
+                scaleValue={{
+                    variant: 'linear',
+                    domain: 'auto',
                 }}
                 horizontal={true}
             >

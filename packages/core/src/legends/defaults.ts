@@ -18,4 +18,5 @@ export const defaultLegendItemProps: LegendItemThemedProps = {
     align: 'left' as const,
     r: 8,
     labelOffset: [14, 0],
+    interactive: true,
 }

@@ -66,6 +66,7 @@ export const UnthemedLegend = ({
                     r={r}
                     symbol={symbol}
                     symbolStyle={symbolStyle}
+                    item={String(k)}
                     label={String(k)}
                     labelStyle={labelStyle}
                     labelOffset={labelOffset}

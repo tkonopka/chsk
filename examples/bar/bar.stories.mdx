@@ -7,12 +7,15 @@ import {
 } from './stacked.charts.tsx'
 import {
     generateGroupedData,
+    generateDivergingGroupedData,
     GroupedVerticalBandChart,
     GroupedHorizontalBandChart,
+    GroupedHorizontalAutoBandChart,
 } from './grouped.charts.tsx'
 import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
+import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -29,6 +32,15 @@ import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 <Canvas>
     <Story name="grouped, horizontal">
         <Controller generator={generateGroupedData} chart={GroupedHorizontalBandChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="grouped, diverging">
+        <Controller
+            generator={generateDivergingGroupedData}
+            chart={GroupedHorizontalAutoBandChart}
+        />
     </Story>
 </Canvas>
 
@@ -55,6 +67,14 @@ import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
             chart={CustomGroupsBarChart}
             steps={['axes', 'A', 'B', 'C']}
         />
+    </Story>
+</Canvas>
+
+The example below is inspired by [this blog post](https://observablehq.com/@observablehq/plot-diverging-stacked-bar).
+
+<Canvas>
+    <Story name="survey">
+        <Controller generator={generateSurveyData} chart={SurveyBarChart} />
     </Story>
 </Canvas>
 

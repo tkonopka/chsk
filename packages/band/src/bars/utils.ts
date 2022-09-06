@@ -37,11 +37,14 @@ export const getScaleProps = (
     if (!isScaleWithDomain(scaleSpecValue)) {
         const filterDisabled = (v: unknown, i: number) => !disabled[i]
         const values = data.map(d => d.filter(filterDisabled).flat().filter(isFinite))
-        const sumValues = (values: number[]) =>
-            values.reduce((acc, v) => (isFinite(v) ? acc + v : acc), 0)
-        const domain = stacked ? getMinMax(values.map(sumValues)) : getMinMax(values.flat())
-        domain[0] = Math.min(0, domain[0])
-        domain[1] = Math.max(0, domain[1])
+        const sumValues = (values: number[]) => {
+            const positive = values.reduce((acc, v) => (isFinite(v) && v > 0 ? acc + v : acc), 0)
+            const negative = values.reduce((acc, v) => (isFinite(v) && v < 0 ? acc + v : acc), 0)
+            return [negative, positive]
+        }
+        const domain = stacked ? getMinMax(values.map(sumValues).flat()) : getMinMax(values.flat())
+        //domain[0] = Math.min(0, domain[0])
+        //domain[1] = Math.max(0, domain[1])
         result.scalePropsValue = createContinuousScaleProps(
             scaleSpecValue,
             domain

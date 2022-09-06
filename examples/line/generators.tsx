@@ -35,7 +35,7 @@ export const generateNormalPdf = (
     while (x < interval[1] - step) {
         x += step
         const y = value(x)
-        if (y > min) result.push({ x, y })
+        result.push({ x, y })
     }
     // always include the end of the interval
     x = interval[1]

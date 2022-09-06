@@ -5,7 +5,7 @@ import { LegendTitleProps } from './types'
 import { defaultLegendItemProps } from './defaults'
 
 export const UnthemedLegendTitle = ({
-    variant = 'legend-title',
+    variant = 'default',
     position,
     size = defaultLegendItemProps.size,
     padding = defaultLegendItemProps.padding,
@@ -29,7 +29,7 @@ export const UnthemedLegendTitle = ({
     return (
         <Typography
             position={[x, y]}
-            variant={variant}
+            variant={variant === 'default' ? 'legend-title' : variant}
             className={className}
             style={style}
             setRole={setRole}

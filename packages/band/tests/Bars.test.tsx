@@ -185,4 +185,65 @@ describe('Bars', () => {
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
+
+    const dataNegativeValues: Array<BarDataItem> = [
+        {
+            id: 'alpha',
+            x: 20,
+        },
+        {
+            id: 'beta',
+            x: -20,
+        },
+    ]
+
+    it('handles negative values (vertical)', () => {
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    data={dataNegativeValues}
+                    keys={['x']}
+                    scaleValue={{ variant: 'linear', domain: 'auto' }}
+                    horizontal={false}
+                >
+                    <Bars />
+                </Bar>
+            </Chart>
+        )
+        const result = screen.getByRole('view-bar').querySelectorAll('rect')
+        expect(result).toHaveLength(2)
+        // two bars should have equal size
+        expect(getNumber(result[0].getAttribute('height'))).toEqual(
+            getNumber(result[1].getAttribute('height'))
+        )
+        expect(getNumber(result[0].getAttribute('width'))).toEqual(
+            getNumber(result[1].getAttribute('width'))
+        )
+    })
+
+    it('handles negative values (horizontal)', () => {
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    data={dataNegativeValues}
+                    keys={['x']}
+                    scaleValue={{ variant: 'linear', domain: 'auto' }}
+                    horizontal={true}
+                >
+                    <Bars />
+                </Bar>
+            </Chart>
+        )
+        const result = screen.getByRole('view-bar').querySelectorAll('rect')
+        expect(result).toHaveLength(2)
+        // two bars should have equal size
+        expect(getNumber(result[0].getAttribute('height'))).toEqual(
+            getNumber(result[1].getAttribute('height'))
+        )
+        expect(getNumber(result[0].getAttribute('width'))).toEqual(
+            getNumber(result[1].getAttribute('width'))
+        )
+    })
 })

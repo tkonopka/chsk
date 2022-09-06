@@ -8,7 +8,12 @@ const nIds = overlayIds.length
 
 export const generateOverlayData = () =>
     overlayIds.map((id, index) => {
-        return { id, data: generateNormalPdf(index + 0.8, (index + 1) / 10, [0, 10], 0.1) }
+        let points = generateNormalPdf(index + 0.8, (index + 1) / 10, [0, 10], 0.1)
+        points = points.map((xy): { x: number; y: number } => ({
+            x: xy.x,
+            y: xy.y + Math.random() * 0.1,
+        }))
+        return { id, data: points }
     })
 
 const overlayTheme: ThemeSpec = {

@@ -124,6 +124,34 @@ describe('Rectangle', () => {
         expect(result.getAttribute('width')).toContain('50')
         expect(result.getAttribute('height')).toContain('20')
     })
+
+    it('creates a rect with negative width', () => {
+        render(
+            <Chart {...chartProps}>
+                <Rectangle variant={'test'} x={100} y={100} width={-50} height={20} />
+            </Chart>
+        )
+        const result = screen.getByRole('test')
+        // position (center at 100, width 50, so left corner should be at x=50)
+        expect(result.getAttribute('style')).toContain('50')
+        // dimensions
+        expect(result.getAttribute('width')).toContain('50')
+        expect(result.getAttribute('height')).toContain('20')
+    })
+
+    it('creates a rect with negative height', () => {
+        render(
+            <Chart {...chartProps}>
+                <Rectangle variant={'test'} x={100} y={100} width={20} height={-50} />
+            </Chart>
+        )
+        const result = screen.getByRole('test')
+        // position (center at 100, height -50, so left corner should be at y=50)
+        expect(result.getAttribute('style')).toContain('50')
+        // dimensions
+        expect(result.getAttribute('width')).toContain('20')
+        expect(result.getAttribute('height')).toContain('50')
+    })
 })
 
 describe('Diamond', () => {

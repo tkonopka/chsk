@@ -53,7 +53,7 @@ export const BarsLabels = ({
             const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
             let labelStyle = style
             let compositeClassName = innerClassName
-            if (size[0] < minSize[0] || size[1] < minSize[1]) {
+            if (Math.abs(size[0]) < minSize[0] || Math.abs(size[1]) < minSize[1]) {
                 if (!showOuter) return null
                 labelStyle = styleOuter
                 center[X] += size[X]

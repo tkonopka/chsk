@@ -13,7 +13,7 @@ import { AxisTicksProps } from '../axes'
 
 export interface LegendTitleProps extends SvgElementProps {
     /** variant */
-    variant?: 'legend-title'
+    variant?: 'default' | string
     /** position of symbol */
     position: NumericPositionSpec
     /** size of a single legend item */
@@ -30,7 +30,9 @@ export interface LegendTitleProps extends SvgElementProps {
 
 export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
     /** variant */
-    variant?: 'legend-item'
+    variant?: 'default' | string
+    /** key */
+    item: string
     /** size of symbol */
     r?: number
     /** symbol function */
@@ -45,6 +47,8 @@ export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
     labelOffset?: NumericPositionSpec
     /** color index (internal use) */
     colorIndex?: number
+    /** interactivity */
+    interactive?: boolean
 }
 
 export interface LegendItemThemedProps
@@ -58,6 +62,7 @@ export interface LegendItemThemedProps
     align: 'left' | 'middle' | 'right'
     r: number
     labelOffset: NumericPositionSpec
+    interactive: boolean
 }
 
 export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {

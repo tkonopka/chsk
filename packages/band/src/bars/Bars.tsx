@@ -40,6 +40,7 @@ export const Bars = ({ ids, keys, component = Rectangle, className, style }: Bar
                     const pos = seriesData.position[i]
                     const size = seriesData.size[i]
                     if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
+                    if (size[0] === 0 || size[1] === 0) return null
                     return createElement(component, {
                         key: 'bar-' + seriesData.index + '-' + i,
                         x: pos[0],
