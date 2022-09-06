@@ -4,18 +4,11 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 # Chask
 
-`chask` is a charting library for React (javascript).
+`chask` is a charting library for React.
 
-The name `chask` stands for 'chart skeletons'.
-The library provides components that can be used to build data-based visualizations one piece at a time.
+The library provides infrastructure to build dynamic visualizations from the ground up. It contains components to create some commonly-used charts such as bar charts or line charts, and to customize these charts with bespoke elements and styles. It also supports animations for chart-based story-telling.
 
-## Why `chask`?
-
-There exist numerous charting libraries for javascript and for React. In particular, [d3](https://github.com/d3/d3) provides low-level tools for manipulating datasets and graphics. Libraries such as [recharts](https://github.com/recharts/recharts), [nivo](https://github.com/plouc/nivo), [reaviz](https://github.com/reaviz/reaviz), and others provide high-level interfaces in React to build complex visualizations.
-
-`chask` takes an approach that lies between the low-level capabilities of d3 and the high-level interfaces of React charting libraries. The intermediate space is suited for creating customized visualizations, including complex ones with multiple views and datasets.
-
-Some examples of `chask` charts are available in the gallery.
+Importantly, `chask` does not aim to create all possible visualization types with dedicated functions/components. Rather, the library provides building blocks to create 'skeletons' for arbitrary charts. These building blocks can be combined to create complex visualizations. The chart skeletons can also be augmented with custom components.
 
 ## Features
 
@@ -41,7 +34,7 @@ The library exports React hooks that can be used in custom components. This enab
 
 ### Calculation
 
-Some `chask` components perform a limited amount of calculation on data. For example, the `Histogram` component in package `@chask/xy` performs data binning to summarize a data distribution. Component `Quantile` in package `@chask/band` computes quantiles to display box plots. Component `Regression` in package `@chask/xy` performs linear regression modeling to display a best-fit line.
+Some `chask` components perform a limited amount of calculation on data. For example, `Histogram` in package `@chask/xy` performs data binning to summarize a data distribution. `Quantile` in package `@chask/band` computes quantiles to display box plots. `Regression` in package `@chask/xy` performs linear modeling to display a best-fit line.
 
 ### Multiple views
 
