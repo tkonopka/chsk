@@ -6,7 +6,7 @@ import { OriginalDataProvider, ProcessedDataProvider } from './contexts'
 export const BaseView = ({
     position,
     size,
-    padding = [0, 0, 0, 0],
+    padding,
     originalData,
     processedData,
     seriesIndexes,

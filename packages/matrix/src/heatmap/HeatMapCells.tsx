@@ -3,21 +3,22 @@ import {
     addColor,
     getIdKeySets,
     BandAxisScale,
-    Rectangle,
     useProcessedData,
     useScales,
     createColorScale,
     isContinuousAxisScale,
     ScalesProvider,
+    composeClassName,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapProcessedData } from './HeatMap'
 import { cloneDeep } from 'lodash'
+import { HeatMapRectangle } from './HeatMapRectangle'
 
 export const HeatMapCells = ({
     ids,
     keys,
-    cell = Rectangle,
+    cell = HeatMapRectangle,
     scaleColor,
     className,
     style,
@@ -41,6 +42,7 @@ export const HeatMapCells = ({
     const x = processedData.keys.map(k => scaleX(k))
     const width = scales.x.bandwidth()
     const height = scales.y.bandwidth()
+    const cellClassName = composeClassName(['cell', className])
 
     const cells = data
         .map((seriesData: HeatMapProcessedDataItem) => {
@@ -59,12 +61,10 @@ export const HeatMapCells = ({
                     y: y,
                     width,
                     height,
-                    className,
+                    className: cellClassName,
                     style: cellStyle,
                     center: true,
-                    variant: 'cell',
                     setRole: false,
-                    animated: false,
                 })
             })
         })

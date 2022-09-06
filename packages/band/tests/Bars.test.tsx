@@ -185,5 +185,4 @@ describe('Bars', () => {
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
-
 })

@@ -17,6 +17,18 @@ describe('HeatMapCells', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(12)
     })
 
+    it('assigns className', () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y']}>
+                    <HeatMapCells keys={['x']} />
+                </HeatMap>
+            </Chart>
+        )
+        const result = screen.getByRole('heatmap-cells')
+        expect(result.querySelectorAll('rect')[0].getAttribute('class')).toEqual('cell')
+    })
+
     it('draws cells only for selected ids', () => {
         render(
             <Chart>
@@ -44,7 +56,6 @@ describe('HeatMapCells', () => {
     })
 
     it('accepts data in string form', () => {
-        const processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         render(
             <Chart>
                 <HeatMap {...heatmapCategoricalProps} keys={['x', 'y']}>

@@ -11,29 +11,13 @@ export const Rectangle = ({
     rx,
     ry,
     center = false,
-    animated = true,
     className,
     style,
     setRole = true,
 }: RectangleProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
-    const computedX = center ? x - width / 2 : x
-    const computedY = center ? y - height / 2 : y
-    if (!animated) {
-        return <rect
-            x={computedX}
-            y={computedY}
-            height={height}
-            width={width}
-            rx={rx}
-            ry={ry}
-            role={setRole ? variant : undefined}
-            style={style}
-            className={compositeClassName}
-        />
-    }
-    const config = { x: computedX, y: computedY, width, height }
+    const config = { x: center ? x - width / 2 : x, y: center ? y - height / 2 : y, width, height }
     return (
         <m.rect
             initial={config}

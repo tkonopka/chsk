@@ -24,8 +24,6 @@ export interface RectangleProps extends SvgElementVariantProps {
     ry?: number
     /** center the rectangle around (x, y) */
     center?: boolean
-    /** animated */
-    animated?: boolean
 }
 
 export interface PolygonProps extends SvgElementVariantProps {
