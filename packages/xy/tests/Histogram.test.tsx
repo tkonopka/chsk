@@ -7,8 +7,8 @@ import {
     getBreaksArray,
     binValues,
     HistogramDataItem,
+    HistogramDataContextProps,
 } from '../src/histogram'
-import { HistogramDataContextProps } from '../src/histogram'
 import { histogramProps } from './props'
 
 describe('Histogram utils', () => {
@@ -39,6 +39,15 @@ describe('Histogram utils', () => {
         // boundary points convey the edges
         expect(result[0]).toEqual([0, 0.6 / 5])
         expect(result[3]).toEqual([10, 0.4 / 5])
+    })
+
+    it('binValues handles empty dataset', () => {
+        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
+        // center points of bins should be at 0.25 and 0.75
+        const result = binValues([], [0, 5, 10], true)
+        // the data is empty, histogram representation should be flat/empty
+        expect(result.length).toEqual(4)
+        expect(result.map(d => d[1])).toEqual([0, 0, 0, 0])
     })
 
     it('getBreaksArray computes reasonable breakpoints', () => {
@@ -105,6 +114,28 @@ describe('Histogram', () => {
         render(
             <Chart>
                 <Histogram {...histogramProps}>
+                    <Legend variant={'list'} />
+                </Histogram>
+            </Chart>
+        )
+        // dataset has two series, so two colors
+        expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
+    })
+
+    it('handles empty data series', () => {
+        const emptyData = [
+            {
+                id: 'non-empty',
+                data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            },
+            {
+                id: 'empty',
+                data: [],
+            },
+        ]
+        render(
+            <Chart>
+                <Histogram {...histogramProps} data={emptyData}>
                     <Legend variant={'list'} />
                 </Histogram>
             </Chart>

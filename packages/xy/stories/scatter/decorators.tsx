@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 import { Axis, Chart, Legend, Circle } from '@chask/core'
 import { Scatter, ScatterCurve, ScatterPoints } from '../../src'
-import data from './dataPolynomials.json'
+import dataPolynomials from './dataPolynomials.json'
 import { generateScatterSeries } from './generators'
 
 export const ChartScatterDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Scatter
-            data={data}
+            data={dataPolynomials}
             x={'x'}
             y={'y'}
             r={5}
@@ -30,7 +30,7 @@ export const ChartScatterDecorator = (Story: () => ReactNode) => (
 export const ChartScatterQuadraticDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Scatter
-            data={data}
+            data={dataPolynomials}
             x={'x'}
             y={'y'}
             r={5}
@@ -98,3 +98,19 @@ export const ChartForRegressionDecorator = (Story: () => ReactNode) => (
         </Scatter>
     </Chart>
 )
+
+const generateBubbles = (n: number, xyInterval = [0.5, 10], rInterval = [2, 12]) => {
+    const xySize = xyInterval[1] - xyInterval[0]
+    const rSize = rInterval[1] - rInterval[0]
+    return Array(n)
+        .fill(0)
+        .map(v => ({
+            x: xyInterval[0] + xySize * Math.random(),
+            y: xyInterval[0] + xySize * Math.random(),
+            r: rInterval[0] + rSize * Math.random(),
+        }))
+}
+export const dataBubbles = [
+    { id: 'A', data: generateBubbles(8) },
+    { id: 'B', data: generateBubbles(8) },
+]

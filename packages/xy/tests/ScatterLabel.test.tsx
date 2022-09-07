@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, ScatterArea, ScatterLabel } from '../src/scatter'
+import { Scatter, ScatterLabel } from '../src/scatter'
 import { scatterProps } from './props'
 
 describe('ScatterLabel', () => {
@@ -76,5 +76,72 @@ describe('ScatterLabel', () => {
         )
         const result = screen.queryByRole('scatter-label')
         expect(result).toBeNull()
+    })
+
+    it('skips rendering for empty data', () => {
+        const emptyData = [
+            {
+                id: 'empty',
+                data: [],
+            },
+        ]
+        render(
+            <Chart>
+                <Scatter {...scatterProps} data={emptyData}>
+                    <ScatterLabel ids={['empty']} x={4}>
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-label')
+        expect(result).toBeNull()
+    })
+
+    it('handles vertical lines', () => {
+        const verticalData = [
+            {
+                id: 'vertical',
+                data: [
+                    { x: 1, y: 2 },
+                    { x: 1, y: 4 },
+                    { x: 3, y: 6 },
+                ],
+            },
+        ]
+        render(
+            <Chart>
+                <Scatter {...scatterProps} data={verticalData}>
+                    <ScatterLabel ids={['vertical']} x={0.5} autoRotate={true}>
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-label')
+        expect(result?.textContent).toBe('Label')
+        // slope will be positive, so rotate -90
+        expect(result?.querySelector('text')?.getAttribute('transform')).toContain('rotate(-90)')
+    })
+
+    it('handles data series with single point', () => {
+        const singleData = [
+            {
+                id: 'single',
+                data: [{ x: 1, y: 2 }],
+            },
+        ]
+        render(
+            <Chart>
+                <Scatter {...scatterProps} data={singleData}>
+                    <ScatterLabel ids={['single']} x={0.5} autoRotate={true}>
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.queryByRole('scatter-label')
+        expect(result?.textContent).toBe('Label')
+        expect(result?.querySelector('text')?.getAttribute('transform')).not.toContain('rotate')
     })
 })

@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Axis, Legend } from '@chask/core'
 import { Scatter, ScatterPoints } from '../../src'
-import { ChartWithLegendSpaceDecorator } from './decorators'
+import { ChartWithLegendSpaceDecorator, dataBubbles } from './decorators'
 import dataPolynomials from './dataPolynomials.json'
 
 # Scatter
@@ -21,18 +21,13 @@ export const Template = args => <Scatter {...args} />
 
 When the scales on the axes are determined automatically, `Scatter` will automatically adjust the scales when the data changes, for example when certain data series are toggled via a legend (example below, left). The automatic rescaling can be disabled via prop `autoRescale` (example below, right).
 
-export const PointsAndLegend = () => {
+export const PointsAndLegend = ({ title = 'Polynomials' }) => {
     return (
         <>
             <Axis variant={'bottom'} label={'x (a.u.)'} />
             <Axis variant={'left'} label={'y (a.u.)'} />
             <ScatterPoints />
-            <Legend
-                position={[220, 60]}
-                anchor={[0, 0.5]}
-                units={'absolute'}
-                title={'Polynomials'}
-            />
+            <Legend position={[220, 60]} anchor={[0, 0.5]} units={'absolute'} title={title} />
         </>
     )
 }
@@ -85,3 +80,35 @@ export const PointsAndLegend = () => {
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Bubble size
+
+The size of the data points is controlled through prop `r`. This prop is a function, or a key string, that extracts information about each point's radius/size from the raw data.
+
+<Canvas>
+    <Story
+        name="bubble size"
+        args={{
+            data: dataBubbles,
+            x: 'x',
+            y: 'y',
+            r: 'r',
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            autoRescale: true,
+            children: <PointsAndLegend title={'Series'} />,
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendSpaceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that the output from this function / data key is interpreted as a radius, not a symbol area.

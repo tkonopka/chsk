@@ -11,8 +11,9 @@ import { ScatterLabelProps, ScatterProcessedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 
 const getClosestPointToX = (target: number, data: ScatterProcessedDataItem, avoidIndex = -1) => {
-    let result = 0
-    let bestDistance = Math.abs(target - data.x[0])
+    if (data.x.length === 1) return 0
+    let result = avoidIndex !== 0 ? 0 : 1
+    let bestDistance = Math.abs(target - data.x[result])
     data.x.forEach((v, i) => {
         if (i === avoidIndex) return
         const distance = Math.abs(target - v)
@@ -54,16 +55,12 @@ export const ScatterLabel = ({
             const secondPointIndex = getClosestPointToX(value, data, pointIndex)
             const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
             const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
-            if (Math.abs(slope) === Infinity) {
-                rotate = 0
-            } else {
-                rotate = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
-            }
+            rotate = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
             point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
         }
         const translation =
             'translate(' + (point[0] + translate[0]) + ',' + (point[1] + translate[1]) + ')'
-        const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
+        const rotation = !rotate ? '' : ' rotate(' + rotate + ')'
         return (
             <OpacityMotion
                 key={'scatter-label-' + seriesIndex}

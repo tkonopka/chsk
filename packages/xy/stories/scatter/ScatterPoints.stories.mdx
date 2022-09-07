@@ -15,9 +15,9 @@ export const Template = args => <ScatterPoints {...args} />
 
 The examples on this page use a dataset with series with ids `linear` and `quadratic`.
 
-## Series
+## Data subsets
 
-Charts can display the entire dataset, or individual data series by setting the prop `ids`.
+`ScatterPoints` displays the entire dataset by default, automatically applying distinct colors to data series (below, first example). It is also possible to draw individual data series, or subsets of data series, by setting prop `ids` (below, second example).
 
 <Canvas>
     <Story
@@ -43,35 +43,7 @@ Charts can display the entire dataset, or individual data series by setting the 
     </Story>
 </Canvas>
 
-## Multiple series
-
-It is possible to use the `ScatterPoints` component multiple times and thus overlay multiple series.
-
-<Canvas>
-    <Story name="multiple series">
-        <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-            <Scatter
-                data={data}
-                x={'x'}
-                y={'y'}
-                r={5}
-                scaleX={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-                scaleY={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-            >
-                <Axis variant={'bottom'} label={'x (a.u.)'} />
-                <Axis variant={'left'} label={'y (a.u.)'} />
-                <ScatterPoints ids={['linear']} />
-                <ScatterPoints ids={['quadratic']} />
-            </Scatter>
-        </Chart>
-    </Story>
-</Canvas>
+To draw multiple series with further customization, use the `ScatterPoints` component multiple times to overlay the series.
 
 ## Symbols
 
