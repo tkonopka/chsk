@@ -18,9 +18,6 @@
         "sourceType": "module"
     },
     "plugins": ["react", "@typescript-eslint"],
-    "rules": {
-        "react/no-unknown-property": ["error", { "ignore": ["viewBox"] }]
-    },
     "settings": {
         "react": {
             "pragma": "React",

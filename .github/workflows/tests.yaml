@@ -3,7 +3,7 @@ on:
     push:
         paths: ['packages/**']
 jobs:
-    documentation:
+    tests:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
