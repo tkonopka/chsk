@@ -1,15 +1,16 @@
 # Contributing
 
-Contributions are welcome. 
+Contributions are welcome.
 
 To discuss code changes or new features, please raise an issue in the github repository.
-To edit the codebase, install the project as described below. 
+To edit the codebase, install the project as described below.
 
 ## Setup
 
 Fork the github repository, then clone the fork to a local development environment.
 
-The project is set up as a monorepo. It has a number of dependencies to make the project work as whole. 
+The project is set up as a monorepo.
+It has dependencies to make the project work as whole.
 There are also dependencies for the individual `chask` packages.
 
 ```
