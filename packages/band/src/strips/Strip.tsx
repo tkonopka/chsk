@@ -112,7 +112,7 @@ export const Strip = ({
 }: StripProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
-    const { disabledKeys } = useDisabledKeys()
+    const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
     // collect raw data into an array-based format format
@@ -122,16 +122,12 @@ export const Strip = ({
         [data, keyAccessors, r, variant]
     )
 
-    const disabledKeysBools = useMemo(
-        () => keys.map(k => disabledKeys.has(k)),
-        [keys, Array.from(disabledKeys)]
-    )
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
         processedData.map(d => d.id),
         processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
-        autoRescale ? disabledKeysBools : Array(keys.length).fill(false)
+        autoRescale ? disabled : Array(keys.length).fill(false)
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue

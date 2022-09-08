@@ -114,6 +114,22 @@ describe('useDisabledKeys', () => {
         // after useEffect, the chart should re-render (firstRender = false)
         expect(result).toEqual(['a', 'b'])
     })
+
+    it('computes array of booleans', () => {
+        let result: boolean[] = []
+        const testKeys = ['a', 'b', 'c']
+        const GetDisabledKeys = () => {
+            const temp = useDisabledKeys(testKeys)
+            result = temp.disabled
+            return null
+        }
+        render(
+            <Chart data={{ disabledKeys: new Set<string>(['a', 'b']) }}>
+                <GetDisabledKeys />
+            </Chart>
+        )
+        expect(result).toEqual([true, true, false])
+    })
 })
 
 describe('useMilestones', () => {

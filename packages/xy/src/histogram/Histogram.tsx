@@ -96,14 +96,9 @@ export const Histogram = ({
 }: HistogramProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
-    const { disabledKeys } = useDisabledKeys()
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
-
-    const disabledBools = useMemo(
-        () => seriesIds.map(id => disabledKeys.has(id)),
-        [seriesIds, Array.from(disabledKeys)]
-    )
+    const { disabled } = useDisabledKeys(seriesIds)
     const breaksArray = Array.isArray(breaks) ? breaks : getBreaksArray(data, breaks)
 
     // process dataset - arrange raw data into histogram bins
@@ -116,7 +111,7 @@ export const Histogram = ({
         processedData,
         scaleX,
         scaleY,
-        autoRescale ? disabledBools : Array(seriesIds.length).fill(false)
+        autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
     const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)

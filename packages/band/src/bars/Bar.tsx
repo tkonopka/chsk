@@ -129,24 +129,20 @@ export const Bar = ({
 }: BarProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
-    const { disabledKeys } = useDisabledKeys()
+    const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
 
-    const disabledKeysBools = useMemo(
-        () => keys.map(k => disabledKeys.has(k)),
-        [keys, Array.from(disabledKeys)]
-    )
     const stacked = variant === 'stacked'
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
         processedData.map(d => d.id),
         processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
-        autoRescale ? disabledKeysBools : Array(keys.length).fill(false),
+        autoRescale ? disabled : Array(keys.length).fill(false),
         stacked
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
@@ -170,7 +166,7 @@ export const Bar = ({
                 stacked || paddingInternal === null,
                 barWidth,
                 barGap,
-                disabledKeysBools
+                disabled
             ),
         [
             processedData,
@@ -180,7 +176,7 @@ export const Bar = ({
             valueScale,
             barWidth,
             barGap,
-            disabledKeysBools,
+            disabled,
         ]
     )
 
