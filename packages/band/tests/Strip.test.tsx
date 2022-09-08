@@ -131,6 +131,26 @@ describe('Strip', () => {
         )
     })
 
+    it('defines processed data (variant middle)', () => {
+        let processed: Array<StripProcessedDataItem> = []
+        const GetProcessedData = () => {
+            const temp = useProcessedData()
+            if (isStripProcessedData(temp.data)) processed = temp.data
+            return null
+        }
+        render(
+            <Chart>
+                <Strip {...stripProps} variant={'middle'}>
+                    <GetProcessedData />
+                </Strip>
+            </Chart>
+        )
+        // in middle variant, data points should all be at one internal offset value
+        const firstIdData = processed[0].data
+        expect(firstIdData[0]?.internal.length).toBeGreaterThan(5)
+        expect(new Set(firstIdData[0]?.internal).size).toEqual(1)
+    })
+
     it('defines prepared data', () => {
         let prepared: StripPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
@@ -148,6 +168,44 @@ describe('Strip', () => {
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
         expect(prepared.data).toHaveLength(2)
         expect(prepared.keys).toHaveLength(2)
+    })
+
+    it('defines prepared data for series with 0, 1, more points', () => {
+        const specialCases = [
+            {
+                id: 'zero',
+                x: [],
+            },
+            {
+                id: 'one',
+                x: [2],
+            },
+            {
+                id: 'two',
+                x: [2, 4],
+            },
+        ]
+        let prepared: StripPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const GetPreparedData = () => {
+            prepared = useStripPreparedData()
+            return null
+        }
+        render(
+            <Chart>
+                <Strip {...stripProps} data={specialCases}>
+                    <GetPreparedData />
+                </Strip>
+            </Chart>
+        )
+        // the dataset has two indexes and three keys
+        expect(Object.keys(prepared.seriesIndexes)).toHaveLength(3)
+        const preparedData = prepared.data
+        expect(preparedData[0].data[0]?.internal).toEqual([])
+        // all values should be finite
+        expect(preparedData[1].data[0]?.internal[0]).toBeLessThan(1000)
+        expect(preparedData[1].data[0]?.value[0]).toBeLessThan(1000)
+        expect(preparedData[2].data[0]?.internal[0]).toBeLessThan(1000)
+        expect(preparedData[2].data[0]?.value[0]).toBeLessThan(1000)
     })
 
     it('auto-detects scales (vertical)', () => {

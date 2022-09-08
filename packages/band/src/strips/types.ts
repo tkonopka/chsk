@@ -51,6 +51,7 @@ export type StripVariant =
     | 'increasing'
     | 'descending'
     | 'decreasing'
+    | 'middle'
 
 export interface StripProps extends Omit<BarProps, 'stacked' | 'variant'> {
     /** data */

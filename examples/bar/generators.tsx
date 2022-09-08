@@ -38,11 +38,3 @@ export const generateSortedValues = (n: number, interval: [number, number], dp =
         .map(v => roundDecimalPlaces(v, dp))
         .sort((a, b) => b - a)
 }
-
-export const generateIdentifiers = (n: number, size: number, prefix = 'A'): string[] => {
-    const ids = new Set<string>()
-    while (ids.size < n) {
-        ids.add(prefix + String(Math.floor(Math.random() * size)))
-    }
-    return Array.from(ids)
-}

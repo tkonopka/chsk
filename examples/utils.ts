@@ -113,6 +113,14 @@ export const generateMixedPopulation = (n: number[], mean: number[], sd: number[
     return result.flat()
 }
 
+export const generateIdentifiers = (n: number, size: number, prefix = 'A'): string[] => {
+    const ids = new Set<string>()
+    while (ids.size < n) {
+        ids.add(prefix + String(Math.floor(Math.random() * size)))
+    }
+    return Array.from(ids)
+}
+
 // create an array of numbers in an interval
 export const stepSequence = (interval: [number, number], step: number = 1) => {
     let x = interval[0]

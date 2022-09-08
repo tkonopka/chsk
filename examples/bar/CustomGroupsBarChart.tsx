@@ -1,7 +1,6 @@
 import {
     Chart,
     Axis,
-    AxisLabel,
     AxisLine,
     AxisTicks,
     GridLines,
@@ -11,9 +10,10 @@ import {
     Typography,
 } from '@chask/core'
 import { LineLabel } from '@chask/annotation'
-import { Bar, BarDataItem, Bars } from '@chask/band'
-import { generateIdentifiers, generateSortedValues } from './generators'
+import { Bar, Bars } from '@chask/band'
+import { generateIdentifiers } from '../utils'
 import { MilestoneStory } from '../types'
+import { generateSortedValues } from './generators'
 
 const ids = generateIdentifiers(17, 10000, 'S')
 const idsA = ids.slice(0, 5)

@@ -1,6 +1,10 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateStripAndBoxData, StripAndBoxChart } from './StripAndBoxChart'
+import {
+    generateManyDistributionsData,
+    ManyDistributionsStripChart,
+} from './ManyDistributionsStripChart'
 import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStripChart'
 
 <Meta title="Gallery/Distribution charts" />
@@ -22,7 +26,13 @@ import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStri
 ## Ranked
 
 <Canvas>
-    <Story name="waterfall strips">
+    <Story name="many distributions">
+        <Controller generator={generateManyDistributionsData} chart={ManyDistributionsStripChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="waterfall">
         <Controller generator={generateWaterfallStripData} chart={WaterfallStripChart} />
     </Story>
 </Canvas>

@@ -4,7 +4,7 @@ import { Bar, BarDataItem, Bars } from '../src'
 import { barProps, getNumber } from './props'
 
 describe('Bars', () => {
-    it.skip('defines grouped bars (vertical)', () => {
+    it('defines grouped bars (vertical)', () => {
         render(
             <Chart>
                 <Bar {...barProps} variant={'grouped'}>
@@ -19,7 +19,7 @@ describe('Bars', () => {
         expect(keys).toHaveLength(3)
     })
 
-    it.skip('defines stacked bars (vertical)', () => {
+    it('defines stacked bars (vertical)', () => {
         render(
             <Chart size={[440, 340]} padding={[20, 20, 20, 20]}>
                 <Bar {...barProps} variant={'stacked'}>
@@ -37,7 +37,7 @@ describe('Bars', () => {
         expect(getNumber(bars[0].getAttribute('width'))).toBeLessThan(200)
     })
 
-    it.skip('defines grouped bars (horizontal)', () => {
+    it('defines grouped bars (horizontal)', () => {
         render(
             <Chart>
                 <Bar {...barProps} variant={'grouped'} horizontal={true}>
@@ -49,7 +49,7 @@ describe('Bars', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(6)
     })
 
-    it.skip('displays bars from data with missing values', () => {
+    it('displays bars from data with missing values', () => {
         const dataMissing = [
             {
                 id: 'X',
@@ -84,7 +84,7 @@ describe('Bars', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 
-    it.skip('displays bars only for specified ids', () => {
+    it('displays bars only for specified ids', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
@@ -103,7 +103,7 @@ describe('Bars', () => {
         expect(ticks[1].textContent).toEqual('beta')
     })
 
-    it.skip('displays bars only for specified keys', () => {
+    it('displays bars only for specified keys', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
@@ -116,7 +116,7 @@ describe('Bars', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 
-    it.skip('displays nothing when keys are empty', () => {
+    it('displays nothing when keys are empty', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
@@ -129,7 +129,7 @@ describe('Bars', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
-    it.skip('skips rendering when keys are disabled', () => {
+    it('skips rendering when keys are disabled', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['x', 'y', 'z']) }}>
                 <Bar {...barProps}>

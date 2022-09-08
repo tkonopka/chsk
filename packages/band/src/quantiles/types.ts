@@ -61,7 +61,7 @@ export interface BoxAndWhiskersProps extends SvgElementProps {
     whiskerCapWidth?: number
 }
 
-export interface QuantileProps extends Omit<BarProps, 'stacked'> {
+export interface QuantileProps extends Omit<BarProps, 'variant'> {
     /** data */
     data: Array<QuantileDataItem>
     /** five quantiles for whiskers bounds, box bounds, and central line */

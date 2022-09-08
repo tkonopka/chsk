@@ -70,8 +70,9 @@ const prepareData = (
         const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
             if (!summary) return undefined
-            const internalInterval = width / (summary.value.length - 1)
-            const internalStart = bandStart - width - gap
+            const n = summary.value.length
+            const internalInterval = n <= 1 ? width : width / (summary.value.length - 1)
+            const internalStart = bandStart - width - gap + (n <= 1 ? width / 2 : 0)
             return {
                 value: summary.value.map(v => valueScale(v)),
                 internal: summary.internal.map(v => internalStart + v * internalInterval),

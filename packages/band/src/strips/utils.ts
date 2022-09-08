@@ -1,4 +1,12 @@
-import { StripProcessedDataItem, StripVariant } from './types'
+import { StripDataItem, StripProcessedDataItem, StripVariant } from './types'
+
+export const isStripData = (data: Array<unknown>): data is Array<StripDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        return 'id' in item
+    })
+    return result.every(Boolean)
+}
 
 export const isStripProcessedData = (
     data: Array<unknown>
@@ -15,6 +23,7 @@ export const getStripInternalOrder = (variant: StripVariant, values: number[]) =
     const indexes = values.map((v, i) => i)
     if (variant === 'default') return indexes
     if (variant === 'jitter') return indexes.sort(() => Math.random() - 0.5)
+    if (variant === 'middle') return Array(values.length).fill((values.length + 1) / 2)
 
     const ascendingComparator = (a: number[], b: number[]) => a[0] - b[0]
     const descendingComparator = (a: number[], b: number[]) => b[0] - a[0]

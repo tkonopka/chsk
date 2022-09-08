@@ -1,4 +1,13 @@
-import { QuantileProcessedDataItem } from './types'
+import { QuantileDataItem, QuantileProcessedDataItem } from './types'
+
+export const isQuantileData = (data: Array<unknown>): data is Array<QuantileDataItem> => {
+    const result = data.map((item: unknown) => {
+        if (typeof item !== 'object' || item === null) return false
+        if (!('id' in item && 'data' in item)) return false
+        return true
+    })
+    return result.every(Boolean)
+}
 
 export const isQuantileProcessedData = (
     data: Array<unknown>

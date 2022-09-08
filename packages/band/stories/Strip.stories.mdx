@@ -88,9 +88,21 @@ The default behavior places the elements in the order in which they appear in th
     >
         {Template.bind({})}
     </Story>
+    <Story
+        name="middle"
+        args={{
+            ...commonStripProps,
+            variant: 'middle',
+            children: <Strips />,
+        }}
+        component={Strip}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
 </Canvas>
 
-Note that the order of data points in the example dataset is randomized, so the default and jittered variants (first two examples above) produce layouts that are similarly randomized.
+Note that the order of data points in the dataset is randomized, so the default and jittered variants (first two examples above) produce layouts that are similarly randomized.
 
 ## Orientation
 

@@ -7,21 +7,26 @@ import {
     Surface,
     ThemeSpec,
     Typography,
+    BandAxisScale,
+    LinearAxisScale,
+    useScales,
+    SizeSpec,
+    BandScaleSpec,
 } from '@chask/core'
-import { BandHighlight, Quantile, Quantiles, Strip, Strips } from '@chask/band'
-import { generateMixedPopulation } from '../utils'
+import { BandHighlight, isStripData, Strip, Strips } from '@chask/band'
+import { BoxedLabel } from '@chask/annotation'
 import { MilestoneStory } from '../types'
-import { alphabetGreek, randomNormalValue } from '../utils'
+import { generateMixedPopulation, generateIdentifiers } from '../utils'
 
 export const generateWaterfallStripData = () => {
-    return alphabetGreek.map((id, i) => ({
-        id,
-        data: generateMixedPopulation(
-            [randomNormalValue(25, 4)],
-            [0.8 + i * 0.2],
-            [0.5 + i * 0.05]
-        ),
-    }))
+    const ids = generateIdentifiers(1000, 10000, 'S')
+    const values = generateMixedPopulation([930, 70], [0, 0], [1, 3])
+    return ids
+        .map((id, i) => ({
+            id,
+            data: [values[i]],
+        }))
+        .sort((a, b) => -a.data[0] + b.data[0])
 }
 
 export const customTheme: ThemeSpec = {
@@ -32,7 +37,6 @@ export const customTheme: ThemeSpec = {
         },
         grid: {
             strokeDasharray: '5 5',
-            stroke: '#999999',
         },
     },
     rect: {
@@ -41,70 +45,119 @@ export const customTheme: ThemeSpec = {
             strokeWidth: 1,
             fill: '#ffffff',
         },
+        boxedLabel: {
+            fill: '#ffffff',
+        },
+    },
+    text: {
+        boxedLabel: {
+            fill: '#555555',
+        },
     },
 }
 
-// props for Histograms
-const customProps = {
-    keys: ['data'],
-    scaleIndex: {
-        variant: 'band' as const,
-        paddingOuter: 0.1,
-        paddingInner: 0.2,
-    },
-    scaleValue: {
-        variant: 'linear' as const,
-    },
+// custom component that draws a BoxedLabel at the center between two bands
+const BetweenBandsLabel = ({
+    x1,
+    x2,
+    y,
+    label,
+    size,
+}: {
+    x1: string
+    x2: string
+    y: number
+    label: string
+    size: SizeSpec
+}) => {
+    const scales = useScales()
+    const scaleIndex = scales.x as BandAxisScale
+    const scaleValue = scales.y as LinearAxisScale
+    const center: [number, number] = [(scaleIndex(x1) + scaleIndex(x2)) / 2, scaleValue(y)]
+    return (
+        <BoxedLabel position={center} size={size}>
+            {label}
+        </BoxedLabel>
+    )
 }
 
 export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
+    if (!isStripData(rawData)) return null
+
+    const subsetData = rawData.filter(d => Math.abs(Number(d.data[0])) > 2.5)
+    const omitted = '(' + (rawData.length - subsetData.length) + ' samples)'
+
+    // band scale with a gap for a custom label
+    const lastPositiveId = subsetData.filter(d => Number(d.data[0]) > 0).reverse()[0].id
+    const firstNegativeId = subsetData.filter(d => Number(d.data[0]) < 0)[0].id
+    const scaleIndex: BandScaleSpec = {
+        variant: 'band' as const,
+        paddingOuter: 0.1,
+        paddingInner: 0.2,
+        extraPadding: {},
+    }
+    if (scaleIndex.extraPadding) {
+        scaleIndex.extraPadding[firstNegativeId] = 6
+    }
+
     return (
         <Chart
             data={chartData}
             fref={fref}
-            id="waterfallStrip"
+            id="waterfall"
             size={[800, 340]}
             padding={[60, 40, 60, 60]}
             theme={customTheme}
         >
-            <Strip {...customProps} data={rawData} variant={'ascending'} r={2}>
+            <Strip
+                data={subsetData}
+                keys={['data']}
+                r={4}
+                scaleValue={{
+                    variant: 'linear' as const,
+                }}
+                scaleIndex={scaleIndex}
+            >
                 <Surface />
-                <GridLines variant={'y'} />
+                <GridLines
+                    variant={'y'}
+                    values={[-2.5, 2.5]}
+                    style={{ stroke: '#222222', strokeWidth: 2 }}
+                />
                 <Axis variant={'bottom'}>
                     <AxisTicks
                         variant={'bottom'}
                         tickSize={5}
-                        labelRotate={-90}
+                        labelRotate={-45}
                         labelOffset={9}
                         labelStyle={{ textAnchor: 'end', alignmentBaseline: 'middle' }}
                     />
+                    <AxisLabel variant={'bottom'} offset={55}>
+                        Samples
+                    </AxisLabel>
                 </Axis>
                 <Axis variant={'left'}>
                     <AxisTicks variant={'left'} tickSize={5} />
-                    <AxisLabel variant={'left'}>Measurements (a.u.)</AxisLabel>
+                    <AxisLabel variant={'left'}>z-score</AxisLabel>
                 </Axis>
                 <Axis variant={'right'}>
                     <AxisTicks variant={'right'} tickSize={5} />
                 </Axis>
                 <Strips />
-            </Strip>
-            <Quantile
-                {...customProps}
-                data={rawData}
-                scaleIndex={{ variant: 'band', paddingOuter: 0.15, paddingInner: 0.3 }}
-            >
-                <Quantiles
-                    boxStyle={{ visibility: 'hidden' }}
-                    whiskerStyle={{ visibility: 'hidden' }}
-                    medianStyle={{ stroke: '#dd0000', strokeWidth: 3, strokeLinecap: 'round' }}
+                <BetweenBandsLabel
+                    x1={lastPositiveId}
+                    x2={firstNegativeId}
+                    y={0}
+                    label={omitted}
+                    size={[80, 40]}
                 />
-                <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
-            </Quantile>
+                <BandHighlight style={{ fill: '#222222', opacity: 0.3 }} />
+            </Strip>
             <Typography variant={'title'} position={[0, -40]}>
-                Many distributions
+                Focus on the edges of a distribution
             </Typography>
             <Typography variant={'subtitle'} position={[0, -18]}>
-                Letters arranged in alphabetical order, values in ascending order
+                {subsetData.length} samples out of {rawData.length} have |z| &gt; 2.5
             </Typography>
         </Chart>
     )
