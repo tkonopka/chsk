@@ -86,16 +86,6 @@ const defaultHeatMapScaleSpec: BandScaleSpec = {
     padding: 0,
 }
 
-export const isHeatMapProcessedData = (
-    data: Array<unknown>
-): data is Array<HeatMapProcessedDataItem> => {
-    const result = data.map((item: unknown) => {
-        if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'value' in item
-    })
-    return result.reduce((acc: boolean, v: boolean) => acc && v, true)
-}
-
 export const HeatMap = ({
     // layout
     position = [0, 0],

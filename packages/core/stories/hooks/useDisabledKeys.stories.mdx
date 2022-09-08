@@ -26,8 +26,9 @@ It is also possible to invoke the hook with an argument, specifying keys of inte
     code={`
 // in a JSX component (using an array of strings)
 const { disabledKeys, firstRender, disabled } = useChartData(keysOfInterest)
-`} />
+`}
+/>
 
 -   `disabled` will be an array of boolean values matching the entries in `keysOfInterest`. The booleans will indicate whether the keys of interest have been disabled. This information can be easily computed from the set `disabledKeys`, but the array is provided for convenience.
 
-- (the other outputs are equivalent to above)
+-   (the other outputs are equivalent to above)

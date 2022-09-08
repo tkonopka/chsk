@@ -41,6 +41,8 @@ export interface HeatMapHighlightProps extends SvgElementProps {
     ids?: string[]
     /** keys to display (default to all keys) */
     keys?: string[]
+    /** interactive */
+    interactive?: boolean
 }
 
 export interface HeatMapCellsProps extends HeatMapHighlightProps {

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState, MouseEvent } from 'react'
+import { useCallback, useMemo, useRef, useState, MouseEvent, useEffect } from 'react'
 import { AnimatePresence, m } from 'framer-motion'
 import {
     getIdKeySets,
@@ -16,9 +16,10 @@ import {
     DetectorIntervals,
     inZone,
     findZone,
+    getMinMax,
 } from '@chask/core'
 import { HeatMapHighlightProps } from './types'
-import { isHeatMapProcessedData } from './HeatMap'
+import { isHeatMapProcessedData } from './utils'
 
 const createDetectorIntervals = (
     scaleX: BandAxisScale,
@@ -100,6 +101,7 @@ const HeatMapHighlightMask = (
 export const HeatMapHighlight = ({
     ids,
     keys,
+    interactive = true,
     className,
     setRole = true,
     style,
@@ -123,6 +125,14 @@ export const HeatMapHighlight = ({
         () => createDetectorIntervals(scaleX, scaleY, idSet, keySet),
         [scaleX, scaleY, idSet, keySet]
     )
+
+    useEffect(() => {
+        if (!interactive && zone === null) {
+            const xInterval = getMinMax(detectorIntervals[0])
+            const yInterval = getMinMax(detectorIntervals[1])
+            setZone([xInterval, yInterval])
+        }
+    })
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -157,7 +167,7 @@ export const HeatMapHighlight = ({
     return (
         <g role={'heatmap-highlight'}>
             {mask}
-            {detector}
+            {interactive ? detector : null}
         </g>
     )
 }

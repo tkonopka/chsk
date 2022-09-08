@@ -11,7 +11,7 @@ import {
     composeClassName,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
-import { isHeatMapProcessedData } from './HeatMap'
+import { isHeatMapProcessedData } from './utils'
 import { cloneDeep } from 'lodash'
 import { HeatMapRectangle } from './HeatMapRectangle'
 

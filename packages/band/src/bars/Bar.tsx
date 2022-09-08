@@ -168,16 +168,7 @@ export const Bar = ({
                 barGap,
                 disabled
             ),
-        [
-            processedData,
-            horizontal,
-            stacked,
-            indexScale,
-            valueScale,
-            barWidth,
-            barGap,
-            disabled,
-        ]
+        [processedData, horizontal, stacked, indexScale, valueScale, barWidth, barGap, disabled]
     )
 
     return (

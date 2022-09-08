@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { HeatMap, HeatMapCells, HeatMapDataContextProps } from '../src'
+import { HeatMap, HeatMapCells } from '../src'
 import { heatmapCategoricalProps, heatmapProps } from './props'
 
 describe('HeatMapCells', () => {

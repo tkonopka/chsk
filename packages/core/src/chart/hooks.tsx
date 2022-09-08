@@ -1,5 +1,5 @@
 import { useChartData } from './contexts'
-import {useMemo} from "react";
+import { useMemo } from 'react'
 
 // fetch a part of ChartData that relates to active/disabled keys
 export const useDisabledKeys = (keys?: string[]) => {
@@ -8,7 +8,7 @@ export const useDisabledKeys = (keys?: string[]) => {
     const firstRender = chartData.disabledKeys === undefined
     // create an array of booleans, one boolean flag per key
     const disabled = useMemo(
-        () => keys? keys.map(k => disabledKeys.has(k)) : [],
+        () => (keys ? keys.map(k => disabledKeys.has(k)) : []),
         [keys, Array.from(disabledKeys)]
     )
     return { disabledKeys, firstRender, disabled }

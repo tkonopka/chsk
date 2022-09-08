@@ -15,7 +15,7 @@ jobs:
                   npm install
                   npm run bootstrap
             - name: Build library
-                run: |
+              run: |
                   npm run build
             - name: Style check
               run: |

@@ -31,4 +31,15 @@ describe('HeatMapHighlight', () => {
         fireEvent.mouseLeave(detector)
         expect(screen.queryByRole('heatmap-highlight-mask')).toBeNull()
     })
+
+    it('omits detector surface for non-interactive use', () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
+                    <HeatMapHighlight interactive={false} />
+                </HeatMap>
+            </Chart>
+        )
+        expect(screen.queryByRole('heatmap-detector')).toBeNull()
+    })
 })

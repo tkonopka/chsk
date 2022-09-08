@@ -2,6 +2,7 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateSequentialHeatMapData, SequentialHeatMapChart } from './SequentialHeatMapChart'
 import { generateDivergingHeatMapData, DivergingHeatMapChart } from './DivergingHeatMapChart'
+import { generateBlockHeatMapData, BlockHeatMapChart } from './BlockHeatMapChart'
 import {
     generateCategoricalStripHeatMapData,
     CategoricalStripHeatMapChart,
@@ -27,6 +28,16 @@ import { generateFlagsHeatMapData, FlagsHeatMapChart } from './FlagsHeatMapChart
 <Canvas>
     <Story name="diverging">
         <Controller generator={generateDivergingHeatMapData} chart={DivergingHeatMapChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="block">
+        <Controller
+            generator={generateBlockHeatMapData}
+            chart={BlockHeatMapChart}
+            steps={['map', 'blockA', 'blockB', 'blockC', 'final']}
+        />
     </Story>
 </Canvas>
 

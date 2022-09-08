@@ -11,7 +11,7 @@ export const Template = args => <HeatMapHighlight {...args} />
 
 <ArgsTable of={HeatMapHighlight} />
 
-## Interactivity
+## Mouse motion
 
 `HeatMapHighlight` detects mouse movements and emphasizes a cell in the heatmap by masking other parts of the map.
 
@@ -50,6 +50,26 @@ To restrict the highlighting to a subset of rows and columns, use props `ids` an
         args={{
             ids: ['alpha', 'beta'],
             style: { fill: '#222222', opacity: 0.7 },
+        }}
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Interactivity
+
+Interactivity and mouse motion can be turned off via prop `interactive`. Then, `HeatmapHighlight` can be used as a static tool to highlight a subset of ids and/or keys.
+
+<Canvas>
+    <Story
+        name="static"
+        args={{
+            ids: ['alpha'],
+            keys: ['z'],
+            interactive: false,
+            style: { fill: '#222222', opacity: 0.9 },
         }}
         component={HeatMapHighlight}
         decorators={[ChartHeatMapCellsDecorator]}
