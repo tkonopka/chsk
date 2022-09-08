@@ -1,4 +1,4 @@
-import { Chart, Axis, GridLines, Surface, Typography, Line } from '@chask/core'
+import { Chart, Axis, GridLines, Surface, Typography } from '@chask/core'
 import { isScatterData, Scatter, ScatterCurve } from '@chask/xy'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
@@ -61,7 +61,9 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     style={{ stroke: '#ffffff', strokeWidth: 7 }}
                 />
                 <ScatterCurve ids={['beta']} curve={'Natural'} style={{ strokeWidth: 4 }} />
-                <Typography variant={'title'} position={[0, -30]} children={'Two random walks'} />
+                <Typography variant={'title'} position={[0, -30]}>
+                    Two random walks
+                </Typography>
             </Scatter>
         </Chart>
     )

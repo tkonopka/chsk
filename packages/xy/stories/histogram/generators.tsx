@@ -2,7 +2,7 @@
 export const generateHistogramSeries = (id: string, n: number, generator: () => number) => {
     const data = Array(n)
         .fill(0)
-        .map(xVal => generator())
+        .map(() => generator())
     return { id, data }
 }
 
@@ -14,7 +14,7 @@ export const generateHistogramSeries = (id: string, n: number, generator: () => 
  * @param mean center of distribution
  * @param sd width of distribution
  */
-export const randomNormalValue = (mean: number, sd: number = 1) => {
+export const randomNormalValue = (mean: number, sd = 1) => {
     const u = 1 - Math.random()
     const v = Math.random()
     const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)

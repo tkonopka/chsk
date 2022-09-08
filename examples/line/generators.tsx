@@ -1,7 +1,7 @@
 import { randomNormalValue } from '../utils'
 
 // produce a random walk with n steps
-export const generateRandomWalk = (n: number, mean: number = 0, sd: number = 1) => {
+export const generateRandomWalk = (n: number, mean = 0, sd = 1) => {
     let y = 0
     const result = [{ x: 0, y }]
     Array(n)
@@ -19,8 +19,7 @@ export const generateNormalPdf = (
     mean: number,
     sd: number,
     interval: [number, number],
-    step: number,
-    min = 1e-4
+    step: number
 ) => {
     const norm = 1 / (sd * Math.sqrt(2 * Math.PI))
     const value = (x: number) => {

@@ -57,7 +57,9 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 component={StyledBoxedLabel}
                 format={v => String(v.gamma)}
             />
-            <StyledBoxedLabel position={[460, -14]} size={[80, 26]} children={'3rd variable'} />
+            <StyledBoxedLabel position={[460, -14]} size={[80, 26]}>
+                3rd variable
+            </StyledBoxedLabel>
         </Bar>
     </Chart>
 )

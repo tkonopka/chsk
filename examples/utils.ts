@@ -88,7 +88,7 @@ export const alphabetGreek = [
  * @param mean center of distribution
  * @param sd width of distribution
  */
-export const randomNormalValue = (mean: number, sd: number = 1) => {
+export const randomNormalValue = (mean: number, sd = 1) => {
     const u = 1 - Math.random()
     const v = Math.random()
     const z = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v)
@@ -107,7 +107,7 @@ export const generateMixedPopulation = (n: number[], mean: number[], sd: number[
     n.forEach((size, i) => {
         const values: number[] = Array(Math.round(size))
             .fill(0)
-            .map(v => randomNormalValue(mean[i], sd[i]))
+            .map(() => randomNormalValue(mean[i], sd[i]))
         result.push(values)
     })
     return result.flat()
@@ -122,7 +122,7 @@ export const generateIdentifiers = (n: number, size: number, prefix = 'A'): stri
 }
 
 // create an array of numbers in an interval
-export const stepSequence = (interval: [number, number], step: number = 1) => {
+export const stepSequence = (interval: [number, number], step = 1) => {
     let x = interval[0]
     const result = []
     while (x < interval[1]) {

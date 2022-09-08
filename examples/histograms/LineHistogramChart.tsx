@@ -73,7 +73,9 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                             style={{ strokeWidth: 1, visibility: 'visible' }}
                         />
                         <AxisTicks variant={'bottom'} ticks={8} />
-                        <AxisLabel variant={'bottom'} anchor={0.5} children={'values (a.u.)'} />
+                        <AxisLabel variant={'bottom'} anchor={0.5}>
+                            values (a.u.)
+                        </AxisLabel>
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'data'} initial={'invisible'}>

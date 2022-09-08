@@ -132,12 +132,9 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                             anchor={[0, 1]}
                             units={'absolute'}
                         >
-                            <LegendTitle
-                                position={[0, 8]}
-                                size={[60, 24]}
-                                padding={[0, 8, 0, 8]}
-                                children={'Score (vowels)'}
-                            />
+                            <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                                Score (vowels)
+                            </LegendTitle>
                             <LegendColorScale
                                 key={'legend-color-scale'}
                                 variant={'right'}
@@ -159,12 +156,9 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                             anchor={[0, 1]}
                             units={'absolute'}
                         >
-                            <LegendTitle
-                                position={[0, 8]}
-                                size={[60, 24]}
-                                padding={[0, 8, 0, 8]}
-                                children={'Score (consonants)'}
-                            />
+                            <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                                Score (consonants)
+                            </LegendTitle>
                             <LegendColorScale
                                 key={'legend-color-scale'}
                                 variant={'right'}

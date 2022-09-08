@@ -6,11 +6,11 @@ import { roundDecimalPlaces, WithId } from '@chask/core'
 export const generateHeatMapMatrixNormal = (
     ids: string[],
     keys: string[],
-    mean: number = 0,
-    sd: number = 1,
-    autocor: number = 0.5
+    mean = 0,
+    sd = 1,
+    autocor = 0.5
 ) => {
-    return ids.map((id, i) => {
+    return ids.map(id => {
         const item: WithId & Record<string, number | string> = { id }
         let temp = 0
         keys.map(k => {
@@ -27,12 +27,12 @@ export const generateHeatMapMatrixNormal = (
 export const generateHeatMapMatrixUniform = (
     ids: string[],
     keys: string[],
-    min: number = 0,
-    max: number = 100,
-    autocor: number = 0.5
+    min = 0,
+    max = 100,
+    autocor = 0.5
 ) => {
     const size = max - min
-    return ids.map((id, i) => {
+    return ids.map(id => {
         const item: WithId & Record<string, number | string> = { id }
         let temp = 0
         keys.map(k => {
@@ -54,7 +54,7 @@ export const generateHeatMapRowCategorical = (
     const nCats = categories.length
     const randomCats = Array(keys.length)
         .fill(0)
-        .map(v => categories[Math.floor(Math.random() * nCats)])
+        .map(() => categories[Math.floor(Math.random() * nCats)])
     if (sorted) randomCats.sort()
     const result: WithId & Record<string, string | number> = { id }
     keys.forEach((k, i) => (result[k] = randomCats[i]))

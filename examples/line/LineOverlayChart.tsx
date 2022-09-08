@@ -99,11 +99,9 @@ export const LineOverlayChart = ({ fref, chartData, rawData }: MilestoneStory) =
                             </g>
                         )
                     })}
-                <Typography
-                    variant={'title'}
-                    position={[0, -26]}
-                    children={'Normal distributions'}
-                />
+                <Typography variant={'title'} position={[0, -26]}>
+                    Normal distributions
+                </Typography>
             </Scatter>
         </Chart>
     )

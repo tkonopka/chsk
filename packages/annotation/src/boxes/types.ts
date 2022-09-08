@@ -24,7 +24,7 @@ interface BoxedTextProps {
     /** style for text */
     textStyle?: CssProps
     /** children */
-    children?: string | ReactNode
+    children?: ReactNode
 }
 
 export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedTextProps {

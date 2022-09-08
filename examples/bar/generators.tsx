@@ -11,7 +11,7 @@ export const generateBarData = ({
     interval: [number, number]
 }) => {
     const result = ids.map(id => {
-        let series: WithId & Record<string, number | string> = { id: id }
+        const series: WithId & Record<string, number | string> = { id: id }
         return generateKeyValues(series, keys, interval)
     })
     return result
@@ -34,7 +34,7 @@ export const generateSortedValues = (n: number, interval: [number, number], dp =
     const size = interval[1] - interval[0]
     return Array(n)
         .fill(0)
-        .map(i => interval[0] + size * Math.random())
+        .map(() => interval[0] + size * Math.random())
         .map(v => roundDecimalPlaces(v, dp))
         .sort((a, b) => b - a)
 }

@@ -120,7 +120,6 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                             units={'absolute'}
                             title={'Flags'}
                             symbolStyle={{ stroke: '#222222', strokeWidth: 1 }}
-                            interactive={false}
                         />
                     </HeatMapCells>
                     <HeatMapSurface
@@ -156,12 +155,9 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         units={'absolute'}
                         firstOffset={[0, 0]}
                     >
-                        <LegendTitle
-                            position={[-55, 12]}
-                            size={[60, 24]}
-                            padding={[0, 8, 0, 8]}
-                            children={'Scores'}
-                        />
+                        <LegendTitle position={[-55, 12]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                            Scores
+                        </LegendTitle>
                         <LegendColorScale
                             key={'legend-color-scale'}
                             variant={'bottom'}

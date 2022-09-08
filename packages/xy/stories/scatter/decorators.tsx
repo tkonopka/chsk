@@ -104,7 +104,7 @@ const generateBubbles = (n: number, xyInterval = [0.5, 10], rInterval = [2, 12])
     const rSize = rInterval[1] - rInterval[0]
     return Array(n)
         .fill(0)
-        .map(v => ({
+        .map(() => ({
             x: xyInterval[0] + xySize * Math.random(),
             y: xyInterval[0] + xySize * Math.random(),
             r: rInterval[0] + rSize * Math.random(),

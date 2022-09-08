@@ -122,8 +122,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             size={[60, 24]}
                             units={'relative'}
                             translate={[-30, 12]}
-                            children={'n = ' + rawData[0].data.length}
-                        />
+                        >
+                            {'n = ' + rawData[0].data.length}
+                        </BoxedLabel>
                     </MilestoneMotion>
                 </Histogram>
             </MilestoneMotion>
@@ -146,8 +147,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             size={[60, 24]}
                             units={'relative'}
                             translate={[-30, 12]}
-                            children={'n = ' + rawData[1].data.length}
-                        />
+                        >
+                            {'n = ' + rawData[1].data.length}
+                        </BoxedLabel>
                     </MilestoneMotion>
                 </Histogram>
             </MilestoneMotion>
@@ -170,8 +172,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             size={[60, 24]}
                             units={'relative'}
                             translate={[-30, 12]}
-                            children={'n = ' + rawData[2].data.length}
-                        />
+                        >
+                            {'n = ' + rawData[2].data.length}
+                        </BoxedLabel>
                     </MilestoneMotion>
                 </Histogram>
             </MilestoneMotion>

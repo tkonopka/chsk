@@ -39,8 +39,12 @@ export const EntryMilestones = () => {
     return (
         <>
             <div>
-                <button onClick={() => toggleMilestone('left')}>Toggle milestone 'left'</button>
-                <button onClick={() => toggleMilestone('right')}>Toggle milestone 'right'</button>
+                <button onClick={() => toggleMilestone('left')}>
+                    Toggle milestone &lsquo;left&lsquo;
+                </button>
+                <button onClick={() => toggleMilestone('right')}>
+                    Toggle milestone @lsquo;right&lsquo;
+                </button>
             </div>
             <Chart
                 fref={ref}
@@ -72,8 +76,12 @@ export const ExitMilestones = () => {
     return (
         <>
             <div>
-                <button onClick={() => toggleMilestone('left')}>Toggle milestone 'left'</button>
-                <button onClick={() => toggleMilestone('right')}>Toggle milestone 'right'</button>
+                <button onClick={() => toggleMilestone('left')}>
+                    Toggle milestone &lsquo;left&lsquo;
+                </button>
+                <button onClick={() => toggleMilestone('right')}>
+                    Toggle milestone &lsquo;right&lsquo;
+                </button>
             </div>
             <Chart
                 fref={ref}
@@ -111,10 +119,10 @@ export const EntryExitMilestones = ({
     return (
         <>
             <div>
-                <button onClick={() => toggleMilestone('A')}>Toggle 'A'</button>
-                <button onClick={() => toggleMilestone('B')}>Toggle 'B'</button>
-                <button onClick={() => toggleMilestone('C')}>Toggle 'C'</button>
-                <button onClick={() => toggleMilestone('D')}>Toggle 'D'</button>
+                <button onClick={() => toggleMilestone('A')}>Toggle &lsquo;A&lsquo;</button>
+                <button onClick={() => toggleMilestone('B')}>Toggle &lsquo;B&lsquo;</button>
+                <button onClick={() => toggleMilestone('C')}>Toggle &lsquo;C&lsquo;</button>
+                <button onClick={() => toggleMilestone('D')}>Toggle &lsquo;D&lsquo;</button>
             </div>
             <Chart
                 fref={ref}

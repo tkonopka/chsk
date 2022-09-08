@@ -1,11 +1,11 @@
-import { roundDecimalPlaces, WithId } from '@chask/core'
+import { roundDecimalPlaces } from '@chask/core'
 import { HeatMapDataItem } from '../src'
 
 export const generateContinuousHeatMapData = (
     ids: string[],
     keys: string[],
     interval: [number, number],
-    round: number = 1
+    round = 1
 ): Array<HeatMapDataItem> => {
     const intervalSize = interval[1] - interval[0]
     const result = ids.map((id: string) => {

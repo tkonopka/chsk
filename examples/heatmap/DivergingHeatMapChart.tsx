@@ -1,7 +1,7 @@
 import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
-import { alphabetGreek, alphabetUppercase } from '../utils'
+import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
 import { Typography } from '../../packages/core/src'
 
@@ -61,12 +61,9 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     padding={[0, 8, 0, 0]}
                     units={'absolute'}
                 >
-                    <LegendTitle
-                        position={[0, 0]}
-                        size={[60, 24]}
-                        padding={[0, 8, 0, 8]}
-                        children={'z-scores'}
-                    />
+                    <LegendTitle position={[0, 0]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                        z-scores
+                    </LegendTitle>
                     <LegendColorScale
                         key={'legend-color-scale'}
                         variant={'bottom'}

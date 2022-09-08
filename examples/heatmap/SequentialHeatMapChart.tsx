@@ -10,7 +10,7 @@ import {
 } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
-import { alphabetGreek, alphabetUppercase } from '../utils'
+import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
 
 const ids = alphabetGreek
@@ -77,12 +77,9 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     anchor={[0, 0]}
                     units={'absolute'}
                 >
-                    <LegendTitle
-                        position={[0, 8]}
-                        size={[60, 24]}
-                        padding={[0, 8, 0, 8]}
-                        children={'scores'}
-                    />
+                    <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                        scores
+                    </LegendTitle>
                     <LegendColorScale
                         key={'legend-color-scale'}
                         variant={'right'}

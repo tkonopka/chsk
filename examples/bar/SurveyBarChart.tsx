@@ -31,7 +31,7 @@ const generateQuestionData = (id: string) => {
     while (!done) {
         const values = Array(4)
             .fill(0)
-            .map(v => randomUniformValue(5, 35))
+            .map(() => randomUniformValue(5, 35))
         const sum = values[0] + values[1] + values[2] + values[3]
         const neutral = (100 - sum) / 2
         result.SD = -values[0]

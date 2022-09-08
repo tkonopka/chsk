@@ -11,7 +11,7 @@ export const generateClusterScatterData = () => [
             80,
             () => randomNormalValue(0, 1),
             ['y'],
-            [x => randomNormalValue(0, 1)]
+            [x => 0 * x + randomNormalValue(0, 1)]
         ),
     },
     {

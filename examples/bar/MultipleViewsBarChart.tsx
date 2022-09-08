@@ -8,7 +8,7 @@ import {
     ThemeSpec,
     SizeSpec,
 } from '@chask/core'
-import { Bar, BarDataItem, Bars, BarsLabels } from '@chask/band'
+import { Bar, Bars, BarsLabels } from '@chask/band'
 import { generateKeyValues } from './generators'
 import { MilestoneStory } from '../types'
 
@@ -100,7 +100,9 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Alpha'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10}>
+                    Alpha
+                </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
             <Bars />
@@ -113,7 +115,9 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Beta'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10}>
+                    Beta
+                </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
             <Bars />
@@ -123,7 +127,9 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10} children={'Gamma'} />
+                <AxisLabel variant={'top'} anchor={0} offset={10}>
+                    Gamma
+                </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
             <Bars />
