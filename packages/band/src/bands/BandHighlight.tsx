@@ -119,8 +119,7 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
     // handlers are the same as in HeatMapHighlight
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
-            if (detectorRef === null) return
-            if (detectorRef.current === null) return
+            if (!detectorRef || !detectorRef.current) return
             const { x, y } = detectorRef.current.getBoundingClientRect()
             const mouse: NumericPositionSpec = [event.clientX - x, event.clientY - y]
             if (!inZone(mouse, zone)) {

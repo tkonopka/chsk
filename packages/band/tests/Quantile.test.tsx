@@ -16,6 +16,7 @@ import {
     isQuantileProcessedData,
     useQuantilePreparedData,
     QuantileProcessedDataItem,
+    isQuantileProcessedSummary,
 } from '../src'
 import { quantileProps, dummyBandScale, dummyLinearScale, dataMissingKeys } from './props'
 
@@ -139,11 +140,11 @@ describe('Quantile', () => {
             </Chart>
         )
         // for first id, first key (x) is defined and second key (y) is not
-        expect(result[0].data[0]).not.toBeFalsy()
+        expect(result[0].data[0]).toBeTruthy()
         expect(result[0].data[1]).toBeFalsy()
         // for second id, first key (x) is not defined
         expect(result[1].data[0]).toBeFalsy()
-        expect(result[1].data[1]).not.toBeFalsy()
+        expect(result[1].data[1]).toBeTruthy()
     })
 
     it('prepares color scale for legend', () => {
@@ -155,5 +156,39 @@ describe('Quantile', () => {
             </Chart>
         )
         expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
+    })
+
+    const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
+
+    it('accepts precomputed quantile values', () => {
+        const precomputed = [
+            {
+                id: 'A',
+                x: {
+                    values: [5, 10, 15, 20, 25],
+                    quantiles: q5,
+                    extrema: [5, 30],
+                    junk: [1, 2, 3],
+                },
+            },
+        ]
+        let result: Array<QuantileProcessedDataItem> = []
+        const GetProcessedData = () => {
+            const temp = useProcessedData()
+            if (isQuantileProcessedData(temp.data)) result = temp.data
+            return null
+        }
+        render(
+            <Chart>
+                <Quantile data={precomputed} keys={['x']}>
+                    <GetProcessedData />
+                </Quantile>
+            </Chart>
+        )
+        expect(isQuantileProcessedSummary(precomputed[0].x)).toBeTruthy()
+        expect(result[0].id).toEqual(precomputed[0].id)
+        expect(result[0].data[0]?.values).toEqual(precomputed[0].x.values)
+        expect(result[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)
+        expect(JSON.stringify(result[0].data[0])).not.toContain('junk')
     })
 })

@@ -67,6 +67,17 @@ describe('Axis', () => {
         expect(label.textContent).toContain('right axis')
     })
 
+    it('creates axis without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="right" setRole={false} />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('axis-right')).toBeNull()
+    })
+
     it('skips label component when label is empty', () => {
         render(
             <Chart {...chartProps}>

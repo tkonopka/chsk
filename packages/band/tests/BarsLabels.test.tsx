@@ -64,6 +64,18 @@ describe('BarsLabels', () => {
         expect(labels.length).toBeLessThan(6)
     })
 
+    it('skips all labels', () => {
+        render(
+            <Chart size={[500, 400]}>
+                <Bar {...barProps}>
+                    <BarsLabels minSize={[1000, 1000]} />
+                </Bar>
+            </Chart>
+        )
+        const result = screen.getByRole('view-bar')
+        expect(result.querySelectorAll('text')).toHaveLength(0)
+    })
+
     it('places labels outside bars', () => {
         render(
             <Chart size={[500, 400]}>

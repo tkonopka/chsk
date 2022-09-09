@@ -45,38 +45,39 @@ export const BarsLabels = ({
     const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         if (disabledKeys.has(k)) return null
-        const labels = data.map((seriesData: BarPreparedDataItem, j) => {
-            if (!idSet.has(seriesData.id)) return null
-            const size = seriesData.size[i]
-            const pos = seriesData.position[i]
-            if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
-            const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
-            let labelStyle = style
-            let compositeClassName = innerClassName
-            if (Math.abs(size[0]) < minSize[0] || Math.abs(size[1]) < minSize[1]) {
-                if (!showOuter) return null
-                labelStyle = styleOuter
-                center[X] += size[X]
-                compositeClassName = outerClassName
-            }
-            const value = format(processedData[j].data[i])
-            return createElement(
-                component,
-                {
-                    key: 'bar-label-' + j + '-' + i,
-                    position: [center[X] + translate[X], center[Y] + translate[Y]],
-                    size,
-                    align,
-                    padding,
-                    className: compositeClassName,
-                    style: labelStyle,
-                    setRole: setRole,
-                },
-                value
-            )
-        })
+        const labels = data
+            .map((seriesData: BarPreparedDataItem, j) => {
+                if (!idSet.has(seriesData.id)) return null
+                const size = seriesData.size[i]
+                const pos = seriesData.position[i]
+                if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
+                const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
+                let labelStyle = style
+                let compositeClassName = innerClassName
+                if (Math.abs(size[0]) < minSize[0] || Math.abs(size[1]) < minSize[1]) {
+                    if (!showOuter) return null
+                    labelStyle = styleOuter
+                    center[X] += size[X]
+                    compositeClassName = outerClassName
+                }
+                const value = format(processedData[j].data[i])
+                return createElement(
+                    component,
+                    {
+                        key: 'bar-label-' + j + '-' + i,
+                        position: [center[X] + translate[X], center[Y] + translate[Y]],
+                        size,
+                        align,
+                        padding,
+                        className: compositeClassName,
+                        style: labelStyle,
+                        setRole: setRole,
+                    },
+                    value
+                )
+            })
+            .filter(Boolean)
         if (labels.length === 0) return null
-
         return (
             <OpacityMotion key={'bars-labels-' + i} role={'bars-labels'} firstRender={firstRender}>
                 {labels}
@@ -84,6 +85,5 @@ export const BarsLabels = ({
         )
     })
 
-    if (result.length === 0) return null
-    return <>{result}</>
+    return <>{result.filter(Boolean)}</>
 }

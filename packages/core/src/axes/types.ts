@@ -17,7 +17,7 @@ export interface AxisProps extends SvgElementVariantProps {
     /** components rendered within the axis frame */
     children?: ReactNode
 }
-export interface AxisThemedProps extends Pick<AxisProps, 'offset' | 'ticks'> {
+export interface AxisThemedProps extends Pick<AxisProps, 'offset' | 'ticks' | 'style'> {
     offset: number
     ticks: TickType
 }
@@ -40,7 +40,8 @@ export interface AxisLabelProps extends SvgElementVariantProps {
     children?: string
 }
 
-export interface AxisLabelThemedProps extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'rotate'> {
+export interface AxisLabelThemedProps
+    extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'rotate' | 'style'> {
     anchor: 'start' | 'middle' | 'end' | number
     offset: number
     rotate: number
@@ -68,7 +69,10 @@ export interface AxisTicksProps extends SvgElementVariantProps {
 }
 
 export interface AxisTicksThemedProps
-    extends Pick<AxisTicksProps, 'ticks' | 'tickSize' | 'labelOffset' | 'labelRotate'> {
+    extends Pick<
+        AxisTicksProps,
+        'ticks' | 'tickSize' | 'labelOffset' | 'labelRotate' | 'labelStyle' | 'tickStyle'
+    > {
     ticks: TickType
     tickSize: number
     labelOffset: number

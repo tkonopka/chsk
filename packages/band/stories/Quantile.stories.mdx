@@ -18,7 +18,7 @@ export const Template = args => <Quantile {...args} />
 
 The data should be prepared as an array of objects. All objects should contain a string identifier `'id'`. Other keys can hold arrays of numeric values.
 
-The pseudocode below shows one data item with an identifier and two numeric arrays.
+The pseudocode below shows one data item with an identifier and two numeric arrays. In this form, the numeric arrays will be treated as raw data points, and the component will compute appropriate quantiles.
 
 <Source
     language="javascript"
@@ -28,6 +28,25 @@ The pseudocode below shows one data item with an identifier and two numeric arra
     "id": "alpha",
     "x": [1, 2, 3, ,...],
     "y": [2, 4, 6, ...],
+  },
+  ...
+]
+`}
+/>
+
+Alternatively, the data can be provided as precomputed objects. In this format, the keys should hold objects with five numeric values in field `values`, five numeric quantile levels in `quantiles`, and two numeric values in `extrema`. The pseudocode below is an example.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "beta",
+    "x": {
+      "values": [1, 2, 3, 4, 5],
+      "quantiles": [0.05, 0.25, 0.5, 0.75, 0.95],
+      "extrema": [0, 6],
+    }
   },
   ...
 ]

@@ -83,9 +83,9 @@ Predefined variants place an axis on the top, right, bottom, or left sides of a 
     </Story>
 </Canvas>
 
-## Padding
+## Offset
 
-By default, axes are positioned exactly on the border of the charting surface. They can be offset using the prop `padding`.
+By default, axes are positioned exactly on the border of the charting surface. They can be moved with the prop `offset`.
 
 <Canvas>
     <Story
@@ -93,7 +93,7 @@ By default, axes are positioned exactly on the border of the charting surface. T
         args={{
             variant: 'bottom',
             label: 'axis label',
-            padding: 10,
+            offset: 10,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}

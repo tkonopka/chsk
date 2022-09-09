@@ -27,7 +27,7 @@ import {
 } from './types'
 import { QuantilePreparedDataProvider } from './context'
 import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
-import { getQuantiles } from './utils'
+import { getQuantiles, isQuantileProcessedSummary } from './utils'
 
 // turn raw data into objects with computed quantile levels
 const processData = (
@@ -39,11 +39,18 @@ const processData = (
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
             if (!raw) return undefined
+            if (isQuantileProcessedSummary(raw)) {
+                return {
+                    values: raw.values,
+                    quantiles: raw.quantiles,
+                    extrema: raw.extrema,
+                }
+            }
             if (!Array.isArray(raw)) return undefined
             return {
                 values: getQuantiles(raw as number[], quantiles) as FiveNumbers,
-                extrema: getMinMax(raw as number[]),
                 quantiles,
+                extrema: getMinMax(raw as number[]),
             }
         })
         return {

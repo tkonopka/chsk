@@ -1,5 +1,4 @@
 import { useDimensions } from '../general'
-import { useTheme } from '../themes'
 import { AxisProps } from './types'
 import { AxisLine } from './AxisLine'
 import { AxisLabel } from './AxisLabel'
@@ -18,16 +17,14 @@ export const UnthemedAxis = ({
     setRole = true,
     children,
 }: AxisProps) => {
-    const theme = useTheme().Axis
     const dimensions = useDimensions()
-    const axisOffset = offset ?? (theme[variant]?.offset as number) ?? 0
 
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}
             transform={getAxisTranslate({
                 variant,
-                offset: axisOffset,
+                offset,
                 size: dimensions.innerSize,
             })}
             className={className}
