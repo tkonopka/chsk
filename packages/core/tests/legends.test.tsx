@@ -1,5 +1,14 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, View, ColorScaleProps, LegendItem, Circle, LegendTitle, LegendItemProps } from '../src'
+import {
+    Chart,
+    Legend,
+    View,
+    ColorScaleProps,
+    LegendItem,
+    Circle,
+    LegendTitle,
+    LegendItemProps,
+} from '../src'
 import { chartProps } from './props'
 
 const viewSeriesIndexesKeys = {
