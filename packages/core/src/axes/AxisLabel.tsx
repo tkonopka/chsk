@@ -11,7 +11,7 @@ const getAnchorFraction = (anchor: string | number | unknown) => {
     return 0.5
 }
 
-export const UnthemedAxisLabel = ({
+const UnthemedAxisLabel = ({
     variant,
     offset = defaultAxisLabelProps.offset,
     anchor = defaultAxisLabelProps.anchor,

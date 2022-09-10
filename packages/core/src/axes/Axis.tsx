@@ -7,7 +7,7 @@ import { getAxisTranslate } from './utils'
 import { themedProps } from '../themes/utils'
 import { defaultAxisProps } from './defaults'
 
-export const UnthemedAxis = ({
+const UnthemedAxis = ({
     variant,
     label,
     ticks = defaultAxisProps.ticks,

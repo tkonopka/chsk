@@ -8,7 +8,7 @@ import { defaultViewProps } from './defaults'
 import { cloneDeep } from 'lodash'
 import { fillScaleSize } from './utils'
 
-export const UnthemedView = ({
+const UnthemedView = ({
     variant = 'default',
     position = defaultViewProps.position,
     size = defaultViewProps.size,

@@ -79,7 +79,7 @@ export const getScaleTicks = ({
     ))
 }
 
-export const UnthemedAxisTicks = ({
+const UnthemedAxisTicks = ({
     variant,
     ticks = defaultAxisTicksProps.ticks,
     tickSize = defaultAxisTicksProps.tickSize,

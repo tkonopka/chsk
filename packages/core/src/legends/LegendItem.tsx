@@ -8,7 +8,7 @@ import { useChartData } from '../chart'
 import { defaultLegendItemProps } from './defaults'
 import { LegendItemProps } from './types'
 
-export const UnthemedLegendItem = ({
+const UnthemedLegendItem = ({
     variant = 'right',
     item,
     position,
