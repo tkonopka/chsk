@@ -6,6 +6,7 @@ import { LinearGradient } from '../defs'
 import { cloneDeep } from 'lodash'
 import { getAxisTranslate, getScaleTicks } from '../axes'
 import { themedProps } from '../themes'
+import { defaultLegendColorScaleProps } from './defaults'
 
 const UnthemedLegendColorScale = ({
     variant = 'bottom',
@@ -15,10 +16,10 @@ const UnthemedLegendColorScale = ({
     translate = [0, 0],
     offset = 0,
     horizontal = false,
-    ticks,
-    tickSize,
-    labelRotate,
-    labelOffset,
+    ticks = defaultLegendColorScaleProps.ticks,
+    tickSize = defaultLegendColorScaleProps.tickSize,
+    labelRotate = defaultLegendColorScaleProps.labelRotate,
+    labelOffset = defaultLegendColorScaleProps.labelOffset,
     className,
     style,
     setRole = true,

@@ -74,7 +74,8 @@ export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>
     horizontal?: boolean
 }
 
-export interface LegendColorScaleThemedProps extends Pick<LegendColorScaleProps, 'ticks'> {
+export interface LegendColorScaleThemedProps
+    extends Pick<LegendColorScaleProps, 'ticks' | 'tickSize' | 'labelRotate' | 'labelOffset'> {
     ticks: number | number[]
 }
 

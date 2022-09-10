@@ -1,7 +1,7 @@
 import { Line } from '../lines'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
-import { themedProps, useTheme } from '../themes'
+import { themedProps } from '../themes'
 import { Typography } from '../typography'
 import { defaultAxisTicksProps } from './defaults'
 
@@ -17,6 +17,8 @@ const getFormatFunction = (format: undefined | null | TickFormatType) => {
 }
 
 // create an array of tick marks (tick lines and tick labels)
+// Note this re-uses AxisTicksProps with optional props, e.g. tickSize
+// However, the expectation is that practical calls will specify all the props
 export const getScaleTicks = ({
     variant,
     scale,
@@ -32,15 +34,14 @@ export const getScaleTicks = ({
     scale: Scale
     scaleSize?: number // only relevant for color scales
 }) => {
-    const theme = useTheme().AxisTicks[variant]
     const tickValues = Array.isArray(ticks) ? ticks : getTicks(scale, ticks)
     if (tickValues.length < 1) return null
     const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const size = tickSize ?? (theme?.tickSize as number) ?? 0
-    const offset = labelOffset ?? (theme?.labelOffset as number) ?? 0
-    const rotate = labelRotate ?? (theme?.labelRotate as number) ?? 0
+    const size = tickSize ?? 0
+    const offset = labelOffset ?? 0
+    const rotate = labelRotate ?? 0
     const tickTranslations = horizontal
         ? tickCoordinates.map(v => [v, 0])
         : tickCoordinates.map(v => [0, v])

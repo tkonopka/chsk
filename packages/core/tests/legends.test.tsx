@@ -10,6 +10,7 @@ import {
     LegendItemProps,
 } from '../src'
 import { chartProps } from './props'
+import { LegendSizeScale } from '../src/legends/LegendSizeScale'
 
 const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },
@@ -279,6 +280,62 @@ describe('Legend (size)', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
                     <Legend variant={'size'} />
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('legend')).toBeDefined()
+        expect(screen.getByRole('legend-size-scale')).toBeDefined()
+    })
+
+    it('creates a size scale (variant right)', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
+                    <Legend variant={'size'}>
+                        <LegendSizeScale position={[0, 0]} variant={'right'} />
+                    </Legend>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('legend')).toBeDefined()
+        expect(screen.getByRole('legend-size-scale')).toBeDefined()
+    })
+
+    it('creates a size scale (variant left)', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
+                    <Legend variant={'size'}>
+                        <LegendSizeScale position={[0, 0]} variant={'left'} />
+                    </Legend>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('legend')).toBeDefined()
+        expect(screen.getByRole('legend-size-scale')).toBeDefined()
+    })
+
+    it('creates a size scale (variant top)', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
+                    <Legend variant={'size'}>
+                        <LegendSizeScale position={[0, 0]} variant={'top'} />
+                    </Legend>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('legend')).toBeDefined()
+        expect(screen.getByRole('legend-size-scale')).toBeDefined()
+    })
+
+    it('creates a size scale (variant bottom)', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
+                    <Legend variant={'size'}>
+                        <LegendSizeScale position={[0, 0]} variant={'bottom'} />
+                    </Legend>
                 </View>
             </Chart>
         )
