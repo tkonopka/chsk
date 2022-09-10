@@ -5,6 +5,8 @@ import { useView } from './hooks'
 import { BaseView } from './BaseView'
 import { themedProps } from '../themes'
 import { defaultViewProps } from './defaults'
+import { cloneDeep } from 'lodash'
+import { fillScaleSize } from './utils'
 
 export const UnthemedView = ({
     variant = 'default',
@@ -21,14 +23,23 @@ export const UnthemedView = ({
     children,
 }: ViewProps) => {
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
-    const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
-    scales.color = createColorScale(scaleColor)
-    scales.size = createContinuousScale({ size: 100, ...scaleSize })
+
+    const { x: scalePropsX, y: scalePropsY } = fillScaleSize(dimsProps.innerSize, scaleX, scaleY)
+    const scales = createAxisScales(scalePropsX, scalePropsY)
 
     const isArray = Array.isArray(data)
     const dataArray = isArray ? data : []
     const keys = isArray ? [] : data.keys
     const seriesIndexes = isArray ? {} : data.seriesIndexes
+
+    if (scaleColor.variant === 'categorical' && !isArray) {
+        if (scaleColor.domain.length === 0) {
+            scaleColor = cloneDeep(scaleColor)
+            scaleColor.domain = data.keys
+        }
+    }
+    scales.color = createColorScale(scaleColor)
+    scales.size = createContinuousScale(scaleSize)
 
     return (
         <BaseView

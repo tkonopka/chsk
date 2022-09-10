@@ -22,6 +22,7 @@ Prop `variant` determines where the tick marks appear in relation to the scale r
             variant: 'bottom',
             position: [0, 0],
             size: [80, 12],
+            horizontal: true,
         }}
         component={LegendColorScale}
         decorators={[ChartWithColorLegendDecorator]}
@@ -34,6 +35,7 @@ Prop `variant` determines where the tick marks appear in relation to the scale r
             variant: 'top',
             position: [0, 24],
             size: [80, 12],
+            horizontal: true,
         }}
         component={LegendColorScale}
         decorators={[ChartWithColorLegendDecorator]}
@@ -46,6 +48,7 @@ Prop `variant` determines where the tick marks appear in relation to the scale r
             variant: 'left',
             position: [60, 24],
             size: [12, 100],
+            horizontal: false,
         }}
         component={LegendColorScale}
         decorators={[ChartWithColorLegendDecorator]}
@@ -58,6 +61,7 @@ Prop `variant` determines where the tick marks appear in relation to the scale r
             variant: 'right',
             position: [0, 24],
             size: [12, 100],
+            horizontal: false,
         }}
         component={LegendColorScale}
         decorators={[ChartWithColorLegendDecorator]}
@@ -75,6 +79,7 @@ Various props can be used to tune the tick marks and labels.
         name="tuning ticks"
         args={{
             variant: 'bottom',
+            horizontal: true,
             position: [0, 0],
             size: [80, 12],
             ticks: 3,

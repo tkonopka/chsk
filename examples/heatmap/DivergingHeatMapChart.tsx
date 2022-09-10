@@ -67,6 +67,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     <LegendColorScale
                         key={'legend-color-scale'}
                         variant={'bottom'}
+                        horizontal={true}
                         size={[160, 9]}
                         padding={[0, 8, 0, 8]}
                         position={[0, 10]}

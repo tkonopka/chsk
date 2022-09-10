@@ -1,5 +1,5 @@
 import { scaleLog, scaleLinear } from 'd3-scale'
-import { ContinuousAxisScale, ContinuousScaleSpec, GenericScale } from './types'
+import { ContinuousAxisScale, ContinuousScaleProps, GenericScale } from './types'
 
 export const createContinuousScale = ({
     variant,
@@ -8,9 +8,7 @@ export const createContinuousScale = ({
     domain,
     clamp = false,
     nice = false,
-}: ContinuousScaleSpec & {
-    domain: [number, number]
-    size: number
+}: ContinuousScaleProps & {
     axis?: 'x' | 'y'
 }): ContinuousAxisScale => {
     const range = axis === 'y' ? [size, 0] : [0, size]

@@ -1,6 +1,7 @@
 export * from './defaults'
 export * from './Legend'
 export * from './LegendItem'
+export * from './LegendItemList'
 export * from './LegendTitle'
 export * from './LegendColorScale'
 export * from './types'

@@ -142,12 +142,14 @@ export const Bar = ({
         processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
+        dimsProps.innerSize,
+        horizontal,
         autoRescale ? disabled : Array(keys.length).fill(false),
         stacked
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue
-    const scales = createAxisScales({ ...dimsProps, scaleX, scaleY })
+    const scales = createAxisScales(scaleX, scaleY)
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
     scales.color = createColorScale(scaleColorProps)
 

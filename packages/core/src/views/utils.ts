@@ -1,5 +1,8 @@
 import { WithId } from './types'
 import { ProcessedDataContextProps } from './types'
+import { cloneDeep } from 'lodash'
+import { SizeSpec, X, Y } from '../general'
+import { ScaleProps } from '../scales'
 
 // build a dictionary mapping series string ids to integers
 export const getIndexes = (data: Array<WithId>): Record<string, number> => {
@@ -29,4 +32,18 @@ export const getIdKeySets = (
     const allIds = new Set(Object.keys(processedData.seriesIndexes))
     const allKeys = new Set(processedData.keys)
     return { idSet: getSet(ids, allIds), keySet: getSet(keys, allKeys) }
+}
+
+export const fillScaleSize = (
+    innerSize: SizeSpec,
+    scaleX: Omit<ScaleProps, 'size'>,
+    scaleY: Omit<ScaleProps, 'size'>
+) => {
+    const result = {
+        x: cloneDeep(scaleX) as ScaleProps,
+        y: cloneDeep(scaleY) as ScaleProps,
+    }
+    result.x.size = innerSize[X]
+    result.y.size = innerSize[Y]
+    return result
 }

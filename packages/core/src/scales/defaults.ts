@@ -5,6 +5,7 @@ import {
     LinearScaleSpec,
     LogScaleSpec,
     SequentialScaleSpec,
+    SizeScaleSpec,
 } from './types'
 import { createContinuousScale } from './continuous'
 import { createCategoricalScale } from './categorical'
@@ -20,6 +21,13 @@ export const defaultLinearScaleSpec: LinearScaleSpec = {
     variant: 'linear',
     domain: 'auto',
     nice: true,
+}
+
+export const defaultSizeScaleSpec: SizeScaleSpec = {
+    variant: 'linear',
+    domain: 'auto',
+    nice: true,
+    size: 40,
 }
 
 export const defaultLinearScaleWithZeroSpec: LinearScaleSpec = {

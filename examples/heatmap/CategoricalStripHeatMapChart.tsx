@@ -101,6 +101,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                             position={[460, -4]}
                             size={[60, 180]}
                             itemSize={[60, 18]}
+                            itemPadding={[2, 4, 2, 4]}
                             anchor={[0, 0]}
                             units={'absolute'}
                             title={'Groups'}

@@ -3,24 +3,25 @@ import { useProcessedData } from '../views'
 import { Typography } from '../typography'
 import { addColor, addOpacity, composeClassName, themedProps } from '../themes'
 import { useScales } from '../scales'
-import { LEFT, RIGHT, TOP } from '../general'
+import { LEFT, RIGHT, TOP, X, Y } from '../general'
 import { useChartData } from '../chart'
 import { defaultLegendItemProps } from './defaults'
 import { LegendItemProps } from './types'
 
 export const UnthemedLegendItem = ({
-    variant = 'default',
+    variant = 'right',
     item,
     position,
     size = defaultLegendItemProps.size,
     padding = defaultLegendItemProps.padding,
     translate = defaultLegendItemProps.translate,
-    align = defaultLegendItemProps.align,
     r = defaultLegendItemProps.r,
     symbol = Square,
+    symbolPosition,
     symbolStyle,
     label,
     labelStyle,
+    labelPosition,
     labelOffset = defaultLegendItemProps.labelOffset,
     colorIndex,
     interactive = defaultLegendItemProps.interactive,
@@ -31,19 +32,33 @@ export const UnthemedLegendItem = ({
     const data = useProcessedData()
     const colorScale = useScales().color
     const { data: chartData, setData: setChartData } = useChartData()
-
     const cIndex = colorIndex ?? data.keys.indexOf(item ?? '')
     const itemStyle = addColor(symbolStyle, colorScale(cIndex))
     label = label ?? item
 
     // determine position of symbol and text label
-    const symbolPos = [r + padding[LEFT], r + padding[TOP]]
-    if (align === 'right') {
-        symbolPos[0] = size[0] - padding[RIGHT] - r
-    } else if (align === 'middle') {
-        symbolPos[0] = padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
+    if (!symbolPosition) {
+        symbolPosition = [r + padding[LEFT], r + padding[TOP]]
+        if (variant === 'left') {
+            symbolPosition[X] = size[0] - padding[RIGHT] - r
+        } else if (variant === 'bottom') {
+            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
+        } else if (variant === 'top') {
+            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
+        }
     }
-    const labelPos = [symbolPos[0] + labelOffset[0], r + labelOffset[1] + padding[TOP]]
+    if (!labelPosition) {
+        labelPosition = [symbolPosition[X], symbolPosition[Y]]
+        if (variant === 'left') {
+            labelPosition[X] -= labelOffset
+        } else if (variant === 'right') {
+            labelPosition[X] += labelOffset
+        } else if (variant === 'bottom') {
+            labelPosition[Y] += labelOffset
+        } else if (variant === 'top') {
+            labelPosition[Y] -= labelOffset
+        }
+    }
 
     const handleClick = () => {
         if (!interactive) return
@@ -69,7 +84,7 @@ export const UnthemedLegendItem = ({
             onClick={handleClick}
         >
             <Rectangle
-                variant={variant === 'default' ? 'legend-item' : variant}
+                variant={'legend-item'}
                 x={0}
                 y={0}
                 width={size[0]}
@@ -77,16 +92,16 @@ export const UnthemedLegendItem = ({
                 setRole={false}
             />
             {symbol({
-                cx: symbolPos[0] + translate[0],
-                cy: symbolPos[1] + translate[1],
+                cx: symbolPosition[0] + translate[0],
+                cy: symbolPosition[1] + translate[1],
                 r: r,
                 className: composeClassName(['legendSymbol', className]),
                 style: itemStyle,
                 setRole: false,
             })}
             <Typography
-                variant={variant === 'default' ? 'legend-item' : variant}
-                position={[labelPos[0] + translate[0], labelPos[1] + translate[1]]}
+                variant={'legend-item'}
+                position={[labelPosition[0] + translate[0], labelPosition[1] + translate[1]]}
                 style={labelStyle}
                 className={className}
                 setRole={false}

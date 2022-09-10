@@ -217,3 +217,58 @@ The legend can display a continuous color scale by setting prop `variant`.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+For more control of this type of legend, see `LegendColorScale`.
+
+## Size scales
+
+The legend can display a size scale by setting prop `variant`.
+
+<Canvas>
+    <Story
+        name="sizes, vertical"
+        args={{
+            variant: 'size',
+            position: [220, 0],
+            size: [60, 100],
+            units: 'absolute',
+            anchor: [0, 0],
+            padding: [0, 8, 0, 8],
+            itemSize: [80, 20],
+            itemPadding: [2, 2, 2, 2],
+            title: 'Legend title',
+            firstOffset: [0, 10],
+            symbolStyle: { stroke: '#222222', strokeWidth: 1 },
+            sizeTicks: [25, 50, 75],
+        }}
+        component={Legend}
+        decorators={[ChartForColorLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="sizes, horizontal"
+        args={{
+            variant: 'size',
+            horizontal: true,
+            position: [0, 140],
+            padding: [10, 0, 10, 0],
+            size: [120, 60],
+            units: 'absolute',
+            anchor: [0, 0],
+            itemSize: [26, 80],
+            itemPadding: [4, 4, 4, 4],
+            title: 'Legend title',
+            firstOffset: [-26, 18],
+            symbolStyle: { stroke: '#222222', strokeWidth: 1 },
+            labelStyle: { textAnchor: 'middle', alignmentBaseline: 'hanging' },
+            sizeTicks: [25, 50, 75],
+        }}
+        component={Legend}
+        decorators={[ChartForColorLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+For more control of this type of legend, see `LegendSizeScale`.

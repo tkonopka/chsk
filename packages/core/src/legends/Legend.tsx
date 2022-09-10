@@ -3,13 +3,15 @@ import { LegendProps } from './types'
 import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { themedProps } from '../themes'
-import { LegendItem } from './LegendItem'
 import { DimensionsProvider, NumericPositionSpec } from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
 import { defaultLegendProps } from './defaults'
+import { LegendItemList } from './LegendItemList'
+import { LegendSizeScale } from './LegendSizeScale'
+import { SideType } from '../axes'
 
-export const UnthemedLegend = ({
+const UnthemedLegend = ({
     variant = 'list',
     // layout of container
     position = [1, 0.5],
@@ -20,7 +22,6 @@ export const UnthemedLegend = ({
     // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
-    align = defaultLegendProps.align,
     horizontal = defaultLegendProps.horizontal,
     firstOffset = defaultLegendProps.firstOffset,
     // title
@@ -34,6 +35,8 @@ export const UnthemedLegend = ({
     labelOffset = defaultLegendProps.labelOffset,
     // only for color scale
     scaleSize = defaultLegendProps.scaleSize,
+    // only for size legends
+    sizeTicks = 4,
     // general svg
     className,
     style,
@@ -42,8 +45,7 @@ export const UnthemedLegend = ({
 }: LegendProps) => {
     const scales = useScales()
     const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
-
-    // book-keeping for position of legend item position
+    // position of first non-title item/element of the legend content
     const pos: NumericPositionSpec = [0, 0]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {
@@ -51,38 +53,52 @@ export const UnthemedLegend = ({
         pos[1] += step[1] + firstOffset[1]
     }
 
+    const sideVariant: SideType = horizontal ? 'bottom' : 'right'
+    const vhp = { variant: sideVariant, horizontal, position: pos }
+
     // legend content
     let content: ReactNode | null | ReactNode[] = null
     if (variant === 'list' && scales.color.variant === 'categorical') {
-        content = scales.color.domain().map((k: string | number, i: number) => {
-            return (
-                <LegendItem
-                    variant={'legend-item'}
-                    key={'legend-item-' + i}
-                    position={[pos[0] + i * step[0], pos[1] + i * step[1]]}
-                    size={itemSize}
-                    padding={itemPadding}
-                    align={align}
-                    r={r}
-                    symbol={symbol}
-                    symbolStyle={symbolStyle}
-                    item={String(k)}
-                    label={String(k)}
-                    labelStyle={labelStyle}
-                    labelOffset={labelOffset}
-                    colorIndex={i}
-                    setRole={setRole}
-                />
-            )
-        })
+        const colorDomain = scales.color.domain().map(String)
+        content = (
+            <LegendItemList
+                key={'legend-list'}
+                {...vhp}
+                variant={'right'}
+                items={colorDomain}
+                labels={colorDomain}
+                itemSize={itemSize}
+                itemPadding={itemPadding}
+                r={Array(colorDomain.length).fill(r)}
+                symbol={symbol}
+                symbolStyle={symbolStyle}
+                labelStyle={labelStyle}
+                labelOffset={labelOffset}
+                setRole={setRole}
+            />
+        )
     } else if (variant === 'color' && scales.color.variant !== 'categorical') {
         content = (
             <LegendColorScale
                 key={'legend-color-scale'}
-                variant={horizontal ? 'bottom' : 'right'}
+                {...vhp}
                 size={scaleSize}
                 padding={itemPadding}
-                position={pos}
+            />
+        )
+    } else if (variant === 'size') {
+        content = (
+            <LegendSizeScale
+                key={'legend-size-scale'}
+                {...vhp}
+                itemSize={itemSize}
+                itemPadding={itemPadding}
+                ticks={sizeTicks}
+                symbol={symbol}
+                symbolStyle={symbolStyle}
+                labelStyle={labelStyle}
+                labelOffset={labelOffset}
+                setRole={setRole}
             />
         )
     }
@@ -101,12 +117,11 @@ export const UnthemedLegend = ({
                     <>
                         <LegendTitle
                             key={'legend-title'}
-                            variant={'legend-title'}
+                            variant={'right'}
                             position={[0, 0]}
                             size={itemSize}
                             padding={itemPadding}
                             translate={[0, r]}
-                            align={align}
                             style={titleStyle}
                             setRole={setRole}
                         >

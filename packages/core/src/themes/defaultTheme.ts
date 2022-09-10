@@ -1,4 +1,10 @@
-import { defaultLegendItemProps, defaultLegendProps } from '../legends/defaults'
+import {
+    defaultLegendColorScaleProps,
+    defaultLegendItemListProps,
+    defaultLegendItemProps,
+    defaultLegendProps,
+    defaultLegendSizeScaleProps,
+} from '../legends/defaults'
 import { defaultViewProps } from '../views/defaults'
 import {
     defaultAxisLabelLeftProps,
@@ -153,12 +159,22 @@ export const defaultTheme: CompleteThemeSpec = {
     Legend: {
         list: cloneDeep(defaultLegendProps),
         color: cloneDeep(defaultLegendProps),
+        size: cloneDeep(defaultLegendProps),
+    },
+    LegendItemList: {
+        default: cloneDeep(defaultLegendItemListProps),
     },
     LegendItem: {
         default: cloneDeep(defaultLegendItemProps),
     },
     LegendTitle: {
         default: cloneDeep(defaultLegendItemProps),
+    },
+    LegendColorScale: {
+        default: cloneDeep(defaultLegendColorScaleProps),
+    },
+    LegendSizeScale: {
+        default: cloneDeep(defaultLegendSizeScaleProps),
     },
     View: {
         default: cloneDeep(defaultViewProps),

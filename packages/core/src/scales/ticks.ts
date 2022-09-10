@@ -3,7 +3,8 @@ import { isContinuousAxisScale } from './axis'
 import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './color'
 
 /** get an array of (numeric) ticks in the scale domain */
-export const getTicks = (scale: Scale, ticks: number | undefined) => {
+export const getTicks = (scale: Scale, ticks: number[] | string[] | number | undefined) => {
+    if (Array.isArray(ticks)) return ticks
     if (isContinuousColorScale(scale) || isContinuousAxisScale(scale)) {
         if (ticks === undefined) return scale.ticks(4) as Array<number>
         return scale.ticks(ticks) as Array<number>
@@ -21,7 +22,7 @@ export const getTickCoordinates = (
     shift = 0,
     size = 0 // only used for color scales
 ) => {
-    const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
+    const tickValues = getTicks(scale, values)
     if (isColorScale(scale)) {
         if (isCategoricalColorScale(scale)) return []
         const domain = scale.domain()

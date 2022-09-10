@@ -7,6 +7,9 @@ import {
     isScaleWithDomain,
     LinearScaleProps,
     LinearScaleSpec,
+    SizeSpec,
+    X,
+    Y,
 } from '@chask/core'
 import { BarProcessedDataItem } from './types'
 import { cloneDeep } from 'lodash'
@@ -24,12 +27,14 @@ export const getScaleProps = (
     data: Array<[number, number][]>, // for each id, key, array with [min, max] values
     scaleSpecIndex: BandScaleSpec,
     scaleSpecValue: LinearScaleSpec,
+    size: SizeSpec, // inner size of the view
+    horizontal: boolean, // inner size of the view
     disabled: boolean[],
     stacked = false
 ) => {
     const result = {
-        scalePropsIndex: cloneDeep(scaleSpecIndex),
-        scalePropsValue: cloneDeep(scaleSpecValue),
+        scalePropsIndex: cloneDeep(scaleSpecIndex) as BandScaleProps,
+        scalePropsValue: cloneDeep(scaleSpecValue) as LinearScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecIndex)) {
         result.scalePropsIndex.domain = ids
@@ -43,14 +48,14 @@ export const getScaleProps = (
             return [negative, positive]
         }
         const domain = stacked ? getMinMax(values.map(sumValues).flat()) : getMinMax(values.flat())
-        //domain[0] = Math.min(0, domain[0])
-        //domain[1] = Math.max(0, domain[1])
         result.scalePropsValue = createContinuousScaleProps(
             scaleSpecValue,
             domain
         ) as LinearScaleProps
     }
-    return result as { scalePropsIndex: BandScaleProps; scalePropsValue: LinearScaleProps }
+    result.scalePropsIndex.size = horizontal ? size[Y] : size[X]
+    result.scalePropsValue.size = horizontal ? size[X] : size[Y]
+    return result
 }
 
 // for grouped bars/boxplots, compute width of individual bar/box and gap to next bar/box

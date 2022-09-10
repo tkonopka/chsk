@@ -50,6 +50,8 @@ export type ContinuousScaleSpec = {
 export type ContinuousScaleProps = ContinuousScaleSpec & {
     /** domain min and max */
     domain: MinMaxSpec
+    /** extent of the range, e.g. [0, size] */
+    size: number
 }
 
 export type LinearScaleSpec = ContinuousScaleSpec & {
@@ -60,6 +62,8 @@ export type LinearScaleSpec = ContinuousScaleSpec & {
 export type LinearScaleProps = LinearScaleSpec & {
     /** domain min and max */
     domain: [number, number]
+    /** extent of the range, e.g. [0, size] */
+    size: number
 }
 
 export type LogScaleSpec = ContinuousScaleSpec & {
@@ -85,11 +89,26 @@ export type BandScaleSpec = {
 export type BandScaleProps = BandScaleSpec & {
     /** all keys in the domain */
     domain: string[]
+    /** extent of the range, e.g. [0, size] */
+    size: number
 }
 
 export type ScaleSpec = ContinuousScaleSpec | BandScaleSpec
 
 export type ScaleProps = ContinuousScaleProps | BandScaleProps
+
+/** Size */
+
+export type SizeScaleSpec = ContinuousScaleSpec & {
+    /** type of scale */
+    variant: 'linear'
+    /** extent of maximum symbol radius */
+    size: number
+}
+export type SizeScaleProps = SizeScaleSpec & {
+    /** domain min and max */
+    domain: MinMaxSpec
+}
 
 /** Color */
 

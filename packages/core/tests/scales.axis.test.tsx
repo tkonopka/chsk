@@ -20,12 +20,12 @@ import {
 describe('createScale', () => {
     it('creates a band scale', () => {
         const result = createAxisScale({
-            size: 100,
             axis: 'x',
             scaleProps: {
                 variant: 'band',
                 domain: ['a', 'b'],
                 padding: 0,
+                size: 100,
             },
         })
         expect(isAxisScale(result)).toBeTruthy()
@@ -37,10 +37,10 @@ describe('createScale', () => {
     it('creates a linear scale', () => {
         const result = createAxisScale({
             axis: 'x',
-            size: 100,
             scaleProps: {
                 variant: 'linear',
                 domain: [0, 10],
+                size: 100,
             },
         })
         expect(isAxisScale(result)).toBeTruthy()
@@ -54,10 +54,10 @@ describe('createScale', () => {
     it('creates a log scale', () => {
         const result = createAxisScale({
             axis: 'x',
-            size: 100,
             scaleProps: {
                 variant: 'log',
                 domain: [1, 10],
+                size: 100,
             },
         })
         expect(isAxisScale(result)).toBeTruthy()

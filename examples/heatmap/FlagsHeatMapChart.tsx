@@ -161,6 +161,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         <LegendColorScale
                             key={'legend-color-scale'}
                             variant={'bottom'}
+                            horizontal={true}
                             size={[160, 13]}
                             padding={[0, 8, 0, 8]}
                             position={[0, 5]}

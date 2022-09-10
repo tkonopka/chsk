@@ -22,10 +22,13 @@ export const getDimensionsProps = (
     units: SizeUnit,
     referenceSize: SizeSpec,
     padding: FourSideSizeSpec
-): DimensionsProviderBaseProps => {
+): DimensionsProviderBaseProps & { innerSize: SizeSpec } => {
+    const absoluteSize = getAbsoluteSize(size, units, referenceSize)
+    const innerSize = getInnerSize(absoluteSize, padding)
     return {
-        size: getAbsoluteSize(size, units, referenceSize),
+        size: absoluteSize,
         padding,
+        innerSize,
     }
 }
 

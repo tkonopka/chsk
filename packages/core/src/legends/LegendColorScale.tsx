@@ -5,14 +5,16 @@ import { isContinuousColorScale, useScales } from '../scales'
 import { LinearGradient } from '../defs'
 import { cloneDeep } from 'lodash'
 import { getAxisTranslate, getScaleTicks } from '../axes'
+import { themedProps } from '../themes'
 
-export const LegendColorScale = ({
+const UnthemedLegendColorScale = ({
     variant = 'bottom',
     position,
     size = [10, 10],
     padding = [0, 0, 0, 0],
     translate = [0, 0],
     offset = 0,
+    horizontal = false,
     ticks,
     tickSize,
     labelRotate,
@@ -26,7 +28,6 @@ export const LegendColorScale = ({
     if (!isContinuousColorScale(scale)) return null
 
     // create a list of colors
-    const horizontal = variant === 'bottom' || variant === 'top'
     const scaleSize = horizontal ? size[X] : -size[Y]
     const domain = scale.domain()
     const domainSize = domain[domain.length - 1] - domain[0]
@@ -77,3 +78,7 @@ export const LegendColorScale = ({
         </g>
     )
 }
+
+export const LegendColorScale = (props: LegendColorScaleProps) => (
+    <UnthemedLegendColorScale {...themedProps(props, 'LegendColorScale')} />
+)

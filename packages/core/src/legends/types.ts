@@ -9,19 +9,17 @@ import {
 } from '../general'
 import { ContainerProps } from '../views'
 import { SymbolProps } from '../shapes'
-import { AxisTicksProps } from '../axes'
+import { AxisTicksProps, SideType } from '../axes'
 
 export interface LegendTitleProps extends SvgElementProps {
     /** variant */
-    variant?: 'default' | string
+    variant?: SideType
     /** position of symbol */
     position: NumericPositionSpec
     /** size of a single legend item */
     size?: SizeSpec
     /** padding for a single legend item */
     padding?: FourSideSizeSpec
-    /** alignment of symbol and text */
-    align?: 'left' | 'middle' | 'right'
     /** additional translation */
     translate?: TranslateSpec
     /** children components */
@@ -30,21 +28,25 @@ export interface LegendTitleProps extends SvgElementProps {
 
 export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
     /** variant */
-    variant?: 'default' | string
+    variant?: SideType
     /** key */
     item: string
     /** size of symbol */
     r?: number
     /** symbol function */
     symbol?: FC<SymbolProps>
+    /** symbol position (overrides auto-calculation based on position and variant) */
+    symbolPosition?: NumericPositionSpec
     /** style for symbol */
     symbolStyle?: CssProps
     /** text label */
     label: string
+    /** label position (overrides auto-calculation based on position and variant) */
+    labelPosition?: NumericPositionSpec
     /** style for text label */
     labelStyle?: CssProps
     /** offset of label from symbol */
-    labelOffset?: NumericPositionSpec
+    labelOffset?: number
     /** color index (internal use) */
     colorIndex?: number
     /** interactivity */
@@ -52,16 +54,12 @@ export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
 }
 
 export interface LegendItemThemedProps
-    extends Pick<
-        LegendItemProps,
-        'size' | 'padding' | 'translate' | 'align' | 'r' | 'labelOffset'
-    > {
+    extends Pick<LegendItemProps, 'size' | 'padding' | 'translate' | 'r' | 'labelOffset'> {
     size: SizeSpec
     padding: FourSideSizeSpec
     translate: NumericPositionSpec
-    align: 'left' | 'middle' | 'right'
     r: number
-    labelOffset: NumericPositionSpec
+    labelOffset: number
     interactive: boolean
 }
 
@@ -72,6 +70,12 @@ export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>
     offset?: number
     /** identifier for gradient */
     gradientId?: string
+    /** horizontal orientation */
+    horizontal?: boolean
+}
+
+export interface LegendColorScaleThemedProps extends Pick<LegendColorScaleProps, 'ticks'> {
+    ticks: number | number[]
 }
 
 export interface LegendProps
@@ -79,7 +83,7 @@ export interface LegendProps
         ContainerProps,
         Pick<
             LegendItemProps,
-            'align' | 'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelOffset'
+            'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelOffset' | 'interactive'
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
@@ -95,8 +99,10 @@ export interface LegendProps
     horizontal?: boolean
     /** offset/translate first item relative to default position */
     firstOffset?: NumericPositionSpec
-    /** size for scale */
+    /** size for color gradient scale */
     scaleSize?: SizeSpec
+    /** settings for size scale */
+    sizeTicks?: number | number[]
 }
 
 export interface LegendThemedProps
@@ -109,7 +115,65 @@ export interface LegendThemedProps
     horizontal: boolean
     firstOffset: NumericPositionSpec
     scaleSize: SizeSpec
-    align: 'left' | 'middle' | 'right'
     r: number
-    labelOffset: NumericPositionSpec
+    labelOffset: number
+    interactive: boolean
+}
+
+export interface LegendItemListProps
+    extends Omit<
+        LegendProps,
+        'variant' | 'position' | 'title' | 'titleStyle' | 'firstOffset' | 'r'
+    > {
+    /** variant */
+    variant: SideType
+    /** array of items to display (for categorical keys) */
+    items?: string[]
+    /** array of labels to display next to symbols */
+    labels?: string[]
+    /** array of symbol sizes */
+    r?: number[]
+    /** position */
+    position: NumericPositionSpec
+}
+
+export interface LegendItemListThemedProps
+    extends Pick<LegendItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'interactive'> {
+    itemSize: SizeSpec
+    itemPadding: FourSideSizeSpec
+    horizontal: boolean
+    r: number
+    labelOffset: number
+}
+
+export interface LegendSizeScaleProps
+    extends Omit<LegendTitleProps, 'variant'>,
+        AxisTicksProps,
+        Pick<
+            LegendItemListProps,
+            | 'itemSize'
+            | 'itemPadding'
+            | 'horizontal'
+            | 'interactive'
+            | 'labelStyle'
+            | 'symbol'
+            | 'symbolStyle'
+        > {
+    /** ticks */
+    ticks?: number | number[]
+    /** array of items to display (for categorical keys) */
+    items?: string[]
+    /** array of labels to display next to symbols */
+    labels?: string[]
+    /** array of symbol sizes */
+    r?: number[]
+}
+
+export interface LegendSizeScaleThemedProps
+    extends Pick<LegendSizeScaleProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'interactive'> {
+    itemSize: SizeSpec
+    itemPadding: FourSideSizeSpec
+    horizontal: boolean
+    labelOffset: number
+    ticks: number | number[]
 }

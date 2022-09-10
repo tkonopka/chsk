@@ -17,6 +17,9 @@ import {
     useTheme,
     CategoricalScaleProps,
     ColorScaleSpec,
+    SizeSpec,
+    X,
+    Y,
 } from '@chask/core'
 
 // turn raw dataGroups into a minimal array-based format
@@ -37,12 +40,18 @@ const getScaleProps = (
     ids: string[],
     keys: string[],
     scaleSpecX: BandScaleSpec,
-    scaleSpecY: BandScaleSpec
+    scaleSpecY: BandScaleSpec,
+    size: SizeSpec
 ) => {
-    const result = { scalePropsX: cloneDeep(scaleSpecX), scalePropsY: cloneDeep(scaleSpecY) }
+    const result = {
+        scalePropsX: cloneDeep(scaleSpecX) as BandScaleProps,
+        scalePropsY: cloneDeep(scaleSpecY) as BandScaleProps,
+    }
     result.scalePropsX.domain = keys
+    result.scalePropsX.size = size[X]
     result.scalePropsY.domain = ids
-    return result as { scalePropsX: BandScaleProps; scalePropsY: BandScaleProps }
+    result.scalePropsY.size = size[Y]
+    return result
 }
 
 const getColorScaleProps = (
@@ -107,12 +116,17 @@ export const HeatMap = ({
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
-    // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor<number | string>(k)), [keys])
     const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
 
-    const { scalePropsX, scalePropsY } = getScaleProps(seriesIds, keys, scaleX, scaleY)
-    const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    const { scalePropsX, scalePropsY } = getScaleProps(
+        seriesIds,
+        keys,
+        scaleX,
+        scaleY,
+        dimsProps.innerSize
+    )
+    const scales = createAxisScales(scalePropsX, scalePropsY)
     scales.color = createColorScale(
         getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
     )

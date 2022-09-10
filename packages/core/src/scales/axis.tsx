@@ -1,5 +1,4 @@
 import { cloneDeep } from 'lodash'
-import { BOTTOM, DimensionsContextProps, LEFT, RIGHT, TOP } from '../general'
 import {
     Scale,
     ScalesContextProps,
@@ -29,17 +28,19 @@ export const isScaleWithDomain = (
 // complete domain information in a scale spec to create a scale props
 export const createContinuousScaleProps = (
     scaleSpec: ContinuousScaleSpec,
-    domain: [number, number]
+    domain: [number, number],
+    size?: number
 ): ContinuousScaleProps => {
-    const result = cloneDeep(scaleSpec)
+    const result = cloneDeep(scaleSpec) as ContinuousScaleProps
     if (scaleSpec.domain === undefined || typeof scaleSpec.domain === 'string') {
         result.domain = domain
     } else {
-        result.domain = cloneDeep(scaleSpec.domain)
+        result.domain = cloneDeep(scaleSpec.domain) as [number, number]
         if (typeof scaleSpec.domain[0] !== 'number') result.domain[0] = domain[0]
         if (typeof scaleSpec.domain[1] !== 'number') result.domain[1] = domain[1]
     }
-    return result as ContinuousScaleProps
+    result.size = size ?? 100
+    return result
 }
 
 export const isAxisScale = (scale: Scale): scale is AxisScale => {
@@ -64,37 +65,26 @@ export const isLogAxisScale = (scale: Scale): scale is LogAxisScale => {
 
 export const createAxisScale = ({
     axis = 'x',
-    size = 100,
     scaleProps,
 }: {
     /** axis for scale */
     axis?: 'x' | 'y'
-    /** size of output */
-    size: number
     /** complete specification, including domain, for a scale */
     scaleProps: ContinuousScaleProps | BandScaleProps
 }) => {
     if (scaleProps.variant === 'band') {
-        return createBandScale({ size, ...scaleProps })
+        return createBandScale(scaleProps)
     }
-    return createContinuousScale({ axis, size, ...scaleProps })
+    return createContinuousScale({ axis, ...scaleProps })
 }
 
-export const createAxisScales = ({
-    size,
-    padding,
-    scaleX,
-    scaleY,
-}: Pick<DimensionsContextProps, 'size' | 'padding'> & {
-    scaleX: ContinuousScaleProps | BandScaleProps
+export const createAxisScales = (
+    scaleX: ContinuousScaleProps | BandScaleProps,
     scaleY: ContinuousScaleProps | BandScaleProps
-}): ScalesContextProps => {
-    const [width, height] = size
-    const innerWidth = width - padding[LEFT] - padding[RIGHT]
-    const innerHeight = height - padding[TOP] - padding[BOTTOM]
+): ScalesContextProps => {
     return {
-        x: createAxisScale({ axis: 'x', size: innerWidth, scaleProps: scaleX }),
-        y: createAxisScale({ axis: 'y', size: innerHeight, scaleProps: scaleY }),
+        x: createAxisScale({ axis: 'x', scaleProps: scaleX }),
+        y: createAxisScale({ axis: 'y', scaleProps: scaleY }),
         size: defaultSizeScale,
         color: defaultCategoricalScale,
     }

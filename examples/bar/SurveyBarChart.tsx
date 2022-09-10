@@ -56,6 +56,7 @@ const surveyTheme: ThemeSpec = {
     LegendItem: {
         default: {
             interactive: false,
+            labelOffset: 10,
         },
     },
 }

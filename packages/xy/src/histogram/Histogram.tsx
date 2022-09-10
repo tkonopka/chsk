@@ -20,6 +20,7 @@ import {
     BaseView,
     X,
     Y,
+    SizeSpec,
 } from '@chask/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
@@ -55,9 +56,13 @@ const getScaleProps = (
     data: Array<HistogramProcessedDataItem>,
     scaleSpecX: ContinuousScaleSpec,
     scaleSpecY: ContinuousScaleSpec,
+    size: SizeSpec,
     disabled: boolean[]
 ) => {
-    const result = { scalePropsX: cloneDeep(scaleSpecX), scalePropsY: cloneDeep(scaleSpecY) }
+    const result = {
+        scalePropsX: cloneDeep(scaleSpecX) as ContinuousScaleProps,
+        scalePropsY: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+    }
     const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data
@@ -73,7 +78,9 @@ const getScaleProps = (
             .flat()
         result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
     }
-    return result as { scalePropsX: ContinuousScaleProps; scalePropsY: ContinuousScaleProps }
+    result.scalePropsX.size = size[X]
+    result.scalePropsY.size = size[Y]
+    return result
 }
 
 export const Histogram = ({
@@ -111,9 +118,10 @@ export const Histogram = ({
         processedData,
         scaleX,
         scaleY,
+        dimsProps.innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
-    const scales = createAxisScales({ ...dimsProps, scaleX: scalePropsX, scaleY: scalePropsY })
+    const scales = createAxisScales(scalePropsX, scalePropsY)
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
     scales.color = createColorScale(scaleColorProps)
 

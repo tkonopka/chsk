@@ -6,7 +6,13 @@ import {
     NumericPositionSpec,
     SvgElementVariantProps,
 } from '../general'
-import { ColorScaleProps, ContinuousScaleProps, ScaleProps, ScalesContextProps } from '../scales'
+import {
+    BandScaleProps,
+    ColorScaleProps,
+    ContinuousScaleProps,
+    ScaleProps,
+    ScalesContextProps,
+} from '../scales'
 import { ReactNode } from 'react'
 
 export type WithId = {
@@ -64,9 +70,9 @@ export interface ViewProps extends ContainerProps {
     /** automatically adjust scales if/when data subsets become disabled */
     autoRescale?: boolean
     /** scale for horizontal axis */
-    scaleX?: ScaleProps
+    scaleX?: Omit<ContinuousScaleProps, 'size'> | Omit<BandScaleProps, 'size'>
     /** scale for vertical axis */
-    scaleY?: ScaleProps
+    scaleY?: Omit<ContinuousScaleProps, 'size'> | Omit<BandScaleProps, 'size'>
     /** scale for color */
     scaleColor?: ColorScaleProps
     /** scale for size */

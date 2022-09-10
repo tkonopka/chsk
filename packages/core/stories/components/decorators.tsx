@@ -194,7 +194,7 @@ const scaleBluesSpec: ColorScaleProps = {
 export const ChartForColorLegendDecorator = (Story: () => ReactNode) => (
     <Chart
         size={[400, 300]}
-        padding={[40, 120, 80, 40]}
+        padding={[40, 140, 120, 40]}
         style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
     >
         <View data={viewSeriesIndexesKeys} scaleColor={scaleBluesSpec}>

@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Legend, LegendItem, Square, Circle } from '../../src'
-import { ChartWithRightLegendTitleDecorator } from './decorators'
+import { ChartWithRightLegendDecorator } from './decorators'
 
 # LegendItem
 
@@ -11,79 +11,102 @@ export const Template = args => <LegendItem {...args} />
 
 <ArgsTable of={LegendItem} />
 
-## Symbols and labels
+## Variants
+
+Prop `variant` determines how the legend symbol and label are arranged. The terminology matches that of axis and tick labels. For example, the variant 'right' makes the text label appear to the right of the symbol (analogously how labels appear to the right of tick marks on an axis).
 
 <Canvas>
     <Story
-        name="rectangle symbols"
+        name="right"
         args={{
+            variant: 'right',
             position: [0, 16],
             size: [80, 28],
             r: 10,
-            symbol: Square,
             symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
-            label: 'label',
-            labelOffset: [16, 0],
+            label: 'right',
+            labelOffset: 14,
+            labelStyle: { textAnchor: 'start' },
         }}
         component={LegendItem}
-        decorators={[ChartWithRightLegendTitleDecorator]}
+        decorators={[ChartWithRightLegendDecorator]}
     >
         {Template.bind({})}
     </Story>
     <Story
-        name="circle symbols"
+        name="left"
         args={{
+            variant: 'left',
             position: [0, 16],
-            size: [80, 28],
+            size: [80, 42],
             r: 9,
-            symbol: Circle,
-            symbolStyle: { fill: '#dd3333', strokeWidth: 0 },
-            label: 'label',
-            labelOffset: [16, 0],
+            symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
+            label: 'left',
+            labelOffset: 14,
+            labelStyle: { textAnchor: 'end' },
         }}
         component={LegendItem}
-        decorators={[ChartWithRightLegendTitleDecorator]}
+        decorators={[ChartWithRightLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="bottom"
+        args={{
+            variant: 'bottom',
+            position: [0, 16],
+            size: [80, 42],
+            r: 9,
+            symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
+            label: 'bottom',
+            labelOffset: 18,
+            labelStyle: { textAnchor: 'middle' },
+        }}
+        component={LegendItem}
+        decorators={[ChartWithRightLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="top"
+        args={{
+            variant: 'top',
+            position: [0, 16],
+            size: [80, 42],
+            r: 9,
+            symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
+            label: 'top',
+            labelOffset: 18,
+            labelStyle: { textAnchor: 'middle' },
+        }}
+        component={LegendItem}
+        decorators={[ChartWithRightLegendDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-## Alignment
+Note that `variant` is not the only prop that affects placement of the text label. It is often necessary to adjust the css style for the label via prop `labelStyle`.
+
+## Symbols
+
+Use prop `symbol` to change the symbol.
 
 <Canvas>
     <Story
-        name="align right"
+        name="circle"
         args={{
+            variant: 'right',
             position: [0, 16],
             size: [80, 28],
-            align: 'right',
-            r: 10,
-            symbol: Square,
-            symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
-            label: 'label',
-            labelOffset: [-16, 0],
-            labelStyle: { textAnchor: 'end' },
-        }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendTitleDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="align middle"
-        args={{
-            position: [0, 16],
-            size: [80, 42],
-            align: 'middle',
             r: 9,
             symbol: Circle,
             symbolStyle: { fill: '#dd3333', strokeWidth: 0 },
             label: 'label',
-            labelOffset: [0, 20],
-            labelStyle: { textAnchor: 'middle' },
+            labelOffset: 16,
         }}
         component={LegendItem}
-        decorators={[ChartWithRightLegendTitleDecorator]}
+        decorators={[ChartWithRightLegendDecorator]}
     >
         {Template.bind({})}
     </Story>

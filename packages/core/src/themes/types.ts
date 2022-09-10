@@ -1,5 +1,4 @@
 import { CSSProperties } from 'react'
-import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from '../general'
 import {
     CategoricalScaleSpec,
     ColorScaleSpec,
@@ -7,7 +6,13 @@ import {
     SequentialScaleSpec,
 } from '../scales'
 import { AxisLabelThemedProps, AxisThemedProps, AxisTicksThemedProps } from '../axes'
-import { LegendItemThemedProps } from '../legends'
+import {
+    LegendColorScaleThemedProps,
+    LegendItemListThemedProps,
+    LegendItemThemedProps,
+    LegendSizeScaleThemedProps,
+    LegendThemedProps,
+} from '../legends'
 import { ViewThemedProps } from '../views'
 
 export type WithVariant = {
@@ -21,40 +26,10 @@ export interface SideRecords<T = Record<string, unknown>> extends Record<string,
     right?: T
 }
 
-/**
-export interface ThemeAxisLabelSpec {
-    offset?: number
-    anchor?: number
-    rotate?: number
-}
-export interface ThemeAxisTicksSpec {
-    tickSize?: number
-    labelOffset?: number
-    labelRotate?: number
-    labelStyle?: CssProps
-    tickStyle?: CssProps
-}
- */
-
 export interface ColorsRecords extends Record<string, ColorScaleSpec | undefined> {
     categorical: CategoricalScaleSpec
     diverging: DivergingScaleSpec
     sequential: SequentialScaleSpec
-}
-
-export interface ThemeLegendSpec {
-    horizontal?: boolean
-    align?: 'left' | 'middle' | 'right'
-    itemSize?: SizeSpec
-    itemPadding?: FourSideSizeSpec
-    firstOffset?: NumericPositionSpec
-    r?: number
-    labelOffset?: NumericPositionSpec
-    scaleSize?: SizeSpec
-}
-export interface LegendRecords<T = ThemeLegendSpec> extends Record<string, T | undefined> {
-    list?: T
-    color?: T
 }
 
 export interface ThemeSpec {
@@ -68,9 +43,12 @@ export interface ThemeSpec {
     Axis?: Record<string, Partial<AxisThemedProps> | undefined>
     AxisLabel?: Record<string, Partial<AxisLabelThemedProps> | undefined>
     AxisTicks?: Record<string, Partial<AxisTicksThemedProps> | undefined>
-    Legend?: Record<string, Partial<ThemeLegendSpec> | undefined>
+    Legend?: Record<string, Partial<LegendThemedProps> | undefined>
     LegendItem?: Record<string, Partial<LegendItemThemedProps> | undefined>
+    LegendItemList?: Record<string, Partial<LegendItemListThemedProps> | undefined>
     LegendTitle?: Record<string, Partial<LegendItemThemedProps> | undefined>
+    LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
+    LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     View?: Record<string, Partial<ViewThemedProps> | undefined>
     Colors?: Record<string, ColorScaleSpec | undefined>
 }
@@ -86,9 +64,12 @@ export interface CompleteThemeSpec {
     Axis: SideRecords<AxisThemedProps>
     AxisLabel: SideRecords<AxisLabelThemedProps>
     AxisTicks: SideRecords<AxisTicksThemedProps>
-    Legend: LegendRecords
+    Legend: Record<string, Partial<LegendThemedProps> | undefined>
+    LegendItemList: Record<string, LegendItemListThemedProps | undefined>
     LegendItem: Record<string, LegendItemThemedProps | undefined>
     LegendTitle: Record<string, LegendItemThemedProps | undefined>
+    LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
+    LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     View: Record<string, ViewThemedProps | undefined>
     Colors: ColorsRecords
 }
@@ -101,6 +82,9 @@ export type ThemedComponent =
     | 'AxisLabel'
     | 'AxisTicks'
     | 'Legend'
+    | 'LegendItemList'
     | 'LegendItem'
     | 'LegendTitle'
+    | 'LegendColorScale'
+    | 'LegendSizeScale'
     | 'View'

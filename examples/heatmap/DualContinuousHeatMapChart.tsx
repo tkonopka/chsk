@@ -116,6 +116,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                             position={[430, -4]}
                             size={[60, 180]}
                             itemSize={[60, 16]}
+                            itemPadding={[1, 4, 1, 4]}
                             anchor={[0, 0]}
                             units={'absolute'}
                             title={'Groups'}
