@@ -18,9 +18,7 @@ jobs:
                   npm run bootstrap
             - name: Build library
               run: |
-                  cd packages/core
-                  npm run build
-                  cd ../../
+                  npm run build-core
                   npm run build
             - name: Build storybook
               run: |
