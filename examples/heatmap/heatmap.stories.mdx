@@ -12,6 +12,7 @@ import {
     DualContinuousHeatMapChart,
 } from './DualContinuousHeatMapChart'
 import { generateFlagsHeatMapData, FlagsHeatMapChart } from './FlagsHeatMapChart'
+import { generateSizeBlockHeatMapData, SizeBlockHeatMapChart } from './SizeBlockHeatMapChart'
 
 <Meta title="Gallery/Heat maps" />
 
@@ -70,5 +71,13 @@ import { generateFlagsHeatMapData, FlagsHeatMapChart } from './FlagsHeatMapChart
             chart={FlagsHeatMapChart}
             steps={['samples', 'flags', 'heatmap']}
         />
+    </Story>
+</Canvas>
+
+## Size scales
+
+<Canvas>
+    <Story name="size bubbles">
+        <Controller generator={generateSizeBlockHeatMapData} chart={SizeBlockHeatMapChart} />
     </Story>
 </Canvas>

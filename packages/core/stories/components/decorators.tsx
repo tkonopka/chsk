@@ -218,3 +218,18 @@ export const ChartWithColorLegendDecorator = (Story: () => ReactNode) => (
         </View>
     </Chart>
 )
+
+export const ChartWithSizeLegendDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[40, 120, 80, 40]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        <View data={viewSeriesIndexesKeys} scaleColor={scaleBluesSpec}>
+            <Surface variant={'inner'} />
+            <Legend variant={'color'} position={[250, 0]} anchor={[0, 0]} units={'absolute'}>
+                {Story()}
+            </Legend>
+        </View>
+    </Chart>
+)

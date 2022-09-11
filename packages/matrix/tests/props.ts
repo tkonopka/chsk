@@ -18,7 +18,7 @@ const data4x3 = [
         z: 10,
     },
     {
-        id: 'epsilon',
+        id: 'delta',
         x: 15,
         y: 15,
         z: 15,

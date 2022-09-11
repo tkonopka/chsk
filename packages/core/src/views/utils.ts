@@ -5,9 +5,9 @@ import { SizeSpec, X, Y } from '../general'
 import { ScaleProps } from '../scales'
 
 // build a dictionary mapping series string ids to integers
-export const getIndexes = (data: Array<WithId>): Record<string, number> => {
+export const getIndexes = (data?: Array<WithId>): Record<string, number> => {
     const result: Record<string, number> = {}
-    data.forEach((seriesData, index) => {
+    data?.forEach((seriesData, index) => {
         result[seriesData.id] = index
     })
     return result

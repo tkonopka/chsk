@@ -148,8 +148,8 @@ export interface LegendItemListThemedProps
 }
 
 export interface LegendSizeScaleProps
-    extends Omit<LegendTitleProps, 'variant'>,
-        AxisTicksProps,
+    extends Omit<LegendTitleProps, 'variant' | 'size' | 'padding'>,
+        Omit<AxisTicksProps, 'tickSize' | 'tickStyle'>,
         Pick<
             LegendItemListProps,
             | 'itemSize'
@@ -167,7 +167,7 @@ export interface LegendSizeScaleProps
     /** array of labels to display next to symbols */
     labels?: string[]
     /** array of symbol sizes */
-    r?: number[]
+    sizes?: number[]
 }
 
 export interface LegendSizeScaleThemedProps

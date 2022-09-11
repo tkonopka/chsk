@@ -131,6 +131,11 @@ describe('getIndexes', () => {
         expect(result['A']).toBe(0)
         expect(result['Z']).toBe(1)
     })
+
+    it('accepts undefined', () => {
+        const result = getIndexes(undefined)
+        expect(Object.keys(result)).toEqual([])
+    })
 })
 
 describe('getIdKeySets', () => {

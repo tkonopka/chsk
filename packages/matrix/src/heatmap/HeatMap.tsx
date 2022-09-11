@@ -1,5 +1,4 @@
 import { useMemo } from 'react'
-import { cloneDeep } from 'lodash'
 import { HeatMapDataItem, HeatMapProcessedDataItem, HeatMapProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
@@ -11,83 +10,31 @@ import {
     useView,
     getIndexes,
     BandScaleSpec,
-    BandScaleProps,
-    getMinMax,
-    ColorScaleProps,
     useTheme,
-    CategoricalScaleProps,
-    ColorScaleSpec,
-    SizeSpec,
-    X,
-    Y,
+    defaultSizeScaleSpec,
+    createAxisScale,
 } from '@chask/core'
+import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
 // turn raw dataGroups into a minimal array-based format
 const processData = (
+    accessors: Array<AccessorFunction<string | number>>,
     data: Array<HeatMapDataItem>,
-    accessors: Array<AccessorFunction<string | number>>
+    dataSize?: Array<HeatMapDataItem>
 ): Array<HeatMapProcessedDataItem> => {
+    const sizeIndexes = getIndexes(dataSize)
     return data.map((seriesData, index) => {
+        const id = seriesData.id
+        const sizeIndex = sizeIndexes[id]
+        const sizeData: HeatMapDataItem =
+            sizeIndex !== undefined && dataSize !== undefined ? dataSize[sizeIndex] : { id }
         return {
-            id: seriesData.id,
+            id,
             index,
             value: accessors.map(f => f(seriesData)),
+            size: accessors.map(f => Number(f(sizeData))),
         }
     })
-}
-
-const getScaleProps = (
-    ids: string[],
-    keys: string[],
-    scaleSpecX: BandScaleSpec,
-    scaleSpecY: BandScaleSpec,
-    size: SizeSpec
-) => {
-    const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as BandScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as BandScaleProps,
-    }
-    result.scalePropsX.domain = keys
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.domain = ids
-    result.scalePropsY.size = size[Y]
-    return result
-}
-
-const getColorScaleProps = (
-    data: HeatMapProcessedDataItem[],
-    scaleSpec: ColorScaleSpec
-): ColorScaleProps => {
-    const result = cloneDeep(scaleSpec)
-    if (scaleSpec.variant === 'categorical') {
-        const allValues = new Set<string>(
-            data
-                .map(item => item.value)
-                .flat()
-                .map(String)
-        )
-        result.domain = Array.from(allValues)
-        return result as CategoricalScaleProps
-    }
-    const minmax = getMinMax(
-        data
-            .map(item => item.value)
-            .flat()
-            .map(Number)
-            .filter(isFinite)
-    )
-    if (result.domain === 'auto' || result.domain === undefined) {
-        result.domain = result.variant === 'diverging' ? [minmax[0], 0, minmax[1]] : minmax
-    } else {
-        if (result.domain[0] === 'auto') {
-            result.domain[0] = minmax[0]
-        }
-        const lastIndex = result.domain.length - 1
-        if (result.domain[lastIndex] === 'auto') {
-            result.domain[lastIndex] = minmax[1]
-        }
-    }
-    return result as ColorScaleProps
 }
 
 const defaultHeatMapScaleSpec: BandScaleSpec = {
@@ -103,11 +50,13 @@ export const HeatMap = ({
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     // content
-    data,
     keys,
+    data,
+    dataSize,
     scaleX = defaultHeatMapScaleSpec,
     scaleY = defaultHeatMapScaleSpec,
     scaleColor,
+    scaleSize = defaultSizeScaleSpec,
     //
     children,
 }: HeatMapProps) => {
@@ -117,9 +66,12 @@ export const HeatMap = ({
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
     const keyAccessors = useMemo(() => keys.map(k => getAccessor<number | string>(k)), [keys])
-    const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
+    const processedData = useMemo(
+        () => processData(keyAccessors, data, dataSize),
+        [keyAccessors, data, dataSize]
+    )
 
-    const { scalePropsX, scalePropsY } = getScaleProps(
+    const { scalePropsX, scalePropsY } = getXYScaleProps(
         seriesIds,
         keys,
         scaleX,
@@ -130,6 +82,15 @@ export const HeatMap = ({
     scales.color = createColorScale(
         getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
     )
+    scales.size = createAxisScale({
+        scaleProps: getSizeScaleProps(
+            processedData,
+            scaleSize,
+            dimsProps.innerSize,
+            seriesIds,
+            keys
+        ),
+    })
 
     return (
         <BaseView

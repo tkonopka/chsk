@@ -4,6 +4,7 @@ import { createDivergingScale } from '../src/scales/diverging'
 import {
     createColorScale,
     createColorScaleProps,
+    getTicks,
     DivergingScaleProps,
     SequentialScaleProps,
 } from '../src/scales/'
@@ -20,6 +21,8 @@ describe('createCategoricalScale', () => {
         // recycles colors
         expect(result(2)).toBe('#000')
         expect(result(3)).toBe('#fff')
+        // ticks are at the domain elements
+        expect(getTicks(result)).toEqual([0, 1])
     })
 
     it('categorical with custom colors and domain', () => {

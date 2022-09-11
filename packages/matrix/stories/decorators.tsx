@@ -31,6 +31,12 @@ export const ChartDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const ChartDecoratorEqualPadding = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+        {Story()}
+    </Chart>
+)
+
 export const ChartHeatMapDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[60, 40, 40, 60]} style={{ display: 'inline-block' }}>
         <HeatMap {...commonProps}>

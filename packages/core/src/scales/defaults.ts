@@ -24,10 +24,10 @@ export const defaultLinearScaleSpec: LinearScaleSpec = {
 }
 
 export const defaultSizeScaleSpec: SizeScaleSpec = {
-    variant: 'linear',
+    variant: 'sqrt',
     domain: 'auto',
     nice: true,
-    size: 40,
+    size: 'auto',
 }
 
 export const defaultLinearScaleWithZeroSpec: LinearScaleSpec = {

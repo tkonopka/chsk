@@ -18,13 +18,14 @@ const UnthemedLegendSizeScale = ({
     labelOffset = 4,
     //
     ticks = 3,
+    sizes,
     //
     className,
     style,
     setRole = true,
 }: LegendSizeScaleProps) => {
     const scale = useScales().size
-    const allTicks = getTicks(scale, ticks)
+    const allTicks = sizes ?? getTicks(scale, ticks)
     const allValues = getTickCoordinates(scale, ticks)
     // avoid creating symbols for r=0
     const pairs = allTicks.map((a, i) => [a, allValues[i]]).filter(ab => ab[1] > 0)

@@ -1,4 +1,4 @@
-import { scaleLog, scaleLinear } from 'd3-scale'
+import { scaleLog, scaleLinear, scaleSqrt } from 'd3-scale'
 import { ContinuousAxisScale, ContinuousScaleProps, GenericScale } from './types'
 
 export const createContinuousScale = ({
@@ -12,7 +12,7 @@ export const createContinuousScale = ({
     axis?: 'x' | 'y'
 }): ContinuousAxisScale => {
     const range = axis === 'y' ? [size, 0] : [0, size]
-    const scale = variant === 'log' ? scaleLog() : scaleLinear()
+    const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
     scale.rangeRound(range).domain(domain).clamp(clamp)
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)

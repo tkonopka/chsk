@@ -11,6 +11,7 @@ import {
     ContinuousScaleProps,
     BandScaleProps,
     AxisScale,
+    SqrtAxisScale,
 } from './types'
 import { createBandScale } from './band'
 import { createContinuousScale } from './continuous'
@@ -44,7 +45,12 @@ export const createContinuousScaleProps = (
 }
 
 export const isAxisScale = (scale: Scale): scale is AxisScale => {
-    return scale.variant === 'band' || scale.variant === 'linear' || scale.variant === 'log'
+    return (
+        scale.variant === 'band' ||
+        scale.variant === 'linear' ||
+        scale.variant === 'log' ||
+        scale.variant === 'sqrt'
+    )
 }
 
 export const isBandAxisScale = (scale: Scale): scale is BandAxisScale => {
@@ -52,7 +58,7 @@ export const isBandAxisScale = (scale: Scale): scale is BandAxisScale => {
 }
 
 export const isContinuousAxisScale = (scale: Scale): scale is ContinuousAxisScale => {
-    return scale.variant === 'linear' || scale.variant === 'log'
+    return scale.variant === 'linear' || scale.variant === 'log' || scale.variant === 'sqrt'
 }
 
 export const isLinearAxisScale = (scale: Scale): scale is LinearAxisScale => {
@@ -61,6 +67,10 @@ export const isLinearAxisScale = (scale: Scale): scale is LinearAxisScale => {
 
 export const isLogAxisScale = (scale: Scale): scale is LogAxisScale => {
     return scale.variant === 'log'
+}
+
+export const isSqrtAxisScale = (scale: Scale): scale is SqrtAxisScale => {
+    return scale.variant === 'sqrt'
 }
 
 export const createAxisScale = ({

@@ -8,7 +8,7 @@ export interface GenericScale<Domain, Range> {
     /** AxisScale is a function */
     (v: Domain): Range
     /** type of scale */
-    variant?: 'log' | 'linear' | 'band' | 'sequential' | 'diverging' | 'categorical'
+    variant?: 'log' | 'linear' | 'sqrt' | 'band' | 'sequential' | 'diverging' | 'categorical'
     /** scale domain */
     domain: () => Domain[]
     /** bandwidth - only provides useful information for band scales */
@@ -31,7 +31,11 @@ export type LogAxisScale = GenericScale<number, number> & {
     variant: 'log'
 }
 
-export type ContinuousAxisScale = LinearAxisScale | LogAxisScale
+export type SqrtAxisScale = GenericScale<number, number> & {
+    variant: 'sqrt'
+}
+
+export type ContinuousAxisScale = LinearAxisScale | LogAxisScale | SqrtAxisScale
 
 export type AxisScale = ContinuousAxisScale | BandAxisScale
 
@@ -39,7 +43,7 @@ export type MinMaxSpec = [number, number]
 
 export type ContinuousScaleSpec = {
     /** type of scale */
-    variant: 'linear' | 'log'
+    variant: 'linear' | 'log' | 'sqrt'
     /** domain min and max */
     domain?: [number, number] | [number, 'auto'] | ['auto', number] | 'auto'
     /** clamp */
@@ -101,13 +105,15 @@ export type ScaleProps = ContinuousScaleProps | BandScaleProps
 
 export type SizeScaleSpec = ContinuousScaleSpec & {
     /** type of scale */
-    variant: 'linear'
+    variant: 'sqrt'
     /** extent of maximum symbol radius */
-    size: number
+    size: number | 'auto'
 }
 export type SizeScaleProps = SizeScaleSpec & {
     /** domain min and max */
     domain: MinMaxSpec
+    /** extent of maximum symbol radius */
+    size: number
 }
 
 /** Color */

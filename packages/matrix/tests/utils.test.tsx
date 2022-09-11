@@ -43,6 +43,7 @@ describe('isHeatMapProcessedData', () => {
                 id: 'a',
                 index: 0,
                 value: [0, 1, 2],
+                size: [1, 1, 1],
             },
         ]
         expect(isHeatMapProcessedData(input)).toBeTruthy()

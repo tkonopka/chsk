@@ -9,6 +9,8 @@ import {
     isContinuousAxisScale,
     ScalesProvider,
     composeClassName,
+    createContinuousScale,
+    ContinuousAxisScale,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapProcessedData } from './utils'
@@ -20,6 +22,7 @@ export const HeatMapCells = ({
     keys,
     cell = HeatMapRectangle,
     scaleColor,
+    scaleSize,
     className,
     style,
     children,
@@ -31,6 +34,11 @@ export const HeatMapCells = ({
 
     const colorScale = scaleColor ? createColorScale(scaleColor) : scales.color
     const continuous: boolean = isContinuousAxisScale(colorScale)
+    const sizeScale = (
+        scaleSize ? createContinuousScale(scaleSize) : scales.size
+    ) as ContinuousAxisScale
+    const maxSize = sizeScale(sizeScale.domain()[1])
+    const variableSize = isFinite(maxSize)
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, processedData),
@@ -43,24 +51,32 @@ export const HeatMapCells = ({
     const width = scales.x.bandwidth()
     const height = scales.y.bandwidth()
     const cellClassName = composeClassName(['cell', className])
+    const aspectRatio = width / height
 
     const cells = data
         .map((seriesData: HeatMapProcessedDataItem) => {
             if (!idSet.has(seriesData.id)) return null
             const y = scaleY(seriesData.id)
             const values = seriesData.value
+            const size = seriesData.size
             return seriesData.value.map((v, i) => {
                 if (!keySet.has(processedData.keys[i])) return null
-                const color = continuous
+                const cellColor = continuous
                     ? colorScale(Number(values[i]))
                     : colorScale(values[i] as number)
-                const cellStyle = addColor(style, color)
+                const cellStyle = addColor(style, cellColor)
+                // cell2R is 2*radius for the cell symbol
+                const cell2R = 2 * (isFinite(size[i]) ? sizeScale(size[i]) : maxSize)
                 return createElement(cell, {
                     key: 'cell-' + seriesData.index + '-' + i,
                     x: x[i],
                     y: y,
-                    width,
-                    height,
+                    width: variableSize ? (aspectRatio > 1 ? cell2R * aspectRatio : cell2R) : width,
+                    height: variableSize
+                        ? aspectRatio > 1
+                            ? cell2R
+                            : cell2R / aspectRatio
+                        : height,
                     className: cellClassName,
                     style: cellStyle,
                     center: true,
