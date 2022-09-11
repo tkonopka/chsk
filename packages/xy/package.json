@@ -13,7 +13,7 @@
     },
     "scripts": {
         "lint": "eslint --max-warnings 0 ./{src,test,stories}/**/*{js,ts,tsx}",
-        "test": "jest",
+        "test": "jest --json --outputFile tests/jest.json",
         "test-coverage": "jest --coverage",
         "build": "PACKAGE=xy rollup -c ../../rollup.config.js && tsc"
     },

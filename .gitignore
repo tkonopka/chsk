@@ -10,6 +10,7 @@ packages/*/coverage
 packages/*/src/*.d.ts
 packages/*/src/**/*.d.ts
 packages/*/src/**/*.map
+packages/*/tests/jest.json
 
 # temporary
 tmp
