@@ -18,6 +18,7 @@ export interface SvgElementVariantProps extends SvgElementProps {
 
 /** unit that determines interpretation of position/size arrays */
 export type PositionUnit = 'absolute' | 'relative' | 'view'
+export type PositionUnits = PositionUnit | [PositionUnit, PositionUnit]
 
 // position as an array [x, y]
 export type PositionSpec = [number | string, number | string]

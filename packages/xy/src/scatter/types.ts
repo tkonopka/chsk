@@ -70,8 +70,8 @@ export interface ScatterLabelProps extends SvgElementVariantProps {
     ids?: string[]
     /** position along the x-axis */
     x: number
-    /** absolute or relative units for position x */
-    units?: PositionUnit
+    /** unit for position x */
+    unit?: PositionUnit
     /** translation with respect to data point */
     translate?: TranslateSpec
     /** rotation */

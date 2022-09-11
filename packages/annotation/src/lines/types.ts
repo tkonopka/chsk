@@ -1,7 +1,7 @@
 import {
     SvgElementProps,
     PositionSpec,
-    PositionUnit,
+    PositionUnits,
     SizeSpec,
     CssProps,
     LineProps,
@@ -18,7 +18,7 @@ export interface LineLabelProps
     /** end position */
     end: PositionSpec
     /** units for start and end positions */
-    units?: PositionUnit
+    units?: PositionUnits
     /** expansion of interval (multiples of bandwidth) */
     expansion?: TwoSideSizeSpec
     /** alignment for text label in [0, 1] */

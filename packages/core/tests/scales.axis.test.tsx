@@ -2,11 +2,7 @@ import {
     createBandScale,
     createContinuousScale,
     createAxisScale,
-    defaultCategoricalScale,
-    defaultSizeScale,
     getTickCoordinates,
-    getMinMax,
-    getAbsolutePosition,
     isAxisScale,
     isColorScale,
     isBandAxisScale,
@@ -14,7 +10,6 @@ import {
     isLinearAxisScale,
     isLogAxisScale,
     isScaleWithDomain,
-    ScalesContextProps,
 } from '../src/scales'
 
 describe('createScale', () => {
@@ -268,58 +263,5 @@ describe('isScaleWithDomain', () => {
     it('checks linear scale without domain', () => {
         const result = isScaleWithDomain({ variant: 'linear' })
         expect(result).toBeFalsy()
-    })
-})
-
-describe('getMinMax', () => {
-    it('computes min and max from non-empty array', () => {
-        const result = getMinMax([3, 6, 4, 9, 0, -1])
-        expect(result[0]).toEqual(-1)
-        expect(result[1]).toEqual(9)
-    })
-
-    it('computes min and max from empty array', () => {
-        const result = getMinMax([])
-        expect(result[0]).toEqual(1)
-        expect(result[1]).toEqual(1)
-    })
-})
-
-describe('getCoordinates', () => {
-    const customBandScale = createBandScale({
-        domain: ['a', 'b'],
-        size: 100,
-        padding: 0,
-    })
-    const customLinearScale = createContinuousScale({
-        variant: 'linear',
-        axis: 'y',
-        domain: [0, 10],
-        size: 100,
-    })
-    const customScales: ScalesContextProps = {
-        x: customBandScale,
-        y: customLinearScale,
-        color: defaultCategoricalScale,
-        size: defaultSizeScale,
-    }
-
-    it('accepts inputs in absolute units', () => {
-        const result = getAbsolutePosition([10, 20], 'absolute', [100, 100], customScales)
-        expect(result).toEqual([10, 20])
-    })
-
-    it('accepts inputs in relative units', () => {
-        const resultA = getAbsolutePosition([0.5, 0.6], 'relative', [100, 100], customScales)
-        expect(resultA).toEqual([50, 60])
-        const resultB = getAbsolutePosition([1, 0], 'relative', [100, 100], customScales)
-        expect(resultB).toEqual([100, 0])
-    })
-
-    it('accepts inputs in view units', () => {
-        const resultA = getAbsolutePosition(['a', 1], 'view', [100, 100], customScales)
-        expect(resultA).toEqual([25, 90])
-        const resultB = getAbsolutePosition(['b', 9], 'view', [100, 100], customScales)
-        expect(resultB).toEqual([75, 10])
     })
 })

@@ -84,8 +84,9 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'primary-label'} initial={'invisible'}>
                     <LineLabel
-                        start={[-2, 54]}
-                        end={[2, 54]}
+                        start={[-2, -0.05]}
+                        end={[2, -0.05]}
+                        units={['view', 'relative']}
                         textStyle={{ textAnchor: 'middle', fill: '#222255' }}
                         align={0.5}
                     >
@@ -93,7 +94,7 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                     </LineLabel>
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'secondary-label'} initial={'invisible'}>
-                    <LineLabel start={[3.4, 15]} end={[5.6, 15]}>
+                    <LineLabel start={[3.4, 15]} end={[5.6, 15]} units={'view'}>
                         Secondary population
                     </LineLabel>
                 </MilestoneMotion>

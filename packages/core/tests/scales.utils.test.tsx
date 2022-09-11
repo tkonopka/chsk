@@ -4,7 +4,22 @@ import {
     findZone,
     DetectorIntervals,
     inZone,
+    getMinMax,
 } from '../src/scales'
+
+describe('getMinMax', () => {
+    it('computes min and max from non-empty array', () => {
+        const result = getMinMax([3, 6, 4, 9, 0, -1])
+        expect(result[0]).toEqual(-1)
+        expect(result[1]).toEqual(9)
+    })
+
+    it('computes min and max from empty array', () => {
+        const result = getMinMax([])
+        expect(result[0]).toEqual(1)
+        expect(result[1]).toEqual(1)
+    })
+})
 
 describe('zones', () => {
     it('creates intervals', () => {

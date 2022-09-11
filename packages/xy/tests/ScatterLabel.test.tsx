@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Scatter, ScatterLabel } from '../src/scatter'
+import { Scatter, ScatterLabel, ScatterPoints } from '../src/scatter'
 import { scatterProps } from './props'
 
 describe('ScatterLabel', () => {
@@ -16,6 +16,21 @@ describe('ScatterLabel', () => {
         )
         const result = screen.getByRole('scatter-label')
         expect(result.querySelector('text')?.textContent).toBe('Label')
+    })
+
+    it('creates a label using a relative position', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <Scatter {...scatterProps}>
+                    <ScatterLabel ids={['linear']} x={1} unit={'relative'}>
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.getByRole('scatter-label')
+        // x=1 in view-relative units means at x=400 in svg units
+        expect(result.querySelector('text')?.getAttribute('transform')).toContain('translate(400')
     })
 
     it('skips work for non-existent series', () => {
