@@ -61,3 +61,16 @@ export const heatmapCategoricalProps = {
         colors: 'Blues' as const,
     },
 }
+
+export const genericViewProps = {
+    data: [],
+    scaleX: {
+        variant: 'linear' as const,
+        domain: [0, 100] as [number, number],
+        size: 100,
+    },
+    scaleY: {
+        variant: 'band' as const,
+        domain: ['a', 'b', 'c'],
+    },
+}

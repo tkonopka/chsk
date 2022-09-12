@@ -39,25 +39,55 @@ export const createColorScale = (props: ColorScaleProps) => {
 // fill missing domain information in a scale spec to create a scale props
 export const createColorScaleProps = (
     scaleSpec: ColorScaleSpec,
-    domain?: [number, number] | [number, number, number] | string[]
+    domain: [number, number] | [number, number, number] | string[]
 ): ColorScaleProps => {
     const result = cloneDeep(scaleSpec)
-    if (result.variant === 'categorical') {
-        result.domain = domain ? domain.map(v => String(v)) : []
-        return result as CategoricalScaleProps
+
+    // helper to pick numbers among several choices
+    const getTwoNumbers = (
+        firstChoice: string | unknown[],
+        secondChoice: unknown[],
+        fallBack: unknown[]
+    ): [number, number] => {
+        return [0, 1]
+            .map(i => {
+                if (isFinite(Number(firstChoice[i]))) return firstChoice[i]
+                if (isFinite(Number(secondChoice[i]))) return secondChoice[i]
+                return fallBack[i]
+            })
+            .map(Number) as [number, number]
     }
-    const scaleDomain = (cloneDeep(domain ?? ([] as number[])) as number[]).concat([0, 0, 0])
+
     if (result.variant === 'sequential') {
-        const defaultDomain: [number, number] = [0, 100]
-        result.domain = domain ? (scaleDomain.slice(0, 2) as [number, number]) : defaultDomain
+        result.domain = getTwoNumbers(result.domain, domain, [0, 100])
         return result as SequentialScaleProps
     }
+
     if (result.variant === 'diverging') {
-        const defaultDomain: [number, number, number] = [-100, 0, 100]
-        result.domain = domain
-            ? (scaleDomain.slice(0, 3) as [number, number, number])
-            : defaultDomain
+        const minmaxDomain = getTwoNumbers(
+            [result.domain[0], result.domain[result.domain.length - 1]],
+            [domain[0], domain[domain.length - 1]],
+            [-100, 100]
+        )
+        const threePointDomain = [
+            minmaxDomain[0],
+            (minmaxDomain[0] + minmaxDomain[1]) / 2,
+            minmaxDomain[1],
+        ]
+        if (domain.length === 3 && isFinite(Number(domain[1]))) {
+            threePointDomain[1] = Number(domain[1])
+        }
+        if (result.domain.length === 3 && isFinite(Number(result.domain[1]))) {
+            threePointDomain[1] = Number(result.domain[1])
+        }
+        result.domain = threePointDomain as [number, number, number]
         return result as DivergingScaleProps
+    }
+
+    // must be a categorical scale
+    result.variant = 'categorical'
+    if (!Array.isArray(result.domain)) {
+        result.domain = domain ? domain.map(String) : []
     }
     return result as CategoricalScaleProps
 }

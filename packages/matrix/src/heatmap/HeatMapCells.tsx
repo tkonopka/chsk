@@ -13,7 +13,7 @@ import {
     ContinuousAxisScale,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
-import { isHeatMapProcessedData } from './utils'
+import { isHeatMapSetting } from './utils'
 import { cloneDeep } from 'lodash'
 import { HeatMapRectangle } from './HeatMapRectangle'
 
@@ -30,7 +30,7 @@ export const HeatMapCells = ({
     const processedData = useProcessedData()
     const scales = useScales()
     const data = processedData.data
-    if (!isHeatMapProcessedData(data)) return null
+    if (!isHeatMapSetting(data, scales)) return null
 
     const colorScale = scaleColor ? createColorScale(scaleColor) : scales.color
     const continuous: boolean = isContinuousAxisScale(colorScale)

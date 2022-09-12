@@ -1,12 +1,12 @@
 import {
     BandScaleProps,
     BandScaleSpec,
-    CategoricalScaleProps,
     ColorScaleProps,
     ColorScaleSpec,
     ContinuousScaleProps,
+    createColorScaleProps,
+    createSizeScaleProps,
     getMinMax,
-    SizeScaleProps,
     SizeScaleSpec,
     SizeSpec,
     X,
@@ -41,7 +41,6 @@ export const getColorScaleProps = (
     data: HeatMapProcessedDataItem[],
     scaleSpec: ColorScaleSpec
 ): ColorScaleProps => {
-    const result = cloneDeep(scaleSpec)
     if (scaleSpec.variant === 'categorical') {
         const allValues = new Set<string>(
             data
@@ -49,8 +48,7 @@ export const getColorScaleProps = (
                 .flat()
                 .map(String)
         )
-        result.domain = Array.from(allValues)
-        return result as CategoricalScaleProps
+        return createColorScaleProps(scaleSpec, Array.from(allValues))
     }
     const minmax = getMinMax(
         data
@@ -59,18 +57,7 @@ export const getColorScaleProps = (
             .map(Number)
             .filter(isFinite)
     )
-    if (result.domain === 'auto' || result.domain === undefined) {
-        result.domain = result.variant === 'diverging' ? [minmax[0], 0, minmax[1]] : minmax
-    } else {
-        if (result.domain[0] === 'auto') {
-            result.domain[0] = minmax[0]
-        }
-        const lastIndex = result.domain.length - 1
-        if (result.domain[lastIndex] === 'auto') {
-            result.domain[lastIndex] = minmax[1]
-        }
-    }
-    return result as ColorScaleProps
+    return createColorScaleProps(scaleSpec, minmax)
 }
 
 export const getSizeScaleProps = (
@@ -80,20 +67,7 @@ export const getSizeScaleProps = (
     ids: string[],
     keys: string[]
 ): ContinuousScaleProps => {
-    const maxDataSize = getMinMax(data.map(seriesData => seriesData.size).flat())[1]
-    const result = cloneDeep(scaleSpec)
-    if (result.domain === 'auto' || result.domain === undefined) {
-        result.domain = [0, maxDataSize]
-    } else {
-        if (result.domain[0] === 'auto') {
-            result.domain = [0, result.domain[1]]
-        }
-        if (result.domain[1] === 'auto') {
-            result.domain = [result.domain[0], maxDataSize]
-        }
-    }
-    if (result.size === 'auto') {
-        result.size = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
-    }
-    return result as SizeScaleProps
+    const maxDomain = getMinMax(data.map(seriesData => seriesData.size).flat())[1]
+    const maxSize = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
+    return createSizeScaleProps(scaleSpec, maxDomain, maxSize)
 }

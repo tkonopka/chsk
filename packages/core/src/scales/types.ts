@@ -164,7 +164,7 @@ export type CategoricalScaleSpec = {
     variant: 'categorical'
     colors: D3Scheme | string[] | string[][]
     size?: number
-    domain?: string[]
+    domain?: string[] | 'auto'
 }
 export type CategoricalScaleProps = CategoricalScaleSpec & {
     domain: string[]

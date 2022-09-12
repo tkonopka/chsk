@@ -1,7 +1,7 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart, View } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '../src'
-import { heatmapProps } from './props'
+import { genericViewProps, heatmapProps } from './props'
 
 describe('HeatMapHighlight', () => {
     it('creates a detector surface', () => {
@@ -38,6 +38,17 @@ describe('HeatMapHighlight', () => {
                 <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
                     <HeatMapHighlight interactive={false} />
                 </HeatMap>
+            </Chart>
+        )
+        expect(screen.queryByRole('heatmap-detector')).toBeNull()
+    })
+
+    it('skips work in non-heatmap context', () => {
+        render(
+            <Chart>
+                <View {...genericViewProps}>
+                    <HeatMapHighlight />
+                </View>
             </Chart>
         )
         expect(screen.queryByRole('heatmap-detector')).toBeNull()

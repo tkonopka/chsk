@@ -184,16 +184,43 @@ describe('createColorScale', () => {
 })
 
 describe('createColorScaleProps', () => {
-    it('categorical', () => {
-        const result = createColorScaleProps({
-            variant: 'categorical',
-            colors: ['#000', '#fff'],
-        })
-        // for categorical scales, this is ts book-keeping to convert spec -> props
+    it('creates basic categorical props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'categorical',
+                colors: ['#000', '#fff'],
+            },
+            []
+        )
         expect(result.colors).toHaveLength(2)
     })
 
-    it('sequential', () => {
+    it('fills in domain for categorical props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'categorical',
+                colors: ['#000', '#fff'],
+            },
+            ['a', 'b']
+        )
+        expect(result.colors).toHaveLength(2)
+        expect(result.domain).toEqual(['a', 'b'])
+    })
+
+    it('preserves custom domain for categorical props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'categorical',
+                colors: ['#000', '#fff'],
+                domain: ['x', 'y'],
+            },
+            ['a', 'b']
+        )
+        expect(result.colors).toHaveLength(2)
+        expect(result.domain).toEqual(['x', 'y'])
+    })
+
+    it('creates basic sequential props', () => {
         const result = createColorScaleProps(
             {
                 variant: 'sequential',
@@ -202,21 +229,34 @@ describe('createColorScaleProps', () => {
             },
             [0, 20]
         ) as SequentialScaleProps
-        // assigns a numerical domain
         expect(result.domain).toEqual([0, 20])
     })
 
-    it('sequential with default domain', () => {
-        const result = createColorScaleProps({
-            variant: 'sequential',
-            colors: 'Blues',
-            domain: 'auto',
-        }) as SequentialScaleProps
-        // assigns a numerical domain
+    it('preserves a custom domain for sequential props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'sequential',
+                colors: 'Blues',
+                domain: [2, 4],
+            },
+            [0, 20]
+        ) as SequentialScaleProps
+        expect(result.domain).toEqual([2, 4])
+    })
+
+    it('creates a default domain for sequential props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'sequential',
+                colors: 'Blues',
+                domain: 'auto',
+            },
+            []
+        ) as SequentialScaleProps
         expect(result.domain).toEqual([0, 100])
     })
 
-    it('diverging', () => {
+    it('creates basic diverging props', () => {
         const result = createColorScaleProps(
             {
                 variant: 'diverging',
@@ -225,17 +265,30 @@ describe('createColorScaleProps', () => {
             },
             [-2, 0, 2]
         ) as DivergingScaleProps
-        // assigns a numerical domain
         expect(result.domain).toEqual([-2, 0, 2])
     })
 
-    it('diverging with default domain', () => {
-        const result = createColorScaleProps({
-            variant: 'diverging',
-            colors: ['#0000ff', '#ffffff', '#ff0000'],
-            domain: 'auto',
-        }) as DivergingScaleProps
-        // assigns a numerical domain
+    it('preserves custom domain for diverging props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'diverging',
+                colors: ['#0000ff', '#ffffff', '#ff0000'],
+                domain: [-10, -5, 0],
+            },
+            [-2, 0, 2]
+        ) as DivergingScaleProps
+        expect(result.domain).toEqual([-10, -5, 0])
+    })
+
+    it('creates a default domain for diverging props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'diverging',
+                colors: ['#0000ff', '#ffffff', '#ff0000'],
+                domain: 'auto',
+            },
+            []
+        ) as DivergingScaleProps
         expect(result.domain).toEqual([-100, 0, 100])
     })
 })

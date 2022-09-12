@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart, View } from '@chask/core'
 import { HeatMap, HeatMapCells } from '../src'
-import { heatmapCategoricalProps, heatmapProps } from './props'
+import { genericViewProps, heatmapCategoricalProps, heatmapProps } from './props'
 
 describe('HeatMapCells', () => {
     it('draws cells', () => {
@@ -55,6 +55,17 @@ describe('HeatMapCells', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(8)
     })
 
+    it('skips work when ids and keys are not relevant', () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y']}>
+                    <HeatMapCells keys={['z']} />
+                </HeatMap>
+            </Chart>
+        )
+        expect(screen.queryByRole('heatmap-cells')).toBeNull()
+    })
+
     it('accepts data in string form', () => {
         render(
             <Chart>
@@ -66,5 +77,16 @@ describe('HeatMapCells', () => {
         // the dataset has four cells
         const result = screen.getByRole('heatmap-cells')
         expect(result.querySelectorAll('rect')).toHaveLength(4)
+    })
+
+    it('skips work in non-heatmap context', () => {
+        render(
+            <Chart>
+                <View {...genericViewProps}>
+                    <HeatMapCells />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('heatmap-cells')).toBeNull()
     })
 })

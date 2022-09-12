@@ -1,5 +1,11 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, useProcessedData } from '@chask/core'
+import {
+    Chart,
+    ColorScale,
+    defaultCategoricalScale,
+    useProcessedData,
+    useScales,
+} from '@chask/core'
 import {
     HeatMap,
     HeatMapCells,
@@ -39,6 +45,109 @@ describe('HeatMap', () => {
             expect(processed.data[i].size).toHaveLength(keysXYZ.length)
             expect(processed.data[i].size.every(v => !isFinite(v))).toBeTruthy()
         })
+    })
+
+    it('determines domain for colors (auto)', () => {
+        let scale: ColorScale = defaultCategoricalScale
+        const GetColorScale = () => {
+            scale = useScales().color
+            return null
+        }
+        render(
+            <Chart>
+                <HeatMap
+                    {...heatmapProps}
+                    keys={keysXYZ}
+                    scaleColor={{
+                        variant: 'sequential',
+                        colors: ['#fffff', '#000000'],
+                        domain: 'auto',
+                    }}
+                >
+                    <GetColorScale />
+                </HeatMap>
+            </Chart>
+        )
+        expect(scale.variant).toEqual('sequential')
+        expect(scale.domain()).toEqual([0, 30])
+    })
+
+    it('determines domain for colors (semi-automatic)', () => {
+        let scale: ColorScale = defaultCategoricalScale
+        const GetColorScale = () => {
+            scale = useScales().color
+            return null
+        }
+        render(
+            <Chart>
+                <HeatMap
+                    {...heatmapProps}
+                    keys={keysXYZ}
+                    scaleColor={{
+                        variant: 'sequential',
+                        colors: ['#fffff', '#000000'],
+                        domain: ['auto', 'auto'],
+                    }}
+                >
+                    <GetColorScale />
+                </HeatMap>
+            </Chart>
+        )
+        // the dataset has four series
+        expect(scale.variant).toEqual('sequential')
+        expect(scale.domain()).toEqual([0, 30])
+    })
+
+    it('determines middle of diverging color scale', () => {
+        let scale: ColorScale = defaultCategoricalScale
+        const GetColorScale = () => {
+            scale = useScales().color
+            return null
+        }
+        render(
+            <Chart>
+                <HeatMap
+                    {...heatmapProps}
+                    keys={keysXYZ}
+                    scaleColor={{
+                        variant: 'diverging',
+                        colors: ['#fffff', '#000000'],
+                        domain: [-70, 'auto', 'auto'],
+                    }}
+                >
+                    <GetColorScale />
+                </HeatMap>
+            </Chart>
+        )
+        // the dataset has four series
+        expect(scale.variant).toEqual('diverging')
+        expect(scale.domain()).toEqual([-70, -20, 30])
+    })
+
+    it('accepts custom color domain', () => {
+        let scale: ColorScale = defaultCategoricalScale
+        const GetColorScale = () => {
+            scale = useScales().color
+            return null
+        }
+        render(
+            <Chart>
+                <HeatMap
+                    {...heatmapProps}
+                    keys={keysXYZ}
+                    scaleColor={{
+                        variant: 'diverging',
+                        colors: ['#fffff', '#000000'],
+                        domain: [-20, 0, 50],
+                    }}
+                >
+                    <GetColorScale />
+                </HeatMap>
+            </Chart>
+        )
+        // the dataset has four series
+        expect(scale.variant).toEqual('diverging')
+        expect(scale.domain()).toEqual([-20, 0, 50])
     })
 
     it('accepts data for sizes', () => {

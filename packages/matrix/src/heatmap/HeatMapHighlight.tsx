@@ -19,7 +19,7 @@ import {
     getMinMax,
 } from '@chask/core'
 import { HeatMapHighlightProps } from './types'
-import { isHeatMapProcessedData } from './utils'
+import { isHeatMapSetting } from './utils'
 
 const createDetectorIntervals = (
     scaleX: BandAxisScale,
@@ -111,8 +111,7 @@ export const HeatMapHighlight = ({
     const dimensions = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
-    const data = processedData.data
-    if (!isHeatMapProcessedData(data)) return null
+    if (!isHeatMapSetting(processedData.data, scales)) return null
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, processedData),
