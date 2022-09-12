@@ -1,9 +1,11 @@
 import {
+    isBarProcessedData,
     isQuantileData,
     isQuantileProcessedData,
     isQuantileProcessedSummary,
-} from '../src/quantiles/'
-import { isStripData, isStripProcessedData } from '../src'
+    isStripData,
+    isStripProcessedData,
+} from '../src/'
 
 describe('isQuantileData', () => {
     it('detects correct data format', () => {
@@ -160,5 +162,24 @@ describe('isStripProcessedData', () => {
     it('rejects non-objects', () => {
         const input = [null]
         expect(isStripProcessedData(input)).toBeFalsy()
+    })
+})
+
+describe('isBarProcessedData', () => {
+    it('detects correct data format', () => {
+        const input = [
+            {
+                id: 'a',
+                index: 0,
+                data: [0.5, 1.0, 1.5],
+                domain: [[0.5, 1.5]],
+            },
+        ]
+        expect(isBarProcessedData(input)).toBeTruthy()
+    })
+
+    it('rejects non-objects', () => {
+        const input = [null]
+        expect(isBarProcessedData(input)).toBeFalsy()
     })
 })

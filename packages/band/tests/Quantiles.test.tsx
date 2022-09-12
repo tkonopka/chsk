@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chask/core'
-import { Quantile, Quantiles } from '../src'
-import { dataMissingKeys, quantileProps } from './props'
+import { Quantile, Quantiles, Strip, Strips } from '../src'
+import { dataMissingKeys, quantileProps, stripProps } from './props'
 
 describe('Quantiles', () => {
     it('creates boxes and whiskers (vertical)', () => {
@@ -60,6 +60,18 @@ describe('Quantiles', () => {
         // the chart should have only bars for key 'x' - for ids 'alpha' and 'beta'
         const result = screen.getByRole('view-quantile')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
+    })
+
+    it('displays nothing when ids are empty', () => {
+        render(
+            <Chart>
+                <Quantile {...stripProps}>
+                    <Quantiles ids={[]} />
+                </Quantile>
+            </Chart>
+        )
+        const result = screen.getByRole('view-quantile')
+        expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
     it('displays nothing when keys are empty', () => {

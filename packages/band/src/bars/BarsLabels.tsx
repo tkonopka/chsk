@@ -32,7 +32,6 @@ export const BarsLabels = ({
     const preparedData = useBarPreparedData()
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
-
     if (!isBarProcessedData(processedData)) return null
 
     const { idSet, keySet } = useMemo(

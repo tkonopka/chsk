@@ -30,40 +30,37 @@ export const Bars = ({ ids, keys, component = Rectangle, className, style }: Bar
         [preparedData, style, colorScale]
     )
 
-    const result: Array<ReactNode> = preparedData.keys
-        .map((k, i) => {
-            if (!keySet.has(k)) return null
-            if (disabledKeys.has(k)) return null
-            const bars = data
-                .map((seriesData: BarPreparedDataItem) => {
-                    if (!idSet.has(seriesData.id)) return null
-                    const pos = seriesData.position[i]
-                    const size = seriesData.size[i]
-                    if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
-                    if (size[0] === 0 || size[1] === 0) return null
-                    return createElement(component, {
-                        key: 'bar-' + seriesData.index + '-' + i,
-                        x: pos[0],
-                        y: pos[1],
-                        width: size[0],
-                        height: size[1],
-                        className: className,
-                        style: styles[i],
-                        variant: 'bar',
-                        setRole: false,
-                    })
+    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+        if (!keySet.has(k)) return null
+        if (disabledKeys.has(k)) return null
+        const bars = data
+            .map((seriesData: BarPreparedDataItem) => {
+                if (!idSet.has(seriesData.id)) return null
+                const pos = seriesData.position[i]
+                const size = seriesData.size[i]
+                if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
+                if (size[0] === 0 || size[1] === 0) return null
+                return createElement(component, {
+                    key: 'bar-' + seriesData.index + '-' + i,
+                    x: pos[0],
+                    y: pos[1],
+                    width: size[0],
+                    height: size[1],
+                    className: className,
+                    style: styles[i],
+                    variant: 'bar',
+                    setRole: false,
                 })
-                .filter(Boolean)
-            if (bars.length === 0) return null
+            })
+            .filter(Boolean)
+        if (bars.length === 0) return null
 
-            return (
-                <OpacityMotion key={'bars-' + i} role={'bars'} firstRender={firstRender}>
-                    {bars}
-                </OpacityMotion>
-            )
-        })
-        .filter(Boolean)
+        return (
+            <OpacityMotion key={'bars-' + i} role={'bars'} firstRender={firstRender}>
+                {bars}
+            </OpacityMotion>
+        )
+    })
 
-    if (result.length === 0) return null
-    return <>{result}</>
+    return <>{result.filter(Boolean)}</>
 }

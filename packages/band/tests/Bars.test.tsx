@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chask/core'
-import { Bar, BarDataItem, Bars } from '../src'
-import { barProps, getNumber } from './props'
+import { Bar, BarDataItem, Bars, Strip } from '../src'
+import { barProps, getNumber, stripProps } from './props'
 
 describe('Bars', () => {
     it('defines grouped bars (vertical)', () => {
@@ -12,11 +12,10 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
+        expect(screen.queryByRole('bars-labels')).toBeDefined()
         // the data has two groups of three bars each
-        const result = screen.getByRole('view-bar')
-        expect(result.querySelectorAll('rect')).toHaveLength(6)
-        const keys = screen.getAllByRole('bars')
-        expect(keys).toHaveLength(3)
+        expect(screen.getByRole('view-bar').querySelectorAll('rect')).toHaveLength(6)
+        expect(screen.getAllByRole('bars')).toHaveLength(3)
     })
 
     it('defines stacked bars (vertical)', () => {
@@ -245,5 +244,16 @@ describe('Bars', () => {
         expect(getNumber(result[0].getAttribute('width'))).toEqual(
             getNumber(result[1].getAttribute('width'))
         )
+    })
+
+    it('skips works in non-Bars setting', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps}>
+                    <Bars keys={['x', 'y']} />
+                </Strip>
+            </Chart>
+        )
+        expect(screen.queryByRole('bars')).toBeNull()
     })
 })

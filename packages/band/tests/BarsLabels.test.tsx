@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Bar, BarsLabels } from '../src'
-import { barProps } from './props'
+import { Bar, Bars, BarsLabels, Strip } from '../src'
+import { barProps, stripProps } from './props'
 
 describe('BarsLabels', () => {
     it('creates center-aligned labels for bars', () => {
@@ -14,6 +14,7 @@ describe('BarsLabels', () => {
             </Chart>
         )
         const result = screen.getByRole('view-bar')
+        expect(screen.queryByRole('bars-labels')).toBeDefined()
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // center-aligned, so they labels should be at different x-coordinates
@@ -123,5 +124,16 @@ describe('BarsLabels', () => {
         )
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('text')).toHaveLength(0)
+    })
+
+    it('skips works in non-Bars setting', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps}>
+                    <BarsLabels />
+                </Strip>
+            </Chart>
+        )
+        expect(screen.queryByRole('bars-labels')).toBeNull()
     })
 })

@@ -36,7 +36,7 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
                 <Bars />
                 <Legend
-                    position={[310, 300]}
+                    position={[310, 280]}
                     size={[80, 120]}
                     units={'absolute'}
                     anchor={[0, 1]}
