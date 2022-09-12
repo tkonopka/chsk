@@ -1,5 +1,5 @@
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { createAxisScales, createColorScale, createContinuousScale } from '../scales'
+import { createScales, createColorScale, createContinuousScale } from '../scales'
 import { ViewProps } from './types'
 import { useView } from './hooks'
 import { BaseView } from './BaseView'
@@ -25,7 +25,7 @@ const UnthemedView = ({
     const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
 
     const { x: scalePropsX, y: scalePropsY } = fillScaleSize(dimsProps.innerSize, scaleX, scaleY)
-    const scales = createAxisScales(scalePropsX, scalePropsY)
+    const scales = createScales(scalePropsX, scalePropsY)
 
     const isArray = Array.isArray(data)
     const dataArray = isArray ? data : []

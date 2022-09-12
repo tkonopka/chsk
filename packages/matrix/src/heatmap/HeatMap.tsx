@@ -5,14 +5,12 @@ import {
     AccessorFunction,
     BaseView,
     getAccessor,
-    createAxisScales,
-    createColorScale,
+    createScales,
     useView,
     getIndexes,
     BandScaleSpec,
     useTheme,
     defaultSizeScaleSpec,
-    createAxisScale,
 } from '@chask/core'
 import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
@@ -78,19 +76,15 @@ export const HeatMap = ({
         scaleY,
         dimsProps.innerSize
     )
-    const scales = createAxisScales(scalePropsX, scalePropsY)
-    scales.color = createColorScale(
-        getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
+    const colorScaleProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
+    const sizeScaleProps = getSizeScaleProps(
+        processedData,
+        scaleSize,
+        dimsProps.innerSize,
+        seriesIds,
+        keys
     )
-    scales.size = createAxisScale({
-        scaleProps: getSizeScaleProps(
-            processedData,
-            scaleSize,
-            dimsProps.innerSize,
-            seriesIds,
-            keys
-        ),
-    })
+    const scales = createScales(scalePropsX, scalePropsY, colorScaleProps, sizeScaleProps)
 
     return (
         <BaseView

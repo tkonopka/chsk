@@ -3,10 +3,10 @@ import {
     BandScaleSpec,
     ColorScaleProps,
     ColorScaleSpec,
-    ContinuousScaleProps,
     createColorScaleProps,
     createSizeScaleProps,
     getMinMax,
+    SizeScaleProps,
     SizeScaleSpec,
     SizeSpec,
     X,
@@ -66,7 +66,7 @@ export const getSizeScaleProps = (
     viewSize: SizeSpec,
     ids: string[],
     keys: string[]
-): ContinuousScaleProps => {
+): SizeScaleProps => {
     const maxDomain = getMinMax(data.map(seriesData => seriesData.size).flat())[1]
     const maxSize = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
     return createSizeScaleProps(scaleSpec, maxDomain, maxSize)

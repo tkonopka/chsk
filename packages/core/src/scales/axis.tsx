@@ -12,10 +12,13 @@ import {
     BandScaleProps,
     AxisScale,
     SqrtAxisScale,
+    ColorScaleProps,
+    SizeScaleProps,
 } from './types'
 import { createBandScale } from './band'
 import { createContinuousScale } from './continuous'
 import { defaultCategoricalScale, defaultSizeScale } from './defaults'
+import { createColorScale } from './color'
 
 export const isScaleWithDomain = (
     scaleSpec: ScaleSpec
@@ -88,14 +91,16 @@ export const createAxisScale = ({
     return createContinuousScale({ axis, ...scaleProps })
 }
 
-export const createAxisScales = (
+export const createScales = (
     scaleX: ContinuousScaleProps | BandScaleProps,
-    scaleY: ContinuousScaleProps | BandScaleProps
+    scaleY: ContinuousScaleProps | BandScaleProps,
+    scaleColor?: ColorScaleProps,
+    scaleSize?: SizeScaleProps
 ): ScalesContextProps => {
     return {
         x: createAxisScale({ axis: 'x', scaleProps: scaleX }),
         y: createAxisScale({ axis: 'y', scaleProps: scaleY }),
-        size: defaultSizeScale,
-        color: defaultCategoricalScale,
+        color: scaleColor ? createColorScale(scaleColor) : defaultCategoricalScale,
+        size: scaleSize ? createContinuousScale(scaleSize) : defaultSizeScale,
     }
 }

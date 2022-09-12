@@ -1,8 +1,7 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    createAxisScales,
-    createColorScale,
+    createScales,
     AccessorFunction,
     BandAxisScale,
     getAccessor,
@@ -135,10 +134,8 @@ export const Quantile = ({
     )
     const scaleX = horizontal ? scalePropsValue : scalePropsIndex
     const scaleY = horizontal ? scalePropsIndex : scalePropsValue
-    const scales = createAxisScales(scaleX, scaleY)
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
-    scales.color = createColorScale(scaleColorProps)
-
+    const scales = createScales(scaleX, scaleY, scaleColorProps)
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 

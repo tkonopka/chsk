@@ -6,7 +6,7 @@ import {
     AccessorFunction,
     ContinuousAxisScale,
     getAccessor,
-    createAxisScales,
+    createScales,
     createContinuousScaleProps,
     useView,
     ContinuousScaleProps,
@@ -15,7 +15,6 @@ import {
     getMinMax,
     getIndexes,
     defaultLinearScaleSpec,
-    createColorScale,
     useDisabledKeys,
     useTheme,
     createColorScaleProps,
@@ -130,9 +129,8 @@ export const Scatter = ({
         dimsProps.innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
-    const scales = createAxisScales(scalePropsX, scalePropsY)
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
-    scales.color = createColorScale(scaleColorProps)
+    const scales = createScales(scalePropsX, scalePropsY, scaleColorProps)
 
     // compute coordinates
     const preparedData = processedData.map(seriesData =>
