@@ -1,5 +1,6 @@
 import { HistogramCurve } from './HistogramCurve'
 import { HistogramArea } from './HistogramArea'
+import { HistogramBars } from './HistogramBars'
 import { HistogramSeriesLayer, HistogramSeriesProps } from './types'
 
 export const HistogramSeries = ({
@@ -9,6 +10,7 @@ export const HistogramSeries = ({
     variant = 'default',
     areaStyle,
     curveStyle,
+    barStyle,
     className,
     setRole,
 }: HistogramSeriesProps) => {
@@ -31,6 +33,16 @@ export const HistogramSeries = ({
                     ids={ids}
                     {...commonProps}
                     style={areaStyle}
+                />
+            )
+        }
+        if (layer === 'bars') {
+            return (
+                <HistogramBars
+                    key={'scatter-series-bars'}
+                    ids={ids}
+                    {...commonProps}
+                    style={barStyle}
                 />
             )
         }

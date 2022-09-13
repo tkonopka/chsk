@@ -1,0 +1,32 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis } from '@chask/core'
+import { Histogram, HistogramBars } from '../../src'
+import { ChartHistogramDecorator, sampleData } from './decorators'
+
+# HistogramBars
+
+<Meta title="Addons/XY/HistogramBars" />
+export const Template = args => <HistogramBars {...args} />
+
+`HistogramBars` creates bars that represent histogram bins.
+
+<ArgsTable of={HistogramBars} />
+
+Note that `HistogramBars` provides similar output as `HistogramCurve` and `HistogramArea`. However, whereas the other components paint a single object to represent the whole histogram, `HistogramBars` creates distinct rectangles. This implementation makes it possible to visualize bin boundaries.
+
+## Styles
+
+Prop `styles` applies css settings to the bars / rectangles.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            style: { strokeWidth: 1, stroke: '#ffffff', fillOpacity: 0.5 },
+        }}
+        component={HistogramBars}
+        decorators={[ChartHistogramDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

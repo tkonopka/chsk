@@ -4,11 +4,13 @@ import {
     CssProps,
     CurveSpec,
     ProcessedDataContextProps,
+    RectangleProps,
     SvgElementVariantProps,
     ViewProps,
     WithId,
     XY,
 } from '@chask/core'
+import { FC } from 'react'
 
 export type HistogramDataItem = WithId & {
     data: Array<number>
@@ -46,7 +48,7 @@ export interface HistogramCurveProps extends SvgElementVariantProps {
     curve?: CurveSpec
 }
 
-export type HistogramSeriesLayer = 'area' | 'curve'
+export type HistogramSeriesLayer = 'area' | 'curve' | 'bars'
 
 export interface HistogramSeriesProps extends HistogramCurveProps {
     /** list of components to display */
@@ -55,4 +57,13 @@ export interface HistogramSeriesProps extends HistogramCurveProps {
     areaStyle?: CssProps
     /** styles for curve */
     curveStyle?: CssProps
+    /** styles for bars */
+    barStyle?: CssProps
+}
+
+export interface HistogramBarsProps extends SvgElementVariantProps {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+    /** component type */
+    component?: FC<RectangleProps>
 }

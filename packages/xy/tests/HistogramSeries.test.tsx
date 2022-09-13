@@ -32,6 +32,18 @@ describe('HistogramSeries', () => {
         expect(curve).toHaveLength(0)
     })
 
+    it('creates bars', () => {
+        render(
+            <Chart>
+                <Histogram {...histogramProps}>
+                    <HistogramSeries ids={['uniform']} layers={['bars']} />
+                </Histogram>
+            </Chart>
+        )
+        const bars = screen.getByRole('histogram-bars').querySelectorAll('rect')
+        expect(bars.length).toBeGreaterThan(1)
+    })
+
     it('skips work when a series id does not exist', () => {
         render(
             <Chart>

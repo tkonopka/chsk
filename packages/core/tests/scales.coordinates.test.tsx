@@ -42,9 +42,9 @@ describe('getCoordinates', () => {
         // 'a' is toward the left of the x-axis, so x position should be small
         // 1 is a low value along the y-axis, so will have a large svg position
         const resultA = getAbsolutePosition(['a', 1], 'view', [100, 100], customScales)
-        expect(resultA).toEqual([25, 90])
+        expect(resultA.map(Math.round)).toEqual([25, 90])
         const resultB = getAbsolutePosition(['b', 9], 'view', [100, 100], customScales)
-        expect(resultB).toEqual([75, 10])
+        expect(resultB.map(Math.round)).toEqual([75, 10])
     })
 
     it('accepts inputs in mixed units (view-relative)', () => {

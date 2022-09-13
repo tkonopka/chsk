@@ -13,7 +13,7 @@ export const createContinuousScale = ({
 }): ContinuousAxisScale => {
     const range = axis === 'y' ? [size, 0] : [0, size]
     const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
-    scale.rangeRound(range).domain(domain).clamp(clamp)
+    scale.range(range).domain(domain).clamp(clamp)
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
 
