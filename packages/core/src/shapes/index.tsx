@@ -1,5 +1,6 @@
 export * from './Circle'
 export * from './Polygon'
 export * from './Rectangle'
+export * from './Segment'
 export * from './symbols'
 export * from './types'

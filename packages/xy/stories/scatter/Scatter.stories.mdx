@@ -15,6 +15,40 @@ export const Template = args => <Scatter {...args} />
 
 `Scatter` is an organizational component and it does not actually draw any visual elements. However, it manages data representations that can be visualized with other components, for example `ScatterPoints` or `ScatterCurve`.
 
+## Data
+
+Data should be prepared as an array of objects. All objects should contain a string identifier `'id'` and an object called `data` that itself consists of an array of records. The records in the `data` array will constitute the individual data points for plotting.
+
+The pseudocode below demonstrates the required format.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "data": [
+      {
+        "a": 1,
+        "b": 2,
+        "c": 3
+      },
+      {
+        "a": 2,
+        "b": 4,
+        "c": 6
+      }
+    ]
+  },
+  ...
+]
+`}
+/>
+
+The above dataset has a series identifier `alpha` - points associated with this identifier will be drawn in the same color.
+
+The nested data array consists of two records with three keys each (`a`, `b`, and `c`). Two of these keys can be selected to display on the x- and y-axes of a scatter chart.
+
 ## Axis scaling
 
 `Scatter` can set up x- and y-axes according to manual specifications, or determine relevant settings based on data. To demonstrate this, the examples below use `Scatter` (which doesn't create any visual elements) together with components that visualize axes and an example dataset.
@@ -81,7 +115,7 @@ export const PointsAndLegend = ({ title = 'Polynomials' }) => {
     </Story>
 </Canvas>
 
-## Bubble size
+## Symbol size
 
 The size of the data points is controlled through prop `r`. This prop is a function, or a key string, that extracts information about each point's radius/size from the raw data.
 
