@@ -1,5 +1,4 @@
 import { randomNormalValue, randomUniformValue } from '../utils'
-import { RecordWithId } from '@chask/core'
 
 // produce a random walk with n steps
 export const generateRandomWalk = (n: number, mean = 0, sd = 1) => {
