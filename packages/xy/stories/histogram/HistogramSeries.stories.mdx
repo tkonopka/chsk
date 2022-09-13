@@ -9,13 +9,13 @@ import { ChartHistogramDecorator, sampleData } from './decorators'
 <Meta title="Addons/XY/HistogramSeries" />
 export const Template = args => <HistogramSeries {...args} />
 
-`HistogramSeries` is a convenience component that combines the capabilities of `HistogramArea` and `HistogramCurve`.
+`HistogramSeries` is a convenience component that combines the capabilities of `HistogramArea`, `HistogramBars`, and `HistogramCurve`.
 
 <ArgsTable of={HistogramSeries} />
 
 ## Layers
 
-The prop `layers` controls the amount of information that is displayed about a series. Setting the prop to an array `['area', curve']`, for example, can display an area polygon and a curve.
+The prop `layers` controls the amount of information that is displayed about a series. Setting the prop to `['area', curve']`, for example, can display an area polygon and a curve.
 
 <Canvas>
     <Story name="area and curve">
