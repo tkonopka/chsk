@@ -34,8 +34,10 @@ describe('Typography', () => {
             </Chart>
         )
         const result = screen.getByText('default')
-        expect(result.getAttribute('x')).toBe('20')
-        expect(result.getAttribute('y')).toBe('50')
+        //expect(result.getAttribute('x')).toBe('20')
+        //expect(result.getAttribute('y')).toBe('50')
+        expect(result.getAttribute('style')).toContain('20px')
+        expect(result.getAttribute('style')).toContain('50px')
     })
 
     it('creates a title', () => {

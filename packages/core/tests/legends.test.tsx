@@ -34,6 +34,14 @@ const getNumberAttr = (item: SVGElement | null, attribute: string) => {
     return Number(raw?.replace('px', ''))
 }
 
+const getTranslate = (item: SVGElement | null, variant: string) => {
+    const raw: string = (item ? item.getAttribute('style') : '') ?? ''
+    const prefix = 'translate' + variant
+    const part = raw.split(' ').filter(p => p.startsWith(prefix))[0]
+    const result = part.replace(prefix, '').replace('(', '').replace('px)', '').replace(';', '')
+    return Number(result)
+}
+
 describe('Legend (list)', () => {
     it('creates a legend with categorical colors', () => {
         render(
@@ -110,8 +118,9 @@ describe('LegendItem', () => {
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
         const label = item.querySelector('text')
-        expect(getNumberAttr(symbol, 'cy')).toEqual(getNumberAttr(label, 'y'))
-        expect(getNumberAttr(symbol, 'cx')).toBeLessThan(getNumberAttr(label, 'x'))
+        const abc = getTranslate(label, 'Y')
+        expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
+        expect(getNumberAttr(symbol, 'cx')).toBeLessThan(getTranslate(label, 'X'))
     })
 
     it('creates a legend item (variant left)', () => {
@@ -127,8 +136,8 @@ describe('LegendItem', () => {
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
         const label = item.querySelector('text')
-        expect(getNumberAttr(symbol, 'cy')).toEqual(getNumberAttr(label, 'y'))
-        expect(getNumberAttr(symbol, 'cx')).toBeGreaterThan(getNumberAttr(label, 'x'))
+        expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
+        expect(getNumberAttr(symbol, 'cx')).toBeGreaterThan(getTranslate(label, 'X'))
     })
 
     it('creates a legend item (variant top)', () => {
@@ -144,8 +153,8 @@ describe('LegendItem', () => {
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
         const label = item.querySelector('text')
-        expect(getNumberAttr(symbol, 'cy')).toBeGreaterThan(getNumberAttr(label, 'y'))
-        expect(getNumberAttr(symbol, 'cx')).toEqual(getNumberAttr(label, 'x'))
+        expect(getNumberAttr(symbol, 'cy')).toBeGreaterThan(getTranslate(label, 'Y'))
+        expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
     })
 
     it('creates a legend item (variant bottom)', () => {
@@ -161,8 +170,8 @@ describe('LegendItem', () => {
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
         const label = item.querySelector('text')
-        expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getNumberAttr(label, 'y'))
-        expect(getNumberAttr(symbol, 'cx')).toEqual(getNumberAttr(label, 'x'))
+        expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getTranslate(label, 'Y'))
+        expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
     })
 })
 
@@ -188,8 +197,9 @@ describe('LegendTitle', () => {
         const legendTitle = screen.getByRole('legend-title')
         expect(legendTitle).toBeDefined()
         const title = screen.getByRole('legend').querySelector('text')
-        expect(getNumberAttr(title, 'x')).toEqual(4)
-        expect(getNumberAttr(title, 'y')).toEqual(4)
+        //expect(getNumberAttr(title, 'x')).toEqual(4)
+        //expect(getNumberAttr(title, 'y')).toEqual(4)
+        expect(title?.getAttribute('style')).toContain('4px')
     })
 
     it('creates a legend title (variant left)', () => {
@@ -205,8 +215,10 @@ describe('LegendTitle', () => {
             </Chart>
         )
         const title = screen.getByRole('legend').querySelector('text')
-        expect(getNumberAttr(title, 'x')).toEqual(196)
-        expect(getNumberAttr(title, 'y')).toEqual(4)
+        //expect(getNumberAttr(title, 'x')).toEqual(196)
+        //expect(getNumberAttr(title, 'y')).toEqual(4)
+        expect(title?.getAttribute('style')).toContain('196px')
+        expect(title?.getAttribute('style')).toContain('4px')
     })
 
     it('creates a legend title (variant top)', () => {
@@ -223,8 +235,10 @@ describe('LegendTitle', () => {
         )
         const title = screen.getByRole('legend').querySelector('text')
         // title should be centered in a width size of [200, 40]
-        expect(getNumberAttr(title, 'x')).toEqual(100)
-        expect(getNumberAttr(title, 'y')).toEqual(4)
+        //expect(getNumberAttr(title, 'x')).toEqual(100)
+        //expect(getNumberAttr(title, 'y')).toEqual(4)
+        expect(title?.getAttribute('style')).toContain('100px')
+        expect(title?.getAttribute('style')).toContain('4px')
     })
 
     it('creates a legend title (variant bottom)', () => {
@@ -241,8 +255,10 @@ describe('LegendTitle', () => {
         )
         const title = screen.getByRole('legend').querySelector('text')
         // title should be centered in a width/size of [200, 40]
-        expect(getNumberAttr(title, 'x')).toEqual(100)
-        expect(getNumberAttr(title, 'y')).toEqual(4)
+        //expect(getNumberAttr(title, 'x')).toEqual(100)
+        //expect(getNumberAttr(title, 'y')).toEqual(4)
+        expect(title?.getAttribute('style')).toContain('100px')
+        expect(title?.getAttribute('style')).toContain('4px')
     })
 })
 

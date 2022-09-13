@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
 import { TypographyProps } from './types'
 import { X, Y } from '../general'
@@ -14,16 +15,20 @@ export const Typography = ({
     if (children === undefined || children === '') return null
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const config = {
+        x: position[X] === 0 ? undefined : position[X],
+        y: position[Y] === 0 ? undefined : position[Y],
+    }
     return (
-        <text
+        <m.text
+            initial={config}
+            animate={config}
             role={setRole ? variant : undefined}
-            x={position[X] === 0 ? undefined : position[X]}
-            y={position[Y] === 0 ? undefined : position[Y]}
             style={style}
-            transform={transform}
             className={compositeClassName}
+            transform={transform}
         >
             {children}
-        </text>
+        </m.text>
     )
 }
