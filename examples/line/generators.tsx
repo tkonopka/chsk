@@ -92,3 +92,19 @@ export const generateSurvivalMatrix = (
         return row
     })
 }
+
+// produce an array of values suitable for x-y scatter chart
+export const generateRegressionData = (
+    n: number,
+    xInterval = [5, 20],
+    coefficients = [1, 1],
+    noise = 0.1
+): Array<unknown> => {
+    return Array(n)
+        .fill(0)
+        .map(() => {
+            const x = randomUniformValue(xInterval[0], xInterval[1])
+            const y = coefficients[0] + coefficients[1] * x + randomNormalValue(0, noise)
+            return { x, y }
+        })
+}
