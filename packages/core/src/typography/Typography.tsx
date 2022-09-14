@@ -15,9 +15,20 @@ export const Typography = ({
     if (children === undefined || children === '') return null
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
-    const config = {
-        x: position[X] === 0 ? undefined : position[X],
-        y: position[Y] === 0 ? undefined : position[Y],
+    const config = { x: position[X], y: position[Y] }
+    if (transform) {
+        return (
+            <text
+                x={config.x}
+                y={config.y}
+                role={setRole ? variant : undefined}
+                style={style}
+                className={compositeClassName}
+                transform={transform}
+            >
+                {children}
+            </text>
+        )
     }
     return (
         <m.text
@@ -26,7 +37,6 @@ export const Typography = ({
             role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
-            transform={transform}
         >
             {children}
         </m.text>
