@@ -20,7 +20,7 @@ export type ChartDataProviderProps = {
 }
 
 export interface ChartRef {
-    updateData: (d: ChartDataContextProps) => void
+    updateData: (d: Omit<ChartDataContextProps, 'id'>) => void
     toggleMilestone: (milestone: string) => void
 }
 
