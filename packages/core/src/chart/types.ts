@@ -1,12 +1,13 @@
 import { ReactNode, Ref } from 'react'
 import { CssProps } from '../general'
 import { SvgBaseComponent, ThemeSpec } from '../themes'
-import { ContainerProps } from '../views'
+import { ContainerProps, WithId } from '../views'
 
-export type ChartDataContextProps = Record<string, unknown> & {
-    disabledKeys?: Set<string>
-    milestones?: Set<string>
-}
+export type ChartDataContextProps = WithId &
+    Record<string, unknown> & {
+        disabledKeys?: Set<string>
+        milestones?: Set<string>
+    }
 
 export type ChartDataProviderValue = {
     data: ChartDataContextProps
@@ -29,7 +30,7 @@ export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
     /** theme adjustment **/
     theme?: ThemeSpec
     /** data with arbitrary chart settings, e.g. milestone */
-    data?: ChartDataContextProps
+    data?: Omit<ChartDataContextProps, 'id'>
     /** list of styles to include in svg **/
     styles?: Array<SvgBaseComponent>
     /** css style for svg component */

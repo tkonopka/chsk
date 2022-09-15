@@ -1,7 +1,7 @@
 import { useImperativeHandle, useState } from 'react'
-import { LazyMotion, domAnimation } from 'framer-motion'
-import { ChartProps } from './types'
-import { DimensionsProvider, LEFT, TOP, WIDTH, HEIGHT } from '../general'
+import { domAnimation, LazyMotion } from 'framer-motion'
+import { ChartDataContextProps, ChartProps } from './types'
+import { DimensionsProvider, HEIGHT, LEFT, TOP, WIDTH } from '../general'
 import { emptyTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
 
@@ -24,7 +24,9 @@ export const Chart = ({
     fref,
 }: ChartProps) => {
     // book-keeping for internal chart state
-    const [state, setState] = useState(data)
+    const [state, setState] = useState<ChartDataContextProps>({ ...data, id })
+
+    // API to manipulate state from outside the chart
     useImperativeHandle(fref, () => ({
         updateData(d) {
             setState({ ...state, ...d })

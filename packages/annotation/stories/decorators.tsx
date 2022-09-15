@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Axis, Chart, Surface, GridLines, View } from '@chask/core'
+import { BarProps } from '@chask/band'
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
@@ -52,3 +53,21 @@ export const ChartLinearViewAxisDecorator = (Story: () => ReactNode) => (
         </View>
     </Chart>
 )
+
+export const barProps: BarProps = {
+    data: [
+        { id: 'alpha', x: 10 },
+        { id: 'beta', x: 20 },
+    ],
+    keys: ['x'],
+    horizontal: true,
+    scaleIndex: {
+        variant: 'band',
+        domain: ['alpha', 'beta'],
+        padding: 0.2,
+    },
+    scaleValue: {
+        variant: 'linear',
+        domain: [0, 'auto'],
+    },
+}
