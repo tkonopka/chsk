@@ -1,6 +1,15 @@
 import { render, screen } from '@testing-library/react'
-import { mergeTheme, defaultTheme, Chart, addColor, addOpacity, AxisProps } from '../src'
-import { ThemeSpec, themedProps } from '../src'
+import {
+    addColor,
+    addOpacity,
+    defaultTheme,
+    Chart,
+    AxisProps,
+    CompleteThemeSpec,
+    mergeTheme,
+    ThemeSpec,
+    themedProps,
+} from '../src'
 import { chartProps } from './props'
 
 describe('mergeTheme', () => {
@@ -12,7 +21,7 @@ describe('mergeTheme', () => {
                 },
             },
         }
-        const result = mergeTheme(defaultTheme, customTheme)
+        const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
         expect(defaultTheme['line']['default']).not.toHaveProperty('strokeLinecap')
         expect(result['line']['default']).toHaveProperty('strokeLinecap', 'round')
     })
@@ -25,7 +34,7 @@ describe('mergeTheme', () => {
                 },
             },
         }
-        const result = mergeTheme(defaultTheme, customTheme)
+        const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
         expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#eeeeee')
         expect(result['rect']['inner']).toHaveProperty('fill', '#0000dd')
     })

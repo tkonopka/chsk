@@ -3,7 +3,7 @@ import { CompleteThemeSpec, ThemeSpec } from './types'
 import { defaultTheme } from './defaultTheme'
 import { cloneDeep, merge } from 'lodash'
 
-export const mergeTheme = (baseTheme: CompleteThemeSpec | ThemeSpec, customTheme: ThemeSpec) => {
+export const mergeTheme = (baseTheme: ThemeSpec, customTheme: ThemeSpec) => {
     return merge(cloneDeep(baseTheme), customTheme)
 }
 
