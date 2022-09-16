@@ -1,7 +1,9 @@
 import { Chart, Axis, GridLines, Legend } from '@chask/core'
 import { Bar, Bars } from '@chask/band'
+import { downloadThemeSpec } from '@chask/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 
 export const stackedIds = ['A', 'B', 'C', 'D', 'E', 'F']
 export const stackedKeys = ['alpha', 'beta', 'gamma', 'delta', 'epsilon']
@@ -20,6 +22,7 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
             id="stacked-vertical"
             size={[480, 400]}
             padding={[40, 120, 60, 60]}
+            theme={downloadThemeSpec}
         >
             <Bar
                 data={rawData}
@@ -46,6 +49,7 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
                     itemPadding={[2, 2, 2, 2]}
                     title={'Groups'}
                 />
+                <DownloadButtons position={[320, 350]} data image />
             </Bar>
         </Chart>
     )
@@ -58,7 +62,8 @@ export const StackedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
             data={chartData}
             id="stacked-horizontal"
             size={[600, 320]}
-            padding={[90, 40, 30, 60]}
+            padding={[90, 40, 40, 60]}
+            theme={downloadThemeSpec}
         >
             <Bar
                 data={rawData}
@@ -88,6 +93,7 @@ export const StackedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
                     firstOffset={[-85, 24]}
                     title={'Measurements (a.u.)'}
                 />
+                <DownloadButtons position={[440, 210]} data image />
             </Bar>
         </Chart>
     )

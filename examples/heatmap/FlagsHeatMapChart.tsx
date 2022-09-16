@@ -8,12 +8,15 @@ import {
     LegendColorScale,
     MilestoneMotion,
     WithId,
+    mergeTheme,
 } from '@chask/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chask/matrix'
+import { downloadThemeSpec } from '@chask/themes'
+import { merge } from 'lodash'
 import { generateHeatMapMatrixNormal, generateHeatMapRowCategorical } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
-import { merge } from 'lodash'
+import { DownloadButtons } from '../navigation'
 
 const ids = alphabetGreek
 const keys = alphabetUppercase
@@ -30,7 +33,7 @@ export const generateFlagsHeatMapData = () => {
     })
 }
 
-const customTheme = {
+const customTheme = mergeTheme(downloadThemeSpec, {
     rect: {
         legendColorScale: {
             stroke: '#222222',
@@ -55,7 +58,7 @@ const customTheme = {
             labelOffset: 60,
         },
     },
-}
+})
 
 export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -149,7 +152,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     <Legend
                         variant={'color'}
                         horizontal={true}
-                        position={[230, 360]}
+                        position={[220, 360]}
                         size={[180, 24]}
                         anchor={[0, 0]}
                         units={'absolute'}
@@ -169,6 +172,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     </Legend>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 </MilestoneMotion>
+                <DownloadButtons position={[440, 390]} data image />
             </HeatMap>
         </Chart>
     )

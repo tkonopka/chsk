@@ -1,7 +1,18 @@
-import { Chart, Axis, AxisTicks, AxisLabel, GridLines, Legend, ThemeSpec } from '@chask/core'
+import {
+    Chart,
+    Axis,
+    AxisTicks,
+    AxisLabel,
+    GridLines,
+    Legend,
+    ThemeSpec,
+    mergeTheme,
+} from '@chask/core'
 import { Bar, Bars } from '@chask/band'
+import { downloadThemeSpec } from '@chask/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 
 const groupedIds = ['alpha', 'beta', 'gamma']
 const groupedKeys = ['before', 'after']
@@ -20,7 +31,7 @@ export const generateDivergingGroupedData = () =>
         interval: [-95, 95],
     })
 
-const groupedTheme: ThemeSpec = {
+const groupedTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
     text: {
         title: {
             fontSize: '16px',
@@ -37,7 +48,7 @@ const groupedTheme: ThemeSpec = {
             colors: 'Paired' as const,
         },
     },
-}
+})
 
 export const GroupedVerticalBandChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -178,6 +189,7 @@ export const GroupedHorizontalAutoBandChart = ({ fref, chartData, rawData }: Mil
                     firstOffset={[-85, 24]}
                     title={'Measurements (arbitrary values)'}
                 />
+                <DownloadButtons position={[300, 190]} data image />
             </Bar>
         </Chart>
     )

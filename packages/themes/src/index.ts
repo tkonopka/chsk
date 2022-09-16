@@ -1,1 +1,2 @@
-export * from './classic'
+export * from './complete'
+export * from './pieces'

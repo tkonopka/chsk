@@ -129,7 +129,7 @@ export const defaultTheme: CompleteThemeSpec = {
             fillOpacity: 1,
         },
         legendItem: {
-            fill: '#ffffff00',
+            fill: '#ffffff',
         },
     },
     circle: {

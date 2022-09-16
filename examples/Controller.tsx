@@ -118,13 +118,3 @@ export const Controller = ({ generator, chart, steps = [] }: ControllerProps) =>
         </div>
     )
 }
-
-/**
-
- <span className="tooltip">new dataset</span>
- <span className="tooltip">initial state</span>
- <span className="tooltip">previous milestone</span>
- <span className="tooltip">next milestone</span>
- <span className="tooltip">final state</span>
-
- */

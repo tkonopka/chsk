@@ -9,6 +9,7 @@ import {
     Surface,
     WithId,
     Circle,
+    mergeTheme,
 } from '@chask/core'
 import {
     HeatMap,
@@ -18,9 +19,11 @@ import {
     HeatMapHighlight,
     isHeatMapData,
 } from '@chask/matrix'
+import { downloadThemeSpec } from '@chask/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 
 const ids = alphabetUppercase
 const keys = alphabetGreek
@@ -33,7 +36,7 @@ export const generateSizeBlockHeatMapData = () => {
     return resultA.concat(resultB).concat(resultC)
 }
 
-const customTheme = {
+const customTheme = mergeTheme(downloadThemeSpec, {
     rect: {
         legendColorScale: {
             stroke: '#222222',
@@ -53,7 +56,7 @@ const customTheme = {
             labelRotate: -45,
         },
     },
-}
+})
 
 export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isHeatMapData(rawData)) return null
@@ -89,8 +92,8 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     size: 'auto',
                 }}
             >
+                <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff' }} />
                 <HeatMapCells cell={HeatMapCircle} />
-                <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Samples'} />
                 <Axis variant={'top'}>
                     <AxisTicks
@@ -112,7 +115,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     </LegendTitle>
                     <LegendSizeScale
                         variant={'right'}
-                        padding={[0, 8, 0, 8]}
+                        itemPadding={[0, 8, 0, 8]}
                         position={[0, 26]}
                         ticks={4}
                         symbol={Circle}
@@ -120,6 +123,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     />
                 </Legend>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                <DownloadButtons position={[480, 230]} data image />
             </HeatMap>
         </Chart>
     )

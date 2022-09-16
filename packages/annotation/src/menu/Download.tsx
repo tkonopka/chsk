@@ -1,5 +1,6 @@
 import { useChartData, useRawData } from '@chask/core'
-import { DownloadProps } from './types'
+import { CleanSvgConfig, DownloadProps } from './types'
+import { cleanSvg, defaultCleanSvgConfig } from './cleanSvg'
 
 // modified from https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
 const downloadToFile = (data: string, filename: string) => {
@@ -13,12 +14,15 @@ const downloadToFile = (data: string, filename: string) => {
     link.remove()
 }
 
-const downloadSvgToFile = (id: string, filename: string) => {
-    const svg = document.getElementById(id)?.outerHTML
-    if (!svg || !svg.startsWith('<svg')) {
+const downloadSvgToFile = (id: string, filename: string, config: CleanSvgConfig) => {
+    const svg = document.getElementById(id)
+    if (!svg) return
+    const clean = cleanSvg(svg.cloneNode(true) as HTMLElement, config)
+    const cleanHTML = clean?.outerHTML
+    if (!clean || !cleanHTML.startsWith('<svg')) {
         return
     }
-    downloadToFile(svg, filename)
+    downloadToFile(cleanHTML, filename)
 }
 
 const DataDownload = ({
@@ -41,6 +45,7 @@ const DataDownload = ({
 
 const ImageDownload = ({
     filename,
+    cleanSvgConfig = defaultCleanSvgConfig,
     className,
     setRole,
     children,
@@ -50,7 +55,7 @@ const ImageDownload = ({
         <g
             role={setRole ? 'download-image' : undefined}
             className={className}
-            onClick={() => downloadSvgToFile(chartData.id, filename)}
+            onClick={() => downloadSvgToFile(chartData.id, filename, cleanSvgConfig)}
         >
             {children}
         </g>
@@ -60,6 +65,7 @@ const ImageDownload = ({
 export const Download = ({
     variant,
     filename,
+    cleanSvgConfig = defaultCleanSvgConfig,
     className,
     setRole = true,
     children,
@@ -71,7 +77,12 @@ export const Download = ({
             </DataDownload>
         )
     return (
-        <ImageDownload filename={filename} className={className} setRole={setRole}>
+        <ImageDownload
+            filename={filename}
+            cleanSvgConfig={cleanSvgConfig}
+            className={className}
+            setRole={setRole}
+        >
             {children}
         </ImageDownload>
     )

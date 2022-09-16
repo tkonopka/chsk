@@ -8,10 +8,13 @@ import {
     ThemeSpec,
     LinearScaleSpec,
     Typography,
+    mergeTheme,
 } from '@chask/core'
 import { Bar, Bars } from '@chask/band'
+import { downloadThemeSpec } from '@chask/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
+import { DownloadButtons } from '../navigation'
 
 const surveyIds = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
 
@@ -47,7 +50,7 @@ const generateQuestionData = (id: string) => {
 
 export const generateSurveyData = () => surveyIds.map(id => generateQuestionData(id))
 
-const surveyTheme: ThemeSpec = {
+const surveyTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
     g: {
         'legendItem:hover': {
             cursor: 'auto',
@@ -59,7 +62,7 @@ const surveyTheme: ThemeSpec = {
             labelOffset: 10,
         },
     },
-}
+})
 
 const surveyProps = {
     variant: 'stacked' as const,
@@ -97,7 +100,7 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
             data={chartData}
             id="survey"
             size={[600, 340]}
-            padding={[90, 40, 40, 60]}
+            padding={[90, 40, 30, 60]}
             theme={surveyTheme}
         >
             <Bar
@@ -143,6 +146,7 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     <LegendItem position={[320, 0]} item={'A'} label={'Agree'} />
                     <LegendItem position={[410, 0]} item={'SA'} label={'Strongly agree'} />
                 </Legend>
+                <DownloadButtons position={[440, 240]} data image />
             </Bar>
             <Typography variant={'title'} position={[-25, -70]}>
                 Survey responses

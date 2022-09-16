@@ -1,7 +1,9 @@
-import { Axis, Chart, GridLines, Legend, ThemeSpec, Typography } from '@chask/core'
+import { Axis, Chart, GridLines, Legend, mergeTheme, ThemeSpec, Typography } from '@chask/core'
 import { BandHighlight, Quantile, QuantileProps, Quantiles } from '@chask/band'
+import { downloadThemeSpec } from '@chask/themes'
 import { alphabetGreek, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 
 export const generateQuantileGroupsData = () => {
     const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
@@ -23,7 +25,7 @@ export const generateQuantileGroupsData = () => {
     }))
 }
 
-const customTheme: ThemeSpec = {
+const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
     line: {
         axis: {
             visibility: 'visible',
@@ -55,7 +57,7 @@ const customTheme: ThemeSpec = {
             },
         },
     },
-}
+})
 
 const quantileProps: Omit<QuantileProps, 'data'> = {
     keys: ['before', 'after'],
@@ -115,6 +117,7 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                 <Typography variant={'subtitle'} position={[0, -16]}>
                     Boxes and whiskers drawn from pre-computed quantile data
                 </Typography>
+                <DownloadButtons position={[620, 270]} data image />
             </Quantile>
         </Chart>
     )
