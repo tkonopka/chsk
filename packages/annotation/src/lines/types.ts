@@ -36,3 +36,15 @@ export interface LineLabelProps
     /** children components */
     children?: ReactNode
 }
+
+export interface BracketLabelProps extends Omit<LineLabelProps, 'markerStart' | 'markerEnd'> {
+    /** left- or right- handed ticks */
+    variant?: 'right' | 'left'
+    /** size of marker at the end of line */
+    tickSize?: number
+}
+
+export interface BraceLabelProps extends BracketLabelProps {
+    /** smoothness of brace edges */
+    braceR?: number
+}

@@ -1,0 +1,59 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, ArrowMarker, View, Axis, GridLines } from '@chask/core'
+import { BraceLabel } from '../src'
+import { ChartBandViewAxisDecorator, ChartLinearViewAxisDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/BraceLabel" />
+
+# BraceLabel
+
+export const Template = args => <BraceLabel {...args} />
+
+`BraceLabel` displays a brace and a text label. A 'brace' is a line that forms a shape like '{' or '}'.
+
+<ArgsTable of={BraceLabel} />
+
+## Brace shape
+
+The features that distinguish `BraceLabel` from `LineLabel` are curves at the ends of the line and a pinch in the middle of the line.
+The shape of these curves is determined by props `tickSize` and `braceR`.
+
+<Canvas>
+    <Story
+        name="tick size"
+        args={{
+            start: ['C', 108],
+            end: ['D', 108],
+            expansion: [0.5, 0.5],
+            tickSize: 7,
+            braceR: 5,
+            textStyle: { textAnchor: 'middle' },
+            children: 'selection',
+        }}
+        component={BraceLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="wide curves"
+        args={{
+            start: ['C', 108],
+            end: ['D', 108],
+            expansion: [0.5, 0.5],
+            tickSize: 7,
+            braceR: 40,
+            textStyle: { textAnchor: 'middle' },
+            children: 'selection',
+        }}
+        component={BraceLabel}
+        decorators={[ChartBandViewAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Other settings
+
+`BraceLabel` shares many props and features with `LineLabel`, for example with regard to orientation of text, rotations, and styling.
+See documentation for `LineLabel` for details.

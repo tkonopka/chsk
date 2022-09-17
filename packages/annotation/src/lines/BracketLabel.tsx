@@ -1,29 +1,32 @@
-import { LineLabelProps } from './types'
-import { Line, useDimensions, useScales, Typography } from '@chask/core'
-import { getLineAbsolutePositions } from './utils'
+import { BracketLabelProps } from './types'
+import { useDimensions, useScales, Typography, Path } from '@chask/core'
+import { getLineAbsolutePositions, getBracketPositions } from './utils'
 
-export const LineLabel = ({
+export const BracketLabel = ({
     // settings for line
+    variant = 'right',
     start,
     end,
     units = 'view',
     expansion = [0, 0],
+    tickSize = 5,
     lineStyle,
     // position of text
     translate = [0, -8],
     align = 0.5,
     rotate = 0,
-    markerStart,
-    markerEnd,
     textStyle,
     //
     className,
     style,
     setRole = true,
     children,
-}: LineLabelProps) => {
+}: BracketLabelProps) => {
     const dimensions = useDimensions()
     const scales = useScales()
+
+    // toggle left-handed and right-handed symbol via tickSize
+    tickSize = variant === 'left' ? -tickSize : tickSize
 
     const { lineStart, lineEnd } = getLineAbsolutePositions({
         start,
@@ -32,6 +35,11 @@ export const LineLabel = ({
         expansion,
         scales,
         size: dimensions.innerSize,
+    })
+    const { tickStart, tickEnd } = getBracketPositions({
+        start: lineStart,
+        end: lineEnd,
+        size: tickSize,
     })
 
     // settings for text label
@@ -43,21 +51,16 @@ export const LineLabel = ({
     const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
     return (
-        <g style={style} className={className} role={setRole ? 'line-label' : undefined}>
-            <Line
-                variant={'line-label'}
-                x1={lineStart[0]}
-                y1={lineStart[1]}
-                x2={lineEnd[0]}
-                y2={lineEnd[1]}
-                markerStart={markerStart}
-                markerEnd={markerEnd}
+        <g style={style} className={className} role={setRole ? 'bracket-label' : undefined}>
+            <Path
+                variant={'bracket-label'}
+                points={[tickStart, lineStart, lineEnd, tickEnd]}
                 className={className}
                 style={lineStyle}
                 setRole={setRole}
             />
             <Typography
-                variant={'line-label'}
+                variant={'bracket-label'}
                 transform={translation + rotation}
                 className={className}
                 style={textStyle}
