@@ -30,7 +30,7 @@ describe('ScatterLabel', () => {
         )
         const result = screen.getByRole('scatter-label')
         // x=1 in view-relative units means at x=400 in svg units
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('translate(400')
+        expect(result.querySelector('text')?.getAttribute('style')).toContain('translateX(400')
     })
 
     it('skips work for non-existent series', () => {
@@ -136,7 +136,7 @@ describe('ScatterLabel', () => {
         const result = screen.queryByRole('scatter-label')
         expect(result?.textContent).toBe('Label')
         // slope will be positive, so rotate -90
-        expect(result?.querySelector('text')?.getAttribute('transform')).toContain('rotate(-90)')
+        expect(result?.querySelector('text')?.getAttribute('transform')).toContain('rotate(-90')
     })
 
     it('handles data series with single point', () => {
@@ -157,6 +157,6 @@ describe('ScatterLabel', () => {
         )
         const result = screen.queryByRole('scatter-label')
         expect(result?.textContent).toBe('Label')
-        expect(result?.querySelector('text')?.getAttribute('transform')).not.toContain('rotate')
+        expect(result?.querySelector('text')?.getAttribute('transform')).toBeNull()
     })
 })

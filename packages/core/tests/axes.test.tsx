@@ -108,7 +108,7 @@ describe('Axis', () => {
         const label = screen.getByRole('axis-label')
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
-        expect(label?.getAttribute('transform')).toContain('translate(320')
+        expect(label?.getAttribute('style')).toContain('translateX(320')
     })
 })
 

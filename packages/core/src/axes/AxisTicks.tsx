@@ -1,3 +1,4 @@
+import { X, Y } from '../general'
 import { Line } from '../lines'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
@@ -50,34 +51,37 @@ export const getScaleTicks = ({
 
     const labelX = horizontal ? 0 : offset * xMultiplier
     const labelY = horizontal ? offset * yMultiplier : 0
-    const transformTranslate = 'translate(' + labelX + ',' + labelY + ')'
-    const transformRotate = rotate === 0 ? '' : 'rotate(' + Number(rotate) + ')'
-
     const tickFormat = getFormatFunction(labelFormat)
 
-    return tickTranslations.map((translations, i) => (
-        <g
-            transform={'translate(' + translations[0] + ', ' + translations[1] + ')'}
-            key={'tick-' + variant + '-' + i}
-        >
-            <Line
-                x1={0}
-                y1={0}
-                x2={horizontal ? 0 : size * xMultiplier}
-                y2={horizontal ? size * yMultiplier : 0}
-                variant={'tick'}
-                style={tickStyle}
-            />
-            <Typography
-                transform={transformTranslate + transformRotate}
-                style={labelStyle}
-                variant={'tick-label'}
-                className={variant}
-            >
-                {tickFormat(tickValues[i] as string)}
-            </Typography>
-        </g>
-    ))
+    return tickTranslations.map((translations, i) => {
+        const x = translations[X]
+        const y = translations[Y]
+        const rotation =
+            rotate === 0
+                ? ''
+                : 'rotate(' + Number(rotate) + ',' + (x + labelX) + ',' + (y + labelY) + ')'
+        return (
+            <g key={'tick-' + variant + '-' + i}>
+                <Line
+                    x1={x}
+                    y1={y}
+                    x2={x + (horizontal ? 0 : size * xMultiplier)}
+                    y2={y + (horizontal ? size * yMultiplier : 0)}
+                    variant={'tick'}
+                    style={tickStyle}
+                />
+                <Typography
+                    position={[x + labelX, y + labelY]}
+                    transform={rotation}
+                    style={labelStyle}
+                    variant={'tick-label'}
+                    className={variant}
+                >
+                    {tickFormat(tickValues[i] as string)}
+                </Typography>
+            </g>
+        )
+    })
 }
 
 const UnthemedAxisTicks = ({
