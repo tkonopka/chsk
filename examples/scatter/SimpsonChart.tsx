@@ -12,7 +12,7 @@ import {
     Segment,
 } from '@chask/core'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chask/xy'
-import { generateRegressionData } from './generators'
+import { generateRegressionData } from '../line/generators'
 import { MilestoneStory } from '../types'
 
 export const generateSimpsonData = () => [

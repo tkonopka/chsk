@@ -33,6 +33,7 @@ export const parameters = {
                     ['Overview'],
                 ],
                 'Gallery',
+                ['Overview'],
             ],
         },
     },

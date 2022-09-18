@@ -5,6 +5,7 @@ import {
     generateMultiViewsScatterData,
     MultipleViewsScatterChart,
 } from './MultipleViewsScatterChart'
+import { generateSimpsonData, SimpsonChart } from './SimpsonChart'
 
 <Meta title="Gallery/Scatter charts" />
 
@@ -18,6 +19,18 @@ import {
             generator={generateClusterScatterData}
             chart={ClustersScatterChart}
             steps={['axes', 'legend', 'data']}
+        />
+    </Story>
+</Canvas>
+
+## Regression
+
+<Canvas>
+    <Story name="regression">
+        <Controller
+            generator={generateSimpsonData}
+            chart={SimpsonChart}
+            steps={['axes', 'A', 'B', 'C']}
         />
     </Story>
 </Canvas>

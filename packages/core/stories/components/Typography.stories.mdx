@@ -17,7 +17,7 @@ export const ChartDecorator = Story => (
     </Chart>
 )
 
-The `Text` component places a single text element on a chart.
+`Typography` places a single text element on a chart.
 
 <ArgsTable of={Typography} />
 
@@ -30,8 +30,8 @@ There are a number of predefined variants, which can be activated via the prop `
         name="title"
         args={{
             variant: 'title',
+            position: [0, -30],
             children: 'Primary heading',
-            y: -20,
         }}
         component={Typography}
         decorators={[ChartDecorator]}
@@ -42,8 +42,8 @@ There are a number of predefined variants, which can be activated via the prop `
         name="subtitle"
         args={{
             variant: 'subtitle',
+            position: [0, -10],
             children: 'Secondary heading',
-            y: -10,
         }}
         component={Typography}
         decorators={[ChartDecorator]}
@@ -54,9 +54,8 @@ There are a number of predefined variants, which can be activated via the prop `
         name="axisLabel"
         args={{
             variant: 'axisLabel',
+            position: [140, 115],
             children: 'axis label',
-            x: 140,
-            y: 115,
         }}
         component={Typography}
         decorators={[ChartDecorator]}
@@ -67,9 +66,8 @@ There are a number of predefined variants, which can be activated via the prop `
         name="tickLabel"
         args={{
             variant: 'tickLabel',
+            position: [0, 85],
             children: 'tick label',
-            x: 0,
-            y: 85,
         }}
         component={Typography}
         decorators={[ChartDecorator]}
@@ -83,16 +81,15 @@ Positions are set manually to suggest how the visual styles might be used within
 
 ## Styles
 
-The text elements can be adjusted individually using css styles and svg transforms.
+Components can be adjusted individually using css styles and svg transforms.
 
 <Canvas>
     <Story
         name="color"
         args={{
             variant: 'title',
+            position: [0, -30],
             children: 'Title in color',
-            x: 0,
-            y: -30,
             style: {
                 fill: '#dd4444',
                 alignmentBaseline: 'middle',
@@ -107,9 +104,8 @@ The text elements can be adjusted individually using css styles and svg transfor
         name="rotation"
         args={{
             variant: 'default',
+            position: [0, 0],
             children: 'Text with custom style',
-            x: 0,
-            y: 0,
             style: {
                 fill: '#222222',
                 fontFamily: 'serif',
@@ -126,3 +122,5 @@ The text elements can be adjusted individually using css styles and svg transfor
         {Template.bind({})}
     </Story>
 </Canvas>
+
+Note that using the prop `transform` automatically disables animations. In particular, text rotations are not animated.

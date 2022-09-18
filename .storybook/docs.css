@@ -58,6 +58,15 @@ button.icon {
     margin: 0em 0.5em 0em 0em;
     padding: 0.25em 0.5em 0em 0.5em;
 }
+span.icon {
+    background-color: #f8f8f8;
+    padding: 5px 4px 4px 4px;
+    border-radius: 6px;
+    border: #dddddd solid 1px;
+}
+span.icon svg {
+    margin-bottom: -6px;
+}
 
 /** controller for stories */
 div.controller {

@@ -1,0 +1,12 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Label } from '../../src'
+import { ChartDecorator } from './decorators'
+
+# Label
+
+<Meta title="Core/Components/Label" />
+export const Template = args => <Label {...args} />
+
+`Label` draws a text element contained within a rectangle.
+
+<ArgsTable of={Label} />
