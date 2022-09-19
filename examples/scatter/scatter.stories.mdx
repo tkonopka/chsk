@@ -6,6 +6,7 @@ import {
     MultipleViewsScatterChart,
 } from './MultipleViewsScatterChart'
 import { generateSimpsonData, SimpsonChart } from './SimpsonChart'
+import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatterChart'
 
 <Meta title="Gallery/Scatter charts" />
 
@@ -31,6 +32,16 @@ import { generateSimpsonData, SimpsonChart } from './SimpsonChart'
             generator={generateSimpsonData}
             chart={SimpsonChart}
             steps={['axes', 'A', 'B', 'C']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="outliers">
+        <Controller
+            generator={generateOutlierScatterData}
+            chart={OutlierScatterChart}
+            steps={['axes', 'data', 'regression1', 'arrow', 'outliers', 'regression2']}
         />
     </Story>
 </Canvas>

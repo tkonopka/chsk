@@ -21,7 +21,7 @@ export const getLineAbsolutePositions = ({
     return { lineStart, lineEnd }
 }
 
-const getStartToEndAxis = (start: NumericPositionSpec, end: NumericPositionSpec) => {
+export const getStartToEndAxis = (start: NumericPositionSpec, end: NumericPositionSpec) => {
     const deltaX = end[0] - start[0]
     const deltaY = end[1] - start[1]
     // angle of line along start-to-end axis

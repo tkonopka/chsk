@@ -31,3 +31,8 @@ export interface LabelProps extends TypographyProps, LabelLocationSpec {
     /** position for center of label container */
     position?: NumericPositionSpec
 }
+
+export interface CounterProps extends TypographyProps {
+    /** number of decimal places */
+    nDecimalPlaces?: number
+}

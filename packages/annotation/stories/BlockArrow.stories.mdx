@@ -1,0 +1,91 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, ArrowMarker, View, Axis, GridLines } from '@chask/core'
+import { BlockArrow } from '../src'
+import { ChartDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/BlockArrow" />
+
+# BlockArrow
+
+export const Template = args => <BlockArrow {...args} />
+
+`BlockArrow` displays a thick arrow.
+
+<ArgsTable of={BlockArrow} />
+
+## Arrow shape
+
+The shape of the arrow is determined by props `stemWidth`, `headWidth`, and `headLength`.
+
+<Canvas>
+    <Story
+        name="narrow"
+        args={{
+            start: [50, 160],
+            end: [200, 60],
+            units: 'absolute',
+            stemWidth: 10,
+            headWidth: 30,
+            headLength: 40,
+        }}
+        component={BlockArrow}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="wide"
+        args={{
+            start: [50, 160],
+            end: [200, 60],
+            units: 'absolute',
+            stemWidth: 40,
+            headWidth: 60,
+            headLength: 20,
+        }}
+        component={BlockArrow}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Arrow heads
+
+By default, `BlockArrow` creates a shape that is blunt at the start position and has an arrowhead at the end position. Arrowheads can be configured at each side via prop `heads`.
+
+<Canvas>
+    <Story
+        name="double sided"
+        args={{
+            start: [50, 160],
+            end: [200, 60],
+            units: 'absolute',
+            heads: [true, true],
+        }}
+        component={BlockArrow}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Arrows can be styled using css.
+
+<Canvas>
+    <Story
+        name="filled"
+        args={{
+            start: [50, 160],
+            end: [200, 60],
+            units: 'absolute',
+            style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777' },
+        }}
+        component={BlockArrow}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
