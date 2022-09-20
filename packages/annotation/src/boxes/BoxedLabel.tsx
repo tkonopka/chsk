@@ -33,7 +33,6 @@ export const BoxedLabel = ({
 }: BoxedLabelProps) => {
     const dimensions = useDimensions()
     const scales = useScales()
-    if (children === undefined || children === '') return null
 
     // compute effective x, y position for top-left corner or box
     const absPos = getAbsolutePosition(position, units, dimensions.innerSize, scales)

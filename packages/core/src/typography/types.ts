@@ -32,7 +32,7 @@ export interface LabelProps extends TypographyProps, LabelLocationSpec {
     position?: NumericPositionSpec
 }
 
-export interface CounterProps extends TypographyProps {
+export interface CounterProps extends LabelProps {
     /** number of decimal places */
     nDecimalPlaces?: number
 }

@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Typography, Label } from '../src'
 import { chartProps } from './props'
+import { getTransform } from './utils'
 
 describe('Typography', () => {
     it('creates a default text component', () => {
@@ -12,6 +13,8 @@ describe('Typography', () => {
         const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
+        expect(getTransform(result, 'X')).toBeNull()
+        expect(getTransform(result, 'Y')).toBeNull()
         expect(result.getAttribute('role')).toBe('default')
     })
 
@@ -34,10 +37,8 @@ describe('Typography', () => {
             </Chart>
         )
         const result = screen.getByText('default')
-        //expect(result.getAttribute('x')).toBe('20')
-        //expect(result.getAttribute('y')).toBe('50')
-        expect(result.getAttribute('style')).toContain('20px')
-        expect(result.getAttribute('style')).toContain('50px')
+        expect(getTransform(result, 'X')).toEqual(20)
+        expect(getTransform(result, 'Y')).toEqual(50)
     })
 
     it('creates a title', () => {
@@ -124,8 +125,8 @@ describe('Label', () => {
             </Chart>
         )
         const result = screen.getByText('abcd')
-        expect(result.getAttribute('x')).toBe('10')
-        expect(result.getAttribute('y')).toBe('20')
+        expect(getTransform(result, 'X')).toEqual(10)
+        expect(getTransform(result, 'Y')).toEqual(20)
         expect(result.getAttribute('role')).toBeNull()
         expect(result.getAttribute('class')).toContain('custom')
     })

@@ -58,7 +58,7 @@ export const HeatMapCells = ({
             if (!idSet.has(seriesData.id)) return null
             const y = scaleY(seriesData.id)
             const values = seriesData.value
-            const size = seriesData.size
+            const sizes = seriesData.size
             return seriesData.value.map((v, i) => {
                 if (!keySet.has(processedData.keys[i])) return null
                 const cellColor = continuous
@@ -66,7 +66,7 @@ export const HeatMapCells = ({
                     : colorScale(values[i] as number)
                 const cellStyle = addColor(style, cellColor)
                 // cell2R is 2*radius for the cell symbol
-                const cell2R = 2 * (isFinite(size[i]) ? sizeScale(size[i]) : maxSize)
+                const cell2R = 2 * (isFinite(sizes[i]) ? sizeScale(sizes[i]) : maxSize)
                 return createElement(cell, {
                     key: 'cell-' + seriesData.index + '-' + i,
                     x: x[i],
@@ -77,6 +77,8 @@ export const HeatMapCells = ({
                             ? cell2R
                             : cell2R / aspectRatio
                         : height,
+                    cellValue: values[i],
+                    cellSize: sizes[i],
                     className: cellClassName,
                     style: cellStyle,
                     center: true,

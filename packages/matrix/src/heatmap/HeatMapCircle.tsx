@@ -1,6 +1,6 @@
-import { RectangleProps } from '@chask/core'
+import { HeatMapCellProps } from './types'
 
-export const HeatMapCircle = ({ x, y, width, height, className, style }: RectangleProps) => {
+export const HeatMapCircle = ({ x, y, width, height, className, style }: HeatMapCellProps) => {
     return (
         <circle
             role={undefined}

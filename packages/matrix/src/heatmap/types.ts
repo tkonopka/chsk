@@ -53,9 +53,16 @@ export interface HeatMapHighlightProps extends SvgElementProps {
     interactive?: boolean
 }
 
+export interface HeatMapCellProps extends RectangleProps {
+    /** value that determines cell color */
+    cellValue?: number | string
+    /** value that determines cell size */
+    cellSize?: number
+}
+
 export interface HeatMapCellsProps extends HeatMapHighlightProps {
     /** symbol for individual data points */
-    cell?: FC<RectangleProps>
+    cell?: FC<HeatMapCellProps>
     /** scale for colors */
     scaleColor?: ColorScaleProps
     /** scale for size */

@@ -18,8 +18,6 @@ export const BoxedTitle = ({
 }: BoxedTitleProps) => {
     const dimensions = useDimensions()
 
-    if (children === undefined || children === '') return null
-
     const horizontal = variant === 'top' || variant === 'bottom'
     const vertical = variant === 'left' || variant === 'right'
 

@@ -17,13 +17,14 @@ describe('BoxedLabel', () => {
         expect(result[0].querySelector('text')?.textContent).toBe('Label')
     })
 
-    it('avoids drawing when there are not children', () => {
+    it('avoids drawing text when there are not children', () => {
         render(
             <Chart {...chartProps}>
                 <BoxedLabel position={[0, 0]} size={[60, 20]} />
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label')
-        expect(result).toBeNull()
+        const result = screen.queryAllByRole('boxed-label')
+        expect(result).toBeDefined()
+        expect(result[0].querySelectorAll('text')).toHaveLength(0)
     })
 })

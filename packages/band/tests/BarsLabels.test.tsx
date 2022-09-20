@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chask/core'
-import { Bar, Bars, BarsLabels, Strip } from '../src'
+import { getTransform } from '../../core/tests/utils'
+import { Bar, BarsLabels, Strip } from '../src'
 import { barProps, stripProps } from './props'
 
 describe('BarsLabels', () => {
@@ -17,8 +18,9 @@ describe('BarsLabels', () => {
         expect(screen.queryByRole('bars-labels')).toBeDefined()
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
-        // center-aligned, so they labels should be at different x-coordinates
-        expect(labels[0].getAttribute('x')).not.toEqual(labels[1].getAttribute('x'))
+        // center-aligned, so labels should be at different x-coordinates
+        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
+        expect(getTransform(labels[0], 'X')).not.toEqual(getTransform(labels[1], 'X'))
     })
 
     it('creates left-aligned labels for bars', () => {
@@ -34,7 +36,8 @@ describe('BarsLabels', () => {
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // left-aligned, so labels should be at equal x-coordinates
-        expect(labels[0].getAttribute('x')).toEqual(labels[1].getAttribute('x'))
+        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
+        expect(getTransform(labels[0], 'X')).toEqual(getTransform(labels[1], 'X'))
     })
 
     it('creates labels for many bars', () => {

@@ -1,6 +1,6 @@
-import { composeClassName } from '../themes'
 import { LabelProps } from './types'
 import { NumericPositionSpec, X, Y, getAlignPosition } from '../general'
+import { Typography } from './Typography'
 
 export const Label = ({
     position = [0, 0],
@@ -15,22 +15,18 @@ export const Label = ({
     children,
 }: LabelProps) => {
     if (children === undefined || children === '') return null
-    const isDefault = variant === 'default'
-    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
-
     const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
     const pos = getAlignPosition(corner, size, padding, align)
-
     return (
-        <text
-            role={setRole ? variant : undefined}
-            x={pos[X] === 0 ? undefined : pos[X]}
-            y={pos[Y] === 0 ? undefined : pos[Y]}
-            style={style}
+        <Typography
+            variant={variant}
+            position={pos}
             transform={transform}
-            className={compositeClassName}
+            style={style}
+            className={className}
+            setRole={setRole}
         >
             {children}
-        </text>
+        </Typography>
     )
 }

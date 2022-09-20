@@ -1,6 +1,6 @@
-import { RectangleProps } from '@chask/core'
+import { HeatMapCellProps } from './types'
 
-export const HeatMapRectangle = ({ x, y, width, height, className, style }: RectangleProps) => {
+export const HeatMapRectangle = ({ x, y, width, height, className, style }: HeatMapCellProps) => {
     return (
         <rect
             x={x - width / 2}
