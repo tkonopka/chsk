@@ -77,7 +77,7 @@ export const getScaleTicks = ({
                     variant={'tick-label'}
                     className={variant}
                 >
-                    {tickFormat(tickValues[i] as string)}
+                    {tickFormat(tickValues[i] as string, i)}
                 </Typography>
             </g>
         )

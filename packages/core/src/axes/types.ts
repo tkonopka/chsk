@@ -47,7 +47,7 @@ export interface AxisLabelThemedProps
     rotate: number
 }
 
-export type TickFormatType = (v: unknown) => string
+export type TickFormatType = (value: unknown, index: number) => string
 
 export interface AxisTicksProps extends SvgElementVariantProps {
     /** type of axis */
