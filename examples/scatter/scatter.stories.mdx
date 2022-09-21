@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateClusterScatterData, ClustersScatterChart } from './ClustersScatterChart'
+import { generateBubbleScatterData, BubbleScatterChart } from './BubbleScatterChart'
 import {
     generateMultiViewsScatterData,
     MultipleViewsScatterChart,
@@ -12,7 +13,7 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
 
 # Examples of scatter charts
 
-## Clusters
+## Points
 
 <Canvas>
     <Story name="clusters">
@@ -20,6 +21,16 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
             generator={generateClusterScatterData}
             chart={ClustersScatterChart}
             steps={['axes', 'legend', 'data']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="bubbles">
+        <Controller
+            generator={generateBubbleScatterData}
+            chart={BubbleScatterChart}
+            steps={['axes', 'data', 'legend']}
         />
     </Story>
 </Canvas>

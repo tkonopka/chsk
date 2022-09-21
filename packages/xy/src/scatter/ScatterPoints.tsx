@@ -21,6 +21,7 @@ export const ScatterPoints = ({
         const data = preparedData.data[seriesIndex]
         const x = data.x
         const y = data.y
+        const colors = data.color
         const dots = data.r.map((r: number, i: number) =>
             createElement(symbol, {
                 key: 'point-' + seriesIndex + '-' + i,
@@ -28,7 +29,7 @@ export const ScatterPoints = ({
                 cy: y[i],
                 r: r,
                 className: symbolClassName,
-                style: seriesStyle,
+                style: colors ? addColor(symbolStyle, colors[i]) : seriesStyle,
                 setRole: false,
             })
         )

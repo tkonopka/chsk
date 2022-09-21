@@ -99,15 +99,15 @@ export const ChartForRegressionDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
-const generateBubbles = (n: number, xyInterval = [0.5, 10], rInterval = [2, 12]) => {
+const generateBubbles = (n: number, xyInterval = [0.5, 10], vInterval = [1, 12]) => {
     const xySize = xyInterval[1] - xyInterval[0]
-    const rSize = rInterval[1] - rInterval[0]
+    const vSize = vInterval[1] - vInterval[0]
     return Array(n)
         .fill(0)
         .map(() => ({
             x: xyInterval[0] + xySize * Math.random(),
             y: xyInterval[0] + xySize * Math.random(),
-            r: rInterval[0] + rSize * Math.random(),
+            value: vInterval[0] + vSize * Math.random(),
         }))
 }
 export const dataBubbles = [

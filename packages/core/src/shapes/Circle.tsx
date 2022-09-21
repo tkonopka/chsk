@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
 import { CircleProps } from './types'
 
@@ -12,12 +13,12 @@ export const Circle = ({
 }: CircleProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
+    const config = { cx, cy, r }
     return (
-        <circle
+        <m.circle
             role={setRole ? variant : undefined}
-            cx={cx}
-            cy={cy}
-            r={r}
+            initial={config}
+            animate={config}
             style={style}
             className={compositeClassName}
         />

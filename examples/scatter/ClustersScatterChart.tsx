@@ -1,15 +1,14 @@
 import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chask/core'
 import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
 import { generateXYValues } from './generators'
-import { randomNormalValue } from '../utils'
+import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
 
 export const generateClusterScatterData = () => [
     {
         id: 'alpha',
         data: generateXYValues(
-            80,
-            () => randomNormalValue(0, 1),
+            generateMixedPopulation([80], [0], [1]),
             ['y'],
             [x => 0 * x + randomNormalValue(0, 1)]
         ),
@@ -17,8 +16,7 @@ export const generateClusterScatterData = () => [
     {
         id: 'beta',
         data: generateXYValues(
-            80,
-            () => randomNormalValue(3, 1),
+            generateMixedPopulation([80], [3], [1]),
             ['y'],
             [x => x + randomNormalValue(0, 3)]
         ),
@@ -26,8 +24,7 @@ export const generateClusterScatterData = () => [
     {
         id: 'gamma',
         data: generateXYValues(
-            80,
-            () => randomNormalValue(1, 1),
+            generateMixedPopulation([80], [1], [1]),
             ['y'],
             [x => 4 + x + randomNormalValue(0, 1)]
         ),
@@ -48,7 +45,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                 data={rawData}
                 x={'x'}
                 y={'y'}
-                r={3}
+                valueSize={3}
                 scaleX={{
                     variant: 'linear',
                     domain: 'auto',
@@ -84,7 +81,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                     />
                 </MilestoneMotion>
                 <Typography position={[0, -20]} variant={'title'}>
-                    Embedding of three populations
+                    Embedding
                 </Typography>
             </Scatter>
         </Chart>

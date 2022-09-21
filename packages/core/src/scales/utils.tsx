@@ -4,11 +4,17 @@ import { NumericPositionSpec, X, Y } from '../general'
 import { DetectorZone, DetectorIntervals } from './types'
 
 // get min and max values in an array
-export const getMinMax = (values: Array<number>): [number, number] => {
+export const getMinMax = (values: Array<number>, fallback = [1, 1]): [number, number] => {
     const min = values.reduce((acc, v) => Math.min(acc, v), values[0])
     const max = values.reduce((acc, v) => Math.max(acc, v), values[0])
-    if (min === undefined && max === undefined) return [1, 1]
+    if (min === undefined && max === undefined) return [fallback[0], fallback[1]]
     return [min, max]
+}
+
+// get  max values in an array
+export const getMax = (values: Array<number>, fallback = 1): number => {
+    const max = values.reduce((acc, v) => Math.max(acc, v), values[0])
+    return max === undefined ? fallback : max
 }
 
 // create intervals associated with bands

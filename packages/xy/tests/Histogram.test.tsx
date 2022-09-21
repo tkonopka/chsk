@@ -4,11 +4,10 @@ import {
     Histogram,
     useHistogramPreparedData,
     isHistogramProcessedData,
-    getBreaksArray,
-    binValues,
     HistogramDataItem,
     HistogramDataContextProps,
 } from '../src/histogram'
+import { getBreaksArray, binValues } from '../src/histogram/utils'
 import { histogramProps } from './props'
 
 describe('Histogram utils', () => {

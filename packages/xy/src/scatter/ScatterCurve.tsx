@@ -6,11 +6,11 @@ import {
     useDisabledKeys,
     useScales,
 } from '@chask/core'
-import { ScatterCurveProps, ScatterProcessedDataItem } from './types'
+import { ScatterCurveProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 
 export const getScatterCurvePoints = (
-    data: ScatterProcessedDataItem
+    data: ScatterPreparedDataItem
 ): Array<NumericPositionSpec> => {
     const x = data.x
     const y = data.y

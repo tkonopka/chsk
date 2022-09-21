@@ -41,9 +41,9 @@ export type ProcessedDataContextProps = {
 export type AnchorSpec = [number, number]
 
 export interface ContainerProps {
-    /** position as an array [x, y] */
+    /** container position as an array [x, y] */
     position?: PositionSpec
-    /** size as an array [width, height] */
+    /** container size as an array [width, height] */
     size?: SizeSpec
     /** absolute or relative units for position and size measurements */
     units?: SizeUnit

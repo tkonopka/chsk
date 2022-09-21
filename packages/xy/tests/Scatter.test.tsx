@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, useProcessedData } from '@chask/core'
+import { Chart, Legend, ProcessedDataContextProps, useProcessedData } from '@chask/core'
 import {
     Scatter,
     useScatterPreparedData,
@@ -10,7 +10,7 @@ import { scatterProps } from './props'
 
 describe('Scatter', () => {
     it('defines processed data', () => {
-        const processed: ScatterDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: ProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetProcessedData = () => {
             const temp = useProcessedData()
             if (isScatterProcessedData(temp.data)) {

@@ -13,7 +13,7 @@ import {
     ContinuousAxisScale,
 } from '@chask/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
-import { isHeatMapSetting } from './utils'
+import { isHeatMapSetting } from './predicates'
 import { cloneDeep } from 'lodash'
 import { HeatMapRectangle } from './HeatMapRectangle'
 

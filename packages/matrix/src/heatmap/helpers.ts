@@ -6,6 +6,7 @@ import {
     createColorScaleProps,
     createSizeScaleProps,
     getMinMax,
+    getMax,
     SizeScaleProps,
     SizeScaleSpec,
     SizeSpec,
@@ -14,10 +15,6 @@ import {
 } from '@chask/core'
 import { cloneDeep } from 'lodash'
 import { HeatMapProcessedDataItem } from './types'
-
-/**
- * Helpers are exported only for the benefit of in-package components, not for out-of-package use
- * */
 
 export const getXYScaleProps = (
     ids: string[],
@@ -67,7 +64,7 @@ export const getSizeScaleProps = (
     ids: string[],
     keys: string[]
 ): SizeScaleProps => {
-    const maxDomain = getMinMax(data.map(seriesData => seriesData.size).flat())[1]
+    const maxDomain = getMax(data.map(seriesData => seriesData.size).flat())
     const maxSize = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
     return createSizeScaleProps(scaleSpec, maxDomain, maxSize)
 }

@@ -20,9 +20,9 @@ describe('Circle', () => {
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('circle')
-        expect(result?.getAttribute('cx')).toBeNull()
-        expect(result?.getAttribute('cy')).toBeNull()
-        expect(result?.getAttribute('r')).toBeNull()
+        expect(isFinite(Number(result?.getAttribute('cx')))).toBeFalsy()
+        expect(isFinite(Number(result?.getAttribute('cy')))).toBeFalsy()
+        expect(isFinite(Number(result?.getAttribute('r')))).toBeFalsy()
         expect(result?.getAttribute('role')).toContain('default')
     })
 

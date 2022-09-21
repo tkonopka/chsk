@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { NumericPositionSpec } from '../general/'
 import { composeClassName } from '../themes'
 import { SymbolProps } from './types'
@@ -32,13 +33,17 @@ export const Square = ({
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     const scaledHalfSide = squareHalfSide * r
+    const config = {
+        x: cx - scaledHalfSide,
+        y: cy - scaledHalfSide,
+        width: 2 * scaledHalfSide,
+        height: 2 * scaledHalfSide,
+    }
     return (
-        <rect
+        <m.rect
             role={setRole ? variant : undefined}
-            x={cx - scaledHalfSide}
-            y={cy - scaledHalfSide}
-            width={2 * scaledHalfSide}
-            height={2 * scaledHalfSide}
+            initial={config}
+            animate={config}
             style={style}
             className={compositeClassName}
         />

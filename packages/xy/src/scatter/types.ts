@@ -1,12 +1,13 @@
 import { FC, ReactNode } from 'react'
 import {
     AccessorFunction,
-    CategoricalScaleSpec,
+    ColorScaleSpec,
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
     PositionUnit,
     ProcessedDataContextProps,
+    SizeScaleSpec,
     SvgElementVariantProps,
     SymbolProps,
     TranslateSpec,
@@ -22,21 +23,29 @@ export type ScatterProcessedDataItem = WithId & {
     index: number
     x: Array<number>
     y: Array<number>
+    size: Array<number>
+    color?: Array<number>
+}
+export type ScatterPreparedDataItem = Omit<ScatterProcessedDataItem, 'size' | 'color'> & {
     r: Array<number>
+    color?: Array<string>
 }
 
 export type ScatterDataContextProps = ProcessedDataContextProps & {
     /** data */
-    data: Array<ScatterProcessedDataItem>
+    data: Array<ScatterPreparedDataItem>
 }
 
-export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
+export interface ScatterProps
+    extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor' | 'scaleSize'> {
     /** key or function to extract x-axis values from raw data */
     x: string | AccessorFunction<number>
     /** key or function to extract y-axis values from raw data */
     y: string | AccessorFunction<number>
-    /** radius for dots, or key or function to extract radius from raw data */
-    r: number | string | AccessorFunction<number>
+    /** absolute number, key, or function to extract dot size from raw data */
+    valueSize?: number | string | AccessorFunction<number>
+    /** key or a function to extract a color raw data */
+    valueColor?: null | string | AccessorFunction<number>
     /** data */
     data: Array<ScatterDataItem>
     /** scale for horizontal axis */
@@ -44,7 +53,9 @@ export interface ScatterProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'sca
     /** scale for vertical axis */
     scaleY?: ContinuousScaleSpec
     /** scale for colors */
-    scaleColor?: CategoricalScaleSpec
+    scaleColor?: ColorScaleSpec
+    /** scale for cell size */
+    scaleSize?: SizeScaleSpec
 }
 
 export interface ScatterPointsProps {

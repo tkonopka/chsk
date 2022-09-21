@@ -1,4 +1,4 @@
-import { isScatterData, isScatterProcessedData } from '../src/'
+import { isScatterData, isScatterPreparedData, isScatterProcessedData } from '../src/'
 import { isHistogramData, isHistogramProcessedData } from '../src/'
 
 describe('isScatterData', () => {
@@ -39,8 +39,22 @@ describe('isScatterData', () => {
     })
 })
 
-describe('isScatterProcessedData', () => {
-    it('detects correct data format', () => {
+describe('isScatterProcessedData and isScatterPreparedData', () => {
+    it('detects correct processed data format', () => {
+        const input = [
+            {
+                id: 'a',
+                index: 0,
+                x: [0, 1],
+                y: [0, 1],
+                size: [2, 2],
+            },
+        ]
+        expect(isScatterProcessedData(input)).toBeTruthy()
+        expect(isScatterPreparedData(input)).toBeFalsy()
+    })
+
+    it('detects correct prepared data format', () => {
         const input = [
             {
                 id: 'a',
@@ -50,7 +64,8 @@ describe('isScatterProcessedData', () => {
                 r: [2, 2],
             },
         ]
-        expect(isScatterProcessedData(input)).toBeTruthy()
+        expect(isScatterProcessedData(input)).toBeFalsy()
+        expect(isScatterPreparedData(input)).toBeTruthy()
     })
 
     it('rejects objects with incorrect keys', () => {
@@ -65,6 +80,7 @@ describe('isScatterProcessedData', () => {
             },
         ]
         expect(isScatterProcessedData(input)).toBeFalsy()
+        expect(isScatterPreparedData(input)).toBeFalsy()
     })
 
     it('rejects non-objects', () => {
@@ -80,6 +96,7 @@ describe('isScatterProcessedData', () => {
             null,
         ]
         expect(isScatterProcessedData(input)).toBeFalsy()
+        expect(isScatterPreparedData(input)).toBeFalsy()
     })
 })
 

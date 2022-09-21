@@ -12,15 +12,14 @@ import {
 import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
 import { BoxedTitle } from '@chask/annotation'
 import { generateXYValues } from './generators'
-import { randomNormalValue } from '../utils'
+import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
 
 export const generateMultiViewsScatterData = () => [
     {
         id: 'alpha',
         data: generateXYValues(
-            80,
-            () => randomNormalValue(-0.2, 1),
+            generateMixedPopulation([80], [-0.2], [1]),
             ['A', 'B', 'C'],
             [
                 x => 0.5 * x + randomNormalValue(0, 1),
@@ -32,8 +31,7 @@ export const generateMultiViewsScatterData = () => [
     {
         id: 'beta',
         data: generateXYValues(
-            80,
-            () => randomNormalValue(0.2, 1),
+            generateMixedPopulation([80], [0.2], [1]),
             ['A', 'B', 'C'],
             [
                 x => x + randomNormalValue(0, 1),
@@ -51,7 +49,7 @@ const commonProps = {
     units: 'relative' as const,
     x: 'x',
     y: 'A',
-    r: 3,
+    valueSize: 3,
     scaleX: {
         variant: 'linear' as const,
         domain: 'auto' as const,

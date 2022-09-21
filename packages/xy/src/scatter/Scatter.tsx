@@ -1,91 +1,86 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { cloneDeep } from 'lodash'
-import { ScatterDataItem, ScatterProcessedDataItem, ScatterProps } from './types'
+import {
+    ScatterDataItem,
+    ScatterPreparedDataItem,
+    ScatterProcessedDataItem,
+    ScatterProps,
+} from './types'
 import {
     AccessorFunction,
     ContinuousAxisScale,
     getAccessor,
     createScales,
-    createContinuousScaleProps,
     useView,
-    ContinuousScaleProps,
-    ContinuousScaleSpec,
-    isScaleWithDomain,
-    getMinMax,
     getIndexes,
     defaultLinearScaleSpec,
     useDisabledKeys,
     useTheme,
-    createColorScaleProps,
     BaseView,
-    SizeSpec,
-    X,
-    Y,
+    getNumberAccessor,
+    ScalesContextProps,
+    ColorScale,
+    defaultSizeScaleSpec,
 } from '@chask/core'
 import { ScatterPreparedDataProvider } from './context'
+import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
 
-// turn raw data into a minimal format
+const getAccessors = ({
+    x,
+    y,
+    valueSize,
+    valueColor,
+}: Pick<ScatterProps, 'x' | 'y' | 'valueColor'> & {
+    valueSize: number | string | AccessorFunction<number>
+}) => {
+    const getX = getAccessor(x)
+    const getY = getAccessor(y)
+    const getSize = getNumberAccessor(valueSize)
+    const getColor = valueColor ? getAccessor(valueColor) : null
+    return { getX, getY, getSize, getColor }
+}
+
+// turn raw data into a minimal format with arrays
 const processData = (
-    seriesData: ScatterDataItem,
-    index: number,
-    getX: AccessorFunction<number>,
-    getY: AccessorFunction<number>,
-    getR: AccessorFunction<number>
-): ScatterProcessedDataItem => {
-    return {
+    data: Array<ScatterDataItem>,
+    accessors: {
+        getX: AccessorFunction<number>
+        getY: AccessorFunction<number>
+        getSize: AccessorFunction<number>
+        getColor: null | AccessorFunction<number>
+    }
+): Array<ScatterProcessedDataItem> => {
+    const getX = accessors.getX
+    const getY = accessors.getY
+    const getColor = accessors.getColor
+    const getSize = accessors.getSize
+    return data.map((seriesData, index) => ({
         id: seriesData.id,
         index,
         x: seriesData.data.map(item => getX(item)),
         y: seriesData.data.map(item => getY(item)),
-        r: seriesData.data.map(item => getR(item)),
-    }
+        size: seriesData.data.map(item => getSize(item)),
+        color: getColor ? seriesData.data.map(item => getColor(item)) : undefined,
+    }))
 }
 
 // turn processed data into view-specific coordinates
 const prepareData = (
-    seriesData: ScatterProcessedDataItem,
-    scaleX: ContinuousAxisScale,
-    scaleY: ContinuousAxisScale
-): ScatterProcessedDataItem => {
-    return {
+    data: Array<ScatterProcessedDataItem>,
+    scales: ScalesContextProps
+): Array<ScatterPreparedDataItem> => {
+    const scaleX = scales.x as ContinuousAxisScale
+    const scaleY = scales.y as ContinuousAxisScale
+    const scaleSize = scales.size as ContinuousAxisScale
+    const scaleColor = scales.color as ColorScale
+    return data.map(seriesData => ({
         id: seriesData.id,
         index: seriesData.index,
         x: seriesData.x.map(v => scaleX(v)),
         y: seriesData.y.map(v => scaleY(v)),
-        r: seriesData.r,
-    }
-}
-
-const getScaleProps = (
-    data: Array<ScatterProcessedDataItem>,
-    scaleSpecX: ContinuousScaleSpec,
-    scaleSpecY: ContinuousScaleSpec,
-    size: SizeSpec,
-    disabled: boolean[]
-) => {
-    const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as ContinuousScaleProps,
-    }
-    const filterDisabled = (v: unknown, i: number) => !disabled[i]
-    if (!isScaleWithDomain(scaleSpecX)) {
-        const x = data
-            .filter(filterDisabled)
-            .map(seriesData => seriesData.x)
-            .flat()
-        result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
-    }
-    if (!isScaleWithDomain(scaleSpecY)) {
-        const y = data
-            .filter(filterDisabled)
-            .map(seriesData => seriesData.y)
-            .flat()
-        result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
-    }
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.size = size[Y]
-    return result
+        r: seriesData.size.map(v => scaleSize(v)),
+        color: seriesData.color ? seriesData.color.map(v => scaleColor(v)) : undefined,
+    }))
 }
 
 export const Scatter = ({
@@ -99,10 +94,12 @@ export const Scatter = ({
     data,
     x,
     y,
-    r,
+    valueColor = null,
+    valueSize = 5,
     scaleX = defaultLinearScaleSpec,
     scaleY = defaultLinearScaleSpec,
     scaleColor,
+    scaleSize = defaultSizeScaleSpec,
     autoRescale = true,
     //
     children,
@@ -114,28 +111,30 @@ export const Scatter = ({
     const { disabled } = useDisabledKeys(seriesIds)
 
     // process dataset
-    const getX = useMemo(() => getAccessor(x), [x])
-    const getY = useMemo(() => getAccessor(y), [y])
-    const getR = useMemo(() => (typeof r === 'number' ? () => r : getAccessor(r)), [r])
-    const processedData = data.map((seriesData, seriesIndex) =>
-        processData(seriesData, seriesIndex, getX, getY, getR)
+    const accessors = useMemo(
+        () => getAccessors({ x, y, valueSize, valueColor }),
+        [x, y, valueSize, valueColor]
     )
+    const processedData = useMemo(() => processData(data, accessors), [data, accessors])
 
     // set up scales
-    const { scalePropsX, scalePropsY } = getScaleProps(
+    const { scalePropsX, scalePropsY } = getXYScaleProps(
         processedData,
         scaleX,
         scaleY,
         dimsProps.innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
-    const scales = createScales(scalePropsX, scalePropsY, scaleColorProps)
+    const scaleColorProps = getColorScaleProps(
+        processedData,
+        scaleColor ?? theme.Colors.categorical,
+        seriesIds
+    )
+    const sizeScaleProps = getSizeScaleProps(processedData, scaleSize, valueSize)
+    const scales = createScales(scalePropsX, scalePropsY, scaleColorProps, sizeScaleProps)
 
     // compute coordinates
-    const preparedData = processedData.map(seriesData =>
-        prepareData(seriesData, scales.x as ContinuousAxisScale, scales.y as ContinuousAxisScale)
-    )
+    const preparedData = useMemo(() => prepareData(processedData, scales), [processedData, scales])
 
     return (
         <BaseView

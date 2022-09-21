@@ -7,10 +7,10 @@ import {
     useScales,
     useDisabledKeys,
 } from '@chask/core'
-import { ScatterLabelProps, ScatterProcessedDataItem } from './types'
+import { ScatterLabelProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 
-const getClosestPointToX = (target: number, data: ScatterProcessedDataItem, avoidIndex = -1) => {
+const getClosestPointToX = (target: number, data: ScatterPreparedDataItem, avoidIndex = -1) => {
     if (data.x.length === 1) return 0
     let result = avoidIndex !== 0 ? 0 : 1
     let bestDistance = Math.abs(target - data.x[result])

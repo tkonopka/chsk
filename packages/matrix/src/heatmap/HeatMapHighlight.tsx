@@ -19,7 +19,7 @@ import {
     getMinMax,
 } from '@chask/core'
 import { HeatMapHighlightProps } from './types'
-import { isHeatMapSetting } from './utils'
+import { isHeatMapSetting } from './predicates'
 
 const createDetectorIntervals = (
     scaleX: BandAxisScale,

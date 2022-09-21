@@ -1,4 +1,4 @@
-import { getAccessor, getAbsoluteSize } from '../src/general'
+import { getAccessor, getAbsoluteSize, getNumberAccessor } from '../src/general'
 
 describe('getAbsoluteSize', () => {
     it('returns an absolute size as-is', () => {
@@ -34,5 +34,30 @@ describe('getAccessor', () => {
         const customFunction = (obj: Record<string, unknown>) => obj.a + ' ' + obj.b
         const result = getAccessor<string>(customFunction)
         expect(result(testdata)).toEqual('alpha 20')
+    })
+})
+
+describe('getNumberAccessor', () => {
+    it('create a function to get numbers from an object', () => {
+        const testdata = { a: 'alpha', b: 20 }
+        const result = getNumberAccessor('b')
+        expect(result(testdata)).toEqual(20)
+    })
+
+    it('create a function to get a constant number', () => {
+        const testdata = { a: 'alpha', b: 20 }
+        const result = getNumberAccessor(123)
+        expect(result(testdata)).toEqual(123)
+    })
+
+    it('create a function to get a custom string from an object', () => {
+        type TestType = {
+            a: number
+            b: number
+        }
+        const testdata: TestType = { a: 1, b: 2 }
+        const customFunction = (obj: Record<string, unknown>) => Number(obj.a) + Number(obj.b)
+        const result = getNumberAccessor(customFunction)
+        expect(result(testdata)).toEqual(3)
     })
 })
