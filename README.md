@@ -4,7 +4,9 @@
 
 Chask is a charting library for React.
 
-The library provides infrastructure to build dynamic visualizations from the ground up. It contains components to create some commonly-used charts such as bar charts or line charts, and to customize these charts with bespoke elements and styles. It also supports animations for chart-based story-telling.
+The library provides infrastructure to build dynamic visualizations from the ground up. It contains components to create some commonly-used charts such as bar charts or line charts, and tools to create any other chart type with bespoke elements and styles. It also supports animations for chart-based story-telling.
+
+The goal for the library is to provide a stable toolkit to create complete charts for static publications, dynamic components for dashboards, and animated stories for presentations.
 
 Detailed documentation is available [here](https://tkonopka.github.io/chask/).
 

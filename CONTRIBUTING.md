@@ -20,6 +20,20 @@ npm run bootstrap   # install further dependencies for the chask packages
 
 ## Development
 
+### Code structure
+
+Some rules-of-thumb for code structure:
+
+-   **Components** are defined in dedicated files, e.g. `Component.tsx`
+-   **Utility functions** that may be used by components are in separate files, e.g. `utils.ts`. Utility functions are typically not exported out of a package.
+
+Some directories have files with standardized names that convey their purpose:
+
+-   **index.tsx** files export components and types. These files do not define new objects.
+-   **types.tsx** files define types and interfaces. These files typically do not define functions or other objects.
+-   **context.tsx** files define a trio of a data context object, a context provider, and a hook.
+-   **predicates.ts** files define predicate functions associated with certain data types, e.g. context data.
+
 ### Code style
 
 Code style is maintained using `prettier`.
@@ -65,7 +79,7 @@ npm run test-coverage
 cd ../../
 ```
 
-### Storybook
+## Documentation
 
 The package documentation is managed using `storybook`.
 
@@ -84,3 +98,7 @@ npm run serve-storybook
 
 Note that the live documentation site is built and deployed automatically via github actions.
 Changes to the live documentation site will appear a few minutes after changes to the main branch.
+
+## Examples
+
+A gallery of charts is maintained in directory `examples`.
