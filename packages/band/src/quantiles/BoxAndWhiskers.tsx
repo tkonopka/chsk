@@ -1,4 +1,5 @@
 import { BoxAndWhiskersProps } from './types'
+import { Line, Rectangle } from '@chask/core'
 
 export const BoxAndWhiskers = ({
     data,
@@ -24,7 +25,7 @@ export const BoxAndWhiskers = ({
         : 'translate(' + cx + ',' + cy + ')'
 
     const box = (
-        <rect
+        <Rectangle
             x={-halfBand}
             y={-cy + coords[3]}
             width={data.bandWidth}
@@ -34,7 +35,7 @@ export const BoxAndWhiskers = ({
         />
     )
     const lines = [
-        <line
+        <Line
             key={'median'}
             x1={-halfBand}
             x2={+halfBand}
@@ -43,15 +44,19 @@ export const BoxAndWhiskers = ({
             style={medianStyle}
             className={className}
         />,
-        <line
+        <Line
             key={'whisker-upper'}
+            x1={0}
+            x2={0}
             y1={-cy + coords[3]}
             y2={-cy + coords[4]}
             style={whiskerStyle}
             className={className}
         />,
-        <line
+        <Line
             key={'whisker-lower'}
+            x1={0}
+            x2={0}
             y1={-cy + coords[1]}
             y2={-cy + coords[0]}
             style={whiskerStyle}
@@ -59,7 +64,7 @@ export const BoxAndWhiskers = ({
         />,
     ]
     const caps = [
-        <line
+        <Line
             key={'whisker-upper-cap'}
             x1={-halfCap}
             x2={halfCap}
@@ -68,7 +73,7 @@ export const BoxAndWhiskers = ({
             style={whiskerStyle}
             className={className}
         />,
-        <line
+        <Line
             key={'whisker-lower-cap'}
             x1={-halfCap}
             x2={halfCap}

@@ -11,7 +11,7 @@ import {
 } from '@chask/core'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
-import { isBarProcessedData } from './utils'
+import { isBarProcessedData } from './predicates'
 
 export const BarsLabels = ({
     ids,

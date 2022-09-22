@@ -26,7 +26,8 @@ import {
 } from './types'
 import { QuantilePreparedDataProvider } from './context'
 import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
-import { getQuantiles, isQuantileProcessedSummary } from './utils'
+import { getQuantiles } from './utils'
+import { isQuantileProcessedSummary } from './predicates'
 
 // turn raw data into objects with computed quantile levels
 const processData = (
