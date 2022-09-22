@@ -20,4 +20,5 @@ export const emptyTheme: CompleteThemeSpec = {
     LegendSizeScale: {},
     View: {},
     Colors: defaultTheme.Colors,
+    Motion: {},
 }

@@ -100,11 +100,12 @@ export const generateRegressionData = (
     coefficients = [1, 1],
     noise = 0.1
 ): Array<unknown> => {
-    return Array(n)
+    const xValues = Array(n)
         .fill(0)
-        .map(() => {
-            const x = randomUniformValue(xInterval[0], xInterval[1])
-            const y = coefficients[0] + coefficients[1] * x + randomNormalValue(0, noise)
-            return { x, y }
-        })
+        .map(() => randomUniformValue(xInterval[0], xInterval[1]))
+        .sort((a, b) => a - b)
+    return xValues.map(x => {
+        const y = coefficients[0] + coefficients[1] * x + randomNormalValue(0, noise)
+        return { x, y }
+    })
 }

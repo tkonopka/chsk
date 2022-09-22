@@ -3,6 +3,7 @@ import { animate } from 'framer-motion'
 import { getAlignPosition, NumericPositionSpec, roundDecimalPlaces, X, Y } from '../general'
 import { CounterProps } from './types'
 import { Typography } from './Typography'
+import { useTheme } from '../themes'
 
 export const Counter = ({
     variant = 'counter',
@@ -17,6 +18,7 @@ export const Counter = ({
     setRole = true,
     children,
 }: CounterProps) => {
+    const theme = useTheme()
     const [value, setValue] = useState(Number(children))
     const [working, setWorking] = useState(false)
 
@@ -25,6 +27,7 @@ export const Counter = ({
 
     if (Number(value) != Number(children) && !working) {
         animate(value, Number(children), {
+            duration: theme.Motion.duration,
             onUpdate: latest => {
                 setValue(roundDecimalPlaces(latest, nDecimalPlaces))
                 setWorking(true)

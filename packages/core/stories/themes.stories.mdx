@@ -7,18 +7,17 @@ export const Template = args => <ChartWithAxisGrid {...args} />
 
 # Themes
 
-Themes set global styles for a chart.
-By setting styles globally and not for individual components, themes make code less verbose.
+Themes define the default look-and-feel for a chart.
+By setting styles for an entire chart and not for individual components, themes make code less verbose.
 Themes also help in preparing multiple charts with a consistent appearance.
 
-<div className="sidenote">
-    **Side note**: This page describes the theme syntax with a minimal example. For additional
-    information, including about ready-made themes, see the [themes
-    addon](/?path=/docs/addons-themes-overview--page).
-</div>
+A theme object is a nested dictionary.
 
-A theme object is a nested dictionary. For example, the object below changes styles
-for text, surface, line, and tick components.
+-   Keys in the first nested layer should match svg components, e.g. `text` or `path`, or chask components, e.g. `Axis` or `Legend`.
+-   Keys in the second nested layer should match 'variants'.
+-   Keys in the third nested layer should match component props.
+
+For example, the object below changes styles for text, geometric components, and tick components.
 
 <Source
     language="javascript"
@@ -40,7 +39,7 @@ const customTheme = {
     // visible axis line
     axis: {
         stroke: '#222222',
-        visibility: 'hidden' as const,
+        visibility: 'visible' as const,
         strokeWidth: '2px',
     },
     // grid lines in light gray
@@ -57,28 +56,19 @@ const customTheme = {
   // ticks facing into the chart
   AxisTicks: {
     left: {
-        size: -6,
-        padding: 6,
+        tickSize: -6,
+        labelOffset: 6,
     },
     bottom: {
-        size: -6,
-        padding: 6,
+        tickSize: -6,
+        labelOffset: 6,
     },
   }
 }`}
 />
 
-To apply the custom theme to a chart, pass it to the prop `theme` as in the pseudo-code below.
-
-<Source
-    language="javascript"
-    code={`
-<Chart {...props} theme={customTheme}>
-  ...
-</Chart>`}
-/>
-
-The examples below display the same content with the default and the custom themes.
+To apply the custom theme to a chart, use prop `theme`.
+The charts below display the same content with the default and the custom themes.
 
 <Canvas>
     <Story
@@ -105,7 +95,7 @@ The examples below display the same content with the default and the custom them
 </Canvas>
 
 When two charts appear on the same page, as above, a theme for one chart may affect/override the appearance of another chart.
-(This happens because the `<style>` tag in HTML documents specify global settings.)
+(This happens because the `<style>` tag in HTML documents specify global settings, no matter how they are nested.)
 To avoid such cross-talk, set a unique identifier for each chart via the prop `id`.
 
 <Source
@@ -118,3 +108,6 @@ To avoid such cross-talk, set a unique identifier for each chart via the prop `i
   ...
 </Chart>`}
 />
+
+For additional information about themes, including about ready-made themes, see the
+[themes addon](/?path=/docs/addons-themes-overview--page).

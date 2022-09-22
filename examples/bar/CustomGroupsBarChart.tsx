@@ -39,7 +39,7 @@ export const generateCustomGroupsBarData = () => {
         .concat(arrangeBarData(idsC, valuesC, 'C'))
 }
 
-const multiviewTheme: ThemeSpec = {
+const customTheme: ThemeSpec = {
     line: {
         axis: {
             visibility: 'visible',
@@ -85,7 +85,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
         id="customGroups"
         size={[600, 280]}
         padding={[40, 40, 60, 75]}
-        theme={multiviewTheme}
+        theme={customTheme}
     >
         <Bar position={[0, 0]} {...customGroupsBarProps} data={rawData}>
             <MilestoneMotion initial={'invisible'} initialOn={'axes'}>

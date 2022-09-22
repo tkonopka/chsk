@@ -65,7 +65,7 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 data={rawData}
                 x={'x'}
                 y={'y'}
-                r={3}
+                valueSize={3}
                 scaleX={{
                     variant: 'linear',
                     domain: 'auto',

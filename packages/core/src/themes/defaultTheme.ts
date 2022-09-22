@@ -196,4 +196,9 @@ export const defaultTheme: CompleteThemeSpec = {
             domain: 'auto',
         },
     },
+    Motion: {
+        mass: 0.5,
+        stiffness: 250,
+        damping: 25,
+    },
 }

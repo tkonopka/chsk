@@ -69,6 +69,9 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
             labelOffset: 11,
         },
     },
+    spring: {
+        duration: 0.6, // Counters only respond to 'duration' and not to 'stiffness', 'damping' etc.
+    },
 })
 
 const HeatMapCounter = ({ x, y, width, height, className, style, cellValue }: HeatMapCellProps) => {

@@ -1,0 +1,130 @@
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart } from '../src'
+import { customTheme, ChartWithAxisGrid, DivDecorator } from './themes.helpers'
+
+<Meta title="Core/Colors" />
+export const Template = args => <ChartWithAxisGrid {...args} />
+
+# Colors
+
+While colors for individual components can be set via css styles with props such as `style`
+(sometimes `labelStyle`, `symbolStyle` or similar), color schemes are set via scales with prop `scaleColor`.
+
+Color scales in chask are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic),
+with minor adjustments. All scales are specified with objects that define a scale variant, domain, and other properties.
+
+## Categorical colors
+
+Categorical scales use a discrete set of colors.
+The example below defines a custom scale by explicitly listing color codes.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'categorical',
+  colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
+  size: 6,
+}`}
+/>
+
+Instead of providing an array of colors, it is possible to use a color schemes from
+[d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), for example with pastel colors.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'categorical',
+  colors: 'Pastel2'
+}`}
+/>
+
+It is also possible to use d3's sequential color schemes (see below) to define categorical colors,
+for example to use a fixed number of shades of blue.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'categorical',
+  colors: 'Blues',
+  size: 4,
+}`}
+/>
+
+## Sequential colors
+
+Sequential scales convert numbers from a domain into continuous color shades. Simple scales are defined by two values
+representing domain edges, and two colors representing edge colors.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sequential',
+  colors: ['#ffffff', '#0000ff'],
+  domain: [0, 2]
+}`}
+/>
+
+Several sequential color schemes are available through [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+
+When a sequential scale is used in a 'view' component (e.g. `View` from the core package, but also `Bar`, `Scatter`, `HeatMap` and others from addon packages), the domain of the scale can be determined automatically from data. The example below forces a scale to start at a value of 0, but leaves the upper domain bound to be determined from data.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sequential',
+  colors: 'Blues',
+  domain: [0, 'auto']
+}`}
+/>
+
+## Diverging colors
+
+Diverging color scales are similar to sequential colors, except that the domain is defined with an additional 'center'
+point. The example below defines a blue-white-red scheme centered at a value zero.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'diverging',
+  colors: ['#0000ff', '#ffffff', '#ff0000'],
+  domain: [-1, 0, 1]
+}`}
+/>
+
+As with sequential schemes, colors can be set using [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) names.
+Domain values can be set to 'auto'.
+
+## Theming
+
+Default color scales can be set using themes. The specifications should be provided under key `Colors`.
+The object below carries the color specifications for the default theme.
+
+<Source
+    language="javascript"
+    code={`
+const customTheme = {
+  Colors: {
+    categorical: {
+        variant: 'categorical',
+        colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
+        size: 6,
+    },
+    sequential: {
+        variant: 'sequential',
+        colors: 'YlOrBr' as const,
+        domain: 'auto',
+    },
+    diverging: {
+        variant: 'diverging',
+        colors: 'BrBG' as const,
+        domain: 'auto',
+    },
+  }
+}`}
+/>

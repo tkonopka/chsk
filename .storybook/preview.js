@@ -18,7 +18,7 @@ export const parameters = {
                 'Getting started',
                 'Using the documentation',
                 'Core',
-                ['Overview', 'Components', 'Hooks', 'Common props', 'Themes', 'Examples'],
+                ['Overview', 'Components', 'Hooks', 'Themes', 'Colors', 'Animations', 'Skeletons'],
                 'Addons',
                 [
                     'Annotation',

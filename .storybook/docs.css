@@ -15,16 +15,19 @@ h1,
 h2,
 h3,
 h4,
-p {
+p,
+li {
     font-family: sans-serif;
     color: #222;
 }
 
-.sbdocs p {
+.sbdocs p,
+.sbdocs li {
     max-width: 800px;
 }
 
-p {
+p,
+li {
     line-height: 1.6;
     font-size: 17px;
 }
@@ -39,6 +42,7 @@ p code {
 
 div.sidenote {
     padding: 0.5em 1.5em;
+    max-width: 800px;
     background-color: #f8f8f8;
 }
 

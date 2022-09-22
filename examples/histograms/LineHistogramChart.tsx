@@ -32,7 +32,7 @@ const customHistogramTheme: ThemeSpec = {
             textAnchor: 'middle',
             dominantBaseline: 'auto',
         },
-        intervalLabel: {
+        lineLabel: {
             textAnchor: 'middle',
             fontWeight: 400,
             fill: '#222255',
@@ -87,7 +87,6 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                         start={[-2, -0.05]}
                         end={[2, -0.05]}
                         units={['view', 'relative']}
-                        textStyle={{ textAnchor: 'middle', fill: '#222255' }}
                         align={0.5}
                     >
                         Primary population

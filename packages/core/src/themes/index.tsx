@@ -1,6 +1,6 @@
 export * from './defaultTheme'
 export * from './emptyTheme'
 export * from './context'
-export * from './styles'
+export * from './Styles'
 export * from './utils'
 export * from './types'

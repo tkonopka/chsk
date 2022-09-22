@@ -32,6 +32,14 @@ export interface ColorsRecords extends Record<string, ColorScaleSpec | undefined
     sequential: SequentialScaleSpec
 }
 
+export interface MotionProps {
+    duration?: number
+    bounce?: number
+    mass?: number
+    stiffness?: number
+    damping?: number
+}
+
 export interface ThemeSpec {
     circle?: Record<string, Partial<CSSProperties>>
     g?: Record<string, Partial<CSSProperties>>
@@ -51,6 +59,7 @@ export interface ThemeSpec {
     LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     View?: Record<string, Partial<ViewThemedProps> | undefined>
     Colors?: Record<string, ColorScaleSpec | undefined>
+    Motion?: MotionProps
 }
 
 export interface CompleteThemeSpec {
@@ -72,6 +81,7 @@ export interface CompleteThemeSpec {
     LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     View: Record<string, ViewThemedProps | undefined>
     Colors: ColorsRecords
+    Motion: MotionProps
 }
 
 export const svgBaseComponents = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'] as const

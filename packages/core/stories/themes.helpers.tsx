@@ -35,12 +35,12 @@ export const customTheme: ThemeSpec = {
     // tick lines facing into the chart
     AxisTicks: {
         left: {
-            size: -6,
-            padding: 6,
+            tickSize: -6,
+            labelOffset: 6,
         },
         bottom: {
-            size: -6,
-            padding: 6,
+            tickSize: -6,
+            labelOffset: 6,
         },
     },
 }

@@ -1,9 +1,10 @@
 import { useImperativeHandle, useState } from 'react'
-import { domAnimation, LazyMotion } from 'framer-motion'
+import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion'
 import { ChartDataContextProps, ChartProps } from './types'
 import { DimensionsProvider, HEIGHT, LEFT, TOP, WIDTH } from '../general'
-import { emptyTheme, Styles, ThemeProvider } from '../themes'
+import { defaultTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
+import { mergeMotionConfig } from '../themes/helpers'
 
 /**
  * Tried implementing this with forwardRef so that usage could be <Chart ref={myref} />
@@ -16,7 +17,7 @@ export const Chart = ({
     id = 'chask',
     size = [500, 400],
     padding = [40, 40, 40, 40],
-    theme = emptyTheme,
+    theme,
     data = {},
     styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
     style,
@@ -48,21 +49,25 @@ export const Chart = ({
         <ThemeProvider theme={theme}>
             <DimensionsProvider size={size} padding={padding}>
                 <ChartDataProvider value={{ data: state, setData: setState }}>
-                    <LazyMotion features={domAnimation}>
-                        <svg
-                            id={id}
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={size[WIDTH]}
-                            height={size[HEIGHT]}
-                            role={'chart'}
-                            style={style}
-                        >
-                            <Styles chartId={id} styles={styles ?? []} />
-                            <g role="chart-content" transform={translate}>
-                                {children}
-                            </g>
-                        </svg>
-                    </LazyMotion>
+                    <MotionConfig
+                        transition={{ type: 'spring', ...mergeMotionConfig(defaultTheme, theme) }}
+                    >
+                        <LazyMotion features={domAnimation}>
+                            <svg
+                                id={id}
+                                xmlns="http://www.w3.org/2000/svg"
+                                width={size[WIDTH]}
+                                height={size[HEIGHT]}
+                                role={'chart'}
+                                style={style}
+                            >
+                                <Styles chartId={id} styles={styles ?? []} />
+                                <g role="chart-content" transform={translate}>
+                                    {children}
+                                </g>
+                            </svg>
+                        </LazyMotion>
+                    </MotionConfig>
                 </ChartDataProvider>
             </DimensionsProvider>
         </ThemeProvider>
