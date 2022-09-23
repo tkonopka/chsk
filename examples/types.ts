@@ -19,4 +19,6 @@ export interface ControllerProps {
     chart: FC<MilestoneStory>
     /** array of milestones */
     steps: MilestoneStep[]
+    /** comment */
+    comment?: string
 }

@@ -31,7 +31,7 @@ const allMilestones = (steps: MilestoneStep[]) => {
 // controller accepts steps as array of string and numbers
 // strings are milestones for the chart
 // numbers are wait-times between milestones for auto-play
-export const Controller = ({ generator, chart, steps = [] }: ControllerProps) => {
+export const Controller = ({ generator, chart, steps = [], comment }: ControllerProps) => {
     const [rawData, setRawData] = useState(generator())
     const ref = useRef<ChartRef>(null)
     const allSteps: string[] = steps.filter(isString) as string[]
@@ -108,12 +108,15 @@ export const Controller = ({ generator, chart, steps = [] }: ControllerProps) =>
                     </>
                 ) : null}
             </div>
-            <div className={'chart'}>
-                {createElement(chart, {
-                    fref: ref,
-                    chartData: { milestones: finalState },
-                    rawData: rawData,
-                })}
+            <div className={'controller-chart'}>
+                <div className={'chart'}>
+                    {createElement(chart, {
+                        fref: ref,
+                        chartData: { milestones: finalState },
+                        rawData: rawData,
+                    })}
+                </div>
+                <div className={'comment'}>{comment}</div>
             </div>
         </div>
     )

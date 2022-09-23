@@ -16,6 +16,7 @@ import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBa
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
+import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -70,11 +71,36 @@ import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
     </Story>
 </Canvas>
 
-The example below is inspired by [this blog post](https://observablehq.com/@observablehq/plot-diverging-stacked-bar).
-
 <Canvas>
     <Story name="survey">
-        <Controller generator={generateSurveyData} chart={SurveyBarChart} />
+        <Controller
+            generator={generateSurveyData}
+            chart={SurveyBarChart}
+            comment={
+                <span>
+                    The structure / layout in this example is inspired by{' '}
+                    <a href="https://observablehq.com/@observablehq/plot-diverging-stacked-bar">
+                        this blog post
+                    </a>
+                    .
+                </span>
+            }
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="arrows">
+        <Controller
+            generator={generateArrowsData}
+            chart={ArrowsBarChart}
+            steps={['axes', 'data']}
+            comment={
+                <span>
+                    In this 'Bar' view, a custom component draws arrows instead of rectangles.
+                </span>
+            }
+        />
     </Story>
 </Canvas>
 

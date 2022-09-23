@@ -131,3 +131,19 @@ div.controller span.tooltip {
 div.controller button:hover span.tooltip {
     visibility: visible;
 }
+div.controller-chart {
+    display: flex;
+}
+div.controller-chart div.chart {
+    display: flex;
+}
+div.controller-chart div.comment {
+    display: flex;
+    margin-left: 40px;
+    padding-bottom: 50px;
+    line-height: 1.5;
+    font-size: 15px;
+    font-family: sans-serif;
+    color: #666;
+    align-items: center;
+}
