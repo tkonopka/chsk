@@ -1,39 +1,32 @@
 import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
-import { RectangleProps } from './types'
+import { SymbolProps } from './types'
+import { squareHalfSide } from './symbols'
 
-export const Rectangle = ({
+export const Square = ({
     variant = 'default',
-    x,
-    y,
-    width,
-    height,
-    rx,
-    ry,
-    center = false,
+    cx = 0,
+    cy = 0,
+    r = 1,
     className,
     style,
     setRole = true,
     ...props
-}: RectangleProps) => {
+}: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
-    if (width < 0) {
-        width = Math.abs(width)
-        x -= width
+    const scaledHalfSide = squareHalfSide * r
+    const config = {
+        x: cx - scaledHalfSide,
+        y: cy - scaledHalfSide,
+        width: 2 * scaledHalfSide,
+        height: 2 * scaledHalfSide,
     }
-    if (height < 0) {
-        height = Math.abs(height)
-        y -= height
-    }
-    const config = { x: center ? x - width / 2 : x, y: center ? y - height / 2 : y, width, height }
     return (
         <m.rect
+            role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            rx={rx}
-            ry={ry}
-            role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
             onMouseLeave={props.onMouseLeave}

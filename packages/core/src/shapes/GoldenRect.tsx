@@ -1,39 +1,31 @@
 import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
-import { RectangleProps } from './types'
+import { SymbolProps } from './types'
+import { goldenRectHeight, goldenRectWidth } from './symbols'
 
-export const Rectangle = ({
+export const GoldenRect = ({
     variant = 'default',
-    x,
-    y,
-    width,
-    height,
-    rx,
-    ry,
-    center = false,
+    cx = 0,
+    cy = 0,
+    r = 1,
     className,
     style,
     setRole = true,
     ...props
-}: RectangleProps) => {
+}: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
-    if (width < 0) {
-        width = Math.abs(width)
-        x -= width
+    const config = {
+        x: cx - (r * goldenRectWidth) / 2,
+        y: cy - (r * goldenRectHeight) / 2,
+        width: r * goldenRectWidth,
+        height: r * goldenRectHeight,
     }
-    if (height < 0) {
-        height = Math.abs(height)
-        y -= height
-    }
-    const config = { x: center ? x - width / 2 : x, y: center ? y - height / 2 : y, width, height }
     return (
         <m.rect
+            role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            rx={rx}
-            ry={ry}
-            role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
             onMouseLeave={props.onMouseLeave}

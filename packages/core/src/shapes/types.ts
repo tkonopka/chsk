@@ -1,6 +1,7 @@
 import { NumericPositionSpec, SvgElementVariantProps } from '../general'
+import { InteractivityProps } from '../interactivity'
 
-export interface CircleProps extends SvgElementVariantProps {
+export interface SymbolProps extends SvgElementVariantProps, InteractivityProps {
     /** x coordinate */
     cx?: number
     /** y coordinate */
@@ -9,7 +10,7 @@ export interface CircleProps extends SvgElementVariantProps {
     r?: number
 }
 
-export interface RectangleProps extends SvgElementVariantProps {
+export interface RectangleProps extends SvgElementVariantProps, InteractivityProps {
     /** x coordinate */
     x: number
     /** y coordinate */
@@ -26,9 +27,7 @@ export interface RectangleProps extends SvgElementVariantProps {
     center?: boolean
 }
 
-export interface PolygonProps extends SvgElementVariantProps {
+export interface PolygonProps extends SvgElementVariantProps, InteractivityProps {
     /** points */
     points: NumericPositionSpec[]
 }
-
-export type SymbolProps = CircleProps

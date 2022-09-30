@@ -48,7 +48,7 @@ export const HistogramBars = ({
         const bars = points
             .map((point: NumericPositionSpec, i: number) => {
                 if (i === 0 || i === n - 1) return null
-                // finding with width of the bin is complicated because the points are potentially not evenly-spaced
+                // finding the width of the bin is complicated because the points are potentially not evenly-spaced
                 // also, the boundary points have different properties than middle points
                 const previous = points[i - 1]
                 const next = points[i + 1]

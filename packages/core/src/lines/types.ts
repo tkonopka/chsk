@@ -3,6 +3,7 @@ import {
     NumericPositionSpec,
     SvgElementVariantProps,
 } from '../general'
+import { InteractivityProps } from '../interactivity'
 
 export interface GridLinesProps extends SvgElementVariantProps {
     /** variant */
@@ -15,7 +16,7 @@ export interface GridLinesProps extends SvgElementVariantProps {
     expansion?: number | [number, number]
 }
 
-export interface LineProps extends SvgElementVariantProps {
+export interface LineProps extends SvgElementVariantProps, InteractivityProps {
     /** starting x coordinate */
     x1: number
     /** starting y coordinate */
@@ -54,7 +55,7 @@ export type CurveFunction = (xy: Array<NumericPositionSpec>) => string | null
 
 export type AreaFunction = (xy: Array<NumericPositionIntervalSpec>) => string | null
 
-export interface PathProps extends SvgElementVariantProps {
+export interface PathProps extends SvgElementVariantProps, InteractivityProps {
     /** variant */
     variant?: 'default' | string
     /** array of coordinates */

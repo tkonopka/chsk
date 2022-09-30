@@ -12,6 +12,8 @@ export const Path = ({
     className,
     setRole = true,
     style,
+    // interactivity
+    ...props
 }: PathProps) => {
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
@@ -24,6 +26,10 @@ export const Path = ({
             role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
+            onMouseLeave={props.onMouseLeave}
+            onMouseEnter={props.onMouseEnter}
+            onMouseMove={props.onMouseMove}
+            onClick={props.onClick}
         />
     )
 }

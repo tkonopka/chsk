@@ -234,12 +234,12 @@ describe('GoldenRect', () => {
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
         expect(result?.getAttribute('role')).toContain('default')
-        const width = result?.getAttribute('width')
-        const height = result?.getAttribute('height')
+        const width = result?.getAttribute('width')?.replace('px', '')
+        const height = result?.getAttribute('height')?.replace('px', '')
         expect(Number(width)).toBeGreaterThan(Number(height))
     })
 
-    it('creates a default square without role', () => {
+    it('creates a default golden rectangle without role', () => {
         render(
             <Chart {...chartProps}>
                 <GoldenRect setRole={false} />

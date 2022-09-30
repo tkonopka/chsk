@@ -52,12 +52,22 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
             strokeWidth: 1,
         },
     },
+    g: {
+        'sizeScale g.legendItem:hover': {
+            cursor: 'auto',
+        },
+    },
     circle: {
         default: {
             fillOpacity: 0.7,
         },
         legendSymbol: {
             fillOpacity: 1,
+        },
+        'custom:hover': {
+            cursor: 'pointer',
+            stroke: '#222222',
+            strokeWidth: 3,
         },
     },
 })
@@ -105,7 +115,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <Axis variant={'left'} label={'y values (a.u.)'} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <ScatterPoints />
+                    <ScatterPoints symbolClassName="custom" />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
                     <Legend
@@ -131,6 +141,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         itemSize={[80, 22]}
                         itemPadding={[2, 2, 2, 2]}
                         title={'Size scale'}
+                        className={'sizeScale'}
                         interactive={false}
                         symbol={Circle}
                         symbolStyle={{ strokeWidth: 0, fill: '#bbbbbb' }}

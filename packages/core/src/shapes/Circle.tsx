@@ -1,6 +1,6 @@
-import { m } from 'framer-motion'
+import { SymbolProps } from './types'
 import { composeClassName } from '../themes'
-import { CircleProps } from './types'
+import { m } from 'framer-motion'
 
 export const Circle = ({
     variant = 'default',
@@ -10,7 +10,8 @@ export const Circle = ({
     className,
     style,
     setRole = true,
-}: CircleProps) => {
+    ...props
+}: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     const config = { cx, cy, r }
@@ -21,6 +22,10 @@ export const Circle = ({
             animate={config}
             style={style}
             className={compositeClassName}
+            onMouseLeave={props.onMouseLeave}
+            onMouseEnter={props.onMouseEnter}
+            onMouseMove={props.onMouseMove}
+            onClick={props.onClick}
         />
     )
 }

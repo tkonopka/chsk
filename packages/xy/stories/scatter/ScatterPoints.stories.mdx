@@ -1,8 +1,8 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart, Axis, Triangle, Legend } from '@chask/core'
+import { Chart, Axis, Triangle } from '@chask/core'
 import { Scatter, ScatterPoints } from '../../src'
 import { ChartScatterDecorator } from './decorators'
-import data from './dataPolynomials.json'
+import dataPolynomials from './dataPolynomials.json'
 
 # ScatterPoints
 
@@ -65,3 +65,41 @@ Symbols can be adjusted with prop `symbol`.
 </Canvas>
 
 Note that the prop `symbol` requires a function. Some symbol functions are available in the `@chask/core` package: see `Circle`, `Diamond`, `Square`, `Triangle`, and `InvertedTriangle`.
+
+## Custom
+
+<Canvas>
+    <Story name="custom">
+        <Chart
+            size={[400, 300]}
+            padding={[40, 40, 60, 60]}
+            style={{ display: 'inline-block' }}
+            theme={{
+                circle: {
+                    'custom:hover': {
+                        cursor: 'pointer',
+                    },
+                },
+            }}
+        >
+            <Scatter
+                data={dataPolynomials}
+                x={'x'}
+                y={'y'}
+                r={5}
+                scaleX={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+            >
+                <Axis variant={'bottom'} label={'x (a.u.)'} />
+                <Axis variant={'left'} label={'y (a.u.)'} />
+                <ScatterPoints symbolClassName="custom" />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>

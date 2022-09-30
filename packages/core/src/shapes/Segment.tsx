@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
 import { SymbolProps } from './types'
 import { NumericPositionSpec, X, Y } from '../general/'
@@ -20,6 +21,7 @@ export const Segment = ({
     className,
     style,
     setRole = true,
+    ...props
 }: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
@@ -27,15 +29,23 @@ export const Segment = ({
         cx + coords[X] * r,
         cy + coords[Y] * r,
     ])
+    const config = {
+        x1: points[0][X],
+        y1: points[0][Y],
+        x2: points[1][X],
+        y2: points[1][Y],
+    }
     return (
-        <line
+        <m.line
             role={setRole ? variant : undefined}
-            x1={points[0][X]}
-            y1={points[0][Y]}
-            x2={points[1][X]}
-            y2={points[1][Y]}
+            initial={config}
+            animate={config}
             style={style}
             className={compositeClassName}
+            onMouseLeave={props.onMouseLeave}
+            onMouseEnter={props.onMouseEnter}
+            onMouseMove={props.onMouseMove}
+            onClick={props.onClick}
         />
     )
 }

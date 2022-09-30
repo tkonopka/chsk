@@ -5,6 +5,8 @@ import {
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
+    DataComponentProps,
+    DataInteractivityProps,
     PositionUnit,
     ProcessedDataContextProps,
     SizeScaleSpec,
@@ -58,9 +60,16 @@ export interface ScatterProps
     scaleSize?: SizeScaleSpec
 }
 
-export interface ScatterPointsProps {
+export type ScatterPointsItem = {
+    id: string
+    index: number
+}
+
+export interface ScatterPointsProps extends DataInteractivityProps<ScatterPointsItem> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
+    /** function handling symbol-specific data */
+    dataComponent?: FC<DataComponentProps<ScatterPointsItem, SymbolProps>>
     /** symbol for individual data points */
     symbol?: FC<SymbolProps>
     /** style class for data points */

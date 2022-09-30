@@ -8,6 +8,7 @@ export const Polygon = ({
     className,
     style,
     setRole = true,
+    ...props
 }: PolygonProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
@@ -20,6 +21,10 @@ export const Polygon = ({
             points={pointsString}
             style={style}
             className={compositeClassName}
+            onMouseLeave={props.onMouseLeave}
+            onMouseEnter={props.onMouseEnter}
+            onMouseMove={props.onMouseMove}
+            onClick={props.onClick}
         />
     )
 }
