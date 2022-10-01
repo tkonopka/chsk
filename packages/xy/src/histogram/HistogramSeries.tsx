@@ -1,7 +1,7 @@
 import { HistogramCurve } from './HistogramCurve'
 import { HistogramArea } from './HistogramArea'
-import { HistogramBars } from './HistogramBars'
 import { HistogramSeriesLayer, HistogramSeriesProps } from './types'
+import { DataComponent } from '@chask/core'
 
 export const HistogramSeries = ({
     ids,
@@ -10,11 +10,12 @@ export const HistogramSeries = ({
     variant = 'default',
     areaStyle,
     curveStyle,
-    barStyle,
     className,
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: HistogramSeriesProps) => {
-    const commonProps = { variant, curve, className, setRole }
+    const commonProps = { variant, curve, className, setRole, dataComponent, ...props }
     const result = layers.map((layer: HistogramSeriesLayer) => {
         if (layer === 'curve') {
             return (
@@ -33,16 +34,6 @@ export const HistogramSeries = ({
                     ids={ids}
                     {...commonProps}
                     style={areaStyle}
-                />
-            )
-        }
-        if (layer === 'bars') {
-            return (
-                <HistogramBars
-                    key={'scatter-series-bars'}
-                    ids={ids}
-                    {...commonProps}
-                    style={barStyle}
                 />
             )
         }

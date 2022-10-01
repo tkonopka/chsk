@@ -1,5 +1,7 @@
+import { createElement } from 'react'
 import {
     addColor,
+    DataComponent,
     NumericPositionSpec,
     OpacityMotion,
     Path,
@@ -24,32 +26,41 @@ export const ScatterCurve = ({
     style,
     className = 'scatterCurve',
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()
     const colorScale = useScales().color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {
+        const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
         const points = getScatterCurvePoints(preparedData.data[seriesIndex])
+        const element = createElement(dataComponent, {
+            data: { id },
+            component: Path,
+            props: {
+                points,
+                curve,
+                variant,
+                className,
+                style: seriesStyle,
+                setRole,
+            },
+            ...props,
+        })
         return (
             <OpacityMotion
                 role={'scatter-curve'}
                 key={'scatter-curve-' + seriesIndex}
+                visible={visible}
                 firstRender={firstRender}
             >
-                <Path
-                    points={points}
-                    curve={curve}
-                    variant={variant}
-                    className={className}
-                    style={seriesStyle}
-                    setRole={setRole}
-                />
+                {element}
             </OpacityMotion>
         )
     })

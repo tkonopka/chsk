@@ -5,8 +5,9 @@ import {
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
-    DataComponentProps,
     DataInteractivityProps,
+    LineProps,
+    PathProps,
     PositionUnit,
     ProcessedDataContextProps,
     SizeScaleSpec,
@@ -60,16 +61,15 @@ export interface ScatterProps
     scaleSize?: SizeScaleSpec
 }
 
-export type ScatterPointsItem = {
+export type ScatterInteractiveDataItem = {
     id: string
-    index: number
+    index?: number
 }
 
-export interface ScatterPointsProps extends DataInteractivityProps<ScatterPointsItem> {
+export interface ScatterPointsProps
+    extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
-    /** function handling symbol-specific data */
-    dataComponent?: FC<DataComponentProps<ScatterPointsItem, SymbolProps>>
     /** symbol for individual data points */
     symbol?: FC<SymbolProps>
     /** style class for data points */
@@ -78,7 +78,9 @@ export interface ScatterPointsProps extends DataInteractivityProps<ScatterPoints
     symbolStyle?: CssProps
 }
 
-export interface ScatterCurveProps extends SvgElementVariantProps {
+export interface ScatterCurveProps
+    extends SvgElementVariantProps,
+        DataInteractivityProps<ScatterInteractiveDataItem, PathProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** curve type */
@@ -102,21 +104,30 @@ export interface ScatterLabelProps extends SvgElementVariantProps {
     children?: ReactNode
 }
 
-export interface ScatterIntervalProps extends ScatterCurveProps {
+export interface ScatterIntervalProps
+    extends ScatterCurveProps,
+        DataInteractivityProps<ScatterInteractiveDataItem, PathProps> {
     /** key or function to extract lower bound for interval */
     lower: string | AccessorFunction<number>
     /** key or function to extract upper bound for interval */
     upper: string | AccessorFunction<number>
 }
 
-export interface ScatterAreaProps extends ScatterCurveProps {
+export interface ScatterAreaProps
+    extends ScatterCurveProps,
+        DataInteractivityProps<ScatterInteractiveDataItem, PathProps> {
     /** base for the area polygon */
     baseline?: number
 }
 
 export type ScatterSeriesLayer = 'area' | 'curve' | 'interval' | 'points'
 
-export interface ScatterSeriesProps extends ScatterPointsProps, ScatterAreaProps {
+export interface ScatterSeriesProps
+    extends ScatterPointsProps,
+        Omit<
+            ScatterAreaProps,
+            'dataComponent' | 'onMouseEnter' | 'onMouseMove' | 'onMouseLeave' | 'onClick'
+        > {
     /** list of components to display */
     layers: ScatterSeriesLayer[]
     /** styles for areas */
@@ -127,7 +138,14 @@ export interface ScatterSeriesProps extends ScatterPointsProps, ScatterAreaProps
     symbolStyle?: CssProps
 }
 
-export interface RegressionProps extends SvgElementVariantProps {
+export type RegressionInteractiveData = {
+    ids: string[]
+    variant: 'series' | 'pooled'
+}
+
+export interface RegressionProps
+    extends SvgElementVariantProps,
+        DataInteractivityProps<RegressionInteractiveData, LineProps> {
     /** compute regressions for individual series or for pooled data */
     variant?: 'series' | 'pooled'
     /** ids to display (defaults to all ids) */

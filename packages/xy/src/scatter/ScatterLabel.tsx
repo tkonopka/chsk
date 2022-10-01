@@ -42,9 +42,9 @@ export const ScatterLabel = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {
+        const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
         const data = preparedData.data[seriesIndex]
         if (data.x.length === 0) return null
         // convert input x to a coordinate and search for the closest data points
@@ -67,6 +67,7 @@ export const ScatterLabel = ({
             <OpacityMotion
                 key={'scatter-label-' + seriesIndex}
                 role={'scatter-label'}
+                visible={visible}
                 firstRender={firstRender}
             >
                 <Typography

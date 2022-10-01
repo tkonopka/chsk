@@ -1,5 +1,6 @@
+import { useState } from 'react'
 import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chask/core'
-import { Scatter, ScatterPoints, isScatterData, ScatterPointsItem } from '@chask/xy'
+import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -42,9 +43,9 @@ const customTheme = {
 export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
-    const [active, setActive] = useState<ScatterPointsItem | null>(null)
-
-    const customOnMouseEnter = (data: { id: string; index: number } | undefined) => {
+    type ScatterItem = { id: string; index?: number }
+    const [active, setActive] = useState<ScatterItem | null>(null)
+    const customOnMouseEnter = (data: ScatterItem | undefined) => {
         setActive(data ?? null)
     }
     const customOnMouseLeave = () => {
@@ -119,7 +120,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                 }}
             >
                 <div style={{ fontWeight: 600, color: '#444444', marginBottom: '0.75rem' }}>
-                    This is an html component. It responds to mouse-enter and mouse-leave events.
+                    This is an html div element. It responds to mouse-enter and mouse-leave events.
                 </div>
                 {active ? (
                     <span>

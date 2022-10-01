@@ -12,10 +12,12 @@ import {
     useScales,
     OpacityMotion,
     useDisabledKeys,
+    DataComponent,
+    Path,
 } from '@chask/core'
 import { ScatterDataContextProps, ScatterIntervalProps } from './types'
 import { useScatterPreparedData } from './context'
-import { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 
 const getScatterIntervalD = ({
     seriesIndex,
@@ -58,6 +60,8 @@ export const ScatterInterval = ({
     style,
     className,
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: ScatterIntervalProps) => {
     const preparedData = useScatterPreparedData()
     const rawData = useRawData()
@@ -69,9 +73,9 @@ export const ScatterInterval = ({
     if (!isContinuousAxisScale(scaleY)) return null
 
     const result = (ids ?? preparedData.keys).map(id => {
+        const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         const d = useMemo(
             () =>
@@ -86,18 +90,26 @@ export const ScatterInterval = ({
                 }),
             [seriesIndex, rawData, preparedData, scaleY, lower, upper, curve]
         )
+        const element = createElement(dataComponent, {
+            data: { id },
+            component: Path,
+            props: {
+                variant,
+                d,
+                setRole,
+                style: seriesStyle,
+                className,
+            },
+            ...props,
+        })
         return (
             <OpacityMotion
                 role={'scatter-interval'}
                 key={'scatter-interval-' + seriesIndex}
+                visible={visible}
                 firstRender={firstRender}
             >
-                <path
-                    d={d}
-                    role={setRole ? variant : undefined}
-                    style={seriesStyle}
-                    className={className}
-                />
+                {element}
             </OpacityMotion>
         )
     })

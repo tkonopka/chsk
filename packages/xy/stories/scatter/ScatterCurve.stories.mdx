@@ -13,10 +13,6 @@ export const Template = args => <ScatterCurve {...args} />
 
 <ArgsTable of={ScatterCurve} />
 
-Note that `ScatterCurve` uses all the points in a series. For noisy data, this may produce spiky lines. To display a best-fit line instead, see `ScatterRegression` instead.
-
-The examples on this page use a dataset with series with ids `linear` and `quadratic`.
-
 ## Curves
 
 The prop `curve` controls the type of interpolation between points.
@@ -45,6 +41,8 @@ The prop `curve` controls the type of interpolation between points.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+Note that `ScatterCurve` uses all the points in a series, and connects points in the order provided. For noisy data, this may produce spiky lines. To display a best-fit line instead, see `ScatterRegression`.
 
 ## Multiple series
 

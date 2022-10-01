@@ -35,6 +35,7 @@ const processData = (
         id: seriesData.id,
         index,
         points: binValues(seriesData.data, breaks, density),
+        breaks,
     }
 }
 
@@ -48,6 +49,7 @@ const prepareData = (
         id: seriesData.id,
         index: seriesData.index,
         points: seriesData.points.map(point => [scaleX(point[X]), scaleY(point[Y])]),
+        breaks: seriesData.breaks,
     }
 }
 

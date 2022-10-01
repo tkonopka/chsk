@@ -1,3 +1,4 @@
+import { createElement, useMemo } from 'react'
 import {
     addColor,
     ContinuousAxisScale,
@@ -10,11 +11,11 @@ import {
     useDisabledKeys,
     useScales,
     XY,
+    DataComponent,
 } from '@chask/core'
 import { ScatterAreaProps } from './types'
 import { useScatterPreparedData } from './context'
 import { getScatterCurvePoints } from './ScatterCurve'
-import { useMemo } from 'react'
 
 export const getAreaD = ({
     points,
@@ -41,6 +42,8 @@ export const ScatterArea = ({
     style,
     className = 'scatterArea',
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: ScatterAreaProps) => {
     const preparedData = useScatterPreparedData()
     const scales = useScales()
@@ -65,23 +68,31 @@ export const ScatterArea = ({
     })
 
     const result = (ids ?? preparedData.keys).map(id => {
+        const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
+        const element = createElement(dataComponent, {
+            data: { id },
+            component: Path,
+            props: {
+                variant,
+                d: areas[id],
+                setRole,
+                style: seriesStyle,
+                className,
+            },
+            ...props,
+        })
+
         return (
             <OpacityMotion
                 role={'scatter-area'}
                 key={'scatter-area-' + seriesIndex}
+                visible={visible}
                 firstRender={firstRender}
             >
-                <Path
-                    variant={variant}
-                    d={areas[id]}
-                    setRole={setRole}
-                    style={seriesStyle}
-                    className={className}
-                />
+                {element}
             </OpacityMotion>
         )
     })

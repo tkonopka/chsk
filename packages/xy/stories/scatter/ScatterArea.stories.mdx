@@ -91,3 +91,53 @@ The `ScatterArea` component is often used together with `ScatterCurve`.
         </Chart>
     </Story>
 </Canvas>
+
+## Css effects
+
+Some visual interactivity can be achieved with css style classes, applied via the chart theme.
+
+<Canvas>
+    <Story name="css effects">
+        <Chart
+            size={[500, 300]}
+            padding={[40, 40, 60, 60]}
+            style={{ display: 'inline-block' }}
+            theme={{
+                path: {
+                    area: {
+                        opacity: 0.1,
+                        strokeWidth: 0,
+                    },
+                    'area:hover': {
+                        opacity: 0.3,
+                    },
+                },
+            }}
+        >
+            <Scatter
+                data={dataWithInterval}
+                x={'x'}
+                y={'y'}
+                r={6}
+                scaleX={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+            >
+                <Axis variant={'bottom'} label={'x (a.u.)'} />
+                <Axis variant={'left'} label={'y (a.u.)'} />
+                <GridLines variant={'y'} />
+                <ScatterArea ids={['A']} baseline={0} curve="Natural" className="area" />
+                <ScatterCurve ids={['A']} curve="Natural" style={{ strokeWidth: 3 }} />
+            </Scatter>
+        </Chart>
+    </Story>
+</Canvas>
+
+This technique applies to all components, but can be particularly visible with component with large surface area.
+
+For another approach to provide interactivity, see the mouse event props, for example `onMouseEnter` and `onMouseLeave`.

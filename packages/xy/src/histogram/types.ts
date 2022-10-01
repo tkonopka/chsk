@@ -3,7 +3,9 @@ import {
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
+    DataInteractivityProps,
     ProcessedDataContextProps,
+    PathProps,
     RectangleProps,
     SvgElementVariantProps,
     ViewProps,
@@ -19,12 +21,15 @@ export type HistogramDataItem = WithId & {
 export type HistogramProcessedDataItem = WithId & {
     index: number
     points: Array<XY>
+    breaks: number[]
 }
 
 export type HistogramDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<HistogramProcessedDataItem>
 }
+
+export type HistogramInteractiveDataItem = HistogramProcessedDataItem & { bin?: number }
 
 export interface HistogramProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
     /** data */
@@ -41,14 +46,16 @@ export interface HistogramProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 's
     scaleColor?: CategoricalScaleSpec
 }
 
-export interface HistogramCurveProps extends SvgElementVariantProps {
+export interface HistogramCurveProps
+    extends SvgElementVariantProps,
+        DataInteractivityProps<HistogramInteractiveDataItem, PathProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** curve type */
     curve?: CurveSpec
 }
 
-export type HistogramSeriesLayer = 'area' | 'curve' | 'bars'
+export type HistogramSeriesLayer = 'area' | 'curve'
 
 export interface HistogramSeriesProps extends HistogramCurveProps {
     /** list of components to display */
@@ -61,7 +68,9 @@ export interface HistogramSeriesProps extends HistogramCurveProps {
     barStyle?: CssProps
 }
 
-export interface HistogramBarsProps extends SvgElementVariantProps {
+export interface HistogramBarsProps
+    extends SvgElementVariantProps,
+        DataInteractivityProps<HistogramInteractiveDataItem, RectangleProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** component type */

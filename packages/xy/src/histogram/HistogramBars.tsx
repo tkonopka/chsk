@@ -1,10 +1,12 @@
 import {
     addColor,
+    DataComponent,
     isContinuousAxisScale,
     NumericPositionSpec,
     OpacityMotion,
     Rectangle,
     useDisabledKeys,
+    useProcessedData,
     useScales,
     X,
     Y,
@@ -13,6 +15,7 @@ import {
 import { HistogramBarsProps } from './types'
 import { useHistogramPreparedData } from './context'
 import { createElement, useMemo } from 'react'
+import { isHistogramProcessedData } from './predicates'
 
 export const HistogramBars = ({
     ids,
@@ -21,13 +24,17 @@ export const HistogramBars = ({
     style,
     className = 'histogramBars',
     setRole = false,
+    dataComponent = DataComponent,
+    ...props
 }: HistogramBarsProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useHistogramPreparedData()
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isContinuousAxisScale(scaleY)) return null
+    if (!isHistogramProcessedData(processedData)) return null
 
     const styles = useMemo(
         () =>
@@ -42,7 +49,7 @@ export const HistogramBars = ({
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
+        const visible = !disabledKeys.has(id)
         const points = preparedData.data[seriesIndex].points
         const n = points.length
         const bars = points
@@ -57,16 +64,21 @@ export const HistogramBars = ({
                 const width = left + right
                 const height = point[Y] - zero
                 if (width === 0 || height === 0) return null
-                return createElement(component, {
+                return createElement(dataComponent, {
                     key: 'bar-' + seriesIndex + '-' + i,
-                    x: point[X] - left,
-                    y: zero,
-                    width: width,
-                    height: height,
-                    className: className,
-                    style: styles[seriesIndex],
-                    variant: variant,
-                    setRole: setRole,
+                    component,
+                    data: { ...processedData[seriesIndex], bin: i },
+                    props: {
+                        x: point[X] - left,
+                        y: zero,
+                        width: width,
+                        height: height,
+                        className: className,
+                        style: styles[seriesIndex],
+                        variant: variant,
+                        setRole: setRole,
+                    },
+                    ...props,
                 })
             })
             .filter(Boolean)
@@ -74,6 +86,7 @@ export const HistogramBars = ({
             <OpacityMotion
                 key={'histogram-bars-' + seriesIndex}
                 role={'histogram-bars'}
+                visible={visible}
                 firstRender={firstRender}
             >
                 {bars}

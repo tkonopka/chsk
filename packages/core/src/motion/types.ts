@@ -11,6 +11,8 @@ export interface OpacityMotionProps {
     role: string
     /** flag to indicate first render */
     firstRender: boolean
+    /** flag to indicate visibility, used for exit animation */
+    visible?: boolean
     /** children components */
     children: ReactNode
 }

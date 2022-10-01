@@ -1,15 +1,18 @@
+import { createElement, useMemo } from 'react'
 import {
     addColor,
+    DataComponent,
     isContinuousAxisScale,
     OpacityMotion,
     Path,
     useDisabledKeys,
+    useProcessedData,
     useScales,
 } from '@chask/core'
 import { getAreaD } from '../scatter/ScatterArea'
 import { HistogramCurveProps } from './types'
 import { useHistogramPreparedData } from './context'
-import { useMemo } from 'react'
+import { isHistogramProcessedData } from './predicates'
 
 export const HistogramArea = ({
     ids,
@@ -18,13 +21,17 @@ export const HistogramArea = ({
     style,
     className = 'histogramArea',
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: HistogramCurveProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useHistogramPreparedData()
     const scales = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isContinuousAxisScale(scaleY)) return null
+    if (!isHistogramProcessedData(processedData)) return null
 
     const areas: Record<string, string> = {}
     preparedData.keys.map(id => {
@@ -44,21 +51,28 @@ export const HistogramArea = ({
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
+        const visible = !disabledKeys.has(id)
         const seriesStyle = addColor(style, colorScale(seriesIndex))
+        const element = createElement(dataComponent, {
+            data: processedData[seriesIndex],
+            component: Path,
+            props: {
+                variant,
+                d: areas[id],
+                setRole,
+                style: seriesStyle,
+                className,
+            },
+            ...props,
+        })
         return (
             <OpacityMotion
                 role={'histogram-area'}
                 key={'histogram-area-' + seriesIndex}
+                visible={visible}
                 firstRender={firstRender}
             >
-                <Path
-                    variant={variant}
-                    d={areas[id]}
-                    setRole={setRole}
-                    style={seriesStyle}
-                    className={className}
-                />
+                {element}
             </OpacityMotion>
         )
     })

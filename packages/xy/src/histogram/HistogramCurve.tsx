@@ -1,6 +1,16 @@
-import { addColor, OpacityMotion, Path, useDisabledKeys, useScales } from '@chask/core'
+import { createElement } from 'react'
+import {
+    addColor,
+    DataComponent,
+    OpacityMotion,
+    Path,
+    useDisabledKeys,
+    useProcessedData,
+    useScales,
+} from '@chask/core'
 import { HistogramCurveProps } from './types'
 import { useHistogramPreparedData } from './context'
+import { isHistogramProcessedData } from './predicates'
 
 export const HistogramCurve = ({
     ids,
@@ -9,31 +19,42 @@ export const HistogramCurve = ({
     style,
     className = 'histogramCurve',
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: HistogramCurveProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useHistogramPreparedData()
     const colorScale = useScales().color
     const { disabledKeys, firstRender } = useDisabledKeys()
+    if (!isHistogramProcessedData(processedData)) return null
 
     const result = (ids ?? preparedData.keys).map(id => {
+        const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
-        if (disabledKeys.has(id)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
+        const element = createElement(dataComponent, {
+            data: processedData[seriesIndex],
+            component: Path,
+            props: {
+                points: preparedData.data[seriesIndex].points,
+                curve,
+                variant,
+                className,
+                style: seriesStyle,
+                setRole,
+            },
+            ...props,
+        })
         return (
             <OpacityMotion
                 role={'histogram-curve'}
                 key={'histogram-curve-' + seriesIndex}
+                visible={visible}
                 firstRender={firstRender}
             >
-                <Path
-                    points={preparedData.data[seriesIndex].points}
-                    curve={curve}
-                    variant={variant}
-                    className={className}
-                    style={seriesStyle}
-                    setRole={setRole}
-                />
+                {element}
             </OpacityMotion>
         )
     })

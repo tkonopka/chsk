@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import {
     addColor,
     getMinMax,
@@ -8,6 +8,7 @@ import {
     useScales,
     X,
     Y,
+    DataComponent,
 } from '@chask/core'
 import { RegressionProps } from './types'
 import { useScatterPreparedData } from './context'
@@ -37,15 +38,22 @@ const getRegressionLineCoordinates = (domain: [number, number], coefficients: [n
     ]
 }
 
-const PooledRegression = ({ ids, style, className, setRole }: RegressionProps) => {
+const PooledRegression = ({
+    ids,
+    style,
+    className,
+    setRole,
+    dataComponent = DataComponent,
+    ...props
+}: RegressionProps) => {
     const preparedData = useScatterPreparedData()
     const { disabledKeys, firstRender } = useDisabledKeys()
+    const pooledIds = ids ?? preparedData.keys
 
     const points = useMemo(() => {
         // prepare a pooled dataset
         let x: number[] = []
         let y: number[] = []
-        const pooledIds = ids ?? preparedData.keys
         pooledIds.forEach((id: string) => {
             const seriesIndex = preparedData.seriesIndexes[id]
             if (seriesIndex === undefined) return
@@ -59,23 +67,36 @@ const PooledRegression = ({ ids, style, className, setRole }: RegressionProps) =
     }, [preparedData, ids])
 
     if (points === null) return null
+    const element = createElement(dataComponent, {
+        data: { ids: pooledIds, variant: 'pooled' },
+        component: Line,
+        props: {
+            x1: points[0][X],
+            x2: points[1][X],
+            y1: points[0][Y],
+            y2: points[1][Y],
+            variant: 'regression',
+            className,
+            style,
+            setRole,
+        },
+        ...props,
+    })
     return (
         <OpacityMotion role={'regression'} firstRender={firstRender}>
-            <Line
-                x1={points[0][X]}
-                x2={points[1][X]}
-                y1={points[0][Y]}
-                y2={points[1][Y]}
-                variant={'regression'}
-                className={className}
-                style={style}
-                setRole={setRole}
-            />
+            {element}
         </OpacityMotion>
     )
 }
 
-const IndividualRegression = ({ ids, style, className, setRole }: RegressionProps) => {
+const IndividualRegression = ({
+    ids,
+    style,
+    className,
+    setRole,
+    dataComponent = DataComponent,
+    ...props
+}: RegressionProps) => {
     const preparedData = useScatterPreparedData()
     const colorScale = useScales().color
     const { disabledKeys, firstRender } = useDisabledKeys()
@@ -98,22 +119,28 @@ const IndividualRegression = ({ ids, style, className, setRole }: RegressionProp
             getMinMax(preparedData.data[seriesIndex].x),
             coefficients[id]
         )
+        const element = createElement(dataComponent, {
+            data: { ids: [id], variant: 'series' },
+            component: Line,
+            props: {
+                x1: points[0][X],
+                x2: points[1][X],
+                y1: points[0][Y],
+                y2: points[1][Y],
+                variant: 'regression',
+                className,
+                style: seriesStyle,
+                setRole,
+            },
+            ...props,
+        })
         return (
             <OpacityMotion
                 role={'regression'}
                 key={'regression-' + seriesIndex}
                 firstRender={firstRender}
             >
-                <Line
-                    x1={points[0][X]}
-                    x2={points[1][X]}
-                    y1={points[0][Y]}
-                    y2={points[1][Y]}
-                    variant={'regression'}
-                    className={className}
-                    style={seriesStyle}
-                    setRole={setRole}
-                />
+                {element}
             </OpacityMotion>
         )
     })
@@ -127,7 +154,9 @@ export const Regression = ({
     style,
     className,
     setRole,
+    dataComponent = DataComponent,
+    ...props
 }: RegressionProps) => {
     const renderFunction = variant === 'series' ? IndividualRegression : PooledRegression
-    return renderFunction({ ids, style, className, setRole })
+    return renderFunction({ ids, style, className, setRole, dataComponent, ...props })
 }
