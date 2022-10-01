@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Axis, Chart, Legend, Circle } from '@chask/core'
-import { Scatter, ScatterCurve, ScatterPoints } from '../../src'
+import { Scatter, ScatterCurve, ScatterPoints, ScatterInteractiveDataItem } from '../../src'
 import dataPolynomials from './dataPolynomials.json'
 import { generateScatterSeries } from './generators'
 
@@ -10,7 +10,7 @@ export const ChartScatterDecorator = (Story: () => ReactNode) => (
             data={dataPolynomials}
             x={'x'}
             y={'y'}
-            r={5}
+            valueSize={5}
             scaleX={{
                 variant: 'linear',
                 domain: [0, 'auto'],
@@ -33,7 +33,7 @@ export const ChartScatterQuadraticDecorator = (Story: () => ReactNode) => (
             data={dataPolynomials}
             x={'x'}
             y={'y'}
-            r={5}
+            valueSize={5}
             scaleX={{
                 variant: 'linear',
                 domain: [0, 'auto'],
@@ -80,7 +80,7 @@ export const ChartForRegressionDecorator = (Story: () => ReactNode) => (
             data={dataRegression}
             x={'x'}
             y={'y'}
-            r={4}
+            valueSize={4}
             scaleX={{
                 variant: 'linear',
                 domain: [0, 'auto'],
@@ -114,3 +114,7 @@ export const dataBubbles = [
     { id: 'A', data: generateBubbles(8) },
     { id: 'B', data: generateBubbles(8) },
 ]
+
+export const onScatterClick = (data: ScatterInteractiveDataItem) => {
+    console.log('clicked: ' + JSON.stringify(data))
+}

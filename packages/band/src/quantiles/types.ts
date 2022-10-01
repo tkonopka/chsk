@@ -1,6 +1,13 @@
-import { BarProps, BarsProps } from '../bars'
-import { CssProps, ProcessedDataContextProps, SvgElementProps, WithId } from '@chask/core'
 import { FC } from 'react'
+import {
+    CssProps,
+    DataInteractivityProps,
+    InteractivityProps,
+    ProcessedDataContextProps,
+    SvgElementProps,
+    WithId,
+} from '@chask/core'
+import { BandProps, BandsProps } from '../bands'
 
 export type QuantileDataItem = WithId & Record<string, unknown>
 
@@ -46,7 +53,15 @@ export type QuantilePreparedDataContextProps = {
     keys: string[]
 }
 
-export interface BoxAndWhiskersProps extends SvgElementProps {
+export type QuantileInteractiveDataItem = {
+    id: string
+    key: string
+    values: FiveNumbers
+    quantiles: FiveNumbers
+    extrema: [number, number]
+}
+
+export interface BoxAndWhiskersProps extends SvgElementProps, InteractivityProps {
     /** information with coordinates */
     data: QuantilePreparedSummary
     /** orientation of the chart */
@@ -61,7 +76,7 @@ export interface BoxAndWhiskersProps extends SvgElementProps {
     whiskerCapWidth?: number
 }
 
-export interface QuantileProps extends Omit<BarProps, 'variant'> {
+export interface QuantileProps extends BandProps {
     /** data */
     data: Array<QuantileDataItem>
     /** five quantiles for whiskers bounds, box bounds, and central line */
@@ -69,7 +84,8 @@ export interface QuantileProps extends Omit<BarProps, 'variant'> {
 }
 
 export interface QuantilesProps
-    extends Omit<BarsProps, 'component'>,
+    extends BandsProps,
+        DataInteractivityProps<QuantileInteractiveDataItem, BoxAndWhiskersProps>,
         Pick<BoxAndWhiskersProps, 'boxStyle' | 'whiskerStyle' | 'medianStyle' | 'whiskerCapWidth'> {
     /** component used to draw box and whiskers */
     component?: FC<BoxAndWhiskersProps>

@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Square } from '@chask/core'
 import { Strip, Strips } from '../src'
-import { ChartStripHorizontalDecorator } from './decorators'
+import { ChartStripHorizontalDecorator, onStripsClick } from './decorators'
 
 # Strips
 
@@ -10,9 +10,9 @@ export const Template = args => <Strips {...args} />
 
 `Strips` draws data points on a strip chart.
 
-<ArgsTable of={Strips} />
+`Strips` is intended to be used within a `Strip` component. The `Strips` component is the one that draws data points, but much of the layout is determined by `Strip`.
 
-Note that the `Strips` component is intended to be used within a `Strip` component. The `Strips` component is the one that draws data points, but much of the layout is determined by `Strip`.
+<ArgsTable of={Strips} />
 
 ## Data subsets
 
@@ -62,3 +62,20 @@ Prop `component` accepts a function for rendering individual data points. The de
 </Canvas>
 
 See documentation in `@chask/core` for symbols `Circle`, `Diamond`, `Square`, `Triangle`, `InvertedTriangle`.
+
+## Mouse events
+
+To make points respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+
+<Canvas>
+    <Story
+        name="mouse click"
+        args={{ onClick: onStripsClick }}
+        component={Strips}
+        decorators={[ChartStripHorizontalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Check the browser console with `Ctrl Shift J` for output.)

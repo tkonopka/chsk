@@ -2,7 +2,7 @@
  * Collection of settings for symbols, e.g. for scatter plots or legends.
  *
  * The intention is to scale each symbol type so that its area, given a
- * parameter r, is equal to the area of circle with radius r.
+ * radius parameter, is equal to the area of circle with that radius.
  *
  * Some symbols are additionally scaled slightly with a 'visual factor'.
  * This balances a visual perception effect, where for example triangles with
@@ -37,7 +37,7 @@ export const equilateralCoordinates = [
 /** diamond */
 
 const diamondVisualFactor = 0.96
-// distance from diamond center to one of its corners, scaled so that area matches a circle with r=1
+// distance from diamond center to one of its corners
 const diamondEdge = Math.sqrt(Math.PI / 2) * diamondVisualFactor
 export const diamondCoordinates = [
     [0, -diamondEdge],

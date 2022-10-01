@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis, GridLines } from '@chask/core'
 import { Bar, Bars } from '../src'
-import { ChartBarH0S1Decorator, commonBarProps } from './decorators'
+import { ChartBarH0S1Decorator, commonBarProps, onBarsClick } from './decorators'
 
 # Bars
 
@@ -10,9 +10,9 @@ export const Template = args => <Bars {...args} />
 
 `Bars` draws a set of rectangles to display a bar chart.
 
-<ArgsTable of={Bars} />
+`Bars` is intended to be used within a `Bar` component. The `Bars` component is the one that draws visual elements, but actually much of the layout is determined by `Bar`.
 
-Note that the `Bars` component is intended to be used within a `Bar` component. The `Bars` component is the one that draws the bars, but actually much of the layout is determined by `Bar`.
+<ArgsTable of={Bars} />
 
 ## Data subsets
 
@@ -36,3 +36,20 @@ By default, `Bars` draws the entire dataset. To draw subsets of bars, set the pr
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Mouse events
+
+To make bars respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+
+<Canvas>
+    <Story
+        name="mouse click"
+        args={{ onClick: onBarsClick }}
+        component={Bars}
+        decorators={[ChartBarH0S1Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Check the browser console with `Ctrl Shift J` for output.)

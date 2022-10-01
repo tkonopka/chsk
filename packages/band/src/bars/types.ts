@@ -1,20 +1,17 @@
 import { FC } from 'react'
 import {
-    BandScaleSpec,
-    CategoricalScaleSpec,
     CssProps,
+    DataInteractivityProps,
     LabelLocationSpec,
     LabelProps,
-    LinearScaleSpec,
     NumericPositionSpec,
     ProcessedDataContextProps,
     RectangleProps,
     SizeSpec,
-    SvgElementProps,
     TranslateSpec,
-    ViewProps,
     WithId,
 } from '@chask/core'
+import { BandProps, BandsProps } from '../bands'
 
 export type BarDataItem = WithId & Record<string, unknown>
 
@@ -44,43 +41,27 @@ export type BarPreparedDataContextProps = {
     keys: string[]
 }
 
-export interface BarProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY' | 'scaleColor'> {
+export type BarInteractiveDataItem = {
+    id: string
+    key: string
+    data: number
+}
+
+export interface BarProps extends BandProps {
     /** variant */
     variant?: 'grouped' | 'stacked'
     /** data */
     data: Array<BarDataItem>
-    /** list of all keys associated with a band */
-    keys: string[]
-    /** display bands horizontally */
-    horizontal?: boolean
-    /** padding between bars in the same group/index */
-    paddingInternal?: number | null
-    /** scale for horizontal axis */
-    scaleIndex?: BandScaleSpec
-    /** scale for vertical axis */
-    scaleValue?: LinearScaleSpec
-    /** scale for colors */
-    scaleColor?: CategoricalScaleSpec
 }
 
-export interface BarsProps {
-    /** ids to display (defaults to all ids) */
-    ids?: string[]
-    /** keys to display (default to all keys) */
-    keys?: string[]
-    /** symbol for individual data points */
+export interface BarsProps
+    extends BandsProps,
+        DataInteractivityProps<BarInteractiveDataItem, RectangleProps> {
+    /** component used to draw individual bars */
     component?: FC<RectangleProps>
-    /** style class */
-    className?: string
-    /** css style */
-    style?: CssProps
 }
 
-export interface BarsLabelsProps extends SvgElementProps, LabelLocationSpec {
-    /** ids to display (defaults to all ids) */
-    ids?: string[]
-    /** keys to display (default to all keys) */
-    keys?: string[]
+export interface BarsLabelsProps extends BandsProps, LabelLocationSpec {
     /** additional translation (in absolute units) */
     translate?: TranslateSpec
     /** format for text */

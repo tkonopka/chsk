@@ -27,7 +27,7 @@ const UnthemedLegendSizeScale = ({
     const scale = useScales().size
     const allTicks = sizes ?? getTicks(scale, ticks)
     const allValues = getTickCoordinates(scale, ticks)
-    // avoid creating symbols for r=0
+    // avoid creating symbols for size zero
     const pairs = allTicks.map((a, i) => [a, allValues[i]]).filter(ab => ab[1] > 0)
 
     return (

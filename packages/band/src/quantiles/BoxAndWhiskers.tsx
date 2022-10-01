@@ -11,6 +11,8 @@ export const BoxAndWhiskers = ({
     className,
     style,
     setRole,
+    // interactivity props
+    ...props
 }: BoxAndWhiskersProps) => {
     if (!data) return null
 
@@ -89,6 +91,7 @@ export const BoxAndWhiskers = ({
             transform={translate + (horizontal ? ' rotate(-90)' : '')}
             role={setRole ? 'boxwhisker' : undefined}
             style={style}
+            {...props}
         >
             {box}
             {lines}

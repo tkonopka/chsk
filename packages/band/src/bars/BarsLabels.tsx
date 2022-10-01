@@ -43,7 +43,7 @@ export const BarsLabels = ({
 
     const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
-        if (disabledKeys.has(k)) return null
+        const visible = !disabledKeys.has(k)
         const labels = data
             .map((seriesData: BarPreparedDataItem, j) => {
                 if (!idSet.has(seriesData.id)) return null
@@ -76,9 +76,14 @@ export const BarsLabels = ({
                 )
             })
             .filter(Boolean)
-        if (labels.length === 0) return null
+
         return (
-            <OpacityMotion key={'bars-labels-' + i} role={'bars-labels'} firstRender={firstRender}>
+            <OpacityMotion
+                key={'bars-labels-' + i}
+                role={'bars-labels'}
+                visible={visible}
+                firstRender={firstRender}
+            >
                 {labels}
             </OpacityMotion>
         )

@@ -73,6 +73,18 @@ describe('Strips', () => {
         expect(result.querySelectorAll('circle')).toHaveLength(0)
     })
 
+    it('displays nothing when ids do not match data', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps}>
+                    <Strips ids={['aaa', 'bbb']} />
+                </Strip>
+            </Chart>
+        )
+        const result = screen.getByRole('view-strip')
+        expect(result.querySelectorAll('circle')).toHaveLength(0)
+    })
+
     it('displays nothing when keys are empty', () => {
         render(
             <Chart>

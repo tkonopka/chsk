@@ -87,7 +87,7 @@ export const quantileProps: QuantileProps = {
 export const stripProps: StripProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
-    r: 2,
+    valueSize: 2,
     scaleIndex: {
         variant: 'band' as const,
         domain: ['alpha', 'beta'],

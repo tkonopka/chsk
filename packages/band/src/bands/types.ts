@@ -1,12 +1,16 @@
 import { FC } from 'react'
 import {
+    BandScaleSpec,
+    CategoricalScaleSpec,
     LabelLocationSpec,
     LabelProps,
+    LinearScaleSpec,
     SizeSpec,
     SizeUnit,
     SvgElementProps,
     TranslateSpec,
     TwoSideSizeSpec,
+    ViewProps,
     WithInteractive,
 } from '@chask/core'
 
@@ -37,4 +41,28 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
 export interface BandHighlightProps extends SvgElementProps {
     /** target ids (defaults to all ids) */
     ids?: string[]
+}
+
+// base interface for BarProps, StripProps, QuantileProps
+export interface BandProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY' | 'scaleColor'> {
+    /** list of all keys associated with a band */
+    keys: string[]
+    /** display bands horizontally */
+    horizontal?: boolean
+    /** padding between bands in the same group/index */
+    paddingInternal?: number | null
+    /** scale for horizontal axis */
+    scaleIndex?: BandScaleSpec
+    /** scale for vertical axis */
+    scaleValue?: LinearScaleSpec
+    /** scale for colors */
+    scaleColor?: CategoricalScaleSpec
+}
+
+// base interface for BarsProps, StripsProps, QuantilesProps
+export interface BandsProps extends SvgElementProps {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+    /** keys to display (default to all keys) */
+    keys?: string[]
 }

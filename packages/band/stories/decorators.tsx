@@ -1,8 +1,18 @@
 import { ReactNode } from 'react'
 import { Chart, Axis, Surface, GridLines } from '@chask/core'
-import { Bar, Bars, BarProps, Quantile, QuantileProps, Strip, StripProps } from '../src/'
+import {
+    Bar,
+    Bars,
+    BarProps,
+    Quantile,
+    QuantileProps,
+    Strip,
+    StripProps,
+    QuantileInteractiveDataItem,
+} from '../src/'
 import dataGroups from './dataGroups.json'
 import { generateUniformValues } from './generators'
+import { BarInteractiveDataItem, StripInteractiveDataItem } from '../dist/types'
 
 export const commonBarProps: BarProps = {
     data: dataGroups,
@@ -67,6 +77,10 @@ export const ChartWithLegendDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const onBarsClick = (data: BarInteractiveDataItem) => {
+    console.log('clicked: ' + JSON.stringify(data))
+}
+
 /** quantile charts */
 
 export const dataRawValues = [
@@ -107,12 +121,16 @@ export const ChartQuantileHorizontalDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const onQuantilesClick = (data: QuantileInteractiveDataItem) => {
+    console.log('clicked: ' + JSON.stringify(data))
+}
+
 /** strip charts */
 
 export const commonStripProps: StripProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
-    r: 3,
+    valueSize: 4,
     scaleIndex: {
         variant: 'band',
         domain: ['alpha', 'beta'],
@@ -135,3 +153,7 @@ export const ChartStripHorizontalDecorator = (Story: () => ReactNode) => (
         </Strip>
     </Chart>
 )
+
+export const onStripsClick = (data: StripInteractiveDataItem) => {
+    console.log('clicked: ' + JSON.stringify(data))
+}

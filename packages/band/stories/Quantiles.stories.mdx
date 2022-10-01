@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Quantile, Quantiles } from '../src'
-import { ChartQuantileHorizontalDecorator } from './decorators'
+import { ChartQuantileHorizontalDecorator, onQuantilesClick } from './decorators'
 
 # Quantiles
 
@@ -9,9 +9,9 @@ export const Template = args => <Quantiles {...args} />
 
 `Quantiles` draws boxes and whiskers to summarize distributions of numeric values.
 
-<ArgsTable of={Quantiles} />
+`Quantiles` is intended to be used within a `Quantile` component. The `Quantiles` component is the one that draws the boxes and whiskers, but much of the layout is determined by `Quantile`.
 
-Note that the `Quantiles` component is intended to be used within a `Quantile` component. The `Quantiles` component is the one that draws the bars and whiskers, but much of the layout is determined by `Quantile`.
+<ArgsTable of={Quantiles} />
 
 ## Data subsets
 
@@ -65,3 +65,24 @@ The size of the whisker 'cap' can be adjusted with prop `whiskerCapWidth`.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Mouse events
+
+To make the box and whiskers respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+
+<Canvas>
+    <Story
+        name="mouse click"
+        args={{
+            medianStyle: { strokeWidth: 3, stroke: '#222222' },
+            whiskerStyle: { strokeWidth: 2 },
+            onClick: onQuantilesClick,
+        }}
+        component={Quantiles}
+        decorators={[ChartQuantileHorizontalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Check the browser console with `Ctrl Shift J` for output.)

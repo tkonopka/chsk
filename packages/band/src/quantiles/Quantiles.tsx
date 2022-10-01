@@ -5,28 +5,36 @@ import {
     useScales,
     getIdKeySets,
     isBandAxisScale,
+    DataComponent,
+    useProcessedData,
 } from '@chask/core'
 import { useQuantilePreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 import { BoxAndWhiskers } from './BoxAndWhiskers'
 import { QuantilePreparedDataItem, QuantilesProps } from './types'
+import { isQuantileProcessedData } from './predicates'
 
 export const Quantiles = ({
     ids,
     keys,
     component = BoxAndWhiskers,
     className,
+    setRole = true,
     boxStyle,
     whiskerStyle,
     medianStyle,
     whiskerCapWidth,
+    dataComponent = DataComponent,
+    ...props
 }: QuantilesProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useQuantilePreparedData()
     const scales = useScales()
     const colorScale = scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     const horizontal = isBandAxisScale(scales.y)
+    if (!isQuantileProcessedData(processedData)) return null
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
@@ -50,30 +58,41 @@ export const Quantiles = ({
     const result: Array<ReactNode> = preparedData.keys
         .map((k, i) => {
             if (!keySet.has(k)) return null
-            if (disabledKeys.has(k)) return null
+            const visible = !disabledKeys.has(k)
             const items = data
                 .map((seriesData: QuantilePreparedDataItem) => {
                     if (!idSet.has(seriesData.id)) return null
                     const summary = seriesData.data[i]
-                    return createElement(component, {
+                    const processedSummary = processedData[seriesData.index].data[i]
+                    if (!processedSummary) return null
+                    return createElement(dataComponent, {
                         key: 'boxwhiskers-' + seriesData.index + '-' + i,
-                        data: summary,
-                        horizontal: horizontal,
-                        className: className,
-                        boxStyle: boxStyles[i],
-                        whiskerStyle: whiskerStyles[i],
-                        medianStyle: medianStyles[i],
-                        whiskerCapWidth: whiskerCapWidth,
-                        setRole: true,
+                        data: {
+                            id: seriesData.id,
+                            key: k,
+                            ...processedSummary,
+                        },
+                        component,
+                        props: {
+                            data: summary,
+                            horizontal,
+                            className,
+                            boxStyle: boxStyles[i],
+                            whiskerStyle: whiskerStyles[i],
+                            medianStyle: medianStyles[i],
+                            whiskerCapWidth,
+                            setRole,
+                        },
+                        ...props,
                     })
                 })
                 .filter(Boolean)
-            if (items.length === 0) return null
 
             return (
                 <OpacityMotion
                     key={'boxwhiskers-' + i}
                     role={'quantiles'}
+                    visible={visible}
                     firstRender={firstRender}
                 >
                     {items}
@@ -82,6 +101,5 @@ export const Quantiles = ({
         })
         .filter(Boolean)
 
-    if (result.length === 0) return null
     return <>{result}</>
 }

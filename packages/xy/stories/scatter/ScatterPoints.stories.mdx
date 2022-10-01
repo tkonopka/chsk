@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis, Triangle } from '@chask/core'
 import { Scatter, ScatterPoints } from '../../src'
-import { ChartScatterDecorator } from './decorators'
+import { ChartScatterDecorator, onScatterClick } from './decorators'
 import dataPolynomials from './dataPolynomials.json'
 
 # ScatterPoints
@@ -65,3 +65,22 @@ Symbols can be adjusted with prop `symbol`.
 </Canvas>
 
 Note that the prop `symbol` requires a function. Some symbol functions are available in the `@chask/core` package: see `Circle`, `Diamond`, `Square`, `Triangle`, and `InvertedTriangle`.
+
+## Mouse events
+
+Points can respond to mouse events. Set the function props with prefix `on`, for example `onClick`.
+
+<Canvas>
+    <Story
+        name="mouse click"
+        args={{
+            onClick: onScatterClick,
+        }}
+        component={ScatterPoints}
+        decorators={[ChartScatterDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Check the browser console with `Ctrl Shift J` for output.)

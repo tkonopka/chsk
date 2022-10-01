@@ -32,7 +32,7 @@ import { getStripInternalOrder } from './utils'
 const processData = (
     data: Array<StripDataItem>,
     accessors: Array<AccessorFunction<unknown>>,
-    r: number,
+    valueSize: number,
     variant: StripVariant
 ): Array<StripProcessedDataItem> => {
     return data.map((seriesData, index) => {
@@ -43,7 +43,7 @@ const processData = (
             return {
                 value: raw as number[],
                 internal: getStripInternalOrder(variant, raw as number[]),
-                r: Array(raw.length).fill(r),
+                valueSize: Array(raw.length).fill(valueSize),
             }
         })
         return {
@@ -75,7 +75,7 @@ const prepareData = (
             return {
                 value: summary.value.map(v => valueScale(v)),
                 internal: summary.internal.map(v => internalStart + v * internalInterval),
-                r: summary.r.map(v => v),
+                valueSize: summary.valueSize.map(v => v),
                 bandStart: bandStart - width - gap,
                 bandWidth: width,
             }
@@ -99,7 +99,7 @@ export const Strip = ({
     data,
     keys,
     variant = 'default',
-    r = 3,
+    valueSize = 3,
     horizontal = false,
     autoRescale = true,
     paddingInternal = 0,
@@ -117,8 +117,8 @@ export const Strip = ({
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
-        () => processData(data, keyAccessors, r, variant),
-        [data, keyAccessors, r, variant]
+        () => processData(data, keyAccessors, valueSize, variant),
+        [data, keyAccessors, valueSize, variant]
     )
 
     const { scalePropsIndex, scalePropsValue } = getScaleProps(

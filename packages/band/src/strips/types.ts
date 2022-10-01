@@ -1,6 +1,12 @@
 import { FC } from 'react'
-import { CssProps, ProcessedDataContextProps, SymbolProps, WithId } from '@chask/core'
-import { BarProps, BarsProps } from '../bars'
+import {
+    CssProps,
+    DataInteractivityProps,
+    ProcessedDataContextProps,
+    SymbolProps,
+    WithId,
+} from '@chask/core'
+import { BandProps, BandsProps } from '../bands'
 
 export type StripDataItem = WithId & Record<string, unknown>
 
@@ -9,7 +15,7 @@ export type StripProcessedPoints =
     | {
           internal: number[]
           value: number[]
-          r: number[]
+          valueSize: number[]
       }
 
 export type StripProcessedDataItem = WithId & {
@@ -44,6 +50,14 @@ export type StripPreparedDataContextProps = {
     keys: string[]
 }
 
+export type StripInteractiveDataItem = {
+    id: string
+    key: string
+    index: number
+    value?: number
+    valueSize?: number
+}
+
 export type StripVariant =
     | 'default'
     | 'jitter'
@@ -53,16 +67,18 @@ export type StripVariant =
     | 'decreasing'
     | 'middle'
 
-export interface StripProps extends Omit<BarProps, 'stacked' | 'variant'> {
-    /** data */
-    data: Array<StripDataItem>
+export interface StripProps extends BandProps {
     /** variant, determines how points are arranged within a strip */
     variant?: StripVariant
-    /** radius for dots */
-    r?: number
+    /** data */
+    data: Array<StripDataItem>
+    /** size of dots */
+    valueSize?: number
 }
 
-export interface StripsProps extends Omit<BarsProps, 'component'> {
+export interface StripsProps
+    extends BandsProps,
+        DataInteractivityProps<StripInteractiveDataItem, SymbolProps> {
     /** component used to draw box and whiskers */
     component?: FC<SymbolProps>
     /** style for symbols */

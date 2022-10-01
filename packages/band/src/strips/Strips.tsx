@@ -6,18 +6,31 @@ import {
     useScales,
     getIdKeySets,
     isBandAxisScale,
+    DataComponent,
+    useProcessedData,
 } from '@chask/core'
 import { useStripPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 import { StripPreparedDataItem, StripsProps } from './types'
+import { isStripProcessedData } from './predicates'
 
-export const Strips = ({ ids, keys, component = Circle, className, symbolStyle }: StripsProps) => {
+export const Strips = ({
+    ids,
+    keys,
+    component = Circle,
+    className,
+    symbolStyle,
+    dataComponent = DataComponent,
+    ...props
+}: StripsProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useStripPreparedData()
     const scales = useScales()
     const colorScale = scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     const horizontal = isBandAxisScale(scales.y)
+    if (!isStripProcessedData(processedData)) return null
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
@@ -30,41 +43,54 @@ export const Strips = ({ ids, keys, component = Circle, className, symbolStyle }
         [allKeys, symbolStyle, colorScale]
     )
 
-    const result: Array<ReactNode> = preparedData.keys
-        .map((k, i) => {
-            if (!keySet.has(k)) return null
-            if (disabledKeys.has(k)) return null
-            const items = data
-                .map((seriesData: StripPreparedDataItem) => {
-                    if (!idSet.has(seriesData.id)) return null
-                    const summary = seriesData.data[i]
-                    if (!summary) return null
-                    const x = horizontal ? summary.value : summary.internal
-                    const y = horizontal ? summary.internal : summary.value
-                    return summary.r.map((r: number, j: number) =>
-                        createElement(component, {
-                            key: 'point-' + seriesData.index + '-' + i + '-' + j,
+    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+        if (!keySet.has(k)) return null
+        const visible = !disabledKeys.has(k)
+        const items = data
+            .map((seriesData: StripPreparedDataItem) => {
+                if (!idSet.has(seriesData.id)) return null
+                const summary = seriesData.data[i]
+                if (!summary) return null
+                const x = horizontal ? summary.value : summary.internal
+                const y = horizontal ? summary.internal : summary.value
+                const seriesProcessedData = processedData[seriesData.index].data[i]
+                return summary.valueSize.map((valueSize: number, j: number) =>
+                    createElement(dataComponent, {
+                        key: 'point-' + seriesData.index + '-' + i + '-' + j,
+                        data: {
+                            id: seriesData.id,
+                            key: k,
+                            index: j,
+                            value: seriesProcessedData?.value[j],
+                            valueSize: seriesProcessedData?.valueSize[j],
+                        },
+                        component,
+                        props: {
                             cx: x[j],
                             cy: y[j],
-                            r: r,
-                            className: className,
+                            r: valueSize,
+                            className,
                             style: symbolStyles[i],
                             setRole: false,
-                        })
-                    )
-                })
-                .filter(Boolean)
-                .flat()
-            if (items.length === 0) return null
+                        },
+                        ...props,
+                    })
+                )
+            })
+            .filter(Boolean)
+            .flat()
 
-            return (
-                <OpacityMotion key={'strips-' + i} role={'strips'} firstRender={firstRender}>
-                    {items}
-                </OpacityMotion>
-            )
-        })
-        .filter(Boolean)
+        return (
+            <OpacityMotion
+                key={'strips-' + i}
+                role={'strips'}
+                visible={visible}
+                firstRender={firstRender}
+            >
+                {items}
+            </OpacityMotion>
+        )
+    })
 
-    if (result.length === 0) return null
     return <>{result}</>
 }

@@ -7,6 +7,7 @@ import {
     CurveSpec,
     DataInteractivityProps,
     LineProps,
+    NumericPositionSpec,
     PathProps,
     PositionUnit,
     ProcessedDataContextProps,
@@ -64,6 +65,9 @@ export interface ScatterProps
 export type ScatterInteractiveDataItem = {
     id: string
     index?: number
+    point?: NumericPositionSpec
+    size?: number
+    color?: number
 }
 
 export interface ScatterPointsProps
