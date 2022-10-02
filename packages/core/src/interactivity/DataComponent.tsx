@@ -16,17 +16,17 @@ export const DataComponent = <
 }: DataComponentProps<DataSpec, ComponentProps>) => {
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => onMouseEnter?.(data, event),
-        [data, props]
+        [data, onMouseEnter]
     )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => onMouseMove?.(data, event),
-        [data, props]
+        [data, onMouseMove]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => onMouseLeave?.(data, event),
-        [data, props]
+        [data, onMouseLeave]
     )
-    const handleClick = useCallback((event: MouseEvent) => onClick?.(data, event), [data, props])
+    const handleClick = useCallback((event: MouseEvent) => onClick?.(data, event), [data, onClick])
 
     return createElement(component, {
         ...props,

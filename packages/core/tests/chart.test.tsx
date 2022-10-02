@@ -40,14 +40,37 @@ describe('Chart', () => {
                 <GetChartData />
             </Chart>
         )
-        act(() => {
-            ref.current?.updateData({ abc: 2 })
-        })
-        act(() => {
-            ref.current?.toggleMilestone('xyz')
-        })
+        act(() => ref.current?.updateData({ abc: 2 }))
+        act(() => ref.current?.toggleMilestone('xyz'))
         expect(state.abc).toEqual(2)
         expect(Array.from(state.milestones as Set<string>)).toEqual(['xyz'])
+    })
+
+    it('toggles milestones using ref', () => {
+        let state: Record<string, unknown> = { abc: 0, milestones: [] }
+        const ref: ForwardedRef<ChartRef> = {
+            current: {
+                updateData: d => (state = d),
+                toggleMilestone: milestone => (state.milestones = new Set<string>([milestone])),
+            },
+        }
+        const GetChartData = () => {
+            state = useChartData().data
+            return null
+        }
+        render(
+            <Chart fref={ref}>
+                <GetChartData />
+            </Chart>
+        )
+        // default state has no milestones
+        expect(state.milestones).toBeUndefined()
+        // toggle a milestone on
+        act(() => ref.current?.toggleMilestone('xyz'))
+        expect(Array.from(state.milestones as Set<string>)).toEqual(['xyz'])
+        // toggle a milestone off
+        act(() => ref.current?.toggleMilestone('xyz'))
+        expect(Array.from(state.milestones as Set<string>)).toEqual([])
     })
 })
 

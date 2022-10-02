@@ -4,7 +4,7 @@ import { Meta, Source } from '@storybook/addon-docs'
 
 # Common props
 
-Some props appear in common in the APIs of many `@chask/core` components. These common props perform a similar function across all components. To avoid repetition in the documentation, these props are outlined below instead of in the the pages dedicated to individual components.
+Some props appear in common in the APIs of many components. These common props perform a similar function across all components. To avoid repetition in the documentation, these props are outlined below instead of in the the pages dedicated to individual components.
 
 ## `className`
 
@@ -57,7 +57,7 @@ As an example, the pseudo-code below shows the definition of `Circle` component 
 
 ## `variant`
 
-The prop `variant` is a convenient way to apply both a semantic role and a visual style.
+The prop `variant` is used to assign a semantic role and a visual style to a component.
 
 <Source
     language="javascript"
@@ -70,4 +70,5 @@ The prop `variant` is a convenient way to apply both a semantic role and a visua
 <text role="title" class="title">Title</circle>
 `} />
 
-In practice, this is a practical way to pull information from the chart theme.
+In some components - in particular components related to `Axis` and `Legend`, the variant prop
+is also used to extract default prop values from the chart theme.

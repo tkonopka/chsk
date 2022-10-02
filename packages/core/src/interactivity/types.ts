@@ -35,8 +35,7 @@ export interface DataInteractivityProps<
 export interface DataComponentProps<
     DataSpec,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
-> extends SvgElementVariantProps,
-        Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
+> extends Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
     /** function to create a chart component */
     component: FC<ComponentProps>
     /** props passed to the component */
