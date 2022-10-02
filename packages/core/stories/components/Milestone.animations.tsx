@@ -43,7 +43,7 @@ export const EntryMilestones = () => {
                     Toggle milestone &lsquo;left&lsquo;
                 </button>
                 <button onClick={() => toggleMilestone('right')}>
-                    Toggle milestone @lsquo;right&lsquo;
+                    Toggle milestone &lsquo;right&lsquo;
                 </button>
             </div>
             <Chart
