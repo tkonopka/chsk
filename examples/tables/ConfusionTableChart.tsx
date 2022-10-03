@@ -1,7 +1,7 @@
 import { Axis, Chart, GridLines, Counter, ThemeSpec, mergeTheme } from '@chask/core'
 import { HeatMap, HeatMapCellProps, HeatMapCells } from '@chask/matrix'
 import { BoxedTitle } from '@chask/annotation'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -28,7 +28,7 @@ export const generateConfusionTableData = () => [
     },
 ]
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
+const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     rect: {
         boxedLabel: {
             stroke: '#222222',
@@ -69,7 +69,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
             labelOffset: 11,
         },
     },
-    spring: {
+    Motion: {
         duration: 0.6, // Counters only respond to 'duration' and not to 'stiffness', 'damping' etc.
     },
 })

@@ -3,8 +3,9 @@ import { GridLinesProps } from './types'
 import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './Line'
+import { themedProps } from '../themes'
 
-export const GridLines = ({
+const UnthemedGridLines = ({
     variant,
     values,
     shift = [0],
@@ -59,3 +60,7 @@ export const GridLines = ({
     }
     return <g role={'grid-' + variant}>{result}</g>
 }
+
+export const GridLines = (props: GridLinesProps) => (
+    <UnthemedGridLines {...themedProps(props, 'GridLines')} />
+)

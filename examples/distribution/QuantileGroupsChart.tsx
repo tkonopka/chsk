@@ -1,6 +1,6 @@
 import { Axis, Chart, GridLines, Legend, mergeTheme, ThemeSpec, Typography } from '@chask/core'
 import { BandHighlight, Quantile, QuantileProps, Quantiles } from '@chask/band'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { alphabetGreek, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -25,7 +25,7 @@ export const generateQuantileGroupsData = () => {
     }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
+const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     line: {
         axis: {
             visibility: 'visible',

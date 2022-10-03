@@ -1,6 +1,6 @@
 import { ThemeSpec } from '@chask/core'
 
-export const downloadThemeSpec: ThemeSpec = {
+export const downloadThemePiece: ThemeSpec = {
     text: {
         download: {
             fontStyle: 'normal',

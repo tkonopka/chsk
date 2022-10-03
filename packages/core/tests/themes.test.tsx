@@ -35,7 +35,7 @@ describe('mergeTheme', () => {
             },
         }
         const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
-        expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#eeeeee')
+        expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#f2f2f2')
         expect(result['rect']['inner']).toHaveProperty('fill', '#0000dd')
     })
 })

@@ -9,7 +9,7 @@ import {
     mergeTheme,
 } from '@chask/core'
 import { Bar, Bars } from '@chask/band'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -31,7 +31,7 @@ export const generateDivergingGroupedData = () =>
         interval: [-95, 95],
     })
 
-const groupedTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
+const groupedTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     text: {
         title: {
             fontSize: '16px',

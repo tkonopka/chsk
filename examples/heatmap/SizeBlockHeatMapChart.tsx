@@ -19,7 +19,7 @@ import {
     HeatMapHighlight,
     isHeatMapData,
 } from '@chask/matrix'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
@@ -36,7 +36,7 @@ export const generateSizeBlockHeatMapData = () => {
     return resultA.concat(resultB).concat(resultC)
 }
 
-const customTheme = mergeTheme(downloadThemeSpec, {
+const customTheme = mergeTheme(downloadThemePiece, {
     rect: {
         legendColorScale: {
             stroke: '#222222',

@@ -1,6 +1,6 @@
 import { Chart, Axis, GridLines, Legend } from '@chask/core'
 import { Bar, Bars } from '@chask/band'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -22,7 +22,7 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
             id="stacked-vertical"
             size={[480, 400]}
             padding={[40, 120, 60, 60]}
-            theme={downloadThemeSpec}
+            theme={downloadThemePiece}
         >
             <Bar
                 data={rawData}
@@ -63,7 +63,7 @@ export const StackedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
             id="stacked-horizontal"
             size={[600, 320]}
             padding={[90, 40, 40, 60]}
-            theme={downloadThemeSpec}
+            theme={downloadThemePiece}
         >
             <Bar
                 data={rawData}

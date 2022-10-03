@@ -1,4 +1,4 @@
-import { ViewThemedProps } from './types'
+import { SurfaceProps, ViewThemedProps } from './types'
 import {
     createColorScaleProps,
     createContinuousScaleProps,
@@ -17,4 +17,8 @@ export const defaultViewProps: ViewThemedProps = {
     size: [1, 1],
     anchor: [0, 0],
     padding: [0, 0, 0, 0],
+}
+
+export const defaultSurfaceProps: SurfaceProps = {
+    expansion: [0, 0, 0, 0],
 }

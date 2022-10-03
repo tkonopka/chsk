@@ -13,7 +13,8 @@ import {
     LegendSizeScaleThemedProps,
     LegendThemedProps,
 } from '../legends'
-import { ViewThemedProps } from '../views'
+import { SurfaceProps, ViewThemedProps } from '../views'
+import { GridLinesProps } from '../lines'
 
 export type WithVariant = {
     variant?: 'default' | string
@@ -51,12 +52,14 @@ export interface ThemeSpec {
     Axis?: Record<string, Partial<AxisThemedProps> | undefined>
     AxisLabel?: Record<string, Partial<AxisLabelThemedProps> | undefined>
     AxisTicks?: Record<string, Partial<AxisTicksThemedProps> | undefined>
+    GridLines?: Record<string, Partial<GridLinesProps> | undefined>
     Legend?: Record<string, Partial<LegendThemedProps> | undefined>
     LegendItem?: Record<string, Partial<LegendItemThemedProps> | undefined>
     LegendItemList?: Record<string, Partial<LegendItemListThemedProps> | undefined>
     LegendTitle?: Record<string, Partial<LegendItemThemedProps> | undefined>
     LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
+    Surface?: Record<string, Partial<SurfaceProps> | undefined>
     View?: Record<string, Partial<ViewThemedProps> | undefined>
     Colors?: Record<string, ColorScaleSpec | undefined>
     Motion?: MotionProps
@@ -73,12 +76,14 @@ export interface CompleteThemeSpec {
     Axis: SideRecords<AxisThemedProps>
     AxisLabel: SideRecords<AxisLabelThemedProps>
     AxisTicks: SideRecords<AxisTicksThemedProps>
+    GridLines: Record<string, Partial<GridLinesProps> | undefined>
     Legend: Record<string, Partial<LegendThemedProps> | undefined>
     LegendItemList: Record<string, LegendItemListThemedProps | undefined>
     LegendItem: Record<string, LegendItemThemedProps | undefined>
     LegendTitle: Record<string, LegendItemThemedProps | undefined>
     LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
+    Surface: Record<string, Partial<SurfaceProps> | undefined>
     View: Record<string, ViewThemedProps | undefined>
     Colors: ColorsRecords
     Motion: MotionProps
@@ -91,10 +96,12 @@ export type ThemedComponent =
     | 'Axis'
     | 'AxisLabel'
     | 'AxisTicks'
+    | 'GridLines'
     | 'Legend'
     | 'LegendItemList'
     | 'LegendItem'
     | 'LegendTitle'
     | 'LegendColorScale'
     | 'LegendSizeScale'
+    | 'Surface'
     | 'View'

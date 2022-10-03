@@ -5,7 +5,7 @@ import {
     defaultLegendProps,
     defaultLegendSizeScaleProps,
 } from '../legends/defaults'
-import { defaultViewProps } from '../views/defaults'
+import { defaultSurfaceProps, defaultViewProps } from '../views/defaults'
 import {
     defaultAxisLabelLeftProps,
     defaultAxisLabelProps,
@@ -121,11 +121,11 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 0,
         },
         inner: {
-            fill: '#eeeeee',
+            fill: '#f2f2f2',
             fillOpacity: 1,
         },
         outer: {
-            fill: '#f4f4f4',
+            fill: '#f6f6f6',
             fillOpacity: 1,
         },
         legendItem: {
@@ -156,6 +156,20 @@ export const defaultTheme: CompleteThemeSpec = {
         left: cloneDeep(defaultAxisTicksProps),
         right: cloneDeep(defaultAxisTicksProps),
     },
+    GridLines: {
+        default: {
+            shift: [0],
+            expansion: [0, 0],
+        },
+        x: {
+            shift: [0],
+            expansion: [0, 0],
+        },
+        y: {
+            shift: [0],
+            expansion: [0, 0],
+        },
+    },
     Legend: {
         list: cloneDeep(defaultLegendProps),
         color: cloneDeep(defaultLegendProps),
@@ -175,6 +189,9 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     LegendSizeScale: {
         default: cloneDeep(defaultLegendSizeScaleProps),
+    },
+    Surface: {
+        default: cloneDeep(defaultSurfaceProps),
     },
     View: {
         default: cloneDeep(defaultViewProps),

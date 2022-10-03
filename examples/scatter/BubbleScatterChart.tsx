@@ -14,7 +14,7 @@ import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 
 export const generateBubbleScatterData = () => {
     const x1 = generateMixedPopulation([80, 10, 10], [1, 3, 5], [1, 1, 1])
@@ -45,7 +45,7 @@ export const generateBubbleScatterData = () => {
     ]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
+const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     line: {
         grid: {
             stroke: '#dddddd',

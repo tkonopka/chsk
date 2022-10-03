@@ -1,8 +1,8 @@
-import { downloadThemeSpec } from '../src'
+import { downloadThemePiece } from '../src'
 
 describe('download theme', () => {
     it('specifies styles for rect and path', () => {
-        expect(downloadThemeSpec).toHaveProperty('rect')
-        expect(downloadThemeSpec).toHaveProperty('path')
+        expect(downloadThemePiece).toHaveProperty('rect')
+        expect(downloadThemePiece).toHaveProperty('path')
     })
 })

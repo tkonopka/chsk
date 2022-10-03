@@ -11,7 +11,7 @@ import {
     mergeTheme,
 } from '@chask/core'
 import { Bar, Bars } from '@chask/band'
-import { downloadThemeSpec } from '@chask/themes'
+import { downloadThemePiece } from '@chask/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -50,7 +50,7 @@ const generateQuestionData = (id: string) => {
 
 export const generateSurveyData = () => surveyIds.map(id => generateQuestionData(id))
 
-const surveyTheme: ThemeSpec = mergeTheme(downloadThemeSpec, {
+const surveyTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     g: {
         'legendItem:hover': {
             cursor: 'auto',

@@ -93,6 +93,13 @@ div.controller-progress {
     padding-bottom: 16px;
     margin-right: 8px;
 }
+div.controller button.themeButton {
+    display: inline-block;
+    vertical-align: middle;
+    padding: 8px;
+    margin-left: 8px;
+    margin-top: -16px;
+}
 div.controller-progress {
     margin-left: 8px;
 }
@@ -110,7 +117,6 @@ div.controller button {
     position: relative;
 }
 div.controller button:hover {
-    /** border: solid 1px #d0d0d0; */
     background-color: #f4f4f4;
     cursor: pointer;
 }

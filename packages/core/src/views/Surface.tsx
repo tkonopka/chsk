@@ -1,10 +1,11 @@
 import { useDimensions, BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from '../general'
-import { composeClassName } from '../themes'
+import { composeClassName, themedProps } from '../themes'
 import { SurfaceProps } from './types'
+import { defaultSurfaceProps } from './defaults'
 
-export const Surface = ({
+const UnthemedSurface = ({
     variant = 'inner',
-    expansion = [0, 0, 0, 0],
+    expansion = defaultSurfaceProps.expansion,
     className,
     style,
     setRole = true,
@@ -16,15 +17,15 @@ export const Surface = ({
     const width = isOuter ? dimensions.size[WIDTH] : dimensions.innerSize[WIDTH]
     const height = isOuter ? dimensions.size[HEIGHT] : dimensions.innerSize[HEIGHT]
     const surfaceSize: [number, number] = [
-        width + expansion[LEFT] + expansion[RIGHT],
-        height + expansion[TOP] + expansion[BOTTOM],
+        width + (expansion ? expansion[LEFT] + expansion[RIGHT] : 0),
+        height + (expansion ? expansion[TOP] + expansion[BOTTOM] : 0),
     ]
     const compositeClassName = composeClassName([variant, className])
     return (
         <rect
             role={setRole ? 'surface-' + variant : undefined}
-            x={x - expansion[LEFT]}
-            y={y - expansion[TOP]}
+            x={x - (expansion ? expansion[LEFT] : 0)}
+            y={y - (expansion ? expansion[TOP] : 0)}
             width={surfaceSize[WIDTH]}
             height={surfaceSize[HEIGHT]}
             className={compositeClassName}
@@ -32,3 +33,7 @@ export const Surface = ({
         />
     )
 }
+
+export const Surface = (props: SurfaceProps) => (
+    <UnthemedSurface {...themedProps(props, 'Surface')} />
+)
