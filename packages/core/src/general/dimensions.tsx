@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext } from 'react'
+import { createContext, ReactNode, useContext, useMemo } from 'react'
 import {
     DimensionsContextProps,
     DimensionsProviderBaseProps,
@@ -43,7 +43,10 @@ export const DimensionsProvider = ({
     padding,
     children,
 }: DimensionsProviderBaseProps & { children: ReactNode }) => {
-    const value: DimensionsContextProps = { size, padding, innerSize: getInnerSize(size, padding) }
+    const value: DimensionsContextProps = useMemo(
+        () => ({ size, padding, innerSize: getInnerSize(size, padding) }),
+        [size, padding]
+    )
     return <DimensionsContext.Provider value={value}>{children}</DimensionsContext.Provider>
 }
 

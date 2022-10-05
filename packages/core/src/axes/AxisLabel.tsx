@@ -1,7 +1,7 @@
 import { useDimensions } from '../general'
 import { AxisLabelProps } from './types'
 import { Typography } from '../typography'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { defaultAxisLabelProps } from './defaults'
 
 const anchorPresets: Record<string, number> = { start: 0, middle: 0.5, end: 1.0 }
@@ -53,5 +53,5 @@ const UnthemedAxisLabel = ({
 }
 
 export const AxisLabel = (props: AxisLabelProps) => (
-    <UnthemedAxisLabel {...themedProps(props, 'AxisLabel')} />
+    <UnthemedAxisLabel {...useThemedProps(props, 'AxisLabel')} />
 )

@@ -3,7 +3,7 @@ import { GridLinesProps } from './types'
 import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
 import { Line } from './Line'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 
 const UnthemedGridLines = ({
     variant,
@@ -62,5 +62,5 @@ const UnthemedGridLines = ({
 }
 
 export const GridLines = (props: GridLinesProps) => (
-    <UnthemedGridLines {...themedProps(props, 'GridLines')} />
+    <UnthemedGridLines {...useThemedProps(props, 'GridLines')} />
 )

@@ -1,12 +1,13 @@
 import { Rectangle, Square } from '../shapes'
 import { useProcessedData } from '../views'
 import { Typography } from '../typography'
-import { addColor, addOpacity, composeClassName, themedProps } from '../themes'
+import { addColor, addOpacity, composeClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
 import { LEFT, RIGHT, TOP, X, Y } from '../general'
 import { useChartData } from '../chart'
 import { defaultLegendItemProps } from './defaults'
 import { LegendItemProps } from './types'
+import { createElement } from 'react'
 
 const UnthemedLegendItem = ({
     variant = 'right',
@@ -91,7 +92,7 @@ const UnthemedLegendItem = ({
                 height={size[1]}
                 setRole={false}
             />
-            {symbol({
+            {createElement(symbol, {
                 cx: symbolPosition[0] + translate[0],
                 cy: symbolPosition[1] + translate[1],
                 r: r,
@@ -113,5 +114,5 @@ const UnthemedLegendItem = ({
 }
 
 export const LegendItem = (props: LegendItemProps) => (
-    <UnthemedLegendItem {...themedProps(props, 'LegendItem')} />
+    <UnthemedLegendItem {...useThemedProps(props, 'LegendItem')} />
 )

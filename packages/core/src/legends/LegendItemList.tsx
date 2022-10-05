@@ -12,7 +12,7 @@ import {
 import { LegendItem } from './LegendItem'
 import { defaultLegendProps } from './defaults'
 import { LegendItemListProps } from './types'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { SideType } from '../axes'
 import { getMinMax } from '../scales'
 
@@ -130,5 +130,5 @@ const UnthemedLegendItemList = ({
 }
 
 export const LegendItemList = (props: LegendItemListProps) => (
-    <UnthemedLegendItemList {...themedProps(props, 'LegendItemList')} />
+    <UnthemedLegendItemList {...useThemedProps(props, 'LegendItemList')} />
 )

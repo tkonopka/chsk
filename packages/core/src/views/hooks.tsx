@@ -13,6 +13,7 @@ import {
 } from '../general'
 import { AnchorSpec } from './types'
 import { getAbsolutePosition, useScales } from '../scales'
+import { useMemo } from 'react'
 
 export const getAnchoredOrigin = (
     position: NumericPositionSpec,
@@ -37,9 +38,12 @@ export const useView = ({
 }) => {
     const dimensions = useDimensions()
     const scales = useScales()
-    const dimsProps = getDimensionsProps(size, units, dimensions.innerSize, padding)
-    const pos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
-    const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
+    const { dimsProps, origin } = useMemo(() => {
+        const dimsProps = getDimensionsProps(size, units, dimensions.innerSize, padding)
+        const pos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
+        const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
+        return { dimsProps, origin }
+    }, [position, size, units, padding, anchor, dimensions, scales])
     const translate =
         'translate(' + (origin[X] + padding[LEFT]) + ',' + (origin[Y] + padding[TOP]) + ')'
     return { dimensions, dimsProps, origin, translate }

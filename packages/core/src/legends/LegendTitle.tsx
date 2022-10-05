@@ -1,6 +1,6 @@
 import { Typography } from '../typography'
 import { LEFT, RIGHT, TOP } from '../general'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { LegendTitleProps } from './types'
 import { defaultLegendItemProps } from './defaults'
 
@@ -39,5 +39,5 @@ const UnthemedLegendTitle = ({
 }
 
 export const LegendTitle = (props: LegendTitleProps) => (
-    <UnthemedLegendTitle {...themedProps(props, 'LegendTitle')} />
+    <UnthemedLegendTitle {...useThemedProps(props, 'LegendTitle')} />
 )

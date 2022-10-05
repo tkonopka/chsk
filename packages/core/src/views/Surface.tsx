@@ -1,5 +1,5 @@
 import { useDimensions, BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from '../general'
-import { composeClassName, themedProps } from '../themes'
+import { composeClassName, useThemedProps } from '../themes'
 import { SurfaceProps } from './types'
 import { defaultSurfaceProps } from './defaults'
 
@@ -35,5 +35,5 @@ const UnthemedSurface = ({
 }
 
 export const Surface = (props: SurfaceProps) => (
-    <UnthemedSurface {...themedProps(props, 'Surface')} />
+    <UnthemedSurface {...useThemedProps(props, 'Surface')} />
 )

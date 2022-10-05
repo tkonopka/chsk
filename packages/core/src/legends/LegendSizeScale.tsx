@@ -1,5 +1,5 @@
 import { defaultLegendProps } from './defaults'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { LegendSizeScaleProps } from './types'
 import { getTickCoordinates, getTicks, useScales } from '../scales'
 import { LegendItemList } from './LegendItemList'
@@ -55,5 +55,5 @@ const UnthemedLegendSizeScale = ({
 }
 
 export const LegendSizeScale = (props: LegendSizeScaleProps) => (
-    <UnthemedLegendSizeScale {...themedProps(props, 'LegendSizeScale')} />
+    <UnthemedLegendSizeScale {...useThemedProps(props, 'LegendSizeScale')} />
 )

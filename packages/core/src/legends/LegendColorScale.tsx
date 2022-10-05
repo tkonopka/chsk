@@ -5,7 +5,7 @@ import { isContinuousColorScale, useScales } from '../scales'
 import { LinearGradient } from '../defs'
 import { cloneDeep } from 'lodash'
 import { getAxisTranslate, getScaleTicks } from '../axes'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { defaultLegendColorScaleProps } from './defaults'
 
 const UnthemedLegendColorScale = ({
@@ -81,5 +81,5 @@ const UnthemedLegendColorScale = ({
 }
 
 export const LegendColorScale = (props: LegendColorScaleProps) => (
-    <UnthemedLegendColorScale {...themedProps(props, 'LegendColorScale')} />
+    <UnthemedLegendColorScale {...useThemedProps(props, 'LegendColorScale')} />
 )

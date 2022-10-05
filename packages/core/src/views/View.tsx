@@ -3,7 +3,7 @@ import { createScales, createColorScale, createContinuousScale } from '../scales
 import { ViewProps } from './types'
 import { useView } from './hooks'
 import { BaseView } from './BaseView'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { defaultViewProps } from './defaults'
 import { cloneDeep } from 'lodash'
 import { fillScaleSize } from './utils'
@@ -58,4 +58,4 @@ const UnthemedView = ({
     )
 }
 
-export const View = (props: ViewProps) => <UnthemedView {...themedProps(props, 'View')} />
+export const View = (props: ViewProps) => <UnthemedView {...useThemedProps(props, 'View')} />

@@ -3,6 +3,7 @@ import { useTheme } from './context'
 import { ThemedComponent, ThemeSpec, WithVariant } from './types'
 import { CssProps } from '../general'
 import { camelCase } from './helpers'
+import { useMemo } from 'react'
 
 // turn an array of string into a single space-separate className string
 export const composeClassName = function (names: Array<string | undefined>) {
@@ -30,7 +31,9 @@ export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
     return merge(cloneDeep(baseTheme), customTheme ?? {})
 }
 
-export const themedProps = <Props extends WithVariant>(props: Props, key: ThemedComponent) => {
+export const useThemedProps = <Props extends WithVariant>(props: Props, key: ThemedComponent) => {
     const theme = useTheme()
-    return merge(cloneDeep(theme[key][String(props.variant ?? 'default')]), props)
+    return useMemo(() => {
+        return merge(cloneDeep(theme[key][String(props.variant ?? 'default')]), props)
+    }, [theme, props, key])
 }

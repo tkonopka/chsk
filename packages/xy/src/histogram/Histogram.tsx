@@ -26,17 +26,17 @@ import { binValues, getBreaksArray } from './utils'
 
 // turn raw data into a minimal format
 const processData = (
-    seriesData: HistogramDataItem,
-    index: number,
+    data: Array<HistogramDataItem>,
     breaks: number[],
     density: boolean
-): HistogramProcessedDataItem => {
-    return {
+): Array<HistogramProcessedDataItem> => {
+    console.log('processData')
+    return data.map((seriesData, index) => ({
         id: seriesData.id,
         index,
         points: binValues(seriesData.data, breaks, density),
         breaks,
-    }
+    }))
 }
 
 // turn processed data into view-specific coordinates
@@ -107,11 +107,15 @@ export const Histogram = ({
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const { disabled } = useDisabledKeys(seriesIds)
-    const breaksArray = Array.isArray(breaks) ? breaks : getBreaksArray(data, breaks)
+    const breaksArray = useMemo(
+        () => (Array.isArray(breaks) ? breaks : getBreaksArray(data, breaks)),
+        [data, breaks]
+    )
 
     // process dataset - arrange raw data into histogram bins
-    const processedData = data.map((seriesData, seriesIndex) =>
-        processData(seriesData, seriesIndex, breaksArray, density)
+    const processedData = useMemo(
+        () => processData(data, breaksArray, density),
+        [data, breaksArray, density]
     )
 
     // set up scales

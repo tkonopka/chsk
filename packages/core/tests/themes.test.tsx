@@ -8,7 +8,7 @@ import {
     CompleteThemeSpec,
     mergeTheme,
     ThemeSpec,
-    themedProps,
+    useThemedProps,
 } from '../src'
 import { chartProps } from './props'
 
@@ -105,7 +105,7 @@ describe('themedProps', () => {
         }
         let result: AxisProps = { variant: 'top' }
         const GetThemedAxisProps = (props: AxisProps) => {
-            result = themedProps(props, 'Axis')
+            result = useThemedProps(props, 'Axis')
             return null
         }
 

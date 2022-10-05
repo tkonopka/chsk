@@ -15,7 +15,7 @@ export const ScatterPreparedDataProvider = ({
 }: ScatterDataContextProps & {
     children: ReactNode
 }) => {
-    const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])
+    const value = useMemo(() => ({ data, seriesIndexes, keys }), [data, seriesIndexes, keys])
     return (
         <ScatterPreparedDataContext.Provider value={value}>
             {children}

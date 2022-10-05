@@ -2,7 +2,7 @@ import { X, Y } from '../general'
 import { Line } from '../lines'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { Typography } from '../typography'
 import { defaultAxisTicksProps } from './defaults'
 
@@ -113,5 +113,5 @@ const UnthemedAxisTicks = ({
 }
 
 export const AxisTicks = (props: AxisTicksProps) => (
-    <UnthemedAxisTicks {...themedProps(props, 'AxisTicks')} />
+    <UnthemedAxisTicks {...useThemedProps(props, 'AxisTicks')} />
 )

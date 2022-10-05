@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { LegendProps } from './types'
 import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
-import { themedProps } from '../themes'
+import { useThemedProps } from '../themes'
 import { DimensionsProvider, NumericPositionSpec } from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
@@ -135,4 +135,6 @@ const UnthemedLegend = ({
     )
 }
 
-export const Legend = (props: LegendProps) => <UnthemedLegend {...themedProps(props, 'Legend')} />
+export const Legend = (props: LegendProps) => (
+    <UnthemedLegend {...useThemedProps(props, 'Legend')} />
+)

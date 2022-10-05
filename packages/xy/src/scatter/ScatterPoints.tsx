@@ -1,4 +1,4 @@
-import { createElement } from 'react'
+import { createElement, useMemo } from 'react'
 import {
     addColor,
     Circle,
@@ -26,6 +26,26 @@ export const ScatterPoints = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isScatterProcessedData(processedData)) return null
 
+    const symbolData = useMemo(
+        () =>
+            preparedData.keys.map(id => {
+                const seriesIndex = preparedData.seriesIndexes[id]
+                const seriesProcessedData = processedData[seriesIndex]
+                const data = preparedData.data[seriesIndex]
+                return data.r.map((r: number, index: number) => ({
+                    id,
+                    index,
+                    point: [seriesProcessedData.x[index], seriesProcessedData.y[index]] as [
+                        number,
+                        number
+                    ],
+                    size: seriesProcessedData.size[index],
+                    color: seriesProcessedData.color?.[index],
+                }))
+            }),
+        [processedData, preparedData]
+    )
+
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
@@ -35,18 +55,11 @@ export const ScatterPoints = ({
         const x = data.x
         const y = data.y
         const colors = data.color
-        const seriesProcessedData = processedData[seriesIndex]
         const dots = visible
             ? data.r.map((r: number, i: number) =>
                   createElement(dataComponent, {
                       key: 'point-' + seriesIndex + '-' + i,
-                      data: {
-                          id,
-                          index: i,
-                          point: [seriesProcessedData.x[i], seriesProcessedData.y[i]],
-                          size: seriesProcessedData.size[i],
-                          color: seriesProcessedData.color?.[i],
-                      },
+                      data: symbolData[seriesIndex][i],
                       component: symbol,
                       props: {
                           cx: x[i],

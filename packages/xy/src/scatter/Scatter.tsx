@@ -118,20 +118,43 @@ export const Scatter = ({
     const processedData = useMemo(() => processData(data, accessors), [data, accessors])
 
     // set up scales
-    const { scalePropsX, scalePropsY } = getXYScaleProps(
+    const { scalePropsX, scalePropsY } = useMemo(() => {
+        return getXYScaleProps(
+            processedData,
+            scaleX,
+            scaleY,
+            dimsProps.innerSize,
+            autoRescale ? disabled : Array(seriesIds.length).fill(false)
+        )
+    }, [
         processedData,
-        scaleX,
-        scaleY,
-        dimsProps.innerSize,
-        autoRescale ? disabled : Array(seriesIds.length).fill(false)
-    )
-    const scaleColorProps = getColorScaleProps(
+        JSON.stringify(scaleX),
+        JSON.stringify(scaleY),
+        disabled,
+        autoRescale,
+        disabled,
+        seriesIds,
+    ])
+    const { scaleColorProps, scaleSizeProps } = useMemo(() => {
+        const scaleColorProps = getColorScaleProps(
+            processedData,
+            scaleColor ?? theme.Colors.categorical,
+            seriesIds
+        )
+        const scaleSizeProps = getSizeScaleProps(processedData, scaleSize, valueSize)
+        return { scaleColorProps, scaleSizeProps }
+    }, [
         processedData,
-        scaleColor ?? theme.Colors.categorical,
-        seriesIds
+        JSON.stringify(scaleColor),
+        JSON.stringify(scaleSize),
+        theme,
+        valueSize,
+        seriesIds,
+    ])
+    const scales = useMemo(
+        () => createScales(scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps),
+        [scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps]
     )
-    const sizeScaleProps = getSizeScaleProps(processedData, scaleSize, valueSize)
-    const scales = createScales(scalePropsX, scalePropsY, scaleColorProps, sizeScaleProps)
 
     // compute coordinates
     const preparedData = useMemo(() => prepareData(processedData, scales), [processedData, scales])
