@@ -4,4 +4,18 @@ import { Meta } from '@storybook/addon-docs'
 
 # Themes
 
-Package `@chask/themes` provides ready-made visual themes that can be applied to any chart.
+Package `@chask/themes` provides a collection of ready-made visual themes that can be applied to any chart.
+
+The package is organized into two parts.
+
+## Complete themes
+
+Complete themes specify styles for multiple SVG elements (e.g. `rect`, `path`) and default prop values for multiple chask components (e.g. `Axis`, `Legend`).
+These adjustments can affect the look-and-feel of default shapes and components.
+
+## Theme pieces
+
+Theme pieces specify smaller, targeted style adjustments. For example, a theme piece may tune styles associated with a specific class name.
+
+Theme pieces are similar to complete themes in technical terms.
+In particular, they have the same object format (and typescript type).
