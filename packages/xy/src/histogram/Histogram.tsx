@@ -30,7 +30,6 @@ const processData = (
     breaks: number[],
     density: boolean
 ): Array<HistogramProcessedDataItem> => {
-    console.log('processData')
     return data.map((seriesData, index) => ({
         id: seriesData.id,
         index,

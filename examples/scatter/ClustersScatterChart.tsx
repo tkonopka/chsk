@@ -40,6 +40,22 @@ const customTheme = {
     },
 }
 
+const scatterProps = {
+    x: 'x',
+    y: 'y',
+    valueSize: 4,
+    scaleX: {
+        variant: 'linear' as const,
+        domain: 'auto' as const,
+        nice: true,
+    },
+    scaleY: {
+        variant: 'linear' as const,
+        domain: 'auto' as const,
+        nice: true,
+    },
+}
+
 export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
@@ -62,22 +78,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                 padding={[40, 120, 60, 60]}
                 theme={customTheme}
             >
-                <Scatter
-                    data={rawData}
-                    x={'x'}
-                    y={'y'}
-                    valueSize={4}
-                    scaleX={{
-                        variant: 'linear',
-                        domain: 'auto',
-                        nice: true,
-                    }}
-                    scaleY={{
-                        variant: 'linear',
-                        domain: 'auto',
-                        nice: true,
-                    }}
-                >
+                <Scatter data={rawData} {...scatterProps}>
                     <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
                         <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                         <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />

@@ -126,15 +126,7 @@ export const Scatter = ({
             dimsProps.innerSize,
             autoRescale ? disabled : Array(seriesIds.length).fill(false)
         )
-    }, [
-        processedData,
-        JSON.stringify(scaleX),
-        JSON.stringify(scaleY),
-        disabled,
-        autoRescale,
-        disabled,
-        seriesIds,
-    ])
+    }, [processedData, scaleX, scaleY, disabled, autoRescale, disabled, seriesIds])
     const { scaleColorProps, scaleSizeProps } = useMemo(() => {
         const scaleColorProps = getColorScaleProps(
             processedData,
@@ -143,14 +135,7 @@ export const Scatter = ({
         )
         const scaleSizeProps = getSizeScaleProps(processedData, scaleSize, valueSize)
         return { scaleColorProps, scaleSizeProps }
-    }, [
-        processedData,
-        JSON.stringify(scaleColor),
-        JSON.stringify(scaleSize),
-        theme,
-        valueSize,
-        seriesIds,
-    ])
+    }, [processedData, scaleColor, scaleSize, theme, valueSize, seriesIds])
     const scales = useMemo(
         () => createScales(scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps),
         [scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps]
