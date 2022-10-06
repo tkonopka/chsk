@@ -51,7 +51,7 @@ const customTheme: ThemeSpec = {
             textAnchor: 'middle',
             dominantBaseline: 'auto',
         },
-        intervalLabel: {
+        lineLabel: {
             textAnchor: 'middle',
             fontWeight: 600,
             fill: '#444444',
@@ -60,6 +60,7 @@ const customTheme: ThemeSpec = {
 }
 
 const customGroupsBarProps = {
+    position: [0, 0] as [number, number],
     variant: 'stacked' as const,
     horizontal: false,
     keys: ['A', 'B', 'C'],
@@ -87,7 +88,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
         padding={[40, 40, 60, 75]}
         theme={customTheme}
     >
-        <Bar position={[0, 0]} {...customGroupsBarProps} data={rawData}>
+        <Bar {...customGroupsBarProps} data={rawData}>
             <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>
