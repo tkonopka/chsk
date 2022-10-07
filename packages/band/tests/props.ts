@@ -1,12 +1,12 @@
 import { BarProps, BarDataItem, QuantileProps, StripProps } from '../src'
 import { createBandScale, createContinuousScale } from '@chask/core'
 
-export const dummyBandScale = createBandScale({ domain: ['a'], size: 100 })
-export const dummyLinearScale = createContinuousScale({
+export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
+export const dummyYLinearScale = createContinuousScale({
     domain: [0, 10],
     size: 100,
     variant: 'linear',
-    axis: 'y',
+    reverseRange: true,
 })
 
 export const getNumber = (s: string | undefined | null) => {

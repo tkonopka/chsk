@@ -17,7 +17,7 @@ import {
     isBarProcessedData,
     useBarPreparedData,
 } from '../src'
-import { barProps, dummyBandScale, dummyLinearScale } from './props'
+import { barProps, dummyXBandScale, dummyYLinearScale } from './props'
 
 describe('Bar', () => {
     it('creates a view', () => {
@@ -75,8 +75,8 @@ describe('Bar', () => {
 
     it('auto-detects scales (vertical)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultSequentialScale,
         }
@@ -104,8 +104,8 @@ describe('Bar', () => {
 
     it('auto-detects scales (horizontal)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
@@ -160,8 +160,8 @@ describe('Bar', () => {
 
     it('auto-detects scales with negative numbers (horizontal)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
@@ -188,8 +188,8 @@ describe('Bar', () => {
 
     it('auto-detects scales with negative numbers (vertical)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }

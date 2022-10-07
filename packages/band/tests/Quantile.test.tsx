@@ -18,7 +18,7 @@ import {
     QuantileProcessedDataItem,
     isQuantileProcessedSummary,
 } from '../src'
-import { quantileProps, dummyBandScale, dummyLinearScale, dataMissingKeys } from './props'
+import { quantileProps, dummyXBandScale, dummyYLinearScale, dataMissingKeys } from './props'
 
 describe('Quantile', () => {
     it('defines processed data', () => {
@@ -70,8 +70,8 @@ describe('Quantile', () => {
 
     it('auto-detects scales (vertical)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultSequentialScale,
         }
@@ -98,8 +98,8 @@ describe('Quantile', () => {
 
     it('auto-detects scales (horizontal)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }

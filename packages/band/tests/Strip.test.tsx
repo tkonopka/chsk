@@ -17,7 +17,7 @@ import {
     useStripPreparedData,
     StripProcessedDataItem,
 } from '../src/strips'
-import { stripProps, dummyBandScale, dummyLinearScale, dataMissingKeys } from './props'
+import { stripProps, dummyXBandScale, dummyYLinearScale, dataMissingKeys } from './props'
 
 describe('Strip', () => {
     it('defines processed data (variant default)', () => {
@@ -210,8 +210,8 @@ describe('Strip', () => {
 
     it('auto-detects scales (vertical)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultSequentialScale,
         }
@@ -238,8 +238,8 @@ describe('Strip', () => {
 
     it('auto-detects scales (horizontal)', () => {
         let scales: ScalesContextProps = {
-            x: dummyBandScale,
-            y: dummyLinearScale,
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
