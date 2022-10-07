@@ -1,10 +1,59 @@
+import {
+    scaleDiverging,
+    ScaleDiverging as D3ScaleDiverging,
+    scaleSequential,
+    ScaleSequential as D3ScaleSequential,
+} from 'd3-scale'
+import {
+    CategoricalColorScale,
+    CategoricalScaleProps,
+    ColorScale,
+    D3Scheme,
+    DivergingScaleProps,
+    SequentialScaleProps,
+} from './types'
 import * as d3 from 'd3-scale-chromatic'
-import { CategoricalColorScale, CategoricalScaleProps } from './types'
 
 type D3ScaleChromatic = keyof typeof d3
 
-const isNested = (x: Array<unknown>) => {
-    return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)
+const setInterpolatorOrRange = (
+    scale: D3ScaleSequential<string> | D3ScaleDiverging<string>,
+    colors: D3Scheme | string[]
+) => {
+    if (!Array.isArray(colors)) {
+        const interpolateKey = 'interpolate' + colors
+        let interpolator: (t: number) => string = d3.interpolateBlues
+        if (interpolateKey in d3) {
+            interpolator = d3[interpolateKey as D3ScaleChromatic] as (t: number) => string
+        }
+        scale.interpolator(interpolator)
+    } else {
+        scale.range(colors)
+    }
+}
+
+export const createSequentialScale = ({
+    variant,
+    colors,
+    domain,
+}: SequentialScaleProps): ColorScale => {
+    const scale = scaleSequential<string>().domain(domain).clamp(true)
+    setInterpolatorOrRange(scale, colors)
+    const result = scale as unknown as ColorScale
+    result.variant = variant
+    return result
+}
+
+export const createDivergingScale = ({
+    variant,
+    colors,
+    domain,
+}: DivergingScaleProps): ColorScale => {
+    const scale = scaleDiverging<string>().domain(domain).clamp(true)
+    setInterpolatorOrRange(scale, colors)
+    const result = scale as unknown as ColorScale
+    result.variant = variant
+    return result
 }
 
 export const createCategoricalScale = ({
@@ -24,6 +73,11 @@ export const createCategoricalScale = ({
     if (!Array.isArray(allColors)) {
         allColors = [colors]
     }
+
+    const isNested = (x: Array<unknown>) => {
+        return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)
+    }
+
     // handle case when d3 returns an array of arrays, e.g. [undefined, undefined, ["red", "blue"]]
     let nColors = Math.min(domain.length, (allColors as unknown[]).length)
     nColors = size ? Math.min(size, nColors) : nColors

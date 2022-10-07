@@ -4,15 +4,16 @@ import {
     createAxisScale,
     getTickCoordinates,
     isAxisScale,
-    isColorScale,
     isBandAxisScale,
+    isColorScale,
     isContinuousAxisScale,
     isLinearAxisScale,
     isLogAxisScale,
     isScaleWithDomain,
+    isSqrtAxisScale,
 } from '../src/scales'
 
-describe('createScale', () => {
+describe('createAxisScale', () => {
     it('creates a band scale', () => {
         const result = createAxisScale({
             axis: 'x',
@@ -61,6 +62,22 @@ describe('createScale', () => {
         expect(isContinuousAxisScale(result)).toBeTruthy()
         expect(isLinearAxisScale(result)).toBeFalsy()
         expect(isLogAxisScale(result)).toBeTruthy()
+    })
+
+    it('creates a sqrt scale', () => {
+        const result = createAxisScale({
+            axis: 'x',
+            scaleProps: {
+                variant: 'sqrt',
+                domain: [0, 100],
+                size: 100,
+            },
+        })
+        expect(isAxisScale(result)).toBeTruthy()
+        expect(isColorScale(result)).toBeFalsy()
+        expect(isBandAxisScale(result)).toBeFalsy()
+        expect(isSqrtAxisScale(result)).toBeTruthy()
+        expect(isContinuousAxisScale(result)).toBeTruthy()
     })
 })
 
@@ -167,7 +184,7 @@ describe('createContinuousScale', () => {
     it('creates linear scale for x axis', () => {
         const result = createContinuousScale({
             variant: 'linear',
-            axis: 'x',
+            reverseRange: false,
             domain: [0, 10],
             size: 100,
         })
@@ -179,7 +196,7 @@ describe('createContinuousScale', () => {
     it('creates linear scale for y axis', () => {
         const result = createContinuousScale({
             variant: 'linear',
-            axis: 'y',
+            reverseRange: true,
             domain: [0, 10],
             size: 100,
         })
@@ -192,7 +209,7 @@ describe('createContinuousScale', () => {
     it('creates log scale for x axis', () => {
         const result = createContinuousScale({
             variant: 'log',
-            axis: 'x',
+            reverseRange: false,
             domain: [1, 100],
             size: 100,
         })
@@ -204,7 +221,6 @@ describe('createContinuousScale', () => {
     it('continuous scales have zero bandwidth and zero step', () => {
         const result = createContinuousScale({
             variant: 'linear',
-            axis: 'x',
             domain: [1, 100],
             size: 100,
         })
@@ -217,7 +233,6 @@ describe('createContinuousScale', () => {
     it('extract tick coordinates', () => {
         const scale = createContinuousScale({
             variant: 'linear',
-            axis: 'x',
             domain: [0, 100],
             size: 200,
         })

@@ -1,4 +1,5 @@
-import { getAccessor, getAbsoluteSize, getNumberAccessor } from '../src/general'
+import { getAbsoluteSize } from '../src/general/dimensions'
+import { getAccessor, getNumberAccessor } from '../src/general'
 
 describe('getAbsoluteSize', () => {
     it('returns an absolute size as-is', () => {

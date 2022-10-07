@@ -1,7 +1,4 @@
 import { cloneDeep } from 'lodash'
-import { createCategoricalScale } from './categorical'
-import { createDivergingScale } from './diverging'
-import { createSequentialScale } from './sequential'
 import {
     Scale,
     ColorScale,
@@ -13,6 +10,11 @@ import {
     DivergingScaleProps,
     CategoricalColorScale,
 } from './types'
+import {
+    createCategoricalScale,
+    createDivergingScale,
+    createSequentialScale,
+} from './colors.helpers'
 
 export const isColorScale = (scale: Scale): scale is ColorScale => {
     return (

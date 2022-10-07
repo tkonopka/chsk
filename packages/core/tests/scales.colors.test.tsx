@@ -1,6 +1,8 @@
-import { createCategoricalScale } from '../src/scales/categorical'
-import { createSequentialScale } from '../src/scales/sequential'
-import { createDivergingScale } from '../src/scales/diverging'
+import {
+    createCategoricalScale,
+    createSequentialScale,
+    createDivergingScale,
+} from '../src/scales/colors.helpers'
 import {
     createColorScale,
     createColorScaleProps,

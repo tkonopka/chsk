@@ -1,6 +1,6 @@
 import { Scale } from './types'
-import { isContinuousAxisScale } from './axis'
-import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './color'
+import { isContinuousAxisScale } from './axes'
+import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './colors'
 
 /** get an array of (numeric) ticks in the scale domain */
 export const getTicks = (scale: Scale, ticks?: number[] | string[] | number) => {

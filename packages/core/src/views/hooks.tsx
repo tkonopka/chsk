@@ -1,5 +1,4 @@
 import {
-    getDimensionsProps,
     NumericPositionSpec,
     PositionSpec,
     FourSideSizeSpec,
@@ -11,6 +10,7 @@ import {
     LEFT,
     TOP,
 } from '../general'
+import { getDimensionsProps } from '../general/dimensions'
 import { AnchorSpec } from './types'
 import { getAbsolutePosition, useScales } from '../scales'
 import { useMemo } from 'react'

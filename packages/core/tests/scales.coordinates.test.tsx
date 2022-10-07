@@ -15,7 +15,7 @@ describe('getCoordinates', () => {
     })
     const customLinearScale = createContinuousScale({
         variant: 'linear',
-        axis: 'y',
+        reverseRange: true,
         domain: [0, 10],
         size: 100,
     })

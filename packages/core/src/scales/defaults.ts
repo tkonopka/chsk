@@ -7,10 +7,12 @@ import {
     SequentialScaleSpec,
     SizeScaleSpec,
 } from './types'
-import { createContinuousScale } from './continuous'
-import { createCategoricalScale } from './categorical'
-import { createSequentialScale } from './sequential'
-import { createDivergingScale } from './diverging'
+import { createContinuousScale } from './axes'
+import {
+    createCategoricalScale,
+    createSequentialScale,
+    createDivergingScale,
+} from './colors.helpers'
 
 export const defaultBandScaleSpec: BandScaleSpec = {
     variant: 'band',
@@ -59,7 +61,6 @@ export const defaultDivergingScaleSpec: DivergingScaleSpec = {
 
 export const defaultSizeScale = createContinuousScale({
     variant: 'linear',
-    axis: 'x',
     domain: [0, 0],
     size: 0,
 })
@@ -80,4 +81,18 @@ export const defaultDivergingScale = createDivergingScale({
     variant: 'diverging',
     colors: 'BrBG',
     domain: [-100, 0, 100],
+})
+
+export const defaultScaleX = createContinuousScale({
+    variant: 'linear',
+    reverseRange: true,
+    size: 1,
+    domain: [0, 1],
+})
+
+export const defaultScaleY = createContinuousScale({
+    variant: 'linear',
+    reverseRange: true,
+    size: 1,
+    domain: [0, 1],
 })

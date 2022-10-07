@@ -1,7 +1,6 @@
 import { cloneDeep } from 'lodash'
 import {
     Scale,
-    ScalesContextProps,
     ScaleSpec,
     ContinuousAxisScale,
     BandAxisScale,
@@ -12,13 +11,10 @@ import {
     BandScaleProps,
     AxisScale,
     SqrtAxisScale,
-    ColorScaleProps,
-    SizeScaleProps,
+    BandScaleSpec,
+    GenericScale,
 } from './types'
-import { createBandScale } from './band'
-import { createContinuousScale } from './continuous'
-import { defaultCategoricalScale, defaultSizeScale } from './defaults'
-import { createColorScale } from './color'
+import { scaleLinear, scaleLog, scaleSqrt } from 'd3-scale'
 
 export const isScaleWithDomain = (
     scaleSpec: ScaleSpec
@@ -76,31 +72,85 @@ export const isSqrtAxisScale = (scale: Scale): scale is SqrtAxisScale => {
     return scale.variant === 'sqrt'
 }
 
+// creates a scale function similar to D3's createBandScale
+// but this object will have more custom features, including extraPadding for specified bands
+export const createBandScale = ({
+    domain,
+    size,
+    padding = 0.1,
+    paddingInner,
+    paddingOuter,
+    extraPadding = {},
+}: Omit<BandScaleSpec, 'variant' | 'domain'> & {
+    domain: string[]
+    size: number
+}): BandAxisScale => {
+    const n = domain.length
+    const innerPadding = Number(n > 1) * Math.max(0, Math.min(1, paddingInner ?? padding))
+    const outerPadding = Math.max(0, paddingOuter ?? padding)
+    const totalExtraPadding = Object.keys(extraPadding).reduce(
+        (acc: number, k: string) => acc + extraPadding[k],
+        0
+    )
+    const step = size / (2 * outerPadding + n - innerPadding + totalExtraPadding)
+    const bandwidth = (1 - innerPadding) * step
+    let position = outerPadding * step
+    const positions: Record<string, number> = {}
+    domain.forEach(item => {
+        const extra = extraPadding[item] ?? 0
+        positions[item] = position + extra * step
+        position += step + extra * step
+    })
+
+    // build output object
+    // default function returns centers of the band
+    const result = (x: string) => (positions[x] ?? 0) + bandwidth / 2
+    // properties that mimic d3 functionality
+    result.domain = () => domain
+    result.bandwidth = () => bandwidth
+    result.step = () => step
+    result.ticks = () => domain
+    // additional properties
+    result.variant = 'band' as const
+
+    return result
+}
+
+export const createContinuousScale = ({
+    variant,
+    reverseRange = false,
+    size,
+    domain,
+    clamp = false,
+    nice = false,
+}: ContinuousScaleProps & {
+    reverseRange?: boolean
+}): ContinuousAxisScale => {
+    const range = reverseRange ? [size, 0] : [0, size]
+    const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
+    scale.range(range).domain(domain).clamp(clamp)
+    if (nice === true) scale.nice()
+    if (typeof nice === 'number') scale.nice(nice)
+
+    const result = scale as unknown as GenericScale<number, number>
+    result.variant = variant
+    result.bandwidth = () => 0
+    result.step = () => 0
+
+    return result as ContinuousAxisScale
+}
+
 export const createAxisScale = ({
     axis = 'x',
     scaleProps,
 }: {
     /** axis for scale */
     axis?: 'x' | 'y'
-    /** complete specification, including domain, for a scale */
+    /** complete information about a scale, including domain */
     scaleProps: ContinuousScaleProps | BandScaleProps
 }) => {
     if (scaleProps.variant === 'band') {
         return createBandScale(scaleProps)
     }
-    return createContinuousScale({ axis, ...scaleProps })
-}
-
-export const createScales = (
-    scaleX: ContinuousScaleProps | BandScaleProps,
-    scaleY: ContinuousScaleProps | BandScaleProps,
-    scaleColor?: ColorScaleProps,
-    scaleSize?: SizeScaleProps
-): ScalesContextProps => {
-    return {
-        x: createAxisScale({ axis: 'x', scaleProps: scaleX }),
-        y: createAxisScale({ axis: 'y', scaleProps: scaleY }),
-        color: scaleColor ? createColorScale(scaleColor) : defaultCategoricalScale,
-        size: scaleSize ? createContinuousScale(scaleSize) : defaultSizeScale,
-    }
+    return createContinuousScale({ reverseRange: axis === 'y', ...scaleProps })
 }

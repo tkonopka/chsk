@@ -40,7 +40,7 @@ export const binValues = (data: number[], breaks: number[], density: boolean) =>
 // guess a set of breakpoints using 'ticks' from d3 scales
 export const getBreaksArray = (data: Array<HistogramDataItem>, breaks: number) => {
     const minmax = getMinMax(data.map(seriesData => getMinMax(seriesData.data)).flat())
-    const scale = createContinuousScale({ variant: 'linear', axis: 'x', size: 100, domain: minmax })
+    const scale = createContinuousScale({ variant: 'linear', size: 100, domain: minmax })
     let result = scale.ticks(Math.max(2, breaks))
     const interval = result[1] - result[0]
     const last = result[result.length - 1]

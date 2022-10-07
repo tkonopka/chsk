@@ -1,6 +1,6 @@
 import { AxisScale, ScalesContextProps } from './types'
 import { PositionSpec, PositionUnit, PositionUnits, SizeSpec } from '../general'
-import { isContinuousAxisScale } from './axis'
+import { isContinuousAxisScale } from './axes'
 
 // converts a position, possibly expressed in relative units or in view-specific values,
 // into absolute numbers suitable for svg elements
