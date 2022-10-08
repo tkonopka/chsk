@@ -1,6 +1,6 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { defaultTheme, inverseGridTheme, boxedTheme } from '../../src'
-import { ThemeController } from './ThemeController'
+import { ThemeController } from '../ThemeController'
 import { ThemeScatterChart } from './ThemeScatterChart'
 
 <Meta title="Addons/Themes/Complete themes" />
@@ -20,6 +20,8 @@ import { classicTheme } from '@chask/themes'
     ...
 </Chart>
 `} />
+
+Complete themes can be augmented with theme pieces or with custom styles. See `mergeTheme`.
 
 ## `defaultTheme`
 

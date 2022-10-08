@@ -1,6 +1,8 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Surface, View, Circle, Rectangle, Typography } from '@chask/core'
-import { downloadThemePiece } from '../../src'
+import { downloadThemePiece, defaultTheme } from '../../src'
+import { ThemeController } from '../ThemeController'
+import { PieceDownloadChart } from './PieceDownloadChart'
 
 <Meta title="Addons/Themes/Theme pieces" />
 
@@ -26,31 +28,17 @@ const customTheme = mergeTheme(themePiece, {
 
 ## `downloadThemePiece`
 
-`downloadThemePiece` holds definitions for `text`, `rect`, and `path` associated with `className='download'`.
+`downloadThemePiece` holds definitions for `text`, `rect`, and `path` associated with css class `'download'`.
 
-The combination of styles may be suitable for labels and buttons to download a chart to an svg file.
-This theme piece is used in some of the examples in the gallery.
+This theme piece may be suitable for labels and buttons.
+It is used in some of the examples in the gallery to style buttons that trigger downloads of chart svg files and dataset json files.
 
 <Canvas>
-    <Story name="downloadThemePiece 1">
-        <Chart
-            size={[400, 300]}
-            padding={[60, 40, 40, 60]}
-            style={{ display: 'inline-block' }}
-            theme={downloadThemePiece}
-        >
-            <Surface variant={'inner'} />
-            <View>
-                <Rectangle
-                    x={60}
-                    y={60}
-                    width={80}
-                    height={40}
-                    style={{ fill: '#dd4444' }}
-                    className={'download'}
-                />
-                <Typography position={[60, 120]} className={'download'} children="Download" />
-            </View>
-        </Chart>
+    <Story name="download">
+        <ThemeController
+            chart={PieceDownloadChart}
+            chartId={'pieceDownload'}
+            themes={{ downloadThemePiece, defaultTheme }}
+        />
     </Story>
 </Canvas>

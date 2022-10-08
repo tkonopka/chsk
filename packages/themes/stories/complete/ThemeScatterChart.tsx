@@ -1,6 +1,6 @@
 import { Chart, CssProps, Axis, AxisLabel, AxisTicks, Surface, GridLines } from '@chask/core'
 import { Scatter, ScatterPoints, Regression, ScatterDataItem } from '@chask/xy'
-import { ThemeStory } from './ThemeController'
+import { ThemeStory, themeStoryChartProps } from '../ThemeController'
 
 const regressionStyle: CssProps = {
     strokeWidth: 2,
@@ -27,7 +27,7 @@ const data: ScatterDataItem[] = [
 
 export const ThemeScatterChart = ({ chartId, theme }: ThemeStory) => {
     return (
-        <Chart id={chartId} size={[400, 300]} padding={[40, 40, 60, 60]} theme={theme ?? undefined}>
+        <Chart id={chartId} {...themeStoryChartProps} theme={theme ?? undefined}>
             <Scatter
                 data={data}
                 x={'x'}

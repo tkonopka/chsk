@@ -100,6 +100,9 @@ div.controller button.themeButton {
     margin-left: 8px;
     margin-top: -16px;
 }
+div.controller button.themeButton.selected {
+    background-color: #f4f4f4;
+}
 div.controller-progress {
     margin-left: 8px;
 }
@@ -116,8 +119,9 @@ div.controller button {
     border: solid 1px #ffffff;
     position: relative;
 }
-div.controller button:hover {
-    background-color: #f4f4f4;
+div.controller button:hover,
+div.controller button.themeButton.selected:hover {
+    background-color: #f2f2f2;
     cursor: pointer;
 }
 div.controller span.tooltip {
