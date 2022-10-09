@@ -11,11 +11,14 @@ export const defaultCleanSvgConfig = {
  *
  * Motivation:
  *
- * However, some of the transforms are unnecessary for static images.
- * Some coordinates have too many decimal points and can be rounded to reduce file size.
- * Also, some style transforms are supported by browsers, but not by other viewers, e.g. inkscape.
+ * Svg element can contain 'spurious' content for several reason:
+ * 1. Animation libraries add instructions into svg element style tags,
+ * but some of the instructions / transforms are not needed for static images.
+ * 2. Some style transforms are supported by browsers, but not by other viewers, e.g. inkscape.
+ * 3. Coordinates may have too many decimal points. The high precision can be a
+ * result of calculation or animation, but is not needed for static images.
  *
- * Cleaning the Svg element reduces image file size and increases compatibility with viewers.
+ * Cleaning the Svg element increases compatibility with viewers and reduces file size.
  *
  * Warning:
  *
