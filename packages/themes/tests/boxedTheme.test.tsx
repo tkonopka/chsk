@@ -6,7 +6,7 @@ describe('boxedTheme', () => {
         expect(boxedTheme).toHaveProperty('line')
     })
 
-    it('defines styles for chask components', () => {
+    it('defines styles for chart components', () => {
         expect(boxedTheme).toHaveProperty('Axis')
         expect(boxedTheme).toHaveProperty('AxisLabel')
         expect(boxedTheme).toHaveProperty('Surface')

@@ -10,7 +10,7 @@ import {
     SizeSpec,
     TranslateSpec,
     WithId,
-} from '@chask/core'
+} from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
 export type BarDataItem = WithId & Record<string, unknown>

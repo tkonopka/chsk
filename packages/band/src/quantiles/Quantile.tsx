@@ -16,7 +16,7 @@ import {
     BaseView,
     getMinMax,
     defaultViewProps,
-} from '@chask/core'
+} from '@chsk/core'
 import {
     FiveNumbers,
     QuantileDataItem,

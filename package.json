@@ -1,12 +1,12 @@
 {
-    "name": "chask",
+    "name": "chsk",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "chart skeletons",
-    "homepage": "https://github.com/tkonopka/chask#readme",
+    "homepage": "https://github.com/tkonopka/chsk#readme",
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/tkonopka/chask.git"
+        "url": "git+https://github.com/tkonopka/chsk.git"
     },
     "keywords": [
         "charts"
@@ -18,7 +18,7 @@
         "prettier-check": "prettier --check .",
         "lint": "lerna run lint",
         "lint-examples": "eslint --max-warnings 0 examples/**/*{js,ts,tsx}",
-        "build-core": "NODE_ENV=production lerna run build --scope @chask/core",
+        "build-core": "NODE_ENV=production lerna run build --scope @chsk/core",
         "build": "NODE_ENV=production lerna run build",
         "test": "lerna --concurrency 1 run test",
         "test-coverage": "lerna --concurrency 1 run test-coverage",
@@ -27,7 +27,7 @@
         "serve-storybook": "http-server ./storybook-static"
     },
     "bugs": {
-        "url": "https://github.com/tkonopka/chask/issues"
+        "url": "https://github.com/tkonopka/chsk/issues"
     },
     "dependencies": {
         "lodash": "^4.17.21",

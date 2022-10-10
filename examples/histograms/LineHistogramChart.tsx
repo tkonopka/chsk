@@ -7,9 +7,9 @@ import {
     GridLines,
     MilestoneMotion,
     ThemeSpec,
-} from '@chask/core'
-import { Histogram, HistogramArea, HistogramCurve, isHistogramData } from '@chask/xy'
-import { LineLabel } from '@chask/annotation'
+} from '@chsk/core'
+import { Histogram, HistogramArea, HistogramCurve, isHistogramData } from '@chsk/xy'
+import { LineLabel } from '@chsk/annotation'
 import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 

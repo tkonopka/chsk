@@ -8,7 +8,7 @@ import {
     ScalesContextProps,
     useProcessedData,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 import {
     Bar,
     BarDataItem,

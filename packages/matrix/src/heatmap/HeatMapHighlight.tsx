@@ -17,7 +17,7 @@ import {
     inZone,
     findZone,
     getMinMax,
-} from '@chask/core'
+} from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
 

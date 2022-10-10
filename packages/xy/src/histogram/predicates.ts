@@ -1,4 +1,4 @@
-import { RawData } from '@chask/core'
+import { RawData } from '@chsk/core'
 import { HistogramDataItem, HistogramProcessedDataItem } from './types'
 
 export const isHistogramProcessedData = (

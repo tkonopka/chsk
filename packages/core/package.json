@@ -1,14 +1,14 @@
 {
-    "name": "@chask/core",
+    "name": "@chsk/core",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Framework for building charts",
-    "main": "./dist/chask-core.cjs.js",
-    "module": "./dist/chask-core.es.js",
+    "main": "./dist/chsk-core.cjs.js",
+    "module": "./dist/chsk-core.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/core"
     },
     "scripts": {

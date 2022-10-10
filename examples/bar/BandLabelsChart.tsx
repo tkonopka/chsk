@@ -1,6 +1,6 @@
-import { Chart, Axis, GridLines, LabelProps } from '@chask/core'
-import { Bar, Bars, BandLabels } from '@chask/band'
-import { BoxedLabel } from '@chask/annotation'
+import { Chart, Axis, GridLines, LabelProps } from '@chsk/core'
+import { Bar, Bars, BandLabels } from '@chsk/band'
+import { BoxedLabel } from '@chsk/annotation'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 

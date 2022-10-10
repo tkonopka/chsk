@@ -12,7 +12,7 @@ import {
     SizeSpec,
     X,
     Y,
-} from '@chask/core'
+} from '@chsk/core'
 import { cloneDeep } from 'lodash'
 import { HeatMapProcessedDataItem } from './types'
 

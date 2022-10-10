@@ -11,7 +11,7 @@ import {
     composeClassName,
     createContinuousScale,
     ContinuousAxisScale,
-} from '@chask/core'
+} from '@chsk/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
 import { cloneDeep } from 'lodash'

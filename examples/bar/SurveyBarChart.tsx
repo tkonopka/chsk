@@ -9,9 +9,9 @@ import {
     LinearScaleSpec,
     Typography,
     mergeTheme,
-} from '@chask/core'
-import { Bar, Bars } from '@chask/band'
-import { downloadThemePiece } from '@chask/themes'
+} from '@chsk/core'
+import { Bar, Bars } from '@chsk/band'
+import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'

@@ -1,4 +1,4 @@
-import { Chart, Surface, View, Rectangle, Typography } from '@chask/core'
+import { Chart, Surface, View, Rectangle, Typography } from '@chsk/core'
 import { ThemeStory, themeStoryChartProps } from '../ThemeController'
 
 export const PieceDownloadChart = ({ chartId, theme }: ThemeStory) => {

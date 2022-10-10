@@ -7,7 +7,7 @@ import {
     Path,
     useDisabledKeys,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterCurveProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 

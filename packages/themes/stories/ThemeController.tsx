@@ -1,5 +1,5 @@
 import { createElement, FC, useState } from 'react'
-import { ThemeSpec } from '@chask/core'
+import { ThemeSpec } from '@chsk/core'
 
 export interface ThemeStory {
     /** id for chart */

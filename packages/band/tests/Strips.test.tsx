@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Axis } from '@chask/core'
+import { Chart, Axis } from '@chsk/core'
 import { Strip, Strips } from '../src'
 import { dataMissingKeys, stripProps } from './props'
 

@@ -1,5 +1,5 @@
 import { BarProps, BarDataItem, QuantileProps, StripProps } from '../src'
-import { createBandScale, createContinuousScale } from '@chask/core'
+import { createBandScale, createContinuousScale } from '@chsk/core'
 
 export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
 export const dummyYLinearScale = createContinuousScale({

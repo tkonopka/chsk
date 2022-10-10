@@ -1,5 +1,5 @@
-import { Chart, Axis, AxisLabel, AxisLine, Typography, ThemeSpec } from '@chask/core'
-import { isScatterData, Scatter, ScatterSeries } from '@chask/xy'
+import { Chart, Axis, AxisLabel, AxisLine, Typography, ThemeSpec } from '@chsk/core'
+import { isScatterData, Scatter, ScatterSeries } from '@chsk/xy'
 import { generateNormalPdf } from './generators'
 import { MilestoneStory } from '../types'
 

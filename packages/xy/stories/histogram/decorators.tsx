@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis } from '@chask/core'
+import { Chart, Axis } from '@chsk/core'
 import { generateHistogramSeries, randomNormalValue } from './generators'
 import { Histogram } from '../../src'
 

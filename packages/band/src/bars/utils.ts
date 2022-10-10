@@ -10,7 +10,7 @@ import {
     SizeSpec,
     X,
     Y,
-} from '@chask/core'
+} from '@chsk/core'
 import { cloneDeep } from 'lodash'
 
 export const getScaleProps = (

@@ -1,5 +1,5 @@
 import { BlockArrowProps } from './types'
-import { useDimensions, useScales, Path, getAbsolutePosition } from '@chask/core'
+import { useDimensions, useScales, Path, getAbsolutePosition } from '@chsk/core'
 import { getBlockArrowPoints } from './utils'
 
 export const BlockArrow = ({

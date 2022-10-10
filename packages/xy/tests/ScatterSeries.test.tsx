@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart } from '@chsk/core'
 import { Scatter, ScatterSeries } from '../src/scatter'
 import { scatterProps } from './props'
 

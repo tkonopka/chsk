@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chask/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
+import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chsk/core'
+import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'

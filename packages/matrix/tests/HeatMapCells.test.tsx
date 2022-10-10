@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chask/core'
+import { Chart, View } from '@chsk/core'
 import { HeatMap, HeatMapCells } from '../src'
 import { genericViewProps, heatmapCategoricalProps, heatmapProps } from './props'
 

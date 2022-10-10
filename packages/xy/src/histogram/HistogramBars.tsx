@@ -10,7 +10,7 @@ import {
     useScales,
     X,
     Y,
-} from '@chask/core'
+} from '@chsk/core'
 
 import { HistogramBarsProps } from './types'
 import { useHistogramPreparedData } from './context'

@@ -10,7 +10,7 @@ import {
     Y,
     useProcessedData,
     RecordWithId,
-} from '@chask/core'
+} from '@chsk/core'
 import { BandSurfaceProps } from './types'
 
 export const BandSurface = ({

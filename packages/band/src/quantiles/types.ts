@@ -6,7 +6,7 @@ import {
     ProcessedDataContextProps,
     SvgElementProps,
     WithId,
-} from '@chask/core'
+} from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
 export type QuantileDataItem = WithId & Record<string, unknown>

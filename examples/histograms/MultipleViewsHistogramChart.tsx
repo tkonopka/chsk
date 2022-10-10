@@ -9,9 +9,9 @@ import {
     ThemeSpec,
     SizeSpec,
     Typography,
-} from '@chask/core'
-import { BoxedLabel } from '@chask/annotation'
-import { Histogram, HistogramCurve, isHistogramData } from '@chask/xy'
+} from '@chsk/core'
+import { BoxedLabel } from '@chsk/annotation'
+import { Histogram, HistogramCurve, isHistogramData } from '@chsk/xy'
 import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 

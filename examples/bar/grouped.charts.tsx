@@ -7,9 +7,9 @@ import {
     Legend,
     ThemeSpec,
     mergeTheme,
-} from '@chask/core'
-import { Bar, Bars } from '@chask/band'
-import { downloadThemePiece } from '@chask/themes'
+} from '@chsk/core'
+import { Bar, Bars } from '@chsk/band'
+import { downloadThemePiece } from '@chsk/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'

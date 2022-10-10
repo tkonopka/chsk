@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis } from '@chask/core'
+import { Chart, Axis } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
 import { generateCategoricalHeatMapData, generateContinuousHeatMapData } from './generators'
 

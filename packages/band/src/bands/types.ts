@@ -12,7 +12,7 @@ import {
     TwoSideSizeSpec,
     ViewProps,
     WithInteractive,
-} from '@chask/core'
+} from '@chsk/core'
 
 export interface BandSurfaceProps extends SvgElementProps, WithInteractive {
     /** ids to display (defaults to all ids) */

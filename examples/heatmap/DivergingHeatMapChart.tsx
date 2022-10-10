@@ -1,5 +1,5 @@
-import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@chask/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
+import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@chsk/core'
+import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'

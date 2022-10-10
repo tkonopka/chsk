@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Surface, GridLines, View } from '@chask/core'
-import { BarProps } from '@chask/band'
+import { Axis, Chart, Surface, GridLines, View } from '@chsk/core'
+import { BarProps } from '@chsk/band'
 
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>

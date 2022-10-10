@@ -9,7 +9,7 @@ import {
     X,
     Y,
     DataComponent,
-} from '@chask/core'
+} from '@chsk/core'
 import { RegressionProps } from './types'
 import { useScatterPreparedData } from './context'
 

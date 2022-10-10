@@ -1,4 +1,4 @@
-import { SvgElementVariantProps } from '@chask/core'
+import { SvgElementVariantProps } from '@chsk/core'
 import { ReactNode } from 'react'
 
 export interface DownloadProps extends SvgElementVariantProps {

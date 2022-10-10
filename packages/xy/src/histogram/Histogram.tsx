@@ -20,7 +20,7 @@ import {
     X,
     Y,
     SizeSpec,
-} from '@chask/core'
+} from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
 

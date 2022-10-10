@@ -1,5 +1,5 @@
-import { Chart, Axis, GridLines, MilestoneMotion, ThemeSpec, Legend, AxisLine } from '@chask/core'
-import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chask/band'
+import { Chart, Axis, GridLines, MilestoneMotion, ThemeSpec, Legend, AxisLine } from '@chsk/core'
+import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chsk/band'
 import { generateMixedPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 

@@ -7,7 +7,7 @@ import {
     useDisabledKeys,
     useProcessedData,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 import { HistogramCurveProps } from './types'
 import { useHistogramPreparedData } from './context'
 import { isHistogramProcessedData } from './predicates'

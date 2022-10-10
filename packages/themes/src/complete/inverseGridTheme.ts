@@ -1,4 +1,4 @@
-import { ThemeSpec } from '@chask/core'
+import { ThemeSpec } from '@chsk/core'
 
 export const inverseGridTheme: ThemeSpec = {
     line: {

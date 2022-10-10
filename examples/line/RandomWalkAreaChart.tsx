@@ -1,5 +1,5 @@
-import { Chart, Axis, GridLines, Typography, LinearGradient } from '@chask/core'
-import { isScatterData, Scatter, ScatterArea, ScatterCurve } from '@chask/xy'
+import { Chart, Axis, GridLines, Typography, LinearGradient } from '@chsk/core'
+import { isScatterData, Scatter, ScatterArea, ScatterCurve } from '@chsk/xy'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
 

@@ -8,7 +8,7 @@ import {
     isBandAxisScale,
     DataComponent,
     useProcessedData,
-} from '@chask/core'
+} from '@chsk/core'
 import { useStripPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 import { StripPreparedDataItem, StripsProps } from './types'

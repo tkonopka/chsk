@@ -8,7 +8,7 @@ import {
     useDisabledKeys,
     useProcessedData,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 import { getAreaD } from '../scatter/ScatterArea'
 import { HistogramCurveProps } from './types'
 import { useHistogramPreparedData } from './context'

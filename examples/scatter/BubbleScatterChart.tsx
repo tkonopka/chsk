@@ -8,13 +8,13 @@ import {
     ThemeSpec,
     Circle,
     mergeTheme,
-} from '@chask/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
+} from '@chsk/core'
+import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemePiece } from '@chask/themes'
+import { downloadThemePiece } from '@chsk/themes'
 
 export const generateBubbleScatterData = () => {
     const x1 = generateMixedPopulation([80, 10, 10], [1, 3, 5], [1, 1, 1])

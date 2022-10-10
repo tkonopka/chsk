@@ -17,7 +17,7 @@ import {
     TranslateSpec,
     ViewProps,
     WithId,
-} from '@chask/core'
+} from '@chsk/core'
 
 export type ScatterDataItem = WithId & {
     data: Array<Record<string, unknown>>

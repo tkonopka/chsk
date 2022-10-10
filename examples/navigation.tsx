@@ -1,5 +1,5 @@
-import { NumericPositionSpec, Typography } from '@chask/core'
-import { Download } from '@chask/annotation'
+import { NumericPositionSpec, Typography } from '@chsk/core'
+import { Download } from '@chsk/annotation'
 
 // path from svg 'dataset' icon (source: google fonts https://fonts.google.com/icons; size 20, weight 300)
 const pathDataset =

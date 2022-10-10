@@ -1,5 +1,5 @@
 import { HeatMapDataItem, HeatMapProcessedDataItem } from './types'
-import { isBandAxisScale, ScalesContextProps } from '@chask/core'
+import { isBandAxisScale, ScalesContextProps } from '@chsk/core'
 
 export const isHeatMapData = (data: Array<unknown>): data is Array<HeatMapDataItem> => {
     const result = data.map((item: unknown) => {

@@ -7,8 +7,8 @@ import {
     Surface,
     ThemeSpec,
     Typography,
-} from '@chask/core'
-import { BandHighlight, Quantile, Quantiles, Strip, Strips } from '@chask/band'
+} from '@chsk/core'
+import { BandHighlight, Quantile, Quantiles, Strip, Strips } from '@chsk/band'
 import { generateMixedPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomNormalValue } from '../utils'

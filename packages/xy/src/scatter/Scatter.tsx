@@ -21,7 +21,7 @@ import {
     ScalesContextProps,
     ColorScale,
     defaultSizeScaleSpec,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
 

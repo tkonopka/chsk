@@ -1,4 +1,4 @@
-import { createContinuousScale, getMinMax, XY } from '@chask/core'
+import { createContinuousScale, getMinMax, XY } from '@chsk/core'
 import { sortedIndex } from 'lodash'
 import { HistogramDataItem } from './types'
 

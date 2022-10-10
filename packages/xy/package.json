@@ -1,14 +1,14 @@
 {
-    "name": "@chask/xy",
+    "name": "@chsk/xy",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts with xy scales",
-    "main": "./dist/chask-xy.cjs.js",
-    "module": "./dist/chask-xy.es.js",
+    "main": "./dist/chsk-xy.cjs.js",
+    "module": "./dist/chsk-xy.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/xy"
     },
     "scripts": {
@@ -18,7 +18,7 @@
         "build": "PACKAGE=xy rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0",
+        "@chsk/core": "^0.1.0",
         "framer-motion": "^7.0.0",
         "lodash": "^4.17.21"
     },

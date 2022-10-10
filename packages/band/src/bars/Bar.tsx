@@ -17,7 +17,7 @@ import {
     createColorScaleProps,
     BaseView,
     defaultViewProps,
-} from '@chask/core'
+} from '@chsk/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
 import { getInternalWidthAndGap, getScaleProps } from './utils'

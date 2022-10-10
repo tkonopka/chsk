@@ -1,11 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    ColorScale,
-    defaultCategoricalScale,
-    useProcessedData,
-    useScales,
-} from '@chask/core'
+import { Chart, ColorScale, defaultCategoricalScale, useProcessedData, useScales } from '@chsk/core'
 import {
     HeatMap,
     HeatMapCells,

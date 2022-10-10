@@ -10,8 +10,8 @@ import {
     Legend,
     LegendItem,
     Segment,
-} from '@chask/core'
-import { isScatterData, Scatter, ScatterPoints, Regression } from '@chask/xy'
+} from '@chsk/core'
+import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
 import { generateRegressionData } from '../line/generators'
 import { MilestoneStory } from '../types'
 

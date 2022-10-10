@@ -1,5 +1,5 @@
 import { randomNormalValue } from '../utils'
-import { roundDecimalPlaces, WithId } from '@chask/core'
+import { roundDecimalPlaces, WithId } from '@chsk/core'
 
 // generate a matrix with numbers from normal distribution
 // (includes parameter autocor that creates an auto-correlation between adjacent values)

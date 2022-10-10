@@ -7,7 +7,7 @@ import {
     LineProps,
     TranslateSpec,
     TwoSideSizeSpec,
-} from '@chask/core'
+} from '@chsk/core'
 import { ReactNode } from 'react'
 
 export interface LineLabelProps

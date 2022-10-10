@@ -11,11 +11,11 @@ Fork the github repository, then clone the fork to a local development environme
 
 The project is set up as a monorepo.
 It has dependencies to make the project work as whole.
-There are also dependencies for the individual `chask` packages.
+There are also dependencies for individual packages.
 
 ```
 npm install         # install dependencies for the monorepo
-npm run bootstrap   # install further dependencies for the chask packages
+npm run bootstrap   # install further dependencies for all packages
 ```
 
 ## Development

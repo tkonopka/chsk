@@ -16,7 +16,7 @@ import {
     NumericPositionSpec,
     inZone,
     findZone,
-} from '@chask/core'
+} from '@chsk/core'
 import { BandHighlightProps } from './types'
 
 const createDetectorIntervals = (

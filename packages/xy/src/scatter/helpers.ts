@@ -14,7 +14,7 @@ import {
     SizeSpec,
     X,
     Y,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterProcessedDataItem } from './types'
 import { cloneDeep } from 'lodash'
 

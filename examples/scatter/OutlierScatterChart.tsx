@@ -11,8 +11,8 @@ import {
     getMinMax,
     ThemeSpec,
     LegendTitle,
-} from '@chask/core'
-import { isScatterData, Scatter, ScatterPoints, Regression } from '@chask/xy'
+} from '@chsk/core'
+import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
 import { generateRegressionData } from '../line/generators'
 import { MilestoneStory } from '../types'
 import { BlockArrow, BracketLabel } from '../../packages/annotation/src'

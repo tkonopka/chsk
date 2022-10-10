@@ -1,14 +1,14 @@
 {
-    "name": "@chask/themes",
+    "name": "@chsk/themes",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Components for theming charts",
-    "main": "./dist/chask-themes.cjs.js",
-    "module": "./dist/chask-themes.es.js",
+    "main": "./dist/chsk-themes.cjs.js",
+    "module": "./dist/chsk-themes.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/themes"
     },
     "scripts": {
@@ -18,7 +18,7 @@
         "build": "PACKAGE=themes rollup -c ../../rollup.config.js"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0"
+        "@chsk/core": "^0.1.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",

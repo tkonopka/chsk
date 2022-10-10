@@ -1,5 +1,5 @@
 import { BracketLabelProps } from './types'
-import { useDimensions, useScales, Typography, Path } from '@chask/core'
+import { useDimensions, useScales, Typography, Path } from '@chsk/core'
 import { getLineAbsolutePositions, getBracketPositions } from './utils'
 
 export const BracketLabel = ({

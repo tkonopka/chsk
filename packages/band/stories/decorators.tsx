@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis, Surface, GridLines } from '@chask/core'
+import { Chart, Axis, Surface, GridLines } from '@chsk/core'
 import {
     Bar,
     Bars,
@@ -12,7 +12,7 @@ import {
 } from '../src/'
 import dataGroups from './dataGroups.json'
 import { generateUniformValues } from './generators'
-import { BarInteractiveDataItem, StripInteractiveDataItem } from '../dist/types'
+import { BarInteractiveDataItem, StripInteractiveDataItem } from '../src'
 
 export const commonBarProps: BarProps = {
     data: dataGroups,

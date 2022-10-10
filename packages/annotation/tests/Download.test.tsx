@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View, Typography } from '@chask/core'
+import { Chart, View, Typography } from '@chsk/core'
 import { chartProps, viewProps } from './props'
 import { Download } from '../src'
 

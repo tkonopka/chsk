@@ -1,6 +1,6 @@
 import { BoxedTitle } from '../src/boxes'
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart } from '@chsk/core'
 import { chartProps, getNumber } from './props'
 
 describe('BoxedTitle', () => {

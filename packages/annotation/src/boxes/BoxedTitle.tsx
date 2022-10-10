@@ -1,5 +1,5 @@
 import { BoxedTitleProps } from './types'
-import { useDimensions } from '@chask/core'
+import { useDimensions } from '@chsk/core'
 import { BoxedLabel } from './BoxedLabel'
 
 export const BoxedTitle = ({

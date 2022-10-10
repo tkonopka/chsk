@@ -7,12 +7,12 @@ import {
     MilestoneMotion,
     ThemeSpec,
     RectangleProps,
-} from '@chask/core'
-import { Bar, Bars } from '@chask/band'
+} from '@chsk/core'
+import { Bar, Bars } from '@chsk/band'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
 import { generateSortedValues } from './generators'
-import { BlockArrow } from '@chask/annotation'
+import { BlockArrow } from '@chsk/annotation'
 
 const ids = alphabetGreek
 

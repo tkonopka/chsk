@@ -14,7 +14,7 @@ import {
     Y,
     useProcessedData,
     RecordWithId,
-} from '@chask/core'
+} from '@chsk/core'
 import { BandLabelsProps } from './types'
 import { createElement, ReactNode, useMemo } from 'react'
 

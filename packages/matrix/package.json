@@ -1,14 +1,14 @@
 {
-    "name": "@chask/matrix",
+    "name": "@chsk/matrix",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Components for bar plots and box plots",
-    "main": "./dist/chask-matrix.cjs.js",
-    "module": "./dist/chask-matrix.es.js",
+    "main": "./dist/chsk-matrix.cjs.js",
+    "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/matrix"
     },
     "scripts": {
@@ -18,7 +18,7 @@
         "build": "PACKAGE=matrix rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0",
+        "@chsk/core": "^0.1.0",
         "framer-motion": "^7.0.0",
         "lodash": "^4.17.21"
     },

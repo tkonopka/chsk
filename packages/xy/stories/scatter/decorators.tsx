@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Legend, Circle } from '@chask/core'
+import { Axis, Chart, Legend, Circle } from '@chsk/core'
 import { Scatter, ScatterCurve, ScatterPoints, ScatterInteractiveDataItem } from '../../src'
 import dataPolynomials from './dataPolynomials.json'
 import { generateScatterSeries } from './generators'

@@ -8,8 +8,8 @@ import {
     LegendColorScale,
     MilestoneMotion,
     Surface,
-} from '@chask/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chask/matrix'
+} from '@chsk/core'
+import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'

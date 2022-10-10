@@ -6,8 +6,8 @@ import {
     GridLines,
     MilestoneMotion,
     Typography,
-} from '@chask/core'
-import { isScatterData, Scatter, ScatterCurve, ScatterInterval, ScatterLabel } from '@chask/xy'
+} from '@chsk/core'
+import { isScatterData, Scatter, ScatterCurve, ScatterInterval, ScatterLabel } from '@chsk/xy'
 import { generateSurvivalMatrix } from './generators'
 import { MilestoneStory } from '../types'
 

@@ -12,7 +12,7 @@ import {
     TOP,
     useDimensions,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 
 export const BoxedLabel = ({
     position,

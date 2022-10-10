@@ -11,7 +11,7 @@ import {
     ViewProps,
     WithId,
     WithInteractive,
-} from '@chask/core'
+} from '@chsk/core'
 
 export type HeatMapDataItem = WithId & Record<string, unknown>
 

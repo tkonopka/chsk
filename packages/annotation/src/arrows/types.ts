@@ -1,4 +1,4 @@
-import { PositionSpec, PositionUnits, SvgElementVariantProps } from '@chask/core'
+import { PositionSpec, PositionUnits, SvgElementVariantProps } from '@chsk/core'
 
 export interface BlockArrowProps extends SvgElementVariantProps {
     /** start position */

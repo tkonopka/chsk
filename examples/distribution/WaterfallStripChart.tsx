@@ -12,9 +12,9 @@ import {
     useScales,
     SizeSpec,
     BandScaleSpec,
-} from '@chask/core'
-import { BandHighlight, isStripData, Strip, Strips } from '@chask/band'
-import { BoxedLabel } from '@chask/annotation'
+} from '@chsk/core'
+import { BandHighlight, isStripData, Strip, Strips } from '@chsk/band'
+import { BoxedLabel } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
 import { generateMixedPopulation, generateIdentifiers } from '../utils'
 

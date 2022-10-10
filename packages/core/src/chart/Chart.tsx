@@ -14,7 +14,7 @@ import { mergeMotionConfig } from '../themes/helpers'
  */
 
 export const Chart = ({
-    id = 'chask',
+    id = 'chsk',
     size = [500, 400],
     padding = [40, 40, 40, 40],
     theme,

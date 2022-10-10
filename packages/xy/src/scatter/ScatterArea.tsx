@@ -12,7 +12,7 @@ import {
     useScales,
     XY,
     DataComponent,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterAreaProps } from './types'
 import { useScatterPreparedData } from './context'
 import { getScatterCurvePoints } from './ScatterCurve'

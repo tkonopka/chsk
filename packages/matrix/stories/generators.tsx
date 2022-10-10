@@ -1,4 +1,4 @@
-import { roundDecimalPlaces } from '@chask/core'
+import { roundDecimalPlaces } from '@chsk/core'
 import { HeatMapDataItem } from '../src'
 
 export const generateContinuousHeatMapData = (

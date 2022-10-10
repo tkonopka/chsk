@@ -1,14 +1,14 @@
 {
-    "name": "@chask/band",
+    "name": "@chsk/band",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Components for bar plots and box plots",
-    "main": "./dist/chask-band.cjs.js",
-    "module": "./dist/chask-band.es.js",
+    "main": "./dist/chsk-band.cjs.js",
+    "module": "./dist/chsk-band.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/band"
     },
     "scripts": {
@@ -18,7 +18,7 @@
         "build": "PACKAGE=band rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0",
+        "@chsk/core": "^0.1.0",
         "framer-motion": "^7.0.0"
     },
     "peerDependencies": {

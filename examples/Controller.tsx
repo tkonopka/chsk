@@ -1,5 +1,5 @@
 import { createElement, useRef, useState } from 'react'
-import { ChartRef } from '@chask/core'
+import { ChartRef } from '@chsk/core'
 import {
     ReplayIcon,
     defaultIconActiveFill as activeFill,

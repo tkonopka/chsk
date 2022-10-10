@@ -1,5 +1,5 @@
 import { FC, Ref } from 'react'
-import { ChartDataContextProps, ChartRef, RawData } from '@chask/core'
+import { ChartDataContextProps, ChartRef, RawData } from '@chsk/core'
 
 export type MilestoneStep = string | number
 

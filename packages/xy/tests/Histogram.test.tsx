@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, useProcessedData } from '@chask/core'
+import { Chart, Legend, useProcessedData } from '@chsk/core'
 import {
     Histogram,
     useHistogramPreparedData,

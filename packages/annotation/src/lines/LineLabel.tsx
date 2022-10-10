@@ -1,5 +1,5 @@
 import { LineLabelProps } from './types'
-import { Line, useDimensions, useScales, Typography } from '@chask/core'
+import { Line, useDimensions, useScales, Typography } from '@chsk/core'
 import { getLineAbsolutePositions } from './utils'
 
 export const LineLabel = ({

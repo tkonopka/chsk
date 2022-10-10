@@ -1,14 +1,14 @@
 {
-    "name": "@chask/annotation",
+    "name": "@chsk/annotation",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
     "description": "Components for annotating charts",
-    "main": "./dist/chask-annotation.cjs.js",
-    "module": "./dist/chask-annotation.es.js",
+    "main": "./dist/chsk-annotation.cjs.js",
+    "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",
     "repository": {
         "type": "git",
-        "url": "https://github.com/tkonopka/chask.git",
+        "url": "https://github.com/tkonopka/chsk.git",
         "directory": "packages/annotation"
     },
     "scripts": {
@@ -18,7 +18,7 @@
         "build": "PACKAGE=annotation rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chask/core": "^0.1.0"
+        "@chsk/core": "^0.1.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",

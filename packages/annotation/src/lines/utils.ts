@@ -1,4 +1,4 @@
-import { getAbsolutePosition, NumericPositionSpec, ScalesContextProps, SizeSpec } from '@chask/core'
+import { getAbsolutePosition, NumericPositionSpec, ScalesContextProps, SizeSpec } from '@chsk/core'
 import { LineLabelProps } from './types'
 
 export const getLineAbsolutePositions = ({

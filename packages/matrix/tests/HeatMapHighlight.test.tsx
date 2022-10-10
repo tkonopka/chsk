@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart, View } from '@chask/core'
+import { Chart, View } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '../src'
 import { genericViewProps, heatmapProps } from './props'
 

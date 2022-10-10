@@ -11,7 +11,7 @@ import {
     BandScaleSpec,
     useTheme,
     defaultSizeScaleSpec,
-} from '@chask/core'
+} from '@chsk/core'
 import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
 // turn raw dataGroups into a minimal array-based format

@@ -1,5 +1,5 @@
 import { ScatterDataItem, ScatterPreparedDataItem, ScatterProcessedDataItem } from './types'
-import { RawData } from '@chask/core'
+import { RawData } from '@chsk/core'
 
 export const isScatterProcessedData = (
     data: Array<unknown>

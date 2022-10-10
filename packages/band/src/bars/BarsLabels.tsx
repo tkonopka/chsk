@@ -8,7 +8,7 @@ import {
     useProcessedData,
     X,
     Y,
-} from '@chask/core'
+} from '@chsk/core'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
 import { isBarProcessedData } from './predicates'

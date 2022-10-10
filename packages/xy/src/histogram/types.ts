@@ -11,7 +11,7 @@ import {
     ViewProps,
     WithId,
     XY,
-} from '@chask/core'
+} from '@chsk/core'
 import { FC } from 'react'
 
 export type HistogramDataItem = WithId & {

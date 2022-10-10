@@ -7,7 +7,7 @@ import {
     isBandAxisScale,
     DataComponent,
     useProcessedData,
-} from '@chask/core'
+} from '@chsk/core'
 import { useQuantilePreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 import { BoxAndWhiskers } from './BoxAndWhiskers'

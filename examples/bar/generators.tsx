@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, WithId } from '@chask/core'
+import { roundDecimalPlaces, WithId } from '@chsk/core'
 
 // generate an array of records suitable for a Bar chart
 export const generateBarData = ({

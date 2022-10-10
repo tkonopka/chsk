@@ -8,9 +8,9 @@ import {
     SizeSpec,
     getMinMax,
     ThemeSpec,
-} from '@chask/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chask/xy'
-import { BoxedTitle } from '@chask/annotation'
+} from '@chsk/core'
+import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
+import { BoxedTitle } from '@chsk/annotation'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'

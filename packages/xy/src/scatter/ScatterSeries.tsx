@@ -2,7 +2,7 @@ import { ScatterPoints } from './ScatterPoints'
 import { ScatterCurve } from './ScatterCurve'
 import { ScatterArea } from './ScatterArea'
 import { ScatterSeriesLayer, ScatterSeriesProps } from './types'
-import { DataComponent } from '@chask/core'
+import { DataComponent } from '@chsk/core'
 
 export const ScatterSeries = ({
     ids,

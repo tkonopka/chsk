@@ -1,5 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart } from '@chsk/core'
 import { Bar, BandHighlight } from '../src'
 import { barProps } from './props'
 

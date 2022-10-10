@@ -9,8 +9,8 @@ import {
     MilestoneMotion,
     WithId,
     ColorScaleProps,
-} from '@chask/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chask/matrix'
+} from '@chsk/core'
+import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform, generateHeatMapRowCategorical } from './generators'
 import {
     alphabetGreek,

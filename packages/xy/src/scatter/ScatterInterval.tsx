@@ -14,7 +14,7 @@ import {
     useDisabledKeys,
     DataComponent,
     Path,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterDataContextProps, ScatterIntervalProps } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'

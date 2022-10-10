@@ -16,7 +16,7 @@ import {
     BaseView,
     defaultViewProps,
     getMinMax,
-} from '@chask/core'
+} from '@chsk/core'
 import {
     StripDataItem,
     StripPreparedDataItem,

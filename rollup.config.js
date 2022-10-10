@@ -46,9 +46,9 @@ const configs = [
         input,
         external: ['react', 'react/jsx-runtime'],
         output: {
-            file: `./packages/${pkg}/dist/chask-${pkg}.es.js`,
+            file: `./packages/${pkg}/dist/chsk-${pkg}.es.js`,
             format: 'es',
-            name: `@chask/${pkg}`,
+            name: `@chsk/${pkg}`,
             sourcemap: true,
         },
         plugins: commonPlugins,
@@ -62,9 +62,9 @@ const configs = [
         input,
         external: ['react', 'react/jsx-runtime'],
         output: {
-            file: `./packages/${pkg}/dist/chask-${pkg}.cjs.js`,
+            file: `./packages/${pkg}/dist/chsk-${pkg}.cjs.js`,
             format: 'cjs',
-            name: `@chask/${pkg}`,
+            name: `@chsk/${pkg}`,
             sourcemap: true,
         },
         plugins: commonPlugins,
@@ -78,10 +78,10 @@ const configs = [
         input,
         external: ['react', 'react-dom', 'prop-types', 'react/jsx-runtime'],
         output: {
-            file: `./packages/${pkg}/dist/chask-${pkg}.umd.js`,
+            file: `./packages/${pkg}/dist/chsk-${pkg}.umd.js`,
             format: 'umd',
             extend: true,
-            name: 'chask',
+            name: `@chsk/${pkg}`,
             globals: {
                 react: 'React',
                 'react-dom': 'ReactDOM',

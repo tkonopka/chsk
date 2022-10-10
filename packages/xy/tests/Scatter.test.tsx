@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, ProcessedDataContextProps, useProcessedData } from '@chask/core'
+import { Chart, Legend, ProcessedDataContextProps, useProcessedData } from '@chsk/core'
 import {
     Scatter,
     useScatterPreparedData,

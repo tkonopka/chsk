@@ -1,6 +1,6 @@
 import { BracketLabel } from '../src/lines'
 import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chask/core'
+import { Chart, View } from '@chsk/core'
 import { chartProps, viewProps } from './props'
 
 describe('BracketLabel', () => {

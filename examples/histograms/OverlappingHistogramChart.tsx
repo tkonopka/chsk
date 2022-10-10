@@ -9,7 +9,7 @@ import {
     ThemeSpec,
     Legend,
     Typography,
-} from '@chask/core'
+} from '@chsk/core'
 import {
     Histogram,
     HistogramArea,
@@ -17,7 +17,7 @@ import {
     HistogramBars,
     isHistogramData,
     HistogramInteractiveDataItem,
-} from '@chask/xy'
+} from '@chsk/xy'
 import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 

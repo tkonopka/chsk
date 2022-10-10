@@ -9,9 +9,9 @@ import {
     MilestoneMotion,
     WithId,
     mergeTheme,
-} from '@chask/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chask/matrix'
-import { downloadThemePiece } from '@chask/themes'
+} from '@chsk/core'
+import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chsk/matrix'
+import { downloadThemePiece } from '@chsk/themes'
 import { merge } from 'lodash'
 import { generateHeatMapMatrixNormal, generateHeatMapRowCategorical } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'

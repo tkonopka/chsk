@@ -1,4 +1,4 @@
-import { useChartData, useRawData } from '@chask/core'
+import { useChartData, useRawData } from '@chsk/core'
 import { CleanSvgConfig, DownloadProps } from './types'
 import { cleanSvg, defaultCleanSvgConfig } from './cleanSvg'
 

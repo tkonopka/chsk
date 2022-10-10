@@ -7,8 +7,8 @@ import {
     GridLines,
     ThemeSpec,
     SizeSpec,
-} from '@chask/core'
-import { Bar, Bars, BarsLabels } from '@chask/band'
+} from '@chsk/core'
+import { Bar, Bars, BarsLabels } from '@chsk/band'
 import { generateKeyValues } from './generators'
 import { MilestoneStory } from '../types'
 

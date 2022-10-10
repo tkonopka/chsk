@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chask/core'
+import { Chart } from '@chsk/core'
 import { Histogram, HistogramCurve } from '../src/histogram'
 import { histogramProps } from './props'
 

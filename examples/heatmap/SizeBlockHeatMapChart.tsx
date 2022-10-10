@@ -10,7 +10,7 @@ import {
     WithId,
     Circle,
     mergeTheme,
-} from '@chask/core'
+} from '@chsk/core'
 import {
     HeatMap,
     HeatMapCells,
@@ -18,8 +18,8 @@ import {
     HeatMapDataItem,
     HeatMapHighlight,
     isHeatMapData,
-} from '@chask/matrix'
-import { downloadThemePiece } from '@chask/themes'
+} from '@chsk/matrix'
+import { downloadThemePiece } from '@chsk/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chask/core'
+import { Chart, View } from '@chsk/core'
 import { chartProps, viewProps } from './props'
 import { BlockArrow } from '../src/arrows'
 import { getBlockArrowPoints } from '../src/arrows/utils'

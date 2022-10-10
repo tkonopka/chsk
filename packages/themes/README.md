@@ -1,6 +1,6 @@
-# @chask/themes
+# @chsk/themes
 
-Chask is a charting library for React.
+`chsk` is a charting library for React.
 
-The `@chask/themes` package builds upon the infrastructure provided by `@chask/core`.
+The `@chsk/themes` package builds upon the infrastructure provided by `@chsk/core`.
 It provides definitions for custom chart styles.

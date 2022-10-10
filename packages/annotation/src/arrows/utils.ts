@@ -1,4 +1,4 @@
-import { NumericPositionSpec, X, Y } from '@chask/core'
+import { NumericPositionSpec, X, Y } from '@chsk/core'
 import { getStartToEndAxis } from '../lines/utils'
 
 // points for the stem end of a block arrow

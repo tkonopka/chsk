@@ -8,9 +8,9 @@ import {
     ThemeSpec,
     RecordWithId,
     Typography,
-} from '@chask/core'
-import { LineLabel } from '@chask/annotation'
-import { Bar, Bars } from '@chask/band'
+} from '@chsk/core'
+import { LineLabel } from '@chsk/annotation'
+import { Bar, Bars } from '@chsk/band'
 import { generateIdentifiers } from '../utils'
 import { MilestoneStory } from '../types'
 import { generateSortedValues } from './generators'

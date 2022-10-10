@@ -9,7 +9,7 @@ import {
     PositionSpec,
     SizeSpec,
     TranslateSpec,
-} from '@chask/core'
+} from '@chsk/core'
 import { ReactNode } from 'react'
 
 interface BoxedTextProps {

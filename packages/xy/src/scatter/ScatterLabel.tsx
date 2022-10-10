@@ -6,7 +6,7 @@ import {
     useDimensions,
     useScales,
     useDisabledKeys,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterLabelProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 

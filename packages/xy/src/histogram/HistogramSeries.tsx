@@ -1,7 +1,7 @@
 import { HistogramCurve } from './HistogramCurve'
 import { HistogramArea } from './HistogramArea'
 import { HistogramSeriesLayer, HistogramSeriesProps } from './types'
-import { DataComponent } from '@chask/core'
+import { DataComponent } from '@chsk/core'
 
 export const HistogramSeries = ({
     ids,

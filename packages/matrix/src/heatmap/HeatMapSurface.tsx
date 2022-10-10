@@ -7,7 +7,7 @@ import {
     useScales,
     useProcessedData,
     getMinMax,
-} from '@chask/core'
+} from '@chsk/core'
 import { HeatMapSurfaceProps } from './types'
 
 const getInterval = (targets: Set<string>, scale: BandAxisScale, expansion: [number, number]) => {

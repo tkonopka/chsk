@@ -7,7 +7,7 @@ import {
     useDisabledKeys,
     useProcessedData,
     useScales,
-} from '@chask/core'
+} from '@chsk/core'
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterProcessedData } from './predicates'

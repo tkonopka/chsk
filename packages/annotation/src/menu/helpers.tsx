@@ -1,4 +1,4 @@
-import { roundDecimalPlaces } from '@chask/core'
+import { roundDecimalPlaces } from '@chsk/core'
 
 // round a string representing pixels to a fixed number of decimal places
 export const roundPxDecimalPlaces = (s: string, n: number) => {

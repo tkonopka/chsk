@@ -1,5 +1,5 @@
 import { BoxAndWhiskersProps } from './types'
-import { Line, Rectangle } from '@chask/core'
+import { Line, Rectangle } from '@chsk/core'
 
 export const BoxAndWhiskers = ({
     data,

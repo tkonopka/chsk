@@ -1,5 +1,5 @@
-import { Chart, CssProps, Axis, AxisLabel, AxisTicks, Surface, GridLines } from '@chask/core'
-import { Scatter, ScatterPoints, Regression, ScatterDataItem } from '@chask/xy'
+import { Chart, CssProps, Axis, AxisLabel, AxisTicks, Surface, GridLines } from '@chsk/core'
+import { Scatter, ScatterPoints, Regression, ScatterDataItem } from '@chsk/xy'
 import { ThemeStory, themeStoryChartProps } from '../ThemeController'
 
 const regressionStyle: CssProps = {

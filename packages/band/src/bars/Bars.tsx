@@ -7,7 +7,7 @@ import {
     getIdKeySets,
     DataComponent,
     useProcessedData,
-} from '@chask/core'
+} from '@chsk/core'
 import { BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
