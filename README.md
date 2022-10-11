@@ -18,6 +18,17 @@ The animation below shows a custom bar chart. The recording starts with an empty
 
 All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-layout), along with many other examples.
 
+## Install
+
+To start using the library, install package `@chsk/core` and any add-on packages from npm.
+
+```
+# required
+npm install @chsk/core
+# optional (pick any subset of add-on packages)
+npm install @chsk/annotation @chsk/band @chsk/matrix @chsk/themes @chsk/xy
+```
+
 ## Credits
 
 Thanks to all the maintainers and contributors of the packages listed in `packages.json`.
