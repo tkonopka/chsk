@@ -1,6 +1,6 @@
 {
     "name": "@chsk/annotation",
-    "version": "0.1.0",
+    "version": "0.2.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for annotating charts",
     "main": "./dist/chsk-annotation.cjs.js",
@@ -18,7 +18,7 @@
         "build": "PACKAGE=annotation rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chsk/core": "^0.1.0"
+        "@chsk/core": "^0.2.0-alpha.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",
