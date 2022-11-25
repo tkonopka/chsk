@@ -19,6 +19,3 @@ packages/*/tests/jest.json
 tmp
 temp
 *.log
-
-# files
-package-lock.json
