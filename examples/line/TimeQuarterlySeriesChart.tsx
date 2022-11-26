@@ -35,9 +35,10 @@ const quarterlyTicks = (start: Date, end: Date) => {
     const startYear = start.getFullYear()
     const endYear = end.getFullYear()
     let nowYear = startYear
-    const result: Array<Date> = Array()
+    const result: Date[] = []
+    const quarters = ['-01-01', '-04-01', '-07-01', '-10-01']
     while (nowYear <= endYear) {
-        ;['-01-01', '-04-01', '-07-01', '-10-01'].forEach(suffix => {
+        quarters.forEach(suffix => {
             result.push(new Date(Date.parse(nowYear + suffix)))
         })
         nowYear += 1
@@ -50,7 +51,7 @@ const yearlyTicks = (start: Date, end: Date) => {
     const startYear = start.getFullYear()
     const endYear = end.getFullYear()
     let nowYear = startYear
-    const result: Array<Date> = Array()
+    const result: Date[] = []
     while (nowYear <= endYear) {
         result.push(new Date(Date.parse(nowYear + '-01-01')))
         nowYear += 1
@@ -97,7 +98,7 @@ export const TimeQuarterlySeriesChart = ({ fref, chartData, rawData }: Milestone
                         ticks={quarterlyTicks(start, end).map(Number)}
                         tickSize={5}
                         tickStyle={{ stroke: '#666666', strokeWidth: 1 }}
-                        labelFormat={v => ''}
+                        labelFormat={() => ''}
                     />
                     <AxisTicks
                         variant={'bottom'}
