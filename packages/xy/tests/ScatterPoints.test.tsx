@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Scatter, ScatterPoints } from '../src/scatter'
-import { scatterProps } from './props'
+import { scatterProps, timeScatterProps } from './props'
 
 describe('ScatterPoints', () => {
     it('creates a series of circles', () => {
@@ -110,5 +110,17 @@ describe('ScatterPoints', () => {
         // the two points should be at the extremes of the color scale, i.e. red and white
         expect(result[0].getAttribute('style')).toContain('rgb(255')
         expect(result[1].getAttribute('style')).toContain('rgb(0')
+    })
+
+    it('accepts time scale', () => {
+        render(
+            <Chart>
+                <Scatter {...timeScatterProps}>
+                    <ScatterPoints />
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.getByRole('scatter-points').querySelectorAll('circle')
+        expect(result).toHaveLength(4)
     })
 })

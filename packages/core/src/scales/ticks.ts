@@ -1,9 +1,9 @@
 import { Scale } from './types'
-import { isContinuousAxisScale } from './axes'
+import { isContinuousAxisScale } from './predicates'
 import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './colors'
 
-/** get an array of (numeric) ticks in the scale domain */
-export const getTicks = (scale: Scale, ticks?: number[] | string[] | number) => {
+/** get an array of ticks in the scale domain */
+export const getTicks = (scale: Scale, ticks?: number[] | string[] | number | Date[]) => {
     if (Array.isArray(ticks)) return ticks
     if (isContinuousColorScale(scale) || isContinuousAxisScale(scale)) {
         if (ticks === undefined) return scale.ticks(4) as Array<number>
@@ -18,7 +18,7 @@ export const getTicks = (scale: Scale, ticks?: number[] | string[] | number) => 
 /** get an array of ticks in the scale range */
 export const getTickCoordinates = (
     scale: Scale,
-    values: undefined | number | number[] | string[],
+    values: undefined | number | number[] | string[] | Date[],
     shift = 0,
     size = 0 // only used for color scales
 ) => {

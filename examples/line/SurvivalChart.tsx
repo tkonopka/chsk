@@ -36,7 +36,6 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 data={rawData}
                 x={'time'}
                 y={'surv'}
-                r={3}
                 scaleX={{
                     variant: 'linear',
                     domain: [0, 'auto'],

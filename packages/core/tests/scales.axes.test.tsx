@@ -12,6 +12,7 @@ import {
     isScaleWithDomain,
     isSqrtAxisScale,
 } from '../src/scales'
+import { isNumericAxisScale, isTimeAxisScale } from '../src/scales/predicates'
 
 describe('createAxisScale', () => {
     it('creates a band scale', () => {
@@ -188,31 +189,37 @@ describe('createContinuousScale', () => {
             domain: [0, 10],
             size: 100,
         })
+        expect(isNumericAxisScale(result)).toBeTruthy()
+        if (!isNumericAxisScale(result)) return
         expect(result(0)).toEqual(0)
         expect(result(10)).toEqual(100)
         expect(result(5)).toEqual(50)
     })
 
-    it('creates linear scale for y axis', () => {
+    it('creates linear scale for y axis (reversed)', () => {
         const result = createContinuousScale({
             variant: 'linear',
             reverseRange: true,
             domain: [0, 10],
             size: 100,
         })
+        expect(isNumericAxisScale(result)).toBeTruthy()
+        if (!isNumericAxisScale(result)) return
         // for y-axis, the ordering is reversed
         expect(result(0)).toEqual(100)
         expect(result(10)).toEqual(0)
         expect(result(5)).toEqual(50)
     })
 
-    it('creates log scale for x axis', () => {
+    it('creates log scale', () => {
         const result = createContinuousScale({
             variant: 'log',
             reverseRange: false,
             domain: [1, 100],
             size: 100,
         })
+        expect(isNumericAxisScale(result)).toBeTruthy()
+        if (!isNumericAxisScale(result)) return
         expect(result(1)).toEqual(0)
         expect(result(10)).toEqual(50)
         expect(result(100)).toEqual(100)
@@ -230,7 +237,60 @@ describe('createContinuousScale', () => {
         expect(result.step ? result.step() : null).toEqual(0)
     })
 
-    it('extract tick coordinates', () => {
+    it('creates time scale', () => {
+        const start: Date = new Date(Date.now() - 60 * 1000)
+        const end: Date = new Date(Date.now())
+        const result = createContinuousScale({
+            variant: 'time',
+            reverseRange: false,
+            domain: [start, end],
+            size: 100,
+        })
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        if (!isTimeAxisScale(result)) return
+        expect(result(Number(start))).toEqual(0)
+        expect(result(Number(end))).toEqual(100)
+        expect(result.step()).toEqual(0)
+        expect(result.bandwidth()).toEqual(0)
+        expect(result.domain()).toHaveLength(2)
+        // a time in near future will map to a coordinate beyond 'size'
+        const future = new Date(Date.now() + 10)
+        expect(result(Number(future))).toBeGreaterThan(100)
+    })
+
+    it('creates time scale with boolean nice', () => {
+        const start: Date = new Date(Date.now() - 60 * 1000)
+        const end: Date = new Date(Date.now())
+        const result = createContinuousScale({
+            variant: 'time',
+            reverseRange: true,
+            domain: [start, end],
+            size: 100,
+            nice: true,
+        })
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        if (!isTimeAxisScale(result)) return
+        expect(result(Number(start))).toBeGreaterThan(0)
+    })
+
+    it('creates time scale with numeric nice', () => {
+        const start: Date = new Date(Date.now() - 60 * 1000)
+        const end: Date = new Date(Date.now())
+        const result = createContinuousScale({
+            variant: 'time',
+            reverseRange: true,
+            domain: [start, end],
+            size: 100,
+            nice: 1,
+        })
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        if (!isTimeAxisScale(result)) return
+        expect(result(Number(start))).toBeGreaterThan(0)
+    })
+})
+
+describe('getTickCoordinates', () => {
+    it('extract tick coordinates (number of ticks)', () => {
         const scale = createContinuousScale({
             variant: 'linear',
             domain: [0, 100],
@@ -238,6 +298,45 @@ describe('createContinuousScale', () => {
         })
         const result = getTickCoordinates(scale, 6)
         const expected = [0, 40, 80, 120, 160, 200]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('extract tick coordinates (specific values)', () => {
+        const scale = createContinuousScale({
+            variant: 'linear',
+            domain: [0, 100],
+            size: 200,
+        })
+        const result = getTickCoordinates(scale, [0, 25, 75, 100])
+        const expected = [0, 50, 150, 200]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('extract time tick coordinates (number of ticks)', () => {
+        const start: Date = new Date(Date.parse('2000-01-01'))
+        const end: Date = new Date(Date.parse('2000-01-06'))
+        const scale = createContinuousScale({
+            variant: 'time',
+            domain: [start, end],
+            size: 200,
+        })
+        const result = getTickCoordinates(scale, 6)
+        const expected = [0, 40, 80, 120, 160, 200]
+        expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('extract time tick coordinates (specific time points)', () => {
+        const start: Date = new Date(Date.parse('2000-01-01'))
+        const end: Date = new Date(Date.parse('2000-01-05'))
+        const scale = createContinuousScale({
+            variant: 'time',
+            domain: [start, end],
+            size: 200,
+        })
+        const t1 = new Date(Date.parse('2000-01-02'))
+        const t2 = new Date(Date.parse('2000-01-04'))
+        const result = getTickCoordinates(scale, [t1, t2])
+        const expected = [50, 150]
         expected.map((v, i) => expect(result[i]).toEqual(v))
     })
 })

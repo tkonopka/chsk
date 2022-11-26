@@ -60,7 +60,6 @@ export const LineOverlayChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 data={rawData}
                 x={'x'}
                 y={'y'}
-                r={1}
                 scaleX={{
                     variant: 'linear',
                     domain: 'auto',

@@ -5,10 +5,18 @@
 // a general type for scales
 // this is designed to overlap with d3, but also includes optional fields
 export interface GenericScale<Domain, Range> {
-    /** AxisScale is a function */
+    /** interface is a callable function */
     (v: Domain): Range
     /** type of scale */
-    variant?: 'log' | 'linear' | 'sqrt' | 'band' | 'sequential' | 'diverging' | 'categorical'
+    variant?:
+        | 'log'
+        | 'linear'
+        | 'sqrt'
+        | 'time'
+        | 'band'
+        | 'sequential'
+        | 'diverging'
+        | 'categorical'
     /** scale domain */
     domain: () => Domain[]
     /** bandwidth - only provides useful information for band scales */
@@ -35,13 +43,19 @@ export type SqrtAxisScale = GenericScale<number, number> & {
     variant: 'sqrt'
 }
 
-export type ContinuousAxisScale = LinearAxisScale | LogAxisScale | SqrtAxisScale
+// time scales will be implemented using numbers rather than Dates
+export type TimeAxisScale = GenericScale<number, number> & {
+    variant: 'time'
+}
+
+export type NumericAxisScale = LinearAxisScale | LogAxisScale | SqrtAxisScale
+export type ContinuousAxisScale = NumericAxisScale | TimeAxisScale
 
 export type AxisScale = ContinuousAxisScale | BandAxisScale
 
 export type MinMaxSpec = [number, number]
 
-export type ContinuousScaleSpec = {
+export type NumericScaleSpec = {
     /** type of scale */
     variant: 'linear' | 'log' | 'sqrt'
     /** domain min and max */
@@ -51,14 +65,30 @@ export type ContinuousScaleSpec = {
     /** nice */
     nice?: boolean | number
 }
-export type ContinuousScaleProps = ContinuousScaleSpec & {
+export type TimeScaleSpec = Pick<NumericScaleSpec, 'clamp' | 'nice'> & {
+    /** type of scale */
+    variant: 'time'
     /** domain min and max */
-    domain: MinMaxSpec
-    /** extent of the range, e.g. [0, size] */
-    size: number
+    domain?: [Date, Date] | [Date, 'auto'] | ['auto', Date] | 'auto'
 }
 
-export type LinearScaleSpec = ContinuousScaleSpec & {
+export type ContinuousScaleSpec = NumericScaleSpec | TimeScaleSpec
+
+export type NumericScaleProps = NumericScaleSpec & {
+    /** domain min and max */
+    domain: MinMaxSpec
+    /** extent of the range (number of pixels) */
+    size: number
+}
+export type TimeScaleProps = TimeScaleSpec & {
+    /** domain min and max */
+    domain: [Date, Date]
+    /** extent of the range (number of pixels) */
+    size: number
+}
+export type ContinuousScaleProps = NumericScaleProps | TimeScaleProps
+
+export type LinearScaleSpec = NumericScaleSpec & {
     /** type of scale */
     variant: 'linear'
 }
@@ -70,7 +100,7 @@ export type LinearScaleProps = LinearScaleSpec & {
     size: number
 }
 
-export type LogScaleSpec = ContinuousScaleSpec & {
+export type LogScaleSpec = NumericScaleSpec & {
     /** type of scale */
     variant: 'log'
 }
@@ -93,7 +123,7 @@ export type BandScaleSpec = {
 export type BandScaleProps = BandScaleSpec & {
     /** all keys in the domain */
     domain: string[]
-    /** extent of the range, e.g. [0, size] */
+    /** extent of the range (number of pixels) */
     size: number
 }
 
@@ -103,7 +133,7 @@ export type ScaleProps = ContinuousScaleProps | BandScaleProps
 
 /** Size */
 
-export type SizeScaleSpec = ContinuousScaleSpec & {
+export type SizeScaleSpec = NumericScaleSpec & {
     /** type of scale */
     variant: 'sqrt'
     /** extent of maximum symbol radius */

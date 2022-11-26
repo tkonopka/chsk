@@ -1,20 +1,17 @@
 import { cloneDeep } from 'lodash'
 import {
-    Scale,
     ScaleSpec,
     ContinuousAxisScale,
     BandAxisScale,
-    LinearAxisScale,
-    LogAxisScale,
     ContinuousScaleSpec,
     ContinuousScaleProps,
     BandScaleProps,
-    AxisScale,
-    SqrtAxisScale,
     BandScaleSpec,
     GenericScale,
+    TimeAxisScale,
+    TimeScaleProps,
 } from './types'
-import { scaleLinear, scaleLog, scaleSqrt } from 'd3-scale'
+import { scaleLinear, scaleLog, scaleSqrt, scaleTime } from 'd3-scale'
 
 export const isScaleWithDomain = (
     scaleSpec: ScaleSpec
@@ -43,36 +40,7 @@ export const createContinuousScaleProps = (
     return result
 }
 
-export const isAxisScale = (scale: Scale): scale is AxisScale => {
-    return (
-        scale.variant === 'band' ||
-        scale.variant === 'linear' ||
-        scale.variant === 'log' ||
-        scale.variant === 'sqrt'
-    )
-}
-
-export const isBandAxisScale = (scale: Scale): scale is BandAxisScale => {
-    return scale.variant === 'band'
-}
-
-export const isContinuousAxisScale = (scale: Scale): scale is ContinuousAxisScale => {
-    return scale.variant === 'linear' || scale.variant === 'log' || scale.variant === 'sqrt'
-}
-
-export const isLinearAxisScale = (scale: Scale): scale is LinearAxisScale => {
-    return scale.variant === 'linear'
-}
-
-export const isLogAxisScale = (scale: Scale): scale is LogAxisScale => {
-    return scale.variant === 'log'
-}
-
-export const isSqrtAxisScale = (scale: Scale): scale is SqrtAxisScale => {
-    return scale.variant === 'sqrt'
-}
-
-// creates a scale function similar to D3's createBandScale
+// creates a scale function similar to D3's scaleBand
 // but this object will have more custom features, including extraPadding for specified bands
 export const createBandScale = ({
     domain,
@@ -116,6 +84,33 @@ export const createBandScale = ({
     return result
 }
 
+// creates a scale function similar to D3's scaleTime
+// but this object will transform number instead of Date inputs
+export const createTimeScale = ({
+    reverseRange = false,
+    size,
+    domain,
+    clamp = false,
+    nice = false,
+}: Omit<TimeScaleProps, 'variant'> & {
+    reverseRange?: boolean
+}): TimeAxisScale => {
+    const range = reverseRange ? [size, 0] : [0, size]
+    // use d3 to construct a base scale
+    const scale = scaleTime()
+    scale.range(range).domain(domain).clamp(clamp)
+    if (nice === true) scale.nice()
+    if (typeof nice === 'number') scale.nice(nice)
+    // construct output object to mimic d3 functionality
+    const result = (x: number) => scale(new Date(x))
+    result.domain = () => domain.map(Number)
+    result.bandwidth = () => 0
+    result.step = () => 0
+    result.ticks = (count?: number) => scale.ticks(count).map(Number)
+    result.variant = 'time' as const
+    return result
+}
+
 export const createContinuousScale = ({
     variant,
     reverseRange = false,
@@ -126,17 +121,18 @@ export const createContinuousScale = ({
 }: ContinuousScaleProps & {
     reverseRange?: boolean
 }): ContinuousAxisScale => {
+    if (variant === 'time') {
+        return createTimeScale({ reverseRange, size, domain, clamp, nice })
+    }
     const range = reverseRange ? [size, 0] : [0, size]
     const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
     scale.range(range).domain(domain).clamp(clamp)
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
-
     const result = scale as unknown as GenericScale<number, number>
     result.variant = variant
     result.bandwidth = () => 0
     result.step = () => 0
-
     return result as ContinuousAxisScale
 }
 

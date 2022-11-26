@@ -21,6 +21,7 @@ import {
     ScalesContextProps,
     ColorScale,
     defaultSizeScaleSpec,
+    NumericAxisScale,
 } from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
@@ -71,7 +72,7 @@ const prepareData = (
 ): Array<ScatterPreparedDataItem> => {
     const scaleX = scales.x as ContinuousAxisScale
     const scaleY = scales.y as ContinuousAxisScale
-    const scaleSize = scales.size as ContinuousAxisScale
+    const scaleSize = scales.size as NumericAxisScale
     const scaleColor = scales.color as ColorScale
     return data.map(seriesData => ({
         id: seriesData.id,

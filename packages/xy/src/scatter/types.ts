@@ -30,7 +30,10 @@ export type ScatterProcessedDataItem = WithId & {
     size: Array<number>
     color?: Array<number>
 }
-export type ScatterPreparedDataItem = Omit<ScatterProcessedDataItem, 'size' | 'color'> & {
+export type ScatterPreparedDataItem = WithId & {
+    index: number
+    x: Array<number>
+    y: Array<number>
     r: Array<number>
     color?: Array<string>
 }
