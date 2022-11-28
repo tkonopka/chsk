@@ -2,11 +2,11 @@ import {
     BandAxisScale,
     BandScaleProps,
     BandScaleSpec,
+    ContinuousScaleSpec,
     createContinuousScaleProps,
     getMinMax,
     isScaleWithDomain,
     LinearScaleProps,
-    LinearScaleSpec,
     SizeSpec,
     X,
     Y,
@@ -17,7 +17,7 @@ export const getScaleProps = (
     ids: string[],
     data: Array<[number, number][]>, // for each id, key, array with [min, max] values
     scaleSpecIndex: BandScaleSpec,
-    scaleSpecValue: LinearScaleSpec,
+    scaleSpecValue: ContinuousScaleSpec,
     size: SizeSpec, // inner size of the view
     horizontal: boolean, // inner size of the view
     disabled: boolean[],
@@ -49,7 +49,7 @@ export const getScaleProps = (
     return result
 }
 
-// for grouped bars/boxplots, compute width of individual bar/box and gap to next bar/box
+// for grouped plots, compute width of individual bar/box and gap to next bar/box
 export const getInternalWidthAndGap = (
     indexScale: BandAxisScale,
     keys: string[],

@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Quantile, Quantiles } from '../src'
-import { ChartQuantileHorizontalDecorator, onQuantilesClick } from './decorators'
+import { ChartQuantileDecorator, onQuantilesClick } from './decorators'
 
 # Quantiles
 
@@ -9,7 +9,7 @@ export const Template = args => <Quantiles {...args} />
 
 `Quantiles` draws boxes and whiskers to summarize distributions of numeric values.
 
-`Quantiles` is intended to be used within a `Quantile` component. The `Quantiles` component is the one that draws the boxes and whiskers, but much of the layout is determined by `Quantile`.
+`Quantiles` is intended to be used within a `Quantile` view. Note that while the `Quantiles` component is the one that draws boxes and whiskers, much of the chart layout is determined by the parent view `Quantile`.
 
 <ArgsTable of={Quantiles} />
 
@@ -27,7 +27,7 @@ By default, `Quantiles` draws the entire dataset. To draw subsets of bars, set t
             boxStyle: { strokeWidth: 0.5, stroke: '#444444' },
         }}
         component={Quantiles}
-        decorators={[ChartQuantileHorizontalDecorator]}
+        decorators={[ChartQuantileDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -40,7 +40,7 @@ By default, `Quantiles` draws the entire dataset. To draw subsets of bars, set t
             boxStyle: { strokeWidth: 0.5, stroke: '#444444' },
         }}
         component={Quantiles}
-        decorators={[ChartQuantileHorizontalDecorator]}
+        decorators={[ChartQuantileDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -60,7 +60,7 @@ The size of the whisker 'cap' can be adjusted with prop `whiskerCapWidth`.
             whiskerCapWidth: 0.5,
         }}
         component={Quantiles}
-        decorators={[ChartQuantileHorizontalDecorator]}
+        decorators={[ChartQuantileDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -79,10 +79,10 @@ To make the box and whiskers respond to mouse events, set props starting with th
             onClick: onQuantilesClick,
         }}
         component={Quantiles}
-        decorators={[ChartQuantileHorizontalDecorator]}
+        decorators={[ChartQuantileDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-(Check the browser console with `Ctrl Shift J` for output.)
+(Click on the boxes, then check the browser console with `Ctrl Shift J` for output.)

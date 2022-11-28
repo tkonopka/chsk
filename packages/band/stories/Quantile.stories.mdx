@@ -8,9 +8,7 @@ import { ChartDecorator, ChartWithLegendDecorator, commonQuantileProps } from '.
 <Meta title="Addons/Band/Quantile" />
 export const Template = args => <Quantile {...args} />
 
-`Quantile` sets up a view for a quantile plot.
-
-`Quantile` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Quantiles` that produces boxes and whiskers.
+`Quantile` sets up a view for a quantile chart (also referred to as 'box plot'). `Quantile` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Quantiles`.
 
 <ArgsTable of={Quantile} />
 

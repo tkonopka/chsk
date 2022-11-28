@@ -1,4 +1,4 @@
-import { BarProps, BarDataItem, QuantileProps, StripProps } from '../src'
+import { BarProps, BarDataItem, QuantileProps, StripProps, ScheduleProps } from '../src'
 import { createBandScale, createContinuousScale } from '@chsk/core'
 
 export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
@@ -95,5 +95,33 @@ export const stripProps: StripProps = {
     scaleValue: {
         variant: 'linear' as const,
         domain: [0, 100] as [number, number],
+    },
+}
+
+export const dataSchedule = [
+    {
+        id: 'alpha',
+        data: [
+            { key: 'a', start: 1, end: 2 },
+            { key: 'b', start: 3, end: 4 },
+        ],
+    },
+    {
+        id: 'beta',
+        data: [{ key: 'a', start: 3, end: 4 }],
+    },
+]
+
+// props for schedule charts
+export const scheduleProps: ScheduleProps = {
+    data: dataSchedule,
+    keys: ['a', 'b'],
+    scaleIndex: {
+        variant: 'band' as const,
+        domain: ['alpha', 'beta'],
+    },
+    scaleValue: {
+        variant: 'linear' as const,
+        domain: [0, 10] as [number, number],
     },
 }

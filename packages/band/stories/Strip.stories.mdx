@@ -8,9 +8,7 @@ import { ChartDecorator, ChartWithLegendDecorator, commonStripProps } from './de
 <Meta title="Addons/Band/Strip" />
 export const Template = args => <Strip {...args} />
 
-`Strip` sets up a view for a strip chart.
-
-`Strip` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Strips`.
+`Strip` sets up a view for a strip chart. `Strip` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Strips`.
 
 <ArgsTable of={Strip} />
 
@@ -36,7 +34,7 @@ The pseudocode below shows one data item with an identifier and two numeric arra
 
 ## Variants
 
-Prop `variant` determines the pattern of data elements within a single strip.
+Prop `variant` determines how data elements are arranged within a single strip.
 The default behavior places the elements in the order in which they appear in the dataset. It is also possible to explicitly randomize / shuffle the order, or to sort the elements in ascending or descending order.
 
 <Canvas>

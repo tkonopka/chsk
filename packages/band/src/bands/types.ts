@@ -51,9 +51,9 @@ export interface BandProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scale
     horizontal?: boolean
     /** padding between bands in the same group/index */
     paddingInternal?: number | null
-    /** scale for horizontal axis */
+    /** scale for axis with discrete indexes */
     scaleIndex?: BandScaleSpec
-    /** scale for vertical axis */
+    /** scale for axis with continuous values */
     scaleValue?: LinearScaleSpec
     /** scale for colors */
     scaleColor?: CategoricalScaleSpec

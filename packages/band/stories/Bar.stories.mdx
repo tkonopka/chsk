@@ -10,9 +10,7 @@ import dataMissing from './dataMissing'
 <Meta title="Addons/Band/Bar" />
 export const Template = args => <Bar {...args} />
 
-`Bar` sets up a view for a bar plot.
-
-`Bar` is an organizational component and it does not draw any visual elements. However, it manages datasets that can be visualized with other components, for example `Bars`.
+`Bar` sets up a view for a bar chart. `Bar` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Bars`.
 
 <ArgsTable of={Bar} />
 

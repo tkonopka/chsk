@@ -10,26 +10,24 @@ import {
     useScales,
 } from '@chsk/core'
 import {
-    Quantile,
-    QuantilePreparedDataContextProps,
-    QuantileProcessedDataContextProps,
-    isQuantileProcessedData,
-    useQuantilePreparedData,
-    QuantileProcessedDataItem,
-    isQuantileProcessedSummary,
+    Schedule,
+    SchedulePreparedDataContextProps,
+    ScheduleProcessedDataContextProps,
+    isScheduleProcessedData,
+    useSchedulePreparedData,
 } from '../src'
-import { quantileProps, dummyXBandScale, dummyYLinearScale, dataMissingKeys } from './props'
+import { scheduleProps, dummyXBandScale, dummyYLinearScale } from './props'
 
-describe('Quantile', () => {
+describe('Schedule', () => {
     it('defines processed data', () => {
-        const processed: QuantileProcessedDataContextProps = {
+        const processed: ScheduleProcessedDataContextProps = {
             data: [],
             seriesIndexes: {},
             keys: [],
         }
         const GetProcessedData = () => {
             const temp = useProcessedData()
-            if (isQuantileProcessedData(temp.data)) {
+            if (isScheduleProcessedData(temp.data)) {
                 processed.data = temp.data
                 processed.keys = temp.keys
                 processed.seriesIndexes = temp.seriesIndexes
@@ -38,9 +36,9 @@ describe('Quantile', () => {
         }
         render(
             <Chart>
-                <Quantile {...quantileProps}>
+                <Schedule {...scheduleProps}>
                     <GetProcessedData />
-                </Quantile>
+                </Schedule>
             </Chart>
         )
         // the dataset has two indexes and two keys
@@ -50,16 +48,16 @@ describe('Quantile', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: QuantilePreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: SchedulePreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
-            prepared = useQuantilePreparedData()
+            prepared = useSchedulePreparedData()
             return null
         }
         render(
             <Chart>
-                <Quantile {...quantileProps}>
+                <Schedule {...scheduleProps}>
                     <GetPreparedData />
-                </Quantile>
+                </Schedule>
             </Chart>
         )
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
@@ -80,19 +78,20 @@ describe('Quantile', () => {
         }
         render(
             <Chart>
-                <Quantile
-                    {...quantileProps}
+                <Schedule
+                    {...scheduleProps}
+                    horizontal={false}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales />
-                </Quantile>
+                </Schedule>
             </Chart>
         )
         // the dataset has two groups alpha and beta
-        // values are [0, 20] in the manual dataset
+        // values are [1, 4] in the test dataset
         expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([0, 20])
+        expect(scales.y.domain()).toEqual([1, 4])
     })
 
     it('auto-detects scales (horizontal)', () => {
@@ -108,86 +107,48 @@ describe('Quantile', () => {
         }
         render(
             <Chart>
-                <Quantile
-                    {...quantileProps}
+                <Schedule
+                    {...scheduleProps}
                     horizontal={true}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales />
-                </Quantile>
+                </Schedule>
             </Chart>
         )
         // the dataset has two groups alpha and beta
-        // values are [0, 20] in the manual dataset
+        // values are [0, 4] in the manual dataset
         expect(scales.y.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.x.domain()).toEqual([0, 20])
+        expect(scales.x.domain()).toEqual([1, 4])
     })
 
-    it('handles missing keys', () => {
-        let result: Array<QuantileProcessedDataItem> = []
-        const GetProcessedData = () => {
+    it('omits unnecessary intervals', () => {
+        let keys: Array<string> = []
+        const GetKeys = () => {
             const temp = useProcessedData()
-            if (isQuantileProcessedData(temp.data)) result = temp.data
+            if (isScheduleProcessedData(temp.data)) keys = temp.keys
             return null
         }
         render(
             <Chart>
-                <Quantile {...quantileProps} data={dataMissingKeys} keys={['x', 'y']}>
-                    <GetProcessedData />
-                </Quantile>
+                <Schedule {...scheduleProps} keys={['a']}>
+                    <GetKeys />
+                </Schedule>
             </Chart>
         )
-        // for first id, first key (x) is defined and second key (y) is not
-        expect(result[0].data[0]).toBeTruthy()
-        expect(result[0].data[1]).toBeFalsy()
-        // for second id, first key (x) is not defined
-        expect(result[1].data[0]).toBeFalsy()
-        expect(result[1].data[1]).toBeTruthy()
+        // the dataset has keys 'a' and 'b', but prop focuses only on one key 'a'
+        expect(keys).toHaveLength(1)
     })
 
     it('prepares color scale for legend', () => {
         render(
             <Chart>
-                <Quantile {...quantileProps}>
+                <Schedule {...scheduleProps}>
                     <Legend variant={'list'} />
-                </Quantile>
+                </Schedule>
             </Chart>
         )
         expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
-    })
-
-    const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
-
-    it('accepts precomputed quantile values', () => {
-        const precomputed = [
-            {
-                id: 'A',
-                x: {
-                    values: [5, 10, 15, 20, 25],
-                    quantiles: q5,
-                    extrema: [5, 30],
-                    junk: [1, 2, 3],
-                },
-            },
-        ]
-        let result: Array<QuantileProcessedDataItem> = []
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isQuantileProcessedData(temp.data)) result = temp.data
-            return null
-        }
-        render(
-            <Chart>
-                <Quantile data={precomputed} keys={['x']}>
-                    <GetProcessedData />
-                </Quantile>
-            </Chart>
-        )
-        expect(isQuantileProcessedSummary(precomputed[0].x)).toBeTruthy()
-        expect(result[0].id).toEqual(precomputed[0].id)
-        expect(result[0].data[0]?.values).toEqual(precomputed[0].x.values)
-        expect(result[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)
-        expect(JSON.stringify(result[0].data[0])).not.toContain('junk')
     })
 })

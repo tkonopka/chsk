@@ -9,8 +9,12 @@ import {
     Strip,
     StripProps,
     QuantileInteractiveDataItem,
+    Schedule,
+    ScheduleInteractiveDataItem,
+    ScheduleProps,
 } from '../src/'
 import dataGroups from './dataGroups.json'
+import dataSchedules from './dataSchedules.json'
 import { generateUniformValues } from './generators'
 import { BarInteractiveDataItem, StripInteractiveDataItem } from '../src'
 
@@ -110,7 +114,7 @@ export const commonQuantileProps: QuantileProps = {
     },
 }
 
-export const ChartQuantileHorizontalDecorator = (Story: () => ReactNode) => (
+export const ChartQuantileDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Quantile {...commonQuantileProps} horizontal={false}>
             <GridLines variant={'y'} />
@@ -143,7 +147,7 @@ export const commonStripProps: StripProps = {
     paddingInternal: 0.2,
 }
 
-export const ChartStripHorizontalDecorator = (Story: () => ReactNode) => (
+export const ChartStripDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Strip {...commonStripProps} horizontal={false}>
             <GridLines variant={'y'} />
@@ -155,5 +159,36 @@ export const ChartStripHorizontalDecorator = (Story: () => ReactNode) => (
 )
 
 export const onStripsClick = (data: StripInteractiveDataItem) => {
+    console.log('clicked: ' + JSON.stringify(data))
+}
+
+/** schedule charts */
+
+export const commonScheduleProps: ScheduleProps = {
+    data: dataSchedules,
+    keys: ['x', 'y', 'z'],
+    scaleIndex: {
+        variant: 'band',
+        domain: ['alpha', 'beta'],
+        padding: 0.2,
+    },
+    scaleValue: {
+        variant: 'linear',
+        domain: [0, 'auto'],
+    },
+}
+
+export const ChartScheduleDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Schedule {...commonScheduleProps} horizontal={false}>
+            <GridLines variant={'y'} />
+            <Axis variant={'bottom'} />
+            <Axis variant={'left'} label={'Values (a.u.)'} />
+            {Story()}
+        </Schedule>
+    </Chart>
+)
+
+export const onSchedulesClick = (data: ScheduleInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
 }

@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Square } from '@chsk/core'
 import { Strip, Strips } from '../src'
-import { ChartStripHorizontalDecorator, onStripsClick } from './decorators'
+import { ChartStripDecorator, onStripsClick } from './decorators'
 
 # Strips
 
@@ -10,7 +10,7 @@ export const Template = args => <Strips {...args} />
 
 `Strips` draws data points on a strip chart.
 
-`Strips` is intended to be used within a `Strip` component. The `Strips` component is the one that draws data points, but much of the layout is determined by `Strip`.
+`Strips` is intended to be used within a `Strip` component. Note that while the `Strips` component is the one that draws data points, much of the chart layout is determined by the parent view `Strip`.
 
 <ArgsTable of={Strips} />
 
@@ -26,7 +26,7 @@ By default, `Strips` draws the entire dataset. To draw subsets, set the props `i
             symbolStyle: { strokeWidth: 1, stroke: '#222222' },
         }}
         component={Strips}
-        decorators={[ChartStripHorizontalDecorator]}
+        decorators={[ChartStripDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -37,7 +37,7 @@ By default, `Strips` draws the entire dataset. To draw subsets, set the props `i
             symbolStyle: { strokeWidth: 1, stroke: '#222222' },
         }}
         component={Strips}
-        decorators={[ChartStripHorizontalDecorator]}
+        decorators={[ChartStripDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -55,7 +55,7 @@ Prop `component` accepts a function for rendering individual data points. The de
             symbolStyle: { strokeWidth: 1, stroke: '#222222' },
         }}
         component={Strips}
-        decorators={[ChartStripHorizontalDecorator]}
+        decorators={[ChartStripDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -72,10 +72,10 @@ To make points respond to mouse events, set props starting with the prefix `on`,
         name="mouse click"
         args={{ onClick: onStripsClick }}
         component={Strips}
-        decorators={[ChartStripHorizontalDecorator]}
+        decorators={[ChartStripDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-(Check the browser console with `Ctrl Shift J` for output.)
+(Click on the data points, then check the browser console with `Ctrl Shift J` for output.)

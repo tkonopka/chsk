@@ -18,8 +18,6 @@ export interface DataInteractivityProps<
     DataSpec,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 > {
-    /** data carried within the component */
-    data?: DataSpec
     /** function triggered upon mouse event */
     onMouseEnter?: (data: DataSpec | undefined, event: MouseEvent) => void
     /** function triggered upon mouse event */
@@ -36,6 +34,8 @@ export interface DataComponentProps<
     DataSpec,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 > extends Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
+    /** data carried within the component */
+    data?: DataSpec
     /** function to create a chart component */
     component: FC<ComponentProps>
     /** props passed to the component */
