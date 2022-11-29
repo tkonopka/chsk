@@ -7,7 +7,7 @@ import {
     getAbsolutePosition,
 } from '../src/scales'
 
-describe('getCoordinates', () => {
+describe('getAbsolutePosition', () => {
     const customBandScale = createBandScale({
         domain: ['a', 'b'],
         size: 100,

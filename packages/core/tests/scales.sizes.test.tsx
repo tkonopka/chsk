@@ -15,7 +15,7 @@ describe('createSizeScaleProps', () => {
         expect(result.size).toEqual(20)
     })
 
-    it('creates size props (semi-automatic)', () => {
+    it('creates size props (automatic domain max)', () => {
         const result = createSizeScaleProps(
             {
                 variant: 'sqrt',
@@ -26,6 +26,20 @@ describe('createSizeScaleProps', () => {
             20
         )
         expect(result.domain).toEqual([0, 100])
+        expect(result.size).toEqual(20)
+    })
+
+    it('creates size props (automatic domain min)', () => {
+        const result = createSizeScaleProps(
+            {
+                variant: 'sqrt',
+                domain: ['auto', 5],
+                size: 'auto',
+            },
+            100,
+            20
+        )
+        expect(result.domain).toEqual([0, 5])
         expect(result.size).toEqual(20)
     })
 

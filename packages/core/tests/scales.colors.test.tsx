@@ -9,6 +9,7 @@ import {
     getTicks,
     DivergingScaleProps,
     SequentialScaleProps,
+    getTickCoordinates,
 } from '../src/scales/'
 
 describe('createCategoricalScale', () => {
@@ -62,6 +63,20 @@ describe('createCategoricalScale', () => {
         expect(result(1)).toBeUndefined()
     })
 
+    /**
+    it('categorical a single color', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: '#000',
+            size: 2,
+            domain: ['a', 'b', 'c'],
+        })
+        expect(result(0)).toBe('#000')
+        // size is restricted to 2, so color(2) should be the same as color(0)
+        expect(result(2)).toBe('#000')
+    })
+    */
+
     it('categorical using d3 categorical scheme', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
@@ -88,7 +103,7 @@ describe('createCategoricalScale', () => {
         expect(colors[1]).not.toEqual(colors[2])
     })
 
-    it('categorical using d3 sequential scheme with fixed size', () => {
+    it('categorical using d3 scheme with fixed size', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
@@ -100,6 +115,20 @@ describe('createCategoricalScale', () => {
         expect(colors[0]).not.toEqual(colors[1])
         // size 5 means result(5) should recycle result from result(0)
         expect(colors[0]).toEqual(colors[2])
+    })
+
+    it('categorical using d3 falls back to black', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: 'Blues',
+            size: 2,
+            domain: [],
+        })
+        // d3 Blues start with size=3
+        // at size=2, createCategoricalScale should fallback to black
+        const colors = [result(0), result(1)]
+        expect(colors[0]).toEqual('#000')
+        expect(colors[0]).toEqual(colors[1])
     })
 })
 
@@ -292,5 +321,41 @@ describe('createColorScaleProps', () => {
             []
         ) as DivergingScaleProps
         expect(result.domain).toEqual([-100, 0, 100])
+    })
+})
+
+describe('getTickCoordinates', () => {
+    // getTickCoordinates on a color scale is relevant for building legends
+
+    it('get tick coordinates for a color scale', () => {
+        const scale = createColorScale({
+            variant: 'sequential',
+            colors: ['#000', '#fff'],
+            domain: [0, 10],
+        })
+        const result = getTickCoordinates(scale, 3, 0, 100)
+        // 3 ticks at start, middle, end of the scale size
+        expect(result).toEqual([0, 50, 100])
+    })
+
+    it('get tick coordinates for a color scale with negative size', () => {
+        const scale = createColorScale({
+            variant: 'sequential',
+            colors: ['#000', '#fff'],
+            domain: [0, 10],
+        })
+        const result = getTickCoordinates(scale, 3, 0, -100)
+        // 3 ticks at [start, middle, end]
+        expect(result).toEqual([100, 50, 0])
+    })
+
+    it('get tick coordinates for a band color scale', () => {
+        const scale = createColorScale({
+            variant: 'categorical',
+            colors: 'Category10',
+            domain: ['a', 'b', 'c', 'd'],
+        })
+        const result = getTickCoordinates(scale, 3, 0, 100)
+        expect(result).toEqual([])
     })
 })

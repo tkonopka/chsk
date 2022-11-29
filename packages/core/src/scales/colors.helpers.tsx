@@ -70,9 +70,6 @@ export const createCategoricalScale = ({
             allColors = d3[scheme as D3ScaleChromatic]
         }
     }
-    if (!Array.isArray(allColors)) {
-        allColors = [colors]
-    }
 
     const isNested = (x: Array<unknown>) => {
         return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)

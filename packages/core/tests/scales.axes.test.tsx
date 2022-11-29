@@ -1,4 +1,5 @@
 import {
+    createContinuousScaleProps,
     createBandScale,
     createContinuousScale,
     createAxisScale,
@@ -11,8 +12,57 @@ import {
     isLogAxisScale,
     isScaleWithDomain,
     isSqrtAxisScale,
+    LinearAxisScale,
 } from '../src/scales'
 import { isNumericAxisScale, isTimeAxisScale } from '../src/scales/predicates'
+
+describe('createContinuousScaleProps', () => {
+    it('creates props for a scale with custom domain', () => {
+        const result = createContinuousScaleProps(
+            {
+                variant: 'linear',
+                domain: [0, 10],
+            },
+            [0, 1],
+            100
+        )
+        expect(result.domain).toEqual([0, 10])
+        expect(result.size).toEqual(100)
+    })
+
+    it('creates props for a scale using default domain', () => {
+        const result = createContinuousScaleProps(
+            {
+                variant: 'linear',
+            },
+            [0, 1],
+            100
+        )
+        expect(result.domain).toEqual([0, 1])
+        expect(result.size).toEqual(100)
+    })
+
+    it('creates props for a scale using default domain start', () => {
+        const result = createContinuousScaleProps(
+            {
+                variant: 'linear',
+                domain: ['auto', 20],
+            },
+            [0, 1],
+            100
+        )
+        expect(result.domain).toEqual([0, 20])
+    })
+
+    it('creates props for a scale using default domain end', () => {
+        const result = createContinuousScaleProps(
+            { variant: 'linear', domain: [-1, 'auto'] },
+            [0, 1],
+            100
+        )
+        expect(result.domain).toEqual([-1, 1])
+    })
+})
 
 describe('createAxisScale', () => {
     it('creates a band scale', () => {
@@ -79,6 +129,48 @@ describe('createAxisScale', () => {
         expect(isBandAxisScale(result)).toBeFalsy()
         expect(isSqrtAxisScale(result)).toBeTruthy()
         expect(isContinuousAxisScale(result)).toBeTruthy()
+    })
+
+    it('creates a y-axis scale oriented in canonical direction', () => {
+        const result = createAxisScale({
+            axis: 'y',
+            scaleProps: {
+                variant: 'linear',
+                domain: [0, 10],
+                size: 100,
+                reverse: false,
+            },
+        }) as LinearAxisScale
+        expect(result(0)).toEqual(100)
+        expect(result(10)).toEqual(0)
+    })
+
+    it('creates a y-axis scale oriented in reverse direction', () => {
+        const result = createAxisScale({
+            axis: 'y',
+            scaleProps: {
+                variant: 'linear',
+                domain: [0, 10],
+                size: 100,
+                reverse: true,
+            },
+        }) as LinearAxisScale
+        expect(result(0)).toEqual(0)
+        expect(result(10)).toEqual(100)
+    })
+
+    it('creates a x-axis scale oriented in reverse direction', () => {
+        const result = createAxisScale({
+            axis: 'x',
+            scaleProps: {
+                variant: 'linear',
+                domain: [0, 10],
+                size: 100,
+                reverse: true,
+            },
+        }) as LinearAxisScale
+        expect(result(0)).toEqual(100)
+        expect(result(10)).toEqual(0)
     })
 })
 
@@ -290,7 +382,7 @@ describe('createContinuousScale', () => {
 })
 
 describe('getTickCoordinates', () => {
-    it('extract tick coordinates (number of ticks)', () => {
+    it('get tick coordinates (number of ticks)', () => {
         const scale = createContinuousScale({
             variant: 'linear',
             domain: [0, 100],
@@ -301,7 +393,7 @@ describe('getTickCoordinates', () => {
         expected.map((v, i) => expect(result[i]).toEqual(v))
     })
 
-    it('extract tick coordinates (specific values)', () => {
+    it('get tick coordinates (specific values)', () => {
         const scale = createContinuousScale({
             variant: 'linear',
             domain: [0, 100],
@@ -312,7 +404,7 @@ describe('getTickCoordinates', () => {
         expected.map((v, i) => expect(result[i]).toEqual(v))
     })
 
-    it('extract time tick coordinates (number of ticks)', () => {
+    it('get tick coordinates on time scale (number of ticks)', () => {
         const start: Date = new Date(Date.parse('2000-01-01'))
         const end: Date = new Date(Date.parse('2000-01-06'))
         const scale = createContinuousScale({
@@ -325,7 +417,7 @@ describe('getTickCoordinates', () => {
         expected.map((v, i) => expect(result[i]).toEqual(v))
     })
 
-    it('extract time tick coordinates (specific time points)', () => {
+    it('get tick coordinates on a time scale (specific time points)', () => {
         const start: Date = new Date(Date.parse('2000-01-01'))
         const end: Date = new Date(Date.parse('2000-01-05'))
         const scale = createContinuousScale({

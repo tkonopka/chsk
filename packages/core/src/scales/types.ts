@@ -64,8 +64,10 @@ export type NumericScaleSpec = {
     clamp?: boolean
     /** nice */
     nice?: boolean | number
+    /** reverse direction of axis */
+    reverse?: boolean
 }
-export type TimeScaleSpec = Pick<NumericScaleSpec, 'clamp' | 'nice'> & {
+export type TimeScaleSpec = Pick<NumericScaleSpec, 'clamp' | 'nice' | 'reverse'> & {
     /** type of scale */
     variant: 'time'
     /** domain min and max */

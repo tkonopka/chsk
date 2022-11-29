@@ -26,17 +26,16 @@ export const isScaleWithDomain = (
 export const createContinuousScaleProps = (
     scaleSpec: ContinuousScaleSpec,
     domain: [number, number],
-    size?: number
+    size = 100
 ): ContinuousScaleProps => {
     const result = cloneDeep(scaleSpec) as ContinuousScaleProps
     if (scaleSpec.domain === undefined || typeof scaleSpec.domain === 'string') {
         result.domain = domain
     } else {
-        result.domain = cloneDeep(scaleSpec.domain) as [number, number]
         if (typeof scaleSpec.domain[0] !== 'number') result.domain[0] = domain[0]
         if (typeof scaleSpec.domain[1] !== 'number') result.domain[1] = domain[1]
     }
-    result.size = size ?? 100
+    result.size = size
     return result
 }
 
@@ -148,5 +147,7 @@ export const createAxisScale = ({
     if (scaleProps.variant === 'band') {
         return createBandScale(scaleProps)
     }
-    return createContinuousScale({ reverseRange: axis === 'y', ...scaleProps })
+    let reverse = axis === 'y'
+    if (scaleProps.reverse) reverse = !reverse
+    return createContinuousScale({ reverseRange: reverse, ...scaleProps })
 }
