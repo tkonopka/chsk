@@ -110,4 +110,56 @@ describe('MilestoneMotion', () => {
         const result = screen.getByRole('chart-content')
         expect(result.querySelector('rect')).toBeDefined()
     })
+
+    it('accepts named transition configuration', () => {
+        const setEntry = new Set<string>(['entry'])
+        render(
+            <Chart {...chartProps} data={{ milestones: setEntry }}>
+                <MilestoneMotion
+                    initialOn={'entry'}
+                    visible={false}
+                    transition={'default'}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('rect')).not.toBeNull()
+    })
+
+    it('accepts named transition but falls back to default', () => {
+        const setEntry = new Set<string>(['entry'])
+        render(
+            <Chart {...chartProps} data={{ milestones: setEntry }}>
+                <MilestoneMotion
+                    initialOn={'entry'}
+                    visible={false}
+                    transition={'incorrect'}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('rect')).not.toBeNull()
+    })
+
+    it('accepts custom transition settings', () => {
+        const setEntry = new Set<string>(['entry'])
+        render(
+            <Chart {...chartProps} data={{ milestones: setEntry }}>
+                <MilestoneMotion
+                    initial={{ opacity: 0.5, scale: 0.5 }}
+                    initialOn={'entry'}
+                    visible={false}
+                    transition={{ duration: 0.5, stiffness: 50 }}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('rect')).not.toBeNull()
+    })
 })
