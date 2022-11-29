@@ -1,0 +1,28 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
+import { generateScheduleProjectData, ScheduleProjectChart } from './ScheduleProjectChart'
+import { generateScheduleWeekData, ScheduleWeekChart } from './ScheduleWeekChart'
+
+<Meta title="Gallery/Schedule charts" />
+
+# Examples of schedule charts
+
+## Project schedules
+
+<Canvas>
+    <Story name="project schedule">
+        <Controller
+            generator={generateScheduleProjectData}
+            chart={ScheduleProjectChart}
+            steps={['axis', 'A', 'B', 'C', 'D']}
+        />
+    </Story>
+</Canvas>
+
+## Day schedules
+
+<Canvas>
+    <Story name="week schedule">
+        <Controller generator={generateScheduleWeekData} chart={ScheduleWeekChart} />
+    </Story>
+</Canvas>

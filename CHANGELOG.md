@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples]: examples of schedule charts
 -   [packages/core]: tests for scales and motion
 -   [packages/band]: components `Schedule` and `Schedules` for schedule / Gantt charts
 -   [examples]: examples of line charts with time scales
