@@ -115,11 +115,7 @@ describe('MilestoneMotion', () => {
         const setEntry = new Set<string>(['entry'])
         render(
             <Chart {...chartProps} data={{ milestones: setEntry }}>
-                <MilestoneMotion
-                    initialOn={'entry'}
-                    visible={false}
-                    transition={'default'}
-                >
+                <MilestoneMotion initialOn={'entry'} visible={false} transition={'default'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -132,11 +128,7 @@ describe('MilestoneMotion', () => {
         const setEntry = new Set<string>(['entry'])
         render(
             <Chart {...chartProps} data={{ milestones: setEntry }}>
-                <MilestoneMotion
-                    initialOn={'entry'}
-                    visible={false}
-                    transition={'incorrect'}
-                >
+                <MilestoneMotion initialOn={'entry'} visible={false} transition={'incorrect'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
