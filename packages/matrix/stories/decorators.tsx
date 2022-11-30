@@ -1,7 +1,12 @@
 import { ReactNode } from 'react'
 import { Chart, Axis } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
-import { generateCategoricalHeatMapData, generateContinuousHeatMapData } from './generators'
+import { UpSet, UpSetGrid, UpSetProps } from '../src/'
+import {
+    generateCategoricalHeatMapData,
+    generateContinuousHeatMapData,
+    generateUpSetData,
+} from './generators'
 
 const continuous4x3 = generateContinuousHeatMapData(
     ['alpha', 'beta', 'gamma', 'delta'],
@@ -13,6 +18,11 @@ const categorical4x3 = generateCategoricalHeatMapData(
     ['x', 'y', 'z'],
     ['a', 'b', 'c', 'd', 'e']
 )
+const upsetData = generateUpSetData(
+    ['alpha', 'beta', 'gamma', 'delta'],
+    ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'],
+    6
+)
 
 export const commonProps: Pick<HeatMapProps, 'data' | 'keys'> = {
     data: continuous4x3,
@@ -23,6 +33,12 @@ export const commonCategoricalProps: Pick<HeatMapProps, 'data' | 'keys' | 'scale
     data: categorical4x3,
     keys: ['x', 'y', 'z'],
     scaleColor: { variant: 'categorical', colors: 'Category10' },
+}
+
+export const commonUpSetProps: UpSetProps = {
+    data: upsetData,
+    scaleIndex: { variant: 'band', padding: 0.2 },
+    scaleMembership: { variant: 'band', padding: 0.2 },
 }
 
 export const ChartDecorator = (Story: () => ReactNode) => (
@@ -70,5 +86,24 @@ export const ChartHeatMapPaddedCellsDecorator = (Story: () => ReactNode) => (
             <HeatMapCells />
             {Story()}
         </HeatMap>
+    </Chart>
+)
+
+export const ChartUpSetDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 40, 60]} style={{ display: 'inline-block' }}>
+        <UpSet {...commonUpSetProps}>
+            <Axis variant={'left'} />
+            {Story()}
+        </UpSet>
+    </Chart>
+)
+
+export const ChartUpSetGridDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 40, 60]} style={{ display: 'inline-block' }}>
+        <UpSet {...commonUpSetProps}>
+            <UpSetGrid symbolStyle={{ fill: '#ccc' }} />
+            <Axis variant={'left'} />
+            {Story()}
+        </UpSet>
     </Chart>
 )

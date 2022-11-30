@@ -1,3 +1,5 @@
+/** heatmap charts */
+
 const data4x3 = [
     {
         id: 'alpha',
@@ -72,5 +74,36 @@ export const genericViewProps = {
     scaleY: {
         variant: 'band' as const,
         domain: ['a', 'b', 'c'],
+    },
+}
+
+/** upset charts */
+
+const dataSets = [
+    {
+        id: 'alpha',
+        data: ['a', 'b', 'c', 'd'],
+    },
+    {
+        id: 'beta',
+        data: ['c', 'd', 'e', 'f'],
+    },
+    {
+        id: 'gamma',
+        data: ['c', 'd', 'e', 'f'],
+    },
+    {
+        id: 'delta',
+        data: ['g', 'h', 'i', 'j'],
+    },
+]
+
+export const upSetProps = {
+    data: dataSets,
+    scaleX: {
+        variant: 'band' as const,
+    },
+    scaleY: {
+        variant: 'band' as const,
     },
 }

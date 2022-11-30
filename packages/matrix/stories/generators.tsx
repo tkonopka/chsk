@@ -1,5 +1,5 @@
 import { roundDecimalPlaces } from '@chsk/core'
-import { HeatMapDataItem } from '../src'
+import { HeatMapDataItem, UpSetDataItem } from '../src'
 
 export const generateContinuousHeatMapData = (
     ids: string[],
@@ -28,6 +28,24 @@ export const generateCategoricalHeatMapData = (
         const series: Record<string, unknown> = { id: id }
         keys.forEach(k => (series[k] = domain[Math.floor(domainSize * Math.random())]))
         return series as HeatMapDataItem
+    })
+    return result
+}
+
+export const generateUpSetData = (
+    ids: string[],
+    domain: string[],
+    n: number
+): Array<UpSetDataItem> => {
+    const domainSize = domain.length
+    const result = ids.map((id: string) => {
+        const series: Record<string, unknown> = { id }
+        const seriesSize = Math.max(Math.floor(n / 2), Math.floor(n * Math.random()))
+        const values = Array(seriesSize)
+            .fill(0)
+            .map(() => domain[Math.floor(domainSize * Math.random())])
+        series.data = Array.from(new Set(values))
+        return series as UpSetDataItem
     })
     return result
 }
