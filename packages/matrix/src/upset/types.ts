@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { FC } from 'react'
 import {
     BandScaleSpec,
     CategoricalScaleSpec,
@@ -12,6 +12,7 @@ import {
     WithId,
     WithInteractive,
 } from '@chsk/core'
+import { BandProps } from '@chsk/band'
 
 export type UpSetDataItem = WithId & {
     data: unknown[]
@@ -61,10 +62,12 @@ export interface UpSetMembershipProps extends UpSetGridProps, WithInteractive {
 }
 
 export interface UpSetMembershipsProps extends Omit<UpSetMembershipProps, 'positions' | 'r'> {
-    /** interactive */
-    interactive?: boolean
     /** component to draw one set intersection */
     component?: FC<UpSetMembershipProps>
-    /** children */
-    children?: ReactNode
+}
+
+export interface UpSetBarProps
+    extends Pick<BandProps, 'padding' | 'scaleIndex' | 'scaleValue' | 'children'> {
+    /** size of view along the value axis */
+    size: number
 }

@@ -1,5 +1,11 @@
 import { UpSetMembershipsProps } from './types'
-import { BandAxisScale, useProcessedData, useScales } from '@chsk/core'
+import {
+    addColor,
+    BandAxisScale,
+    CategoricalColorScale,
+    useProcessedData,
+    useScales,
+} from '@chsk/core'
 import { createElement } from 'react'
 import { isUpSetProcessedData } from './predicates'
 import { UpSetMembership } from './UpSetMembership'
@@ -10,7 +16,7 @@ export const UpSetMemberships = ({
     line,
     symbolStyle,
     lineStyle,
-    // interactive,
+    style,
     className,
     setRole,
 }: UpSetMembershipsProps) => {
@@ -22,8 +28,12 @@ export const UpSetMemberships = ({
 
     const scaleIndex = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const scaleKeys = horizontal ? (scales.x as BandAxisScale) : (scales.y as BandAxisScale)
+    const scaleColor = scales.color as CategoricalColorScale
     const r = Math.min(scaleIndex.bandwidth(), scaleKeys.bandwidth()) / 2
     const ids = data.map(x => x.id)
+
+    const compositeSymbolStyle = addColor(symbolStyle, scaleColor(''))
+    const compositeLineStyle = addColor(lineStyle, scaleColor(''))
 
     const cells = processedData.keys.map((k, i) => {
         let positions: [number, number][] = []
@@ -41,13 +51,17 @@ export const UpSetMemberships = ({
             positions,
             r,
             symbol,
-            symbolStyle,
+            symbolStyle: compositeSymbolStyle,
             line,
-            lineStyle,
+            lineStyle: compositeLineStyle,
             className,
             setRole,
         })
     })
 
-    return <g role={'upset-memberships'}>{cells}</g>
+    return (
+        <g role={'upset-memberships'} style={style}>
+            {cells}
+        </g>
+    )
 }

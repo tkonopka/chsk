@@ -9,6 +9,8 @@ export const UpSetMembership = ({
     line = Line,
     symbolStyle,
     lineStyle,
+    className,
+    setRole = false,
 }: UpSetMembershipProps) => {
     const xCoordinates = getMinMax(positions.map(coords => coords[X]))
     const yCoordinates = getMinMax(positions.map(coords => coords[Y]))
@@ -20,7 +22,8 @@ export const UpSetMembership = ({
         y1: yCoordinates[0],
         y2: yCoordinates[1],
         style: lineStyle,
-        setRole: false,
+        className,
+        setRole,
     })
     const symbolElements = positions.map((position, index) =>
         createElement(symbol, {
@@ -29,7 +32,8 @@ export const UpSetMembership = ({
             cy: position[1],
             r,
             style: symbolStyle,
-            setRole: false,
+            className,
+            setRole,
         })
     )
 

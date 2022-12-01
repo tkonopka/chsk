@@ -1,4 +1,5 @@
 export * from './UpSet'
+export * from './UpSetBar'
 export * from './UpSetGrid'
 export * from './UpSetMembership'
 export * from './UpSetMemberships'

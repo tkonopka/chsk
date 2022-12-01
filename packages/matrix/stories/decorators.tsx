@@ -21,7 +21,7 @@ const categorical4x3 = generateCategoricalHeatMapData(
 const upsetData = generateUpSetData(
     ['alpha', 'beta', 'gamma', 'delta'],
     ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'],
-    6
+    8
 )
 
 export const commonProps: Pick<HeatMapProps, 'data' | 'keys'> = {

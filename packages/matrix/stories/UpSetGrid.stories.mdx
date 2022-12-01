@@ -1,0 +1,52 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, Square } from '@chsk/core'
+import { UpSet, UpSetGrid } from '../src'
+import { ChartUpSetDecorator } from './decorators'
+
+# UpSetGrid
+
+<Meta title="Addons/Matrix/UpSetGrid" />
+
+export const Template = args => <UpSetGrid {...args} />
+
+`UpSetGrid` draws a grid of symbols on an `UpSet` view.
+
+<ArgsTable of={UpSetGrid} />
+
+## Custom symbols
+
+The default grid displays a matrix of circles. Other shapes can be set using prop `symbol`.
+
+<Canvas>
+    <Story name="default" args={{}} component={UpSetGrid} decorators={[ChartUpSetDecorator]}>
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="custom symbol"
+        args={{
+            symbol: Square,
+            symbolStyle: { strokeWidth: 5 },
+        }}
+        component={UpSetGrid}
+        decorators={[ChartUpSetDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Symbols can be styled using prop `symbolStyle`.
+
+<Canvas>
+    <Story
+        name="custom styles"
+        args={{
+            symbolStyle: { fill: '#ddd', stroke: '#aaa', strokeWidth: 1 },
+        }}
+        component={UpSetGrid}
+        decorators={[ChartUpSetDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

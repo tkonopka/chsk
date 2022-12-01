@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "@chsk/core": "^0.2.0-alpha.0",
+        "@chsk/band": "^0.2.0-alpha.0",
         "framer-motion": "^7.0.0",
         "lodash": "^4.17.21"
     },
