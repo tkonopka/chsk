@@ -47,6 +47,11 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             fillOpacity: 1,
         },
     },
+    Motion: {
+        mass: 0.5,
+        stiffness: 100,
+        damping: 20,
+    },
 })
 
 export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
