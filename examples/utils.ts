@@ -59,7 +59,7 @@ export const alphabetGreek = [
     'gamma',
     'delta',
     'epsilon',
-    'zero',
+    'zeta',
     'eta',
     'theta',
     'iota',
@@ -99,6 +99,24 @@ export const randomNormalValue = (mean: number, sd = 1) => {
 export const randomUniformValue = (min: number, max: number) => {
     const size = max - min
     return min + Math.random() * size
+}
+
+/** select n elements from a fixed pool */
+export const randomSelection = (pool: string[], n = 1, allowDuplicates = true): string[] => {
+    const result: string[] = []
+    const size = pool.length
+    if (allowDuplicates) {
+        while (result.length < n) {
+            result.push(pool[Math.floor(Math.random() * size)])
+        }
+    } else {
+        const selection = new Set<string>()
+        while (selection.size < Math.min(n, size)) {
+            selection.add(pool[Math.floor(Math.random() * size)])
+        }
+        selection.forEach(x => result.push(x))
+    }
+    return result
 }
 
 // create an array of values from superposed normal distributions

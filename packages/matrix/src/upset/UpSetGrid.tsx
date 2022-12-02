@@ -12,8 +12,8 @@ export const UpSetGrid = ({
     const processedData = useProcessedData()
     const scales = useScales()
     const data = processedData.data
+    if (!isUpSetProcessedData(data) || data.length == 0) return null
     const horizontal = data[0].horizontal
-    if (!isUpSetProcessedData(data)) return null
 
     const scaleIndex = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const scaleKeys = horizontal ? (scales.x as BandAxisScale) : (scales.y as BandAxisScale)
@@ -21,12 +21,12 @@ export const UpSetGrid = ({
 
     const cells = scaleIndex
         .domain()
-        .map(id => {
+        .map((id, i) => {
             const idCoordinate = scaleIndex(id)
-            return scaleKeys.domain().map(k => {
+            return scaleKeys.domain().map((k, j) => {
                 const keyCoordinate = scaleKeys(k)
                 return createElement(symbol, {
-                    key: 'cell-' + id + '-' + k,
+                    key: 'cell-' + i + '-' + j,
                     cx: horizontal ? keyCoordinate : idCoordinate,
                     cy: horizontal ? idCoordinate : keyCoordinate,
                     r: cellR,

@@ -6,6 +6,7 @@ import {
     SizeSpec,
     useDimensions,
     useProcessedData,
+    useScales,
     X,
     Y,
 } from '@chsk/core'
@@ -44,14 +45,16 @@ export const UpSetBar = ({
     padding = [0, 0, 0, 0],
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
+    scaleColor,
     //
     children,
 }: UpSetBarProps) => {
     const processedData = useProcessedData()
     const dimensions = useDimensions()
+    const scales = useScales()
     const data = processedData.data
-    if (!isUpSetProcessedData(data)) return null
-    const horizontal = data[0].horizontal ?? true
+    if (!isUpSetProcessedData(data) || data.length == 0) return null
+    const horizontal = data[0].horizontal
     const barData = useMemo(() => getBarData(data, processedData.keys), [data, processedData])
     const barLayout = useMemo(
         () => getBarViewLayout(horizontal, size, dimensions.size),
@@ -69,6 +72,13 @@ export const UpSetBar = ({
             horizontal={!horizontal}
             scaleIndex={scaleIndex}
             scaleValue={scaleValue}
+            scaleColor={
+                scaleColor ?? {
+                    variant: 'categorical',
+                    domain: scales.color.domain() as string[],
+                    colors: [scales.color(0)],
+                }
+            }
         >
             {children}
         </Bar>

@@ -54,7 +54,7 @@ export const Bars = ({
                 if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
                 if (size[0] === 0 || size[1] === 0) return null
                 return createElement(dataComponent, {
-                    key: 'bar-' + seriesData.index + '-' + i,
+                    key: 'bar-' + seriesData.id + '-' + k,
                     component,
                     data: {
                         id: seriesData.id,
@@ -78,7 +78,7 @@ export const Bars = ({
 
         return (
             <OpacityMotion
-                key={'bars-' + i}
+                key={'bars-' + k}
                 role={'bars'}
                 visible={visible}
                 firstRender={firstRender}

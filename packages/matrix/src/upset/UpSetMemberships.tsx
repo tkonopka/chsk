@@ -23,9 +23,8 @@ export const UpSetMemberships = ({
     const processedData = useProcessedData()
     const scales = useScales()
     const data = processedData.data
+    if (!isUpSetProcessedData(data) || data.length == 0) return null
     const horizontal = data[0].horizontal
-    if (!isUpSetProcessedData(data)) return null
-
     const scaleIndex = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const scaleKeys = horizontal ? (scales.x as BandAxisScale) : (scales.y as BandAxisScale)
     const scaleColor = scales.color as CategoricalColorScale

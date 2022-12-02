@@ -67,7 +67,7 @@ export interface UpSetMembershipsProps extends Omit<UpSetMembershipProps, 'posit
 }
 
 export interface UpSetBarProps
-    extends Pick<BandProps, 'padding' | 'scaleIndex' | 'scaleValue' | 'children'> {
+    extends Pick<BandProps, 'padding' | 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {
     /** size of view along the value axis */
     size: number
 }

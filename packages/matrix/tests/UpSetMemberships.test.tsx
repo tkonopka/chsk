@@ -4,7 +4,46 @@ import { UpSet, UpSetMemberships } from '../src/upset'
 import { upSetProps } from './props'
 
 describe('UpSetMemberships', () => {
-    it('draws lines for all ids and keys', () => {
+    it('draws memberships on horizontal chart', () => {
+        render(
+            <Chart>
+                <UpSet {...upSetProps} horizontal={true}>
+                    <UpSetMemberships />
+                </UpSet>
+            </Chart>
+        )
+        // the dataset has four ids, four keys
+        // items are shared between ids (beta, gamma) and (alpha, beta, gamma)
+        const result = screen.getByRole('upset-memberships')
+        const lines = result.querySelectorAll('line')
+        expect(lines).toHaveLength(2)
+        expect(lines[0].getAttribute('x1')).toEqual(lines[0].getAttribute('x2'))
+    })
+
+    it('draws memberships on vertical chart', () => {
+        render(
+            <Chart>
+                <UpSet {...upSetProps} horizontal={false}>
+                    <UpSetMemberships />
+                </UpSet>
+            </Chart>
+        )
+        const result = screen.getByRole('upset-memberships')
+        const lines = result.querySelectorAll('line')
+        expect(lines).toHaveLength(2)
+        expect(lines[0].getAttribute('y1')).toEqual(lines[0].getAttribute('y2'))
+    })
+
+    it('avoids work outside of UpSet context', () => {
+        render(
+            <Chart>
+                <UpSetMemberships />
+            </Chart>
+        )
+        expect(screen.queryByRole('upset-memberships')).toBeNull()
+    })
+
+    it('assigns base className to symbols and lines', () => {
         render(
             <Chart>
                 <UpSet {...upSetProps}>
@@ -15,10 +54,14 @@ describe('UpSetMemberships', () => {
         // the dataset has four ids, four keys
         // items are shared between ids (beta, gamma) and (alpha, beta, gamma)
         const result = screen.getByRole('upset-memberships')
-        expect(result.querySelectorAll('line')).toHaveLength(2)
+        const circles = result.querySelectorAll('circle')
+        const lines = result.querySelectorAll('line')
+        const expected = 'upSetMembership'
+        expect(circles[0].getAttribute('class')).toEqual(expected)
+        expect(lines[0].getAttribute('class')).toEqual(expected)
     })
 
-    it('assigns className to symbols and lines', () => {
+    it('assigns custom className to symbols and lines', () => {
         render(
             <Chart>
                 <UpSet {...upSetProps}>
@@ -31,7 +74,8 @@ describe('UpSetMemberships', () => {
         const result = screen.getByRole('upset-memberships')
         const circles = result.querySelectorAll('circle')
         const lines = result.querySelectorAll('line')
-        expect(circles[0].getAttribute('class')).toEqual('custom')
-        expect(lines[0].getAttribute('class')).toEqual('custom')
+        const expected = 'upSetMembership custom'
+        expect(circles[0].getAttribute('class')).toEqual(expected)
+        expect(lines[0].getAttribute('class')).toEqual(expected)
     })
 })
