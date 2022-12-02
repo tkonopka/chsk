@@ -4,13 +4,13 @@
 
 ### Added
 
-- [examples]: examples of upset charts
-- [package/matrix]: upset charts
-- [examples]: examples of schedule charts
-- [packages/core]: tests for scales and motion
-- [packages/band]: components `Schedule` and `Schedules` for schedule / Gantt charts
-- [examples]: examples of line charts with time scales
-- [packages/core]: support for time scales
+-   [examples]: examples of upset charts
+-   [package/matrix]: upset charts
+-   [examples]: examples of schedule charts
+-   [packages/core]: tests for scales and motion
+-   [packages/band]: components `Schedule` and `Schedules` for schedule / Gantt charts
+-   [examples]: examples of line charts with time scales
+-   [packages/core]: support for time scales
 
 ### Changed
 
