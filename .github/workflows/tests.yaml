@@ -16,7 +16,6 @@ jobs:
                   npm run bootstrap
             - name: Build library
               run: |
-                  npm run build-core
                   npm run build
             - name: Style check
               run: |

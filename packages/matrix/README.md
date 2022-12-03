@@ -6,4 +6,4 @@ The `@chsk/matrix` package builds upon the infrastructure provided by `@chsk/cor
 It introduces components relevant to 'matrix charts' - charts in which
 both the horizontal and vertical axes hold categorical labels.
 
-`@chsk/matrix` supports heat map charts.
+`@chsk/matrix` supports heat map charts and upset charts.
