@@ -1,0 +1,113 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Venn, VennSets } from '../src'
+import { ChartDecorator, commonVenn2Props, commonVenn3Props } from './decorators'
+
+# Venn
+
+<Meta title="Addons/Set/Venn" />
+
+export const Template = args => <Venn {...args} />
+
+`Venn` sets up a view for a Venn diagram with two or three sets.
+
+<ArgsTable of={Venn} />
+
+## Data
+
+Data should be prepared as an array of objects. All objects should contain a string identifier `id` and an array of elements `data`. The array will be treated as a set, and the Venn chart will summarize overlaps between those sets.
+
+The pseudocode below shows one data item with an identifier and an array with four string elements.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "data": ['a', 'b', 'c', 'd'],
+  },
+  ...
+]
+`}
+/>
+
+## Separation
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            ...commonVenn2Props,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="little separation"
+        args={{
+            ...commonVenn2Props,
+            separation: 0.4,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Proportional areas
+
+<Canvas>
+    <Story
+        name="proportional"
+        args={{
+            ...commonVenn2Props,
+            proportional: true,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Three sets
+
+The `Venn` view can accept up to three sets.
+
+<Canvas>
+    <Story
+        name="three sets"
+        args={{
+            ...commonVenn3Props,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+`Venn` does not support proportional areas for datasets with three sets. It also does not support datasets with more than three sets - for that, see the `UpSet` chart in the `@chsk/matrix` package.

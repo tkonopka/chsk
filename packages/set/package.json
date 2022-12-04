@@ -1,0 +1,35 @@
+{
+    "name": "@chsk/set",
+    "version": "0.2.0-alpha.0",
+    "author": "Tomasz Konopka",
+    "description": "Components for bar plots and box plots",
+    "main": "./dist/chsk-set.cjs.js",
+    "module": "./dist/chsk-set.es.js",
+    "typings": "./dist/types/index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/tkonopka/chsk.git",
+        "directory": "packages/set"
+    },
+    "scripts": {
+        "lint": "eslint --max-warnings 0 ./{src,test,stories}/**/*{js,ts,tsx}",
+        "test": "jest --json --outputFile tests/jest.json",
+        "test-coverage": "jest --coverage",
+        "build": "PACKAGE=set rollup -c ../../rollup.config.js && tsc"
+    },
+    "dependencies": {
+        "@chsk/core": "^0.2.0-alpha.0",
+        "framer-motion": "^7.0.0",
+        "lodash": "^4.17.21"
+    },
+    "peerDependencies": {
+        "react": ">= 17.0.2 < 19.0.0",
+        "react-dom": ">= 17.0.2 < 19.0.0"
+    },
+    "license": "MIT",
+    "files": [
+        "README.md",
+        "LICENSE.md",
+        "dist/"
+    ]
+}
