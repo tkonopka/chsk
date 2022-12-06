@@ -1,7 +1,4 @@
-import {
-    Chart,
-    Square,
-} from '@chsk/core'
+import { Chart, Square } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
 import { Venn, VennSets } from '../src'
