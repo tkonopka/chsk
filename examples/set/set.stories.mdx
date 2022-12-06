@@ -2,10 +2,26 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateHorizontalUpSetData, HorizontalUpSetChart } from './HorizontalUpSetChart'
 import { generateVerticalUpSetData, VerticalUpSetChart } from './VerticalUpSetChart'
+import { generateTwoSetData, TwoSetChart } from './TwoSetChart'
+import { generateThreeSetData, ThreeSetChart } from './ThreeSetChart'
 
 <Meta title="Gallery/Sets" />
 
 # Examples of set charts
+
+## Venn diagrams
+
+<Canvas>
+    <Story name="two sets">
+        <Controller generator={generateTwoSetData} chart={TwoSetChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="three sets">
+        <Controller generator={generateThreeSetData} chart={ThreeSetChart} />
+    </Story>
+</Canvas>
 
 ## Many sets
 

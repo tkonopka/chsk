@@ -1,7 +1,12 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Square } from '@chsk/core'
+import { Chart, Square } from '@chsk/core'
 import { Venn, VennSets } from '../src'
-import { ChartVenn2Decorator, ChartVenn3Decorator } from './decorators'
+import {
+    ChartVenn2Decorator,
+    ChartVenn3Decorator,
+    commonVenn2Props,
+    commonVenn3Props,
+} from './decorators'
 
 # VennSets
 
@@ -9,7 +14,7 @@ import { ChartVenn2Decorator, ChartVenn3Decorator } from './decorators'
 
 export const Template = args => <VennSets {...args} />
 
-`VennSets` draws a set of symbols to represent sets on a Venn chart.
+`VennSets` draws sets on a Venn chart.
 
 <ArgsTable of={VennSets} />
 
@@ -54,7 +59,28 @@ Sets can be styled using css.
     </Story>
 </Canvas>
 
-Note that the colors of the sets are determined by the color scale, which should be set in the parent `Venn` view.
+To change the order of the set layers or to display boundaries on top of the background colors, apply `VennSets` multiple times.
+
+<Canvas>
+    <Story name="multiple layers - two sets">
+        <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+            <Venn {...commonVenn2Props}>
+                <VennSets style={{ fillOpacity: 0.7, strokeWidth: 0 }} />
+                <VennSets style={{ fillOpacity: 0, strokeWidth: 1, stroke: '#222' }} />
+            </Venn>
+        </Chart>
+    </Story>
+    <Story name="multiple layers - three sets">
+        <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+            <Venn {...commonVenn3Props}>
+                <VennSets style={{ fillOpacity: 0.7, strokeWidth: 0 }} />
+                <VennSets style={{ fillOpacity: 0, strokeWidth: 1, stroke: '#222' }} />
+            </Venn>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that the colors of the sets are determined by the chart color scale. A custom color scale can be set in the parent `Venn` view.
 
 ## Set symbol
 

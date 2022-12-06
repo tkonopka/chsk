@@ -39,10 +39,36 @@ describe('computeVenn2', () => {
         expect(distance).toBeGreaterThan(2)
     })
 
-    it('large overlap', () => {
+    it('large overlap, equal sizes', () => {
         const { positionA, positionB } = computeVenn2(PI, PI, 0.9 * PI)
         const distance = Math.abs(positionA[X] - positionB[X])
         expect(distance).toBeLessThan(1)
         expect(distance).toBeGreaterThan(0)
+    })
+
+    it('large overlap, rA > rB', () => {
+        const { positionA, positionB } = computeVenn2(4 * PI, 3 * PI, 2.5 * PI)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        expect(distance).toBeLessThan(1)
+        expect(distance).toBeGreaterThan(0)
+    })
+
+    it('large overlap, rB > rA', () => {
+        const { positionA, positionB } = computeVenn2(3 * PI, 4 * PI, 2.5 * PI)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        expect(distance).toBeLessThan(1)
+        expect(distance).toBeGreaterThan(0)
+    })
+
+    it('large overlap, rA >> rB', () => {
+        const { positionA, positionB } = computeVenn2(100 * PI, PI, 0.8 * PI)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        expect(distance).toBeGreaterThan(1)
+    })
+
+    it('large overlap, rB >> rA', () => {
+        const { positionA, positionB } = computeVenn2(PI, 100 * PI, 0.8 * PI)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        expect(distance).toBeGreaterThan(1)
     })
 })

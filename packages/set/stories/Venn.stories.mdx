@@ -1,6 +1,12 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Axis } from '@chsk/core'
 import { Venn, VennSets } from '../src'
-import { ChartDecorator, commonVenn2Props, commonVenn3Props } from './decorators'
+import {
+    ChartDecorator,
+    commonVenn2Props,
+    commonVenn3Props,
+    commonVennDisjointProps,
+} from './decorators'
 
 # Venn
 
@@ -32,6 +38,8 @@ The pseudocode below shows one data item with an identifier and an array with fo
 />
 
 ## Separation
+
+By default, sets are positioned at fixed locations in the view, irrespective of their sizes (number of elements) or extent of overlap (number of shared elements). The distance between sets is determined by prop `separation`.
 
 <Canvas>
     <Story
@@ -67,7 +75,31 @@ The pseudocode below shows one data item with an identifier and an array with fo
     </Story>
 </Canvas>
 
+## Disjoint sets
+
+Sets that do not overlap are positioned further apart.
+
+<Canvas>
+    <Story
+        name="disjoint"
+        args={{
+            ...commonVennDisjointProps,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Proportional areas
+
+For datasets with two sets, it is possible to compute sizes that reflect the number of elements in the sets and the number of common elements. This feature is toggled with prop `proportional`.
 
 <Canvas>
     <Story
@@ -86,11 +118,27 @@ The pseudocode below shows one data item with an identifier and an array with fo
     >
         {Template.bind({})}
     </Story>
+    <Story
+        name="proportional disjoint"
+        args={{
+            ...commonVennDisjointProps,
+            proportional: true,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
 </Canvas>
 
 ## Three sets
 
-The `Venn` view can accept up to three sets.
+`Venn` can accept datasets with up to three sets. However, proportional areas are not supported for diagrams with three sets.
 
 <Canvas>
     <Story
@@ -110,4 +158,29 @@ The `Venn` view can accept up to three sets.
     </Story>
 </Canvas>
 
-`Venn` does not support proportional areas for datasets with three sets. It also does not support datasets with more than three sets - for that, see the `UpSet` chart in the `@chsk/matrix` package.
+To visualize datasets with more than three sets, see the `UpSet` chart in the `@chsk/matrix` package.
+
+## Sizing
+
+Positions and sizes of the sets are determined automatically. The tune the visual appearance of the sets on the chart, set custom scales using prop `scaleX` or `scaleY`.
+
+<Canvas>
+    <Story
+        name="custom scale"
+        args={{
+            ...commonVenn3Props,
+            scaleX: { type: 'linear', domain: [-4.5, 4.5] },
+            children: (
+                <>
+                    <VennSets />
+                    <Axis variant="left" ticks={5} />
+                    <Axis variant="bottom" ticks={[-4, -2, 0, 2, 4]} />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

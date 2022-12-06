@@ -1,5 +1,3 @@
-/** heatmap charts */
-
 const sets2 = [
     {
         id: 'alpha',
@@ -28,4 +26,7 @@ const sets3 = [
 
 export const venn2Props = {
     data: sets2,
+}
+export const venn3Props = {
+    data: sets3,
 }

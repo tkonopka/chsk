@@ -68,6 +68,7 @@ describe('isVennProcessedData', () => {
         ]
         expect(isVennProcessedData(input)).toBeFalsy()
     })
+
     it('reject data with missing radius', () => {
         const input = [
             {
@@ -82,6 +83,11 @@ describe('isVennProcessedData', () => {
                 r: 10,
             },
         ]
+        expect(isVennProcessedData(input)).toBeFalsy()
+    })
+
+    it('reject null', () => {
+        const input = [null]
         expect(isVennProcessedData(input)).toBeFalsy()
     })
 })

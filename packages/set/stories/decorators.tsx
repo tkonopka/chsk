@@ -6,6 +6,10 @@ const setData2 = [
     { id: 'alpha', data: ['a', 'b', 'c'] },
     { id: 'beta', data: ['c', 'd', 'e', 'f', 'g'] },
 ]
+const setDisjoint = [
+    { id: 'alpha', data: ['a', 'b'] },
+    { id: 'beta', data: ['c', 'd', 'e', 'f'] },
+]
 const setData3 = [
     { id: 'alpha', data: ['a', 'b', 'c', 'd'] },
     { id: 'beta', data: ['b', 'c', 'd', 'e'] },
@@ -14,6 +18,9 @@ const setData3 = [
 
 export const commonVenn2Props = {
     data: setData2,
+}
+export const commonVennDisjointProps = {
+    data: setDisjoint,
 }
 export const commonVenn3Props = {
     data: setData3,

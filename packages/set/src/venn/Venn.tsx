@@ -39,20 +39,24 @@ const processData = (
         }
     })
     if (result.length === 2) {
+        const intersection = result[0].intersection[1]
         if (proportional) {
             const { positionA, positionB, rA, rB } = computeVenn2(
                 result[0].size,
                 result[1].size,
-                result[0].intersection[1],
+                intersection,
                 separation
             )
             result[0].position = positionA
             result[1].position = positionB
             result[0].r = rA
             result[1].r = rB
-        } else {
+        } else if (intersection > 0) {
             result[0].position[X] = -separation
             result[1].position[X] = separation
+        } else {
+            result[0].position[X] = -1 - (1 - separation)
+            result[1].position[X] = 1 + (1 - separation)
         }
     } else if (result.length === 3) {
         const shiftY = separation * Math.tan(Math.PI / 6)

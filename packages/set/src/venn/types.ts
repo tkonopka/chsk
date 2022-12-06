@@ -38,7 +38,7 @@ export interface VennProps
     /** relative separation */
     separation?: number
     /** make 2-set diagram with areas proportional to set size */
-    proportional?: false
+    proportional?: boolean
     /** scale for horizontal axis */
     scaleX?: LinearScaleSpec
     /** scale for vertical axis */
