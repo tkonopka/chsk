@@ -31,6 +31,10 @@ describe('isVennData', () => {
         const input = [null]
         expect(isVennData(input)).toBeFalsy()
     })
+
+    it('rejects empty array', () => {
+        expect(isVennData([])).toBeFalsy()
+    })
 })
 
 describe('isVennProcessedData', () => {
@@ -89,5 +93,9 @@ describe('isVennProcessedData', () => {
     it('reject null', () => {
         const input = [null]
         expect(isVennProcessedData(input)).toBeFalsy()
+    })
+
+    it('reject empty array', () => {
+        expect(isVennProcessedData([])).toBeFalsy()
     })
 })

@@ -36,6 +36,19 @@ By default, `VennSets` draws all sets in the dataset. To draw subsets, set the p
     </Story>
 </Canvas>
 
+Prop `ids` also determines the order in which the sets are layered in the view. Specifying the ids in reverse order, the left-most set can be displayed on top rather than on the bottom.
+
+<Canvas>
+    <Story
+        name="layering"
+        args={{ ids: ['beta', 'alpha'] }}
+        component={VennSets}
+        decorators={[ChartVenn2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Styling
 
 Sets can be styled using css.

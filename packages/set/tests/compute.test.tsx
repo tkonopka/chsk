@@ -71,4 +71,18 @@ describe('computeVenn2', () => {
         const distance = Math.abs(positionA[X] - positionB[X])
         expect(distance).toBeGreaterThan(1)
     })
+
+    it('intermediate overlap, rA > rB', () => {
+        const { positionA, positionB } = computeVenn2(100 * PI, 4 * PI, 2.5 * PI, 1)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        // radii are 10 and 2
+        expect(distance).toBeGreaterThan(8)
+    })
+
+    it('intermediate overlap, rB > rA', () => {
+        const { positionA, positionB } = computeVenn2(4 * PI, 100 * PI, 2.5 * PI, 1)
+        const distance = Math.abs(positionA[X] - positionB[X])
+        // radii are 10 and 2
+        expect(distance).toBeGreaterThan(8)
+    })
 })

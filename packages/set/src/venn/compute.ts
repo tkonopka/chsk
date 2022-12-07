@@ -24,7 +24,7 @@ export const computeVenn2 = (
         const range = [Math.abs(rA - rB), rA + rB]
         let d = (range[1] + range[0]) / 2,
             size = 0
-        while (range[1] - range[0] > 1e-4 * (rA + rB)) {
+        while (range[1] - range[0] > 1e-6 * (rA + rB)) {
             size = getAreaIntersection(rA, rB, d)
             if (size < sizeIntersectionAB) {
                 range[1] = d
@@ -52,22 +52,35 @@ const getThetas = (rA: number, rB: number, d: number) => {
     const rLarge = Math.max(rA, rB)
     const rSmall = Math.min(rA, rB)
     const rLS = rLarge / rSmall
-    const range = [0, Math.asin(rSmall / rLarge)]
+    const thetaCritical = Math.asin(rSmall / rLarge)
+    const range = [0, thetaCritical]
+    const dCritical = rLarge * Math.cos(thetaCritical)
     let thetaLarge = 0
     const thetaSmall = (theta: number) => {
-        return Math.asin(rLS * Math.sin(theta))
+        const result = Math.asin(rLS * Math.sin(theta))
+        return d < dCritical ? Math.PI - result : result
     }
     const computeD = (theta: number) => {
         return rLarge * Math.cos(theta) + rSmall * Math.cos(thetaSmall(theta))
     }
     let currentD = computeD(thetaLarge)
-    while (range[1] - range[0] > 1e-6) {
+    while (range[1] - range[0] > 1e-4) {
         thetaLarge = (range[1] + range[0]) / 2
         currentD = computeD(thetaLarge)
-        if (currentD > d) {
-            range[0] = thetaLarge
+        if (d > dCritical) {
+            // configuration is such that smaller Theta leads to larger distance
+            if (currentD > d) {
+                range[0] = thetaLarge
+            } else {
+                range[1] = thetaLarge
+            }
         } else {
-            range[1] = thetaLarge
+            // configuration is such that smaller Theta leads to smaller distance
+            if (currentD > d) {
+                range[1] = thetaLarge
+            } else {
+                range[0] = thetaLarge
+            }
         }
     }
     if (rB == rLarge) {

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart } from '@chsk/core'
-import { Venn } from '../src'
+import { Venn, VennSets } from '../src'
 
 const setData2 = [
     { id: 'alpha', data: ['a', 'b', 'c'] },
@@ -41,5 +41,14 @@ export const ChartVenn2Decorator = (Story: () => ReactNode) => (
 export const ChartVenn3Decorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
         <Venn {...commonVenn3Props}>{Story()}</Venn>
+    </Chart>
+)
+
+export const ChartVennSets2Decorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+        <Venn {...commonVenn2Props}>
+            <VennSets style={{ fillOpacity: 0.7 }} />
+            {Story()}
+        </Venn>
     </Chart>
 )

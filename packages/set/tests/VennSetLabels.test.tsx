@@ -1,64 +1,52 @@
-import { Chart, Square } from '@chsk/core'
+import { Chart } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
-import { Venn, VennSetLabels, VennSets } from '../src'
+import { Venn, VennSetLabels } from '../src'
 
-describe('VennSets', () => {
+describe('VennSetLabels', () => {
     it('avoids work in non-venn context', () => {
         render(
             <Chart>
-                <VennSets ids={['alpha']} />
+                <VennSetLabels ids={['alpha', 'incorrect']} />
             </Chart>
         )
         const result = screen.getByRole('chart-content')
         expect(result.querySelectorAll('text')).toHaveLength(0)
     })
 
-    it('draws circles', () => {
+    it('draws labels for all sets', () => {
         render(
             <Chart>
                 <Venn {...venn2Props}>
-                    <VennSets />
+                    <VennSetLabels />
                 </Venn>
             </Chart>
         )
         const result = screen.getByRole('view-venn')
-        expect(result.querySelectorAll('circle')).toHaveLength(2)
+        expect(result.querySelectorAll('text')).toHaveLength(2)
     })
 
     it('draws circles with selected ids', () => {
         render(
             <Chart>
                 <Venn {...venn3Props}>
-                    <VennSets ids={['gamma']} />
+                    <VennSetLabels ids={['beta']} />
                 </Venn>
             </Chart>
         )
         const result = screen.getByRole('view-venn')
-        expect(result.querySelectorAll('circle')).toHaveLength(1)
+        expect(result.querySelectorAll('text')).toHaveLength(1)
     })
 
-    it('omits incorrect ids', () => {
+    it('ignores non-existent ids', () => {
         render(
             <Chart>
                 <Venn {...venn3Props}>
-                    <VennSets ids={['gamma', 'incorrect']} />
+                    <VennSetLabels ids={['alpha', 'incorrect']} />
                 </Venn>
             </Chart>
         )
         const result = screen.getByRole('view-venn')
-        expect(result.querySelectorAll('circle')).toHaveLength(1)
-    })
-
-    it('draws custom symbols', () => {
-        render(
-            <Chart>
-                <Venn {...venn3Props}>
-                    <VennSets component={Square} />
-                </Venn>
-            </Chart>
-        )
-        const result = screen.getByRole('view-venn')
-        expect(result.querySelectorAll('rect')).toHaveLength(3)
+        expect(result.querySelectorAll('text')).toHaveLength(1)
     })
 })

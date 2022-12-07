@@ -1,14 +1,14 @@
 import { Chart, ThemeSpec, mergeTheme } from '@chsk/core'
-import { Venn, VennSets, isVennData } from '@chsk/set'
+import { Venn, VennSets, VennSetLabels, isVennData } from '@chsk/set'
 import { downloadThemePiece } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
 export const generateTwoSetData = () => {
-    const elements = generateIdentifiers(500, 10000, 'el')
-    const sizeAlpha = randomUniformValue(20, 400)
-    const sizeBeta = randomUniformValue(20, 400)
+    const elements = generateIdentifiers(600, 10000, 'el')
+    const sizeAlpha = randomUniformValue(10, 400)
+    const sizeBeta = randomUniformValue(10, 400)
     const generateSet = (n: number) => {
         const set = new Set()
         randomSelection(elements, n).forEach(x => set.add(x))
@@ -27,7 +27,16 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             strokeWidth: 0,
         },
     },
+    text: {
+        vennLabel: {
+            fontSize: '18px',
+            fontWeight: 600,
+            fill: '#222',
+        },
+    },
 })
+
+const labelFormat = (x: string) => x.slice(0, 1).toLocaleUpperCase()
 
 export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isVennData(rawData)) return null
@@ -50,6 +59,20 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             >
                 <VennSets />
                 <VennSets style={{ fillOpacity: 0, stroke: '#000', strokeWidth: 1 }} />
+                <VennSetLabels
+                    ids={['alpha']}
+                    rs={[1]}
+                    angles={[-Math.PI / 3]}
+                    translate={[-12, -12]}
+                    format={labelFormat}
+                />
+                <VennSetLabels
+                    ids={['beta']}
+                    rs={[1]}
+                    angles={[Math.PI / 3]}
+                    translate={[12, -12]}
+                    format={labelFormat}
+                />
                 <DownloadButtons position={[240, -40]} data image />
             </Venn>
         </Chart>

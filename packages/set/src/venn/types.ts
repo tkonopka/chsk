@@ -1,11 +1,15 @@
 import {
     CategoricalScaleSpec,
     DataInteractivityProps,
+    LabelLocationSpec,
+    LabelProps,
     LinearScaleSpec,
     NumericPositionSpec,
     ProcessedDataContextProps,
+    SizeSpec,
     SvgElementProps,
     SymbolProps,
+    TranslateSpec,
     ViewProps,
     WithId,
 } from '@chsk/core'
@@ -58,4 +62,21 @@ export interface VennSetsProps
     ids?: string[]
     /** component used to draw individual bars */
     component?: FC<SymbolProps>
+}
+
+export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
+    /** relative radius for label position */
+    rs?: number[]
+    /** angles */
+    angles?: number[]
+    /** additional translation (in absolute units) */
+    translate?: TranslateSpec
+    /** format for text */
+    format?: (v: string | number) => string
+    /** size for label box */
+    size?: SizeSpec
+    /** components used to render label */
+    component?: FC<LabelProps>
 }

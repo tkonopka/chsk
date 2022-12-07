@@ -1,5 +1,5 @@
 import { Chart, ThemeSpec, mergeTheme } from '@chsk/core'
-import { Venn, VennSets, isVennData } from '@chsk/set'
+import { Venn, VennSets, isVennData, VennSetLabels } from '@chsk/set'
 import { downloadThemePiece } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -31,7 +31,16 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             strokeWidth: 0,
         },
     },
+    text: {
+        vennLabel: {
+            fill: '#222',
+            fontSize: '16px',
+        },
+    },
 })
+
+const labelFormats: Record<string, string> = { alpha: 'A', beta: 'B', gamma: 'C' }
+const labelFormat = (x: string): string => String(labelFormats[x] ?? 'X')
 
 export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isVennData(rawData)) return null
@@ -55,6 +64,9 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             >
                 <VennSets />
                 <VennSets style={{ fillOpacity: 0, stroke: '#000', strokeWidth: 1 }} />
+                <VennSetLabels ids={['alpha']} format={labelFormat} />
+                <VennSetLabels ids={['beta']} format={labelFormat} />
+                <VennSetLabels ids={['gamma']} format={labelFormat} />
                 <DownloadButtons position={[240, -40]} data image />
             </Venn>
         </Chart>
