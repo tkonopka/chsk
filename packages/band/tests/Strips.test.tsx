@@ -4,6 +4,16 @@ import { Strip, Strips } from '../src'
 import { dataMissingKeys, stripProps } from './props'
 
 describe('Strips', () => {
+    it('avoids work in non-strip view', () => {
+        render(
+            <Chart>
+                <Strips />
+            </Chart>
+        )
+        const content = screen.getByRole('chart-content')
+        expect(content.querySelectorAll('circle')).toHaveLength(0)
+    })
+
     it('creates strips of data points (vertical)', () => {
         render(
             <Chart>

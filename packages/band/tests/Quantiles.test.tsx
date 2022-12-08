@@ -4,6 +4,15 @@ import { Quantile, Quantiles, Strip, Strips } from '../src'
 import { dataMissingKeys, quantileProps, stripProps } from './props'
 
 describe('Quantiles', () => {
+    it('avoids work in non-quantile view', () => {
+        render(
+            <Chart>
+                <Quantiles />
+            </Chart>
+        )
+        expect(screen.queryAllByRole('boxwhisker')).toHaveLength(0)
+    })
+
     it('creates boxes and whiskers (vertical)', () => {
         render(
             <Chart>

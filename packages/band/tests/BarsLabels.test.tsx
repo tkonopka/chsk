@@ -5,6 +5,18 @@ import { Bar, BarsLabels, Strip } from '../src'
 import { barProps, stripProps } from './props'
 
 describe('BarsLabels', () => {
+    it('avoids work in non-bar view', () => {
+        // view with two indexes, one bar each
+        render(
+            <Chart>
+                <BarsLabels />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        const labels = result.querySelectorAll('text')
+        expect(labels).toHaveLength(0)
+    })
+
     it('creates center-aligned labels for bars', () => {
         // view with two indexes, one bar each
         render(

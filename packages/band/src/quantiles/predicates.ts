@@ -33,5 +33,5 @@ export const isQuantileProcessedData = (
         if (!('id' in item && 'index' in item && 'data' in item && 'domain' in item)) return false
         return true
     })
-    return result.every(Boolean)
+    return result.length > 0 && result.every(Boolean)
 }

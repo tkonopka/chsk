@@ -4,6 +4,15 @@ import { Bar, BarDataItem, Bars, Strip } from '../src'
 import { barProps, getNumber, stripProps } from './props'
 
 describe('Bars', () => {
+    it('avoids work in non-bars context', () => {
+        render(
+            <Chart>
+                <Bars />
+            </Chart>
+        )
+        expect(screen.queryAllByRole('bars')).toHaveLength(0)
+    })
+
     it('defines grouped bars (vertical)', () => {
         render(
             <Chart>

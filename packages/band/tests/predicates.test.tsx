@@ -107,6 +107,10 @@ describe('isQuantileProcessedData', () => {
         const input = [null]
         expect(isQuantileProcessedData(input)).toBeFalsy()
     })
+
+    it('rejects empty data', () => {
+        expect(isQuantileProcessedData([])).toBeFalsy()
+    })
 })
 
 describe('isStripData', () => {
@@ -166,6 +170,10 @@ describe('isStripProcessedData', () => {
         const input = [null]
         expect(isStripProcessedData(input)).toBeFalsy()
     })
+
+    it('rejects empty data', () => {
+        expect(isStripProcessedData([])).toBeFalsy()
+    })
 })
 
 describe('isBarProcessedData', () => {
@@ -184,6 +192,10 @@ describe('isBarProcessedData', () => {
     it('rejects non-objects', () => {
         const input = [null]
         expect(isBarProcessedData(input)).toBeFalsy()
+    })
+
+    it('rejects empty data', () => {
+        expect(isBarProcessedData([])).toBeFalsy()
     })
 })
 
@@ -273,5 +285,9 @@ describe('isScheduleProcessedData', () => {
 
     it('rejects non-objects', () => {
         expect(isScheduleProcessedData([null])).toBeFalsy()
+    })
+
+    it('rejects empty data', () => {
+        expect(isScheduleProcessedData([])).toBeFalsy()
     })
 })
