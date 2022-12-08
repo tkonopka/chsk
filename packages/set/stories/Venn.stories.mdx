@@ -3,6 +3,7 @@ import { Axis } from '@chsk/core'
 import { Venn, VennSets } from '../src'
 import {
     ChartDecorator,
+    commonVenn1Props,
     commonVenn2Props,
     commonVenn3Props,
     commonVennDisjointProps,
@@ -136,11 +137,26 @@ For datasets with two sets, it is possible to compute sizes that reflect the num
     </Story>
 </Canvas>
 
-## Three sets
+## Number of sets
 
-`Venn` can accept datasets with up to three sets. However, proportional areas are not supported for diagrams with three sets.
+`Venn` can accept datasets with one, two, or three sets. However, proportional areas are only supported for diagrams with two sets.
 
 <Canvas>
+    <Story
+        name="one set"
+        args={{
+            ...commonVenn1Props,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
     <Story
         name="three sets"
         args={{

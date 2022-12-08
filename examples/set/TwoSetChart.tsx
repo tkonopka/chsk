@@ -1,5 +1,5 @@
 import { Chart, ThemeSpec, mergeTheme } from '@chsk/core'
-import { Venn, VennSets, VennSetLabels, isVennData } from '@chsk/set'
+import { Venn, VennSets, VennSetLabels, VennIntersectionLabels, isVennData } from '@chsk/set'
 import { downloadThemePiece } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -28,15 +28,18 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
         },
     },
     text: {
-        vennLabel: {
+        vennSetLabel: {
             fontSize: '18px',
             fontWeight: 600,
             fill: '#222',
         },
+        vennIntersectionLabel: {
+            fill: '#000',
+        },
     },
 })
 
-const labelFormat = (x: string) => x.slice(0, 1).toLocaleUpperCase()
+const labelFormat = (x: string | number) => String(x).slice(0, 1).toLocaleUpperCase()
 
 export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isVennData(rawData)) return null
@@ -73,6 +76,7 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     translate={[12, -12]}
                     format={labelFormat}
                 />
+                <VennIntersectionLabels />
                 <DownloadButtons position={[240, -40]} data image />
             </Venn>
         </Chart>

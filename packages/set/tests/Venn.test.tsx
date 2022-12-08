@@ -22,6 +22,15 @@ describe('Venn', () => {
         expect(screen.getByRole('view-venn')).not.toBeNull()
     })
 
+    it('defines a view even for empty data', () => {
+        render(
+            <Chart>
+                <Venn data={[]} />
+            </Chart>
+        )
+        expect(screen.getByRole('view-venn')).not.toBeNull()
+    })
+
     it('defines processed data', () => {
         const processed: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetProcessedData = () => {

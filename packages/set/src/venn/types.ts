@@ -23,6 +23,7 @@ export type VennProcessedDataItem = WithId & {
     index: number
     size: number
     intersection: number[]
+    common: number
     position: NumericPositionSpec
     r: number
 }
@@ -80,3 +81,5 @@ export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
     /** components used to render label */
     component?: FC<LabelProps>
 }
+
+export type VennIntersectionLabelsProps = Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'>

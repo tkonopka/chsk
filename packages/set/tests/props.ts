@@ -24,6 +24,9 @@ const sets3 = [
     },
 ]
 
+export const venn1Props = {
+    data: sets2.slice(0, 1),
+}
 export const venn2Props = {
     data: sets2,
 }

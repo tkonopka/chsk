@@ -16,6 +16,9 @@ const setData3 = [
     { id: 'gamma', data: ['c', 'd', 'e', 'f'] },
 ]
 
+export const commonVenn1Props = {
+    data: setData2.slice(0, 1),
+}
 export const commonVenn2Props = {
     data: setData2,
 }
@@ -44,9 +47,45 @@ export const ChartVenn3Decorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const ChartVennSets1Decorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+        <Venn {...commonVenn1Props}>
+            <VennSets style={{ fillOpacity: 0.7 }} />
+            {Story()}
+        </Venn>
+    </Chart>
+)
+
 export const ChartVennSets2Decorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
         <Venn {...commonVenn2Props}>
+            <VennSets style={{ fillOpacity: 0.7 }} />
+            {Story()}
+        </Venn>
+    </Chart>
+)
+
+export const ChartVennSets2ProportionalDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+        <Venn {...commonVenn2Props} proportional={true}>
+            <VennSets style={{ fillOpacity: 0.7 }} />
+            {Story()}
+        </Venn>
+    </Chart>
+)
+
+export const ChartVennSets2ProportionalDisjointDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+        <Venn {...commonVennDisjointProps} proportional={true}>
+            <VennSets style={{ fillOpacity: 0.7 }} />
+            {Story()}
+        </Venn>
+    </Chart>
+)
+
+export const ChartVennSets3Decorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+        <Venn {...commonVenn3Props}>
             <VennSets style={{ fillOpacity: 0.7 }} />
             {Story()}
         </Venn>

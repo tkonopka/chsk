@@ -1,0 +1,102 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart } from '@chsk/core'
+import { Venn, VennSets, VennIntersectionLabels } from '../src'
+import {
+    ChartVennSets1Decorator,
+    ChartVennSets2Decorator,
+    ChartVennSets3Decorator,
+    commonVenn2Props,
+    ChartVennSets2ProportionalDecorator,
+    ChartVennSets2ProportionalDisjointDecorator,
+} from './decorators'
+
+# VennIntersectionLabels
+
+<Meta title="Addons/Set/VennIntersectionLabels" />
+
+export const Template = args => <VennIntersectionLabels {...args} />
+
+`VennIntersectionLabels` draws labels on a Venn chart.
+
+<ArgsTable of={VennIntersectionLabels} />
+
+## Number of sets
+
+`VennIntersectionLabels` labels all regions of a venn diagram. The component automatically positions the labels for datasets with one, two, or three sets.
+
+<Canvas>
+    <Story name="one set" component={VennIntersectionLabels} decorators={[ChartVennSets1Decorator]}>
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="two sets"
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="three sets"
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets3Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Proportional areas
+
+For Venn diagrams with two sets drawn with proportional sizes, the labels always appear inside the sets.
+
+<Canvas>
+    <Story
+        name="proportional areas"
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets2ProportionalDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+            name="proportional disjoint"
+            component={VennIntersectionLabels}
+            decorators={[ChartVennSets2ProportionalDisjointDecorator]}
+        >
+            {Template.bind({})}
+        </Story>
+
+</Canvas>
+
+## Label format
+
+By default, labels display the set id. The content can be adjusted via prop `format`.
+
+<Canvas>
+    <Story
+        name="custom format"
+        args={{
+            format: x => '[ ' + String(x) + ' ]',
+        }}
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Text labels can be styled with css.
+
+<Canvas>
+    <Story
+        name="styled"
+        args={{
+            style: { fontWeight: 600, fontSize: 24, fill: '#fff' },
+            translate: [0, -100],
+        }}
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

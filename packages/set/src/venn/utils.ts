@@ -78,3 +78,19 @@ export const getColorScaleProps = (
     )
     return createColorScaleProps(scaleSpec, Array.from(allValues))
 }
+
+// count elements that are present in all the provided sets
+export const countCommonElements = (sets: Array<Set<unknown>>): number => {
+    if (sets.length === 0) return 0
+    let common = new Set(sets[0].values())
+    sets.slice(1, sets.length).forEach(set => {
+        const newCommon = new Set()
+        set.forEach(x => {
+            if (common.has(x)) {
+                newCommon.add(x)
+            }
+        })
+        common = newCommon
+    })
+    return common.size
+}

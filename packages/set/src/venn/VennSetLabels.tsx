@@ -35,7 +35,7 @@ export const VennSetLabels = ({
     const seriesIds = data.map(seriesData => seriesData.id)
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
-    const compositeClassName = composeClassName(['vennLabel', className])
+    const compositeClassName = composeClassName(['vennSetLabel', className])
 
     const result: Array<ReactNode> = (ids ?? seriesIds)
         .map((id, i) => {

@@ -19,7 +19,11 @@ import { generateThreeSetData, ThreeSetChart } from './ThreeSetChart'
 
 <Canvas>
     <Story name="three sets">
-        <Controller generator={generateThreeSetData} chart={ThreeSetChart} />
+        <Controller
+            generator={generateThreeSetData}
+            chart={ThreeSetChart}
+            steps={['title', 'sizes', 'intersections']}
+        />
     </Story>
 </Canvas>
 

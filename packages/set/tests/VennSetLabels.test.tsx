@@ -49,4 +49,16 @@ describe('VennSetLabels', () => {
         const result = screen.getByRole('view-venn')
         expect(result.querySelectorAll('text')).toHaveLength(1)
     })
+
+    it('adds class name', () => {
+        render(
+            <Chart>
+                <Venn {...venn2Props}>
+                    <VennSetLabels ids={['alpha']} />
+                </Venn>
+            </Chart>
+        )
+        const text = screen.getByRole('view-venn').querySelector('text')
+        expect(text?.getAttribute('class')).toContain('vennSetLabel')
+    })
 })

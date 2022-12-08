@@ -10,7 +10,7 @@ import {
     defaultLinearScaleSpec,
     X,
 } from '@chsk/core'
-import { getColorScaleProps, getXYScaleProps } from './utils'
+import { countCommonElements, getColorScaleProps, getXYScaleProps } from './utils'
 import { computeVenn2 } from './compute'
 
 const setOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
@@ -19,12 +19,17 @@ const setOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
     return result
 }
 
+// compute overlaps between sets - only suited for 2 or three sets
 const processData = (
     data: Array<VennDataItem>,
     separation: number,
     proportional: boolean
 ): Array<VennProcessedDataItem> => {
     const sets = data.slice(0, 3).map(seriesData => new Set(seriesData.data))
+    // count elements common to all sets
+    if (sets.length === 0) return []
+    const common = countCommonElements(sets)
+    // compute intersections
     const result = data.slice(0, 3).map((seriesData, index) => {
         const id = seriesData.id
         return {
@@ -34,10 +39,12 @@ const processData = (
             intersection: data
                 .slice(0, 3)
                 .map((otherSeries, index2) => setOverlap(sets[index], sets[index2])),
+            common,
             position: [0, 0] as [number, number],
             r: 1,
         }
     })
+    // assign positions to set symbols / circles
     if (result.length === 2) {
         const intersection = result[0].intersection[1]
         if (proportional) {
