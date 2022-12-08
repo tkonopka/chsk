@@ -14,7 +14,6 @@ import { Venn, VennSets, isVennData, VennSetLabels, VennIntersectionLabels } fro
 import { downloadThemePiece } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
-import { DownloadButtons } from '../navigation'
 
 export const generateThreeSetData = () => {
     const elements = generateIdentifiers(600, 10000, 'el')
@@ -143,7 +142,6 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         angles={[Math.PI]}
                     />
                     <VennIntersectionLabels component={Counter} />
-                    <DownloadButtons position={[240, -20]} data image />
                 </Venn>
             </MilestoneMotion>
         </Chart>
