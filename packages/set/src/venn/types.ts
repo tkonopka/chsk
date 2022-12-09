@@ -92,5 +92,5 @@ export type VennIntersectionSpec = {
 
 export interface VennIntersectionLabelsProps
     extends Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'> {
-    format: (v: string | number, item?: VennIntersectionSpec) => string
+    format?: (v: string | number, item?: VennIntersectionSpec) => string
 }
