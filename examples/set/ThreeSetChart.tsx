@@ -101,7 +101,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'intersections'}>
                 <Typography variant={'title'} position={[200, 6]}>
-                    ... then the sets will likely
+                    The random sets will likely
                 </Typography>
                 <Typography variant={'title'} position={[200, 30]}>
                     have non-zero overlap.

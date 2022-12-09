@@ -176,6 +176,45 @@ For datasets with two sets, it is possible to compute sizes that reflect the num
 
 To visualize datasets with more than three sets, see the `UpSet` chart in the `@chsk/matrix` package.
 
+## Orientation
+
+The arrangement of sets can be rotated with prop `angle`.
+
+<Canvas>
+    <Story
+        name="rotated, two sets"
+        args={{
+            ...commonVenn2Props,
+            angle: Math.PI / 2,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="rotated, three sets"
+        args={{
+            ...commonVenn3Props,
+            angle: Math.PI / 3,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Sizing
 
 Positions and sizes of the sets are determined automatically. The tune the visual appearance of the sets on the chart, set custom scales using prop `scaleX` or `scaleY`.

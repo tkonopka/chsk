@@ -9,17 +9,17 @@ import {
     Y,
 } from '@chsk/core'
 import { isVennProcessedData } from './predicates'
-import { VennIntersectionLabelsProps, VennProcessedDataItem } from './types'
-import { get1Positions, get2Positions, get3Positions, IntersectionItemSpec } from './intersections'
+import { VennIntersectionLabelsProps, VennProcessedDataItem, VennIntersectionSpec } from './types'
+import { get1Positions, get2Positions, get3Positions } from './intersections'
 
-const getIntersectionLabels = (data: Array<VennProcessedDataItem>): Array<IntersectionItemSpec> => {
+const getIntersectionLabels = (data: Array<VennProcessedDataItem>): Array<VennIntersectionSpec> => {
     if (data.length === 3) return get3Positions(data)
     if (data.length === 2) return get2Positions(data)
     return get1Positions(data)
 }
 
 export const VennIntersectionLabels = ({
-    format = (v: string | number) => String(v),
+    format = (v: string | number, item?: VennIntersectionSpec) => String(v) ?? String(item?.value),
     padding = [4, 4, 4, 4],
     size = [40, 10],
     align = [0.5, 0.5],
@@ -51,7 +51,7 @@ export const VennIntersectionLabels = ({
                 style,
                 setRole,
             },
-            format(item.value)
+            format(item.value, item)
         )
     })
 

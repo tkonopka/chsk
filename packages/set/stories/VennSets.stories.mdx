@@ -97,11 +97,11 @@ Note that the colors of the sets are determined by the chart color scale. A cust
 
 ## Set symbol
 
-The usual way to display sets on a Venn diagram is using circles, and this is the default behavior for `VennSets`. However, it is possible to use a different shape by setting prop `component`.
+The usual way to display sets on a Venn diagram is using circles, and this is the default behavior also for `VennSets`. However, it is possible to change the shape by setting prop `component`.
 
 <Canvas>
     <Story
-        name="squares"
+        name="custom symbols"
         args={{
             component: Square,
             style: { fillOpacity: 0.7, strokeWidth: 1, stroke: '#222' },

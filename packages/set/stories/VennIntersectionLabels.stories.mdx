@@ -46,7 +46,7 @@ export const Template = args => <VennIntersectionLabels {...args} />
 
 ## Proportional areas
 
-For Venn diagrams with two sets drawn with proportional sizes, the labels always appear inside the sets.
+Labels work automatically for Venn diagrams with proportional sizes.
 
 <Canvas>
     <Story
@@ -74,7 +74,11 @@ By default, labels display the set id. The content can be adjusted via prop `for
     <Story
         name="custom format"
         args={{
-            format: x => '[ ' + String(x) + ' ]',
+            format: (x, item) => {
+                if (item.label.substring(0, 2) == 'al' && item.label.indexOf('!') > 0) return 'cold'
+                if (item.label.substring(0, 2) == 'be') return 'hot'
+                return 'tepid'
+            },
         }}
         component={VennIntersectionLabels}
         decorators={[ChartVennSets2Decorator]}

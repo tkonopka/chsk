@@ -9,6 +9,7 @@ import {
     useTheme,
     defaultLinearScaleSpec,
     X,
+    Y,
 } from '@chsk/core'
 import { countCommonElements, getColorScaleProps, getXYScaleProps } from './utils'
 import { computeVenn2 } from './compute'
@@ -22,6 +23,7 @@ const setOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
 // compute overlaps between sets - only suited for 2 or three sets
 const processData = (
     data: Array<VennDataItem>,
+    angle: number,
     separation: number,
     proportional: boolean
 ): Array<VennProcessedDataItem> => {
@@ -71,7 +73,16 @@ const processData = (
         result[1].position = [separation, shiftY]
         result[2].position = [0, -2 * separation * Math.sin(Math.PI / 3) + shiftY]
     }
-    return result
+    // rotate the positions
+    const cosAngle = Math.cos(angle),
+        sinAngle = Math.sin(angle)
+    return result.map((item: VennProcessedDataItem) => {
+        item.position = [
+            item.position[X] * cosAngle + item.position[Y] * sinAngle,
+            -item.position[X] * sinAngle + item.position[Y] * cosAngle,
+        ]
+        return item
+    })
 }
 
 export const Venn = ({
@@ -83,6 +94,7 @@ export const Venn = ({
     padding = [0, 0, 0, 0],
     // content
     data,
+    angle = 0,
     separation = 0.7,
     proportional = false,
     scaleX = defaultLinearScaleSpec,
@@ -97,7 +109,7 @@ export const Venn = ({
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
     const processedData = useMemo(
-        () => processData(data, separation, proportional),
+        () => processData(data, angle, separation, proportional),
         [data, separation, proportional]
     )
 

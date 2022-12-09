@@ -40,6 +40,8 @@ export interface VennProps
     > {
     /** primary data (used for color scale) */
     data: Array<VennDataItem>
+    /** global rotation */
+    angle?: number
     /** relative separation */
     separation?: number
     /** make 2-set diagram with areas proportional to set size */
@@ -82,4 +84,13 @@ export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
     component?: FC<LabelProps>
 }
 
-export type VennIntersectionLabelsProps = Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'>
+export type VennIntersectionSpec = {
+    position: NumericPositionSpec
+    value: number
+    label: string
+}
+
+export interface VennIntersectionLabelsProps
+    extends Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'> {
+    format: (v: string | number, item?: VennIntersectionSpec) => string
+}
