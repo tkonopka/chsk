@@ -27,6 +27,8 @@ export const parameters = {
                     ['Overview'],
                     'Matrix',
                     ['Overview'],
+                    'Set',
+                    ['Overview'],
                     'Themes',
                     ['Overview'],
                     'XY',
