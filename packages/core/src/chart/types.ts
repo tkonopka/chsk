@@ -27,9 +27,11 @@ export interface ChartRef {
 export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
     /** identifier for the chart */
     id?: string
-    /** theme adjustment **/
+    /** adjust size to fill parent container */
+    stretch?: boolean
+    /** theme **/
     theme?: ThemeSpec
-    /** data with arbitrary chart settings, e.g. milestone */
+    /** chart settings, e.g. milestones */
     data?: Omit<ChartDataContextProps, 'id'>
     /** list of styles to include in svg **/
     styles?: Array<SvgBaseComponent>

@@ -2,6 +2,8 @@ import { act, render, screen } from '@testing-library/react'
 import { Chart, useDisabledKeys, useChartData, ChartRef, useMilestones } from '../src'
 import { ForwardedRef, useEffect } from 'react'
 
+global.ResizeObserver = require('resize-observer-polyfill')
+
 describe('Chart', () => {
     it('creates a chart with default props', () => {
         render(<Chart />)
@@ -71,6 +73,26 @@ describe('Chart', () => {
         // toggle a milestone off
         act(() => ref.current?.toggleMilestone('xyz'))
         expect(Array.from(state.milestones as Set<string>)).toEqual([])
+    })
+
+    it('stretches to fill parent container', () => {
+        jest.useFakeTimers()
+        const WrappedChart = ({ x }: { x: number }) => {
+            return (
+                <div role="parent" style={{ width: x + 'px', height: x + 'px' }}>
+                    <Chart size={[400, 300]} stretch={true} />
+                </div>
+            )
+        }
+        const { rerender } = render(<WrappedChart x={200} />)
+        rerender(<WrappedChart x={250} />)
+        act(() => {
+            jest.runAllTimers()
+        })
+        // the Chart has an absolute size, but the svg should take width/height from parent element
+        const svg = screen.getByRole('parent').querySelector('svg')
+        expect(svg?.getAttribute('width')).not.toEqual('400')
+        expect(svg?.getAttribute('height')).not.toEqual('300')
     })
 })
 
