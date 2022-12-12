@@ -1,0 +1,117 @@
+import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart } from '../src'
+import { customTheme, ChartWithAxisGrid, DivDecorator } from './themes.helpers'
+
+<Meta title="Core/Scales" />
+export const Template = args => <ChartWithAxisGrid {...args} />
+
+# Scales
+
+Scales transform data into a form that can be used for visualization.
+Some use-cases for scales are: converting numeric data into coordinates along a continuous axis (e.g. in a scatter chart),
+converting categorical labels into coordinates along an axis (e.g. in a bar chart),
+translating categorical labels into color codes (e.g. in a bar chart), and using numeric data to determine the sizes of visual symbols (e.g. in a scatter chart).
+
+Scales in chsk are based on [d3-scale](https://github.com/d3/d3-scale) and [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), although there are some modifications. All scales are specified via objects that define a scale `variant`, plus other properties.
+
+## Numeric scales
+
+Numeric scales transform numeric inputs into numeric outputs. They are usually used to map data points into positions along a chart axis.
+
+### Linear scales
+
+The archetypic numeric scale is the linear scale. A minimal specification requires a string `variant` set to 'linear', and an array of two numbers as a `domain` interval. For example, the scale below maps numbers in the unit interval into coordinates along an axis.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'linear',
+  domain: [0, 1],
+}`}
+/>
+
+When specifying scales for a chart axis, it is possible to configure the domain so that it adjusts automatically to the chart data. Set `domain` to the string 'auto', or use the string 'auto' as either the lower or upper bound. For example, the scale below always includes zero as the lower bound.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'linear',
+  domain: [0, 'auto'],
+}`}
+/>
+
+### Non-linear scales
+
+Beside linear scales, similar specifications apply for scales with logarithmic and square-root transformations. The two examples below use a custom domain and a fully-automatic domain.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'log',
+  domain: [10, 10000],
+}`}
+/>
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sqrt',
+  domain: 'auto',
+}`}
+/>
+
+Note that these non-linear scales only work with data values that are non-negative (`sqrt`) or strictly positive (`log`).
+
+### Time scales
+
+Time scales are similar to linear scales, except their `domain` should be specified with `Date` objects. The example below creates a scale that covers the entire year 2022.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'date',
+  domain: [new Date('2022-01-01'), new Date('2023-01-01')],
+}`}
+/>
+
+## Band scales
+
+Band scales transform strings into coordinates along a chart axis. The domain of these scales should be an array with all possible input values. In the example below, the specification defines a domain with exactly four labels (uppercase letters 'A' to 'D').
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'band',
+  domain: ['A', 'B', 'C', 'D'],
+}`}
+/>
+
+Band scales work with discrete, i.e. non-continuous, domains. As such, it is often relevant to specify spacings between the domain labels. There are a number of optional parameters that tune padding. These parameters are interpretable, for example, in the context of a bar chart, where they determine the space between adjacent bars (`padding`), spacing between grouped bars belonging to the same label (`paddingInner`), and space between the axis edge and the first/last bars (`paddingOuter`). There is also a parameter that adjusts spacing before individual labels. The example below shows the formatting for all these custom parameters.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'band',
+  domain: ['A', 'B', 'C', 'D'],
+  padding: 0.2,
+  paddingInner: 0.1,
+  paddingOuter: 0.2,
+  extraPadding: { 'C': 0.2 }
+}`}
+/>
+
+## Color scales
+
+Color scales are mappings that generate colors as outputs. These are documents on a separate page on colors.
+
+## Advanced settings
+
+Scales can accept additional parameters beyond the core settings explained above. Notably, parameters `clamp` and `nice` can be set for numeric scales. These parameters are carried from [d3-scale](https://github.com/d3/d3-scale).
+
+Numeric scales for chart axes are automatically created so that increasing domain values are mapped left-to-right in the horizontal direction and bottom-to-top in the vertical direction. This corresponds to the typical way of displaying scatter and line charts. To flip the directions around, set parameter `reverse` to `true`.
