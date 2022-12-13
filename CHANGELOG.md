@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [package/core]: prop `format` for `Counter` component
 -   [package/core]: prop `stretch` to the `Chart` component
 -   [examples]: examples of venn charts
 -   [package/set]: venn charts with two and three sets

@@ -35,4 +35,6 @@ export interface LabelProps extends TypographyProps, LabelLocationSpec {
 export interface CounterProps extends LabelProps {
     /** number of decimal places */
     nDecimalPlaces?: number
+    /** format */
+    format?: (v: number) => string
 }

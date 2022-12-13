@@ -13,6 +13,7 @@ export const Counter = ({
     padding = [0, 0, 0, 0],
     align = [0.5, 0.5],
     nDecimalPlaces = 0,
+    format = (v: number) => String(v),
     style,
     className,
     setRole = true,
@@ -47,7 +48,7 @@ export const Counter = ({
             className={className}
             setRole={setRole}
         >
-            {value}
+            {format(value)}
         </Typography>
     )
 }
