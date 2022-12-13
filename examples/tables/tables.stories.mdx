@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateConfusionTableData, ConfusionTableChart } from './ConfusionTableChart'
+import { generateHeatTableData, HeatTableChart } from './HeatTableChart'
 
 <Meta title="Gallery/Tables" />
 
@@ -11,5 +12,17 @@ import { generateConfusionTableData, ConfusionTableChart } from './ConfusionTabl
 <Canvas>
     <Story name="confusion matrix">
         <Controller generator={generateConfusionTableData} chart={ConfusionTableChart} />
+    </Story>
+</Canvas>
+
+## Surveys
+
+<Canvas>
+    <Story name="survey table">
+        <Controller
+            generator={generateHeatTableData}
+            chart={HeatTableChart}
+            steps={['title', 'subtitle', 'grid', 'A', 'B', 'C', 'D', 'E', 'F', 'download']}
+        />
     </Story>
 </Canvas>
