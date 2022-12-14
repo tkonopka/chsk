@@ -52,7 +52,10 @@ const idLabels: Record<string, string> = {
 
 const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     AxisTicks: {
-        default: {
+        bottom: {
+            tickSize: 0,
+        },
+        left: {
             tickSize: 0,
         },
     },
