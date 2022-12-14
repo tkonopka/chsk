@@ -4,35 +4,31 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 # chsk
 
-`chsk` is a charting library for React.
+chsk is a charting library for React. It aims to provide a stable toolkit for creating graphs for static publications, dynamic components for dashboards, and animated stories for presentations.
 
-The library provides infrastructure for building dynamic visualizations from the ground up. It contains components for creating some commonly-used charts such as bar charts or line charts, and provides tools for assembling any other chart type by composing bespoke elements. It also supports animations for chart-based story-telling.
-
-The library aims to provide a stable toolkit for creating charts for static publications, dynamic components for dashboards, and animated stories for presentations.
-
-Importantly, `chsk` does not aim to create all possible visualization types with dedicated functions/components. Rather, it provides building blocks, hooks, and utility functions that can be combined to create complex visualizations. Chart skeletons built out of library components can also be augmented with custom elements.
+The library provides infrastructure for building visualizations from the ground up. It includes components for common chart elements such as axes and labels. It also includes hooks and data-processing functions. These elements can be combined to create commonly-used charts such as line or bar charts, or entirely original and complex visualizations.
 
 ## Features
 
-### Reusable components
-
-`chsk` provides re-usable components that can be applied in many chart types. For example, axes and legends can be used in both bar charts and scatter charts.
-
 ### Base charts
 
-The library provides infrastructure for some commonly-used charts, for example bar charts, scatter charts, or heat maps.
+The core library together with its addons provide infrastructure for several commonly-used charts such as bar charts, scatter charts, and heat maps.
+
+### Reusable components
+
+Library components can be applied and used in many chart types. For example, axes and legends can be used in both bar charts and scatter charts.
 
 ### Styles and themes
 
-All components can be customized using inline styles. Visual styles are also adjustable via global themes. It is thus possible to quickly change the look-and-feel of charts by applying a different theme, and to create multiple charts with a consistent appearance.
+Components can be customized using inline styles and global themes. It is thus possible to quickly change the look-and-feel of a chart by applying a different theme, and to create multiple charts with a consistent appearance.
 
 ### Interactivity
 
-Chart components can handle mouse events and animate changes in underlying data.
+Chart components animate changes in underlying data. Certain components can also respond to mouse events.
 
 ### Hooks
 
-The library exports React hooks that can be used in custom components. This enables custom components to access any information about a chart that it needs. For example, a custom component can access the chart dimensions, current dataset in raw format, current dataset in a processed format, scales used for axes, or theme.
+The library exports React hooks that can be used in custom components. This enables custom components to access information about a chart beyond what is provided via props. For example, a custom component can access the chart dimensions, current dataset in raw format, current dataset in a processed format, scales used for axes, or theme.
 
 ### Calculation
 

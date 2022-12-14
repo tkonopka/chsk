@@ -51,6 +51,11 @@ const idLabels: Record<string, string> = {
 }
 
 const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+    AxisTicks: {
+        default: {
+            tickSize: 0,
+        },
+    },
     line: {
         grid: {
             strokeWidth: '3px',
@@ -167,12 +172,11 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 <MilestoneMotion initial={'invisible'} initialOn={'grid'}>
                     <GridLines variant={'x'} />
                     <Axis variant={'bottom'}>
-                        <AxisTicks variant={'bottom'} labelOffset={10} tickSize={0} />
+                        <AxisTicks variant={'bottom'} labelOffset={10} />
                     </Axis>
                     <Axis variant={'left'}>
                         <AxisTicks
                             variant={'left'}
-                            tickSize={0}
                             labelOffset={80}
                             labelFormat={v => String(idLabels[String(v)])}
                         />
@@ -209,7 +213,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'download'}>
                     <Typography variant={'source'} position={[-80, 420]}>
-                        Source: custom survey, 2022.
+                        Source: synthetic data.
                     </Typography>
                     <DownloadButtons position={[450, 420]} data image />
                 </MilestoneMotion>

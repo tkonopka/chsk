@@ -2,13 +2,11 @@
 
 [![documentation](https://github.com/tkonopka/chsk/actions/workflows/documentation.yaml/badge.svg)](https://tkonopka.github.io/chsk/) [![tests](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml/badge.svg)](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-`chsk` is a charting library for React.
+chsk is a charting library for React. It aims to provide a stable toolkit for creating graphs for static publications, dynamic components for dashboards, and animated stories for presentations.
 
-The library provides infrastructure for building dynamic visualizations from the ground up. It contains components for creating some commonly-used charts such as bar charts or line charts, and provides tools for assembling any other chart type by composing bespoke elements. It also supports animations for chart-based story-telling.
+The library provides infrastructure for building visualizations from the ground up. It includes components for common chart elements such as axes and labels. It also includes hooks and data-processing functions. These elements can be combined to create commonly-used charts such as line or bar charts, or entirely original and complex visualizations.
 
-The library aims to provide a stable toolkit for creating charts for static publications, dynamic components for dashboards, and animated stories for presentations.
-
-Detailed documentation is available [here](https://tkonopka.github.io/chsk/).
+Documentation is available [here](https://tkonopka.github.io/chsk/).
 
 ## Example
 
