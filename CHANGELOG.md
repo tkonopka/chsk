@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples]: line chart with many lines and two-column legend
 -   [examples]: heatmap/table with custom symbol and counter
 -   [package/core]: prop `format` for `Counter` component
 -   [package/core]: prop `stretch` to the `Chart` component
@@ -19,6 +20,7 @@
 
 ### Changed
 
+-   [package/core]: replaced prop `units` in container components with `positionUnits` and `sizeUnits`
 -   [documentation]: miscellaneous passages in documentation pages
 
 ## v0.1.0
