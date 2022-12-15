@@ -40,8 +40,9 @@ export const StackedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
                 <Bars />
                 <Legend
                     position={[310, 280]}
+                    positionUnits={'absolute'}
                     size={[80, 120]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 1]}
                     padding={[0, 12, 0, 12]}
                     r={10.5}
@@ -82,8 +83,9 @@ export const StackedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
                 <Bars />
                 <Legend
                     position={[0, -20]}
+                    positionUnits={'absolute'}
                     size={[300, 80]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     horizontal={true}
                     anchor={[0, 1]}
                     padding={[20, 0, 20, 0]}

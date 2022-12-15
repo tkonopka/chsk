@@ -80,8 +80,9 @@ export const GroupedVerticalBandChart = ({ fref, chartData, rawData }: Milestone
                 <Bars />
                 <Legend
                     position={[95, 310]}
+                    positionUnits={'absolute'}
                     size={[160, 30]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0.5, 0]}
                     padding={[0, 12, 0, 12]}
                     r={10.5}
@@ -126,8 +127,9 @@ export const GroupedHorizontalBandChart = ({ fref, chartData, rawData }: Milesto
                 <Bars />
                 <Legend
                     position={[-60, -22]}
+                    positionUnits={'absolute'}
                     size={[300, 80]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     horizontal={true}
                     anchor={[0, 1]}
                     padding={[20, 0, 20, 0]}
@@ -178,8 +180,9 @@ export const GroupedHorizontalAutoBandChart = ({ fref, chartData, rawData }: Mil
                 <Bars />
                 <Legend
                     position={[-60, -22]}
+                    positionUnits={'absolute'}
                     size={[300, 80]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     horizontal={true}
                     anchor={[0, 1]}
                     padding={[20, 0, 20, 0]}

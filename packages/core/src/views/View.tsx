@@ -11,8 +11,9 @@ import { fillScaleSize } from './utils'
 const UnthemedView = ({
     variant = 'default',
     position = defaultViewProps.position,
+    positionUnits = defaultViewProps.positionUnits,
     size = defaultViewProps.size,
-    units = defaultViewProps.units,
+    sizeUnits = defaultViewProps.sizeUnits,
     anchor = defaultViewProps.anchor,
     padding = defaultViewProps.padding,
     data = [],
@@ -22,7 +23,14 @@ const UnthemedView = ({
     scaleSize = defaultViewProps.scaleSize,
     children,
 }: ViewProps) => {
-    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({
+        position,
+        positionUnits,
+        size,
+        sizeUnits,
+        anchor,
+        padding,
+    })
 
     const { x: scalePropsX, y: scalePropsY } = fillScaleSize(dimsProps.innerSize, scaleX, scaleY)
     const scales = createScales(scalePropsX, scalePropsY)

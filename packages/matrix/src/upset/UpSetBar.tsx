@@ -64,9 +64,10 @@ export const UpSetBar = ({
     return (
         <Bar
             position={barLayout.position}
+            positionUnits={'absolute'}
             size={barLayout.size}
             padding={padding}
-            units={'absolute'}
+            sizeUnits={'absolute'}
             data={barData}
             keys={['value']}
             horizontal={!horizontal}

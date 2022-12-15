@@ -3,7 +3,8 @@ import {
     PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
-    SizeUnit,
+    PositionUnits,
+    SizeUnits,
     useDimensions,
     X,
     Y,
@@ -25,25 +26,27 @@ export const getAnchoredOrigin = (
 
 export const useView = ({
     position,
+    positionUnits,
     size,
-    units,
+    sizeUnits,
     padding,
     anchor,
 }: {
     position: PositionSpec
+    positionUnits: PositionUnits
     size: SizeSpec
-    units: SizeUnit
+    sizeUnits: SizeUnits
     padding: FourSideSizeSpec
     anchor: AnchorSpec
 }) => {
     const dimensions = useDimensions()
     const scales = useScales()
     const { dimsProps, origin } = useMemo(() => {
-        const dimsProps = getDimensionsProps(size, units, dimensions.innerSize, padding)
-        const pos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
+        const dimsProps = getDimensionsProps(size, sizeUnits, dimensions.innerSize, padding)
+        const pos = getAbsolutePosition(position, positionUnits, dimensions.innerSize, scales)
         const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
         return { dimsProps, origin }
-    }, [position, size, units, padding, anchor, dimensions, scales])
+    }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
     const translate =
         'translate(' + (origin[X] + padding[LEFT]) + ',' + (origin[Y] + padding[TOP]) + ')'
     return { dimensions, dimsProps, origin, translate }

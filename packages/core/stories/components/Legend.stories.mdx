@@ -22,7 +22,9 @@ It can also be used with children elements to construct a custom legend.
 
 The location of the legend is controlled by props `position`, `size`, and `anchor`.
 
-Prop `position` determines a coordinate in the current view. Prop `size` sets the width and height of the legend container. Prop `anchor` determines which point along the legend boundary makes contact with the specified position.
+Prop `position` determines a coordinate in the current view. Prop `size` sets the width and height of the legend container. These two props can be specified either as absolute values (in pixels), or as fractions of the current view size.
+
+Prop `anchor` determines which point along the legend boundary makes contact with the specified position.
 
 In the examples below, the gray area is the current view, and the blue rectangle indicates the legend.
 
@@ -31,8 +33,9 @@ In the examples below, the gray area is the current view, and the blue rectangle
         name="right, anchored middle-left"
         args={{
             position: [240, 70],
+            positionUnits: 'absolute',
             size: [60, 80],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -45,8 +48,9 @@ In the examples below, the gray area is the current view, and the blue rectangle
         name="bottom-right, anchored bottom-left"
         args={{
             position: [240, 140],
+            positionUnits: 'absolute',
             size: [60, 80],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 1],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -59,8 +63,9 @@ In the examples below, the gray area is the current view, and the blue rectangle
         name="bottom-right, anchored bottom-right"
         args={{
             position: [240, 140],
+            positionUnits: 'absolute',
             size: [60, 80],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [1, 1],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -73,8 +78,9 @@ In the examples below, the gray area is the current view, and the blue rectangle
         name="bottom, anchored top"
         args={{
             position: [120, 140],
+            positionUnits: 'absolute',
             size: [140, 60],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0.5, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -94,8 +100,9 @@ A prop `padding` introduces space between the legend's bounding container (deter
         name="right, with padding"
         args={{
             position: [240, 70],
+            positionUnits: 'absolute',
             size: [60, 80],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             padding: [0, 12, 0, 12],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -120,8 +127,9 @@ The content can be arranged vertically or horizontally.
         name="list, vertical"
         args={{
             position: [240, 0],
+            positionUnits: 'absolute',
             size: [60, 80],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0],
             padding: [0, 8, 0, 8],
             itemSize: [80, 24],
@@ -137,8 +145,9 @@ The content can be arranged vertically or horizontally.
         name="list, horizontal 1"
         args={{
             position: [0, 0],
+            positionUnits: 'absolute',
             size: [240, 70],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 1],
             padding: [6, 0, 6, 0],
             itemSize: [80, 24],
@@ -156,8 +165,9 @@ The content can be arranged vertically or horizontally.
         name="list, horizontal 2"
         args={{
             position: [0, 140],
+            positionUnits: 'absolute',
             size: [240, 60],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0],
             padding: [16, 0, 0, 0],
             itemSize: [70, 20],
@@ -183,8 +193,9 @@ The legend can display a continuous color scale by setting prop `variant`.
         args={{
             variant: 'color',
             position: [240, 0],
+            positionUnits: 'absolute',
             size: [60, 100],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0],
             padding: [0, 8, 0, 8],
             itemSize: [80, 24],
@@ -204,9 +215,10 @@ The legend can display a continuous color scale by setting prop `variant`.
             variant: 'color',
             horizontal: true,
             position: [120, 180],
+            positionUnits: 'absolute',
             padding: [10, 0, 10, 0],
             size: [120, 60],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0.5, 0],
             itemSize: [90, 24],
             itemPadding: [2, 2, 2, 2],
@@ -233,8 +245,9 @@ The legend can display a size scale by setting prop `variant`.
         args={{
             variant: 'size',
             position: [220, 0],
+            positionUnits: 'absolute',
             size: [60, 100],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0],
             padding: [0, 8, 0, 8],
             itemSize: [80, 20],
@@ -255,9 +268,10 @@ The legend can display a size scale by setting prop `variant`.
             variant: 'size',
             horizontal: true,
             position: [0, 140],
+            positionUnits: 'absolute',
             padding: [10, 0, 10, 0],
             size: [120, 60],
-            units: 'absolute',
+            sizeUnits: 'absolute',
             anchor: [0, 0],
             itemSize: [26, 80],
             itemPadding: [4, 4, 4, 4],

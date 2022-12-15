@@ -66,7 +66,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
             padding={[60, 40, 60, 60]}
             theme={customTheme}
         >
-            <Strip {...customProps} data={rawData} variant={'ascending'} r={2}>
+            <Strip {...customProps} data={rawData} variant={'ascending'}>
                 <Surface />
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>

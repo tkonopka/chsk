@@ -43,8 +43,9 @@ const defaultHeatMapScaleSpec: BandScaleSpec = {
 export const HeatMap = ({
     // layout
     position = [0, 0],
+    positionUnits = 'relative',
     size = [1, 1],
-    units = 'relative',
+    sizeUnits = 'relative',
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     // content
@@ -59,7 +60,14 @@ export const HeatMap = ({
     children,
 }: HeatMapProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({
+        position,
+        positionUnits,
+        size,
+        sizeUnits,
+        anchor,
+        padding,
+    })
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 

@@ -91,8 +91,9 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     </Axis>
                     <Legend
                         position={[5, 360]}
+                        positionUnits={'absolute'}
                         size={[300, 80]}
-                        units={'absolute'}
+                        sizeUnits={'absolute'}
                         horizontal={true}
                         anchor={[0, 1]}
                         padding={[20, 0, 20, 0]}

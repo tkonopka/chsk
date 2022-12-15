@@ -119,8 +119,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     >
                         <BoxedLabel
                             position={[1, 0]}
+                            positionUnits={'relative'}
                             size={[60, 24]}
-                            units={'relative'}
+                            sizeUnits={'absolute'}
                             translate={[-30, 12]}
                         >
                             {'n = ' + rawData[0].data.length}
@@ -144,8 +145,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     >
                         <BoxedLabel
                             position={[1, 0]}
+                            positionUnits={'relative'}
                             size={[60, 24]}
-                            units={'relative'}
+                            sizeUnits={'absolute'}
                             translate={[-30, 12]}
                         >
                             {'n = ' + rawData[1].data.length}
@@ -169,8 +171,9 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     >
                         <BoxedLabel
                             position={[1, 0]}
+                            positionUnits={'relative'}
                             size={[60, 24]}
-                            units={'relative'}
+                            sizeUnits={'absolute'}
                             translate={[-30, 12]}
                         >
                             {'n = ' + rawData[2].data.length}

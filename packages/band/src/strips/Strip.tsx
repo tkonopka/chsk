@@ -91,8 +91,9 @@ const prepareData = (
 export const Strip = ({
     // layout
     position = defaultViewProps.position,
+    positionUnits = defaultViewProps.positionUnits,
     size = defaultViewProps.size,
-    units = defaultViewProps.units,
+    sizeUnits = defaultViewProps.sizeUnits,
     anchor = defaultViewProps.anchor,
     padding = defaultViewProps.padding,
     // content
@@ -110,7 +111,14 @@ export const Strip = ({
     children,
 }: StripProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({
+        position,
+        positionUnits,
+        size,
+        sizeUnits,
+        anchor,
+        padding,
+    })
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 

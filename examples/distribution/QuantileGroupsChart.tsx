@@ -102,8 +102,9 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                 <BandHighlight style={{ fill: '#222222', opacity: 0.3 }} />
                 <Legend
                     position={[650, 260]}
+                    positionUnits={'absolute'}
                     size={[100, 100]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     horizontal={false}
                     anchor={[0, 1]}
                     padding={[0, 0, 0, 0]}

@@ -36,8 +36,8 @@ The prop `position` marks a location on the chart / view. This can be specified 
         name="relative position"
         args={{
             position: [0.5, 0.5],
+            positionUnits: 'relative',
             size: [120, 26],
-            units: 'relative',
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
             children: 'Relative position',
         }}
@@ -57,7 +57,7 @@ The prop `anchor` determines what part of the label is aligned with the point on
         name="anchor top-left corner"
         args={{
             position: [0, 0],
-            units: 'relative',
+            positionUnits: 'relative',
             anchor: [0, 0],
             size: [180, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
@@ -72,7 +72,7 @@ The prop `anchor` determines what part of the label is aligned with the point on
         name="anchor top-right corner"
         args={{
             position: [1, 0],
-            units: 'relative',
+            positionUnits: 'relative',
             anchor: [1, 0],
             size: [180, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
@@ -94,7 +94,7 @@ The prop `translate` accepts an array `[x, y]`, which shifts the position of the
         name="translate above center"
         args={{
             position: [0.5, 0.5],
-            units: 'relative',
+            positionUnits: 'relative',
             translate: [0, -40],
             size: [120, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
@@ -131,7 +131,7 @@ The box and the label can be rotated using prop `rotate`.
         name="rotation"
         args={{
             position: [0.5, 0.5],
-            units: 'relative',
+            positionUnits: 'relative',
             size: [80, 26],
             rotate: 15,
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
@@ -153,7 +153,7 @@ It is possible to style the box as well as the text.
         name="styling"
         args={{
             position: [1, 0],
-            units: 'relative',
+            positionUnits: 'relative',
             anchor: [1, 0],
             translate: [-10, 10],
             size: [22, 22],

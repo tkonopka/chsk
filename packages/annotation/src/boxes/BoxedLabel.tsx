@@ -3,11 +3,11 @@ import {
     BOTTOM,
     composeClassName,
     getAbsolutePosition,
+    getAbsoluteSize,
     getAnchoredOrigin,
     LEFT,
     Rectangle,
     RIGHT,
-    SizeSpec,
     Typography,
     TOP,
     useDimensions,
@@ -16,8 +16,9 @@ import {
 
 export const BoxedLabel = ({
     position,
-    units = 'absolute',
+    positionUnits = 'absolute',
     size = [26, 100],
+    sizeUnits = 'absolute',
     translate = [0, 0],
     anchor = [0.5, 0.5],
     rotate = 0,
@@ -35,17 +36,16 @@ export const BoxedLabel = ({
     const scales = useScales()
 
     // compute effective x, y position for top-left corner or box
-    const absPos = getAbsolutePosition(position, units, dimensions.innerSize, scales)
-    let [x, y] = getAnchoredOrigin(absPos, size, anchor)
+    const absPos = getAbsolutePosition(position, positionUnits, dimensions.innerSize, scales)
+    const absSize = getAbsoluteSize(size, sizeUnits, dimensions.innerSize)
+    let [x, y] = getAnchoredOrigin(absPos, absSize, anchor)
     // adjust to get the box center
     x += size[0] / 2 + translate[0]
     y += size[1] / 2 + translate[1]
 
     // adjust (enlarge/shrink) the effective size
-    const absSize: SizeSpec = [
-        (size[0] += expansion[LEFT] + expansion[RIGHT]),
-        (size[1] += expansion[TOP] + expansion[BOTTOM]),
-    ]
+    absSize[0] += expansion[LEFT] + expansion[RIGHT]
+    absSize[1] += expansion[TOP] + expansion[BOTTOM]
 
     // location and rotation of center of label
     const translation = 'translate(' + x + ',' + y + ')'

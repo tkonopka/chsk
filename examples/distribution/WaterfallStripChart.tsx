@@ -112,7 +112,6 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
             <Strip
                 data={subsetData}
                 keys={['data']}
-                r={4}
                 scaleValue={{
                     variant: 'linear' as const,
                 }}

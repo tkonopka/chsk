@@ -22,7 +22,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={1} unit={'relative'}>
+                    <ScatterLabel ids={['linear']} x={1} units={'relative'}>
                         Label
                     </ScatterLabel>
                 </Scatter>

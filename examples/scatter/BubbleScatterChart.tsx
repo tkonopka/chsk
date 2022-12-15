@@ -120,8 +120,9 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
                     <Legend
                         position={[635, 480]}
+                        positionUnits={'absolute'}
                         size={[110, 60]}
-                        units={'absolute'}
+                        sizeUnits={'absolute'}
                         anchor={[0, 1]}
                         padding={[0, 12, 0, 12]}
                         r={9}
@@ -133,8 +134,9 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     />
                     <Legend
                         position={[635, 350]}
+                        positionUnits={'absolute'}
                         size={[110, 100]}
-                        units={'absolute'}
+                        sizeUnits={'absolute'}
                         anchor={[0, 1]}
                         padding={[0, 12, 0, 12]}
                         variant={'size'}

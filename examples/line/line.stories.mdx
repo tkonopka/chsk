@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateRandomWalksData, RandomWalksChart } from './RandomWalksChart'
+import { generateManyRandomWalksData, ManyRandomWalksChart } from './ManyRandomWalksChart'
 import { generateRandomWalkData, RandomWalkAreaChart } from './RandomWalkAreaChart'
 import { generateOverlayData, LineOverlayChart } from './LineOverlayChart'
 import { generateSurvivalData, SurvivalChart } from './SurvivalChart'
@@ -19,6 +20,12 @@ import {
 <Canvas>
     <Story name="two lines">
         <Controller generator={generateRandomWalksData} chart={RandomWalksChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="many lines">
+        <Controller generator={generateManyRandomWalksData} chart={ManyRandomWalksChart} />
     </Story>
 </Canvas>
 

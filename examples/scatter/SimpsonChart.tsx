@@ -121,8 +121,9 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 </Typography>
                 <Legend
                     position={[-50, -45]}
+                    positionUnits={'absolute'}
                     size={[400, 30]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 0]}
                     padding={[0, 0, 0, 0]}
                     horizontal={true}

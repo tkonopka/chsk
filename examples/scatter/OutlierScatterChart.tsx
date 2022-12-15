@@ -83,7 +83,6 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                 data={rawData}
                 x={'x'}
                 y={'y'}
-                r={5}
                 scaleX={{
                     variant: 'linear',
                     domain: 'auto',
@@ -162,8 +161,9 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                 </MilestoneMotion>
                 <Legend
                     position={[50, 20]}
+                    positionUnits={'absolute'}
                     size={[160, 60]}
-                    units={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 0]}
                     horizontal={false}
                 >

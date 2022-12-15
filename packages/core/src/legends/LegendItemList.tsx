@@ -118,7 +118,6 @@ const UnthemedLegendItemList = ({
                 labelPosition={labelPosition[i]}
                 labelStyle={labelStyle}
                 labelOffset={labelOffset}
-                colorIndex={i}
                 interactive={interactive}
                 className={className}
                 setRole={setRole}

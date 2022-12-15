@@ -1,5 +1,6 @@
 export * from './accessors'
 export * from './constants'
 export * from './contexts'
+export * from './dimensions'
 export * from './types'
 export * from './utils'

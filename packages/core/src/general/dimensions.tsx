@@ -1,18 +1,21 @@
-import { DimensionsProviderBaseProps, FourSideSizeSpec, SizeSpec, SizeUnit } from './types'
+import { DimensionsProviderBaseProps, FourSideSizeSpec, SizeSpec, SizeUnits } from './types'
 import { getInnerSize } from './utils'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
-    units: SizeUnit,
+    units: SizeUnits,
     referenceSize: SizeSpec
 ): SizeSpec => {
-    if (units === 'relative') return [size[0] * referenceSize[0], size[1] * referenceSize[1]]
-    return [size[0], size[1]]
+    const unitPair = Array.isArray(units) ? units : [units, units]
+    return [
+        unitPair[0] === 'relative' ? size[0] * referenceSize[0] : size[0],
+        unitPair[1] === 'relative' ? size[1] * referenceSize[1] : size[1],
+    ]
 }
 
 export const getDimensionsProps = (
     size: SizeSpec,
-    units: SizeUnit,
+    units: SizeUnits,
     referenceSize: SizeSpec,
     padding: FourSideSizeSpec
 ): DimensionsProviderBaseProps & { innerSize: SizeSpec } => {

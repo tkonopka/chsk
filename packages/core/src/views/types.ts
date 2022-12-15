@@ -2,9 +2,10 @@ import {
     PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
-    SizeUnit,
     NumericPositionSpec,
     SvgElementVariantProps,
+    PositionUnits,
+    SizeUnits,
 } from '../general'
 import {
     BandScaleProps,
@@ -43,10 +44,12 @@ export type AnchorSpec = [number, number]
 export interface ContainerProps {
     /** container position as an array [x, y] */
     position?: PositionSpec
+    /** absolute or relative units for position */
+    positionUnits?: PositionUnits
     /** container size as an array [width, height] */
     size?: SizeSpec
     /** absolute or relative units for position and size measurements */
-    units?: SizeUnit
+    sizeUnits?: SizeUnits
     /** anchor point of container relative to position */
     anchor?: AnchorSpec
     /** padding (absolute values) **/
@@ -82,14 +85,23 @@ export interface ViewProps extends ContainerProps {
 export interface ViewThemedProps
     extends Pick<
         ViewProps,
-        'scaleX' | 'scaleY' | 'scaleSize' | 'units' | 'position' | 'anchor' | 'size' | 'padding'
+        | 'scaleX'
+        | 'scaleY'
+        | 'scaleSize'
+        | 'position'
+        | 'positionUnits'
+        | 'anchor'
+        | 'size'
+        | 'sizeUnits'
+        | 'padding'
     > {
     scaleX: ScaleProps
     scaleY: ScaleProps
     scaleColor: ColorScaleProps
     scaleSize: ContinuousScaleProps
-    units: SizeUnit
+    sizeUnits: SizeUnits
     position: NumericPositionSpec
+    positionUnits: PositionUnits
     anchor: NumericPositionSpec
     size: SizeSpec
     padding: FourSideSizeSpec

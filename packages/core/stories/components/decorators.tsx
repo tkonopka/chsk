@@ -154,8 +154,9 @@ export const ChartWithRightLegendDecorator = (Story: () => ReactNode) => (
             <Surface variant={'inner'} />
             <Legend
                 position={[280, 0]}
-                units={'absolute'}
+                positionUnits={'absolute'}
                 size={[100, 80]}
+                sizeUnits={'absolute'}
                 anchor={[0, 0]}
                 padding={[12, 10, 12, 10]}
             >
@@ -175,8 +176,9 @@ export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
             <Surface variant={'inner'} />
             <Legend
                 position={[280, 0]}
-                units={'absolute'}
+                positionUnits={'absolute'}
                 size={[100, 80]}
+                sizeUnits={'absolute'}
                 anchor={[0, 0]}
                 padding={[12, 10, 12, 10]}
             >
@@ -214,7 +216,12 @@ export const ChartWithColorLegendDecorator = (Story: () => ReactNode) => (
     >
         <View data={viewSeriesIndexesKeys} scaleColor={scaleBluesSpec}>
             <Surface variant={'inner'} />
-            <Legend variant={'color'} position={[260, 0]} anchor={[0, 0]} units={'absolute'}>
+            <Legend
+                variant={'color'}
+                position={[260, 0]}
+                anchor={[0, 0]}
+                positionUnits={'absolute'}
+            >
                 {Story()}
             </Legend>
         </View>
@@ -229,7 +236,12 @@ export const ChartWithSizeLegendDecorator = (Story: () => ReactNode) => (
     >
         <View data={viewSeriesIndexesKeys} scaleColor={scaleBluesSpec}>
             <Surface variant={'inner'} />
-            <Legend variant={'color'} position={[250, 0]} anchor={[0, 0]} units={'absolute'}>
+            <Legend
+                variant={'color'}
+                position={[250, 0]}
+                anchor={[0, 0]}
+                positionUnits={'absolute'}
+            >
                 {Story()}
             </Legend>
         </View>

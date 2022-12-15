@@ -9,7 +9,7 @@ import {
     LineProps,
     NumericPositionSpec,
     PathProps,
-    PositionUnit,
+    PositionUnits,
     ProcessedDataContextProps,
     SizeScaleSpec,
     SvgElementVariantProps,
@@ -99,8 +99,8 @@ export interface ScatterLabelProps extends SvgElementVariantProps {
     ids?: string[]
     /** position along the x-axis */
     x: number
-    /** unit for position x */
-    unit?: PositionUnit
+    /** units for position x */
+    units?: PositionUnits
     /** translation with respect to data point */
     translate?: TranslateSpec
     /** rotation */

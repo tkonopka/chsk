@@ -96,8 +96,9 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                     <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
                         <Legend
                             position={[440, 80]}
+                            positionUnits={'absolute'}
                             size={[80, 80]}
-                            units={'absolute'}
+                            sizeUnits={'absolute'}
                             anchor={[0, 0.5]}
                             padding={[0, 12, 0, 12]}
                             r={10.5}

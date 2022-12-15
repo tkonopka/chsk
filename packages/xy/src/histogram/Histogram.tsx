@@ -86,8 +86,9 @@ const getScaleProps = (
 export const Histogram = ({
     // layout
     position = [0, 0],
+    positionUnits = 'relative',
     size = [1, 1],
-    units = 'relative',
+    sizeUnits = 'relative',
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     // content
@@ -102,7 +103,14 @@ export const Histogram = ({
     children,
 }: HistogramProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({ position, size, units, anchor, padding })
+    const { dimsProps, origin } = useView({
+        position,
+        positionUnits,
+        size,
+        sizeUnits,
+        anchor,
+        padding,
+    })
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const { disabled } = useDisabledKeys(seriesIds)

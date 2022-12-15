@@ -12,9 +12,10 @@ export const defaultViewProps: ViewThemedProps = {
     scaleY: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, []),
     scaleSize: createContinuousScaleProps(defaultSizeScaleSpec, [0, 100], 25),
-    units: 'relative' as const,
     position: [0, 0],
+    positionUnits: 'relative' as const,
     size: [1, 1],
+    sizeUnits: 'relative' as const,
     anchor: [0, 0],
     padding: [0, 0, 0, 0],
 }

@@ -30,6 +30,7 @@ export type NumericPositionIntervalSpec = [number, number, number]
 
 // size as an array [width, height]
 export type SizeUnit = 'absolute' | 'relative'
+export type SizeUnits = SizeUnit | [SizeUnit, SizeUnit]
 export type SizeSpec = [number, number]
 
 // padding and extensions in all four directions [top, right, bottom, left]

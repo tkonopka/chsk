@@ -15,8 +15,9 @@ const UnthemedLegend = ({
     variant = 'list',
     // layout of container
     position = [1, 0.5],
-    units = 'relative',
+    positionUnits = 'relative',
     size = [0.2, 0.5],
+    sizeUnits = 'relative',
     anchor = [0, 0],
     padding = [0, 0, 0, 0],
     // organization of items within the container
@@ -44,7 +45,14 @@ const UnthemedLegend = ({
     children,
 }: LegendProps) => {
     const scales = useScales()
-    const { translate, dimsProps } = useView({ position, size, units, anchor, padding })
+    const { translate, dimsProps } = useView({
+        position,
+        positionUnits,
+        size,
+        sizeUnits,
+        anchor,
+        padding,
+    })
     // position of first non-title item/element of the legend content
     const pos: NumericPositionSpec = [0, 0]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]

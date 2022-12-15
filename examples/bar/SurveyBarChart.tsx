@@ -120,7 +120,13 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 <Axis variant={'left'}>
                     <AxisTicks variant={'left'} tickSize={0} />
                 </Axis>
-                <Legend position={[-30, -60]} units={'absolute'} size={[400, 30]} horizontal={true}>
+                <Legend
+                    position={[-30, -60]}
+                    positionUnits={'absolute'}
+                    size={[400, 30]}
+                    sizeUnits={'absolute'}
+                    horizontal={true}
+                >
                     <LegendItem position={[0, 0]} item={'SD'} label={'Strongly disagree'} />
                     <LegendItem position={[140, 0]} item={'D'} label={'Disagree'} />
                     <LegendItem position={[230, 0]} item={'ND'} label={'Neutral'} />
@@ -142,7 +148,13 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     values={[0]}
                     style={{ stroke: '#000000', strokeWidth: 2 }}
                 />
-                <Legend position={[-30, -60]} units={'absolute'} size={[400, 30]} horizontal={true}>
+                <Legend
+                    position={[-30, -60]}
+                    positionUnits={'absolute'}
+                    size={[400, 30]}
+                    sizeUnits={'absolute'}
+                    horizontal={true}
+                >
                     <LegendItem position={[320, 0]} item={'A'} label={'Agree'} />
                     <LegendItem position={[410, 0]} item={'SA'} label={'Strongly agree'} />
                 </Legend>
