@@ -1,0 +1,82 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, ArrowMarker, View, Axis, GridLines } from '@chsk/core'
+import { FlowPath } from '../src'
+import { ChartBandViewAxisDecorator, ChartLinearViewAxisDecorator } from './decorators'
+import { FlowMilestones } from './FlowMilestones'
+
+<Meta title="Addons/Annotation/FlowPath" />
+
+# FlowPath
+
+export const Template = args => <FlowPath {...args} />
+
+`FlowPath` creates an animated path.
+
+<ArgsTable of={FlowPath} />
+
+## Trajectory
+
+The trajectory of `FlowPath` is determined by a series of points specified in prop `points`. There can be as few as two points to create a single line segment, or many points to create a complex path.
+
+Click the milestone buttons in the examples below to see the animation.
+
+<Canvas>
+    <Story name="simple line">
+        <FlowMilestones
+            points={[
+                ['A', 80],
+                ['D', 80],
+            ]}
+        />
+    </Story>
+    <Story name="complex line">
+        <FlowMilestones
+            points={[
+                ['A', 80],
+                ['D', 80],
+                ['D', 20],
+                ['B', 20],
+                ['B', 70],
+            ]}
+        />
+    </Story>
+</Canvas>
+
+## Curves
+
+By default, `FlowPath` connects points with straight, i.e. linear, segments. Other interpolations between points can be set with prop `curve`.
+
+<Canvas>
+    <Story name="natural curve">
+        <FlowMilestones
+            points={[
+                ['A', 80],
+                ['D', 80],
+                ['D', 20],
+                ['B', 20],
+                ['B', 70],
+            ]}
+            curve={'Natural'}
+        />
+    </Story>
+</Canvas>
+
+## Transitions
+
+The duration of the animation (and other animation settings) can be adjusted via prop `transition`.
+
+<Canvas>
+    <Story name="slow transition">
+        <FlowMilestones
+            points={[
+                ['A', 80],
+                ['D', 80],
+                ['D', 20],
+                ['B', 20],
+                ['B', 70],
+            ]}
+            curve={'Natural'}
+            transition={{ pathLength: { duration: 3 } }}
+        />
+    </Story>
+</Canvas>
