@@ -22,11 +22,13 @@ const greekColors = Array(alphabetGreek.length)
     .map((x, i) => interpolate((i + 1) / (n + 2)))
 
 export const generateManyRandomWalksData = () => {
-    const result = alphabetGreek.map(id => {
-        const data = generateRandomWalk(200)
-        return { id, data, final: data[data.length - 1].y }
-    })
-    return result.sort((a, b) => Number(a.final) - Number(b.final))
+    const result = alphabetGreek
+        .map(() => {
+            const data = generateRandomWalk(200)
+            return { data, final: data[data.length - 1].y }
+        })
+        .sort((a, b) => Number(a.final) - Number(b.final))
+    return result.map((item, index) => ({ id: alphabetGreek[index], ...item }))
 }
 
 const customTheme: ThemeSpec = {
