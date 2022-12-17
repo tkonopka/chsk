@@ -117,10 +117,11 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                             horizontal={true}
                             position={[0, 360]}
                             size={[180, 40]}
+                            positionUnits={'absolute'}
+                            sizeUnits={'absolute'}
                             itemSize={[40, 18]}
                             firstOffset={[10, 0]}
                             anchor={[0, 0]}
-                            units={'absolute'}
                             title={'Flags'}
                             symbolStyle={{ stroke: '#222222', strokeWidth: 1 }}
                         />
@@ -154,8 +155,9 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         horizontal={true}
                         position={[220, 360]}
                         size={[180, 24]}
+                        positionUnits={'absolute'}
+                        sizeUnits={'absolute'}
                         anchor={[0, 0]}
-                        units={'absolute'}
                         firstOffset={[0, 0]}
                     >
                         <LegendTitle position={[-55, 12]} size={[60, 24]} padding={[0, 8, 0, 8]}>

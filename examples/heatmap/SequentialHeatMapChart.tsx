@@ -74,8 +74,9 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     horizontal={false}
                     position={[360, 70]}
                     size={[60, 180]}
+                    positionUnits={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 0]}
-                    units={'absolute'}
                 >
                     <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
                         scores

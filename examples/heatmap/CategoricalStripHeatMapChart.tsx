@@ -100,10 +100,11 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                             horizontal={false}
                             position={[460, -4]}
                             size={[60, 180]}
+                            positionUnits={'absolute'}
+                            sizeUnits={'absolute'}
                             itemSize={[60, 18]}
                             itemPadding={[2, 4, 2, 4]}
                             anchor={[0, 0]}
-                            units={'absolute'}
                             title={'Groups'}
                         />
                     </HeatMapCells>
@@ -115,8 +116,9 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         horizontal={false}
                         position={[460, 260]}
                         size={[60, 130]}
+                        positionUnits={'absolute'}
+                        sizeUnits={'absolute'}
                         anchor={[0, 1]}
-                        units={'absolute'}
                     >
                         <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
                             Scores

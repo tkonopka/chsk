@@ -57,9 +57,10 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     horizontal={true}
                     position={[420, -50]}
                     size={[160, 60]}
+                    positionUnits={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 0]}
                     padding={[0, 8, 0, 0]}
-                    units={'absolute'}
                 >
                     <LegendTitle position={[0, 0]} size={[60, 24]} padding={[0, 8, 0, 8]}>
                         z-scores

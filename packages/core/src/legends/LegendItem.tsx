@@ -1,5 +1,4 @@
 import { Rectangle, Square } from '../shapes'
-import { useProcessedData } from '../views'
 import { Typography } from '../typography'
 import { addColor, addOpacity, composeClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
@@ -30,10 +29,9 @@ const UnthemedLegendItem = ({
     style,
     setRole = true,
 }: LegendItemProps) => {
-    const data = useProcessedData()
     const colorScale = useScales().color
     const { data: chartData, setData: setChartData } = useChartData()
-    const cIndex = colorIndex ?? data.keys.indexOf(item ?? '')
+    const cIndex = colorIndex ?? colorScale.domain().indexOf(item ?? '')
     const itemStyle = addColor(symbolStyle, colorScale(cIndex))
     label = label ?? item
 
