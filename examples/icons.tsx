@@ -3,7 +3,10 @@
  */
 
 type IconProps = {
+    x?: number
+    y?: number
     fill?: string
+    className?: string
 }
 export const defaultIconActiveFill = '#555'
 export const defaultIconInactiveFill = '#ccc'
@@ -43,5 +46,48 @@ export const FirstPageIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
 export const LastPageIcon = ({ fill = defaultIconActiveFill }: IconProps) => (
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24">
         <path fill={fill} d="m7 18-1.4-1.4 4.6-4.6-4.6-4.6L7 6l6 6Zm9 0V6h2v12Z" />
+    </svg>
+)
+
+// filter icon: https://fonts.google.com/icons?icon.platform=web
+export const FilterIcon = ({
+    x = 0,
+    y = 0,
+    fill = defaultIconActiveFill,
+    className,
+}: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" x={x} y={y} height="24" width="24">
+        <path
+            d="M4.25,5.61C6.27,8.2,10,13,10,13v6c0,0.55,0.45,1,1,1h2c0.55,0,1-0.45,1-1v-6c0,0,3.72-4.8,5.74-7.39 C20.25,4.95,19.78,4,18.95,4H5.04C4.21,4,3.74,4.95,4.25,5.61z"
+            fill={fill}
+            className={className}
+        />
+    </svg>
+)
+
+// dataset icon: https://fonts.google.com/icons?icon.platform=web
+export const DatasetIcon = ({
+    x = 0,
+    y = 0,
+    fill = defaultIconActiveFill,
+    className,
+}: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" x={x} y={y} height="24" width="24">
+        <path
+            fill={fill}
+            d="M19,3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V5C21,3.9,20.1,3,19,3z M11,17H7v-4h4V17z M11,11H7V7h4V11 z M17,17h-4v-4h4V17z M17,11h-4V7h4V11z"
+            className={className}
+        />
+    </svg>
+)
+
+// check icon: https://fonts.google.com/icons?icon.platform=web
+export const CheckIcon = ({ x = 0, y = 0, fill = defaultIconActiveFill, className }: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" x={x} y={y} height="24" width="24">
+        <path
+            fill={fill}
+            d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"
+            className={className}
+        />
     </svg>
 )

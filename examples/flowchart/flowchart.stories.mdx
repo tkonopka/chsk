@@ -1,0 +1,30 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
+import { generateVerticalFlowData, VerticalFlowChart } from './VerticalFlowChart'
+import { generateHorizontalFlowData, HorizontalFlowChart } from './HorizontalFlowChart'
+
+<Meta title="Gallery/Flowcharts" />
+
+# Examples of flowcharts
+
+## Forward flow
+
+<Canvas>
+    <Story name="vertical">
+        <Controller
+            generator={generateVerticalFlowData}
+            chart={VerticalFlowChart}
+            steps={['title', 'A', 'A2', 'B', 'B2', 'B3', 'C', 'C2', 'buttons']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="horizontal">
+        <Controller
+            generator={generateHorizontalFlowData}
+            chart={HorizontalFlowChart}
+            steps={['start', 'branch1', 'branch2a', 'branch2b', 'buttons']}
+        />
+    </Story>
+</Canvas>

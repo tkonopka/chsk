@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { motion } from 'framer-motion'
+import { LazyMotion, domAnimation, m } from 'framer-motion'
 import {
     composeClassName,
     createLineGenerator,
@@ -34,19 +34,21 @@ export const FlowPath = ({
     const generator = useMemo(() => createLineGenerator(curve), [curve])
     const path = generator(viewPoints)
     return (
-        <motion.path
-            initial={{ d: path ?? undefined, pathLength: 0 }}
-            animate={{ d: path ?? undefined, pathLength: 1 }}
-            transition={transition}
-            role={setRole ? variant : undefined}
-            markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
-            markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
-            style={style}
-            className={compositeClassName}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
-        />
+        <LazyMotion features={domAnimation}>
+            <m.path
+                initial={{ d: path ?? undefined, pathLength: 0 }}
+                animate={{ d: path ?? undefined, pathLength: 1 }}
+                transition={transition}
+                role={setRole ? variant : undefined}
+                markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
+                markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
+                style={style}
+                className={compositeClassName}
+                onMouseLeave={props.onMouseLeave}
+                onMouseEnter={props.onMouseEnter}
+                onMouseMove={props.onMouseMove}
+                onClick={props.onClick}
+            />
+        </LazyMotion>
     )
 }
