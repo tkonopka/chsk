@@ -16,7 +16,7 @@ Note that `HeatMapCells` is intended to be used within a `HeatMap` component.
 
 ## Data subsets
 
-By default, `HeatMapCells` shows the entire dataset. To display subsets, use props `ids` and `keys`.
+By default, `HeatMapCells` shows the entire dataset. To display selected rows or columns, use props `ids` and `keys`, respectively.
 
 <Canvas>
     <Story
@@ -33,6 +33,26 @@ By default, `HeatMapCells` shows the entire dataset. To display subsets, use pro
     <Story
         name="selected keys"
         args={{ keys: ['x', 'y'], style: { strokeWidth: 1, stroke: '#222222' } }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To display only selected cells, specify an array of id-key pairs with prop `cells`.
+
+<Canvas>
+    <Story
+        name="selected cells"
+        args={{
+            cells: [
+                ['alpha', 'y'],
+                ['beta', 'x'],
+                ['delta', 'z'],
+            ],
+            style: { strokeWidth: 1, stroke: '#222222' },
+        }}
         component={HeatMapCells}
         decorators={[ChartHeatMapDecorator]}
     >

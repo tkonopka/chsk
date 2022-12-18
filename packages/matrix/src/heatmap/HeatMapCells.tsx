@@ -16,10 +16,12 @@ import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
 import { cloneDeep } from 'lodash'
 import { HeatMapRectangle } from './HeatMapRectangle'
+import { createCellFilter } from './helpers'
 
 export const HeatMapCells = ({
     ids,
     keys,
+    cells,
     cell = HeatMapRectangle,
     scaleColor,
     scaleSize,
@@ -44,6 +46,7 @@ export const HeatMapCells = ({
         () => getIdKeySets(ids, keys, processedData),
         [ids, keys, processedData]
     )
+    const cellFilter = useMemo(() => createCellFilter(cells, idSet, keySet), [cells, idSet, keySet])
 
     const scaleX = scales.x as BandAxisScale
     const scaleY = scales.y as BandAxisScale
@@ -53,14 +56,14 @@ export const HeatMapCells = ({
     const cellClassName = composeClassName(['cell', className])
     const aspectRatio = width / height
 
-    const cells = data
+    const elements = data
         .map((seriesData: HeatMapProcessedDataItem) => {
             if (!idSet.has(seriesData.id)) return null
             const y = scaleY(seriesData.id)
             const values = seriesData.value
             const sizes = seriesData.size
             return seriesData.value.map((v, i) => {
-                if (!keySet.has(processedData.keys[i])) return null
+                if (!cellFilter(seriesData.id, processedData.keys[i])) return null
                 const cellColor = continuous
                     ? colorScale(Number(values[i]))
                     : colorScale(values[i] as number)
@@ -89,15 +92,17 @@ export const HeatMapCells = ({
         .flat()
         .filter(Boolean)
 
-    if (cells.length === 0 && !children) return null
+    if (elements.length === 0 && !children) return null
 
     const customScales = cloneDeep(scales)
     customScales.color = colorScale
 
     return (
         <g role={'heatmap-cells'} key={'heatmap-cells'}>
-            {cells}
-            <ScalesProvider scales={customScales}>{children}</ScalesProvider>
+            {elements}
+            <ScalesProvider key={'scale-provider'} scales={customScales}>
+                {children}
+            </ScalesProvider>
         </g>
     )
 }

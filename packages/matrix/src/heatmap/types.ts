@@ -61,7 +61,9 @@ export interface HeatMapCellProps extends RectangleProps {
 }
 
 export interface HeatMapCellsProps extends HeatMapHighlightProps {
-    /** symbol for individual data points */
+    /** id and key coordinates for subset of cells */
+    cells?: [string, string][]
+    /** symbol for individual cells */
     cell?: FC<HeatMapCellProps>
     /** scale for colors */
     scaleColor?: ColorScaleProps

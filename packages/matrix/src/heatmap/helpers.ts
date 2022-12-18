@@ -68,3 +68,29 @@ export const getSizeScaleProps = (
     const maxSize = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
     return createSizeScaleProps(scaleSpec, maxDomain, maxSize)
 }
+
+export const createCellFilter = (
+    cells: undefined | [string, string][],
+    ids: Set<string>,
+    keys: Set<string>
+): ((cellId: string, cellKey: string) => boolean) => {
+    const data: Record<string, Set<string>> = {}
+    if (cells) {
+        cells.forEach(pair => {
+            const cellId = pair[0]
+            const cellKey = pair[1]
+            if (!data[cellId]) {
+                data[cellId] = new Set()
+            }
+            data[cellId].add(cellKey)
+        })
+    } else {
+        Array.from(ids).forEach(cellId => {
+            data[cellId] = keys
+        })
+    }
+    return (cellId: string, cellKey: string): boolean => {
+        if (!data[cellId]) return false
+        return data[cellId].has(cellKey)
+    }
+}

@@ -55,6 +55,23 @@ describe('HeatMapCells', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(8)
     })
 
+    it('draws cells only for selected cells', () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y']}>
+                    <HeatMapCells
+                        cells={[
+                            ['alpha', 'x'],
+                            ['beta', 'y'],
+                        ]}
+                    />
+                </HeatMap>
+            </Chart>
+        )
+        const result = screen.getByRole('heatmap-cells')
+        expect(result.querySelectorAll('rect')).toHaveLength(2)
+    })
+
     it('skips work when ids and keys are not relevant', () => {
         render(
             <Chart>

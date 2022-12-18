@@ -3,6 +3,7 @@ import { Controller } from '../Controller'
 import { generateSequentialHeatMapData, SequentialHeatMapChart } from './SequentialHeatMapChart'
 import { generateDivergingHeatMapData, DivergingHeatMapChart } from './DivergingHeatMapChart'
 import { generateBlockHeatMapData, BlockHeatMapChart } from './BlockHeatMapChart'
+import { generateTriangularHeatMapData, TriangularHeatMapChart } from './TriangularHeatMapChart'
 import {
     generateCategoricalStripHeatMapData,
     CategoricalStripHeatMapChart,
@@ -39,6 +40,12 @@ import { generateSizeBlockHeatMapData, SizeBlockHeatMapChart } from './SizeBlock
             chart={BlockHeatMapChart}
             steps={['map', 'blockA', 'blockB', 'blockC', 'final']}
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="triangular">
+        <Controller generator={generateTriangularHeatMapData} chart={TriangularHeatMapChart} />
     </Story>
 </Canvas>
 

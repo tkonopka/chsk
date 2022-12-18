@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [examples]: heatmap with lower-triangular structure
+-   [packages/matrix]: prop `cells` in `HeatMapCells` and capability to draw specific selected cells
 -   [packages/annotation]: component `FlowPath`
 -   [examples]: line chart with many lines and two-column legend
 -   [examples]: heatmap/table with custom symbol and counter
