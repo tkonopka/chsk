@@ -8,13 +8,42 @@ The library provides infrastructure for building visualizations from the ground 
 
 Documentation is available [here](https://tkonopka.github.io/chsk/).
 
+## Features
+
+The library provides components for several common chart types:
+
+-   bar charts
+-   line charts
+-   scatter charts
+-   strip charts
+-   quantile charts / box plots
+-   heat maps
+-   set / Venn diagrams
+-   Upset diagrams
+-   schedule / Gant charts
+
+The core library and add-on packages also provide additional elements to supplement the base charts:
+
+-   legends
+-   animated counters
+-   animated lines
+-   styled text labels
+-   labels with text interval line, bracket, or brace
+-   symbols
+-   block arrows
+-   themes
+-   milestone animation
+-   ...
+
+A [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page) demonstrate how to use components, hooks, and other utility functions to compose truly bespoke charts.
+
 ## Example
 
 The animation below shows a custom bar chart. The recording starts with an empty surface, and parts of the chart enter into view in stages. Later, the dataset is updated and the bars readjust to display the new information.
 
 ![Custom bar chart](/gifs/custom-bars-580x280.gif)
 
-All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-layout), along with many other examples.
+All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-layout).
 
 ## Install
 
