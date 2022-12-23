@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [examples]: horizontal stacked bar chart with counters
+-   [examples]: horizontal bar chart with custom ticks positioned above bars
 -   [examples]: heatmap with lower-triangular structure
 -   [packages/matrix]: prop `cells` in `HeatMapCells` and capability to draw specific selected cells
 -   [packages/annotation]: component `FlowPath`

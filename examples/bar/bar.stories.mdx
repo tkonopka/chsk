@@ -16,6 +16,11 @@ import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBa
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
+import {
+    generateQuestionMultipleChoicesData,
+    QuestionMultipleChoicesChart,
+} from './QuestionMultipleChoicesChart'
+import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './QuestionTwoChoicesChart'
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 
 <Meta title="Gallery/Bar charts" />
@@ -86,6 +91,21 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
                 </span>
             }
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="question, multiple choice">
+        <Controller
+            generator={generateQuestionMultipleChoicesData}
+            chart={QuestionMultipleChoicesChart}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="question, binary choices">
+        <Controller generator={generateQuestionTwoChoicesData} chart={QuestionTwoChoicesChart} />
     </Story>
 </Canvas>
 
