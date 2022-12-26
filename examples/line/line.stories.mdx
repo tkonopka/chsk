@@ -10,6 +10,7 @@ import {
     generateTimeQuarterlySeriesData,
     TimeQuarterlySeriesChart,
 } from './TimeQuarterlySeriesChart'
+import { generateForecastData, ForecastChart } from './ForecastChart'
 
 <Meta title="Gallery/Line charts" />
 
@@ -50,6 +51,12 @@ import {
 <Canvas>
     <Story name="custom tick marks">
         <Controller generator={generateTimeQuarterlySeriesData} chart={TimeQuarterlySeriesChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="forecast">
+        <Controller generator={generateForecastData} chart={ForecastChart} />
     </Story>
 </Canvas>
 
