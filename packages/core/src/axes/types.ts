@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from 'react'
-import { SvgElementVariantProps } from '../general'
+import { NumericPositionSpec, SvgElementVariantProps } from '../general'
 
 export type SideType = 'top' | 'right' | 'left' | 'bottom'
 
@@ -60,6 +60,8 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     tickStyle?: Partial<CSSProperties>
     /** distance between axis and tick labels */
     labelOffset?: number
+    /** additional translation for label position */
+    labelTranslate?: NumericPositionSpec
     /** rotation angle (degrees) */
     labelRotate?: number
     /** format */
@@ -71,10 +73,17 @@ export interface AxisTicksProps extends SvgElementVariantProps {
 export interface AxisTicksThemedProps
     extends Pick<
         AxisTicksProps,
-        'ticks' | 'tickSize' | 'labelOffset' | 'labelRotate' | 'labelStyle' | 'tickStyle'
+        | 'ticks'
+        | 'tickSize'
+        | 'labelOffset'
+        | 'labelTranslate'
+        | 'labelRotate'
+        | 'labelStyle'
+        | 'tickStyle'
     > {
     ticks: TickType
     tickSize: number
     labelOffset: number
+    labelTranslate: NumericPositionSpec
     labelRotate: number
 }

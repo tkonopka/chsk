@@ -27,6 +27,7 @@ export const getScaleTicks = ({
     ticks,
     tickSize,
     labelOffset,
+    labelTranslate = [0, 0],
     labelRotate,
     labelFormat,
     labelStyle,
@@ -49,8 +50,8 @@ export const getScaleTicks = ({
     const xMultiplier = variant === 'right' ? 1 : -1
     const yMultiplier = variant === 'top' ? -1 : 1
 
-    const labelX = horizontal ? 0 : offset * xMultiplier
-    const labelY = horizontal ? offset * yMultiplier : 0
+    const labelX = labelTranslate[X] + (horizontal ? 0 : offset * xMultiplier)
+    const labelY = labelTranslate[Y] + (horizontal ? offset * yMultiplier : 0)
     const tickFormat = getFormatFunction(labelFormat)
 
     return tickTranslations.map((translations, i) => {
@@ -89,6 +90,7 @@ const UnthemedAxisTicks = ({
     ticks = defaultAxisTicksProps.ticks,
     tickSize = defaultAxisTicksProps.tickSize,
     labelOffset = defaultAxisTicksProps.labelOffset,
+    labelTranslate = defaultAxisTicksProps.labelTranslate,
     labelRotate = defaultAxisTicksProps.labelRotate,
     labelFormat,
     labelStyle,
@@ -105,6 +107,7 @@ const UnthemedAxisTicks = ({
         labelStyle,
         labelFormat,
         labelOffset,
+        labelTranslate,
         labelRotate,
     })
 

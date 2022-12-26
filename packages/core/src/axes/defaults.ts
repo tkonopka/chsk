@@ -27,5 +27,6 @@ export const defaultAxisTicksProps: AxisTicksThemedProps = {
     ticks: undefined,
     tickSize: 5,
     labelOffset: 9,
+    labelTranslate: [0, 0],
     labelRotate: 0,
 }

@@ -7,9 +7,7 @@ import { ChartBottomAxisDecorator } from './decorators'
 <Meta title="Core/Components/AxisTicks" />
 export const Template = args => <AxisTicks {...args} />
 
-`AxisTicks` draws a set of tick line and labels.
-
-`AxisTicks` should be used within an `Axis` component.
+`AxisTicks` draws a set of tick line and labels. `AxisTicks` should be used within an `Axis` component.
 
 <ArgsTable of={AxisTicks} />
 
@@ -61,17 +59,50 @@ The position of ticks can be specified as an integer (to suggest a number of tic
 
 Note that suggestions for the number of tick marks are approximate and the actual number of ticks may differ; the actual positions are computed by [d3-scale](https://github.com/d3/d3-scale).
 
-## Tick size and label position
+## Label position
 
-Props `tickSize` and `labelOffset` control the length of the tick lines and the space between the axis and the text labels, respectively. These two props are often used together.
+The position of the text labels near tick marks is controlled with props `labelOffset` and `labelTranslate`.
+
+`labelOffset` determines a perpendicular distance from the axis to the text label.
+`labelTranslate` further adjusts the position in an arbitrary direction.
 
 <Canvas>
     <Story
-        name="size and padding"
+        name="label offset"
+        args={{
+            variant: 'bottom',
+            labelOffset: 25,
+        }}
+        component={AxisTicks}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="label translate"
+        args={{
+            variant: 'bottom',
+            labelOffset: 5,
+            labelTranslate: [10, 5],
+        }}
+        component={AxisTicks}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Tick size
+
+Props `tickSize` controls the length of the tick lines.
+
+<Canvas>
+    <Story
+        name="tick size"
         args={{
             variant: 'bottom',
             tickSize: 15,
-            labelOffset: 30,
+            labelOffset: 20,
         }}
         component={AxisTicks}
         decorators={[ChartBottomAxisDecorator]}

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: prop `labelTranslate` in `AxisTicks` to provide full control of label positions next to axis ticks
 -   [examples]: horizontal stacked bar chart with counters
 -   [examples]: horizontal bar chart with custom ticks positioned above bars
 -   [examples]: heatmap with lower-triangular structure

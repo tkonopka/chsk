@@ -5,10 +5,9 @@ import { useThemedProps } from '../themes'
 import { defaultAxisLabelProps } from './defaults'
 
 const anchorPresets: Record<string, number> = { start: 0, middle: 0.5, end: 1.0 }
-const getAnchorFraction = (anchor: string | number | unknown) => {
+const getAnchorFraction = (anchor: string | number) => {
     if (typeof anchor === 'string') return anchorPresets[anchor] ?? 0
-    if (typeof anchor === 'number') return anchor
-    return 0.5
+    return Number(anchor)
 }
 
 const UnthemedAxisLabel = ({
