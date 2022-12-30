@@ -2,6 +2,7 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateClusterScatterData, ClustersScatterChart } from './ClustersScatterChart'
 import { generateBubbleScatterData, BubbleScatterChart } from './BubbleScatterChart'
+import { generateManhattanScatterData, ManhattanScatterChart } from './ManhattanScatterChart'
 import {
     generateMultiViewsScatterData,
     MultipleViewsScatterChart,
@@ -31,6 +32,16 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
             generator={generateBubbleScatterData}
             chart={BubbleScatterChart}
             steps={['axes', 'data', 'legend']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="manhattan">
+        <Controller
+            generator={generateManhattanScatterData}
+            chart={ManhattanScatterChart}
+            steps={['axes', 'data']}
         />
     </Story>
 </Canvas>

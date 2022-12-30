@@ -119,9 +119,35 @@ export const PointsAndLegend = ({ title = 'Polynomials', legend = true }) => {
 
 ## Symbol size
 
-By default, `Scatter` assumes all data points should have equal size. The size of the symbols can be adjusted via prop `scaleSize`.
+By default, `Scatter` assumes all data points should have equal size. The base size is determined by prop `valueSize`.
 
-To apply different symbol sizes to each point, set `valueSize` to a string key that carries a size value in the original data. This information is used together with the specification for a size scale, `scaleSize`.
+<Canvas>
+    <Story
+        name="base symbol size"
+        args={{
+            data: dataPolynomials,
+            x: 'x',
+            y: 'y',
+            valueSize: 10,
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            autoRescale: false,
+            children: <PointsAndLegend />,
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendSpaceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To apply different symbol sizes to each point, set `valueSize` to a string key that carries a size value in the original data. Each point's size value is used together with the chart's size scale, specified with prop `scaleSize`.
 
 <Canvas>
     <Story
