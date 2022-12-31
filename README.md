@@ -6,7 +6,7 @@ chsk is a charting library for React. It aims to provide a stable toolkit for cr
 
 The library provides infrastructure for building visualizations from the ground up. It includes components for common chart elements such as axes and labels. It also includes hooks and data-processing functions. These elements can be combined to create commonly-used charts such as line or bar charts, or entirely original and complex visualizations.
 
-Documentation is available [here](https://tkonopka.github.io/chsk/).
+Documentation is available [here](https://tkonopka.github.io/chsk/). It includes a [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page).
 
 ## Features
 
@@ -19,7 +19,7 @@ The library provides components for several common chart types:
 -   quantile charts / box plots
 -   heat maps
 -   set / Venn diagrams
--   Upset diagrams
+-   upset diagrams
 -   schedule / Gant charts
 
 The core library and add-on packages also provide additional elements to supplement the base charts:
@@ -28,14 +28,14 @@ The core library and add-on packages also provide additional elements to supplem
 -   animated counters
 -   animated lines
 -   styled text labels
--   labels with text interval line, bracket, or brace
+-   text labels beside an interval line, bracket, or brace
 -   symbols
 -   block arrows
+-   highlighting
 -   themes
+-   chart state
 -   milestone animation
 -   ...
-
-A [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page) demonstrate how to use components, hooks, and other utility functions to compose truly bespoke charts.
 
 ## Example
 
@@ -53,7 +53,7 @@ To start using the library, install package `@chsk/core` and any add-on packages
 # required
 npm install @chsk/core
 # optional (pick any subset of add-on packages)
-npm install @chsk/annotation @chsk/band @chsk/matrix @chsk/themes @chsk/xy
+npm install @chsk/annotation @chsk/band @chsk/matrix @chsk/set @chsk/themes @chsk/xy
 ```
 
 ## Credits
