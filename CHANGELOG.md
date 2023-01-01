@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [examples]: bar chart displaying fractions with counters and custom labels
+-   [packages/core]: documentation page for `Counter`
 -   [examples]: scatter chart with a genome manhattan layout
 -   [examples]: example of line chart with data and forecast
 -   [packages/core]: prop `labelTranslate` in `AxisTicks` to provide full control of label positions next to axis ticks
@@ -28,6 +30,7 @@
 
 ### Changed
 
+-   [packages/core]: default styles for text with class name `counter`
 -   [packages/core]: export functions used for motions / transitions
 -   [packages/core]: replaced prop `units` in container components with `positionUnits` and `sizeUnits`
 -   [documentation]: miscellaneous passages in documentation pages

@@ -14,6 +14,7 @@ import {
 } from './grouped.charts.tsx'
 import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
+import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
 import {
@@ -67,7 +68,7 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 ## Custom layout
 
 <Canvas>
-    <Story name="custom layout">
+    <Story name="custom groups">
         <Controller
             generator={generateCustomGroupsBarData}
             chart={CustomGroupsBarChart}
@@ -106,6 +107,16 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 <Canvas>
     <Story name="question, binary choices">
         <Controller generator={generateQuestionTwoChoicesData} chart={QuestionTwoChoicesChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="fractions">
+        <Controller
+            generator={generateFractionsBarData}
+            chart={FractionsBarChart}
+            steps={['title', 'A', 'B', 'C']}
+        />
     </Story>
 </Canvas>
 
