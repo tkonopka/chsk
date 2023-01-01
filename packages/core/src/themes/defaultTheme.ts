@@ -28,6 +28,11 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'middle',
             dominantBaseline: 'middle',
         },
+        counter: {
+            fontSize: '12px',
+            textAnchor: 'middle',
+            dominantBaseline: 'middle',
+        },
         title: {
             fontWeight: 600,
             fontSize: '18px',
