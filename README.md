@@ -6,7 +6,9 @@ chsk is a charting library for React. It aims to provide a stable toolkit for cr
 
 The library provides infrastructure for building visualizations from the ground up. It includes components for common chart elements such as axes and labels. It also includes hooks and data-processing functions. These elements can be combined to create commonly-used charts such as line or bar charts, or entirely original and complex visualizations.
 
-Documentation is available [here](https://tkonopka.github.io/chsk/). It includes a [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page).
+Documentation is available [here](https://tkonopka.github.io/chsk/).
+
+A gallary of examples is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page).
 
 ## Features
 

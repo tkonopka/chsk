@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples]: dashboard-like toolbar with widgets displaying percentages
 -   [examples]: bar chart displaying fractions with counters and custom labels
 -   [packages/core]: documentation page for `Counter`
 -   [examples]: scatter chart with a genome manhattan layout

@@ -150,7 +150,6 @@ div.controller-chart div.chart {
 div.controller-chart div.comment {
     display: flex;
     margin-left: 40px;
-    padding-bottom: 50px;
     line-height: 1.5;
     font-size: 15px;
     font-family: sans-serif;
