@@ -28,13 +28,13 @@ interface BoxedTextProps {
 }
 
 export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedTextProps {
-    /** position of center of label */
+    /** position of label anchor point */
     position: PositionSpec
-    /** size of box (in absolute units) */
+    /** size of box in absolute units */
     size: SizeSpec
     /** additional translation */
     translate?: TranslateSpec
-    /** anchor */
+    /** position of anchor point relative to box size */
     anchor?: AlignSpec
     /** rotation */
     rotate?: number

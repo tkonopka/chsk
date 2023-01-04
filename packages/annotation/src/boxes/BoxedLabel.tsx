@@ -17,7 +17,7 @@ import {
 export const BoxedLabel = ({
     position,
     positionUnits = 'absolute',
-    size = [26, 100],
+    size = [100, 32],
     sizeUnits = 'absolute',
     translate = [0, 0],
     anchor = [0.5, 0.5],

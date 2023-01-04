@@ -1,0 +1,163 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface } from '@chsk/core'
+import { Paragraph, BoxedLabel } from '../src'
+import { ChartDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Paragraph" />
+
+# Paragraph
+
+export const Template = args => <Paragraph {...args} />
+
+`Paragraph` displays text and wraps long segments into multiple lines.
+
+<ArgsTable of={Paragraph} />
+
+## Position and alignment
+
+Similarly to the `Typography` component, `Paragraph` accepts a prop `position` with absolute coordinates.
+Unlike `Typography`, however, `Paragraph` also has a prop `align` that determines vertical alignment.
+
+In the examples below, the `Paragraph` components are placed at the origin of the view (top-left corner).
+The prop `align` determines whether it is the first line, middle line, or other part of the paragraph
+that aligns with `position`.
+
+<Canvas>
+    <Story
+        name="top alignment"
+        args={{
+            position: [0, 0],
+            size: [100, 26],
+            align: 0,
+            children: 'Line 1\nLine 2\nLine 3',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="middle alignment"
+        args={{
+            position: [0, 0],
+            size: [100, 26],
+            align: 0.5,
+            children: 'Line 1\nLine 2\nLine 3',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Wrapping
+
+`Paragraph` wraps long segments of text into multiple lines.
+While `Paragraph` can accept hints for line breaks in the form of `\n` characters (see examples above),
+it can also split text automatically. Prop `size` determines the recommended width of each line, and also the spacing
+between adjacent lines.
+
+<Canvas>
+    <Story
+        name="wrapping, wide"
+        args={{
+            position: [0, 0],
+            size: [180, 22],
+            align: 0,
+            children: 'Long text should wrap into several lines.',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="wrapping, narrow"
+        args={{
+            position: [0, 0],
+            size: [80, 28],
+            align: 0,
+            children: 'Long text should wrap into several lines.',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Fonts and letter widths
+
+Text wrapping is not automatic in SVG. Thus, the `Paragraph` component performs
+calculations to determine where to break long text into separate lines.
+The calculations estimate the width of words and try to fit as many words as possible on each line.
+
+Most fonts (except fixed-width fonts) use variable widths for their characters.
+For example, the letter 'm' often takes up more space that the letter 'i'.
+`Paragraph` thus attempts to use variable letter widths to determine line breaks.
+Prop `letterBaseWidths` takes a string as input, either `sans` or `serif`,
+to load letter-width profiles for a sans-serif font (Arial) or a serif font (Times New Roman).
+These profiles are assembled manually based on letters of size 16px. They only contain a small subset of
+characters (a-z, A-Z, 0-0, and some punctuation) and should cover many, although clearly not all, use cases.
+
+To fine tune the line-break calculations, prop `letterWidths` accepts a dictionary mapping letters
+to their widths in pixels. These props over-ride values in the `sans` and `serif` presets.
+Fine-tune values can be used to fine-tune the word-width calculations, for example, to accommodate an unusual font,
+or to support additional letters.
+
+## Styling
+
+Styles provided via prop `style` are applied to each line.
+
+<Canvas>
+    <Story
+        name="centered"
+        args={{
+            position: [120, 60],
+            size: [180, 22],
+            align: 0,
+            children: 'Long text should wrap into several lines.',
+            style: { fontWeight: 600, textAnchor: 'middle' },
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that line-break calculations are not adjusted to respond to text styling.
+
+## Boxed labels
+
+`Paragraph` components can be placed inside `BoxedLabel` components to create
+the effect of a paragraph enclosed in a rectangle.
+
+<Canvas>
+    <Story name="boxed label">
+        <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+            <Surface variant={'inner'} />
+            <BoxedLabel
+                position={[0.5, 0.5]}
+                positionUnits={'relative'}
+                size={[200, 100]}
+                sizeUnits={'absolute'}
+                boxStyle={{ fill: '#ffffff', stroke: '#222222', strokeWidth: 1 }}
+                rx={8}
+                ry={8}
+            >
+                <Paragraph
+                    position={[-85, 0]}
+                    size={[190, 22]}
+                    align={0.5}
+                    style={{ textAnchor: 'start', dominantBaseline: 'middle' }}
+                >
+                    Long text should wrap into several lines. Long text should wrap.
+                </Paragraph>
+            </BoxedLabel>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that when placing `Paragraph` (or `Typography`) within a `BoxedLabel`, coordinates in prop `position` are relative to the center of the box.

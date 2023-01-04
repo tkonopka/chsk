@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/annotation]: component `Paragraph` displaying wrapped text
 -   [examples]: dashboard-like toolbar with widgets displaying percentages
 -   [examples]: bar chart displaying fractions with counters and custom labels
 -   [packages/core]: documentation page for `Counter`

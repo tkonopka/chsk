@@ -50,7 +50,7 @@ export interface ContainerProps {
     size?: SizeSpec
     /** absolute or relative units for position and size measurements */
     sizeUnits?: SizeUnits
-    /** anchor point of container relative to position */
+    /** container anchor point */
     anchor?: AnchorSpec
     /** padding (absolute values) **/
     padding?: FourSideSizeSpec

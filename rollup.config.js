@@ -1,5 +1,6 @@
 import fs from 'fs'
 import babel from '@rollup/plugin-babel'
+import json from '@rollup/plugin-json'
 import resolve from '@rollup/plugin-node-resolve'
 import cleanup from 'rollup-plugin-cleanup'
 import { terser } from 'rollup-plugin-terser'
@@ -33,6 +34,7 @@ const commonPlugins = [
         extensions,
         modulesOnly: true,
     }),
+    json(),
     babel(babelConfig),
     terser(),
     cleanup(),
