@@ -19,7 +19,7 @@ Similarly to the `Typography` component, `Paragraph` accepts a prop `position` w
 Unlike `Typography`, however, `Paragraph` also has a prop `align` that determines vertical alignment.
 
 In the examples below, the `Paragraph` components are placed at the origin of the view (top-left corner).
-The prop `align` determines whether it is the first line, middle line, or other part of the paragraph
+The prop `align` determines whether it is the first line or another part of the paragraph
 that aligns with `position`.
 
 <Canvas>
@@ -29,7 +29,7 @@ that aligns with `position`.
             position: [0, 0],
             size: [100, 26],
             align: 0,
-            children: 'Line 1\nLine 2\nLine 3',
+            children: 'Long text should wrap.',
         }}
         component={Paragraph}
         decorators={[ChartDecorator]}
@@ -42,7 +42,7 @@ that aligns with `position`.
             position: [0, 0],
             size: [100, 26],
             align: 0.5,
-            children: 'Line 1\nLine 2\nLine 3',
+            children: 'Long text should wrap.',
         }}
         component={Paragraph}
         decorators={[ChartDecorator]}
@@ -54,9 +54,7 @@ that aligns with `position`.
 ## Wrapping
 
 `Paragraph` wraps long segments of text into multiple lines.
-While `Paragraph` can accept hints for line breaks in the form of `\n` characters (see examples above),
-it can also split text automatically. Prop `size` determines the recommended width of each line, and also the spacing
-between adjacent lines.
+Prop `size` determines the recommended width of each line, and also the spacing between adjacent lines.
 
 <Canvas>
     <Story
@@ -87,24 +85,42 @@ between adjacent lines.
     </Story>
 </Canvas>
 
+`Paragraph` can accept a prop `separator` to split text at a specific text pattern.
+Below, a separator is used to force an artificial line break after the first word.
+Other line breaks are created as in the previous examples, i.e. based on the line size.
+
+<Canvas>
+    <Story
+        name="wrapping, delimiter"
+        args={{
+            position: [0, 0],
+            size: [180, 22],
+            align: 0,
+            separator: '\n',
+            children: 'Long\ntext should wrap into several lines.',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Fonts and letter widths
 
 Text wrapping is not automatic in SVG. Thus, the `Paragraph` component performs
 calculations to determine where to break long text into separate lines.
 The calculations estimate the width of words and try to fit as many words as possible on each line.
 
-Most fonts (except fixed-width fonts) use variable widths for their characters.
-For example, the letter 'm' often takes up more space that the letter 'i'.
-`Paragraph` thus attempts to use variable letter widths to determine line breaks.
-Prop `letterBaseWidths` takes a string as input, either `sans` or `serif`,
-to load letter-width profiles for a sans-serif font (Arial) or a serif font (Times New Roman).
-These profiles are assembled manually based on letters of size 16px. They only contain a small subset of
-characters (a-z, A-Z, 0-0, and some punctuation) and should cover many, although clearly not all, use cases.
+Prop `letterBaseWidths` can be set to either `sans` or `serif` to load letter profiles for a sans-serif font
+(Arial) or a serif font (Times New Roman).
+These profiles have been assembled manually based on letters of size 16px.
+They only contain a small subset of characters (a-z, A-Z, 0-9, and some punctuation).
+The selection should cover many, although clearly not all, use cases.
 
 To fine tune the line-break calculations, prop `letterWidths` accepts a dictionary mapping letters
 to their widths in pixels. These props over-ride values in the `sans` and `serif` presets.
-Fine-tune values can be used to fine-tune the word-width calculations, for example, to accommodate an unusual font,
-or to support additional letters.
+The custom values can be used to accommodate an unusual font or to support additional letters.
 
 ## Styling
 
@@ -127,7 +143,8 @@ Styles provided via prop `style` are applied to each line.
     </Story>
 </Canvas>
 
-Note that line-break calculations are not adjusted to respond to text styling.
+Note that css styles can affect the effective width of a text segment.
+Such effects are not taken into account in the calculations that determine line breaks.
 
 ## Boxed labels
 

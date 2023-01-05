@@ -1,4 +1,12 @@
 import { ReactElement, ReactNode } from 'react'
+import { cloneDeep, merge } from 'lodash'
+
+export const getLetterProfile = (
+    profile: Record<string, number>,
+    adjustment?: Record<string, number>
+) => {
+    return merge(cloneDeep(profile), adjustment)
+}
 
 export const getTextContent = (node?: ReactNode): string => {
     if (!node) return ''
@@ -15,16 +23,19 @@ const wordLength = (word: string, widths: Record<string, number>): number => {
 export const splitText = (
     content: string,
     widths: Record<string, number>,
-    lineWidth: number
+    lineWidth: number,
+    separator?: string
 ): string[] => {
-    // use pre-existing line breaks
-    const lines = content.split('\n')
+    const lines = separator ? content.split(separator) : [content]
     if (lines.length > 1) {
         return lines.map(line => splitText(line, widths, lineWidth)).flat()
     }
     // split long text
     const result: string[] = []
-    const words = lines[0].split(' ').filter(word => word.length > 0)
+    const words = lines[0]
+        .replace(/\n/g, ' ')
+        .split(' ')
+        .filter(word => word.length > 0)
     const wordLengths = words.map(word => wordLength(word, widths))
     const spaceLength = widths[' '] ?? 0
     let line = ''

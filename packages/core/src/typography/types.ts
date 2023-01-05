@@ -14,7 +14,7 @@ export interface TypographyProps extends SvgElementVariantProps {
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
     /** transform */
     transform?: string
-    /** text content **/
+    /** text content */
     children?: ReactNode
 }
 

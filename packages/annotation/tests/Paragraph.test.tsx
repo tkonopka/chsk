@@ -3,7 +3,7 @@ import { splitText } from '../src/paragraphs/utils'
 import sans from '../src/paragraphs/arial.json'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { chartProps, getNumber } from './props'
+import { chartProps } from './props'
 
 describe('splitText', () => {
     it('handles empty text', () => {
@@ -12,9 +12,16 @@ describe('splitText', () => {
     })
 
     it('splits text along newlines', () => {
-        const result = splitText('abc\ndef\nghi', sans, 100)
+        const result = splitText('abc\ndef\nghi', sans, 100, '\n')
         expect(result).toHaveLength(3)
         expect(result[0]).toBe('abc')
+    })
+
+    it('splits text along a specified character', () => {
+        const result = splitText('abc\ndefQghi', sans, 100, 'Q')
+        expect(result).toHaveLength(2)
+        expect(result[0]).toBe('abc def')
+        expect(result[1]).toBe('ghi')
     })
 
     it('splits standard text into lines', () => {
@@ -89,5 +96,17 @@ describe('Paragraph', () => {
         const result = screen.queryAllByRole('paragraph')
         expect(result).toBeDefined()
         expect(result[0].querySelectorAll('text')).toHaveLength(1)
+    })
+
+    it('uses a specified character to create line breaks', () => {
+        render(
+            <Chart {...chartProps}>
+                <Paragraph position={[0, 0]} size={[200, 20]} separator={' '}>
+                    aaa bbb ccc
+                </Paragraph>
+            </Chart>
+        )
+        const result = screen.queryAllByRole('paragraph')
+        expect(result[0].querySelectorAll('text')).toHaveLength(3)
     })
 })
