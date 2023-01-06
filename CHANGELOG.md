@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples]: bar chart with rectangles appearing as colored by positive / negative values
 -   [packages/annotation]: component `Paragraph` displaying wrapped text
 -   [examples]: dashboard-like toolbar with widgets displaying percentages
 -   [examples]: bar chart displaying fractions with counters and custom labels

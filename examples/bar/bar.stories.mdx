@@ -14,6 +14,7 @@ import {
 } from './grouped.charts.tsx'
 import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
+import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
 import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
@@ -74,6 +75,12 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
             chart={CustomGroupsBarChart}
             steps={['axes', 'A', 'B', 'C']}
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="value colors">
+        <Controller generator={generateValueColorsBarData} chart={ValueColorsBarChart} />
     </Story>
 </Canvas>
 
