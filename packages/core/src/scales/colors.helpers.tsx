@@ -3,6 +3,7 @@ import {
     ScaleDiverging as D3ScaleDiverging,
     scaleSequential,
     ScaleSequential as D3ScaleSequential,
+    scaleThreshold,
 } from 'd3-scale'
 import {
     CategoricalColorScale,
@@ -11,6 +12,7 @@ import {
     D3Scheme,
     DivergingScaleProps,
     SequentialScaleProps,
+    ThresholdScaleProps,
 } from './types'
 import * as d3 from 'd3-scale-chromatic'
 
@@ -56,13 +58,7 @@ export const createDivergingScale = ({
     return result
 }
 
-export const createCategoricalScale = ({
-    variant,
-    colors,
-    size,
-    domain,
-}: CategoricalScaleProps): CategoricalColorScale => {
-    // bring all input types to a common format as an array of color strings
+const getColorArray = (colors: D3Scheme | string[] | string[][], size: number) => {
     let allColors: unknown = colors
     if (!Array.isArray(colors)) {
         const scheme = 'scheme' + colors
@@ -70,36 +66,51 @@ export const createCategoricalScale = ({
             allColors = d3[scheme as D3ScaleChromatic]
         }
     }
-
+    // handle case when d3 returns an array of arrays, e.g. [undefined, undefined, ["red", "blue"]]
+    const nColors = Math.min(size, (allColors as unknown[]).length)
     const isNested = (x: Array<unknown>) => {
         return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)
     }
-
-    // handle case when d3 returns an array of arrays, e.g. [undefined, undefined, ["red", "blue"]]
-    let nColors = Math.min(domain.length, (allColors as unknown[]).length)
-    nColors = size ? Math.min(size, nColors) : nColors
     if (isNested(allColors as unknown[])) {
-        nColors = (allColors as unknown[]).length - 1
-        nColors = size ? Math.min(size, nColors) : nColors
         allColors = (allColors as unknown[])[nColors]
         if (!Array.isArray(allColors)) {
             allColors = ['#000']
         }
     }
-    nColors = Math.min(nColors, (allColors as unknown[]).length)
+    return (allColors as string[]).slice(0, nColors)
+}
+
+export const createThresholdScale = ({
+    variant,
+    colors,
+    domain,
+}: ThresholdScaleProps): ColorScale => {
+    const scale = scaleThreshold<number, string>().domain(domain).range(colors)
+    scale.range(getColorArray(colors, domain.length + 1))
+    const result = scale as unknown as ColorScale
+    result.variant = variant
+    return result
+}
+
+export const createCategoricalScale = ({
+    variant,
+    colors,
+    size,
+    domain,
+}: CategoricalScaleProps): CategoricalColorScale => {
+    const allColors = getColorArray(colors, Math.min(domain.length, size ?? domain.length))
+    const nColors = allColors.length
 
     const domainMap: Record<string, number> = {}
     domain.forEach((d, index) => {
         domainMap[String(d)] = index
     })
 
-    // here, allColors should be a simple array of string, nColors is the number of colors
-    const scaleColors: string[] = allColors as string[]
     const result = (index: number | string) => {
         if (typeof index === 'string') {
             index = domainMap[index] ?? -1
         }
-        return scaleColors[index % nColors]
+        return allColors[index % nColors]
     }
     result.variant = variant
     result.domain = () =>

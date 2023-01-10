@@ -9,32 +9,45 @@ import {
     SequentialScaleProps,
     DivergingScaleProps,
     CategoricalColorScale,
+    ThresholdColorScale,
+    ThresholdScaleProps,
 } from './types'
 import {
     createCategoricalScale,
     createDivergingScale,
     createSequentialScale,
+    createThresholdScale,
 } from './colors.helpers'
 
 export const isColorScale = (scale: Scale): scale is ColorScale => {
     return (
         scale.variant === 'sequential' ||
         scale.variant === 'diverging' ||
-        scale.variant === 'categorical'
+        scale.variant === 'categorical' ||
+        scale.variant === 'threshold'
     )
 }
 
 export const isContinuousColorScale = (scale: Scale): scale is ContinuousColorScale => {
-    return scale.variant === 'sequential' || scale.variant === 'diverging'
+    return (
+        scale.variant === 'sequential' ||
+        scale.variant === 'diverging' ||
+        scale.variant === 'threshold'
+    )
 }
 
 export const isCategoricalColorScale = (scale: Scale): scale is CategoricalColorScale => {
     return scale.variant === 'categorical'
 }
 
+export const isThresholdColorScale = (scale: Scale): scale is ThresholdColorScale => {
+    return scale.variant === 'threshold'
+}
+
 export const createColorScale = (props: ColorScaleProps) => {
     if (props.variant === 'diverging') return createDivergingScale(props)
     if (props.variant === 'sequential') return createSequentialScale(props)
+    if (props.variant === 'threshold') return createThresholdScale(props)
     return createCategoricalScale(props)
 }
 
@@ -84,6 +97,10 @@ export const createColorScaleProps = (
         }
         result.domain = threePointDomain as [number, number, number]
         return result as DivergingScaleProps
+    }
+
+    if (result.variant === 'threshold') {
+        return result as ThresholdScaleProps
     }
 
     // must be a categorical scale

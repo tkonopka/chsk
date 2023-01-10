@@ -2,6 +2,7 @@ import {
     createCategoricalScale,
     createSequentialScale,
     createDivergingScale,
+    createThresholdScale,
 } from '../src/scales/colors.helpers'
 import {
     createColorScale,
@@ -11,9 +12,10 @@ import {
     SequentialScaleProps,
     getTickCoordinates,
 } from '../src/scales/'
+import { ThresholdScaleProps } from '../dist/types'
 
 describe('createCategoricalScale', () => {
-    it('categorical with custom colors', () => {
+    it('with custom colors', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff'],
@@ -28,7 +30,7 @@ describe('createCategoricalScale', () => {
         expect(getTicks(result)).toEqual([0, 1])
     })
 
-    it('categorical with custom colors and domain', () => {
+    it('with custom colors and domain', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff'],
@@ -39,7 +41,7 @@ describe('createCategoricalScale', () => {
         expect(result('z')).toBe(undefined)
     })
 
-    it('categorical with custom colors, restricted', () => {
+    it('with custom colors, restricted', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: ['#000', '#fff', '#0f0'],
@@ -52,10 +54,10 @@ describe('createCategoricalScale', () => {
         expect(result(2)).toBe('#000')
     })
 
-    it('categorical with custom colors, empty domain', () => {
+    it('with custom colors, empty domain', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: ['#000', '#fff', '#0f0'],
+            colors: ['#888', '#fff', '#0f0'],
             domain: [],
         })
         // the domain is empty so mappings should signal out-of range
@@ -63,11 +65,10 @@ describe('createCategoricalScale', () => {
         expect(result(1)).toBeUndefined()
     })
 
-    /**
-    it('categorical a single color', () => {
+    it('with a single color', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: '#000',
+            colors: ['#000'],
             size: 2,
             domain: ['a', 'b', 'c'],
         })
@@ -75,9 +76,8 @@ describe('createCategoricalScale', () => {
         // size is restricted to 2, so color(2) should be the same as color(0)
         expect(result(2)).toBe('#000')
     })
-    */
 
-    it('categorical using d3 categorical scheme', () => {
+    it('using d3 categorical scheme', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Category10',
@@ -90,7 +90,7 @@ describe('createCategoricalScale', () => {
         expect(colors[1]).not.toEqual(colors[2])
     })
 
-    it('categorical using d3 sequential scheme', () => {
+    it('using d3 sequential scheme', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
@@ -103,26 +103,25 @@ describe('createCategoricalScale', () => {
         expect(colors[1]).not.toEqual(colors[2])
     })
 
-    it('categorical using d3 scheme with fixed size', () => {
+    it('using d3 scheme with fixed size', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
             size: 5,
-            domain: [],
+            domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
-        // a few colors to compare - they should be different from each other
         const colors = [result(0), result(4), result(5)]
         expect(colors[0]).not.toEqual(colors[1])
         // size 5 means result(5) should recycle result from result(0)
         expect(colors[0]).toEqual(colors[2])
     })
 
-    it('categorical using d3 falls back to black', () => {
+    it('using d3 without domain falls back to black', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
             size: 2,
-            domain: [],
+            domain: ['a', 'b'],
         })
         // d3 Blues start with size=3
         // at size=2, createCategoricalScale should fallback to black
@@ -133,7 +132,7 @@ describe('createCategoricalScale', () => {
 })
 
 describe('createSequentialScale', () => {
-    it('sequential with custom colors', () => {
+    it('with custom colors', () => {
         const result = createSequentialScale({
             variant: 'sequential',
             colors: ['#000', '#fff'],
@@ -143,7 +142,7 @@ describe('createSequentialScale', () => {
         expect(result(10)).toBe('rgb(255, 255, 255)')
     })
 
-    it('sequential with d3 sequential scheme', () => {
+    it('with d3 sequential scheme', () => {
         const result = createSequentialScale({
             variant: 'sequential',
             colors: 'Blues',
@@ -157,7 +156,7 @@ describe('createSequentialScale', () => {
 })
 
 describe('createDivergingScale', () => {
-    it('diverging with custom colors', () => {
+    it('with custom colors', () => {
         const result = createDivergingScale({
             variant: 'diverging',
             colors: ['#f00', '#000', '#00f'],
@@ -169,7 +168,7 @@ describe('createDivergingScale', () => {
         expect(colors[2]).toBe('rgb(0, 0, 255)')
     })
 
-    it('diverging with d3 sequential scheme', () => {
+    it('with d3 sequential scheme', () => {
         const result = createDivergingScale({
             variant: 'diverging',
             colors: 'BrBG',
@@ -179,6 +178,48 @@ describe('createDivergingScale', () => {
         expect(colors[0]).not.toEqual(colors[1])
         expect(colors[0]).not.toEqual(colors[2])
         expect(colors[1]).not.toEqual(colors[2])
+    })
+})
+
+describe('createThresholdScale', () => {
+    it('with two thresholds', () => {
+        const result = createThresholdScale({
+            variant: 'threshold',
+            colors: ['#f00', '#000', '#00f'],
+            domain: [0, 1],
+        })
+        const colors = [result(-1), result(0), result(0.5), result(10)]
+        expect(colors[0]).toBe('#f00')
+        expect(colors[1]).toBe('#000')
+        expect(colors[2]).toBe('#000')
+        expect(colors[3]).toBe('#00f')
+    })
+
+    it('with three thresholds', () => {
+        const result = createThresholdScale({
+            variant: 'threshold',
+            colors: ['#f00', '#000', '#111', '#00f'],
+            domain: [0, 1, 2],
+        })
+        const colors = [result(-1), result(0.5), result(1.5), result(10)]
+        expect(colors[0]).toBe('#f00')
+        expect(colors[1]).toBe('#000')
+        expect(colors[2]).toBe('#111')
+        expect(colors[3]).toBe('#00f')
+    })
+
+    it('with d3 sequential scheme', () => {
+        const result = createThresholdScale({
+            variant: 'threshold',
+            colors: 'BrBG',
+            domain: [-1, 0, 1, 2],
+        })
+        const colors = [result(-2), result(-0.5), result(0.5), result(1.5)]
+        expect(colors[0]).not.toEqual(colors[1])
+        expect(colors[0]).not.toEqual(colors[2])
+        expect(colors[0]).not.toEqual(colors[3])
+        expect(colors[1]).not.toEqual(colors[2])
+        expect(colors[1]).not.toEqual(colors[3])
     })
 })
 
@@ -223,6 +264,7 @@ describe('createColorScaleProps', () => {
             },
             []
         )
+        expect(result.variant).toEqual('categorical')
         expect(result.colors).toHaveLength(2)
     })
 
@@ -260,6 +302,7 @@ describe('createColorScaleProps', () => {
             },
             [0, 20]
         ) as SequentialScaleProps
+        expect(result.variant).toEqual('sequential')
         expect(result.domain).toEqual([0, 20])
     })
 
@@ -296,6 +339,7 @@ describe('createColorScaleProps', () => {
             },
             [-2, 0, 2]
         ) as DivergingScaleProps
+        expect(result.variant).toEqual('diverging')
         expect(result.domain).toEqual([-2, 0, 2])
     })
 
@@ -321,6 +365,19 @@ describe('createColorScaleProps', () => {
             []
         ) as DivergingScaleProps
         expect(result.domain).toEqual([-100, 0, 100])
+    })
+
+    it('creates threshold props', () => {
+        const result = createColorScaleProps(
+            {
+                variant: 'threshold',
+                colors: ['#0000ff', '#ffffff', '#ff0000'],
+                domain: [0, 1],
+            },
+            []
+        ) as ThresholdScaleProps
+        expect(result.variant).toEqual('threshold')
+        expect(result.domain).toEqual([0, 1])
     })
 })
 
@@ -349,7 +406,7 @@ describe('getTickCoordinates', () => {
         expect(result).toEqual([100, 50, 0])
     })
 
-    it('get tick coordinates for a band color scale', () => {
+    it('get tick coordinates for a categorical color scale', () => {
         const scale = createColorScale({
             variant: 'categorical',
             colors: 'Category10',
@@ -357,5 +414,15 @@ describe('getTickCoordinates', () => {
         })
         const result = getTickCoordinates(scale, 3, 0, 100)
         expect(result).toEqual([])
+    })
+
+    it('get tick coordinates for a threshold color scale', () => {
+        const scale = createColorScale({
+            variant: 'threshold',
+            colors: 'Category10',
+            domain: [0, 1],
+        })
+        const result = getTickCoordinates(scale, 3, 0, 100)
+        expect(result).toEqual([0, 100])
     })
 })

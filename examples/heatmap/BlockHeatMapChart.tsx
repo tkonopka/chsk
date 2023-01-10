@@ -8,6 +8,7 @@ import {
     LegendColorScale,
     MilestoneMotion,
     Surface,
+    useScales,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
@@ -98,9 +99,9 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 data={rawData}
                 keys={ids}
                 scaleColor={{
-                    variant: 'sequential',
-                    colors: 'Reds',
-                    domain: [0, 100],
+                    variant: 'threshold',
+                    colors: ['#ffffff', '#fee5d9', '#fcae91', '#fb6a4a', '#cb181d'],
+                    domain: [0, 50, 80, 100],
                 }}
             >
                 <MilestoneMotion initialOn={'map'} initial={'invisible'}>
@@ -128,7 +129,6 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         R2 (%)
                     </LegendTitle>
                     <LegendColorScale
-                        key={'legend-color-scale'}
                         variant={'right'}
                         size={[9, 120]}
                         padding={[0, 8, 0, 8]}

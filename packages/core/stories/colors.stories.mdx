@@ -100,6 +100,21 @@ point. The example below defines a blue-white-red scheme centered at a value zer
 As with sequential schemes, colors can be set using [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) names.
 Domain values can be set to 'auto'.
 
+## Threshold colors
+
+Threshold color scales map numbers into a discrete set of colors using thresholds.
+The example below creates a three-color scheme based on two thresholds.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'threshold',
+  colors: ['#0000ff', '#ffffff', '#ff0000'],
+  domain: [0, 1]
+}`}
+/>
+
 ## Default colors
 
 Default color scales can be set using themes. The specifications should be provided under key `Colors`.

@@ -1,10 +1,18 @@
 import { Scale } from './types'
 import { isContinuousAxisScale } from './predicates'
-import { isCategoricalColorScale, isColorScale, isContinuousColorScale } from './colors'
+import {
+    isCategoricalColorScale,
+    isColorScale,
+    isContinuousColorScale,
+    isThresholdColorScale,
+} from './colors'
 
 /** get an array of ticks in the scale domain */
 export const getTicks = (scale: Scale, ticks?: number[] | string[] | number | Date[]) => {
     if (Array.isArray(ticks)) return ticks
+    if (isThresholdColorScale(scale)) {
+        return scale.domain()
+    }
     if (isContinuousColorScale(scale) || isContinuousAxisScale(scale)) {
         if (ticks === undefined) return scale.ticks(4) as Array<number>
         return scale.ticks(ticks) as Array<number>

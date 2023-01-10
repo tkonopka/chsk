@@ -16,6 +16,7 @@ export interface GenericScale<Domain, Range> {
         | 'band'
         | 'sequential'
         | 'diverging'
+        | 'threshold'
         | 'categorical'
     /** scale domain */
     domain: () => Domain[]
@@ -220,8 +221,25 @@ export type DivergingScaleProps = DivergingScaleSpec & {
     domain: [number, number, number]
 }
 
-export type ColorScaleSpec = CategoricalScaleSpec | SequentialScaleSpec | DivergingScaleSpec
-export type ColorScaleProps = CategoricalScaleProps | SequentialScaleProps | DivergingScaleProps
+export type ThresholdScaleSpec = {
+    variant: 'threshold'
+    colors: D3Scheme | string[]
+    domain: number[]
+}
+export type ThresholdScaleProps = ThresholdScaleSpec & {
+    domain: number[]
+}
+
+export type ColorScaleSpec =
+    | CategoricalScaleSpec
+    | SequentialScaleSpec
+    | DivergingScaleSpec
+    | ThresholdScaleSpec
+export type ColorScaleProps =
+    | CategoricalScaleProps
+    | SequentialScaleProps
+    | DivergingScaleProps
+    | ThresholdScaleProps
 
 export type SequentialColorScale = GenericScale<number, string> & {
     variant: 'sequential'
@@ -232,10 +250,17 @@ export type DivergingColorScale = GenericScale<number, string> & {
 export type CategoricalColorScale = GenericScale<number | string, string> & {
     variant: 'categorical'
 }
+export type ThresholdColorScale = GenericScale<number, string> & {
+    variant: 'threshold'
+}
 
-export type ContinuousColorScale = SequentialColorScale | DivergingColorScale
+export type ContinuousColorScale = SequentialColorScale | DivergingColorScale | ThresholdColorScale
 
-export type ColorScale = SequentialColorScale | DivergingColorScale | CategoricalColorScale
+export type ColorScale =
+    | SequentialColorScale
+    | DivergingColorScale
+    | CategoricalColorScale
+    | ThresholdColorScale
 
 export type Scale = ColorScale | AxisScale
 

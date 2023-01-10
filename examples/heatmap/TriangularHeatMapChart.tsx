@@ -126,12 +126,11 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                         R2 (%)
                     </LegendTitle>
                     <LegendColorScale
-                        key={'legend-color-scale'}
                         variant={'right'}
                         size={[9, 120]}
                         padding={[0, 8, 0, 8]}
                         position={[0, 30]}
-                        gradientId={'grad-blocks'}
+                        gradientId={'grad-triangular'}
                     />
                 </Legend>
             </HeatMap>
