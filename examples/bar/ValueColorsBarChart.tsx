@@ -1,9 +1,21 @@
-import { Chart, Axis, AxisTicks, GridLines, ThemeSpec, Typography, mergeTheme } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    AxisTicks,
+    GridLines,
+    ThemeSpec,
+    Typography,
+    mergeTheme,
+    Rectangle,
+    RectangleProps,
+    useScales,
+} from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
+import { cloneDeep } from 'lodash'
 
 export const generateValueColorsBarData = () => {
     const now = new Date(Date.now())
@@ -15,11 +27,7 @@ export const generateValueColorsBarData = () => {
     let value = round2dp(randomUniformValue(-1, 1))
     while (year !== now.getFullYear() || month !== now.getMonth()) {
         value = round2dp(value)
-        if (value > 0) {
-            result.push({ id: year + '-' + (month + 1), value, positive: value })
-        } else {
-            result.push({ id: year + '-' + (month + 1), value, negative: value })
-        }
+        result.push({ id: year + '-' + (month + 1), value })
         if (month === 11) {
             month = 0
             year += 1
@@ -62,6 +70,25 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     },
 })
 
+const CustomRectangle = ({ width, height, style, ...props }: RectangleProps) => {
+    const scales = useScales()
+    const colorScale = scales.color
+    const color = height > 0 ? colorScale(1) : colorScale(0)
+    const adjustedStyle = cloneDeep(style) ?? {}
+    adjustedStyle.fill = undefined
+    adjustedStyle.stroke = undefined
+    return (
+        <Rectangle
+            width={width}
+            height={height}
+            fill={color}
+            stroke={color}
+            style={adjustedStyle}
+            {...props}
+        />
+    )
+}
+
 export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -76,10 +103,15 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                 data={rawData}
                 horizontal={false}
                 variant={'stacked'}
-                keys={['positive', 'negative']}
+                keys={['value']}
                 scaleValue={{
                     variant: 'linear',
                     domain: 'auto',
+                }}
+                scaleColor={{
+                    variant: 'categorical',
+                    colors: ['#3f9cde', '#bbbbbb'],
+                    domain: ['value', 'negative'],
                 }}
             >
                 <Typography variant={'title'} position={[0, -50]}>
@@ -105,7 +137,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <Bars />
+                <Bars component={CustomRectangle} />
                 <GridLines
                     variant={'y'}
                     values={[0]}

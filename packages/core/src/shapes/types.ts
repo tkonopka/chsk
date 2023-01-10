@@ -1,7 +1,10 @@
 import { NumericPositionSpec, SvgElementVariantProps } from '../general'
 import { InteractivityProps } from '../interactivity'
+import { CSSProperties } from 'react'
 
-export interface SymbolProps extends SvgElementVariantProps, InteractivityProps {
+type FillStrokeProps = Pick<CSSProperties, 'stroke' | 'strokeWidth' | 'fill' | 'fillOpacity'>
+
+export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, InteractivityProps {
     /** x coordinate */
     cx?: number
     /** y coordinate */
@@ -10,7 +13,10 @@ export interface SymbolProps extends SvgElementVariantProps, InteractivityProps 
     r?: number
 }
 
-export interface RectangleProps extends SvgElementVariantProps, InteractivityProps {
+export interface RectangleProps
+    extends SvgElementVariantProps,
+        FillStrokeProps,
+        InteractivityProps {
     /** x coordinate */
     x: number
     /** y coordinate */

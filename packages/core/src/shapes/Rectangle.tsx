@@ -8,12 +8,14 @@ export const Rectangle = ({
     y,
     width,
     height,
-    rx,
-    ry,
     center = false,
     className,
     style,
     setRole = true,
+    onMouseLeave,
+    onMouseEnter,
+    onMouseMove,
+    onClick,
     ...props
 }: RectangleProps) => {
     const compositeClassName =
@@ -26,20 +28,24 @@ export const Rectangle = ({
         height = Math.abs(height)
         y -= height
     }
-    const config = { x: center ? x - width / 2 : x, y: center ? y - height / 2 : y, width, height }
+    const config = {
+        x: center ? x - width / 2 : x,
+        y: center ? y - height / 2 : y,
+        width,
+        height,
+        ...props,
+    }
     return (
         <m.rect
             initial={config}
             animate={config}
-            rx={rx}
-            ry={ry}
             role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
+            onMouseLeave={onMouseLeave}
+            onMouseEnter={onMouseEnter}
+            onMouseMove={onMouseMove}
+            onClick={onClick}
         />
     )
 }

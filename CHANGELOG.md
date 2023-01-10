@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: support for fill and stroke animation in `Rectangle`
 -   [examples]: bar chart with rectangles appearing as colored by positive / negative values
 -   [packages/annotation]: component `Paragraph` displaying wrapped text
 -   [examples]: dashboard-like toolbar with widgets displaying percentages

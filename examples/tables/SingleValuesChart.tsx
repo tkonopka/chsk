@@ -1,6 +1,6 @@
-import { domAnimation, m, LazyMotion } from 'framer-motion'
 import {
     Chart,
+    Rectangle,
     Counter,
     ThemeSpec,
     mergeTheme,
@@ -77,16 +77,14 @@ const DashboardValue = ({
 }) => {
     const scales = useScales()
     const color = scales.color(value)
-    const rectConfig = { fill: color }
     // hand-coded offsets for percentage sign after the numeric value
     const percentOffset = value < 10 ? 21 : value > 99 ? 63 : 42
     const activeClassName =
         value < thresholds[1] ? ' error' : value < thresholds[0] ? ' warning' : ''
     return (
         <>
-            <m.rect
-                initial={rectConfig}
-                animate={rectConfig}
+            <Rectangle
+                fill={color}
                 x={position[X]}
                 y={position[Y]}
                 width={size[X]}
@@ -130,33 +128,19 @@ export const SingleValuesChart = ({ fref, chartData, rawData }: MilestoneStory) 
             padding={[40, 40, 40, 40]}
             theme={customTheme}
         >
-            <LazyMotion features={domAnimation}>
-                <View
-                    scaleColor={{
-                        variant: 'diverging',
-                        colors: ['#f5bb00', '#ffffff', '#ffffff'],
-                        domain: [0, 40, 100],
-                    }}
-                >
-                    <DashboardValue title={'Alpha'} position={[0, 0]} value={Number(rawData[0])} />
-                    <DashboardValue title={'Beta'} position={[100, 0]} value={Number(rawData[1])} />
-                    <DashboardValue
-                        title={'Gamma'}
-                        position={[200, 0]}
-                        value={Number(rawData[2])}
-                    />
-                    <DashboardValue
-                        title={'Delta'}
-                        position={[300, 0]}
-                        value={Number(rawData[3])}
-                    />
-                    <DashboardValue
-                        title={'Epsilon'}
-                        position={[400, 0]}
-                        value={Number(rawData[4])}
-                    />
-                </View>
-            </LazyMotion>
+            <View
+                scaleColor={{
+                    variant: 'diverging',
+                    colors: ['#f5bb00', '#ffffff', '#ffffff'],
+                    domain: [0, 40, 100],
+                }}
+            >
+                <DashboardValue title={'Alpha'} position={[0, 0]} value={Number(rawData[0])} />
+                <DashboardValue title={'Beta'} position={[100, 0]} value={Number(rawData[1])} />
+                <DashboardValue title={'Gamma'} position={[200, 0]} value={Number(rawData[2])} />
+                <DashboardValue title={'Delta'} position={[300, 0]} value={Number(rawData[3])} />
+                <DashboardValue title={'Epsilon'} position={[400, 0]} value={Number(rawData[4])} />
+            </View>
         </Chart>
     )
 }
