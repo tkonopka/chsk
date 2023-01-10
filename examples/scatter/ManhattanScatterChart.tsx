@@ -32,10 +32,10 @@ export const generateManhattanScatterData = () => {
         const n = Math.round(density * chromL)
         offset += index > 0 ? chromLengths[index - 1] : 0
         nPoints += n
+        const pointInterval = chromL / (n + 1)
         const positions: number[] = Array(n)
             .fill(0)
-            .map(() => round3(randomUniformValue(0, chromL)))
-            .sort((a, b) => a - b)
+            .map((_, index) => (index + 1) * pointInterval)
         const values = Array(n)
             .fill(0)
             .map(() => randomUniformValue(0, 1))
@@ -108,6 +108,10 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     const chromLabel = (value: unknown, index: number) => {
         return index < 3 || index % 2 == 1 ? chromNames[index] : ''
     }
+    let nPoints = 0
+    rawData.forEach(series => {
+        nPoints += series.data.length
+    })
 
     return (
         <Chart
@@ -149,8 +153,11 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
                     <ScatterPoints />
                 </MilestoneMotion>
-                <Typography position={[-45, -30]} variant={'title'}>
+                <Typography position={[-45, -40]} variant={'title'}>
                     Manhattan plot
+                </Typography>
+                <Typography position={[-45, -20]} variant={'subtitle'}>
+                    This chart has {nPoints} data points
                 </Typography>
                 <DownloadButtons position={[610, -30]} data image />
             </Scatter>
