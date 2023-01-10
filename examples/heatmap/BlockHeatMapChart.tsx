@@ -8,7 +8,6 @@ import {
     LegendColorScale,
     MilestoneMotion,
     Surface,
-    useScales,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
