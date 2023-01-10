@@ -420,9 +420,9 @@ describe('getTickCoordinates', () => {
         const scale = createColorScale({
             variant: 'threshold',
             colors: 'Category10',
-            domain: [0, 1],
+            domain: [0, 0.8, 1],
         })
         const result = getTickCoordinates(scale, 3, 0, 100)
-        expect(result).toEqual([0, 100])
+        expect(result).toEqual([0, 80, 100])
     })
 })
