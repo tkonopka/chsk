@@ -1,4 +1,13 @@
-import { Axis, Chart, GridLines, Counter, ThemeSpec, mergeTheme } from '@chsk/core'
+import {
+    Axis,
+    Chart,
+    GridLines,
+    Counter,
+    ThemeSpec,
+    mergeTheme,
+    Rectangle,
+    useScales,
+} from '@chsk/core'
 import { HeatMap, HeatMapCellProps, HeatMapCells } from '@chsk/matrix'
 import { BoxedTitle } from '@chsk/annotation'
 import { downloadThemePiece } from '@chsk/themes'
@@ -70,21 +79,34 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
         },
     },
     Motion: {
-        duration: 0.6, // Counters only respond to 'duration' and not to 'stiffness', 'damping' etc.
+        duration: 0.5, // Counters only respond to 'duration' and not to 'stiffness', 'damping' etc.
     },
 })
 
 const HeatMapCounter = ({ x, y, width, height, className, style, cellValue }: HeatMapCellProps) => {
+    const colorScale = useScales().color
+    const color = colorScale(Number(cellValue))
     return (
-        <Counter
-            setRole={false}
-            position={[x, y]}
-            size={[width, height]}
-            style={{ ...style, fill: undefined }}
-            className={(cellValue ?? 0) > 65 ? className + ' highvalue' : className}
-        >
-            {cellValue}
-        </Counter>
+        <>
+            <Rectangle
+                x={x}
+                y={y}
+                width={width}
+                height={height}
+                fill={color}
+                style={{ ...style, fill: undefined }}
+                center={true}
+            />
+            <Counter
+                setRole={false}
+                position={[x, y]}
+                size={[width, height]}
+                style={{ ...style, fill: undefined }}
+                className={(cellValue ?? 0) > 65 ? className + ' highvalue' : className}
+            >
+                {cellValue}
+            </Counter>
+        </>
     )
 }
 
@@ -107,8 +129,7 @@ export const ConfusionTableChart = ({ fref, chartData, rawData }: MilestoneStory
                     domain: [0, 100],
                 }}
             >
-                <HeatMapCells />
-                <HeatMapCells cell={HeatMapCounter} style={{ fill: '#222222', strokeWidth: 0 }} />
+                <HeatMapCells cell={HeatMapCounter} style={{ strokeWidth: 0 }} />
                 <GridLines variant={'x'} shift={[-0.5, 0.5]} />
                 <GridLines variant={'y'} shift={[-0.5, 0.5]} />
                 <BoxedTitle variant={'left'} offset={0} size={35} />
