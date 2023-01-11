@@ -21,4 +21,6 @@ export interface ControllerProps {
     steps: MilestoneStep[]
     /** comment */
     comment?: string
+    /** width of comment box */
+    commentWidth?: string
 }

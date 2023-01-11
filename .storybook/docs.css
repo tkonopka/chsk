@@ -143,6 +143,8 @@ div.controller button:hover span.tooltip {
 }
 div.controller-chart {
     display: flex;
+    flex-wrap: wrap;
+    width: 100%;
 }
 div.controller-chart div.chart {
     display: flex;
@@ -150,6 +152,7 @@ div.controller-chart div.chart {
 div.controller-chart div.comment {
     display: flex;
     margin-left: 40px;
+    margin-right: 40px;
     line-height: 1.5;
     font-size: 15px;
     font-family: sans-serif;

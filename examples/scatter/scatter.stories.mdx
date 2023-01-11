@@ -42,6 +42,16 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
             generator={generateManhattanScatterData}
             chart={ManhattanScatterChart}
             steps={['axes', 'data']}
+            comment={
+                <span>
+                    Manhattan charts often have a large number of data points. This chart draws
+                    points with a bare svg <code>circle</code> component rather than the chsk
+                    component <code>Circle</code>. The replacement sacrifices animations of the
+                    points in order to prioritize responsiveness. The axes and the grid are still
+                    animated.
+                </span>
+            }
+            commentWidth={'90%'}
         />
     </Story>
 </Canvas>

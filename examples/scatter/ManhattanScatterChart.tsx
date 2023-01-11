@@ -8,6 +8,7 @@ import {
     Typography,
     ThemeSpec,
     mergeTheme,
+    SymbolProps,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
 import { randomUniformValue } from '../utils'
@@ -87,6 +88,12 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     },
 })
 
+// draw a circle with a simple svg component
+// this is a replacement for the Circle component, which animates cx, cy, r
+const SimpleCircle = ({ cx, cy, r, className, style }: SymbolProps) => {
+    return <circle cx={cx} cy={cy} r={r} style={style} className={className} />
+}
+
 export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
@@ -119,7 +126,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
             fref={fref}
             id="manhattan-scatter"
             size={[800, 400]}
-            padding={[60, 40, 60, 60]}
+            padding={[60, 40, 80, 60]}
             theme={customTheme}
         >
             <Scatter
@@ -151,7 +158,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     <Axis variant={'left'} label={'- log10 (p-value)'} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <ScatterPoints />
+                    <ScatterPoints symbol={SimpleCircle} />
                 </MilestoneMotion>
                 <Typography position={[-45, -40]} variant={'title'}>
                     Manhattan plot
