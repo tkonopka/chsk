@@ -15,4 +15,5 @@ export interface CleanSvgConfig {
     skipAttributeNames: string[]
     roundAttributeNames: string[]
     roundAttributeDecimalPlaces: number
+    newlineAfterTags: string[]
 }

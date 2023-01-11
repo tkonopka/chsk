@@ -18,10 +18,14 @@ const downloadSvgToFile = (id: string, filename: string, config: CleanSvgConfig)
     const svg = document.getElementById(id)
     if (!svg) return
     const clean = cleanSvg(svg.cloneNode(true) as HTMLElement, config)
-    const cleanHTML = clean?.outerHTML
+    let cleanHTML = clean?.outerHTML
     if (!clean || !cleanHTML.startsWith('<svg')) {
         return
     }
+    config.newlineAfterTags.forEach(tag => {
+        const pattern = new RegExp('</' + tag + '><', 'g')
+        cleanHTML = cleanHTML.replace(pattern, '</' + tag + '>\n<')
+    })
     downloadToFile(cleanHTML, filename)
 }
 

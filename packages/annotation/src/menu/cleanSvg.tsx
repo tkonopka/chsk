@@ -2,8 +2,9 @@ import { cleanStyle, roundPxDecimalPlaces } from './helpers'
 
 export const defaultCleanSvgConfig = {
     skipAttributeNames: ['transform-origin'],
-    roundAttributeNames: ['x', 'x1', 'x2', 'y', 'y1', 'y2', 'width', 'height'],
+    roundAttributeNames: ['x', 'x1', 'x2', 'y', 'y1', 'y2', 'width', 'height', 'cx', 'cy', 'r'],
     roundAttributeDecimalPlaces: 3,
+    newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text'],
 }
 
 /**

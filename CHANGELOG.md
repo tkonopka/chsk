@@ -35,10 +35,12 @@
 
 ### Changed
 
--   [packages/core]: default styles for text with class name `counter`
--   [packages/core]: export functions used for motions / transitions
--   [packages/core]: replaced prop `units` in container components with `positionUnits` and `sizeUnits`
--   [documentation]: miscellaneous passages in documentation pages
+-   [packages/annotation]: changed encoding of svg into text files to include newline characters
+-   [packages/annotation]: changed encoding of svg into text files to round values for attributes `cx`, `cy`, `r` to 3 decimal places
+-   [packages/core]: modified default styles for text with class name `counter`
+-   [packages/core]: exported functions `getTransitionValue` and `getMotionValue`
+-   [packages/core]: replaced prop `units` in container components (e.g. `View`) with `positionUnits` and `sizeUnits`
+-   [documentation]: edited miscellaneous documentation pages
 
 ## v0.1.0
 
