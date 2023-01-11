@@ -21,7 +21,7 @@ export const Chart = ({
     padding = [40, 40, 40, 40],
     theme,
     data = {},
-    styles = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'],
+    styles,
     style,
     children,
     fref,
@@ -82,7 +82,7 @@ export const Chart = ({
                                 style={style}
                                 ref={ref}
                             >
-                                <Styles chartId={id} styles={styles ?? []} />
+                                <Styles chartId={id} styles={styles} />
                                 <g role="chart-content" transform={translate}>
                                     {children}
                                 </g>
