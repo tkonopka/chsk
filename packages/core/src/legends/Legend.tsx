@@ -29,6 +29,7 @@ const UnthemedLegend = ({
     title,
     titleStyle,
     // only for discrete items
+    interactive = defaultLegendProps.interactive,
     r = defaultLegendProps.r,
     symbol,
     symbolStyle,
@@ -75,6 +76,7 @@ const UnthemedLegend = ({
                 variant={'right'}
                 items={colorDomain}
                 labels={colorDomain}
+                interactive={interactive}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
                 r={Array(colorDomain.length).fill(r)}

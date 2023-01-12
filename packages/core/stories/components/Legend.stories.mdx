@@ -289,3 +289,36 @@ The legend can display a size scale by setting prop `variant`.
 </Canvas>
 
 For more control of this type of legend, see `LegendSizeScale`.
+
+## Interactivity
+
+Prop `interactive` toggles the ability to click on legend items.
+This prop is only relevant for legends with lists of categorical items.
+
+<Canvas>
+    <Story
+        name="non-interactive"
+        args={{
+            position: [240, 0],
+            positionUnits: 'absolute',
+            size: [60, 80],
+            sizeUnits: 'absolute',
+            anchor: [0, 0],
+            padding: [0, 8, 0, 8],
+            itemSize: [80, 24],
+            itemPadding: [2, 2, 2, 2],
+            title: 'Legend title',
+            interactive: false,
+        }}
+        component={Legend}
+        decorators={[ChartForLegend2Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+When a legend is not interactive, clicking on legend items does not change their opacity.
+
+Note that the mouse cursor in the example above remains a pointer.
+It is not possible to change the cursor through the `Legend` component.
+Instead, use themes, or create a legend manually and set styles for `LegendItemList` or `LegendItem` components.

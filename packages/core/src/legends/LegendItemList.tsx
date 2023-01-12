@@ -89,6 +89,7 @@ const UnthemedLegendItemList = ({
     //
     interactive = defaultLegendProps.interactive,
     className,
+    style,
     setRole = true,
 }: LegendItemListProps) => {
     const { itemPosition, itemS, symbolPosition, labelPosition } = getLegendItemPositions(
@@ -120,6 +121,7 @@ const UnthemedLegendItemList = ({
                 labelOffset={labelOffset}
                 interactive={interactive}
                 className={className}
+                style={style}
                 setRole={setRole}
             />
         )

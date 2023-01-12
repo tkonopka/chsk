@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: support for prop `interactive` in `Legend`
 -   [packages/core]: support for threshold color scales
 -   [packages/core]: support for fill and stroke animation in `Rectangle`
 -   [examples]: bar chart with rectangles appearing as colored by positive / negative values

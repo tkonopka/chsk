@@ -1,17 +1,10 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
-import {
-    generateStackedData,
-    StackedVerticalBandChart,
-    StackedHorizontalBandChart,
-} from './stacked.charts.tsx'
-import {
-    generateGroupedData,
-    generateDivergingGroupedData,
-    GroupedVerticalBandChart,
-    GroupedHorizontalBandChart,
-    GroupedHorizontalAutoBandChart,
-} from './grouped.charts.tsx'
+import { generateStackedData, StackedVerticalBarChart } from './StackedVerticalBarChart'
+import { StackedHorizontalBarChart } from './StackedHorizontalBarChart'
+import { generateGroupedData, GroupedVerticalBarChart } from './GroupedVerticalBarChart'
+import { GroupedHorizontalBarChart } from './GroupedHorizontalBarChart'
+import { generateDivergingBarData, DivergingBarChart } from './DivergingBarChart'
 import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
@@ -29,44 +22,39 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 
 # Examples of bar charts
 
-## Grouped bars
-
 <Canvas>
     <Story name="grouped, vertical">
-        <Controller generator={generateGroupedData} chart={GroupedVerticalBandChart} />
+        <Controller generator={generateGroupedData} chart={GroupedVerticalBarChart} />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="grouped, horizontal">
-        <Controller generator={generateGroupedData} chart={GroupedHorizontalBandChart} />
+        <Controller
+            generator={generateGroupedData}
+            chart={GroupedHorizontalBarChart}
+            steps={['grid', 'bars-before', 'bars-after', 'percentages']}
+        />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="grouped, diverging">
-        <Controller
-            generator={generateDivergingGroupedData}
-            chart={GroupedHorizontalAutoBandChart}
-        />
+        <Controller generator={generateDivergingBarData} chart={DivergingBarChart} />
     </Story>
 </Canvas>
 
-## Stacked bars
-
 <Canvas>
     <Story name="stacked, vertical">
-        <Controller generator={generateStackedData} chart={StackedVerticalBandChart} />
+        <Controller generator={generateStackedData} chart={StackedVerticalBarChart} />
     </Story>
 </Canvas>
 
 <Canvas>
     <Story name="stacked, horizontal">
-        <Controller generator={generateStackedData} chart={StackedHorizontalBandChart} />
+        <Controller generator={generateStackedData} chart={StackedHorizontalBarChart} />
     </Story>
 </Canvas>
-
-## Custom layout
 
 <Canvas>
     <Story name="custom groups">
@@ -142,15 +130,11 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
     </Story>
 </Canvas>
 
-## Multiple views
-
 <Canvas>
     <Story name="multiple views">
         <Controller generator={generateMultiViewsData} chart={MultipleViewsBarChart} />
     </Story>
 </Canvas>
-
-## Band labels
 
 <Canvas>
     <Story name="band labels">

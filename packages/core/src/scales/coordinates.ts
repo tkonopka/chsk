@@ -6,7 +6,7 @@ import { isContinuousAxisScale } from './predicates'
 // into absolute numbers suitable for svg elements
 export const getAbsolutePosition = (
     position: PositionSpec,
-    unit: PositionUnits, // accepts one unit or two
+    unit: PositionUnits,
     dimensions: SizeSpec,
     scales: ScalesContextProps
 ): [number, number] => {
