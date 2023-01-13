@@ -17,6 +17,7 @@ import {
 } from './QuestionMultipleChoicesChart'
 import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './QuestionTwoChoicesChart'
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
+import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLogoBarChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -125,6 +126,28 @@ import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
                 <span>
                     In this 'Bar' view, a custom component draws arrows instead of rectangles.
                 </span>
+            }
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="sequence logo">
+        <Controller
+            generator={generateSequenceLogoBarData}
+            chart={SequenceLogoBarChart}
+            steps={['axes', 'data']}
+            comment={
+                <div>
+                    <p>
+                        'Sequence logo' charts use letter-shaped custom components in place of
+                        rectangles.
+                    </p>
+                    <p>
+                        Another unusual property is that elements are arranged so that the largest
+                        elements are always on top.
+                    </p>
+                </div>
             }
         />
     </Story>

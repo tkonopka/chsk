@@ -159,3 +159,8 @@ div.controller-chart div.comment {
     color: #666;
     align-items: center;
 }
+div.controller-chart div.comment p {
+    color: #666;
+    line-height: 1.5;
+    font-size: 15px;
+}
