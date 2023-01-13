@@ -89,10 +89,12 @@ const LogoDataComponent = ({
     // extract svg properties for ACGT components
     const dim = baseDimension[base]
     const path = basePath[base]
+    const translate = [props.x, props.y + props.height]
     const scale = [props.width / dim[0], -props.height / dim[1]]
 
-    const translateTransform = 'translate(' + props.x + ',' + (props.y + props.height) + ')'
-    const scaleTransform = 'scale(' + scale[0] + ',' + scale[1] + ')'
+    const translateTransform =
+        'translate(' + round4dp(translate[0]) + ',' + round4dp(translate[1]) + ')'
+    const scaleTransform = 'scale(' + round4dp(scale[0]) + ',' + round4dp(scale[1]) + ')'
     return (
         <g
             transform={translateTransform + ' ' + scaleTransform}
@@ -150,8 +152,9 @@ export const SequenceLogoBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 horizontal={false}
                 keys={['rank4', 'rank3', 'rank2', 'rank1']}
                 scaleIndex={{
-                    variant: 'band' as const,
-                    padding: 0.1,
+                    variant: 'band',
+                    padding: 0.0,
+                    paddingOuter: 0.1,
                 }}
                 scaleValue={{
                     variant: 'linear',
