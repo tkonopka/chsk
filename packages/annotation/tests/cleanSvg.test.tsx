@@ -38,6 +38,30 @@ describe('cleaning transform strings', () => {
         expect(cleanTransform(input, 2)).toEqual(expected)
     })
 
+    it('extract translateX without translateY, and vice versa', () => {
+        const inputX = 'translateX(140.1111px)'
+        const expectedX = 'translate(140.11,0)'
+        expect(cleanTransform(inputX, 2)).toEqual(expectedX)
+        const inputY = 'translateY(20.1111px)'
+        const expectedY = 'translate(0,20.11)'
+        expect(cleanTransform(inputY, 2)).toEqual(expectedY)
+    })
+
+    it('extract scaleX and scaleY', () => {
+        const input = 'scaleX(2) scaleY(3)'
+        const expected = 'scale(2,3)'
+        expect(cleanTransform(input, 2)).toEqual(expected)
+    })
+
+    it('extract scaleX and fill in scaleY, and vice versa', () => {
+        const inputX = 'scaleX(2)'
+        const expectedX = 'scale(2,1)'
+        expect(cleanTransform(inputX, 2)).toEqual(expectedX)
+        const inputY = 'scaleY(2)'
+        const expectedY = 'scale(1,2)'
+        expect(cleanTransform(inputY, 2)).toEqual(expectedY)
+    })
+
     it('detects no transform', () => {
         const input = 'none'
         expect(cleanTransform(input, 2)).toBeNull()
@@ -129,5 +153,18 @@ describe('Svg format', () => {
         const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('transform')).toBeNull()
         expect(clean.getAttribute('transform')).toBeNull()
+    })
+
+    it('removes empty style', () => {
+        const transform = 'none'
+        render(
+            <svg>
+                <rect role={'target'} width={'10px'} height={'20px'} style={{ transform }} />
+            </svg>
+        )
+        const raw = screen.getByRole('target')
+        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        expect(raw.getAttribute('style')).not.toBeNull()
+        expect(clean.getAttribute('style')).toBeNull()
     })
 })

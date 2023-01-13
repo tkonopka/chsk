@@ -37,6 +37,7 @@
 
 ### Changed
 
+-   [packages/annotation]: improved `cleanSvg` to simplify scaleX and scaleY transformations
 -   [packages/annotation]: changed encoding of svg into text files to include newline characters
 -   [packages/annotation]: changed encoding of svg into text files to round values for attributes `cx`, `cy`, `r` to 3 decimal places
 -   [packages/core]: modified default styles for text with class name `counter`

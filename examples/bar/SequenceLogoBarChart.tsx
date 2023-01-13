@@ -1,3 +1,4 @@
+import { m, domAnimation, LazyMotion } from 'framer-motion'
 import {
     Chart,
     Axis,
@@ -89,19 +90,20 @@ const LogoDataComponent = ({
     // extract svg properties for ACGT components
     const dim = baseDimension[base]
     const path = basePath[base]
-    const translate = [props.x, props.y + props.height]
-    const scale = [props.width / dim[0], -props.height / dim[1]]
 
-    const translateTransform =
-        'translate(' + round4dp(translate[0]) + ',' + round4dp(translate[1]) + ')'
-    const scaleTransform = 'scale(' + round4dp(scale[0]) + ',' + round4dp(scale[1]) + ')'
+    // create an animated letter/path
+    const config = {
+        translateX: props.x,
+        translateY: props.y + props.height,
+        scaleX: props.width / dim[0],
+        scaleY: -props.height / dim[1],
+        originX: 0,
+        originY: 0,
+    }
     return (
-        <g
-            transform={translateTransform + ' ' + scaleTransform}
-            key={'logo-' + data?.id + '-' + base}
-        >
+        <m.g initial={config} animate={config} key={'logo-' + data?.id + '-' + base}>
             <Path d={path} className={'logo'} style={{ fill: colorScale(baseIndex) }} />
-        </g>
+        </m.g>
     )
 }
 
@@ -175,7 +177,9 @@ export const SequenceLogoBarChart = ({ fref, chartData, rawData }: MilestoneStor
                     <Axis variant={'left'} label={'Bits'} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <Bars dataComponent={LogoDataComponent} />
+                    <LazyMotion features={domAnimation}>
+                        <Bars dataComponent={LogoDataComponent} />
+                    </LazyMotion>
                     <DownloadButtons position={[390, -45]} data image />
                 </MilestoneMotion>
             </Bar>

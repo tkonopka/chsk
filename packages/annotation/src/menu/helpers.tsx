@@ -12,27 +12,41 @@ export const cleanTransform = (x: string | undefined, n: number) => {
     if (x === undefined) return x
     const xWoPrefix = x.replace('transform:', '').trim()
     if (xWoPrefix === 'none') return null
-    const xy: [string, string] = ['', '']
+    const translateXY: [string, string] = ['0', '0']
+    const scaleXY: [string, string] = ['1', '1']
     const other: string[] = []
     xWoPrefix.split(' ').map(s => {
         if (s.startsWith('translateX')) {
-            xy[0] = s.replace('translateX(', '').split(')')[0]
+            translateXY[0] = s.replace('translateX(', '').split(')')[0]
         } else if (s.startsWith('translateY')) {
-            xy[1] = s.replace('translateY(', '').split(')')[0]
+            translateXY[1] = s.replace('translateY(', '').split(')')[0]
+        } else if (s.startsWith('scaleX')) {
+            scaleXY[0] = s.replace('scaleX(', '').split(')')[0]
+        } else if (s.startsWith('scaleY')) {
+            scaleXY[1] = s.replace('scaleY(', '').split(')')[0]
         } else {
             other.push(s)
         }
     })
     let translate = ''
-    if (xy[0] !== '' && xy[1] !== '') {
+    if (translateXY[0] !== '0' || translateXY[1] !== '0') {
         translate =
             'translate(' +
-            roundPxDecimalPlaces(xy[0].replace('px', ''), n) +
+            roundPxDecimalPlaces(translateXY[0].replace('px', ''), n) +
             ',' +
-            roundPxDecimalPlaces(xy[1].replace('px', ''), n) +
+            roundPxDecimalPlaces(translateXY[1].replace('px', ''), n) +
             ')'
     }
-    return translate + other.join(' ')
+    let scale = ''
+    if (scaleXY[0] !== '1' || scaleXY[1] !== '1') {
+        scale =
+            'scale(' +
+            roundPxDecimalPlaces(scaleXY[0], n) +
+            ',' +
+            roundPxDecimalPlaces(scaleXY[1], n) +
+            ')'
+    }
+    return translate + scale + other.join(' ')
 }
 
 export const cleanStyle = (raw: string, n: number) => {

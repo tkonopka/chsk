@@ -41,6 +41,9 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
         if (attr.name === 'style') {
             const { style, transform } = cleanStyle(attr.value, n)
             element.setAttribute('style', style)
+            if (style === '') {
+                element.removeAttribute('style')
+            }
             if (transform) {
                 element.setAttribute('transform', transform)
             }
