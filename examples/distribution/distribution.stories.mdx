@@ -12,15 +12,11 @@ import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStri
 
 # Examples of distribution charts (strips, quantiles)
 
-## Quantile charts
-
 <Canvas>
     <Story name="quantiles">
         <Controller generator={generateQuantileGroupsData} chart={QuantileGroupsChart} />
     </Story>
 </Canvas>
-
-## Composite
 
 <Canvas>
     <Story name="strips and quantiles">
@@ -31,8 +27,6 @@ import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStri
         />
     </Story>
 </Canvas>
-
-## Ranked
 
 <Canvas>
     <Story name="many distributions">

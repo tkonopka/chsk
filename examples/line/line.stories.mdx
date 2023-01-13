@@ -16,8 +16,6 @@ import { generateForecastData, ForecastChart } from './ForecastChart'
 
 # Examples of line charts
 
-## Curves
-
 <Canvas>
     <Story name="two lines">
         <Controller generator={generateRandomWalksData} chart={RandomWalksChart} />
@@ -40,8 +38,6 @@ import { generateForecastData, ForecastChart } from './ForecastChart'
     </Story>
 </Canvas>
 
-## Time series
-
 <Canvas>
     <Story name="time series">
         <Controller generator={generateTimeSeriesData} chart={TimeSeriesChart} />
@@ -59,8 +55,6 @@ import { generateForecastData, ForecastChart } from './ForecastChart'
         <Controller generator={generateForecastData} chart={ForecastChart} />
     </Story>
 </Canvas>
-
-## Areas
 
 <Canvas>
     <Story name="area gradient">
