@@ -57,10 +57,6 @@ export const getScaleTicks = ({
     return tickTranslations.map((translations, i) => {
         const x = translations[X]
         const y = translations[Y]
-        const rotation =
-            rotate === 0
-                ? ''
-                : 'rotate(' + Number(rotate) + ',' + (x + labelX) + ',' + (y + labelY) + ')'
         return (
             <g key={'tick-' + variant + '-' + i}>
                 <Line
@@ -73,7 +69,7 @@ export const getScaleTicks = ({
                 />
                 <Typography
                     position={[x + labelX, y + labelY]}
-                    transform={rotation}
+                    rotate={rotate}
                     style={labelStyle}
                     variant={'tick-label'}
                     className={variant}

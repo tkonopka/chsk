@@ -16,7 +16,9 @@ describe('BandLabels', () => {
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // band labels should be at the end of horizontal bars
-        expect(labels[0].getAttribute('x')).toEqual(labels[1].getAttribute('x'))
+        expect(labels[0].closest('g')?.getAttribute('x')).toEqual(
+            labels[1].closest('g')?.getAttribute('x')
+        )
     })
 
     it('skips labels when ids are empty', () => {

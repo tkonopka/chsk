@@ -14,9 +14,9 @@ describe('BracketLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('bracket-label')[0]
+        const result = screen.getAllByRole('bracket')[0]
         const path = result.querySelector('path')
-        expect(path?.getAttribute('class')).toBe('bracketLabel')
+        expect(path?.getAttribute('class')).toBe('bracket')
     })
 
     it('creates a line with relative coordinates', () => {
@@ -29,7 +29,7 @@ describe('BracketLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('bracket-label')[0]
+        const result = screen.getAllByRole('bracket')[0]
         const path = result.querySelector('path')
         expect(path).toBeDefined()
     })
@@ -44,7 +44,7 @@ describe('BracketLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('bracket-label')[0]
+        const result = screen.getAllByRole('bracket')[0]
         const path = result.querySelector('path')
         expect(path).toBeDefined()
     })
@@ -59,8 +59,10 @@ describe('BracketLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('bracket-label')[0]
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(45)')
+        const result = screen.getAllByRole('bracket')[0]
+        expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
+            'rotate(45'
+        )
     })
 
     it('creates a line without role', () => {
@@ -73,7 +75,7 @@ describe('BracketLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label-top')
+        const result = screen.queryByRole('bracket')
         expect(result).toBeNull()
     })
 })

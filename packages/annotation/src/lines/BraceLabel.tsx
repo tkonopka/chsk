@@ -53,19 +53,15 @@ export const BraceLabel = ({
         size: tickSize,
         r: braceR,
     })
-
-    // settings for text label
-    const textPos = [
+    const textPos: [number, number] = [
         lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,
         lineStart[1] + translate[1] + (lineEnd[1] - lineStart[1]) * align,
     ]
-    const translation = 'translate(' + textPos[0] + ',' + textPos[1] + ')'
-    const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
     return (
-        <g style={style} className={className} role={setRole ? 'brace-label' : undefined}>
+        <g style={style} className={className} role={setRole ? 'brace' : undefined}>
             <Path
-                variant={'brace-label'}
+                variant={'brace'}
                 points={[
                     tickStart,
                     tickStart,
@@ -89,7 +85,8 @@ export const BraceLabel = ({
             />
             <Typography
                 variant={'brace-label'}
-                transform={translation + rotation}
+                position={textPos}
+                rotate={rotate}
                 className={className}
                 style={textStyle}
                 setRole={setRole}

@@ -8,7 +8,7 @@ export const getNumberAttr = (item: SVGElement | null, attribute: string) => {
     return Number(raw?.replace('px', ''))
 }
 
-export const getTranslate = (item: SVGElement | null, variant: string) => {
+export const getTranslate = (item: SVGElement | null | undefined, variant: string) => {
     const raw: string = (item ? item.getAttribute('style') : '') ?? ''
     const prefix = 'translate' + variant
     const part = raw.split(' ').filter(p => p.startsWith(prefix))[0]
@@ -36,7 +36,7 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')
+        const label = item.querySelector('text')?.closest('g')
         expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
         expect(getNumberAttr(symbol, 'cx')).toBeLessThan(getTranslate(label, 'X'))
     })
@@ -53,7 +53,7 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')
+        const label = item.querySelector('text')?.closest('g')
         expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
         expect(getNumberAttr(symbol, 'cx')).toBeGreaterThan(getTranslate(label, 'X'))
     })
@@ -70,7 +70,7 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')
+        const label = item.querySelector('text')?.closest('g')
         expect(getNumberAttr(symbol, 'cy')).toBeGreaterThan(getTranslate(label, 'Y'))
         expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
     })
@@ -87,7 +87,7 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')
+        const label = item.querySelector('text')?.closest('g')
         expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getTranslate(label, 'Y'))
         expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
     })

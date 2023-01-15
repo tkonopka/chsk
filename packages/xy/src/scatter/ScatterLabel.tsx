@@ -61,12 +61,10 @@ export const ScatterLabel = ({
             const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
             const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
             rotate = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
+            rotate = Number.isNaN(rotate) ? 0 : rotate
             point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
         }
         const translation: [number, number] = [point[0] + translate[0], point[1] + translate[1]]
-        const rotation = !rotate
-            ? ''
-            : ' rotate(' + rotate + ',' + translation[0] + ',' + translation[1] + ')'
 
         return (
             <OpacityMotion
@@ -78,7 +76,7 @@ export const ScatterLabel = ({
                 <Typography
                     variant={'scatterLabel'}
                     position={translation}
-                    transform={rotation}
+                    rotate={rotate}
                     className={className}
                     style={style}
                     setRole={false}

@@ -62,6 +62,18 @@ describe('cleaning transform strings', () => {
         expect(cleanTransform(inputY, 2)).toEqual(expectedY)
     })
 
+    it('extract rotate', () => {
+        const input = 'rotate(10deg)'
+        const expected = 'rotate(10)'
+        expect(cleanTransform(input, 2)).toEqual(expected)
+    })
+
+    it('omit zero rotation', () => {
+        const input = 'translateX(10) rotate(0deg)'
+        const expected = 'translate(10,0)'
+        expect(cleanTransform(input, 2)).toEqual(expected)
+    })
+
     it('detects no transform', () => {
         const input = 'none'
         expect(cleanTransform(input, 2)).toBeNull()

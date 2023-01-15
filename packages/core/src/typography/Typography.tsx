@@ -6,7 +6,7 @@ import { X, Y } from '../general'
 export const Typography = ({
     position = [0, 0],
     variant = 'default',
-    transform,
+    rotate,
     style,
     className,
     setRole = true,
@@ -15,30 +15,12 @@ export const Typography = ({
     if (children === undefined || children === '') return null
     const isDefault = variant === 'default'
     const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
-    const config = { x: position[X], y: position[Y] }
-    if (transform) {
-        return (
-            <text
-                x={config.x}
-                y={config.y}
-                role={setRole ? variant : undefined}
-                style={style}
-                className={compositeClassName}
-                transform={transform}
-            >
+    const config = { x: position[X], y: position[Y], rotate, originX: '0px', originY: '0px' }
+    return (
+        <m.g role={setRole ? variant : undefined} initial={config} animate={config}>
+            <text style={style} className={compositeClassName}>
                 {children}
             </text>
-        )
-    }
-    return (
-        <m.text
-            initial={config}
-            animate={config}
-            role={setRole ? variant : undefined}
-            style={style}
-            className={compositeClassName}
-        >
-            {children}
-        </m.text>
+        </m.g>
     )
 }

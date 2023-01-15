@@ -14,7 +14,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line-label')[0]
+        const result = screen.getAllByRole('line')[0]
         const line = result.querySelector('line')
         // the line should go from (0, 0) to (60, 0)
         expect(line?.getAttribute('x1')).toBe('0')
@@ -32,7 +32,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line-label')[0]
+        const result = screen.getAllByRole('line')[0]
         const line = result.querySelector('line')
         expect(Number(line?.getAttribute('x2'))).toBeGreaterThan(100)
     })
@@ -47,7 +47,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line-label')[0]
+        const result = screen.getAllByRole('line')[0]
         const line = result.querySelector('line')
         expect(Number(line?.getAttribute('x2'))).toBeGreaterThan(100)
     })
@@ -62,8 +62,10 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line-label')[0]
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(45)')
+        const result = screen.getAllByRole('line')[0]
+        expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
+            'rotate(45'
+        )
     })
 
     it('creates a line without role', () => {
@@ -76,7 +78,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label-top')
+        const result = screen.queryByRole('line')
         expect(result).toBeNull()
     })
 })

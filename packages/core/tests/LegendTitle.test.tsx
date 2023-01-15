@@ -24,7 +24,7 @@ describe('LegendTitle', () => {
         )
         const legendTitle = screen.getByRole('legend-title')
         expect(legendTitle).toBeDefined()
-        const title = screen.getByRole('legend').querySelector('text')
+        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
         expect(title?.getAttribute('style')).toContain('4px')
     })
 
@@ -40,7 +40,7 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')
+        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
         expect(title?.getAttribute('style')).toContain('196px')
         expect(title?.getAttribute('style')).toContain('4px')
     })
@@ -57,7 +57,7 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')
+        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
         // title should be centered in a width size of [200, 40]
         expect(title?.getAttribute('style')).toContain('100px')
         expect(title?.getAttribute('style')).toContain('4px')
@@ -75,7 +75,7 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')
+        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
         // title should be centered in a width/size of [200, 40]
         expect(title?.getAttribute('style')).toContain('100px')
         expect(title?.getAttribute('style')).toContain('4px')

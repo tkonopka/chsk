@@ -31,8 +31,8 @@ describe('BarsLabels', () => {
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // center-aligned, so labels should be at different x-coordinates
-        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
-        expect(getTransform(labels[0], 'X')).not.toEqual(getTransform(labels[1], 'X'))
+        expect(getTransform(labels[0].closest('g'), 'X')).toBeGreaterThan(0)
+        expect(getTransform(labels[0].closest('g'), 'X')).not.toEqual(getTransform(labels[1], 'X'))
     })
 
     it('creates left-aligned labels for bars', () => {
@@ -48,8 +48,10 @@ describe('BarsLabels', () => {
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // left-aligned, so labels should be at equal x-coordinates
-        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
-        expect(getTransform(labels[0], 'X')).toEqual(getTransform(labels[1], 'X'))
+        expect(getTransform(labels[0].closest('g'), 'X')).toBeGreaterThan(0)
+        expect(getTransform(labels[0].closest('g'), 'X')).toEqual(
+            getTransform(labels[1].closest('g'), 'X')
+        )
     })
 
     it('creates labels for many bars', () => {

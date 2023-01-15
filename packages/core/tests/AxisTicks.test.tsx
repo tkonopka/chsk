@@ -71,6 +71,6 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const result = screen.queryAllByRole('tick-label')
-        expect(result[1].getAttribute('transform')).toContain('rotate(')
+        expect(result[1].getAttribute('style')).toContain('rotate(')
     })
 })

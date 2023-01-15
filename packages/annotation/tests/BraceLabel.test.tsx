@@ -14,7 +14,7 @@ describe('BraceLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('brace-label')[0]
+        const result = screen.getAllByRole('brace')[0]
         const path = result.querySelector('path')
         expect(path).toBeDefined()
     })
@@ -29,7 +29,7 @@ describe('BraceLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('brace-label')[0]
+        const result = screen.getAllByRole('brace')[0]
         const path = result.querySelector('path')
         expect(path).toBeDefined()
     })
@@ -44,7 +44,7 @@ describe('BraceLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('brace-label')[0]
+        const result = screen.getAllByRole('brace')[0]
         const path = result.querySelector('path')
         expect(path).toBeDefined()
     })
@@ -59,8 +59,10 @@ describe('BraceLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('brace-label')[0]
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(45)')
+        const result = screen.getAllByRole('brace')[0]
+        expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
+            'rotate(45'
+        )
     })
 
     it('creates a line without role', () => {
@@ -73,7 +75,7 @@ describe('BraceLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label-top')
+        const result = screen.queryByRole('brace')
         expect(result).toBeNull()
     })
 })

@@ -8,22 +8,29 @@ export const roundPxDecimalPlaces = (s: string, n: number) => {
     return px ? result + 'px' : result
 }
 
+const extractValue = (s: string, prefix: string): string => {
+    return s.replace(prefix + '(', '').split(')')[0]
+}
+
 export const cleanTransform = (x: string | undefined, n: number) => {
     if (x === undefined) return x
     const xWoPrefix = x.replace('transform:', '').trim()
     if (xWoPrefix === 'none') return null
     const translateXY: [string, string] = ['0', '0']
     const scaleXY: [string, string] = ['1', '1']
+    const rotateDeg: [string] = ['0deg']
     const other: string[] = []
     xWoPrefix.split(' ').map(s => {
         if (s.startsWith('translateX')) {
-            translateXY[0] = s.replace('translateX(', '').split(')')[0]
+            translateXY[0] = extractValue(s, 'translateX')
         } else if (s.startsWith('translateY')) {
-            translateXY[1] = s.replace('translateY(', '').split(')')[0]
+            translateXY[1] = extractValue(s, 'translateY')
         } else if (s.startsWith('scaleX')) {
-            scaleXY[0] = s.replace('scaleX(', '').split(')')[0]
+            scaleXY[0] = extractValue(s, 'scaleX')
         } else if (s.startsWith('scaleY')) {
-            scaleXY[1] = s.replace('scaleY(', '').split(')')[0]
+            scaleXY[1] = extractValue(s, 'scaleY')
+        } else if (s.startsWith('rotate(')) {
+            rotateDeg[0] = extractValue(s, 'rotate')
         } else {
             other.push(s)
         }
@@ -46,7 +53,11 @@ export const cleanTransform = (x: string | undefined, n: number) => {
             roundPxDecimalPlaces(scaleXY[1], n) +
             ')'
     }
-    return translate + scale + other.join(' ')
+    let rotate = ''
+    if (rotateDeg[0] !== '0deg') {
+        rotate = 'rotate(' + roundPxDecimalPlaces(rotateDeg[0].replace('deg', ''), n) + ')'
+    }
+    return translate + scale + rotate + other.join(' ')
 }
 
 export const cleanStyle = (raw: string, n: number) => {

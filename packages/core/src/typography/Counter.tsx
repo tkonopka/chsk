@@ -8,7 +8,7 @@ import { useTheme } from '../themes'
 export const Counter = ({
     variant = 'counter',
     position = [0, 0],
-    transform,
+    rotate,
     size = [20, 20],
     padding = [0, 0, 0, 0],
     align = [0.5, 0.5],
@@ -43,7 +43,7 @@ export const Counter = ({
         <Typography
             variant={variant}
             position={pos}
-            transform={transform}
+            rotate={rotate}
             style={style}
             className={className}
             setRole={setRole}

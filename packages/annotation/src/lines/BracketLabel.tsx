@@ -41,19 +41,15 @@ export const BracketLabel = ({
         end: lineEnd,
         size: tickSize,
     })
-
-    // settings for text label
-    const textPos = [
+    const textPos: [number, number] = [
         lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,
         lineStart[1] + translate[1] + (lineEnd[1] - lineStart[1]) * align,
     ]
-    const translation = 'translate(' + textPos[0] + ',' + textPos[1] + ')'
-    const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
 
     return (
-        <g style={style} className={className} role={setRole ? 'bracket-label' : undefined}>
+        <g style={style} className={className} role={setRole ? 'bracket' : undefined}>
             <Path
-                variant={'bracket-label'}
+                variant={'bracket'}
                 points={[tickStart, lineStart, lineEnd, tickEnd]}
                 className={className}
                 style={lineStyle}
@@ -61,7 +57,8 @@ export const BracketLabel = ({
             />
             <Typography
                 variant={'bracket-label'}
-                transform={translation + rotation}
+                position={textPos}
+                rotate={rotate}
                 className={className}
                 style={textStyle}
                 setRole={setRole}

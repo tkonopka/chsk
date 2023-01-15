@@ -12,8 +12,8 @@ export interface TypographyProps extends SvgElementVariantProps {
     position?: NumericPositionSpec
     /** variant */
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
-    /** transform */
-    transform?: string
+    /** rotation */
+    rotate?: number
     /** text content */
     children?: ReactNode
 }

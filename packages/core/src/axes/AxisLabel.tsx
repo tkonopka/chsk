@@ -34,14 +34,12 @@ const UnthemedAxisLabel = ({
     if (variant === 'bottom') y += offset
     if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * height
     if (variant === 'top' || variant === 'bottom') x += anchorFraction * width
-    const rotation =
-        rotate === 0 ? '' : 'rotate(' + String(Number(rotate)) + ',' + x + ',' + y + ')'
 
     return (
         <Typography
             variant={'axis-label'}
             position={[x, y]}
-            transform={rotation}
+            rotate={rotate}
             style={style}
             className={className ?? variant}
             setRole={setRole}

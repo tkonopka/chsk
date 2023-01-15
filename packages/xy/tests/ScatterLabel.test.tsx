@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { Scatter, ScatterLabel, ScatterPoints } from '../src/scatter'
+import { Scatter, ScatterLabel } from '../src/scatter'
 import { scatterProps } from './props'
 
 describe('ScatterLabel', () => {
@@ -29,8 +29,9 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
+        const text = result.querySelector('text')
         // x=1 in view-relative units means at x=400 in svg units
-        expect(result.querySelector('text')?.getAttribute('style')).toContain('translateX(400')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('translateX(400')
     })
 
     it('skips work for non-existent series', () => {
@@ -58,9 +59,10 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
-        expect(result.querySelector('text')?.textContent).toBe('Label')
+        const text = result.querySelector('text')
+        expect(text?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(-')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
     })
 
     it('uses auto-rotation (different x)', () => {
@@ -74,9 +76,10 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label')
-        expect(result.querySelector('text')?.textContent).toBe('Label')
+        const text = result.querySelector('text')
+        expect(text?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(result.querySelector('text')?.getAttribute('transform')).toContain('rotate(-')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -134,9 +137,10 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.queryByRole('scatter-label')
-        expect(result?.textContent).toBe('Label')
+        const text = result?.querySelector('text')
+        expect(text?.textContent).toBe('Label')
         // slope will be positive, so rotate -90
-        expect(result?.querySelector('text')?.getAttribute('transform')).toContain('rotate(-90')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-90')
     })
 
     it('handles data series with single point', () => {
@@ -156,7 +160,8 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.queryByRole('scatter-label')
-        expect(result?.textContent).toBe('Label')
-        expect(result?.querySelector('text')?.getAttribute('transform')).toBeNull()
+        const text = result?.querySelector('text')
+        expect(text?.textContent).toBe('Label')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(0')
     })
 })

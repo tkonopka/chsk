@@ -37,7 +37,8 @@
 
 ### Changed
 
--   [packages/annotation]: improved `cleanSvg` to simplify scaleX and scaleY transformations
+-   [packages/core]: changed implementation of `Typography` and `Label` to allow animations of rotated text
+-   [packages/annotation]: improved `cleanSvg` to simplify scaleX, scaleY, and rotate transformations
 -   [packages/annotation]: changed encoding of svg into text files to include newline characters
 -   [packages/annotation]: changed encoding of svg into text files to round values for attributes `cx`, `cy`, `r` to 3 decimal places
 -   [packages/core]: modified default styles for text with class name `counter`
