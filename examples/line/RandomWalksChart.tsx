@@ -2,7 +2,6 @@ import { Chart, Axis, GridLines, Surface, Typography } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve } from '@chsk/xy'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
-import { randomUniformValue } from '../utils'
 
 export const generateRandomWalksData = () => [
     {
@@ -17,14 +16,13 @@ export const generateRandomWalksData = () => [
 
 export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-    const x = randomUniformValue(0, 200)
     return (
         <Chart
             data={chartData}
             fref={fref}
             id="random-walks"
-            size={[400, 400]}
-            padding={[60, 60 + x, 60, 60 + (200 - x)]}
+            size={[600, 400]}
+            padding={[80, 40, 70, 75]}
         >
             <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />
             <Scatter
@@ -62,7 +60,7 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     style={{ stroke: '#ffffff', strokeWidth: 7 }}
                 />
                 <ScatterCurve ids={['beta']} curve={'Natural'} style={{ strokeWidth: 4 }} />
-                <Typography variant={'title'} position={[0, -30]}>
+                <Typography variant={'title'} position={[0, -40]}>
                     Two random walks
                 </Typography>
             </Scatter>
