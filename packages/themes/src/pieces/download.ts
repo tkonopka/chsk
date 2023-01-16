@@ -6,6 +6,12 @@ export const downloadThemePiece: ThemeSpec = {
             fontStyle: 'normal',
             alignmentBaseline: 'middle',
         },
+        footnote: {
+            fontFamily: 'sans-serif',
+            fontSize: '11px',
+            fill: '#444444',
+            fontStyle: 'italic',
+        },
     },
     rect: {
         download: {

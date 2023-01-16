@@ -36,7 +36,6 @@ export const defaultTheme: CompleteThemeSpec = {
         title: {
             fontWeight: 600,
             fontSize: '18px',
-            fill: '#222222',
         },
         subtitle: {
             fontSize: '14px',
@@ -44,43 +43,35 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         axisLabel: {
             fontSize: '14px',
-            fill: '#222222',
-            textAnchor: 'middle' as const,
-            dominantBaseline: 'middle' as const,
+            textAnchor: 'middle',
+            dominantBaseline: 'middle',
         },
         tickLabel: {
             fontSize: '12px',
-            fill: '#222222',
         },
         'tickLabel.left': {
-            textAnchor: 'end' as const,
-            dominantBaseline: 'middle' as const,
+            textAnchor: 'end',
+            dominantBaseline: 'middle',
         },
         'tickLabel.right': {
-            textAnchor: 'start' as const,
-            dominantBaseline: 'middle' as const,
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
         },
         'tickLabel.top': {
-            textAnchor: 'middle' as const,
-            dominantBaseline: 'auto' as const,
+            textAnchor: 'middle',
+            dominantBaseline: 'auto',
         },
         'tickLabel.bottom': {
-            textAnchor: 'middle' as const,
-            dominantBaseline: 'hanging' as const,
+            textAnchor: 'middle',
+            dominantBaseline: 'hanging',
         },
         legendTitle: {
-            textAnchor: 'start' as const,
-            dominantBaseline: 'middle' as const,
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
         },
         legendItem: {
-            textAnchor: 'start' as const,
-            dominantBaseline: 'middle' as const,
-        },
-        footnote: {
-            fontFamily: 'sans-serif',
-            fontSize: '11px',
-            fill: '#444444',
-            fontStyle: 'italic',
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
         },
     },
     g: {
@@ -98,8 +89,7 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 0.5,
         },
         axis: {
-            stroke: '#222222',
-            visibility: 'hidden' as const,
+            visibility: 'hidden',
             strokeLinecap: 'square',
         },
         tick: {
@@ -111,7 +101,7 @@ export const defaultTheme: CompleteThemeSpec = {
         default: {
             stroke: '#222222',
             strokeWidth: 2,
-            fill: 'transparent' as const,
+            fill: 'transparent',
         },
     },
     polygon: {
@@ -209,12 +199,12 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         sequential: {
             variant: 'sequential',
-            colors: 'YlOrBr' as const,
+            colors: 'YlOrBr',
             domain: 'auto',
         },
         diverging: {
             variant: 'diverging',
-            colors: 'BrBG' as const,
+            colors: 'BrBG',
             domain: 'auto',
         },
     },
