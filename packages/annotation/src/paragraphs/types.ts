@@ -1,6 +1,6 @@
 import { SizeSpec, TypographyProps } from '@chsk/core'
 
-export interface ParagraphProps extends Omit<TypographyProps, 'variant' | 'transform'> {
+export interface ParagraphProps extends Omit<TypographyProps, 'variant'> {
     /** size of individual lines (width, height) */
     size: SizeSpec
     /** vertical alignment */

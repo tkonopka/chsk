@@ -51,6 +51,24 @@ that aligns with `position`.
     </Story>
 </Canvas>
 
+To rotate the entire paragraph rotate around `position`, use prop `rotate`.
+
+<Canvas>
+    <Story
+        name="rotation"
+        args={{
+            position: [60, 80],
+            size: [100, 26],
+            rotate: -30,
+            children: 'Long text should wrap.',
+        }}
+        component={Paragraph}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Wrapping
 
 `Paragraph` wraps long segments of text into multiple lines.
@@ -74,7 +92,7 @@ Prop `size` determines the recommended width of each line, and also the spacing 
         name="wrapping, narrow"
         args={{
             position: [0, 0],
-            size: [80, 28],
+            size: [80, 32],
             align: 0,
             children: 'Long text should wrap into several lines.',
         }}

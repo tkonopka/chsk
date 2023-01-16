@@ -1,5 +1,6 @@
+import { domAnimation, m, LazyMotion } from 'framer-motion'
 import { ParagraphProps } from './types'
-import { composeClassName, Typography, X, Y } from '@chsk/core'
+import { composeClassName, X, Y } from '@chsk/core'
 import sans from './arial.json'
 import serif from './times-new-roman.json'
 import { getLetterProfile, getTextContent, splitText } from './utils'
@@ -8,6 +9,7 @@ export const Paragraph = ({
     position = [0, 0],
     size = [100, 22],
     align = 0.5,
+    rotate,
     separator,
     letterBaseWidths = 'sans',
     letterWidths,
@@ -24,22 +26,22 @@ export const Paragraph = ({
     const maxOffset = offsets[offsets.length - 1]
     const [x, y] = [position[X], position[Y] - align * maxOffset]
     const compositeClassName = composeClassName(['paragraph', className])
-
+    const config = { x, y, rotate, originX: '0px', originY: '0px' }
     const content = lines.map((line, index) => (
-        <Typography
+        <text
             key={'paragraph-' + index}
-            variant={'paragraph'}
-            position={[x, y + offsets[index]]}
-            className={className}
+            y={offsets[index]}
+            className={compositeClassName}
             style={style}
-            setRole={setRole}
         >
             {line}
-        </Typography>
+        </text>
     ))
     return (
-        <g className={compositeClassName} role={setRole ? 'paragraph' : undefined}>
-            {content}
-        </g>
+        <LazyMotion features={domAnimation}>
+            <m.g role={setRole ? 'paragraph' : undefined} initial={config} animate={config}>
+                {content}
+            </m.g>
+        </LazyMotion>
     )
 }
