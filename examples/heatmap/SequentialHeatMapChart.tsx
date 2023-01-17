@@ -64,7 +64,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Axis variant={'top'}>
                     <AxisTicks
                         variant={'top'}
-                        labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                     />
                     <AxisLabel variant={'top'}>Samples</AxisLabel>
                 </Axis>

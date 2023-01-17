@@ -91,7 +91,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                             variant={'left'}
                             ticks={alphabetGreek}
                             tickSize={0}
-                            labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                            labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                         />
                     </Axis>
                 </MilestoneMotion>
@@ -99,7 +99,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
-                            labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                            labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                             labelRotate={-60}
                             ticks={flags}
                         />

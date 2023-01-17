@@ -89,8 +89,8 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 0.5,
         },
         axis: {
-            visibility: 'hidden',
             strokeLinecap: 'square',
+            strokeWidth: 0,
         },
         tick: {
             stroke: '#555555',

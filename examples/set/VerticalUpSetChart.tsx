@@ -73,7 +73,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
                             labelRotate={-90}
                             labelStyle={{
                                 textAnchor: 'start',
-                                alignmentBaseline: 'middle',
+                                dominantBaseline: 'middle',
                                 fontSize: 14,
                             }}
                         />

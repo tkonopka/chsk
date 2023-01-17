@@ -109,7 +109,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Axis variant={'bottom'}>
                     <AxisTicks
                         variant={'bottom'}
-                        labelStyle={{ textAnchor: 'end', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                     <AxisLabel variant={'bottom'}>Replicate 2</AxisLabel>
                 </Axis>

@@ -55,7 +55,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
         },
         counter: {
             textAnchor: 'middle',
-            alignmentBaseline: 'middle',
+            dominantBaseline: 'middle',
         },
     },
     line: {

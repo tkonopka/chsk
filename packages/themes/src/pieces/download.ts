@@ -4,7 +4,7 @@ export const downloadThemePiece: ThemeSpec = {
     text: {
         download: {
             fontStyle: 'normal',
-            alignmentBaseline: 'middle',
+            dominantBaseline: 'middle',
         },
         footnote: {
             fontFamily: 'sans-serif',

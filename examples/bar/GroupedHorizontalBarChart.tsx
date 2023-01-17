@@ -18,7 +18,7 @@ export const customTheme: ThemeSpec = mergeTheme(groupedTheme, {
     text: {
         bracketLabel: {
             textAnchor: 'start',
-            alignmentBaseline: 'middle',
+            dominantBaseline: 'middle',
             fontSize: '14px',
             fontWeight: 600,
         },

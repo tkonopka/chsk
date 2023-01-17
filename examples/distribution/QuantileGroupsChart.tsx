@@ -53,7 +53,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             labelOffset: 10,
             labelStyle: {
                 textAnchor: 'end',
-                alignmentBaseline: 'middle',
+                dominantBaseline: 'middle',
             },
         },
     },

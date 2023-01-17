@@ -75,7 +75,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                         tickSize={5}
                         labelRotate={-90}
                         labelOffset={9}
-                        labelStyle={{ textAnchor: 'end', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                 </Axis>
                 <Axis variant={'left'}>

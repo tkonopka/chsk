@@ -55,7 +55,7 @@ const customTheme: ThemeSpec = {
     text: {
         bracketLabel: {
             textAnchor: 'end',
-            alignmentBaseline: 'middle',
+            dominantBaseline: 'middle',
         },
     },
     circle: {

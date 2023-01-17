@@ -98,7 +98,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 <Axis variant={'top'}>
                     <AxisTicks
                         variant={'top'}
-                        labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                     />
                     <AxisLabel variant={'top'}>Measurements</AxisLabel>
                 </Axis>

@@ -129,7 +129,7 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
                         tickSize={5}
                         labelRotate={-45}
                         labelOffset={9}
-                        labelStyle={{ textAnchor: 'end', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                     <AxisLabel variant={'bottom'} offset={55}>
                         Samples

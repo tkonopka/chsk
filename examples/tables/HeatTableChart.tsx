@@ -100,7 +100,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
         source: {
             fill: '#444444',
             fontSize: '11px',
-            alignmentBaseline: 'middle',
+            dominantBaseline: 'middle',
         },
     },
 })

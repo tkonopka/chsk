@@ -34,7 +34,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                         variant={'left'}
                         tickSize={0}
                         labelOffset={55}
-                        labelStyle={{ textAnchor: 'start', alignmentBaseline: 'middle' }}
+                        labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                     />
                 </Axis>
                 <Axis variant={'bottom'}>
@@ -42,7 +42,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                         variant={'bottom'}
                         tickSize={0}
                         labelRotate={-90}
-                        labelStyle={{ alignmentBaseline: 'middle', textAnchor: 'end' }}
+                        labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                 </Axis>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
