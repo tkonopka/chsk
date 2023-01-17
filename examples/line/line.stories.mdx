@@ -6,6 +6,7 @@ import { generateRandomWalkData, RandomWalkAreaChart } from './RandomWalkAreaCha
 import { generateOverlayData, LineOverlayChart } from './LineOverlayChart'
 import { generateSurvivalData, SurvivalChart } from './SurvivalChart'
 import { generateTimeSeriesData, TimeSeriesChart } from './TimeSeriesChart'
+import { generateInnerPanelLineData, InnerPanelLineChart } from './InnerPanelLineChart'
 import {
     generateTimeQuarterlySeriesData,
     TimeQuarterlySeriesChart,
@@ -47,6 +48,16 @@ import { generateForecastData, ForecastChart } from './ForecastChart'
 <Canvas>
     <Story name="custom tick marks">
         <Controller generator={generateTimeQuarterlySeriesData} chart={TimeQuarterlySeriesChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="inset">
+        <Controller
+            generator={generateInnerPanelLineData}
+            chart={InnerPanelLineChart}
+            steps={['axes', 'data', 'box', 'inner']}
+        />
     </Story>
 </Canvas>
 

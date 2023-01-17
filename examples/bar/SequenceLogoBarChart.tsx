@@ -15,11 +15,10 @@ import {
 } from '@chsk/core'
 import { Bar, BarInteractiveDataItem, Bars, useBarPreparedData } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
-import { randomUniformValue } from '../utils'
+import { randomUniformValue, round4dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
-const round4dp = (v: number) => Math.round(v * 1000) / 1000
 const threshold = (v: number, threshold: number) => (v > threshold ? v : 0)
 const acgt = ['A', 'C', 'G', 'T']
 

@@ -131,6 +131,12 @@ export const generateMixedPopulation = (n: number[], mean: number[], sd: number[
     return result.flat()
 }
 
+// generate an array of n values from a uniform
+export const generateUniformPopulation = (n: number, min: number, max: number): number[] =>
+    Array(n)
+        .fill(0)
+        .map(() => randomUniformValue(min, max))
+
 export const generateIdentifiers = (n: number, size: number, prefix = 'A'): string[] => {
     const ids = new Set<string>()
     while (ids.size < n) {
@@ -149,3 +155,6 @@ export const stepSequence = (interval: [number, number], step = 1) => {
     }
     return result
 }
+
+export const round3dp = (x: number) => Math.round(x * 1000) / 1000
+export const round4dp = (x: number) => Math.round(x * 10000) / 10000
