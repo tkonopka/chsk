@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chsk/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
+import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -87,6 +87,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <Axis variant={'left'} label={'y values (a.u.)'} />
                     </MilestoneMotion>
                     <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                        <ScatterCrosshair />
                         <ScatterPoints
                             symbolClassName={'custom'}
                             onMouseEnter={customOnMouseEnter}

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Legend, Circle } from '@chsk/core'
+import { Axis, Chart, Legend, Circle, SymbolProps, Square } from '@chsk/core'
 import { Scatter, ScatterCurve, ScatterPoints, ScatterInteractiveDataItem } from '../../src'
 import dataPolynomials from './dataPolynomials.json'
 import { generateScatterSeries } from './generators'
@@ -93,7 +93,12 @@ export const ChartForRegressionDecorator = (Story: () => ReactNode) => (
             <Axis variant={'bottom'} label={'x (a.u.)'} />
             <Axis variant={'left'} label={'y (a.u.)'} />
             <ScatterPoints />
-            <Legend position={[220, 160]} anchor={[0, 0.5]} units={'absolute'} symbol={Circle} />
+            <Legend
+                position={[220, 160]}
+                anchor={[0, 0.5]}
+                positionUnits={'absolute'}
+                symbol={Circle}
+            />
             {Story()}
         </Scatter>
     </Chart>
@@ -117,4 +122,13 @@ export const dataBubbles = [
 
 export const onScatterClick = (data: ScatterInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
+}
+
+export const DoubleSquare = (props: SymbolProps) => {
+    return (
+        <>
+            <Square {...props} r={(props.r ?? 1) * 4} />
+            <Square {...props} r={(props.r ?? 1) * 1.5} style={{ ...props.style, fill: '#fff' }} />
+        </>
+    )
 }

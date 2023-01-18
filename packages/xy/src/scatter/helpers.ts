@@ -9,14 +9,21 @@ import {
     getMax,
     getMinMax,
     isScaleWithDomain,
+    RecordWithId,
     SizeScaleProps,
     SizeScaleSpec,
     SizeSpec,
     X,
     Y,
 } from '@chsk/core'
-import { ScatterProcessedDataItem } from './types'
+import {
+    ScatterDataContextProps,
+    ScatterInteractiveDataItem,
+    ScatterProcessedDataItem,
+} from './types'
 import { cloneDeep } from 'lodash'
+import { useMemo } from 'react'
+import { isScatterProcessedData } from './predicates'
 
 export const getXYScaleProps = (
     data: Array<ScatterProcessedDataItem>,
@@ -69,4 +76,28 @@ export const getColorScaleProps = (
     }
     const minmax = getMinMax(data.map(seriesData => seriesData.color ?? []).flat())
     return createColorScaleProps(scaleSpec, minmax)
+}
+
+export const getSymbolData = (
+    processedData: Array<RecordWithId>,
+    preparedData: ScatterDataContextProps
+): Array<ScatterInteractiveDataItem[]> => {
+    if (!isScatterProcessedData(processedData)) return []
+    return useMemo(() => {
+        return preparedData.keys.map(id => {
+            const seriesIndex = preparedData.seriesIndexes[id]
+            const seriesProcessedData = processedData[seriesIndex]
+            const data = preparedData.data[seriesIndex]
+            return data.r.map((r: number, index: number) => ({
+                id,
+                index,
+                point: [seriesProcessedData.x[index], seriesProcessedData.y[index]] as [
+                    number,
+                    number
+                ],
+                size: seriesProcessedData.size[index],
+                color: seriesProcessedData.color?.[index],
+            }))
+        })
+    }, [processedData, preparedData])
 }

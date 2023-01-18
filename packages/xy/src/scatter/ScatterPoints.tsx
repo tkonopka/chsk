@@ -1,4 +1,4 @@
-import { createElement, useMemo } from 'react'
+import { createElement } from 'react'
 import {
     addColor,
     Circle,
@@ -11,6 +11,7 @@ import {
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterProcessedData } from './predicates'
+import { getSymbolData } from './helpers'
 
 export const ScatterPoints = ({
     ids,
@@ -26,26 +27,7 @@ export const ScatterPoints = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isScatterProcessedData(processedData)) return null
 
-    const symbolData = useMemo(
-        () =>
-            preparedData.keys.map(id => {
-                const seriesIndex = preparedData.seriesIndexes[id]
-                const seriesProcessedData = processedData[seriesIndex]
-                const data = preparedData.data[seriesIndex]
-                return data.r.map((r: number, index: number) => ({
-                    id,
-                    index,
-                    point: [seriesProcessedData.x[index], seriesProcessedData.y[index]] as [
-                        number,
-                        number
-                    ],
-                    size: seriesProcessedData.size[index],
-                    color: seriesProcessedData.color?.[index],
-                }))
-            }),
-        [processedData, preparedData]
-    )
-
+    const symbolData = getSymbolData(processedData, preparedData)
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]

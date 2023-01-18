@@ -1,0 +1,81 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Square } from '@chsk/core'
+import { Scatter, ScatterCrosshair } from '../../src'
+import { ChartForRegressionDecorator, DoubleSquare } from './decorators'
+import dataPolynomials from './dataPolynomials.json'
+
+# ScatterCrosshair
+
+<Meta title="Addons/XY/ScatterCrosshair" />
+export const Template = args => <ScatterCrosshair {...args} />
+
+`ScatterCrosshair` detects mouse motion and draws crosshair lines to highlight a nearby data point.
+
+<ArgsTable of={ScatterCrosshair} />
+
+## Variants
+
+By default, `ScatterCrosshair` draws horizontal and vertical lines that span across the entire chart view.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Minimum distance
+
+Prop `minDistance` sets a minimal distance between the mouse pointer and the nearest data point.
+
+<Canvas>
+    <Story
+        name="minimum distance"
+        args={{
+            minDistance: 20,
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Custom symbol
+
+Once `ScatterCrosshair` determines an active data point and draws crosshair lines, it also creates a new symbol.
+The default symbol is a circle, but it can be tuned with props `symbol`, `symbolStyle`, and `symbolClassName`.
+
+<Canvas>
+    <Story
+        name="custom symbol"
+        args={{
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+            symbol: Square,
+            symbolStyle: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="custom symbol 2"
+        args={{
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+            symbol: DoubleSquare,
+            symbolStyle: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

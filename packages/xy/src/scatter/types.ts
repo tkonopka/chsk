@@ -158,3 +158,13 @@ export interface RegressionProps
     /** ids to display (defaults to all ids) */
     ids?: string[]
 }
+
+export interface ScatterCrosshairProps
+    extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps>,
+        SvgElementVariantProps,
+        Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'> {
+    /** minimum distance to nearest point */
+    minDistance?: number
+    /** style for crosshair lines */
+    style?: CssProps
+}
