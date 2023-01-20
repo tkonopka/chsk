@@ -6,6 +6,7 @@ import {
     CssProps,
     CurveSpec,
     DataInteractivityProps,
+    FourSideSizeSpec,
     LineProps,
     NumericPositionSpec,
     PathProps,
@@ -159,10 +160,16 @@ export interface RegressionProps
     ids?: string[]
 }
 
+export type ScatterCrosshairVariant = 'default' | 'horizontal' | 'vertical' | 'none'
+
 export interface ScatterCrosshairProps
     extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps>,
         SvgElementVariantProps,
         Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'> {
+    /** crosshair variant */
+    variant?: ScatterCrosshairVariant
+    /** expansion of background surface */
+    expansion?: FourSideSizeSpec
     /** minimum distance to nearest point */
     minDistance?: number
     /** style for crosshair lines */

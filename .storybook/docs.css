@@ -151,8 +151,8 @@ div.controller-chart div.chart {
 }
 div.controller-chart div.comment {
     display: flex;
-    margin-left: 40px;
-    margin-right: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
     line-height: 1.5;
     font-size: 15px;
     font-family: sans-serif;

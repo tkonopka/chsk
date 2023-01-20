@@ -18,7 +18,7 @@ describe('DataComponent', () => {
         expect(result).toBeDefined()
     })
 
-    it('creates a component with a lick handler', () => {
+    it('creates a component with a click handler', () => {
         let value: string | undefined = ''
         const customHandler = (data: string | undefined, event: MouseEvent) => {
             value = data

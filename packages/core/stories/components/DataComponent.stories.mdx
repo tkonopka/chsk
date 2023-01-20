@@ -10,11 +10,8 @@ export const Template = args => <DataComponent {...args} />
 
 `DataComponent` is a wrapper function that associates event handlers with other components.
 
-`DataComponent` is used to bind event handlers to chart components so that the
-actions triggered by those events depend on some data. The main use case is to use a single
-function to handle events on multiple components.
-
-`DataComponent` is used extensively by the add-on packages.
+`DataComponent` binds event handlers to chart components so that the actions triggered by those events depend on object-specific data.
+It is used extensively by add-on packages to provide interactivity for chart components.
 
 <ArgsTable of={DataComponent} />
 

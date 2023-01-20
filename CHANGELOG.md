@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: component `SimpleDataComponent`
 -   [packages/xy]: component `ScatterCrosshair`
 -   [examples]: bar chart with ACGT sequence logo
 -   [packages/core]: support for prop `interactive` in `Legend`

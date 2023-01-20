@@ -16,6 +16,7 @@ export const Template = args => <ScatterCrosshair {...args} />
 ## Variants
 
 By default, `ScatterCrosshair` draws horizontal and vertical lines that span across the entire chart view.
+Prop `variant` toggles the format of those lines.
 
 <Canvas>
     <Story
@@ -28,7 +29,32 @@ By default, `ScatterCrosshair` draws horizontal and vertical lines that span acr
     >
         {Template.bind({})}
     </Story>
+    <Story
+        name="horizontal"
+        args={{
+            variant: 'horizontal',
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="vertical"
+        args={{
+            variant: 'vertical',
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
 </Canvas>
+
+Note that even when the crosshair lines appear only along one axis, the calculations that determine
+what point is nearest the mouse position are always performed in two dimensions.
 
 ## Minimum distance
 
@@ -48,9 +74,32 @@ Prop `minDistance` sets a minimal distance between the mouse pointer and the nea
     </Story>
 </Canvas>
 
+## Detector area
+
+By default, `ScatterCrosshair` detects mouse event at positions within the chart view, but the detector region
+can be tuned using prop `expansion`.
+A nontrivial expansion triggers the crosshair lines even when the mouse pointer is outside of the chart view,
+i.e. beyond the extent of the axes.
+
+<Canvas>
+    <Story
+        name="expansion"
+        args={{
+            expansion: [40, 40, 40, 40],
+            style: { stroke: '#444', strokeWidth: 1, strokeDasharray: 6 },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Custom symbol
 
-Once `ScatterCrosshair` determines an active data point and draws crosshair lines, it also creates a new symbol.
+Once `ScatterCrosshair` determines an active data point and draws crosshair lines, it also creates a new symbol
+on top of the existing chart.
+(This ensures that the data symbol is not covered by the crosshair lines.)
 The default symbol is a circle, but it can be tuned with props `symbol`, `symbolStyle`, and `symbolClassName`.
 
 <Canvas>

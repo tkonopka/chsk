@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chsk/core'
-import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
+import { Scatter, ScatterPoints, isScatterData, ScatterInteractiveDataItem } from '@chsk/xy'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue } from '../utils'
 import { MilestoneStory } from '../types'
+import { PointSummaryDiv } from './PointSummaryDiv'
 
 export const generateClusterScatterData = () => [
     {
@@ -59,9 +60,9 @@ const scatterProps = {
 export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
-    type ScatterItem = { id: string; index?: number }
-    const [active, setActive] = useState<ScatterItem | null>(null)
-    const customOnMouseEnter = (data: ScatterItem | undefined) => {
+    //type ScatterItem = { id: string; index?: number }
+    const [active, setActive] = useState<ScatterInteractiveDataItem | null>(null)
+    const customOnMouseEnter = (data: ScatterInteractiveDataItem | undefined) => {
         setActive(data ?? null)
     }
     const customOnMouseLeave = () => {
@@ -87,7 +88,6 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <Axis variant={'left'} label={'y values (a.u.)'} />
                     </MilestoneMotion>
                     <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                        <ScatterCrosshair />
                         <ScatterPoints
                             symbolClassName={'custom'}
                             onMouseEnter={customOnMouseEnter}
@@ -109,28 +109,11 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         />
                     </MilestoneMotion>
                     <Typography position={[0, -20]} variant={'title'}>
-                        Embedding
+                        Scatter plot with mouse events
                     </Typography>
                 </Scatter>
             </Chart>
-            <div
-                style={{
-                    margin: '1em',
-                    padding: '1em',
-                    border: 'solid 1px #bbbbbb',
-                    background: '#f8f8f8',
-                    minHeight: '3rem',
-                }}
-            >
-                <div style={{ fontWeight: 600, color: '#444444', marginBottom: '0.75rem' }}>
-                    This is an html div element. It responds to mouse-enter and mouse-leave events.
-                </div>
-                {active ? (
-                    <span>
-                        Point: [series: {active.id}, index: {active.index}]
-                    </span>
-                ) : null}
-            </div>
+            <PointSummaryDiv data={active} />
         </div>
     )
 }

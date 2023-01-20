@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Chart,
     Axis,
@@ -9,12 +10,20 @@ import {
     ThemeSpec,
     mergeTheme,
     SymbolProps,
+    SimpleDataComponent,
 } from '@chsk/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
+import {
+    Scatter,
+    ScatterPoints,
+    ScatterCrosshair,
+    isScatterData,
+    ScatterInteractiveDataItem,
+} from '@chsk/xy'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { downloadThemePiece } from '@chsk/themes'
+import { PointSummaryDiv } from './PointSummaryDiv'
 
 const round3 = (x: number): number => Math.round(x * 1000) / 1000
 
@@ -85,6 +94,10 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             stroke: '#dddddd',
             strokeWidth: 1,
         },
+        crosshair: {
+            stroke: '#444444',
+            strokeDasharray: 6,
+        },
     },
 })
 
@@ -96,6 +109,14 @@ const SimpleCircle = ({ cx, cy, r, className, style }: SymbolProps) => {
 
 export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
+
+    const [active, setActive] = useState<ScatterInteractiveDataItem | null>(null)
+    const customOnMouseEnter = (data: ScatterInteractiveDataItem | undefined) => {
+        setActive(data ?? null)
+    }
+    const customOnMouseLeave = () => {
+        setActive(null)
+    }
 
     const chromBoundaries = [0]
     rawData.forEach((series, index) => {
@@ -121,53 +142,61 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     })
 
     return (
-        <Chart
-            data={chartData}
-            fref={fref}
-            id="manhattan-scatter"
-            size={[800, 400]}
-            padding={[60, 40, 80, 60]}
-            theme={customTheme}
-        >
-            <Scatter
-                data={rawData}
-                x={'absPos'}
-                y={'value'}
-                scaleX={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-                scaleY={{
-                    variant: 'linear',
-                    domain: [0, 'auto'],
-                }}
-                valueSize={3}
+        <div>
+            <Chart
+                data={chartData}
+                fref={fref}
+                id="manhattan-scatter"
+                size={[800, 400]}
+                padding={[60, 40, 80, 60]}
+                theme={customTheme}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
-                    <GridLines variant={'y'} />
-                    <GridLines variant={'x'} values={chromBoundaries} />
-                    <Axis variant={'bottom'}>
-                        <AxisTicks
-                            variant={'bottom'}
-                            ticks={chromMids}
-                            tickSize={0}
-                            labelFormat={chromLabel}
+                <Scatter
+                    data={rawData}
+                    x={'absPos'}
+                    y={'value'}
+                    scaleX={{
+                        variant: 'linear',
+                        domain: [0, 'auto'],
+                    }}
+                    scaleY={{
+                        variant: 'linear',
+                        domain: [0, 'auto'],
+                    }}
+                    valueSize={3}
+                >
+                    <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                        <GridLines variant={'y'} />
+                        <GridLines variant={'x'} values={chromBoundaries} />
+                        <Axis variant={'bottom'}>
+                            <AxisTicks
+                                variant={'bottom'}
+                                ticks={chromMids}
+                                tickSize={0}
+                                labelFormat={chromLabel}
+                            />
+                            <AxisLabel variant={'bottom'}>Genome position</AxisLabel>
+                        </Axis>
+                        <Axis variant={'left'} label={'- log10 (p-value)'} />
+                    </MilestoneMotion>
+                    <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                        <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
+                        <ScatterCrosshair
+                            minDistance={30}
+                            onMouseEnter={customOnMouseEnter}
+                            onMouseLeave={customOnMouseLeave}
                         />
-                        <AxisLabel variant={'bottom'}>Genome position</AxisLabel>
-                    </Axis>
-                    <Axis variant={'left'} label={'- log10 (p-value)'} />
-                </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <ScatterPoints symbol={SimpleCircle} />
-                </MilestoneMotion>
-                <Typography position={[-45, -40]} variant={'title'}>
-                    Manhattan plot
-                </Typography>
-                <Typography position={[-45, -20]} variant={'subtitle'}>
-                    This chart has {nPoints} data points
-                </Typography>
-                <DownloadButtons position={[610, -30]} data image />
-            </Scatter>
-        </Chart>
+                    </MilestoneMotion>
+                    <Typography position={[-45, -40]} variant={'title'}>
+                        Manhattan plot
+                    </Typography>
+                    <Typography position={[-45, -20]} variant={'subtitle'}>
+                        This chart has {nPoints} data points
+                    </Typography>
+                    <DownloadButtons position={[610, -30]} data image />
+                </Scatter>
+            </Chart>
+            <PointSummaryDiv data={active} />
+        </div>
     )
 }

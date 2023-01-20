@@ -30,14 +30,22 @@ export interface DataInteractivityProps<
     dataComponent?: FC<DataComponentProps<DataSpec, ComponentProps>>
 }
 
-export interface DataComponentProps<
-    DataSpec,
+// this interface is named Simple-*Data*-Component but it does not actually use a data type
+// the name is meant to evoke that it is a simpler interface compared to DataComponentProps
+export interface SimpleDataComponentProps<
     ComponentProps extends SvgElementVariantProps & InteractivityProps
-> extends Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
-    /** data carried within the component */
-    data?: DataSpec
+> {
     /** function to create a chart component */
     component: FC<ComponentProps>
     /** props passed to the component */
     props: ComponentProps
+}
+
+export interface DataComponentProps<
+    DataSpec,
+    ComponentProps extends SvgElementVariantProps & InteractivityProps
+> extends SimpleDataComponentProps<ComponentProps>,
+        Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
+    /** data object */
+    data?: DataSpec
 }

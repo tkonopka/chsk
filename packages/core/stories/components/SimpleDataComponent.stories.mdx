@@ -1,0 +1,19 @@
+import { ArgsTable, Canvas, Meta, Story, Source } from '@storybook/addon-docs'
+import { Chart, SimpleDataComponent, Surface, Circle } from '../../src'
+import { ChartDecorator } from './decorators'
+import { CustomDataComponent } from './CustomDataComponent'
+
+# SimpleDataComponent
+
+<Meta title="Core/Components/SimpleDataComponent" />
+export const Template = args => <SimpleDataComponent {...args} />
+
+`SimpleDataComponent` creates a new object / component.
+
+`SimpleDataComponent` is a trivial wrapper for `createReactElement`.
+Its main use-case is to serve as a drop-in replacement for `DataComponent`.
+Whereas `DataComponent` binds handlers to take actions in response to mouse events, `SimpleDataComponent` omits those book-keeping steps.
+
+The simpler implementation of `SimpleDataComponent` can offer a small performance boost in situations where event handling is not necessary.
+
+<ArgsTable of={SimpleDataComponent} />

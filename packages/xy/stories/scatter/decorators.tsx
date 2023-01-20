@@ -93,13 +93,13 @@ export const ChartForRegressionDecorator = (Story: () => ReactNode) => (
             <Axis variant={'bottom'} label={'x (a.u.)'} />
             <Axis variant={'left'} label={'y (a.u.)'} />
             <ScatterPoints />
+            {Story()}
             <Legend
                 position={[220, 160]}
                 anchor={[0, 0.5]}
                 positionUnits={'absolute'}
                 symbol={Circle}
             />
-            {Story()}
         </Scatter>
     </Chart>
 )
