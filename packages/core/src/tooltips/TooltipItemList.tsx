@@ -1,30 +1,29 @@
 import { NumericPositionSpec } from '../general'
-import { LegendItem } from './LegendItem'
-import { defaultLegendProps } from './defaults'
-import { getItemPositions } from './positions'
-import { LegendItemListProps } from './types'
+import { TooltipItem } from './TooltipItem'
+import { defaultTooltipProps } from './defaults'
+import { TooltipItemListProps } from './types'
 import { useThemedProps } from '../themes'
+import { getItemPositions } from '../legends/positions'
 
-const UnthemedLegendItemList = ({
+const UnthemedTooltipItemList = ({
     variant,
     position,
     items,
     labels,
     // organization of items within the container
-    itemSize = defaultLegendProps.itemSize,
-    itemPadding = defaultLegendProps.itemPadding,
-    horizontal = defaultLegendProps.horizontal,
+    itemSize = defaultTooltipProps.itemSize,
+    itemPadding = defaultTooltipProps.itemPadding,
+    horizontal = defaultTooltipProps.horizontal,
     r,
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultLegendProps.labelOffset,
+    labelOffset = defaultTooltipProps.labelOffset,
     //
-    interactive = defaultLegendProps.interactive,
     className,
     style,
     setRole = true,
-}: LegendItemListProps) => {
+}: TooltipItemListProps) => {
     const { itemPosition, itemS, symbolPosition, labelPosition } = getItemPositions(
         variant,
         position,
@@ -37,9 +36,9 @@ const UnthemedLegendItemList = ({
 
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
-            <LegendItem
+            <TooltipItem
                 variant={variant}
-                key={'legend-item-' + i}
+                key={'tooltip-item-' + i}
                 position={pos}
                 size={itemS[i]}
                 padding={itemPadding}
@@ -52,7 +51,6 @@ const UnthemedLegendItemList = ({
                 labelPosition={labelPosition[i]}
                 labelStyle={labelStyle}
                 labelOffset={labelOffset}
-                interactive={interactive}
                 className={className}
                 style={style}
                 setRole={setRole}
@@ -63,6 +61,6 @@ const UnthemedLegendItemList = ({
     return <>{content}</>
 }
 
-export const LegendItemList = (props: LegendItemListProps) => (
-    <UnthemedLegendItemList {...useThemedProps(props, 'LegendItemList')} />
+export const TooltipItemList = (props: TooltipItemListProps) => (
+    <UnthemedTooltipItemList {...useThemedProps(props, 'TooltipItemList')} />
 )

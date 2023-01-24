@@ -4,6 +4,9 @@
 
 ### Added
 
+-   [packages/core]: hook `useTooltip` and context provider `TooltipProvider`
+-   [packages/core]: components `Tooltip`, `TooltipTitle`, `TooltipItemList`,
+    `TooltipItem`
 -   [packages/core]: component `SimpleDataComponent`
 -   [packages/xy]: component `ScatterCrosshair`
 -   [examples]: bar chart with ACGT sequence logo
@@ -39,6 +42,8 @@
 
 ### Changed
 
+-   [packages/core]: modified default styles for some components appearing
+    in legends
 -   [packages/themes]: changes styles in some theme pieces to be more compatible with inkscape svg
 -   [packages/core]: changed implementation of `Typography` and `Label` to allow animations of rotated text
 -   [packages/annotation]: improved `cleanSvg` to simplify scaleX, scaleY, and rotate transformations

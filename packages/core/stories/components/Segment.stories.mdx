@@ -7,7 +7,7 @@ import { ChartDecorator, viewSeriesIndexesKeys } from './decorators'
 <Meta title="Core/Components/Segment" />
 export const Template = args => <Segment {...args} />
 
-`Segment` displays a short, horizontal, line segment, intended as a symbol for legends.
+`Segment` displays a short horizontal line segment. It is intended as a symbol for legends.
 
 <ArgsTable of={Segment} />
 
@@ -24,7 +24,12 @@ export const Template = args => <Segment {...args} />
         >
             <Surface variant={'inner'} />
             <View data={viewSeriesIndexesKeys}>
-                <Legend position={[10, 10]} units={'absolute'} symbol={Segment} />
+                <Legend
+                    position={[10, 10]}
+                    positionUnits={'absolute'}
+                    itemSize={[90, 20]}
+                    symbol={Segment}
+                />
             </View>
         </Chart>
     </Story>
@@ -38,7 +43,8 @@ export const Template = args => <Segment {...args} />
             <View data={viewSeriesIndexesKeys}>
                 <Legend
                     position={[10, 10]}
-                    units={'absolute'}
+                    positionUnits={'absolute'}
+                    itemSize={[90, 20]}
                     symbol={Segment}
                     symbolStyle={{ strokeWidth: 4, strokeDasharray: '5 5' }}
                 />

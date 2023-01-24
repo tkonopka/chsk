@@ -5,6 +5,11 @@ import {
     defaultLegendProps,
     defaultLegendSizeScaleProps,
 } from '../legends/defaults'
+import {
+    defaultTooltipItemListProps,
+    defaultTooltipItemProps,
+    defaultTooltipProps,
+} from '../tooltips/defaults'
 import { defaultSurfaceProps, defaultViewProps } from '../views/defaults'
 import {
     defaultAxisLabelLeftProps,
@@ -73,10 +78,21 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'start',
             dominantBaseline: 'middle',
         },
+        tooltipTitle: {
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
+        },
+        tooltipItem: {
+            textAnchor: 'start',
+            dominantBaseline: 'middle',
+        },
     },
     g: {
         'legendItem:hover': {
             cursor: 'pointer',
+        },
+        tooltip: {
+            pointerEvents: 'none',
         },
     },
     line: {
@@ -124,6 +140,15 @@ export const defaultTheme: CompleteThemeSpec = {
             fillOpacity: 1,
         },
         legendItem: {
+            fill: '#ffffff',
+        },
+        legendTitle: {
+            fill: '#ffffff',
+        },
+        tooltipItem: {
+            fill: '#ffffff',
+        },
+        tooltipTitle: {
             fill: '#ffffff',
         },
     },
@@ -187,6 +212,18 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     Surface: {
         default: cloneDeep(defaultSurfaceProps),
+    },
+    Tooltip: {
+        default: cloneDeep(defaultTooltipProps),
+    },
+    TooltipItemList: {
+        default: cloneDeep(defaultTooltipItemListProps),
+    },
+    TooltipItem: {
+        default: cloneDeep(defaultTooltipItemProps),
+    },
+    TooltipTitle: {
+        default: cloneDeep(defaultTooltipItemProps),
     },
     View: {
         default: cloneDeep(defaultViewProps),

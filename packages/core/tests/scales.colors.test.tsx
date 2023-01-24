@@ -11,8 +11,8 @@ import {
     DivergingScaleProps,
     SequentialScaleProps,
     getTickCoordinates,
+    ThresholdScaleProps,
 } from '../src/scales/'
-import { ThresholdScaleProps } from '../dist/types'
 
 describe('createCategoricalScale', () => {
     it('with custom colors', () => {

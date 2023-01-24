@@ -47,7 +47,8 @@ export const useView = ({
         const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
         return { dimsProps, origin }
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
-    const translate =
-        'translate(' + (origin[X] + padding[LEFT]) + ',' + (origin[Y] + padding[TOP]) + ')'
-    return { dimensions, dimsProps, origin, translate }
+    const x = origin[X] + padding[LEFT]
+    const y = origin[Y] + padding[TOP]
+    const translate = 'translate(' + x + ',' + y + ')'
+    return { dimensions, dimsProps, origin, translate, x, y }
 }

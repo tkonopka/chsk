@@ -1,21 +1,21 @@
 import { Typography } from '../typography'
 import { LEFT, RIGHT, TOP } from '../general'
 import { useThemedProps } from '../themes'
-import { LegendTitleProps } from './types'
-import { defaultLegendItemProps } from './defaults'
+import { TooltipTitleProps } from './types'
+import { defaultTooltipItemProps } from './defaults'
 import { Rectangle } from '../shapes'
 
-const UnthemedLegendTitle = ({
+const UnthemedTooltipTitle = ({
     variant = 'right',
     position,
-    size = defaultLegendItemProps.size,
-    padding = defaultLegendItemProps.padding,
-    translate = defaultLegendItemProps.translate,
+    size = defaultTooltipItemProps.size,
+    padding = defaultTooltipItemProps.padding,
+    translate = defaultTooltipItemProps.translate,
     className,
     style,
     setRole = true,
     children,
-}: LegendTitleProps) => {
+}: TooltipTitleProps) => {
     let x = position[0] + translate[0]
     const y = position[1] + translate[1] + padding[TOP]
     if (variant === 'right') {
@@ -27,15 +27,14 @@ const UnthemedLegendTitle = ({
     }
 
     return (
-        <g role={setRole ? 'legend-title' : undefined} className={'legendTitle'}>
+        <g role={setRole ? 'tooltip-title' : undefined} style={style} className={'tooltipTitle'}>
             <Rectangle
                 variant={'legend-title'}
                 x={0}
                 y={0}
                 width={size[0]}
                 height={size[1]}
-                className={className}
-                setRole={setRole}
+                setRole={false}
             />
             <Typography
                 position={[x, y]}
@@ -50,6 +49,6 @@ const UnthemedLegendTitle = ({
     )
 }
 
-export const LegendTitle = (props: LegendTitleProps) => (
-    <UnthemedLegendTitle {...useThemedProps(props, 'LegendTitle')} />
+export const TooltipTitle = (props: TooltipTitleProps) => (
+    <UnthemedTooltipTitle {...useThemedProps(props, 'TooltipTitle')} />
 )

@@ -1,20 +1,20 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart, Legend, LegendItem, Square, Circle } from '../../src'
-import { ChartWithRightLegendDecorator } from './decorators'
+import { Chart, Tooltip, TooltipItem, Square, Circle } from '../../src'
+import { ChartWithDetectorWithTooltipDecorator } from './decorators'
 
-# LegendItem
+# TooltipItem
 
-<Meta title="Core/Components/LegendItem" />
-export const Template = args => <LegendItem {...args} />
+<Meta title="Core/Components/TooltipItem" />
+export const Template = args => <TooltipItem {...args} />
 
-`LegendItem` draws one entry in a legend.
+`TooltipItem` draws one entry in a tooltip.
 
-<ArgsTable of={LegendItem} />
+<ArgsTable of={TooltipItem} />
 
 ## Variants
 
-`LegendItem` draws a symbol and a corresponding text label.
-Prop `variant` determines how the legend symbol and label are arranged.
+`TooltipItem` draws a symbol and a corresponding text label.
+Prop `variant` determines how the symbol and label are arranged.
 The terminology matches that of axis and tick labels.
 For example, variant 'right' makes the text label appear to the right of the symbol
 (analogously to how labels appear to the right of tick marks on an axis placed on the right edge of a chart).
@@ -25,15 +25,16 @@ For example, variant 'right' makes the text label appear to the right of the sym
         args={{
             variant: 'right',
             position: [0, 16],
-            size: [80, 28],
+            size: [100, 28],
+            padding: [6, 6, 6, 6],
             r: 10,
             symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
             label: 'right',
             labelOffset: 14,
             labelStyle: { textAnchor: 'start' },
         }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendDecorator]}
+        component={TooltipItem}
+        decorators={[ChartWithDetectorWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -42,15 +43,16 @@ For example, variant 'right' makes the text label appear to the right of the sym
         args={{
             variant: 'left',
             position: [0, 16],
-            size: [80, 42],
+            size: [100, 28],
+            padding: [6, 6, 6, 6],
             r: 9,
             symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
             label: 'left',
             labelOffset: 14,
             labelStyle: { textAnchor: 'end' },
         }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendDecorator]}
+        component={TooltipItem}
+        decorators={[ChartWithDetectorWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -59,15 +61,16 @@ For example, variant 'right' makes the text label appear to the right of the sym
         args={{
             variant: 'bottom',
             position: [0, 16],
-            size: [80, 42],
+            size: [100, 42],
+            padding: [6, 6, 6, 6],
             r: 9,
             symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
             label: 'bottom',
             labelOffset: 18,
             labelStyle: { textAnchor: 'middle' },
         }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendDecorator]}
+        component={TooltipItem}
+        decorators={[ChartWithDetectorWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -76,15 +79,17 @@ For example, variant 'right' makes the text label appear to the right of the sym
         args={{
             variant: 'top',
             position: [0, 16],
-            size: [80, 42],
+            size: [100, 42],
+            padding: [6, 6, 6, 6],
             r: 9,
+            translate: [0, 16],
             symbolStyle: { fill: '#f0f0f0', stroke: '#222222', strokeWidth: 1 },
             label: 'top',
             labelOffset: 18,
             labelStyle: { textAnchor: 'middle' },
         }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendDecorator]}
+        component={TooltipItem}
+        decorators={[ChartWithDetectorWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -102,15 +107,16 @@ Use prop `symbol` to change the symbol.
         args={{
             variant: 'right',
             position: [0, 16],
-            size: [80, 28],
+            size: [100, 28],
+            padding: [6, 6, 6, 6],
             r: 9,
             symbol: Circle,
             symbolStyle: { fill: '#dd3333', strokeWidth: 0 },
             label: 'label',
             labelOffset: 16,
         }}
-        component={LegendItem}
-        decorators={[ChartWithRightLegendDecorator]}
+        component={TooltipItem}
+        decorators={[ChartWithDetectorWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>

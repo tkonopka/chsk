@@ -6,6 +6,7 @@ import {
     SequentialScaleSpec,
 } from '../scales'
 import { AxisLabelThemedProps, AxisThemedProps, AxisTicksThemedProps } from '../axes'
+import { GridLinesProps } from '../lines'
 import {
     LegendColorScaleThemedProps,
     LegendItemListThemedProps,
@@ -13,8 +14,8 @@ import {
     LegendSizeScaleThemedProps,
     LegendThemedProps,
 } from '../legends'
+import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
 import { SurfaceProps, ViewThemedProps } from '../views'
-import { GridLinesProps } from '../lines'
 
 export type WithVariant = {
     variant?: 'default' | string
@@ -60,6 +61,10 @@ export interface ThemeSpec {
     LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     Surface?: Record<string, Partial<SurfaceProps> | undefined>
+    Tooltip?: Record<string, Partial<TooltipThemedProps> | undefined>
+    TooltipItemList?: Record<string, TooltipItemListThemedProps | undefined>
+    TooltipItem?: Record<string, TooltipItemThemedProps | undefined>
+    TooltipTitle?: Record<string, TooltipItemThemedProps | undefined>
     View?: Record<string, Partial<ViewThemedProps> | undefined>
     Colors?: Record<string, ColorScaleSpec | undefined>
     Motion?: MotionProps
@@ -84,6 +89,10 @@ export interface CompleteThemeSpec {
     LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
     Surface: Record<string, Partial<SurfaceProps> | undefined>
+    Tooltip: Record<string, Partial<TooltipThemedProps> | undefined>
+    TooltipItemList: Record<string, TooltipItemListThemedProps | undefined>
+    TooltipItem: Record<string, TooltipItemThemedProps | undefined>
+    TooltipTitle: Record<string, TooltipItemThemedProps | undefined>
     View: Record<string, ViewThemedProps | undefined>
     Colors: ColorsRecords
     Motion: MotionProps
@@ -104,4 +113,8 @@ export type ThemedComponent =
     | 'LegendColorScale'
     | 'LegendSizeScale'
     | 'Surface'
+    | 'Tooltip'
+    | 'TooltipTitle'
+    | 'TooltipItem'
+    | 'TooltipItemList'
     | 'View'

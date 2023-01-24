@@ -1,4 +1,4 @@
-import { Chart, ColorScaleProps, Legend, LegendItemProps, LegendTitle, View } from '../src'
+import { Chart, Legend, LegendItemProps, LegendTitle, View } from '../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from './props'
 import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
@@ -22,7 +22,7 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const legendTitle = screen.getByRole('legend-title')
+        const legendTitle = screen.getAllByRole('legend-title')
         expect(legendTitle).toBeDefined()
         const title = screen.getByRole('legend').querySelector('text')?.closest('g')
         expect(title?.getAttribute('style')).toContain('4px')

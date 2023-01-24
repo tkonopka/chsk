@@ -26,9 +26,7 @@ export interface LegendTitleProps extends SvgElementProps {
     children?: ReactNode
 }
 
-export interface LegendItemProps extends Omit<LegendTitleProps, 'variant'> {
-    /** variant */
-    variant?: SideType
+export interface LegendItemProps extends LegendTitleProps {
     /** key */
     item: string
     /** size of symbol */
