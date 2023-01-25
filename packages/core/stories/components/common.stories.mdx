@@ -14,6 +14,7 @@ The prop `className` accepts a string. Its value is passed to an svg component a
     language="javascript"
     code={`
 // source JS code
+
 <Circle r={2} class={'special'}} />
 
 // resulting SVG code
@@ -31,6 +32,7 @@ The prop `setRole` toggles the `role` attribute in the svg graphic. By default, 
     language="javascript"
     code={`
 // source JS code
+
 <Circle r={2} setRole={false} />
 
 // resulting SVG code
@@ -48,6 +50,7 @@ As an example, the pseudo-code below shows the definition of `Circle` component 
     language="javascript"
     code={`
 // source JS code
+
 <Circle r={2} style={{ stroke: 'red', strokeWidth: '2px' }} />
 
 // resulting SVG code
@@ -63,12 +66,15 @@ The prop `variant` is used to assign a semantic role and a visual style to a com
     language="javascript"
     code={`
 // source JS code
+
 <Typography variant={'title'}>Title</Typography>
 
 // resulting SVG code
 
-<text role="title" class="title">Title</circle>
+<text role="title" class="title">
+    Title
+</text>
 `} />
 
 In some components - in particular components related to `Axis` and `Legend`, the variant prop
-is also used to extract default prop values from the chart theme.
+is also used to extract prop values from the chart theme.
