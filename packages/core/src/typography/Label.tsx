@@ -19,13 +19,7 @@ export const Label = ({
     const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
     const pos = getAlignPosition(corner, size, padding, align)
     const compositeClassName = composeClassName([variant, className])
-    const config = {
-        translateX: pos[X],
-        translateY: pos[Y],
-        rotate,
-        originX: '0px',
-        originY: '0px',
-    }
+    const config = { x: pos[X], y: pos[Y], rotate, originX: '0px', originY: '0px' }
     return (
         <m.g role={setRole ? variant : undefined} initial={config} animate={config}>
             <text style={style} className={compositeClassName}>

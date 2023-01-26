@@ -1,0 +1,54 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, View, Legend, Segment } from '../../../src'
+import { ChartDecorator, viewSeriesIndexesKeys } from '../decorators'
+
+# Segment
+
+<Meta title="Core/Components/Shapes/Segment" />
+export const Template = args => <Segment {...args} />
+
+`Segment` displays a short horizontal line segment. It is intended as a symbol for legends.
+
+<ArgsTable of={Segment} />
+
+## Legends
+
+`Segment` accepts the same props as symbols like `Circle`, `Square`, and others. The component can thus be used as a symbol in a legend. It can also be styled using css.
+
+<Canvas>
+    <Story name="legend">
+        <Chart
+            size={[400, 300]}
+            padding={[40, 40, 40, 40]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Surface variant={'inner'} />
+            <View data={viewSeriesIndexesKeys}>
+                <Legend
+                    position={[10, 10]}
+                    positionUnits={'absolute'}
+                    itemSize={[90, 20]}
+                    symbol={Segment}
+                />
+            </View>
+        </Chart>
+    </Story>
+    <Story name="styled">
+        <Chart
+            size={[400, 300]}
+            padding={[40, 40, 40, 40]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Surface variant={'inner'} />
+            <View data={viewSeriesIndexesKeys}>
+                <Legend
+                    position={[10, 10]}
+                    positionUnits={'absolute'}
+                    itemSize={[90, 20]}
+                    symbol={Segment}
+                    symbolStyle={{ strokeWidth: 4, strokeDasharray: '5 5' }}
+                />
+            </View>
+        </Chart>
+    </Story>
+</Canvas>

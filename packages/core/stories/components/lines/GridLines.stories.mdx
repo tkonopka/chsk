@@ -1,0 +1,141 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Axis, GridLines } from '../../../src'
+import { ChartViewDecorator, ChartBandViewDecorator } from '../decorators'
+
+# GridLines
+
+<Meta title="Core/Components/Lines/GridLines" />
+export const Template = args => <GridLines {...args} />
+
+`GridLines` draws a set of grid lines on a chart.
+
+<ArgsTable of={GridLines} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`. Below, the grid lines are displayed on a gray background surface.
+
+<Canvas>
+    <Story
+        name="grid x"
+        args={{
+            variant: 'x',
+        }}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="grid y"
+        args={{
+            variant: 'y',
+        }}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Grid lines can be styled using css. Below are examples with both horizontal and vertical gridlines.
+
+<Canvas>
+    <Story
+        name="dashed grid lines"
+        args={{}}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
+        <>
+            <GridLines
+                variant="y"
+                values={4}
+                style={{ strokeDasharray: '4 4', stroke: '#555555' }}
+            />
+            <GridLines
+                variant="x"
+                values={5}
+                style={{ strokeDasharray: '4 4', stroke: '#555555' }}
+            />
+        </>
+    </Story>
+    <Story name="negative lines" args={{}} component={GridLines} decorators={[ChartViewDecorator]}>
+        <>
+            <GridLines variant="y" values={5} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
+            <GridLines variant="x" values={8} style={{ strokeWidth: 2, stroke: '#ffffff' }} />
+        </>
+    </Story>
+</Canvas>
+
+## Line positions
+
+Positions can be set via the prop `values`.
+
+<Canvas>
+    <Story
+        name="custom positions"
+        args={{}}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
+        <>
+            <GridLines
+                variant={'y'}
+                values={[0, 10, 20, 50, 80, 90, 100]}
+                style={{ stroke: '#777777' }}
+            />
+            <GridLines variant={'x'} values={[0, 65, 85, 95, 100]} style={{ stroke: '#777777' }} />
+        </>
+    </Story>
+</Canvas>
+
+## Expansion
+
+By default, grid lines run across the entire chart view. It is possible to adjust their extent - make them longer or shorter - using the prop `expansion`.
+
+<Canvas>
+    <Story
+        name="line extent"
+        args={{
+            expansion: [10, 25],
+            style: { stroke: '#555555' },
+        }}
+        component={GridLines}
+        decorators={[ChartViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Band scales
+
+For band scales, grid lines appear at the center of each band by defaut. It is possible to move the guide lines using prop `shift`, which takes an array of values. The values are multiples of the bandwidth.
+
+<Canvas>
+    <Story
+        name="band"
+        args={{
+            variant: 'y',
+            style: { stroke: '#aaaaaa' },
+        }}
+        component={GridLines}
+        decorators={[ChartBandViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="between bands"
+        args={{
+            variant: 'y',
+            shift: [-0.5, 0.5],
+            style: { stroke: '#aaaaaa' },
+        }}
+        component={GridLines}
+        decorators={[ChartBandViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

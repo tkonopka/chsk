@@ -1,0 +1,31 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { LegendTitle, Typography } from '../../../src'
+import { ChartWithRightLegendDecorator } from './decorators'
+
+# LegendTitle
+
+<Meta title="Core/Components/Legends/LegendTitle" />
+export const Template = args => <LegendTitle {...args} />
+
+`LegendTitle` draws a text component intended as a legend title.
+
+<ArgsTable of={LegendTitle} />
+
+## Position
+
+Positioning of `LegendTitle` text works in the same way as for ordinary `Typography` components.
+
+<Canvas>
+    <Story
+        name="legend title"
+        args={{
+            position: [0, 0],
+            size: [60, 20],
+            children: 'Legend title',
+        }}
+        component={LegendTitle}
+        decorators={[ChartWithRightLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

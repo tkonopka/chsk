@@ -1,0 +1,85 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { AxisLabel } from '../../../src'
+import { ChartBottomAxisDecorator, ChartLeftAxisDecorator } from './decorators'
+
+# Axis
+
+<Meta title="Core/Components/Axes/AxisLabel" />
+export const Template = args => <AxisLabel {...args} />
+
+`AxisLabel` draws text intended as a label for an axis.
+
+`AxisLabel` should be used within an `Axis` component.
+
+<ArgsTable of={AxisLabel} />
+
+## Variants
+
+Predefined variants place a label near the top, right, bottom, or left axis. For brevity, the examples below shows labels on the bottom and left axes.
+
+<Canvas>
+    <Story
+        name="bottom axis"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+        }}
+        component={AxisLabel}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="left axis"
+        args={{
+            variant: 'left',
+            children: 'axis label',
+        }}
+        component={AxisLabel}
+        decorators={[ChartLeftAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Offset
+
+The distance between the axis line and the axis label is controlled by prop `offset`. The value can be positive (further away from the chart surface) or negative (moved toward the chart surface).
+
+<Canvas>
+    <Story
+        name="negative offset"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+            offset: -10,
+        }}
+        component={AxisLabel}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Anchor
+
+The position of the label along the axis is controlled by prop `anchor`.
+The value of this prop is often adjusted together with the css style `textAnchor`.
+
+<Canvas>
+    <Story
+        name="anchor"
+        args={{
+            variant: 'bottom',
+            children: 'axis label',
+            anchor: 'end',
+            style: {
+                textAnchor: 'end',
+            },
+        }}
+        component={AxisLabel}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
