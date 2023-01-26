@@ -1,9 +1,16 @@
-import { Chart, Axis, AxisTicks, Legend, LegendColorScale, LegendTitle } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    AxisTicks,
+    Legend,
+    LegendColorScale,
+    LegendTitle,
+    Typography,
+} from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
-import { Typography } from '../../packages/core/src'
 
 const ids = ['A a', 'BB bb', 'CC cc', 'DDD ddd', 'EEE eee']
 const keys = alphabetGreek
