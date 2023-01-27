@@ -54,7 +54,8 @@ const UnthemedLegend = ({
         anchor,
         padding,
     })
-    // position of first non-title item/element of the legend content
+
+    // position of first non-title item
     const pos: NumericPositionSpec = [0, 0]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {

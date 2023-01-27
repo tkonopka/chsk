@@ -1,4 +1,4 @@
-import { Rectangle, Square } from '../shapes'
+import { Square } from '../shapes'
 import { Typography } from '../typography'
 import { addColor, composeClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
@@ -66,14 +66,6 @@ const UnthemedTooltipItem = ({
             style={style}
             className={'tooltipItem'}
         >
-            <Rectangle
-                variant={'tooltip-item'}
-                x={0}
-                y={0}
-                width={size[0]}
-                height={size[1]}
-                setRole={false}
-            />
             {createElement(symbol, {
                 cx: symbolPosition[0] + translate[0],
                 cy: symbolPosition[1] + translate[1],

@@ -1,62 +1,30 @@
-import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from '../general'
-import { SideType } from '../axes'
-import { LegendProps, LegendTitleProps, LegendItemProps } from '../legends'
+import {
+    LegendProps,
+    LegendTitleProps,
+    LegendItemProps,
+    LegendItemThemedProps,
+    LegendThemedProps,
+    LegendItemListProps,
+    LegendItemListThemedProps,
+} from '../legends'
 import { WithId } from '../views'
 
 export type TooltipTitleProps = LegendTitleProps
 
-export type TooltipItemProps = LegendItemProps
+export type TooltipItemProps = Omit<LegendItemProps, 'interactive'>
 
-export interface TooltipItemThemedProps
-    extends Pick<TooltipItemProps, 'size' | 'padding' | 'translate' | 'r' | 'labelOffset'> {
-    size: SizeSpec
-    padding: FourSideSizeSpec
-    translate: NumericPositionSpec
-    r: number
-    labelOffset: number
-}
+export type TooltipItemThemedProps = Omit<LegendItemThemedProps, 'interactive'>
 
-export interface TooltipProps
-    extends Omit<LegendProps, 'scaleSize' | 'sizeTicks' | 'variant' | 'interactive'> {
+export interface TooltipProps extends Omit<LegendProps, 'scaleSize' | 'sizeTicks' | 'interactive'> {
     /** tooltip type */
     variant?: 'list'
 }
 
-export interface TooltipThemedProps
-    extends Pick<TooltipProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset'> {
-    itemSize: SizeSpec
-    itemPadding: FourSideSizeSpec
-    horizontal: boolean
-    firstOffset: NumericPositionSpec
-    r: number
-    labelOffset: number
-}
+export type TooltipThemedProps = Omit<LegendThemedProps, 'interactive' | 'scaleSize'>
 
-export interface TooltipItemListProps
-    extends Omit<
-        TooltipProps,
-        'variant' | 'position' | 'title' | 'titleStyle' | 'firstOffset' | 'r'
-    > {
-    /** variant */
-    variant: SideType
-    /** array of items to display (for categorical keys) */
-    items?: string[]
-    /** array of labels to display next to symbols */
-    labels?: string[]
-    /** array of symbol sizes */
-    r?: number[]
-    /** position */
-    position: NumericPositionSpec
-}
+export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'>
 
-export interface TooltipItemListThemedProps
-    extends Pick<TooltipItemListProps, 'itemSize' | 'itemPadding' | 'horizontal'> {
-    itemSize: SizeSpec
-    itemPadding: FourSideSizeSpec
-    horizontal: boolean
-    r: number
-    labelOffset: number
-}
+export type TooltipItemListThemedProps = Omit<LegendItemListThemedProps, 'interactive'>
 
 /** Context */
 

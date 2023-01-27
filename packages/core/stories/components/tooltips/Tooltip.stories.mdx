@@ -78,15 +78,14 @@ The tooltip can be offset from the target position with prop `position`.
 The content of the tooltip consists of a number of distinct pieces.
 These pieces can be tuned with props such as `itemSize` and `itemPadding`.
 
-The examples below display tooltips that are compact, well-padding, and
-decorated with a title line.
+The examples below display tooltips that have: compact padding, ample padding,
+and a title line.
 
 <Canvas>
     <Story
         name="small item padding"
         args={{
             position: [10, 0],
-            size: [100, 20],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
             itemSize: [100, 20],
@@ -101,10 +100,9 @@ decorated with a title line.
         name="large item padding"
         args={{
             position: [10, 0],
-            size: [100, 20],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
-            itemSize: [100, 20],
+            itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],
         }}
         component={Tooltip}
@@ -116,7 +114,6 @@ decorated with a title line.
         name="title"
         args={{
             position: [10, 0],
-            size: [100, 20],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
             itemPadding: [6, 6, 6, 6],
@@ -129,6 +126,10 @@ decorated with a title line.
     </Story>
 </Canvas>
 
+Note that the tooltips do not disappear when the mouse moves away.
+In these examples, this behavior is intentional -
+it facilitates inspection of the tooltip using developer tools (`Ctrl Shift C`).
+
 ## Custom style
 
 The tooltip can be styled using css.
@@ -138,12 +139,11 @@ The tooltip can be styled using css.
         name="custom style"
         args={{
             position: [10, 0],
-            size: [100, 20],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
-            itemSize: [100, 20],
+            itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],
-            style: { fill: '#ddaaaa', strokeWidth: 1, stroke: '#000000' },
+            style: { fill: '#fffafa', strokeWidth: 1, stroke: '#000000', rx: 5, ry: 5 },
         }}
         component={Tooltip}
         decorators={[ChartForShapesTooltipDecorator]}

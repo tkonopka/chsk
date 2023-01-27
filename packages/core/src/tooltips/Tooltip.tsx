@@ -1,7 +1,7 @@
 import { TooltipProps } from './types'
 import { Surface, useView } from '../views'
 import { composeClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec } from '../general'
+import { DimensionsProvider, NumericPositionSpec, X, Y } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
@@ -14,7 +14,7 @@ const UnthemedTooltip = ({
     // layout of container
     position = [0, 0],
     positionUnits = 'absolute',
-    size = [100, 20],
+    size,
     sizeUnits = 'absolute',
     anchor = [1, 1],
     padding = [0, 0, 0, 0],
@@ -23,22 +23,28 @@ const UnthemedTooltip = ({
     itemPadding = defaultTooltipProps.itemPadding,
     horizontal = defaultTooltipProps.horizontal,
     firstOffset = defaultTooltipProps.firstOffset,
-    // title
+    // title and items
     title,
     titleStyle,
-    // only for discrete items
     r = defaultTooltipProps.r,
     symbol,
     symbolStyle,
     labelStyle,
     labelOffset = defaultTooltipProps.labelOffset,
-    // general svg
+    //
     className,
     style,
     setRole = true,
     children,
 }: TooltipProps) => {
     const tooltip = useTooltip()
+    const data = tooltip.data ?? []
+    const n = data.length
+    const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
+    size = size ?? [
+        itemSize[X] * sizeMultiplier[X] + firstOffset[X],
+        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y],
+    ]
     const { x, y, dimsProps } = useView({
         position,
         positionUnits,
@@ -47,21 +53,22 @@ const UnthemedTooltip = ({
         anchor,
         padding,
     })
-    // position of first non-title item/element of the legend content
+    // position of first non-title item
     const pos: NumericPositionSpec = [0, 0]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {
         pos[0] += step[0] + firstOffset[0]
         pos[1] += step[1] + firstOffset[1]
     }
-
     const sideVariant: SideType = horizontal ? 'bottom' : 'right'
     const compositeClassName = composeClassName(['tooltip', className])
-    const data = tooltip.data ?? []
-    const offsetX = tooltip.x ?? 0
-    const offsetY = tooltip.y ?? 0
-    const config = { x: x + offsetX, y: y + offsetY, originX: '0px', originY: '0px' }
 
+    const config = {
+        x: x + (tooltip.x ?? 0),
+        y: y + (tooltip.y ?? 0),
+        originX: '0px',
+        originY: '0px',
+    }
     return (
         <OpacityMotion
             role={'tooltip-presence'}

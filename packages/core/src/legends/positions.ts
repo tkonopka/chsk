@@ -67,3 +67,20 @@ export const getItemPositions = (
     })
     return { itemPosition, itemS, labelPosition, symbolPosition }
 }
+
+export const getTitlePosition = (
+    variant: SideType,
+    position: NumericPositionSpec,
+    size: SizeSpec,
+    padding: FourSideSizeSpec
+): [number, number] => {
+    let x = position[0]
+    if (variant === 'right') {
+        x += padding[LEFT]
+    } else if (variant === 'left') {
+        x += size[0] - padding[RIGHT]
+    } else if (variant === 'bottom' || variant === 'top') {
+        x += padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
+    }
+    return [x, position[1] + padding[TOP]]
+}

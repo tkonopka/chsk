@@ -133,22 +133,17 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         inner: {
             fill: '#f2f2f2',
-            fillOpacity: 1,
         },
         outer: {
             fill: '#f6f6f6',
-            fillOpacity: 1,
+        },
+        'inner.tooltip': {
+            fill: '#ffffff',
         },
         legendItem: {
             fill: '#ffffff',
         },
         legendTitle: {
-            fill: '#ffffff',
-        },
-        tooltipItem: {
-            fill: '#ffffff',
-        },
-        tooltipTitle: {
             fill: '#ffffff',
         },
     },
