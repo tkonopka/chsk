@@ -1,6 +1,11 @@
 import { ReactNode } from 'react'
 import { Chart, Surface, View, Axis } from '../../src'
 
+export const viewSeriesIndexesKeys = {
+    seriesIndexes: { X: 0, Y: 1 },
+    keys: ['alpha', 'beta', 'gamma'],
+}
+
 export const DivDecorator = (Story: () => ReactNode) => (
     <div style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}>
         {Story()}

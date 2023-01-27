@@ -1,10 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, ColorScaleProps, Legend, LegendTitle, Surface, View } from '../../../src'
-
-export const viewSeriesIndexesKeys = {
-    seriesIndexes: { X: 0, Y: 1 },
-    keys: ['alpha', 'beta', 'gamma'],
-}
+import { viewSeriesIndexesKeys } from '../decorators'
 
 export const ChartForLegendDecorator = (Story: () => ReactNode) => (
     <Chart

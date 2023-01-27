@@ -1,11 +1,7 @@
 import { ReactNode } from 'react'
 import { Chart, Surface, Tooltip, View } from '../../../src'
+import { viewSeriesIndexesKeys } from '../decorators'
 import { DetectorWithTooltip, ShapesWithTooltip } from './tooltips'
-
-export const viewSeriesIndexesKeys = {
-    seriesIndexes: { X: 0, Y: 1 },
-    keys: ['alpha', 'beta', 'gamma'],
-}
 
 export const ChartForDetectorTooltipDecorator = (Story: () => ReactNode) => (
     <Chart
