@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Tooltip, Surface } from '../../../src'
+import { Tooltip, Surface, Circle } from '../../../src'
 import { ChartForDetectorTooltipDecorator, ChartForShapesTooltipDecorator } from './decorators'
 
 # Tooltip
@@ -143,7 +143,15 @@ The tooltip can be styled using css.
             anchor: [0, 0.5],
             itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],
-            style: { fill: '#fffafa', strokeWidth: 1, stroke: '#000000', rx: 5, ry: 5 },
+            symbol: Circle,
+            rx: 5,
+            ry: 5,
+            style: {
+                fill: '#fff8f8',
+                strokeWidth: 1,
+                stroke: '#000000',
+                filter: 'drop-shadow(3px 5px 3px #22222244)',
+            },
         }}
         component={Tooltip}
         decorators={[ChartForShapesTooltipDecorator]}

@@ -137,7 +137,7 @@ export const defaultTheme: CompleteThemeSpec = {
         outer: {
             fill: '#f6f6f6',
         },
-        'inner.tooltip': {
+        tooltip: {
             fill: '#ffffff',
         },
         legendItem: {

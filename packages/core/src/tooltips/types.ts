@@ -18,9 +18,16 @@ export type TooltipItemThemedProps = Omit<LegendItemThemedProps, 'interactive'>
 export interface TooltipProps extends Omit<LegendProps, 'scaleSize' | 'sizeTicks' | 'interactive'> {
     /** tooltip type */
     variant?: 'list'
+    /** horizontal corner radius */
+    rx?: number
+    /** vertical corner radius */
+    ry?: number
 }
 
-export type TooltipThemedProps = Omit<LegendThemedProps, 'interactive' | 'scaleSize'>
+export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
+    rx: number
+    ry: number
+}
 
 export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'>
 

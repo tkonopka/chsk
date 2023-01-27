@@ -1,7 +1,7 @@
 import { TooltipProps } from './types'
-import { Surface, useView } from '../views'
+import { useView } from '../views'
 import { composeClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, X, Y } from '../general'
+import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec, X, Y } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
@@ -18,6 +18,8 @@ const UnthemedTooltip = ({
     sizeUnits = 'absolute',
     anchor = [1, 1],
     padding = [0, 0, 0, 0],
+    rx = defaultTooltipProps.rx,
+    ry = defaultTooltipProps.ry,
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
@@ -86,10 +88,16 @@ const UnthemedTooltip = ({
                         children
                     ) : (
                         <>
-                            <Surface
-                                key={'tooltip-content-surface'}
-                                variant={'inner'}
-                                className={'tooltip'}
+                            <rect
+                                key={'tooltip-surface'}
+                                role={setRole ? 'tooltip-surface' : undefined}
+                                x={0}
+                                y={0}
+                                width={size[WIDTH]}
+                                height={size[HEIGHT]}
+                                rx={rx}
+                                ry={ry}
+                                className={compositeClassName}
                                 style={style}
                             />
                             <TooltipTitle
