@@ -172,6 +172,10 @@ export interface ScatterCrosshairProps
     expansion?: FourSideSizeSpec
     /** minimum distance to nearest point */
     minDistance?: number
+    /** format of tooltip label */
+    tooltipFormat?: (data: ScatterInteractiveDataItem) => string
     /** style for crosshair lines */
     style?: CssProps
+    /** child components */
+    children?: ReactNode
 }

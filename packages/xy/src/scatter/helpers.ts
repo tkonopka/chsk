@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+import { cloneDeep } from 'lodash'
 import {
     ColorScaleProps,
     ColorScaleSpec,
@@ -21,8 +23,6 @@ import {
     ScatterInteractiveDataItem,
     ScatterProcessedDataItem,
 } from './types'
-import { cloneDeep } from 'lodash'
-import { useMemo } from 'react'
 import { isScatterProcessedData } from './predicates'
 
 export const getXYScaleProps = (
@@ -100,4 +100,25 @@ export const getSymbolData = (
             }))
         })
     }, [processedData, preparedData])
+}
+
+export const distanceSquared = (a: number[], b: number[]) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2
+
+// array with [coordinate X, coordinate Y, series index, point index]
+export type targetData = [number, number, number, number]
+
+export const getTargets = (preparedData: ScatterDataContextProps, disabledKeys: Set<string>) => {
+    return useMemo(() => {
+        const result: targetData[] = []
+        preparedData.keys.forEach(id => {
+            if (disabledKeys.has(id)) return
+            const seriesIndex = preparedData.seriesIndexes[id]
+            if (seriesIndex === undefined) return
+            const data = preparedData.data[seriesIndex]
+            data.r.forEach((r: number, index: number) => {
+                result.push([data.x[index], data.y[index], seriesIndex, index])
+            })
+        })
+        return result
+    }, [preparedData, disabledKeys])
 }

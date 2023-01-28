@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Square } from '@chsk/core'
 import { Scatter, ScatterCrosshair } from '../../src'
-import { ChartForRegressionDecorator, DoubleSquare } from './decorators'
+import { ChartForRegressionDecorator, DoubleSquare, ChartWithTooltipDecorator } from './decorators'
 import dataPolynomials from './dataPolynomials.json'
 
 # ScatterCrosshair
@@ -15,8 +15,7 @@ export const Template = args => <ScatterCrosshair {...args} />
 
 ## Variants
 
-By default, `ScatterCrosshair` draws horizontal and vertical lines that span across the entire chart view.
-Prop `variant` toggles the format of those lines.
+The default `ScatterCrosshair` variant draws horizontal and vertical lines that span across the entire chart view.
 
 <Canvas>
     <Story
@@ -29,6 +28,11 @@ Prop `variant` toggles the format of those lines.
     >
         {Template.bind({})}
     </Story>
+</Canvas>
+
+Other variants, set with prop `variant`, draw only horizontal or only vertical lines
+
+<Canvas>
     <Story
         name="horizontal"
         args={{
@@ -124,6 +128,21 @@ The default symbol is a circle, but it can be tuned with props `symbol`, `symbol
         }}
         component={ScatterCrosshair}
         decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Tooltip
+
+`ScatterCrosshair` creates a context for a tooltip.
+To activate a tooltip, use a `Tooltip` component as a child component.
+
+<Canvas>
+    <Story
+        name="with tooltip"
+        component={ScatterCrosshair}
+        decorators={[ChartWithTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>

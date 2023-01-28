@@ -1,3 +1,5 @@
+import { createElement, MouseEvent, useCallback, useRef, useState } from 'react'
+import { debounce } from 'lodash'
 import {
     addColor,
     Circle,
@@ -19,18 +21,16 @@ import {
     FourSideSizeSpec,
     SizeSpec,
     CssProps,
+    TooltipProvider,
+    TooltipDataItem,
+    TooltipContextProps,
+    ScalesContextProps,
 } from '@chsk/core'
 import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterProcessedData } from './predicates'
-import { createElement, MouseEvent, useCallback, useMemo, useRef, useState } from 'react'
-import { debounce } from 'lodash'
-import { getSymbolData } from './helpers'
-
-// array with [coordinate X, coordinate Y, series index, point index]
-type targetData = [number, number, number, number]
-
-const distanceSquared = (a: number[], b: number[]) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2
+import { getSymbolData, getTargets, distanceSquared } from './helpers'
+import { defaultScatterTooltipFormat } from './defaults'
 
 const createCrosshairLines = ({
     variant = 'default',
@@ -80,6 +80,41 @@ const createCrosshairLines = ({
     )
 }
 
+const createActiveSymbol = ({
+    activeData,
+    coordinates,
+    scales,
+    seriesIndex,
+    dataComponent = SimpleDataComponent,
+    symbol = Circle,
+    symbolStyle,
+    symbolClassName,
+    setRole,
+}: Pick<
+    ScatterCrosshairProps,
+    'symbol' | 'dataComponent' | 'symbolStyle' | 'symbolClassName' | 'setRole'
+> & {
+    activeData?: ScatterInteractiveDataItem
+    coordinates: NumericPositionSpec
+    scales: ScalesContextProps
+    seriesIndex: number
+}) => {
+    if (activeData === undefined || activeData.point === undefined) return null
+    return createElement(dataComponent, {
+        key: 'active-' + seriesIndex + '-' + activeData.index,
+        component: symbol,
+        props: {
+            variant: 'active',
+            cx: coordinates[X],
+            cy: coordinates[Y],
+            r: activeData.size,
+            className: symbolClassName,
+            style: addColor(symbolStyle, scales.color(seriesIndex)),
+            setRole,
+        },
+    })
+}
+
 export const ScatterCrosshair = ({
     variant,
     expansion,
@@ -87,10 +122,12 @@ export const ScatterCrosshair = ({
     symbolStyle,
     symbolClassName,
     minDistance,
+    tooltipFormat = defaultScatterTooltipFormat,
     className,
     style,
     setRole = true,
     dataComponent = SimpleDataComponent,
+    children,
     ...props
 }: ScatterCrosshairProps) => {
     const processedData = useProcessedData().data
@@ -100,25 +137,14 @@ export const ScatterCrosshair = ({
     const { disabledKeys } = useDisabledKeys()
     const detectorRef = useRef<SVGRectElement>(null)
     const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)
+    const [tooltipContextProps, setTooltipContextProps] = useState<TooltipContextProps>({})
     if (!isScatterProcessedData(processedData)) return null
 
     // extension of detector rectangle
     const padding: FourSideSizeSpec = expansion ? expansion : [0, 0, 0, 0]
 
     const symbolData = getSymbolData(processedData, preparedData)
-    const targets = useMemo(() => {
-        const result: targetData[] = []
-        preparedData.keys.forEach(id => {
-            if (disabledKeys.has(id)) return
-            const seriesIndex = preparedData.seriesIndexes[id]
-            if (seriesIndex === undefined) return
-            const data = preparedData.data[seriesIndex]
-            data.r.forEach((r: number, index: number) => {
-                result.push([data.x[index], data.y[index], seriesIndex, index])
-            })
-        })
-        return result
-    }, [preparedData, disabledKeys])
+    const targets = getTargets(preparedData, disabledKeys)
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -148,7 +174,18 @@ export const ScatterCrosshair = ({
                 }
             }
             const data = symbolData[seriesIndex][index]
+            const tooltipItem: TooltipDataItem = {
+                id: seriesData.id,
+                key: seriesData.id,
+                label: tooltipFormat(data),
+            }
             setActiveData(data)
+            setTooltipContextProps({
+                x: target[0],
+                y: target[1],
+                title: tooltipItem.id,
+                data: [tooltipItem],
+            })
             props.onMouseEnter?.(data, event)
         },
         [activeData, setActiveData, targets, processedData]
@@ -157,7 +194,8 @@ export const ScatterCrosshair = ({
 
     const handleMouseLeave = useCallback(() => {
         setActiveData(undefined)
-    }, [setActiveData])
+        setTooltipContextProps({})
+    }, [setActiveData, setTooltipContextProps])
 
     const detector = (
         <rect
@@ -180,24 +218,18 @@ export const ScatterCrosshair = ({
             ? [xScale(activeData.point[X]), yScale(activeData.point[Y])]
             : [NaN, NaN]
     const seriesIndex = preparedData.seriesIndexes[activeData?.id ?? '']
-    const pointIndex = activeData?.index ?? 0
-    const activeSymbol =
-        activeData !== undefined && activeData.point !== undefined
-            ? createElement(dataComponent, {
-                  key: 'active-' + seriesIndex + '-' + activeData.index,
-                  component: symbol,
-                  props: {
-                      variant: 'active',
-                      cx: coordinates[X],
-                      cy: coordinates[Y],
-                      r: activeData.size,
-                      className: symbolClassName,
-                      style: addColor(symbolStyle, scales.color(seriesIndex)),
-                      setRole: true,
-                  },
-              })
-            : null
-    const crosshairs = createCrosshairLines({
+    const activeSymbol = createActiveSymbol({
+        activeData,
+        coordinates,
+        scales,
+        seriesIndex,
+        dataComponent,
+        symbol,
+        symbolStyle,
+        symbolClassName,
+        setRole,
+    })
+    const lines = createCrosshairLines({
         variant: variant ?? 'default',
         size: dimensions.innerSize,
         coordinates,
@@ -209,22 +241,16 @@ export const ScatterCrosshair = ({
     return (
         <g role={'scatter-crosshair'}>
             <OpacityMotion
-                key={'crosshair-lines'}
-                role={'crosshair-lines'}
+                key={'crosshair'}
+                role={'crosshair-presence'}
                 visible={activeData !== undefined}
                 firstRender={false}
             >
-                {crosshairs}
-            </OpacityMotion>
-            <OpacityMotion
-                key={'active-symbol-' + seriesIndex + '-' + pointIndex}
-                role={'active-symbol'}
-                visible={activeData !== undefined}
-                firstRender={false}
-            >
+                {lines}
                 {activeSymbol}
             </OpacityMotion>
             {detector}
+            <TooltipProvider tooltip={tooltipContextProps}>{children}</TooltipProvider>
         </g>
     )
 }

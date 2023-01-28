@@ -17,15 +17,17 @@ export const scaleCategorical: ColorScaleProps = {
 export const MockTooltipSetter = ({
     x,
     y,
+    title,
     data = [],
     children,
 }: {
     x: number
     y: number
+    title?: string
     data?: TooltipDataItem[]
     children: ReactNode
 }) => {
-    return <TooltipProvider tooltip={{ x, y, data }}>{children}</TooltipProvider>
+    return <TooltipProvider tooltip={{ x, y, title, data }}>{children}</TooltipProvider>
 }
 
 describe('Tooltip', () => {
@@ -87,12 +89,57 @@ describe('Tooltip', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
                     <MockTooltipSetter x={10} y={10} data={tooltipData}>
-                        <Tooltip horizontal={false} itemSize={[80, 20]} title={'custom title'} />
+                        <Tooltip itemSize={[80, 20]} title={'custom title'} />
                     </MockTooltipSetter>
                 </View>
             </Chart>
         )
+        // tooltip should contain a title
+        const title = screen.getByRole('tooltip-title')
+        expect(title).toBeDefined()
+        expect(title.textContent).toEqual('custom title')
+        // the bounding surface should enclose one item and one title
+        const surface = screen.getByRole('tooltip-surface')
+        expect(surface.getAttribute('height')).toEqual('40')
+        // the non-title item should be shifted down
         const items = screen.getAllByRole('tooltip-item')
         expect(items[0].getAttribute('transform')).toContain('translate(0,20)')
+    })
+
+    it('uses a title from the TooltipContext', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
+                        <Tooltip itemSize={[80, 30]} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const title = screen.getByRole('tooltip-title')
+        expect(title).toBeDefined()
+        expect(title.textContent).toEqual('context title')
+        const surface = screen.getByRole('tooltip-surface')
+        expect(surface.getAttribute('height')).toEqual('60')
+        const items = screen.getAllByRole('tooltip-item')
+        expect(items[0].getAttribute('transform')).toContain('translate(0,30)')
+    })
+
+    it('omits title line when title is explicitly empty', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
+                        <Tooltip title={''} itemSize={[80, 30]} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const title = screen.queryByRole('tooltip-title')
+        expect(title).toBeNull()
+        const surface = screen.getByRole('tooltip-surface')
+        expect(surface.getAttribute('height')).toEqual('30')
+        const items = screen.getAllByRole('tooltip-item')
+        expect(items[0].getAttribute('transform')).toContain('translate(0,0)')
     })
 })

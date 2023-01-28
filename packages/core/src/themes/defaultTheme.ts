@@ -31,12 +31,12 @@ export const defaultTheme: CompleteThemeSpec = {
         label: {
             fontSize: '12px',
             textAnchor: 'middle',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
         counter: {
             fontSize: '12px',
             textAnchor: 'middle',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
         title: {
             fontWeight: 600,
@@ -72,19 +72,19 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         legendTitle: {
             textAnchor: 'start',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
         legendItem: {
             textAnchor: 'start',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
         tooltipTitle: {
             textAnchor: 'start',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
         tooltipItem: {
             textAnchor: 'start',
-            dominantBaseline: 'middle',
+            dominantBaseline: 'central',
         },
     },
     g: {

@@ -44,7 +44,7 @@
 
 -   [packages/core]: modified default styles for some components appearing
     in legends
--   [packages/themes]: changes styles in some theme pieces to be more compatible with inkscape svg
+-   [packages/themes]: changes styles in some themes to be more compatible with inkscape svg
 -   [packages/core]: changed implementation of `Typography` and `Label` to allow animations of rotated text
 -   [packages/annotation]: improved `cleanSvg` to simplify scaleX, scaleY, and rotate transformations
 -   [packages/annotation]: changed encoding of svg into text files to include newline characters

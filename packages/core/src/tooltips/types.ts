@@ -8,6 +8,7 @@ import {
     LegendItemListThemedProps,
 } from '../legends'
 import { WithId } from '../views'
+import { NumericPositionSpec } from '../general'
 
 export type TooltipTitleProps = LegendTitleProps
 
@@ -45,6 +46,10 @@ export type TooltipContextProps = {
     x?: number
     /** y coordinate */
     y?: number
+    /** coordinates for the event that triggers the tooltip */
+    eventPosition?: NumericPositionSpec
+    /** title */
+    title?: string
     /** content of tooltip **/
     data?: TooltipDataItem[]
 }

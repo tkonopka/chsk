@@ -42,6 +42,7 @@ const UnthemedTooltip = ({
     const tooltip = useTooltip()
     const data = tooltip.data ?? []
     const n = data.length
+    title = title ?? tooltip.title
     const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
     size = size ?? [
         itemSize[X] * sizeMultiplier[X] + firstOffset[X],
@@ -62,7 +63,7 @@ const UnthemedTooltip = ({
         pos[0] += step[0] + firstOffset[0]
         pos[1] += step[1] + firstOffset[1]
     }
-    const sideVariant: SideType = horizontal ? 'bottom' : 'right'
+    const variant: SideType = horizontal ? 'bottom' : 'right'
     const compositeClassName = composeClassName(['tooltip', className])
 
     const config = {
@@ -102,19 +103,18 @@ const UnthemedTooltip = ({
                             />
                             <TooltipTitle
                                 key={'tooltip-title'}
-                                variant={'right'}
+                                variant={variant}
                                 position={[0, 0]}
                                 size={itemSize}
                                 padding={itemPadding}
                                 translate={[0, r]}
                                 style={titleStyle}
-                                setRole={setRole}
                             >
                                 {title}
                             </TooltipTitle>
                             <TooltipItemList
                                 key={'tooltip-list'}
-                                variant={sideVariant}
+                                variant={variant}
                                 horizontal={horizontal}
                                 position={pos}
                                 items={data.map(item => item.key)}

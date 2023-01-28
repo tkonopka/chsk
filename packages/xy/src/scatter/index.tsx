@@ -1,4 +1,5 @@
 export * from './context'
+export * from './defaults'
 export * from './predicates'
 export * from './Regression'
 export * from './Scatter'
