@@ -22,17 +22,11 @@ import {
     SizeSpec,
     CssProps,
     TooltipProvider,
-    TooltipDataItem,
     TooltipContextProps,
     ScalesContextProps,
     useRawData,
 } from '@chsk/core'
-import {
-    ScatterCrosshairProps,
-    ScatterCrosshairVariant,
-    ScatterDataContextProps,
-    ScatterInteractiveDataItem,
-} from './types'
+import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterData, isScatterProcessedData } from './predicates'
 import { getSymbolData, getTargets, distanceSquared } from './helpers'
