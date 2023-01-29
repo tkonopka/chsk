@@ -129,6 +129,16 @@ describe('createCategoricalScale', () => {
         expect(colors[0]).toEqual('#000')
         expect(colors[0]).toEqual(colors[1])
     })
+
+    it('preserves domain even when domain.length > colors.length', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: ['#000000', '#ffffff'],
+            domain: ['a', 'b', 'c', 'd'],
+        })
+        console.log(result.domain())
+        expect(result.domain().length).toEqual(4)
+    })
 })
 
 describe('createSequentialScale', () => {

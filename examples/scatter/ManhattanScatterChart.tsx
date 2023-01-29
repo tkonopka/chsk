@@ -11,6 +11,7 @@ import {
     mergeTheme,
     SymbolProps,
     SimpleDataComponent,
+    Tooltip,
 } from '@chsk/core'
 import {
     Scatter,
@@ -25,7 +26,7 @@ import { DownloadButtons } from '../navigation'
 import { downloadThemePiece } from '@chsk/themes'
 import { PointSummaryDiv } from './PointSummaryDiv'
 
-const round3 = (x: number): number => Math.round(x * 1000) / 1000
+const round3 = (x: unknown | number): number => Math.round(Number(x) * 1000) / 1000
 
 export const generateManhattanScatterData = () => {
     // set up chromosomes
@@ -107,6 +108,12 @@ const SimpleCircle = ({ cx, cy, r, className, style }: SymbolProps) => {
     return <circle cx={cx} cy={cy} r={r} style={style} className={className} />
 }
 
+// create a label for a tooltip entry
+const customTooltipFormat = (item: ScatterInteractiveDataItem): string => {
+    const original: Record<string, unknown> = item.original ?? {}
+    return item.index + ' (' + round3(original.pos) + ', ' + round3(original.value) + ')'
+}
+
 export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
@@ -185,7 +192,16 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                             minDistance={30}
                             onMouseEnter={customOnMouseEnter}
                             onMouseLeave={customOnMouseLeave}
-                        />
+                            tooltipFormat={customTooltipFormat}
+                        >
+                            <Tooltip
+                                position={[0, -10]}
+                                anchor={[0.5, 1]}
+                                itemSize={[170, 30]}
+                                itemPadding={[6, 6, 6, 6]}
+                                style={{ stroke: '#222222', strokeWidth: 1 }}
+                            />
+                        </ScatterCrosshair>
                     </MilestoneMotion>
                     <Typography position={[-45, -40]} variant={'title'}>
                         Manhattan plot

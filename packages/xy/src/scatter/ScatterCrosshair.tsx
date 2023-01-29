@@ -25,10 +25,16 @@ import {
     TooltipDataItem,
     TooltipContextProps,
     ScalesContextProps,
+    useRawData,
 } from '@chsk/core'
-import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
+import {
+    ScatterCrosshairProps,
+    ScatterCrosshairVariant,
+    ScatterDataContextProps,
+    ScatterInteractiveDataItem,
+} from './types'
 import { useScatterPreparedData } from './context'
-import { isScatterProcessedData } from './predicates'
+import { isScatterData, isScatterProcessedData } from './predicates'
 import { getSymbolData, getTargets, distanceSquared } from './helpers'
 import { defaultScatterTooltipFormat } from './defaults'
 
@@ -130,6 +136,7 @@ export const ScatterCrosshair = ({
     children,
     ...props
 }: ScatterCrosshairProps) => {
+    const originalData = useRawData().data
     const processedData = useProcessedData().data
     const preparedData = useScatterPreparedData()
     const dimensions = useDimensions()
@@ -139,13 +146,13 @@ export const ScatterCrosshair = ({
     const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)
     const [tooltipContextProps, setTooltipContextProps] = useState<TooltipContextProps>({})
     if (!isScatterProcessedData(processedData)) return null
+    if (!isScatterData(originalData)) return null
 
     // extension of detector rectangle
     const padding: FourSideSizeSpec = expansion ? expansion : [0, 0, 0, 0]
 
     const symbolData = getSymbolData(processedData, preparedData)
     const targets = getTargets(preparedData, disabledKeys)
-
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (!detectorRef || !detectorRef.current) return
@@ -173,18 +180,18 @@ export const ScatterCrosshair = ({
                     return
                 }
             }
-            const data = symbolData[seriesIndex][index]
-            const tooltipItem: TooltipDataItem = {
-                id: seriesData.id,
+            const data = {
+                ...symbolData[seriesIndex][index],
                 key: seriesData.id,
-                label: tooltipFormat(data),
+                original: originalData[seriesIndex].data[index],
             }
-            setActiveData(data)
+            const newActiveData = { ...data, label: tooltipFormat(data) }
+            setActiveData(newActiveData)
             setTooltipContextProps({
                 x: target[0],
                 y: target[1],
-                title: tooltipItem.id,
-                data: [tooltipItem],
+                title: newActiveData.id,
+                data: [newActiveData],
             })
             props.onMouseEnter?.(data, event)
         },

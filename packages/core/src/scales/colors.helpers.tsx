@@ -113,10 +113,6 @@ export const createCategoricalScale = ({
         return allColors[index % nColors]
     }
     result.variant = variant
-    result.domain = () =>
-        Array(nColors)
-            .fill('')
-            .map((emptyColor, i) => domain[i] ?? emptyColor) as string[]
-
+    result.domain = () => domain.map(String)
     return result as CategoricalColorScale
 }

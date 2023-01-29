@@ -72,6 +72,7 @@ export type ScatterInteractiveDataItem = {
     point?: NumericPositionSpec
     size?: number
     color?: number
+    original?: Record<string, unknown>
 }
 
 export interface ScatterPointsProps
