@@ -17,6 +17,8 @@ describe('Axis', () => {
         expect(ticks).toHaveLength(6)
         const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('top axis')
+        const line = screen.getByRole('axis')
+        expect(line.getAttribute('class')).toEqual('axis top')
     })
 
     it('creates bottom axis', () => {
@@ -33,6 +35,8 @@ describe('Axis', () => {
         expect(ticks).toHaveLength(6)
         const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('bottom axis')
+        const line = screen.getByRole('axis')
+        expect(line.getAttribute('class')).toEqual('axis bottom')
     })
 
     it('creates left axis', () => {
@@ -49,6 +53,8 @@ describe('Axis', () => {
         expect(ticks).toHaveLength(6)
         const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('left axis')
+        const line = screen.getByRole('axis')
+        expect(line.getAttribute('class')).toEqual('axis left')
     })
 
     it('creates right axis', () => {
@@ -65,6 +71,8 @@ describe('Axis', () => {
         expect(ticks).toHaveLength(6)
         const label = screen.getByRole('axis-label')
         expect(label.textContent).toContain('right axis')
+        const line = screen.getByRole('axis')
+        expect(line.getAttribute('class')).toEqual('axis right')
     })
 
     it('creates axis without role', () => {

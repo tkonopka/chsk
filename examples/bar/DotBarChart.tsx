@@ -36,6 +36,9 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             strokeWidth: 0.5,
             stroke: '#222222',
         },
+        'axis.top': {
+            strokeWidth: 1,
+        },
     },
     AxisTicks: {
         left: {
@@ -83,8 +86,8 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     position={[-64, -70]}
                     positionUnits={'absolute'}
                     horizontal={true}
-                    itemSize={[90, 28]}
-                    title={'Years'}
+                    itemSize={[80, 28]}
+                    title={'Years:'}
                     r={6.5}
                     firstOffset={[-10, 0]}
                     symbol={Circle}
@@ -99,7 +102,7 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <LazyMotion features={domAnimation}>
                         <Bars component={CustomBarSymbol} style={customSymbolStyle} />
                     </LazyMotion>
-                    <DownloadButtons position={[390, -60]} data image />
+                    <DownloadButtons position={[390, -80]} data image />
                 </MilestoneMotion>
             </Bar>
         </Chart>
