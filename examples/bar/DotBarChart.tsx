@@ -46,7 +46,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     },
 })
 
-const CustomBarSymbol = ({ x, y, width, height, ...props }: RectangleProps) => {
+const CustomBarSymbol = ({ y, width, height, ...props }: RectangleProps) => {
     return <Circle cx={width} cy={y + height / 2} r={6} {...props} />
 }
 const customSymbolStyle = { fill: '#ffffff', strokeWidth: 3 }
