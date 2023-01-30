@@ -136,7 +136,6 @@ describe('createCategoricalScale', () => {
             colors: ['#000000', '#ffffff'],
             domain: ['a', 'b', 'c', 'd'],
         })
-        console.log(result.domain())
         expect(result.domain().length).toEqual(4)
     })
 })
