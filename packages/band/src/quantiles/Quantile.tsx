@@ -149,7 +149,7 @@ export const Quantile = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
+    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal, 'grouped')
     const preparedData = useMemo(
         () => prepareData(processedData, indexScale, valueScale, horizontal, boxWidth, boxGap),
         [processedData, indexScale, valueScale, horizontal, boxWidth, boxGap]

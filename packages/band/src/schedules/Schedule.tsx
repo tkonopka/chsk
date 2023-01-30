@@ -154,7 +154,7 @@ export const Schedule = ({
 
     // compute dimensions of bars/boxes
     // (schedules do not have internal padding, they are always stacked)
-    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, 0, true)
+    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, 0, 'layered')
 
     const preparedData = useMemo(
         () => prepareData(processedData, indexScale, valueScale, horizontal, boxWidth, boxGap),

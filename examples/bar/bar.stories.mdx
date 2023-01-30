@@ -18,6 +18,7 @@ import {
 import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './QuestionTwoChoicesChart'
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLogoBarChart'
+import { generateDotBarData, DotBarChart } from './DotBarChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -150,6 +151,12 @@ import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLog
                 </div>
             }
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="dots">
+        <Controller generator={generateDotBarData} chart={DotBarChart} steps={['axes', 'data']} />
     </Story>
 </Canvas>
 

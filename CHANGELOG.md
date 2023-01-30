@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [examples]: dot chart using band package
+-   [packages/band]: support for variant 'layered' in 'Bar'
 -   [packages/core]: hook `useTooltip` and context provider `TooltipProvider`
 -   [packages/core]: components `Tooltip`, `TooltipTitle`, `TooltipItemList`,
     `TooltipItem`

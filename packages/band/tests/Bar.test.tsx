@@ -5,6 +5,7 @@ import {
     defaultSequentialScale,
     defaultSizeScale,
     Legend,
+    NumericPositionSpec,
     ScalesContextProps,
     useProcessedData,
     useScales,
@@ -54,7 +55,19 @@ describe('Bar', () => {
         expect(processed.keys).toHaveLength(3)
     })
 
-    it('defines prepared data', () => {
+    const getAllPreparedPositions = (
+        prepared: BarPreparedDataContextProps
+    ): NumericPositionSpec[] => {
+        const result: NumericPositionSpec[] = []
+        prepared.data.forEach(item =>
+            item.position.forEach(position => {
+                result.push(position)
+            })
+        )
+        return result
+    }
+
+    it('defines prepared data (grouped)', () => {
         let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
             prepared = useBarPreparedData()
@@ -62,7 +75,7 @@ describe('Bar', () => {
         }
         render(
             <Chart>
-                <Bar {...barProps}>
+                <Bar {...barProps} variant={'grouped'}>
                     <GetPreparedData />
                 </Bar>
             </Chart>
@@ -71,6 +84,42 @@ describe('Bar', () => {
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
         expect(prepared.data).toHaveLength(2)
         expect(prepared.keys).toHaveLength(3)
+        // all bar positions should be different
+        const allPositions = getAllPreparedPositions(prepared)
+        allPositions.forEach((a, i) => {
+            allPositions.forEach((b, j) => {
+                if (i == j) return
+                expect(String(a)).not.toEqual(String(b))
+            })
+        })
+    })
+
+    it('defines prepared data (layered)', () => {
+        const constantData: Array<BarDataItem> = [
+            { id: 'alpha', label: 'alpha', x: 20, y: 20, z: 20 },
+        ]
+        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const GetPreparedData = () => {
+            prepared = useBarPreparedData()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar {...barProps} variant={'layered'} data={constantData}>
+                    <GetPreparedData />
+                </Bar>
+            </Chart>
+        )
+        expect(prepared.data).toHaveLength(1)
+        expect(prepared.keys).toHaveLength(3)
+        // all bar positions should be equal
+        const allPositions = getAllPreparedPositions(prepared)
+        allPositions.forEach((a, i) => {
+            allPositions.forEach((b, j) => {
+                if (i == j) return
+                expect(String(a)).toEqual(String(b))
+            })
+        })
     })
 
     it('auto-detects scales (vertical)', () => {

@@ -156,5 +156,7 @@ export const stepSequence = (interval: [number, number], step = 1) => {
     return result
 }
 
+export const round1dp = (x: number) => Math.round(x * 10) / 10
+export const round2dp = (x: number) => Math.round(x * 100) / 100
 export const round3dp = (x: number) => Math.round(x * 1000) / 1000
 export const round4dp = (x: number) => Math.round(x * 10000) / 10000

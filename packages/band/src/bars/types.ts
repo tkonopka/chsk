@@ -49,7 +49,7 @@ export type BarInteractiveDataItem = {
 
 export interface BarProps extends BandProps {
     /** variant */
-    variant?: 'grouped' | 'stacked'
+    variant?: 'grouped' | 'stacked' | 'layered'
     /** data */
     data: Array<BarDataItem>
 }

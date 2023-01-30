@@ -146,7 +146,12 @@ export const Strip = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [stripWidth, stripGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal)
+    const [stripWidth, stripGap] = getInternalWidthAndGap(
+        indexScale,
+        keys,
+        paddingInternal,
+        'grouped'
+    )
     const preparedData = useMemo(
         () => prepareData(processedData, indexScale, valueScale, horizontal, stripWidth, stripGap),
         [processedData, horizontal, indexScale, valueScale, stripWidth, stripGap]

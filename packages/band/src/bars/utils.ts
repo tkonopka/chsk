@@ -11,6 +11,7 @@ import {
     X,
     Y,
 } from '@chsk/core'
+import { BarProps } from './types'
 import { cloneDeep } from 'lodash'
 
 export const getScaleProps = (
@@ -49,17 +50,19 @@ export const getScaleProps = (
     return result
 }
 
-// for grouped plots, compute width of individual bar/box and gap to next bar/box
+// compute [width of individual bar/box, gap to next bar/box]
+// for grouped variants: with of individual bar can be smaller than bandwidth
+// for stacked and layered variants: gap is negative
 export const getInternalWidthAndGap = (
     indexScale: BandAxisScale,
     keys: string[],
     paddingInternal: number | null,
-    stacked = false
+    variant: BarProps['variant']
 ): [number, number] => {
     const bandwidth = indexScale.bandwidth()
     const nKeys = keys.length
     const padInternal = paddingInternal ? paddingInternal : 0
-    const noGap = nKeys === 1 || stacked || paddingInternal === null
+    const noGap = nKeys === 1 || variant !== 'grouped' || paddingInternal === null
     const width = noGap ? bandwidth : bandwidth / (nKeys - Math.min(1, padInternal))
     if (noGap) {
         return [width, -width]
