@@ -45,7 +45,7 @@ The animation below shows a custom bar chart. The recording starts with an empty
 
 ![Custom bar chart](/gifs/custom-bars-580x280.gif)
 
-All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-layout).
+All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-groups).
 
 ## Install
 
