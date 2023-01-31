@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import {
     Chart,
     Axis,
@@ -25,7 +24,6 @@ import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { downloadThemePiece } from '@chsk/themes'
-import { PointSummaryDiv } from './PointSummaryDiv'
 
 const round3 = (x: unknown | number): number => Math.round(Number(x) * 1000) / 1000
 
