@@ -27,7 +27,7 @@ export const MockTooltipSetter = ({
     data?: TooltipDataItem[]
     children: ReactNode
 }) => {
-    return <TooltipProvider tooltip={{ x, y, title, data }}>{children}</TooltipProvider>
+    return <TooltipProvider data={{ x, y, title, data }}>{children}</TooltipProvider>
 }
 
 describe('Tooltip', () => {

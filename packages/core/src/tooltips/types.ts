@@ -41,7 +41,7 @@ export type TooltipDataItem = WithId & {
     label: string
 }
 
-export type TooltipContextProps = {
+export type TooltipData = {
     /** x coordinate */
     x?: number
     /** y coordinate */
@@ -52,4 +52,9 @@ export type TooltipContextProps = {
     title?: string
     /** content of tooltip **/
     data?: TooltipDataItem[]
+}
+
+export type TooltipProviderValue = {
+    data: TooltipData
+    setData: (d: TooltipData) => unknown
 }

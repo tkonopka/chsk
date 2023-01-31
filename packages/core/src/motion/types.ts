@@ -8,7 +8,7 @@ export type WithInteractive = {
 
 export interface OpacityMotionProps {
     /** role string */
-    role: string
+    role?: string
     /** flag to indicate first render */
     firstRender: boolean
     /** flag to indicate visibility, used for exit animation */

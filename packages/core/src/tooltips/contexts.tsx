@@ -1,16 +1,23 @@
-import { createContext, ReactNode, useContext } from 'react'
-import { TooltipContextProps } from './types'
+import { createContext, ReactNode, useContext, useState } from 'react'
+import { TooltipData, TooltipProviderValue } from './types'
 
-export const TooltipContext = createContext({} as TooltipContextProps)
+export const TooltipContext = createContext({} as TooltipProviderValue)
 
 export const TooltipProvider = ({
-    tooltip,
+    data = {},
+    value,
     children,
 }: {
-    tooltip: TooltipContextProps
+    data?: TooltipData
+    value?: TooltipProviderValue
     children: ReactNode
 }) => {
-    return <TooltipContext.Provider value={tooltip}>{children}</TooltipContext.Provider>
+    const [tooltipData, setTooltipData] = useState<TooltipData>(data)
+    return (
+        <TooltipContext.Provider value={value ?? { data: tooltipData, setData: setTooltipData }}>
+            {children}
+        </TooltipContext.Provider>
+    )
 }
 
 export const useTooltip = () => useContext(TooltipContext)

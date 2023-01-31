@@ -21,10 +21,9 @@ import {
     FourSideSizeSpec,
     SizeSpec,
     CssProps,
-    TooltipProvider,
-    TooltipContextProps,
     ScalesContextProps,
     useRawData,
+    useTooltip,
 } from '@chsk/core'
 import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
@@ -127,7 +126,6 @@ export const ScatterCrosshair = ({
     style,
     setRole = true,
     dataComponent = SimpleDataComponent,
-    children,
     ...props
 }: ScatterCrosshairProps) => {
     const originalData = useRawData().data
@@ -138,7 +136,7 @@ export const ScatterCrosshair = ({
     const { disabledKeys } = useDisabledKeys()
     const detectorRef = useRef<SVGRectElement>(null)
     const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)
-    const [tooltipContextProps, setTooltipContextProps] = useState<TooltipContextProps>({})
+    const { setData: setTooltipData } = useTooltip()
     if (!isScatterProcessedData(processedData)) return null
     if (!isScatterData(originalData)) return null
 
@@ -181,7 +179,7 @@ export const ScatterCrosshair = ({
             }
             const newActiveData = { ...data, label: tooltipFormat(data) }
             setActiveData(newActiveData)
-            setTooltipContextProps({
+            setTooltipData({
                 x: target[0],
                 y: target[1],
                 title: newActiveData.id,
@@ -189,14 +187,14 @@ export const ScatterCrosshair = ({
             })
             props.onMouseEnter?.(data, event)
         },
-        [activeData, setActiveData, targets, processedData]
+        [activeData, setActiveData, setTooltipData, targets, processedData]
     )
     const debouncedHandleMouseMove = debounce(handleMouseMove, 10, { leading: true })
 
     const handleMouseLeave = useCallback(() => {
         setActiveData(undefined)
-        setTooltipContextProps({})
-    }, [setActiveData, setTooltipContextProps])
+        setTooltipData({})
+    }, [setActiveData, setTooltipData])
 
     const detector = (
         <rect
@@ -240,10 +238,10 @@ export const ScatterCrosshair = ({
     })
 
     return (
-        <g role={'scatter-crosshair'}>
+        <g role={setRole ? 'scatter-crosshair' : undefined}>
             <OpacityMotion
                 key={'crosshair'}
-                role={'crosshair-presence'}
+                role={setRole ? 'crosshair-presence' : undefined}
                 visible={activeData !== undefined}
                 firstRender={false}
             >
@@ -251,7 +249,6 @@ export const ScatterCrosshair = ({
                 {activeSymbol}
             </OpacityMotion>
             {detector}
-            <TooltipProvider tooltip={tooltipContextProps}>{children}</TooltipProvider>
         </g>
     )
 }

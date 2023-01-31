@@ -52,16 +52,15 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
                 <div>
                     <p>
                         Manhattan charts often have a large number of data points. This chart draws
-                        points with a bare svg <code>circle</code> component rather than the chsk
-                        component <code>Circle</code>. The replacement sacrifices animations of the
-                        points in order to prioritize responsiveness. The axes and the grid are
-                        still animated.
+                        points with svg <code>circle</code> components rather than chsk
+                        <code>Circle</code> components. The replacement sacrifices animations of the
+                        points in order to prioritize responsiveness. The axes and the grid are still
+                        animated.
                     </p>
                     <p>
-                        Another noteworthy detail is that mouse events are handled by the{' '}
-                        <code>ScatterCrosshair</code>
-                        component. Information about data points should appear when the mouse hovers
-                        near, not necessarily on top, of point symbols.
+                        Another noteworthy detail is that mouse events are handled by
+                        <code>ScatterCrosshair</code>. Information about data points should appear when
+                        the mouse hovers near, not necessarily on top, of point symbols.
                     </p>
                 </div>
             }

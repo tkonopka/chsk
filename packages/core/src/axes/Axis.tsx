@@ -18,7 +18,6 @@ const UnthemedAxis = ({
     children,
 }: AxisProps) => {
     const dimensions = useDimensions()
-
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}

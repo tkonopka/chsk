@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Surface, Tooltip, View } from '../../../src'
+import { Chart, Surface, Tooltip, TooltipProvider, View } from '../../../src'
 import { viewSeriesIndexesKeys } from '../decorators'
 import { DetectorWithTooltip, ShapesWithTooltip } from './tooltips'
 
@@ -11,7 +11,10 @@ export const ChartForDetectorTooltipDecorator = (Story: () => ReactNode) => (
     >
         <View data={viewSeriesIndexesKeys}>
             <Surface key={'surface'} variant={'inner'} />
-            <DetectorWithTooltip key={'detector'}>{Story()}</DetectorWithTooltip>
+            <TooltipProvider key={'provider'}>
+                <DetectorWithTooltip key={'detector'} />
+                {Story()}
+            </TooltipProvider>
         </View>
     </Chart>
 )
@@ -24,7 +27,10 @@ export const ChartForShapesTooltipDecorator = (Story: () => ReactNode) => (
     >
         <View data={viewSeriesIndexesKeys}>
             <Surface key={'surface'} variant={'inner'} />
-            <ShapesWithTooltip key={'shapes'}>{Story()}</ShapesWithTooltip>
+            <TooltipProvider key={'provider'}>
+                <ShapesWithTooltip key={'shapes'} />
+                {Story()}
+            </TooltipProvider>
         </View>
     </Chart>
 )
@@ -37,9 +43,16 @@ export const ChartWithDetectorWithTooltipDecorator = (Story: () => ReactNode) =>
     >
         <View data={viewSeriesIndexesKeys}>
             <Surface key={'surface'} variant={'inner'} />
-            <DetectorWithTooltip key={'detector'}>
-                <Tooltip>{Story()}</Tooltip>
-            </DetectorWithTooltip>
+            <TooltipProvider key={'provider'}>
+                <DetectorWithTooltip key={'detector'} />
+                <Tooltip
+                    size={[100, 48]}
+                    style={{ strokeWidth: 1, stroke: '#222222', fill: '#f0f85d' }}
+                >
+                    <rect x={0} y={0} width={100} height={48} className={'tooltip surface'} />
+                    {Story()}
+                </Tooltip>
+            </TooltipProvider>
         </View>
     </Chart>
 )

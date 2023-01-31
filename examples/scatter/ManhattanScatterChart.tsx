@@ -12,6 +12,7 @@ import {
     SymbolProps,
     SimpleDataComponent,
     Tooltip,
+    TooltipProvider,
 } from '@chsk/core'
 import {
     Scatter,
@@ -117,14 +118,6 @@ const customTooltipFormat = (item: ScatterInteractiveDataItem): string => {
 export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
-    const [active, setActive] = useState<ScatterInteractiveDataItem | null>(null)
-    const customOnMouseEnter = (data: ScatterInteractiveDataItem | undefined) => {
-        setActive(data ?? null)
-    }
-    const customOnMouseLeave = () => {
-        setActive(null)
-    }
-
     const chromBoundaries = [0]
     rawData.forEach((series, index) => {
         const lastPoint = series.data[series.data.length - 1]
@@ -149,70 +142,63 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     })
 
     return (
-        <div>
-            <Chart
-                data={chartData}
-                fref={fref}
-                id="manhattan-scatter"
-                size={[800, 400]}
-                padding={[60, 40, 80, 60]}
-                theme={customTheme}
+        <Chart
+            data={chartData}
+            fref={fref}
+            id="manhattan-scatter"
+            size={[800, 400]}
+            padding={[60, 40, 80, 60]}
+            theme={customTheme}
+        >
+            <Scatter
+                data={rawData}
+                x={'absPos'}
+                y={'value'}
+                scaleX={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                scaleY={{
+                    variant: 'linear',
+                    domain: [0, 'auto'],
+                }}
+                valueSize={3}
             >
-                <Scatter
-                    data={rawData}
-                    x={'absPos'}
-                    y={'value'}
-                    scaleX={{
-                        variant: 'linear',
-                        domain: [0, 'auto'],
-                    }}
-                    scaleY={{
-                        variant: 'linear',
-                        domain: [0, 'auto'],
-                    }}
-                    valueSize={3}
-                >
-                    <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
-                        <GridLines variant={'y'} />
-                        <GridLines variant={'x'} values={chromBoundaries} />
-                        <Axis variant={'bottom'}>
-                            <AxisTicks
-                                variant={'bottom'}
-                                ticks={chromMids}
-                                tickSize={0}
-                                labelFormat={chromLabel}
-                            />
-                            <AxisLabel variant={'bottom'}>Genome position</AxisLabel>
-                        </Axis>
-                        <Axis variant={'left'} label={'- log10 (p-value)'} />
-                    </MilestoneMotion>
-                    <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                        <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
-                        <ScatterCrosshair
-                            minDistance={30}
-                            onMouseEnter={customOnMouseEnter}
-                            onMouseLeave={customOnMouseLeave}
-                            tooltipFormat={customTooltipFormat}
-                        >
-                            <Tooltip
-                                position={[0, -10]}
-                                anchor={[0.5, 1]}
-                                itemSize={[170, 30]}
-                                itemPadding={[6, 6, 6, 6]}
-                                style={{ stroke: '#222222', strokeWidth: 1 }}
-                            />
-                        </ScatterCrosshair>
-                    </MilestoneMotion>
-                    <Typography position={[-45, -40]} variant={'title'}>
-                        Manhattan plot
-                    </Typography>
-                    <Typography position={[-45, -20]} variant={'subtitle'}>
-                        This chart has {nPoints} data points
-                    </Typography>
-                    <DownloadButtons position={[610, -30]} data image />
-                </Scatter>
-            </Chart>
-            <PointSummaryDiv data={active} />
-        </div>
+                <Typography position={[-45, -40]} variant={'title'}>
+                    Manhattan plot
+                </Typography>
+                <Typography position={[-45, -20]} variant={'subtitle'}>
+                    This chart has {nPoints} data points
+                </Typography>
+                <DownloadButtons position={[610, -30]} data image />
+                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                    <GridLines variant={'y'} />
+                    <GridLines variant={'x'} values={chromBoundaries} />
+                    <Axis variant={'bottom'}>
+                        <AxisTicks
+                            variant={'bottom'}
+                            ticks={chromMids}
+                            tickSize={0}
+                            labelFormat={chromLabel}
+                        />
+                        <AxisLabel variant={'bottom'}>Genome position</AxisLabel>
+                    </Axis>
+                    <Axis variant={'left'} label={'- log10 (p-value)'} />
+                </MilestoneMotion>
+                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                    <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
+                    <TooltipProvider>
+                        <ScatterCrosshair minDistance={30} tooltipFormat={customTooltipFormat} />
+                        <Tooltip
+                            position={[0, -10]}
+                            anchor={[0.5, 1]}
+                            itemSize={[170, 30]}
+                            itemPadding={[6, 6, 6, 6]}
+                            style={{ stroke: '#222222', strokeWidth: 1 }}
+                        />
+                    </TooltipProvider>
+                </MilestoneMotion>
+            </Scatter>
+        </Chart>
     )
 }

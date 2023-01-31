@@ -39,7 +39,7 @@ const UnthemedTooltip = ({
     setRole = true,
     children,
 }: TooltipProps) => {
-    const tooltip = useTooltip()
+    const { data: tooltip } = useTooltip()
     const data = tooltip.data ?? []
     const n = data.length
     title = title ?? tooltip.title

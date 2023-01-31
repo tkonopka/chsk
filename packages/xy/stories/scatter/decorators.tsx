@@ -160,15 +160,14 @@ export const ChartWithTooltipDecorator = () => (
             <Axis variant={'bottom'} label={'x (a.u.)'} />
             <Axis variant={'left'} label={'y (a.u.)'} />
             <ScatterPoints />
-            <ScatterCrosshair style={{ stroke: '#444', strokeWidth: 1, strokeDasharray: 6 }}>
-                <Tooltip
-                    position={[0, -10]}
-                    anchor={[0.5, 1]}
-                    itemSize={[160, 32]}
-                    itemPadding={[8, 8, 8, 8]}
-                    style={{ stroke: '#222222', strokeWidth: 1 }}
-                />
-            </ScatterCrosshair>
+            <ScatterCrosshair style={{ stroke: '#444', strokeWidth: 1, strokeDasharray: 6 }} />
+            <Tooltip
+                position={[0, -10]}
+                anchor={[0.5, 1]}
+                itemSize={[160, 32]}
+                itemPadding={[8, 8, 8, 8]}
+                style={{ stroke: '#222222', strokeWidth: 1 }}
+            />
             <Legend
                 position={[220, 160]}
                 anchor={[0, 0.5]}

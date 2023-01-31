@@ -177,6 +177,4 @@ export interface ScatterCrosshairProps
     tooltipFormat?: (data: ScatterInteractiveDataItem) => string
     /** style for crosshair lines */
     style?: CssProps
-    /** child components */
-    children?: ReactNode
 }
