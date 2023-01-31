@@ -1,4 +1,3 @@
-import { domAnimation, LazyMotion } from 'framer-motion'
 import {
     Chart,
     Axis,
@@ -17,10 +16,8 @@ import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
-const groupedIds = ['alpha', 'beta', 'gamma', 'delta']
-
 export const generateDotBarData = () =>
-    groupedIds.map(id => {
+    ['alpha', 'beta', 'gamma', 'delta'].map(id => {
         const value1 = randomUniformValue(10, 90)
         const value2 = value1 + randomUniformValue(-20, 20)
         return {
@@ -47,12 +44,17 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             tickSize: 0,
         },
     },
+    circle: {
+        default: {
+            strokeWidth: 3,
+        },
+    },
 })
 
 const CustomBarSymbol = ({ y, width, height, ...props }: RectangleProps) => {
     return <Circle cx={width} cy={y + height / 2} r={6} {...props} />
 }
-const customSymbolStyle = { fill: '#ffffff', strokeWidth: 3 }
+const customSymbolStyle = { fill: '#ffffff' }
 
 export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -99,9 +101,7 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <Axis variant={'left'} label={''} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <LazyMotion features={domAnimation}>
-                        <Bars component={CustomBarSymbol} style={customSymbolStyle} />
-                    </LazyMotion>
+                    <Bars component={CustomBarSymbol} style={customSymbolStyle} />
                     <DownloadButtons position={[390, -80]} data image />
                 </MilestoneMotion>
             </Bar>
