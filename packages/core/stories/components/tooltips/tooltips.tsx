@@ -1,27 +1,17 @@
-import { useRef, MouseEvent } from 'react'
-import {
-    Circle,
-    useDimensions,
-    NumericPositionSpec,
-    useScales,
-    X,
-    Y,
-    useTooltip,
-} from '../../../src'
+import { MouseEvent } from 'react'
+import { Circle, useDimensions, useScales, useTooltip, X, Y } from '../../../src'
 
 export const DetectorWithTooltip = () => {
     const { setData: setTooltipData } = useTooltip()
-    const detectorRef = useRef<SVGRectElement>(null)
-    const size = useDimensions().innerSize
+    const dimensions = useDimensions()
+    const size = dimensions.innerSize
 
     const handleMouseMove = (event: MouseEvent) => {
-        if (!detectorRef || !detectorRef.current) return
-        const { x, y } = detectorRef.current.getBoundingClientRect()
-        const pos = [
-            Math.round(event.clientX - x),
-            Math.round(event.clientY - y),
-        ] as NumericPositionSpec
-        setTooltipData({ x: pos[X], y: pos[Y] })
+        const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
+        if (clientRect === undefined) return
+        const x = Math.round(event.clientX - clientRect?.x)
+        const y = Math.round(event.clientY - clientRect?.y)
+        setTooltipData({ x, y })
     }
     const handleMouseLeave = () => {
         setTooltipData({})
@@ -29,7 +19,6 @@ export const DetectorWithTooltip = () => {
 
     return (
         <rect
-            ref={detectorRef}
             x={0}
             y={0}
             width={size[X]}
@@ -44,20 +33,17 @@ export const DetectorWithTooltip = () => {
 export const ShapesWithTooltip = () => {
     const { setData: setTooltipData } = useTooltip()
     const colorScale = useScales().color
-    const detectorRef = useRef<SVGRectElement>(null)
-    const size = useDimensions().innerSize
+    const dimensions = useDimensions()
 
     const keys = ['alpha', 'beta', 'gamma']
     const handleMouseMove = (event: MouseEvent, indexes: number[]) => {
-        if (!detectorRef || !detectorRef.current) return
-        const { x, y } = detectorRef.current.getBoundingClientRect()
-        const pos = [
-            Math.round(event.clientX - x),
-            Math.round(event.clientY - y),
-        ] as NumericPositionSpec
+        const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
+        if (clientRect === undefined) return
+        const x = Math.round(event.clientX - clientRect?.x)
+        const y = Math.round(event.clientY - clientRect?.y)
         setTooltipData({
-            x: pos[X],
-            y: pos[Y],
+            x,
+            y,
             data: indexes.map(i => ({ id: 'X', key: keys[i], label: keys[i] })),
         })
     }
@@ -69,14 +55,6 @@ export const ShapesWithTooltip = () => {
 
     return (
         <>
-            <rect
-                ref={detectorRef}
-                x={0}
-                y={0}
-                width={size[X]}
-                height={size[Y]}
-                style={{ opacity: 0 }}
-            />
             <Circle
                 cx={80}
                 cy={50}

@@ -6,6 +6,7 @@ import {
     SvgElementVariantProps,
     PositionUnits,
     SizeUnits,
+    SvgElementProps,
 } from '../general'
 import {
     BandScaleProps,
@@ -65,7 +66,7 @@ export type ViewSeriesKeys = {
     keys: string[]
 }
 
-export interface ViewProps extends ContainerProps {
+export interface ViewProps extends SvgElementProps, ContainerProps {
     /** variant of view */
     variant?: 'default' | string
     /** data array **/
@@ -94,6 +95,7 @@ export interface ViewThemedProps
         | 'size'
         | 'sizeUnits'
         | 'padding'
+        | 'setRole'
     > {
     scaleX: ScaleProps
     scaleY: ScaleProps
@@ -105,14 +107,17 @@ export interface ViewThemedProps
     anchor: NumericPositionSpec
     size: SizeSpec
     padding: FourSideSizeSpec
+    setRole: boolean
 }
 
-export interface BaseViewProps extends Pick<ProcessedDataContextProps, 'seriesIndexes' | 'keys'> {
-    /** position as an array [x, y] */
+export interface BaseViewProps
+    extends SvgElementVariantProps,
+        Pick<ProcessedDataContextProps, 'seriesIndexes' | 'keys'> {
+    /** view position as an array [x, y] */
     position: NumericPositionSpec
-    /** size as an array [width, height] */
+    /** view size as an array [width, height] */
     size: SizeSpec
-    /** padding (absolute values) **/
+    /** view padding [top, right, bottom, left] **/
     padding: FourSideSizeSpec
     /** original dataset */
     originalData: Array<RecordWithId>
@@ -120,15 +125,13 @@ export interface BaseViewProps extends Pick<ProcessedDataContextProps, 'seriesIn
     processedData: Array<RecordWithId>
     /** scales */
     scales: ScalesContextProps
-    /** role */
-    role: string
     /** children components */
     children?: ReactNode
 }
 
 export interface SurfaceProps extends SvgElementVariantProps {
     /** variant */
-    variant?: 'inner' | 'outer'
+    variant?: 'inner' | 'outer' | 'view' | string
     /** expansion of background surface */
     expansion?: FourSideSizeSpec
 }

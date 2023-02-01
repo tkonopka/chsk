@@ -109,6 +109,8 @@ export const Strip = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: StripProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -159,7 +161,7 @@ export const Strip = ({
 
     return (
         <BaseView
-            role={'view-strip'}
+            variant={'strip'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -168,6 +170,7 @@ export const Strip = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <StripPreparedDataProvider
                 data={preparedData}

@@ -126,6 +126,8 @@ export const Bar = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: BarProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -180,7 +182,7 @@ export const Bar = ({
 
     return (
         <BaseView
-            role={'view-bar'}
+            variant={'bar'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -189,6 +191,7 @@ export const Bar = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <BarPreparedDataProvider data={preparedData} seriesIndexes={seriesIndexes} keys={keys}>
                 <LazyMotion features={domAnimation}>{children}</LazyMotion>

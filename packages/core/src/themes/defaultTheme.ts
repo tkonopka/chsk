@@ -81,10 +81,13 @@ export const defaultTheme: CompleteThemeSpec = {
         tooltipTitle: {
             textAnchor: 'start',
             dominantBaseline: 'central',
+            fontSize: '12px',
+            fontWeight: 600,
         },
         tooltipItem: {
             textAnchor: 'start',
             dominantBaseline: 'central',
+            fontSize: '12px',
         },
     },
     g: {

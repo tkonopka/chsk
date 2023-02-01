@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Bars } from '@chsk/band'
 import { UpSet, UpSetBar, UpSetMemberships } from '../src/upset'
@@ -15,7 +15,7 @@ describe('UpSetBar', () => {
                 </UpSet>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = within(screen.getByRole('view-bar')).getByRole('view-content')
         expect(result).not.toBeNull()
         // the upset grid should have four keys, so four bars
         expect(result.querySelectorAll('rect')).toHaveLength(4)
@@ -31,7 +31,7 @@ describe('UpSetBar', () => {
                 </UpSet>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = within(screen.getByRole('view-bar')).getByRole('view-content')
         expect(result).not.toBeNull()
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
@@ -62,7 +62,7 @@ describe('UpSetBar', () => {
         const membership = screen.getByRole('upset-memberships')
         expect(membership.querySelectorAll('circle')[0].getAttribute('style')).toContain('#00f')
         // bars should have a different color
-        const bar = screen.getByRole('view-bar')
+        const bar = within(screen.getByRole('view-bar')).getByRole('view-content')
         expect(bar.querySelectorAll('rect')[0].getAttribute('style')).toContain('#f00')
     })
 
@@ -76,7 +76,7 @@ describe('UpSetBar', () => {
                 </UpSet>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = within(screen.getByRole('view-bar')).getByRole('view-content')
         expect(result.querySelectorAll('rect')[0].getAttribute('style')).toContain('#f00')
     })
 })

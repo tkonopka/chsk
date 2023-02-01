@@ -103,6 +103,8 @@ export const Venn = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: VennProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -136,7 +138,7 @@ export const Venn = ({
 
     return (
         <BaseView
-            role={'view-venn'}
+            variant={'venn'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -145,6 +147,7 @@ export const Venn = ({
             seriesIndexes={seriesIndexes}
             keys={[]}
             scales={scales}
+            {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>
         </BaseView>

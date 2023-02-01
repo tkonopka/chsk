@@ -105,6 +105,8 @@ export const Scatter = ({
     autoRescale = true,
     //
     children,
+    // svg
+    ...props
 }: ScatterProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -155,7 +157,7 @@ export const Scatter = ({
 
     return (
         <BaseView
-            role={'view-scatter'}
+            variant={'scatter'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -164,6 +166,7 @@ export const Scatter = ({
             seriesIndexes={seriesIndexes}
             keys={seriesIds}
             scales={scales}
+            {...props}
         >
             <ScatterPreparedDataProvider
                 data={preparedData}

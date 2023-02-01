@@ -112,6 +112,8 @@ export const Quantile = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: QuantileProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -157,7 +159,7 @@ export const Quantile = ({
 
     return (
         <BaseView
-            role={'view-quantile'}
+            variant={'quantile'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -166,6 +168,7 @@ export const Quantile = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <QuantilePreparedDataProvider
                 data={preparedData}

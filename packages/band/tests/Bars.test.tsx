@@ -23,7 +23,7 @@ describe('Bars', () => {
         )
         expect(screen.queryByRole('bars-labels')).toBeDefined()
         // the data has two groups of three bars each
-        expect(screen.getByRole('view-bar').querySelectorAll('rect')).toHaveLength(6)
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(6)
         expect(screen.getAllByRole('bars')).toHaveLength(3)
     })
 
@@ -35,7 +35,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         const bars = result.querySelectorAll('rect')
         expect(bars).toHaveLength(6)
         // the chart view will have width 400
@@ -53,7 +53,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(6)
     })
 
@@ -87,7 +87,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         // the data has two groups with one bar each
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
@@ -102,7 +102,7 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for 'alpha' - three bars for keys x, y, z
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick-label')
@@ -120,7 +120,7 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 
@@ -133,7 +133,7 @@ describe('Bars', () => {
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -145,7 +145,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -168,7 +168,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
 
@@ -190,7 +190,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 
@@ -219,7 +219,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar').querySelectorAll('rect')
+        const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
         expect(getNumber(result[0].getAttribute('height'))).toEqual(
@@ -244,7 +244,7 @@ describe('Bars', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar').querySelectorAll('rect')
+        const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
         expect(getNumber(result[0].getAttribute('height'))).toEqual(

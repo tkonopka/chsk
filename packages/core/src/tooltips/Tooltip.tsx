@@ -66,6 +66,52 @@ const UnthemedTooltip = ({
     const variant: SideType = horizontal ? 'bottom' : 'right'
     const compositeClassName = composeClassName(['tooltip', className])
 
+    const content = children ? (
+        children
+    ) : (
+        <>
+            <rect
+                key={'tooltip-surface'}
+                role={setRole ? 'tooltip-surface' : undefined}
+                x={0}
+                y={0}
+                width={size[WIDTH]}
+                height={size[HEIGHT]}
+                rx={rx}
+                ry={ry}
+                className={compositeClassName}
+                style={style}
+            />
+            <TooltipTitle
+                key={'tooltip-title'}
+                variant={variant}
+                position={[0, 0]}
+                size={itemSize}
+                padding={itemPadding}
+                translate={[0, r]}
+                style={titleStyle}
+            >
+                {title}
+            </TooltipTitle>
+            <TooltipItemList
+                key={'tooltip-list'}
+                variant={variant}
+                horizontal={horizontal}
+                position={pos}
+                items={data.map(item => item.key ?? item.id)}
+                labels={data.map(item => item.label ?? item.id)}
+                itemSize={itemSize}
+                itemPadding={itemPadding}
+                r={Array(data.length).fill(r)}
+                symbol={symbol}
+                symbolStyle={symbolStyle}
+                labelStyle={labelStyle}
+                labelOffset={labelOffset}
+                setRole={setRole}
+            />
+        </>
+    )
+
     const config = {
         x: x + (tooltip.x ?? 0),
         y: y + (tooltip.y ?? 0),
@@ -84,53 +130,7 @@ const UnthemedTooltip = ({
                 animate={config}
                 className={compositeClassName}
             >
-                <DimensionsProvider {...dimsProps}>
-                    {children ? (
-                        children
-                    ) : (
-                        <>
-                            <rect
-                                key={'tooltip-surface'}
-                                role={setRole ? 'tooltip-surface' : undefined}
-                                x={0}
-                                y={0}
-                                width={size[WIDTH]}
-                                height={size[HEIGHT]}
-                                rx={rx}
-                                ry={ry}
-                                className={compositeClassName}
-                                style={style}
-                            />
-                            <TooltipTitle
-                                key={'tooltip-title'}
-                                variant={variant}
-                                position={[0, 0]}
-                                size={itemSize}
-                                padding={itemPadding}
-                                translate={[0, r]}
-                                style={titleStyle}
-                            >
-                                {title}
-                            </TooltipTitle>
-                            <TooltipItemList
-                                key={'tooltip-list'}
-                                variant={variant}
-                                horizontal={horizontal}
-                                position={pos}
-                                items={data.map(item => item.key)}
-                                labels={data.map(item => item.label)}
-                                itemSize={itemSize}
-                                itemPadding={itemPadding}
-                                r={Array(data.length).fill(r)}
-                                symbol={symbol}
-                                symbolStyle={symbolStyle}
-                                labelStyle={labelStyle}
-                                labelOffset={labelOffset}
-                                setRole={setRole}
-                            />
-                        </>
-                    )}
-                </DimensionsProvider>
+                <DimensionsProvider {...dimsProps}>{content}</DimensionsProvider>
             </m.g>
         </OpacityMotion>
     )

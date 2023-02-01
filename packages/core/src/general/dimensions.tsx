@@ -1,4 +1,4 @@
-import { DimensionsProviderBaseProps, FourSideSizeSpec, SizeSpec, SizeUnits } from './types'
+import { DimensionsProviderProps, FourSideSizeSpec, SizeSpec, SizeUnits } from './types'
 import { getInnerSize } from './utils'
 
 export const getAbsoluteSize = (
@@ -18,7 +18,7 @@ export const getDimensionsProps = (
     units: SizeUnits,
     referenceSize: SizeSpec,
     padding: FourSideSizeSpec
-): DimensionsProviderBaseProps & { innerSize: SizeSpec } => {
+): DimensionsProviderProps & { innerSize: SizeSpec } => {
     const absoluteSize = getAbsoluteSize(size, units, referenceSize)
     const innerSize = getInnerSize(absoluteSize, padding)
     return {

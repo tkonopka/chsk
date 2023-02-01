@@ -9,12 +9,19 @@ import {
     mergeTheme,
     Circle,
     Legend,
+    Tooltip,
+    SvgElementVariantProps,
+    InteractivityProps,
+    DataComponentProps,
+    useTooltip,
+    useDimensions,
 } from '@chsk/core'
-import { Bar, Bars } from '@chsk/band'
+import { Bar, BarInteractiveDataItem, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
+import { createElement, MouseEvent, useCallback } from 'react'
 
 export const generateDotBarData = () =>
     ['alpha', 'beta', 'gamma', 'delta'].map(id => {
@@ -28,6 +35,14 @@ export const generateDotBarData = () =>
     })
 
 const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+    circle: {
+        default: {
+            strokeWidth: 3,
+        },
+        'bar:hover': {
+            cursor: 'pointer',
+        },
+    },
     line: {
         grid: {
             strokeWidth: 0.5,
@@ -44,17 +59,51 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
             tickSize: 0,
         },
     },
-    circle: {
-        default: {
-            strokeWidth: 3,
-        },
-    },
 })
 
 const CustomBarSymbol = ({ y, width, height, ...props }: RectangleProps) => {
     return <Circle cx={width} cy={y + height / 2} r={6} {...props} />
 }
 const customSymbolStyle = { fill: '#ffffff' }
+
+export const CustomDataComponent = <
+    DataSpec extends BarInteractiveDataItem,
+    ComponentProps extends SvgElementVariantProps & InteractivityProps
+>({
+    component,
+    data,
+    props,
+    onMouseEnter,
+    onMouseLeave,
+}: DataComponentProps<DataSpec, ComponentProps>) => {
+    const { setData: setTooltipData } = useTooltip()
+    const dimensions = useDimensions()
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent) => {
+            const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
+            if (clientRect === undefined || data === undefined) return
+            const x = Math.round(event.clientX - clientRect?.x)
+            const y = Math.round(event.clientY - clientRect?.y)
+            const tooltipItem = { ...data, label: data.key + ': ' + data.data }
+            setTooltipData({ x, y, eventPosition: [x, y], title: data.id, data: [tooltipItem] })
+            onMouseEnter?.(data, event)
+        },
+        [data, onMouseEnter, dimensions, setTooltipData]
+    )
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            setTooltipData({})
+            onMouseLeave?.(data, event)
+        },
+        [data, onMouseLeave, setTooltipData]
+    )
+
+    return createElement(component, {
+        ...props,
+        onMouseEnter: handleMouseEnter,
+        onMouseLeave: handleMouseLeave,
+    })
+}
 
 export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -101,7 +150,23 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <Axis variant={'left'} label={''} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <Bars component={CustomBarSymbol} style={customSymbolStyle} />
+                    <Bars
+                        component={CustomBarSymbol}
+                        style={customSymbolStyle}
+                        dataComponent={CustomDataComponent}
+                    />
+                    <Tooltip
+                        position={[0, -10]}
+                        anchor={[0.5, 1]}
+                        itemSize={[120, 30]}
+                        itemPadding={[8, 8, 8, 8]}
+                        r={7}
+                        style={{
+                            strokeWidth: 1,
+                            stroke: '#222',
+                            filter: 'drop-shadow(3px 5px 3px #22222244)',
+                        }}
+                    />
                     <DownloadButtons position={[390, -80]} data image />
                 </MilestoneMotion>
             </Bar>

@@ -38,7 +38,7 @@ describe('BandHighlights', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 })

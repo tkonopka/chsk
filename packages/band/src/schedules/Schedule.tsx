@@ -110,6 +110,8 @@ export const Schedule = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: ScheduleProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -163,7 +165,7 @@ export const Schedule = ({
 
     return (
         <BaseView
-            role={'view-schedule'}
+            variant={'schedule'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -172,6 +174,7 @@ export const Schedule = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <SchedulePreparedDataProvider
                 data={preparedData}

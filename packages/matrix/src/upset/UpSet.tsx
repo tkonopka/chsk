@@ -101,6 +101,8 @@ export const UpSet = ({
     scaleColor,
     //
     children,
+    // svg
+    ...props
 }: UpSetProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -136,7 +138,7 @@ export const UpSet = ({
 
     return (
         <BaseView
-            role={'view-upset'}
+            variant={'upset'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -145,6 +147,7 @@ export const UpSet = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>
         </BaseView>

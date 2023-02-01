@@ -18,6 +18,7 @@ export const defaultViewProps: ViewThemedProps = {
     sizeUnits: 'relative' as const,
     anchor: [0, 0],
     padding: [0, 0, 0, 0],
+    setRole: true,
 }
 
 export const defaultSurfaceProps: SurfaceProps = {

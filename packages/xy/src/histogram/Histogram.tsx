@@ -101,6 +101,8 @@ export const Histogram = ({
     autoRescale = true,
     //
     children,
+    // svg
+    ...props
 }: HistogramProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -143,7 +145,7 @@ export const Histogram = ({
 
     return (
         <BaseView
-            role={'view-histogram'}
+            variant={'histogram'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -152,6 +154,7 @@ export const Histogram = ({
             seriesIndexes={seriesIndexes}
             keys={seriesIds}
             scales={scales}
+            {...props}
         >
             <HistogramPreparedDataProvider
                 data={preparedData}

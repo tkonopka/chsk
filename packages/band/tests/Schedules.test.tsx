@@ -14,7 +14,7 @@ describe('Schedules', () => {
         )
         // the data has two groups: alpha and beta
         // index alpha has two intervals, index beta has one interval
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
 
@@ -26,7 +26,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
 
@@ -40,7 +40,7 @@ describe('Schedules', () => {
             </Chart>
         )
         // the chart should have only intervals for 'alpha'
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick-label')
@@ -57,7 +57,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -69,7 +69,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -81,7 +81,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-schedule')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 })

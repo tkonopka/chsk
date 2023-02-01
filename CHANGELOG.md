@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: object `containerRef` in dimensions context
 -   [examples]: dot chart using band package
 -   [packages/band]: support for variant 'layered' in 'Bar'
 -   [packages/core]: hook `useTooltip` and context provider `TooltipProvider`
@@ -44,6 +45,8 @@
 
 ### Changed
 
+-   [packages/core]: updated props on `View` and `BaseView` to better match
+    conventions on other components
 -   [packages/core]: modified default styles for some components appearing
     in legends
 -   [packages/themes]: changes styles in some themes to be more compatible with inkscape svg

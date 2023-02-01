@@ -37,8 +37,8 @@ export type TooltipItemListThemedProps = Omit<LegendItemListThemedProps, 'intera
 /** Context */
 
 export type TooltipDataItem = WithId & {
-    key: string
-    label: string
+    key?: string
+    label?: string
 }
 
 export type TooltipData = {

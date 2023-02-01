@@ -72,7 +72,8 @@ export const getTitlePosition = (
     variant: SideType,
     position: NumericPositionSpec,
     size: SizeSpec,
-    padding: FourSideSizeSpec
+    padding: FourSideSizeSpec,
+    r = 0
 ): [number, number] => {
     let x = position[0]
     if (variant === 'right') {
@@ -82,5 +83,5 @@ export const getTitlePosition = (
     } else if (variant === 'bottom' || variant === 'top') {
         x += padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
     }
-    return [x, position[1] + padding[TOP]]
+    return [x, position[1] + padding[TOP] + r]
 }

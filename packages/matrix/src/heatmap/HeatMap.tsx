@@ -58,6 +58,8 @@ export const HeatMap = ({
     scaleSize = defaultSizeScaleSpec,
     //
     children,
+    // svg
+    ...props
 }: HeatMapProps) => {
     const theme = useTheme()
     const { dimsProps, origin } = useView({
@@ -96,7 +98,7 @@ export const HeatMap = ({
 
     return (
         <BaseView
-            role={'view-heatmap'}
+            variant={'heatmap'}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -105,6 +107,7 @@ export const HeatMap = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
+            {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>
         </BaseView>

@@ -48,6 +48,8 @@ export const UpSetBar = ({
     scaleColor,
     //
     children,
+    //
+    ...props
 }: UpSetBarProps) => {
     const processedData = useProcessedData()
     const dimensions = useDimensions()
@@ -80,6 +82,7 @@ export const UpSetBar = ({
                     colors: [scales.color(0)],
                 }
             }
+            {...props}
         >
             {children}
         </Bar>

@@ -22,7 +22,7 @@ describe('Quantiles', () => {
             </Chart>
         )
         // the data has two groups of two boxes each
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(4)
         expect(screen.getAllByRole('boxwhisker')).toHaveLength(4)
     })
@@ -35,7 +35,7 @@ describe('Quantiles', () => {
                 </Quantile>
             </Chart>
         )
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(4)
     })
 
@@ -49,7 +49,7 @@ describe('Quantiles', () => {
             </Chart>
         )
         // the chart should have only bars for 'alpha' - three bars for keys x, y, z
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick-label')
@@ -67,7 +67,7 @@ describe('Quantiles', () => {
             </Chart>
         )
         // the chart should have only bars for key 'x' - for ids 'alpha' and 'beta'
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 
@@ -79,7 +79,7 @@ describe('Quantiles', () => {
                 </Quantile>
             </Chart>
         )
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -92,7 +92,7 @@ describe('Quantiles', () => {
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -104,7 +104,7 @@ describe('Quantiles', () => {
                 </Quantile>
             </Chart>
         )
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(0)
     })
 
@@ -116,7 +116,7 @@ describe('Quantiles', () => {
                 </Quantile>
             </Chart>
         )
-        const result = screen.getByRole('view-quantile')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
 })

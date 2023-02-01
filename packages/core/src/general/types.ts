@@ -1,14 +1,14 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, RefObject } from 'react'
 
 export type CssProps = Partial<CSSProperties>
 
 export interface SvgElementProps {
     /** class string */
     className?: string
-    /** determines if a role is included in the svg source */
-    setRole?: boolean
     /** css style */
     style?: CssProps
+    /** include role attribute in the svg source */
+    setRole?: boolean
 }
 
 export interface SvgElementVariantProps extends SvgElementProps {
@@ -42,14 +42,16 @@ export type TwoSideSizeSpec = [number, number]
 export type AlignSpec = [number, number]
 export type TranslateSpec = [number, number]
 
-export type DimensionsProviderBaseProps = {
-    /** outer size of the chart */
+export type DimensionsProviderProps = {
+    /** width and height */
     size: SizeSpec
     /** padding */
     padding: FourSideSizeSpec
+    /** ref to element that can provide client coordinates */
+    containerRef?: RefObject<SVGSVGElement>
 }
 
-export type DimensionsContextProps = DimensionsProviderBaseProps & {
+export type DimensionsContextProps = DimensionsProviderProps & {
     /** inner size of chart / view */
     innerSize: SizeSpec
 }

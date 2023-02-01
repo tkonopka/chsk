@@ -82,7 +82,7 @@ describe('VennSets', () => {
                 </Venn>
             </Chart>
         )
-        const result = screen.getByRole('view-venn')
+        const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
 })

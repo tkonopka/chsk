@@ -21,6 +21,9 @@ const UnthemedView = ({
     scaleY = defaultViewProps.scaleY,
     scaleColor = defaultViewProps.scaleColor,
     scaleSize = defaultViewProps.scaleSize,
+    className,
+    setRole = defaultViewProps.setRole,
+    style,
     children,
 }: ViewProps) => {
     const { dimsProps, origin } = useView({
@@ -51,6 +54,7 @@ const UnthemedView = ({
 
     return (
         <BaseView
+            variant={variant}
             position={origin}
             size={dimsProps.size}
             padding={dimsProps.padding}
@@ -59,7 +63,9 @@ const UnthemedView = ({
             seriesIndexes={seriesIndexes}
             keys={keys}
             scales={scales}
-            role={variant === 'default' ? 'view' : 'view-' + variant}
+            setRole={setRole}
+            className={className}
+            style={style}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>
         </BaseView>
