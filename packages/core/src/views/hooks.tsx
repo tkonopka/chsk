@@ -24,19 +24,21 @@ export const getAnchoredOrigin = (
     return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
 }
 
+const zeroPadding: FourSideSizeSpec = [0, 0, 0, 0]
+
 export const useView = ({
     position,
     positionUnits,
     size,
     sizeUnits,
-    padding,
+    padding = zeroPadding,
     anchor,
 }: {
     position: PositionSpec
     positionUnits: PositionUnits
     size: SizeSpec
     sizeUnits: SizeUnits
-    padding: FourSideSizeSpec
+    padding?: FourSideSizeSpec
     anchor: AnchorSpec
 }) => {
     const dimensions = useDimensions()

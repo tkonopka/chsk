@@ -157,13 +157,16 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     />
                     <Tooltip
                         position={[0, -10]}
+                        padding={[8, 0, 8, 0]}
                         anchor={[0.5, 1]}
-                        itemSize={[120, 30]}
-                        itemPadding={[8, 8, 8, 8]}
+                        itemSize={[120, 20]}
+                        itemPadding={[2, 8, 2, 8]}
                         r={7}
+                        rx={2}
+                        ry={2}
                         style={{
-                            strokeWidth: 1,
-                            stroke: '#222',
+                            strokeWidth: 0.5,
+                            stroke: '#777',
                             filter: 'drop-shadow(3px 5px 3px #22222244)',
                         }}
                     />

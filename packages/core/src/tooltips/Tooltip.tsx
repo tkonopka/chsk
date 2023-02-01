@@ -1,7 +1,8 @@
 import { TooltipProps } from './types'
 import { useView } from '../views'
 import { composeClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec, X, Y } from '../general'
+import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec } from '../general'
+import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
@@ -45,8 +46,8 @@ const UnthemedTooltip = ({
     title = title ?? tooltip.title
     const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
     size = size ?? [
-        itemSize[X] * sizeMultiplier[X] + firstOffset[X],
-        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y],
+        itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
+        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
     ]
     const { x, y, dimsProps } = useView({
         position,
@@ -54,14 +55,14 @@ const UnthemedTooltip = ({
         size,
         sizeUnits,
         anchor,
-        padding,
     })
     // position of first non-title item
-    const pos: NumericPositionSpec = [0, 0]
+    const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
+    const itemsPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {
-        pos[0] += step[0] + firstOffset[0]
-        pos[1] += step[1] + firstOffset[1]
+        itemsPosition[0] += step[0] + firstOffset[0]
+        itemsPosition[1] += step[1] + firstOffset[1]
     }
     const variant: SideType = horizontal ? 'bottom' : 'right'
     const compositeClassName = composeClassName(['tooltip', className])
@@ -85,7 +86,7 @@ const UnthemedTooltip = ({
             <TooltipTitle
                 key={'tooltip-title'}
                 variant={variant}
-                position={[0, 0]}
+                position={titlePosition}
                 size={itemSize}
                 padding={itemPadding}
                 translate={[0, r]}
@@ -97,7 +98,7 @@ const UnthemedTooltip = ({
                 key={'tooltip-list'}
                 variant={variant}
                 horizontal={horizontal}
-                position={pos}
+                position={itemsPosition}
                 items={data.map(item => item.key ?? item.id)}
                 labels={data.map(item => item.label ?? item.id)}
                 itemSize={itemSize}

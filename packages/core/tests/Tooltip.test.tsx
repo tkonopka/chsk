@@ -142,4 +142,20 @@ describe('Tooltip', () => {
         const items = screen.getAllByRole('tooltip-item')
         expect(items[0].getAttribute('transform')).toContain('translate(0,0)')
     })
+
+    it('uses padding', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
+                        <Tooltip padding={[10, 0, 10, 0]} itemSize={[100, 30]} title={''} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const surface = screen.getByRole('tooltip-surface')
+        expect(surface.getAttribute('height')).toEqual('50')
+        const items = screen.getAllByRole('tooltip-item')
+        expect(items[0].getAttribute('transform')).toContain('translate(0,10)')
+    })
 })
