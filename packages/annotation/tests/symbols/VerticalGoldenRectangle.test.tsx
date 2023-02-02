@@ -1,26 +1,26 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { chartProps } from '../props'
-import { HorizontalGoldenRectangle } from '../../src'
+import { VerticalGoldenRectangle } from '../../src'
 
-describe('HorizontalGoldenRectangle', () => {
-    it('creates a horizontal golden rectangle', () => {
+describe('VerticalGoldenRectangle', () => {
+    it('creates a vertical golden rectangle', () => {
         render(
             <Chart {...chartProps}>
-                <HorizontalGoldenRectangle />
+                <VerticalGoldenRectangle />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
         expect(result?.getAttribute('role')).toContain('default')
         const width = result?.getAttribute('width')?.replace('px', '')
         const height = result?.getAttribute('height')?.replace('px', '')
-        expect(Number(width)).toBeGreaterThan(Number(height))
+        expect(Number(height)).toBeGreaterThan(Number(width))
     })
 
-    it('creates a horizontal golden rectangle without role', () => {
+    it('creates a vertical golden rectangle without role', () => {
         render(
             <Chart {...chartProps}>
-                <HorizontalGoldenRectangle setRole={false} />
+                <VerticalGoldenRectangle setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')

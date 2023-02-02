@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/annotation]: symbols for horizontal and vertical golden rectangles
 -   [packages/core]: object `containerRef` in dimensions context
 -   [examples]: dot chart using band package
 -   [packages/band]: support for variant 'layered' in 'Bar'

@@ -1,5 +1,6 @@
 export * from './Diamond'
-export * from './GoldenRect'
+export * from './HorizontalGoldenRectangle'
 export * from './InvertedTriangle'
 export * from './Segment'
 export * from './Triangle'
+export * from './VerticalGoldenRectangle'

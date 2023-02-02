@@ -2,35 +2,30 @@ import { m } from 'framer-motion'
 import { composeClassName, SymbolProps } from '@chsk/core'
 import { goldenRectHeight, goldenRectWidth } from './constants'
 
-export const GoldenRect = ({
+export const VerticalGoldenRectangle = ({
     variant = 'default',
     cx = 0,
     cy = 0,
     r = 1,
     className,
-    style,
     setRole = true,
     ...props
 }: SymbolProps) => {
     const compositeClassName =
         variant === 'default' ? className : composeClassName([variant, className])
     const config = {
-        x: cx - (r * goldenRectWidth) / 2,
-        y: cy - (r * goldenRectHeight) / 2,
-        width: r * goldenRectWidth,
-        height: r * goldenRectHeight,
+        x: cx - (r * goldenRectHeight) / 2,
+        y: cy - (r * goldenRectWidth) / 2,
+        width: r * goldenRectHeight,
+        height: r * goldenRectWidth,
     }
     return (
         <m.rect
             role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
             className={compositeClassName}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
+            {...props}
         />
     )
 }

@@ -1,0 +1,38 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart } from '@chsk/core'
+import { HorizontalGoldenRectangle } from '../../src'
+import { ChartSymbolDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/HorizontalGoldenRectangle" />
+
+# HorizontalGoldenRectangle
+
+export const Template = args => <HorizontalGoldenRectangle {...args} />
+
+`HorizontalGoldenRectangle` displays a rectangular symbol with width / height proportion set to the golden ratio (1.618).
+
+Geometrically, golden rectangles are just rectangles and can be created using the versatile `Rectangle` component.
+However, `HorizontalGoldenRectangle` is relevant in that it has the same API as symbols such as `Circle` and `Square`.
+The component can be used, for example, in legends and tooltips.
+
+<ArgsTable of={HorizontalGoldenRectangle} />
+
+## Styles
+
+The symbol can be styled using css.
+
+<Canvas>
+    <Story
+        name="styled"
+        args={{
+            style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
+            cx: 80,
+            cy: 50,
+            r: 20,
+        }}
+        component={HorizontalGoldenRectangle}
+        decorators={[ChartSymbolDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
