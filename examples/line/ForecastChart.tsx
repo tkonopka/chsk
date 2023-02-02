@@ -117,10 +117,12 @@ export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
     for (let year = minYear; year <= maxYear; year++) {
         const yearStart = Number(new Date(year + '-01-01'))
         const yearMid = Number(new Date(year + '-07-01'))
+        const yearQ1 = Number(new Date(year + '-04-01'))
+        const yearQ3 = Number(new Date(year + '-010-01'))
         if (yearStart >= timeDomain[0]) {
             yearBoundaries.push(yearStart)
         }
-        if (yearMid <= timeDomain[1]) {
+        if (yearQ3 <= timeDomain[1] && yearQ1 > timeDomain[0]) {
             yearMids.push(yearMid)
         }
     }
