@@ -1,0 +1,5 @@
+export * from './Diamond'
+export * from './GoldenRect'
+export * from './InvertedTriangle'
+export * from './Segment'
+export * from './Triangle'

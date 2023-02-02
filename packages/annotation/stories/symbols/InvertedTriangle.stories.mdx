@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, InvertedTriangle } from '../../../src'
-import { ChartDecorator } from '../decorators'
+import { Chart } from '@chsk/core'
+import { InvertedTriangle } from '../../src'
+import { ChartSymbolDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/InvertedTriangle" />
 
 # InvertedTriangle
 
-<Meta title="Core/Components/Shapes/InvertedTriangle" />
 export const Template = args => <InvertedTriangle {...args} />
 
 `InvertedTriangle` displays a triangle shape.
@@ -22,12 +24,12 @@ Inverted triangles can be styled using css.
         name="styled"
         args={{
             style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
-            cx: 160,
-            cy: 110,
+            cx: 80,
+            cy: 50,
             r: 20,
         }}
         component={InvertedTriangle}
-        decorators={[ChartDecorator]}
+        decorators={[ChartSymbolDecorator]}
     >
         {Template.bind({})}
     </Story>

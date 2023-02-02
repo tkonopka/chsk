@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, Triangle } from '../../../src'
-import { ChartDecorator } from '../decorators'
+import { Chart } from '@chsk/core'
+import { Triangle } from '../../src'
+import { ChartSymbolDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/Triangle" />
 
 # Triangle
 
-<Meta title="Core/Components/Shapes/Triangle" />
 export const Template = args => <Triangle {...args} />
 
 `Triangle` displays a triangle shape.
@@ -20,12 +22,12 @@ Triangles can be styled using css.
         name="styled"
         args={{
             style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
-            cx: 160,
-            cy: 110,
+            cx: 80,
+            cy: 50,
             r: 20,
         }}
         component={Triangle}
-        decorators={[ChartDecorator]}
+        decorators={[ChartSymbolDecorator]}
     >
         {Template.bind({})}
     </Story>

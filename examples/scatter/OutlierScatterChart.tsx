@@ -7,15 +7,14 @@ import {
     Typography,
     Legend,
     LegendItem,
-    Segment,
     getMinMax,
     ThemeSpec,
     LegendTitle,
 } from '@chsk/core'
+import { BlockArrow, BracketLabel, Segment } from '@chsk/annotation'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
 import { generateRegressionData } from '../line/generators'
 import { MilestoneStory } from '../types'
-import { BlockArrow, BracketLabel } from '../../packages/annotation/src'
 
 export const generateOutlierScatterData = () => [
     {

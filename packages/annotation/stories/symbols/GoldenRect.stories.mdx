@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, GoldenRect } from '../../../src'
-import { ChartDecorator } from '../decorators'
+import { Chart } from '@chsk/core'
+import { GoldenRect } from '../../src'
+import { ChartSymbolDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/GoldenRect" />
 
 # GoldenRect
 
-<Meta title="Core/Components/Shapes/GoldenRect" />
 export const Template = args => <GoldenRect {...args} />
 
 `GoldenRect` displays a rectangular symbol with width-height proportions set to the golden ratio (phi = 1.618).
@@ -22,12 +24,12 @@ The symbol can be styled using css.
         name="styled"
         args={{
             style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
-            cx: 160,
-            cy: 110,
+            cx: 80,
+            cy: 50,
             r: 20,
         }}
         component={GoldenRect}
-        decorators={[ChartDecorator]}
+        decorators={[ChartSymbolDecorator]}
     >
         {Template.bind({})}
     </Story>

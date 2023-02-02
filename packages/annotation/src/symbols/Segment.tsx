@@ -1,16 +1,6 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
-import { SymbolProps } from './types'
-import { NumericPositionSpec, X, Y } from '../general/'
-
-// for segments, segmentArm is equivalent to a 'visual factor' used for shapes
-const segmentArm = 1.1
-
-// coordinates for vertices of line segment
-const segmentCoordinates = [
-    [-segmentArm, 0],
-    [segmentArm, 0],
-]
+import { composeClassName, SymbolProps, NumericPositionSpec, X, Y } from '@chsk/core'
+import { segmentCoordinates } from './constants'
 
 // a line segment/fragment that can be used in a legend
 export const Segment = ({
@@ -19,7 +9,6 @@ export const Segment = ({
     cy = 0,
     r = 1,
     className,
-    style,
     setRole = true,
     ...props
 }: SymbolProps) => {
@@ -40,12 +29,8 @@ export const Segment = ({
             role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
             className={compositeClassName}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
+            {...props}
         />
     )
 }

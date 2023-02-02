@@ -1,7 +1,9 @@
 import { m } from 'framer-motion'
 import { composeClassName } from '../themes'
 import { SymbolProps } from './types'
-import { squareHalfSide } from './symbols'
+
+const squareVisualFactor = 0.96
+const squareHalfSide = 0.5 * Math.sqrt(Math.PI) * squareVisualFactor
 
 export const Square = ({
     variant = 'default',

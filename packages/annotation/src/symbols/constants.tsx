@@ -11,9 +11,6 @@
 
 /** rectangles */
 
-const squareVisualFactor = 0.96
-export const squareHalfSide = 0.5 * Math.sqrt(Math.PI) * squareVisualFactor
-
 const goldenRectVisualFactor = 0.96
 const phi = (1 + Math.sqrt(5)) / 2
 export const goldenRectWidth = Math.sqrt(Math.PI * phi) * goldenRectVisualFactor
@@ -44,4 +41,15 @@ export const diamondCoordinates = [
     [diamondEdge, 0],
     [0, diamondEdge],
     [-diamondEdge, 0],
+]
+
+/** line segment */
+
+// segmentArm is equivalent to a 'visual factor' used for symbols
+const segmentArm = 1.1
+
+// coordinates for vertices of line segment
+export const segmentCoordinates = [
+    [-segmentArm, 0],
+    [segmentArm, 0],
 ]

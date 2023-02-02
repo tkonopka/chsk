@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, Surface, View, Legend, Segment } from '../../../src'
-import { ChartDecorator, viewSeriesIndexesKeys } from '../decorators'
+import { Chart, Surface, View, Legend } from '@chsk/core'
+import { Segment } from '../../src'
+import { viewSeriesIndexesKeys } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/Segment" />
 
 # Segment
 
-<Meta title="Core/Components/Shapes/Segment" />
 export const Template = args => <Segment {...args} />
 
 `Segment` displays a short horizontal line segment. It is intended as a symbol for legends.

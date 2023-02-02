@@ -1,10 +1,12 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, Diamond } from '../../../src'
-import { ChartDecorator } from '../decorators'
+import { Chart } from '@chsk/core'
+import { Diamond } from '../../src'
+import { ChartSymbolDecorator } from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/Diamond" />
 
 # Diamond
 
-<Meta title="Core/Components/Shapes/Diamond" />
 export const Template = args => <Diamond {...args} />
 
 `Diamond` displays a diamond shape.
@@ -20,12 +22,12 @@ Diamonds can be styled using css.
         name="styled"
         args={{
             style: { fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' },
-            cx: 160,
-            cy: 110,
+            cx: 80,
+            cy: 50,
             r: 20,
         }}
         component={Diamond}
-        decorators={[ChartDecorator]}
+        decorators={[ChartSymbolDecorator]}
     >
         {Template.bind({})}
     </Story>

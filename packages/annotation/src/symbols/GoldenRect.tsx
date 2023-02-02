@@ -1,7 +1,6 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
-import { SymbolProps } from './types'
-import { goldenRectHeight, goldenRectWidth } from './symbols'
+import { composeClassName, SymbolProps } from '@chsk/core'
+import { goldenRectHeight, goldenRectWidth } from './constants'
 
 export const GoldenRect = ({
     variant = 'default',
