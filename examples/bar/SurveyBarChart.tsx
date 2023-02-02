@@ -12,6 +12,7 @@ import {
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
+import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -127,9 +128,24 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     sizeUnits={'absolute'}
                     horizontal={true}
                 >
-                    <LegendItem position={[0, 0]} item={'SD'} label={'Strongly disagree'} />
-                    <LegendItem position={[140, 0]} item={'D'} label={'Disagree'} />
-                    <LegendItem position={[230, 0]} item={'ND'} label={'Neutral'} />
+                    <LegendItem
+                        position={[0, 0]}
+                        item={'SD'}
+                        label={'Strongly disagree'}
+                        symbol={VerticalGoldenRectangle}
+                    />
+                    <LegendItem
+                        position={[140, 0]}
+                        item={'D'}
+                        label={'Disagree'}
+                        symbol={VerticalGoldenRectangle}
+                    />
+                    <LegendItem
+                        position={[230, 0]}
+                        item={'ND'}
+                        label={'Neutral'}
+                        symbol={VerticalGoldenRectangle}
+                    />
                 </Legend>
             </Bar>
             <Bar
@@ -155,8 +171,18 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     sizeUnits={'absolute'}
                     horizontal={true}
                 >
-                    <LegendItem position={[320, 0]} item={'A'} label={'Agree'} />
-                    <LegendItem position={[410, 0]} item={'SA'} label={'Strongly agree'} />
+                    <LegendItem
+                        position={[320, 0]}
+                        item={'A'}
+                        label={'Agree'}
+                        symbol={VerticalGoldenRectangle}
+                    />
+                    <LegendItem
+                        position={[410, 0]}
+                        item={'SA'}
+                        label={'Strongly agree'}
+                        symbol={VerticalGoldenRectangle}
+                    />
                 </Legend>
                 <DownloadButtons position={[440, 240]} data image />
             </Bar>
