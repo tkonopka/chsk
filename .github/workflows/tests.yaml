@@ -16,7 +16,7 @@ jobs:
                   npm run bootstrap
             - name: Build library
               run: |
-                  npm run build
+                  npm run build-dev
             - name: Style check
               run: |
                   npm run prettier-check

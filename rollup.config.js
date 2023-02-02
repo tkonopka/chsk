@@ -6,6 +6,7 @@ import cleanup from 'rollup-plugin-cleanup'
 import { terser } from 'rollup-plugin-terser'
 
 const pkg = process.env.PACKAGE
+const env = process.env.NODE_ENV ?? 'development'
 
 // The config assumes rollup -c is invoked from a package/${pkg} directory
 // The build commands assume they are executed from the root directory
@@ -36,53 +37,50 @@ const commonPlugins = [
     }),
     json(),
     babel(babelConfig),
-    terser(),
+    terser({ mangle: { keep_fnames: env === 'development' } }),
     cleanup(),
 ]
 
 // ignore warning about circular dependencies in d3-interpolate
 const D3_WARNING = /Circular dependency.*d3-interpolate/
 
+const commonConfig = {
+    input,
+    external: ['react', 'react/jsx-runtime'],
+    plugins: commonPlugins,
+    onwarn: function (message) {
+        if (D3_WARNING.test(message)) {
+            return
+        }
+    },
+}
 const configs = [
     {
-        input,
-        external: ['react', 'react/jsx-runtime'],
+        ...commonConfig,
         output: {
             file: `./packages/${pkg}/dist/chsk-${pkg}.es.js`,
             format: 'es',
             name: `@chsk/${pkg}`,
             sourcemap: true,
         },
-        plugins: commonPlugins,
-        onwarn: function (message) {
-            if (D3_WARNING.test(message)) {
-                return
-            }
-        },
     },
     {
-        input,
-        external: ['react', 'react/jsx-runtime'],
+        ...commonConfig,
         output: {
             file: `./packages/${pkg}/dist/chsk-${pkg}.cjs.js`,
             format: 'cjs',
             name: `@chsk/${pkg}`,
             sourcemap: true,
         },
-        plugins: commonPlugins,
-        onwarn: function (message) {
-            if (D3_WARNING.test(message)) {
-                return
-            }
-        },
     },
-    {
-        input,
+]
+if (env === 'production') {
+    configs.push({
+        ...commonConfig,
         external: ['react', 'react-dom', 'prop-types', 'react/jsx-runtime'],
         output: {
             file: `./packages/${pkg}/dist/chsk-${pkg}.umd.js`,
             format: 'umd',
-            extend: true,
             name: `@chsk/${pkg}`,
             globals: {
                 react: 'React',
@@ -92,13 +90,7 @@ const configs = [
             },
             sourcemap: true,
         },
-        plugins: commonPlugins,
-        onwarn: function (message) {
-            if (D3_WARNING.test(message)) {
-                return
-            }
-        },
-    },
-]
+    })
+}
 
 export default configs
