@@ -1,4 +1,4 @@
-import { Chart, Surface, View, Rectangle, Typography } from '@chsk/core'
+import { Chart, Surface, View, Rectangle, Typography, Axis } from '@chsk/core'
 import { ThemeStory, themeStoryChartProps } from '../ThemeController'
 
 export const PieceDownloadChart = ({ chartId, theme }: ThemeStory) => {
@@ -17,6 +17,7 @@ export const PieceDownloadChart = ({ chartId, theme }: ThemeStory) => {
                 <Typography position={[60, 120]} className={'download'}>
                     styled text
                 </Typography>
+                <Axis variant={'bottom'} label={'bottom axis'} />
             </View>
         </Chart>
     )

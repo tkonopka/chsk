@@ -27,28 +27,28 @@ export const defaultTheme: CompleteThemeSpec = {
             fontFamily: 'sans-serif',
             fontSize: '14px',
             fill: '#222222',
+            textAnchor: 'middle',
         },
         label: {
             fontSize: '12px',
-            textAnchor: 'middle',
             dominantBaseline: 'central',
         },
         counter: {
             fontSize: '12px',
-            textAnchor: 'middle',
             dominantBaseline: 'central',
         },
         title: {
             fontWeight: 600,
             fontSize: '18px',
+            textAnchor: 'start',
         },
         subtitle: {
             fontSize: '14px',
             fill: '#777777',
+            textAnchor: 'start',
         },
         axisLabel: {
             fontSize: '14px',
-            textAnchor: 'middle',
             dominantBaseline: 'middle',
         },
         tickLabel: {

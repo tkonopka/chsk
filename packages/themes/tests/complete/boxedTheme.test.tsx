@@ -1,4 +1,4 @@
-import { boxedTheme } from '../src'
+import { boxedTheme } from '../../src'
 
 describe('boxedTheme', () => {
     it('defines styles for svg elements', () => {

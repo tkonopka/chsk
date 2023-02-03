@@ -1,8 +1,15 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Surface, View, Circle, Rectangle, Typography } from '@chsk/core'
-import { downloadThemePiece, defaultTheme } from '../../src'
+import {
+    defaultTheme,
+    downloadThemePiece,
+    fontSystemUIThemePiece,
+    smallAxisTextThemePiece,
+    faintTicksThemePiece,
+} from '../../src'
 import { ThemeController } from '../ThemeController'
 import { PieceDownloadChart } from './PieceDownloadChart'
+import { ThemeScatterChart } from '../complete/ThemeScatterChart'
 
 <Meta title="Addons/Themes/Theme pieces" />
 
@@ -39,6 +46,48 @@ It is used in some of the examples in the gallery to style buttons that trigger 
             chart={PieceDownloadChart}
             chartId={'pieceDownload'}
             themes={{ downloadThemePiece, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `fontSystemUIThemePiece`
+
+`fontSystemUIThemePiece` changes the default font style to 'system-ui'.
+
+<Canvas>
+    <Story name="font system-ui">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceFontSystemUI'}
+            themes={{ fontSystemUIThemePiece, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `smallAxisTextThemePiece`
+
+`smallAxisTextThemePiece` sets the font size for axis labels and axis ticks to '10px'
+
+<Canvas>
+    <Story name="small axis text">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceSmallAxisText'}
+            themes={{ smallAxisTextThemePiece, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `faintTicksThemePiece`
+
+`faintTicksThemePiece` sets colors and line widths to de-emphasize ticks on the axes.
+
+<Canvas>
+    <Story name="faint ticks">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceSmallAxisText'}
+            themes={{ faintTicksThemePiece, defaultTheme }}
         />
     </Story>
 </Canvas>

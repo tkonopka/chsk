@@ -10,7 +10,7 @@ export interface ThemeStory {
 
 export const themeStoryChartProps = {
     size: [400, 300] as [number, number],
-    padding: [40, 40, 60, 60] as [number, number, number, number],
+    padding: [40, 100, 60, 70] as [number, number, number, number],
 }
 
 export interface ThemeControllerProps {

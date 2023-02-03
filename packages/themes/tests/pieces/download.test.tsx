@@ -1,4 +1,4 @@
-import { downloadThemePiece } from '../src'
+import { downloadThemePiece } from '../../src'
 
 describe('download theme', () => {
     it('specifies styles for rect and path', () => {

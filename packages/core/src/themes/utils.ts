@@ -31,6 +31,15 @@ export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
     return merge(cloneDeep(baseTheme), customTheme ?? {})
 }
 
+export const mergeThemes = (themes: ThemeSpec[]) => {
+    let result = cloneDeep(themes[0])
+    themes.forEach((theme: ThemeSpec, i: number) => {
+        if (i === 0) return
+        result = merge(result, theme)
+    })
+    return result
+}
+
 export const useThemedProps = <Props extends WithVariant>(props: Props, key: ThemedComponent) => {
     const theme = useTheme()
     return useMemo(() => {

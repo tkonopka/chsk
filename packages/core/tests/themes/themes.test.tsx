@@ -9,8 +9,9 @@ import {
     mergeTheme,
     ThemeSpec,
     useThemedProps,
-} from '../src'
-import { chartProps } from './props'
+    mergeThemes,
+} from '../../src'
+import { chartProps } from '../props'
 
 describe('mergeTheme', () => {
     it('merge adds a new property', () => {
@@ -37,6 +38,37 @@ describe('mergeTheme', () => {
         const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
         expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#f2f2f2')
         expect(result['rect']['inner']).toHaveProperty('fill', '#0000dd')
+    })
+})
+
+describe('mergeThemes', () => {
+    it('combines several themes', () => {
+        const theme1: ThemeSpec = {
+            line: {
+                default: {
+                    strokeLinecap: 'round',
+                },
+            },
+        }
+        const theme2: ThemeSpec = {
+            line: {
+                default: {
+                    stroke: '#123456',
+                },
+            },
+        }
+        const theme3: ThemeSpec = {
+            line: {
+                default: {
+                    opacity: 0.5,
+                },
+            },
+        }
+        const result = mergeThemes([theme1, theme2, theme3]) as CompleteThemeSpec
+        expect(defaultTheme['line']['default']).not.toHaveProperty('strokeLinecap')
+        expect(result['line']['default']).toHaveProperty('strokeLinecap', 'round')
+        expect(result['line']['default']).toHaveProperty('stroke', '#123456')
+        expect(result['line']['default']).toHaveProperty('opacity', 0.5)
     })
 })
 

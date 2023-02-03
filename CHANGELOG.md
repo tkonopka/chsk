@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/themes]: theme pieces for text, lines, and ticks
 -   [packages/annotation]: symbols for horizontal and vertical golden rectangles
 -   [packages/core]: object `containerRef` in dimensions context
 -   [examples]: dot chart using band package
