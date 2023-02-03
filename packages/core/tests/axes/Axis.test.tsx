@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Axis, View } from '../src'
-import { chartProps, viewProps } from './props'
+import { Chart, Axis, View } from '../../src'
+import { chartProps, viewProps } from '../props'
 
 describe('Axis', () => {
     it('creates top axis', () => {

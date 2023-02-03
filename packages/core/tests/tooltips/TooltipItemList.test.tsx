@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Tooltip, View, TooltipItemList, ColorScaleProps } from '../src'
-import { chartProps } from './props'
+import { Chart, Tooltip, View, TooltipItemList, ColorScaleProps } from '../../src'
+import { chartProps } from '../props'
 import { MockTooltipSetter } from './Tooltip.test'
 
 describe('TooltipItemList', () => {

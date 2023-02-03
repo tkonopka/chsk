@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, View, ColorScaleProps } from '../src'
-import { chartProps } from './props'
-import { LegendSizeScale } from '../src/legends/LegendSizeScale'
+import { Chart, Legend, View, ColorScaleProps } from '../../src'
+import { chartProps } from '../props'
+import { LegendSizeScale } from '../../src/legends/LegendSizeScale'
 
 export const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },

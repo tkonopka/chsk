@@ -1,4 +1,4 @@
-import { createSizeScaleProps } from '../src/scales'
+import { createSizeScaleProps } from '../../src/scales'
 
 describe('createSizeScaleProps', () => {
     it('creates size props (auto)', () => {

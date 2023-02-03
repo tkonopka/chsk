@@ -1,4 +1,7 @@
 export * from './Circle'
+export * from './curves'
+export * from './Line'
+export * from './Path'
 export * from './Polygon'
 export * from './Rectangle'
 export * from './Square'

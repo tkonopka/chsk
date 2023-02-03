@@ -1,5 +1,0 @@
-export * from './curves'
-export * from './Line'
-export * from './GridLines'
-export * from './Path'
-export * from './types'

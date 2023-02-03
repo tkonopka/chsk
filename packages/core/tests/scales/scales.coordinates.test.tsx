@@ -5,7 +5,7 @@ import {
     defaultCategoricalScale,
     defaultSizeScale,
     getAbsolutePosition,
-} from '../src/scales'
+} from '../../src/scales'
 
 describe('getAbsolutePosition', () => {
     const customBandScale = createBandScale({

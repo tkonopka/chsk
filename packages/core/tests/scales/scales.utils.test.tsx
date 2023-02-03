@@ -6,7 +6,7 @@ import {
     inZone,
     getMinMax,
     getMax,
-} from '../src/scales'
+} from '../../src/scales'
 
 describe('getMinMax', () => {
     it('finds min and max values from non-empty array', () => {

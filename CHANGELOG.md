@@ -47,6 +47,8 @@
 
 ### Changed
 
+-   [pacakges/core]: reorganized tests into subdirectories
+-   [pacakges/core]: merged some src directories
 -   [packages/core]: moved several symbol shapes to the annotation package
 -   [packages/core]: updated props on `View` and `BaseView` to better match
     conventions on other components

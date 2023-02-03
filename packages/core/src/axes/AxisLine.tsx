@@ -1,5 +1,5 @@
 import { useDimensions } from '../general'
-import { Line } from '../lines'
+import { Line } from '../shapes'
 import { AxisLineProps } from './types'
 import { composeClassName } from '../themes'
 

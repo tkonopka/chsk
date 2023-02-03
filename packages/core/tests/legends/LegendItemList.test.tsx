@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, View, LegendItemList, ColorScaleProps } from '../src'
-import { chartProps } from './props'
+import { Chart, Legend, View, LegendItemList, ColorScaleProps } from '../../src'
+import { chartProps } from '../props'
 
 describe('LegendItemList', () => {
     it('creates a legend list with categorical colors', () => {

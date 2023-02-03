@@ -3,7 +3,7 @@ import {
     createSequentialScale,
     createDivergingScale,
     createThresholdScale,
-} from '../src/scales/colors.helpers'
+} from '../../src/scales/colors.helpers'
 import {
     createColorScale,
     createColorScaleProps,
@@ -12,7 +12,7 @@ import {
     SequentialScaleProps,
     getTickCoordinates,
     ThresholdScaleProps,
-} from '../src/scales/'
+} from '../../src/scales'
 
 describe('createCategoricalScale', () => {
     it('with custom colors', () => {

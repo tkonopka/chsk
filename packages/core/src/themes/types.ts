@@ -5,8 +5,12 @@ import {
     DivergingScaleSpec,
     SequentialScaleSpec,
 } from '../scales'
-import { AxisLabelThemedProps, AxisThemedProps, AxisTicksThemedProps } from '../axes'
-import { GridLinesProps } from '../lines'
+import {
+    AxisLabelThemedProps,
+    AxisThemedProps,
+    AxisTicksThemedProps,
+    GridLinesProps,
+} from '../axes'
 import {
     LegendColorScaleThemedProps,
     LegendItemListThemedProps,

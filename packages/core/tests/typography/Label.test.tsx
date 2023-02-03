@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Label } from '../src'
-import { chartProps } from './props'
-import { getTransform } from './utils'
+import { Chart, Label } from '../../src'
+import { chartProps } from '../props'
+import { getTransform } from '../utils'
 
 describe('Label', () => {
     it('creates a label component', () => {

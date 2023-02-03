@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Typography } from '../src'
-import { chartProps } from './props'
-import { getTransform } from './utils'
+import { Chart, Typography } from '../../src'
+import { chartProps } from '../props'
+import { getTransform } from '../utils'
 
 describe('Typography', () => {
     it('creates a default text component', () => {

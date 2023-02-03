@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { render, screen } from '@testing-library/react'
-import { Chart, View, ColorScaleProps, TooltipProvider, TooltipDataItem, Tooltip } from '../src'
-import { chartProps } from './props'
+import { Chart, View, ColorScaleProps, TooltipProvider, TooltipDataItem, Tooltip } from '../../src'
+import { chartProps } from '../props'
 
 export const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },

@@ -3,7 +3,7 @@ import {
     createAreaGenerator,
     NumericPositionSpec,
     NumericPositionIntervalSpec,
-} from '../src'
+} from '../../src'
 
 describe('createLineGenerator', () => {
     it('creates a line generator', () => {

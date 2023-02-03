@@ -1,9 +1,9 @@
 import { uniq } from 'lodash'
-import { GridLinesProps } from './types'
 import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions } from '../general'
-import { Line } from './Line'
+import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
+import { GridLinesProps } from './types'
 
 const UnthemedGridLines = ({
     variant,

@@ -1,6 +1,6 @@
-import { Chart, Tooltip, TooltipDataItem, TooltipItemProps, TooltipTitle, View } from '../src'
+import { Chart, Tooltip, TooltipDataItem, TooltipItemProps, TooltipTitle, View } from '../../src'
 import { render, screen } from '@testing-library/react'
-import { chartProps } from './props'
+import { chartProps } from '../props'
 import { scaleCategorical, viewSeriesIndexesKeys, MockTooltipSetter } from './Tooltip.test'
 
 describe('TooltipTitle', () => {

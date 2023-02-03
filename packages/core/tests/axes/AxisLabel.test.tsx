@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Axis, AxisLabel, Chart, View } from '../src'
-import { chartProps, viewProps } from './props'
+import { Axis, AxisLabel, Chart, View } from '../../src'
+import { chartProps, viewProps } from '../props'
 
 describe('AxisLabel', () => {
     it('aligns axis label to the left', () => {

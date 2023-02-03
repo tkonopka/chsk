@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart, Counter } from '../src'
-import { chartProps } from './props'
+import { Chart, Counter } from '../../src'
+import { chartProps } from '../props'
 
 describe('Counter', () => {
     it('creates a default counter component', () => {

@@ -1,5 +1,5 @@
 import { X, Y } from '../general'
-import { Line } from '../lines'
+import { Line } from '../shapes'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
 import { useThemedProps } from '../themes'

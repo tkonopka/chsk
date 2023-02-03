@@ -1,6 +1,6 @@
-import { Chart, Legend, LegendItemProps, LegendTitle, View } from '../src'
+import { Chart, Legend, LegendItemProps, LegendTitle, View } from '../../src'
 import { render, screen } from '@testing-library/react'
-import { chartProps } from './props'
+import { chartProps } from '../props'
 import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
 
 describe('LegendTitle', () => {

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Axis, AxisTicks, Chart, View } from '../src'
-import { chartProps, viewProps } from './props'
+import { Axis, AxisTicks, Chart, View } from '../../src'
+import { chartProps, viewProps } from '../props'
 
 describe('AxisTicks', () => {
     it('formats tick labels', () => {
