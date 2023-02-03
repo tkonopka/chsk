@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, rad2deg } from '../src'
+import { roundDecimalPlaces, rad2deg } from '../../src/general'
 import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {

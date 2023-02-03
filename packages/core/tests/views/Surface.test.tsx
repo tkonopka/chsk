@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Surface } from '../src'
-import { chartProps } from './props'
+import { Chart, Surface } from '../../src'
+import { chartProps } from '../props'
 
 describe('Surface', () => {
     it('creates inner surface', () => {

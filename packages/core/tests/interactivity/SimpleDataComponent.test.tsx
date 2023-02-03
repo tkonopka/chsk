@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, SimpleDataComponent, Circle } from '../src'
-import { chartProps } from './props'
+import { Chart, SimpleDataComponent, Circle } from '../../src'
+import { chartProps } from '../props'
 
 describe('SimpleDataComponent', () => {
     it('creates a component', () => {

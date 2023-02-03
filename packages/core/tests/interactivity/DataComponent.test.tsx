@@ -1,7 +1,7 @@
 import { MouseEvent } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart, DataComponent, Circle } from '../src'
-import { chartProps } from './props'
+import { Chart, DataComponent, Circle } from '../../src'
+import { chartProps } from '../props'
 
 describe('DataComponent', () => {
     it('creates a component without any event handlers', () => {
