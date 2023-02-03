@@ -5,7 +5,6 @@ import {
     defaultAxisTicksProps,
     ThemeSpec,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 
 export const smallAxisTextThemePiece: ThemeSpec = {
     text: {

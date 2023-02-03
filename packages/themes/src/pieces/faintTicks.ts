@@ -1,11 +1,4 @@
-import {
-    defaultAxisLabelLeftProps,
-    defaultAxisLabelProps,
-    defaultAxisLabelRightProps,
-    defaultAxisTicksProps,
-    ThemeSpec,
-} from '@chsk/core'
-import { cloneDeep } from 'lodash'
+import { ThemeSpec } from '@chsk/core'
 
 export const faintTicksThemePiece: ThemeSpec = {
     text: {
