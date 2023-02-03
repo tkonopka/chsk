@@ -121,11 +121,11 @@ export const OverlappingHistogramChart = ({ fref, chartData, rawData }: Mileston
     if (!isHistogramData(rawData)) return null
 
     const [clicked, setClicked] = useState<HistogramInteractiveDataItem | null>(null)
-    const onClickArea = (data: HistogramInteractiveDataItem) => {
-        setClicked(data)
+    const onClickArea = (data?: HistogramInteractiveDataItem) => {
+        setClicked(data ?? null)
     }
-    const onClickBars = (data: HistogramInteractiveDataItem) => {
-        setClicked(data)
+    const onClickBars = (data?: HistogramInteractiveDataItem) => {
+        setClicked(data ?? null)
     }
 
     return (
@@ -161,7 +161,7 @@ export const OverlappingHistogramChart = ({ fref, chartData, rawData }: Mileston
                     <Legend
                         position={[510, -36]}
                         size={[140, 20]}
-                        units={'absolute'}
+                        sizeUnits={'absolute'}
                         horizontal={true}
                         anchor={[1, 1]}
                         padding={[0, 0, 0, 0]}
