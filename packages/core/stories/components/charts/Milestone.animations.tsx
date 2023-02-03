@@ -13,7 +13,7 @@ import {
     X,
     Y,
     AnimationSpec,
-} from '../../src'
+} from '../../../src'
 
 // helper component that displays an array of milestones at the bottom of a view
 export const MilestonePreview = () => {

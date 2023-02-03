@@ -1,11 +1,11 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart, Axis, MilestoneMotion } from '../../src'
-import { ChartViewDecorator } from './decorators'
+import { Chart, Axis, MilestoneMotion } from '../../../src'
+import { ChartViewDecorator } from '../decorators'
 import { EntryMilestones, ExitMilestones, EntryExitMilestones } from './Milestone.animations'
 
 # MilestoneMotion
 
-<Meta title="Core/Components/MilestoneMotion" />
+<Meta title="Core/Components/Charts/MilestoneMotion" />
 export const Template = args => <MilestoneMotion {...args} />
 
 `MilestoneMotion` is an organizational component. It does not draw anything itself, but it controls when its children elements appear and disappear.

@@ -4,7 +4,9 @@ import { Meta, Source } from '@storybook/addon-docs'
 
 # Common props
 
-Some props appear in common in the APIs of many components. These common props perform a similar function across all components. To avoid repetition in the documentation, these props are outlined below instead of in the the pages dedicated to individual components.
+Some props appear in common in the APIs of many components.
+These common props perform a similar function across all components.
+To avoid repetition in the documentation, these props are outlined below instead of in the the pages dedicated to individual components.
 
 ## `className`
 
@@ -26,7 +28,10 @@ The class affects the appearance of the graphical components, but only if style 
 
 ## `setRole`
 
-The prop `setRole` toggles the `role` attribute in the svg graphic. By default, the `setRole` prop is set to `true` so that the graphic includes some semantic information (see pseudo-code example on this pages). It is possible to remove those tags.
+The prop `setRole` toggles the `role` attribute in the svg graphic.
+By default, the `setRole` prop is set to `true` so that the graphic source code includes some semantic information.
+Some examples of this behavior is demonstrates in the several pseudo-code examples on this page, even if the role is only to a string 'default'.
+Setting `setRole` to 'false' removes those tags.
 
 <Source
     language="javascript"
@@ -61,6 +66,9 @@ As an example, the pseudo-code below shows the definition of `Circle` component 
 ## `variant`
 
 The prop `variant` is used to assign a semantic role and a visual style to a component.
+The detailed behavior of the prop is component-dependent.
+
+In some cases, for example with the `Typography` component, information in the `variant` prop is copied into the graphic in a straightforward manner.
 
 <Source
     language="javascript"
@@ -76,5 +84,5 @@ The prop `variant` is used to assign a semantic role and a visual style to a com
 </text>
 `} />
 
-In some components - in particular components related to `Axis` and `Legend`, the variant prop
-is also used to extract prop values from the chart theme.
+In other cases, for example with the `Axis` component, `variant` triggers more complex changes.
+In the case of `Axis`, the prop determines whether the axis components appear on the top, bottom, left, or right sides of a chart.

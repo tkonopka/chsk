@@ -21,6 +21,7 @@ export const parameters = {
                 [
                     'Overview',
                     'Components',
+                    ['Common props'],
                     'Hooks',
                     'Scales',
                     'Colors',

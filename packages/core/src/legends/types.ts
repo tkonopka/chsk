@@ -26,7 +26,12 @@ export interface LegendTitleProps extends SvgElementProps {
     children?: ReactNode
 }
 
-export interface LegendItemProps extends LegendTitleProps {
+export type WithInteractive = {
+    /** activate interactive features */
+    interactive?: boolean
+}
+
+export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     /** key */
     item: string
     /** size of symbol */
@@ -47,8 +52,6 @@ export interface LegendItemProps extends LegendTitleProps {
     labelOffset?: number
     /** color index (internal use) */
     colorIndex?: number
-    /** interactivity */
-    interactive?: boolean
 }
 
 export interface LegendItemThemedProps
