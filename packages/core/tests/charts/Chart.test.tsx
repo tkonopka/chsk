@@ -1,5 +1,5 @@
 import { act, render, screen } from '@testing-library/react'
-import { Chart, useDisabledKeys, useChartData, ChartRef, useMilestones } from '../src'
+import { Chart, useDisabledKeys, useChartData, ChartRef, useMilestones } from '../../src'
 import { ForwardedRef, useEffect } from 'react'
 
 global.ResizeObserver = require('resize-observer-polyfill')

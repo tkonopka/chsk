@@ -1,8 +1,8 @@
 import { AnimatePresence, m } from 'framer-motion'
-import { MilestoneMotionProps } from './types'
 import { useState } from 'react'
-import { useMilestones } from '../chart'
+import { useMilestones } from './index'
 import { getMotionValue, getTransitionValue } from './utils'
+import { MilestoneMotionProps } from './types'
 
 export const MilestoneMotion = ({
     role,

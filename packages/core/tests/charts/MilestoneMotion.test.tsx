@@ -1,34 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, MilestoneMotion, OpacityMotion } from '../src'
-import { chartProps } from './props'
-
-describe('OpacityMotion', () => {
-    it('creates a visible component on first render', () => {
-        render(
-            <Chart {...chartProps}>
-                <OpacityMotion role={'example'} firstRender>
-                    <rect width={10} height={10} />
-                </OpacityMotion>
-            </Chart>
-        )
-        const result = screen.getByRole('example')
-        expect(result).toBeDefined()
-        expect(result.getAttribute('opacity')).toEqual('1')
-    })
-
-    it('creates an invisible component for enter animation', () => {
-        render(
-            <Chart {...chartProps}>
-                <OpacityMotion role={'example'} firstRender={false}>
-                    <rect width={10} height={10} />
-                </OpacityMotion>
-            </Chart>
-        )
-        const result = screen.getByRole('example')
-        expect(result).toBeDefined()
-        expect(result.getAttribute('opacity')).toEqual('0')
-    })
-})
+import { Chart, MilestoneMotion } from '../../src/charts'
+import { chartProps } from '../props'
 
 describe('MilestoneMotion', () => {
     it('hides content before a milestone is reached', () => {

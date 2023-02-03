@@ -1,4 +1,5 @@
-import { TooltipProps } from './types'
+import { m } from 'framer-motion'
+import { OpacityMotion } from '../charts'
 import { useView } from '../views'
 import { composeClassName, useThemedProps } from '../themes'
 import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec } from '../general'
@@ -7,9 +8,8 @@ import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
 import { TooltipItemList } from './TooltipItemList'
-import { m } from 'framer-motion'
 import { useTooltip } from './contexts'
-import { OpacityMotion } from '../motion'
+import { TooltipProps } from './types'
 
 const UnthemedTooltip = ({
     // layout of container
