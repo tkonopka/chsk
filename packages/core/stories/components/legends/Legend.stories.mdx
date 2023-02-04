@@ -292,8 +292,9 @@ For more control of this type of legend, see `LegendSizeScale`.
 
 ## Interactivity
 
-Prop `interactive` toggles the ability to click on legend items.
-This prop is only relevant for legends with lists of categorical items.
+Prop `interactive` toggles the ability to click on items in a categorical legend.
+
+Legend interactivity is turned on by default. Set `interactive` to 'false' to disable it.
 
 <Canvas>
     <Story
@@ -318,7 +319,7 @@ This prop is only relevant for legends with lists of categorical items.
 </Canvas>
 
 When a legend is not interactive, clicking on legend items does not change their opacity.
-
-Note that the mouse cursor in the example above remains a pointer.
-It is not possible to change the cursor through the `Legend` component.
-Instead, use themes, or create a legend manually and set styles for `LegendItemList` or `LegendItem` components.
+However, all css style definitions remain the same.
+In particular, in the example above, a css style sets the mouse cursor to a pointer.
+That behavior may be undesirable in a non-interactive component.
+To adjust it, use a custom theme, or create a legend manually and set styles for `LegendItemList` or `LegendItem` components.

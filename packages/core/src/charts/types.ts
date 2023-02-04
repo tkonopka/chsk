@@ -1,6 +1,6 @@
 import { ReactNode, Ref } from 'react'
 import { CssProps } from '../general'
-import { SvgBaseComponent, ThemeSpec } from '../themes'
+import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from '../themes'
 import { ContainerProps, WithId } from '../views'
 import { motionPresets, transitionPresets } from './presets'
 
@@ -32,7 +32,9 @@ export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
     id?: string
     /** adjust size to fill parent container */
     stretch?: boolean
-    /** theme **/
+    /** default theme */
+    baseTheme?: CompleteThemeSpec
+    /** theme adjustment **/
     theme?: ThemeSpec
     /** chart settings, e.g. milestones */
     data?: Omit<ChartDataContextProps, 'id'>

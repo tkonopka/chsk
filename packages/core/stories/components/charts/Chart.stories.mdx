@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, Surface } from '../../../src'
+import { Chart, Surface, emptyTheme } from '../../../src'
 import { ChartDecorator, DivDecorator } from '../decorators'
 
 # Chart
@@ -62,3 +62,60 @@ Prop `data` provides the chart with custom settings.
 This data object is not meant to contain primary data for visualization; primary data should be provided to specific view components such as `Bar`, `Scatter`, or others depending on the desired output.
 
 Rather, the `data` object can contain settings for downstream components. For example, this object can be used to provide state for milestone animations. However, for most simple charts, this prop is not needed and can be safely ignored.
+
+## Theme
+
+Prop `theme` accepts an object with various settings that apply to the entire chart.
+This can be used to change default settings to children components such as `Axis`.
+It can also set global css styles.
+
+The example below uses a small custom theme to change the color of the background.
+
+<Canvas>
+    <Story
+        name="custom theme"
+        args={{
+            id: 'customTheme',
+            size: [400, 200],
+            padding: [20, 20, 20, 20],
+            theme: { rect: { inner: { fill: '#ffdddd' } } },
+            children: <Surface variant={'inner'} />,
+        }}
+        component={Chart}
+        decorators={[DivDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that `theme` does not provide a complete description of a chart style, but rather provides
+adjustments that are applied to the default theme. These adjustments can be quite versatile,
+but there are some use cases where it is necessary or desirable to change the default theme itself (see below)
+
+## Base theme
+
+Prop `baseTheme` changes the entire set of settings and styles for the chart.
+In the example below, the base theme is set to `emptyTheme`, which is an object that holds no settings at all.
+
+<Canvas>
+    <Story
+        name="base theme"
+        args={{
+            id: 'emptyTheme',
+            size: [400, 200],
+            padding: [20, 20, 20, 20],
+            baseTheme: emptyTheme,
+            children: <Surface variant={'inner'} />,
+        }}
+        component={Chart}
+        decorators={[DivDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To verify that this chart does not hold any css styles, inspect the svg source in the browser developer console (`Ctrl Shift C`) -
+the `<style>` tag inside the `<svg>` element should be empty.
+
+In practice, tuning a chart starting from the empty base theme can be very time consuming.
+For other starting points, see the `@chsk/themes` add-on.

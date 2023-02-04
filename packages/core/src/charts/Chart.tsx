@@ -20,6 +20,7 @@ export const Chart = ({
     stretch = false,
     padding = [40, 40, 40, 40],
     theme,
+    baseTheme = defaultTheme,
     data = {},
     styles,
     style,
@@ -66,11 +67,11 @@ export const Chart = ({
     // rendering
     const translate = 'translate(' + padding[LEFT] + ',' + padding[TOP] + ')'
     return (
-        <ThemeProvider theme={theme}>
+        <ThemeProvider baseTheme={baseTheme} theme={theme}>
             <DimensionsProvider size={chartSize} padding={padding}>
                 <ChartDataProvider value={{ data: state, setData: setState }}>
                     <MotionConfig
-                        transition={{ type: 'spring', ...mergeMotionConfig(defaultTheme, theme) }}
+                        transition={{ type: 'spring', ...mergeMotionConfig(baseTheme, theme) }}
                     >
                         <LazyMotion features={domAnimation}>
                             <svg

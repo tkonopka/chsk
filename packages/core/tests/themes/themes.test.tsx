@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render } from '@testing-library/react'
 import {
     addColor,
     addOpacity,
@@ -11,10 +11,39 @@ import {
     useThemedProps,
     mergeThemes,
 } from '../../src'
-import { chartProps } from '../props'
 
 describe('mergeTheme', () => {
-    it('merge adds a new property', () => {
+    it('creates a copy', () => {
+        const customTheme: ThemeSpec = {
+            line: {
+                default: {
+                    strokeLinecap: 'round',
+                },
+            },
+        }
+        const result = mergeTheme(customTheme, undefined) as ThemeSpec
+        expect(result['line']?.['default']).toHaveProperty('strokeLinecap', 'round')
+        result['line'] = undefined
+        expect(result['line']).toBeUndefined()
+        expect(customTheme['line']).not.toBeUndefined()
+    })
+
+    it('handles trivial theme', () => {
+        const customTheme: ThemeSpec = {
+            line: {
+                default: {
+                    strokeLinecap: 'round',
+                },
+            },
+        }
+        const result = mergeTheme(customTheme, {}) as ThemeSpec
+        expect(result['line']?.['default']).toHaveProperty('strokeLinecap', 'round')
+        result['line'] = undefined
+        expect(result['line']).toBeUndefined()
+        expect(customTheme['line']).not.toBeUndefined()
+    })
+
+    it('adds a new property', () => {
         const customTheme: ThemeSpec = {
             line: {
                 default: {
@@ -27,7 +56,7 @@ describe('mergeTheme', () => {
         expect(result['line']['default']).toHaveProperty('strokeLinecap', 'round')
     })
 
-    it('merge replaces an existing property', () => {
+    it('replaces an existing property', () => {
         const customTheme: ThemeSpec = {
             rect: {
                 inner: {
@@ -38,6 +67,24 @@ describe('mergeTheme', () => {
         const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
         expect(defaultTheme['rect']['inner']).toHaveProperty('fill', '#f2f2f2')
         expect(result['rect']['inner']).toHaveProperty('fill', '#0000dd')
+    })
+
+    it('replaces an array', () => {
+        const customTheme: ThemeSpec = {
+            GridLines: {
+                x: {
+                    expansion: [1234, 1234],
+                },
+            },
+        }
+        const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
+        expect(defaultTheme['GridLines']['x']).toHaveProperty('expansion', [0, 0])
+        expect(result['GridLines']['x']).toHaveProperty('expansion', [1234, 1234])
+        // attempt to modify custom theme
+        expect(result['GridLines']['x']).toBeDefined()
+        const x = result['GridLines']['x'] ?? {}
+        x.expansion = [567, 567]
+        expect(defaultTheme['GridLines']['x']).toHaveProperty('expansion', [0, 0])
     })
 })
 
@@ -69,17 +116,6 @@ describe('mergeThemes', () => {
         expect(result['line']['default']).toHaveProperty('strokeLinecap', 'round')
         expect(result['line']['default']).toHaveProperty('stroke', '#123456')
         expect(result['line']['default']).toHaveProperty('opacity', 0.5)
-    })
-})
-
-describe('styles', () => {
-    it('skips styles element when not needed', () => {
-        render(<Chart {...chartProps} styles={[]} />)
-        // by setting styles=[], expect there to be no <styles> tag in the svg
-        // but the testing-library framework always removes style tags
-        // so there isn't anything to test here
-        const result = screen.getByRole('chart-content')
-        expect(result).toBeDefined()
     })
 })
 
