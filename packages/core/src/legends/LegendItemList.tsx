@@ -26,15 +26,12 @@ const UnthemedLegendItemList = ({
     setRole = true,
 }: LegendItemListProps) => {
     const rs = r ?? Array(items?.length ?? 1).fill(r)
-    const { itemPosition, itemS, symbolPosition, labelPosition } = getItemPositions(
-        variant,
-        position,
-        horizontal,
-        itemSize,
-        itemPadding,
-        labelOffset,
-        rs
-    )
+    const {
+        itemPosition,
+        itemSize: itemSizes,
+        symbolPosition,
+        labelPosition,
+    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelOffset, rs)
 
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
@@ -42,7 +39,7 @@ const UnthemedLegendItemList = ({
                 variant={variant}
                 key={'legend-item-' + i}
                 position={pos}
-                size={itemS[i]}
+                size={itemSizes[i]}
                 padding={itemPadding}
                 r={rs[i]}
                 symbol={symbol}

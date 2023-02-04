@@ -25,15 +25,12 @@ const UnthemedTooltipItemList = ({
     setRole = true,
 }: TooltipItemListProps) => {
     const rs = r ?? Array(items?.length ?? 1).fill(r)
-    const { itemPosition, itemS, symbolPosition, labelPosition } = getItemPositions(
-        variant,
-        position,
-        horizontal,
-        itemSize,
-        itemPadding,
-        labelOffset,
-        rs
-    )
+    const {
+        itemPosition,
+        itemSize: itemSizes,
+        symbolPosition,
+        labelPosition,
+    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelOffset, rs)
 
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
@@ -41,7 +38,7 @@ const UnthemedTooltipItemList = ({
                 variant={variant}
                 key={'tooltip-item-' + i}
                 position={pos}
-                size={itemS[i]}
+                size={itemSizes[i]}
                 padding={itemPadding}
                 r={rs[i]}
                 symbol={symbol}
