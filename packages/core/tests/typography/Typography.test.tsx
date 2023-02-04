@@ -74,8 +74,18 @@ describe('Typography', () => {
                 <Typography variant={'subtitle'} />
             </Chart>
         )
-        const label = screen.queryByRole('subtitle')
-        expect(label).toBeNull()
+        const result = screen.queryByRole('subtitle')
+        expect(result).toBeNull()
+    })
+
+    it('skips creating component when content is null', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'subtitle'}>{null}</Typography>
+            </Chart>
+        )
+        const result = screen.queryByRole('subtitle')
+        expect(result).toBeNull()
     })
 
     it('sets inline styles', () => {
@@ -90,5 +100,17 @@ describe('Typography', () => {
         expect(result?.textContent).toBe('In color')
         expect(result?.getAttribute('style')).toContain('font-size: 12px')
         expect(result?.getAttribute('style')).toContain('fill: #ff0000')
+    })
+
+    it('ignores html', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom'}>
+                    <p>html</p>
+                </Typography>
+            </Chart>
+        )
+        const result = screen.getByRole('custom').querySelector('text')
+        expect(result?.textContent).toBe('html')
     })
 })

@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
-import { Axis, Surface, Chart, GridLines, Typography, View } from '../src'
+import { Axis, Surface, Chart, GridLines, Typography, View, mergeTheme } from '../src'
 import { ChartProps, ThemeSpec, ViewProps } from '../src'
 
-export const customTheme: ThemeSpec = {
+export const customCssTheme: ThemeSpec = {
     text: {
         // title in regular font weight
         title: {
@@ -32,6 +32,8 @@ export const customTheme: ThemeSpec = {
             strokeWidth: '2px',
         },
     },
+}
+export const customComponentsTheme: ThemeSpec = {
     // tick lines facing into the chart
     AxisTicks: {
         left: {
@@ -44,10 +46,11 @@ export const customTheme: ThemeSpec = {
         },
     },
 }
+export const customTheme = mergeTheme(customCssTheme, customComponentsTheme)
 
 export const CharWithAxisGridProps = {
     size: [400, 300] as [number, number],
-    padding: [40, 40, 60, 60] as [number, number, number, number],
+    padding: [50, 40, 60, 60] as [number, number, number, number],
 }
 export const CharWithAxisGridViewProps: Pick<ViewProps, 'scaleX' | 'scaleY' | 'data'> = {
     scaleX: {
