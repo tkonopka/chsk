@@ -1,6 +1,6 @@
 import { createElement, ReactNode, useMemo } from 'react'
 import {
-    composeClassName,
+    getClassName,
     getIdKeySets,
     Label,
     LinearAxisScale,
@@ -35,7 +35,7 @@ export const VennSetLabels = ({
     const seriesIds = data.map(seriesData => seriesData.id)
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
-    const compositeClassName = composeClassName(['vennSetLabel', className])
+    const compositeClassName = getClassName('vennSetLabel', className)
 
     const result: Array<ReactNode> = (ids ?? seriesIds)
         .map((id, i) => {

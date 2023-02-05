@@ -2,7 +2,7 @@ import { ReactNode, useMemo } from 'react'
 import { m } from 'framer-motion'
 import {
     BandAxisScale,
-    composeClassName,
+    getClassName,
     getIdKeySets,
     useDimensions,
     useScales,
@@ -35,7 +35,7 @@ export const BandSurface = ({
     const width = horizontal ? expandedSize : step
 
     const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
-    const compositeClassName = composeClassName(['bandSurface', className])
+    const compositeClassName = getClassName('bandSurface', className)
 
     const bands: Array<ReactNode> = processedData.data
         .map((seriesData: RecordWithId, j: number) => {

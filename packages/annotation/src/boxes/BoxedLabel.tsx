@@ -1,7 +1,7 @@
 import { BoxedLabelProps } from './types'
 import {
     BOTTOM,
-    composeClassName,
+    getClassName,
     getAbsolutePosition,
     getAbsoluteSize,
     getAnchoredOrigin,
@@ -53,7 +53,7 @@ export const BoxedLabel = ({
 
     let compositeClassName: string | undefined = className ?? ''
     if (compositeClassName.search('boxedLabel') < 0) {
-        compositeClassName = composeClassName(['label boxedLabel', className])
+        compositeClassName = getClassName('label boxedLabel', className)
     }
 
     // content of the label - text or custom node

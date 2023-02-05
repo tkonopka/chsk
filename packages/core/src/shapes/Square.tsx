@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { SymbolProps } from './types'
 
 const squareVisualFactor = 0.96
@@ -15,8 +15,7 @@ export const Square = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName =
-        variant === 'default' ? className : composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     const scaledHalfSide = squareHalfSide * r
     const config = {
         x: cx - scaledHalfSide,

@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { OpacityMotion } from '../charts'
 import { useView } from '../views'
-import { composeClassName, useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec } from '../general'
 import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
@@ -65,7 +65,7 @@ const UnthemedTooltip = ({
         itemsPosition[1] += step[1] + firstOffset[1]
     }
     const variant: SideType = horizontal ? 'bottom' : 'right'
-    const compositeClassName = composeClassName(['tooltip', className])
+    const compositeClassName = getClassName('tooltip', className)
 
     const content = children ? (
         children

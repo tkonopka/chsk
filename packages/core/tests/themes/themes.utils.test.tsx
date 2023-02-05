@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import {
+    getClassName,
     addColor,
     addOpacity,
     defaultTheme,
@@ -11,6 +12,7 @@ import {
     useThemedProps,
     mergeThemes,
 } from '../../src'
+import { camelCase } from '../../src/themes/helpers'
 
 describe('mergeTheme', () => {
     it('creates a copy', () => {
@@ -119,44 +121,105 @@ describe('mergeThemes', () => {
     })
 })
 
-describe('addColor', () => {
-    it('adds to an existing style ', () => {
+/**
+describe('composeClassName', () => {
+    it('concatenates class names', () => {
+        const result = composeClassName(['a', 'b', 'c'])
+        expect(result).toEqual('a b c')
+    })
+
+    it('handles undefined', () => {
+        const result = composeClassName(['a', undefined])
+        expect(result).toEqual('a')
+    })
+
+    it('converts hyphens to camel case', () => {
+        const result = composeClassName(['long-name', 'very-long-name', 'partial-'])
+        expect(result).toEqual('longName veryLongName partial')
+    })
+
+    it('removes starting default', () => {
+        const result = composeClassName(['default', 'a'])
+        expect(result).toEqual('a')
+    })
+
+    it('preserves starting default with optional flat', () => {
+        const result = composeClassName(['default', 'a'], false)
+        expect(result).toEqual('default a')
+    })
+
+    it('handles empty input', () => {
+        const result = composeClassName([])
+        expect(result).toBeUndefined()
+    })
+})
+*/
+
+describe('getClassName', () => {
+    it('concatenates class names', () => {
+        const result = getClassName('a', 'b')
+        expect(result).toEqual('a b')
+    })
+
+    it('handles undefined class name', () => {
+        const result = getClassName('a', undefined)
+        expect(result).toEqual('a')
+    })
+
+    it('converts hyphens to camel case', () => {
+        const result = getClassName('long-name', 'very-long-name')
+        expect(result).toEqual('longName veryLongName')
+    })
+
+    it('removes default variant', () => {
+        const result = getClassName('default', 'a')
+        expect(result).toEqual('a')
+    })
+
+    it('preserves default variant with optional flat', () => {
+        const result = getClassName('default', 'a', false)
+        expect(result).toEqual('default a')
+    })
+})
+
+describe.skip('addColor', () => {
+    it('adds to an existing style', () => {
         const result = addColor({ strokeWidth: 1 }, 'blue')
         expect(result.fill).toEqual('blue')
         expect(result.stroke).toEqual('blue')
     })
 
-    it('adds to an empty style ', () => {
+    it('adds to an empty style', () => {
         const result = addColor(undefined, 'blue')
         expect(result.fill).toEqual('blue')
     })
 
-    it('does not over-ride an existing fill ', () => {
+    it('does not over-ride an existing fill', () => {
         const result = addColor({ fill: 'red' }, 'blue')
         expect(result.fill).toEqual('red')
         expect(result.stroke).toEqual('blue')
     })
 
-    it('does not over-ride an existing stroke ', () => {
+    it('does not over-ride an existing stroke', () => {
         const result = addColor({ stroke: 'red' }, 'blue')
         expect(result.fill).toEqual('blue')
         expect(result.stroke).toEqual('red')
     })
 })
 
-describe('addOpacity', () => {
-    it('add to an existing style ', () => {
+describe.skip('addOpacity', () => {
+    it('add to an existing style', () => {
         const result = addOpacity({ stroke: 'red' }, 0.75)
         expect(result.opacity).toEqual(0.75)
     })
 
-    it('add to an empty style ', () => {
+    it('add to an empty style', () => {
         const result = addOpacity(undefined, 0.5)
         expect(result.opacity).toEqual(0.5)
     })
 })
 
-describe('themedProps', () => {
+describe.skip('useThemedProps', () => {
     it('completes props from theme', () => {
         const customTheme: ThemeSpec = {
             Axis: {

@@ -1,5 +1,5 @@
 import { SymbolProps } from './types'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { m } from 'framer-motion'
 
 export const Circle = ({
@@ -12,8 +12,7 @@ export const Circle = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName =
-        variant === 'default' ? className : composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     const config = { cx, cy, r }
     return (
         <m.circle

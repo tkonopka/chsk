@@ -1,5 +1,5 @@
 import { useDimensions, BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from '../general'
-import { composeClassName, useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { SurfaceProps } from './types'
 import { defaultSurfaceProps } from './defaults'
 
@@ -20,7 +20,7 @@ const UnthemedSurface = ({
         width + (expansion ? expansion[LEFT] + expansion[RIGHT] : 0),
         height + (expansion ? expansion[TOP] + expansion[BOTTOM] : 0),
     ]
-    const compositeClassName = composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     return (
         <rect
             role={setRole ? 'surface-' + variant : undefined}

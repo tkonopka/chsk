@@ -5,13 +5,19 @@ import { CssProps } from '../general'
 import { camelCase } from './helpers'
 import { useMemo } from 'react'
 
-// turn an array of string into a single space-separate className string
-export const composeClassName = function (names: Array<string | undefined>) {
-    const result = names
-        .map(x => camelCase(x))
-        .filter(x => x !== undefined)
-        .join(' ')
-    return result === '' ? undefined : result
+// construct a className string by composing a variant code and a className string
+export const getClassName = function (
+    variant: string,
+    className: string | undefined,
+    skipDefault = true
+) {
+    if (skipDefault && variant === 'default') {
+        return camelCase(className)
+    }
+    if (className === undefined) {
+        return camelCase(variant)
+    }
+    return camelCase(variant) + ' ' + camelCase(className)
 }
 
 export const addColor = (style: CssProps | undefined, color: string) => {

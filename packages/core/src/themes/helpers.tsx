@@ -44,10 +44,8 @@ export const componentStyles = (
             const cssString = cssStyleString(subTheme[variant])
             if (cssString.length === 0) return ''
             const leading = '#' + chartId + ' ' + component
-            if (variant === 'default') {
-                return leading + ' { ' + cssString + ' }'
-            }
-            return leading + '.' + variant + ' { ' + cssString + ' }'
+            const suffix = variant === 'default' ? '' : '.' + variant
+            return leading + suffix + ' { ' + cssString + ' }'
         })
         .filter(entry => entry.length > 0)
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)

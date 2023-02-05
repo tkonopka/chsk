@@ -8,7 +8,7 @@ import {
     createColorScale,
     isContinuousAxisScale,
     ScalesProvider,
-    composeClassName,
+    getClassName,
     createContinuousScale,
     ContinuousAxisScale,
 } from '@chsk/core'
@@ -53,7 +53,7 @@ export const HeatMapCells = ({
     const x = processedData.keys.map(k => scaleX(k))
     const width = scales.x.bandwidth()
     const height = scales.y.bandwidth()
-    const cellClassName = composeClassName(['cell', className])
+    const cellClassName = getClassName('cell', className)
     const aspectRatio = width / height
 
     const elements = data

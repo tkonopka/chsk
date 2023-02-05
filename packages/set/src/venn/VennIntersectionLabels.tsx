@@ -1,13 +1,5 @@
 import { createElement, ReactNode, useMemo } from 'react'
-import {
-    composeClassName,
-    Label,
-    LinearAxisScale,
-    useProcessedData,
-    useScales,
-    X,
-    Y,
-} from '@chsk/core'
+import { getClassName, Label, LinearAxisScale, useProcessedData, useScales, X, Y } from '@chsk/core'
 import { isVennProcessedData } from './predicates'
 import { VennIntersectionLabelsProps, VennProcessedDataItem, VennIntersectionSpec } from './types'
 import { get1Positions, get2Positions, get3Positions } from './intersections'
@@ -35,7 +27,7 @@ export const VennIntersectionLabels = ({
 
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
-    const compositeClassName = composeClassName(['vennIntersectionLabel', className])
+    const compositeClassName = getClassName('vennIntersectionLabel', className)
 
     const labels = useMemo(() => getIntersectionLabels(data), [data])
     const result: Array<ReactNode> = labels.map((item, i) => {

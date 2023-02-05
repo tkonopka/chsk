@@ -49,6 +49,7 @@
 
 ### Changed
 
+-   [packages/core]: replaced `composeClassName` by `getClassName`
 -   [pacakges/core]: reorganized tests into subdirectories
 -   [pacakges/core]: merged some src directories
 -   [packages/core]: moved several symbol shapes to the annotation package

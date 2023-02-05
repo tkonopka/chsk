@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { RectangleProps } from './types'
 
 export const Rectangle = ({
@@ -18,8 +18,7 @@ export const Rectangle = ({
     onClick,
     ...props
 }: RectangleProps) => {
-    const compositeClassName =
-        variant === 'default' ? className : composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     if (width < 0) {
         width = Math.abs(width)
         x -= width

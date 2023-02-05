@@ -1,13 +1,13 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { LineProps } from './types'
 
 export const Line = ({
+    variant = 'default',
     x1,
     y1,
     x2,
     y2,
-    variant = 'default',
     markerStart,
     markerEnd,
     className,
@@ -16,8 +16,7 @@ export const Line = ({
     // interactivity
     ...props
 }: LineProps) => {
-    const isDefault = variant === 'default'
-    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const compositeClassName = getClassName(variant, className)
     const config = { x1, y1, x2, y2 }
     return (
         <m.line

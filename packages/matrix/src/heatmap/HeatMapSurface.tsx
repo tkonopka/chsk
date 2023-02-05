@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { m } from 'framer-motion'
 import {
     BandAxisScale,
-    composeClassName,
+    getClassName,
     getIdKeySets,
     useScales,
     useProcessedData,
@@ -38,7 +38,7 @@ export const HeatMapSurface = ({
 
     const idInterval = getInterval(idSet, scales.y as BandAxisScale, expansion[0])
     const keyInterval = getInterval(keySet, scales.x as BandAxisScale, expansion[1])
-    const compositeClassName = composeClassName(['heatmapSurface', className])
+    const compositeClassName = getClassName('heatmapSurface', className)
 
     return (
         <g role={'heatmap-surface'}>

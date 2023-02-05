@@ -1,6 +1,6 @@
 import { Square } from '../shapes'
 import { Typography } from '../typography'
-import { addColor, composeClassName, useThemedProps } from '../themes'
+import { addColor, getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
 import { LEFT, RIGHT, TOP, X, Y } from '../general'
 import { defaultTooltipItemProps } from './defaults'
@@ -70,7 +70,7 @@ const UnthemedTooltipItem = ({
                 cx: symbolPosition[0] + translate[0],
                 cy: symbolPosition[1] + translate[1],
                 r: r,
-                className: composeClassName(['tooltipSymbol', className]),
+                className: getClassName('tooltipSymbol', className),
                 style: itemStyle,
                 setRole: false,
             })}

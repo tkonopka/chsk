@@ -1,6 +1,6 @@
 import {
     BandAxisScale,
-    composeClassName,
+    getClassName,
     getIdKeySets,
     getAbsolutePosition,
     ScalesContextProps,
@@ -62,7 +62,7 @@ export const BandLabels = ({
     const valuePos = getAbsoluteValuePos(position, unit, dimensions.innerSize, scales, horizontal)
     const labelSize: SizeSpec =
         unit === 'relative' ? [size[0] * bandwidth, size[1] * bandwidth] : size
-    const compositeClassName = composeClassName(['bandLabel', className])
+    const compositeClassName = getClassName('bandLabel', className)
 
     const labels: Array<ReactNode> = data
         .map((seriesData: RecordWithId, j: number) => {

@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { LabelProps } from './types'
 import { NumericPositionSpec, X, Y, getAlignPosition } from '../general'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 
 export const Label = ({
     position = [0, 0],
@@ -18,7 +18,7 @@ export const Label = ({
     if (children === undefined || children === '') return null
     const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
     const pos = getAlignPosition(corner, size, padding, align)
-    const compositeClassName = composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     const config = { x: pos[X], y: pos[Y], rotate, originX: '0px', originY: '0px' }
     return (
         <m.g role={setRole ? variant : undefined} initial={config} animate={config}>

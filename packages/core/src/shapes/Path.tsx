@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { PathProps } from './types'
 import { createLineGenerator } from './curves'
 import { useMemo } from 'react'
@@ -15,8 +15,7 @@ export const Path = ({
     // interactivity
     ...props
 }: PathProps) => {
-    const isDefault = variant === 'default'
-    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const compositeClassName = getClassName(variant, className)
     const generator = useMemo(() => createLineGenerator(curve), [curve])
     const path = d ?? generator(points ?? [])
     return (

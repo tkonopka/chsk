@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { X, Y } from '../general'
-import { composeClassName } from '../themes'
+import { getClassName } from '../themes'
 import { getTextContent } from './utils'
 import { TypographyProps } from './types'
 
@@ -15,8 +15,7 @@ export const Typography = ({
 }: TypographyProps) => {
     const content = getTextContent(children)
     if (content === '') return null
-    const isDefault = variant === 'default'
-    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const compositeClassName = getClassName(variant, className)
     const config = { x: position[X], y: position[Y], rotate, originX: '0px', originY: '0px' }
     return (
         <m.g role={setRole ? variant : undefined} initial={config} animate={config}>

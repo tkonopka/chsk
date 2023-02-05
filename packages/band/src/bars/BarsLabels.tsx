@@ -1,6 +1,6 @@
 import { createElement, ReactNode, useMemo } from 'react'
 import {
-    composeClassName,
+    getClassName,
     getIdKeySets,
     Label,
     OpacityMotion,
@@ -38,8 +38,8 @@ export const BarsLabels = ({
         () => getIdKeySets(ids, keys, preparedData),
         [ids, keys, preparedData]
     )
-    const innerClassName = composeClassName(['barLabel', className])
-    const outerClassName = composeClassName(['barLabel out', className])
+    const innerClassName = getClassName('barLabel', className)
+    const outerClassName = getClassName('barLabel out', className)
 
     const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null

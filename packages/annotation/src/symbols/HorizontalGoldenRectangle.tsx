@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { composeClassName, SymbolProps } from '@chsk/core'
+import { getClassName, SymbolProps } from '@chsk/core'
 import { goldenRectHeight, goldenRectWidth } from './constants'
 
 export const HorizontalGoldenRectangle = ({
@@ -11,8 +11,7 @@ export const HorizontalGoldenRectangle = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName =
-        variant === 'default' ? className : composeClassName([variant, className])
+    const compositeClassName = getClassName(variant, className)
     const config = {
         x: cx - (r * goldenRectWidth) / 2,
         y: cy - (r * goldenRectHeight) / 2,

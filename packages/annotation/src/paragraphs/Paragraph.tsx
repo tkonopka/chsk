@@ -1,6 +1,6 @@
 import { domAnimation, m, LazyMotion } from 'framer-motion'
 import { ParagraphProps } from './types'
-import { composeClassName, getTextContent, X, Y } from '@chsk/core'
+import { getClassName, getTextContent, X, Y } from '@chsk/core'
 import sans from './arial.json'
 import serif from './times-new-roman.json'
 import { getLetterProfile, splitText } from './utils'
@@ -25,7 +25,7 @@ export const Paragraph = ({
         .map((_, index) => index * size[Y])
     const maxOffset = offsets[offsets.length - 1]
     const [x, y] = [position[X], position[Y] - align * maxOffset]
-    const compositeClassName = composeClassName(['paragraph', className])
+    const compositeClassName = getClassName('paragraph', className)
     const config = { x, y, rotate, originX: '0px', originY: '0px' }
     const content = lines.map((line, index) => (
         <text

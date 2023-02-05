@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import {
-    composeClassName,
+    getClassName,
     createLineGenerator,
     getAbsolutePosition,
     useDimensions,
@@ -29,8 +29,7 @@ export const FlowPath = ({
         () => points.map(point => getAbsolutePosition(point, units, dimensions.innerSize, scales)),
         [points, units, dimensions, scales]
     )
-    const isDefault = variant === 'default'
-    const compositeClassName = composeClassName([isDefault ? undefined : variant, className])
+    const compositeClassName = getClassName(variant, className)
     const generator = useMemo(() => createLineGenerator(curve), [curve])
     const path = generator(viewPoints)
     return (
