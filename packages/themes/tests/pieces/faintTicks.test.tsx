@@ -15,7 +15,7 @@ describe('faintTicksThemePiece', () => {
         expect(refColor[2]).toBeLessThan(themeColor[2])
     })
 
-    it.skip('specifies a faint color for tick lines', () => {
+    it('specifies a faint color for tick lines', () => {
         expect(faintTicksThemePiece).toHaveProperty('text')
         const refColor = colArray(defaultTheme.line?.['tick']?.stroke)
         const themeColor = colArray(faintTicksThemePiece.line?.['tick']?.stroke)
