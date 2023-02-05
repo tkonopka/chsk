@@ -23,7 +23,7 @@ export const parameters = {
                     'Components',
                     'Hooks',
                     'Props',
-                    ['Common Props', 'Colors', 'Scales', 'Themes'],
+                    ['Common props', 'Colors', 'Scales', 'Themes'],
                 ],
                 'Addons',
                 [
