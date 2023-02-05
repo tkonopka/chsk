@@ -71,7 +71,7 @@ const multiviewTheme: ThemeSpec = {
             stroke: '#222222',
             strokeWidth: 1,
         },
-        boxedLabel: {
+        boxedTitle: {
             fill: '#f2f2f2',
             stroke: '#222222',
             strokeWidth: 1,

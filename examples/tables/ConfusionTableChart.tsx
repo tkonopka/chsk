@@ -39,7 +39,7 @@ export const generateConfusionTableData = () => [
 
 const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     rect: {
-        boxedLabel: {
+        boxedTitle: {
             stroke: '#222222',
             strokeWidth: 1,
             fill: '#fafafa',
