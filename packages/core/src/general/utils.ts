@@ -1,5 +1,6 @@
 import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from './types'
 import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH, X, Y } from './constants'
+import { AnchorSpec } from '../views'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
 export const roundDecimalPlaces = (x: number, n: number) => {
@@ -35,4 +36,13 @@ export const getAlignPosition = (
         pos[X] + padding[LEFT] + innerSize[X] * align[X],
         pos[Y] + padding[TOP] + innerSize[Y] * align[Y],
     ]
+}
+
+/** get position of top-left corner of a rectangle */
+export const getAnchoredOrigin = (
+    position: NumericPositionSpec,
+    size: SizeSpec,
+    anchor: AnchorSpec
+): NumericPositionSpec => {
+    return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
 }

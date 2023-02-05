@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, Surface, Circle, Rectangle, Label } from '../../../src'
 import { DivDecorator, ChartDecorator } from '../decorators'
-import { ChartForLabelDecorator } from './decorators'
+import { ChartForLabelDecorator, ChartForAnchoredLabelDecorator } from './decorators'
 
 # Label
 
@@ -17,15 +17,15 @@ It differs from `Typography` in how the props determine the localisation of the 
 ## Base position
 
 Prop `position` determines the location of the label anchor point.
-By default, `Label` creates that is centered around the anchor point.
-Thus, the behavior of `Label` is in such cases very similar to `Typography`.
+By default, `Label` creates text that is centered around the anchor point.
+Thus, the result is very similar as that produced by `Typography`.
 
 <Canvas>
     <Story
         name="default"
         args={{
             position: [0, 0],
-            children: 'label text',
+            children: 'label',
         }}
         component={Label}
         decorators={[ChartDecorator]}
@@ -34,9 +34,9 @@ Thus, the behavior of `Label` is in such cases very similar to `Typography`.
     </Story>
 </Canvas>
 
-## Rectangle-based position
+## Alignment
 
-`Label` provides a number of other props that tune the final position of the text.
+`Label` provides props other than `position` that tune the position of the text.
 To understand how the placement is computed, imagine a rectangle centered around `position`.
 The size of the rectangle is determined by prop `size`. The internal padding is set
 with prop `padding`. The text label is then placed within the accessible rectangle,
@@ -46,7 +46,7 @@ In each of examples below, `position` is marked with a small circle.
 Two concentric rectangles enclose the circle.
 The dimensions of the outer rectangle correspond to prop `size`.
 The inner rectangle is offset from the outer rectangle according to `padding`.
-Finally, the text element is aligned at a location within the inner rectangle.ChartForLabelDecorator
+Finally, the text element is aligned at a location within the inner rectangle.
 
 In the first example below, the text is aligned `[0, 0.5]`, i.e. to left side in the middle of the inner rectangle.
 The style of the text element uses `textAnchor: 'start'`.
@@ -59,10 +59,10 @@ The style of that text element uses `textAnchor: 'end'`.
         args={{
             position: [160, 110],
             size: [160, 50],
-            padding: [5, 5, 5, 15],
+            padding: [5, 15, 5, 15],
             align: [0, 0.5],
             style: { textAnchor: 'start' },
-            children: 'label text',
+            children: 'abc abc',
         }}
         component={Label}
         decorators={[ChartForLabelDecorator]}
@@ -74,13 +74,38 @@ The style of that text element uses `textAnchor: 'end'`.
         args={{
             position: [160, 110],
             size: [160, 50],
-            padding: [5, 5, 5, 15],
+            padding: [5, 15, 5, 15],
             align: [1, 0.5],
             style: { textAnchor: 'end' },
-            children: 'label text',
+            children: 'abc abc',
         }}
         component={Label}
         decorators={[ChartForLabelDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Anchor
+
+The examples above explain how the position of the text is calculated with the aid of a rectangle centered around `position`.
+Prop `anchor` changes how that rectangle is positioned relative to `position`.
+In the example below, `anchor` is set to `[0, 0]` so that the rectangle's top-left corner matches with `position`.
+
+<Canvas>
+    <Story
+        name="anchored top-left"
+        args={{
+            position: [160, 110],
+            size: [160, 50],
+            padding: [5, 15, 5, 15],
+            align: [0, 0.5],
+            anchor: [0, 0],
+            style: { textAnchor: 'start' },
+            children: 'abc abc',
+        }}
+        component={Label}
+        decorators={[ChartForAnchoredLabelDecorator]}
     >
         {Template.bind({})}
     </Story>

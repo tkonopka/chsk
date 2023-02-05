@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: prop `anchor` for `Label`
 -   [packages/core]: prop `baseTheme` for `Chart` to enable resetting the entire
     theme
 -   [packages/themes]: theme pieces for text, lines, and ticks

@@ -1,5 +1,5 @@
 import {
-    NumericPositionSpec,
+    getAnchoredOrigin,
     PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
@@ -10,21 +10,12 @@ import {
     Y,
     LEFT,
     TOP,
+    zeroPadding,
 } from '../general'
 import { getDimensionsProps } from '../general/dimensions'
 import { AnchorSpec } from './types'
 import { getAbsolutePosition, useScales } from '../scales'
 import { useMemo } from 'react'
-
-export const getAnchoredOrigin = (
-    position: NumericPositionSpec,
-    size: SizeSpec,
-    anchor: AnchorSpec
-): NumericPositionSpec => {
-    return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
-}
-
-const zeroPadding: FourSideSizeSpec = [0, 0, 0, 0]
 
 export const useView = ({
     position,

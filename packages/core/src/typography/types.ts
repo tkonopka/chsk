@@ -23,6 +23,8 @@ export type LabelLocationSpec = {
     size?: SizeSpec
     /** space between container and label */
     padding?: FourSideSizeSpec
+    /** position of anchor point relative to box size */
+    anchor?: AlignSpec
     /** alignment of label within its bounding container */
     align?: AlignSpec
 }
