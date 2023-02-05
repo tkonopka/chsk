@@ -1,17 +1,26 @@
 import { useState } from 'react'
 import { animate } from 'framer-motion'
-import { getAlignPosition, NumericPositionSpec, roundDecimalPlaces, X, Y } from '../general'
+import {
+    centerAlign,
+    getAlignPosition,
+    NumericPositionSpec,
+    roundDecimalPlaces,
+    X,
+    Y,
+    zeroPadding,
+    zeroPosition,
+} from '../general'
 import { CounterProps } from './types'
 import { Typography } from './Typography'
 import { useTheme } from '../themes'
 
 export const Counter = ({
     variant = 'counter',
-    position = [0, 0],
+    position = zeroPosition,
     rotate,
     size = [20, 20],
-    padding = [0, 0, 0, 0],
-    align = [0.5, 0.5],
+    padding = zeroPadding,
+    align = centerAlign,
     nDecimalPlaces = 0,
     format = (v: number) => String(v),
     style,

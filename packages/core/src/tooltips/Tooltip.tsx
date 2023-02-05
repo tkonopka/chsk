@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 import { OpacityMotion } from '../charts'
 import { useView } from '../views'
 import { getClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, WIDTH, HEIGHT, NumericPositionSpec } from '../general'
+import { DimensionsProvider, NumericPositionSpec, zeroPosition, zeroPadding } from '../general'
 import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
@@ -13,12 +13,12 @@ import { TooltipProps } from './types'
 
 const UnthemedTooltip = ({
     // layout of container
-    position = [0, 0],
+    position = zeroPosition,
     positionUnits = 'absolute',
     size,
     sizeUnits = 'absolute',
     anchor = [1, 1],
-    padding = [0, 0, 0, 0],
+    padding = zeroPadding,
     rx = defaultTooltipProps.rx,
     ry = defaultTooltipProps.ry,
     // organization of items within the container
@@ -76,8 +76,8 @@ const UnthemedTooltip = ({
                 role={setRole ? 'tooltip-surface' : undefined}
                 x={0}
                 y={0}
-                width={size[WIDTH]}
-                height={size[HEIGHT]}
+                width={size[X]}
+                height={size[Y]}
                 rx={rx}
                 ry={ry}
                 className={compositeClassName}

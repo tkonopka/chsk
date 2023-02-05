@@ -2,7 +2,7 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion'
 import { debounce } from 'lodash'
 import { ChartDataContextProps, ChartProps } from './types'
-import { DimensionsProvider, HEIGHT, LEFT, SizeSpec, TOP, WIDTH } from '../general'
+import { DimensionsProvider, SizeSpec, TOP, LEFT, X, Y } from '../general'
 import { defaultTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
 import { mergeMotionConfig } from '../themes/helpers'
@@ -77,8 +77,8 @@ export const Chart = ({
                             <svg
                                 id={id}
                                 xmlns="http://www.w3.org/2000/svg"
-                                width={chartSize[WIDTH]}
-                                height={chartSize[HEIGHT]}
+                                width={chartSize[X]}
+                                height={chartSize[Y]}
                                 role={'chart'}
                                 style={style}
                                 ref={ref}

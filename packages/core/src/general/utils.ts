@@ -1,5 +1,5 @@
 import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from './types'
-import { BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH, X, Y } from './constants'
+import { TOP, BOTTOM, LEFT, RIGHT, X, Y } from './constants'
 import { AnchorSpec } from '../views'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
@@ -18,10 +18,7 @@ export const rad2deg = (x: number) => {
 
 /** get inner size given a padding vector */
 export const getInnerSize = (size: SizeSpec, padding: FourSideSizeSpec): SizeSpec => {
-    return [
-        size[WIDTH] - padding[LEFT] - padding[RIGHT],
-        size[HEIGHT] - padding[TOP] - padding[BOTTOM],
-    ]
+    return [size[X] - padding[LEFT] - padding[RIGHT], size[Y] - padding[TOP] - padding[BOTTOM]]
 }
 
 /** get a position in a container */

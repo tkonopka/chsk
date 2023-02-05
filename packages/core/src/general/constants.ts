@@ -1,17 +1,16 @@
 // indexes for padding arrays
-import { FourSideSizeSpec } from './types'
+import { AlignSpec, FourSideSizeSpec, NumericPositionSpec } from './types'
 
 export const TOP = 0,
     RIGHT = 1,
     BOTTOM = 2,
     LEFT = 3
 
-// indexes for size arrays
-export const WIDTH = 0,
-    HEIGHT = 1
-
 // indexes for size and position arrays
 export const X = 0,
     Y = 1
 
+// commonly used settings
+export const zeroPosition: NumericPositionSpec = [0, 0]
 export const zeroPadding: FourSideSizeSpec = [0, 0, 0, 0]
+export const centerAlign: AlignSpec = [0.5, 0.5]

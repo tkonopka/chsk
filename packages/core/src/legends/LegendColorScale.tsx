@@ -1,5 +1,5 @@
 import { LegendColorScaleProps } from './types'
-import { LEFT, TOP, X, Y } from '../general'
+import { LEFT, TOP, X, Y, zeroPadding, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { LinearGradient } from '../defs'
@@ -12,8 +12,8 @@ const UnthemedLegendColorScale = ({
     variant = 'bottom',
     position,
     size = [10, 10],
-    padding = [0, 0, 0, 0],
-    translate = [0, 0],
+    padding = zeroPadding,
+    translate = zeroPosition,
     offset = 0,
     horizontal = false,
     ticks = defaultLegendColorScaleProps.ticks,

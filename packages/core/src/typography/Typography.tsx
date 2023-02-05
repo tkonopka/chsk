@@ -1,11 +1,11 @@
 import { m } from 'framer-motion'
-import { X, Y } from '../general'
+import { X, Y, zeroPosition } from '../general'
 import { getClassName } from '../themes'
 import { getTextContent } from './utils'
 import { TypographyProps } from './types'
 
 export const Typography = ({
-    position = [0, 0],
+    position = zeroPosition,
     variant = 'default',
     rotate,
     style,

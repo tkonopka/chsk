@@ -50,6 +50,7 @@
 
 ### Changed
 
+-   [packages/core]: removed constants `WIDTH` and `HEIGHT`
 -   [packages/core]: replaced `composeClassName` by `getClassName`
 -   [pacakges/core]: reorganized tests into subdirectories
 -   [pacakges/core]: merged some src directories

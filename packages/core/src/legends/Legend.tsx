@@ -3,7 +3,7 @@ import { LegendProps } from './types'
 import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec } from '../general'
+import { DimensionsProvider, NumericPositionSpec, zeroPadding, zeroPosition } from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
 import { defaultLegendProps } from './defaults'
@@ -19,7 +19,7 @@ const UnthemedLegend = ({
     size = [0.2, 0.5],
     sizeUnits = 'relative',
     anchor = [0, 0],
-    padding = [0, 0, 0, 0],
+    padding = zeroPadding,
     // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
@@ -129,7 +129,7 @@ const UnthemedLegend = ({
                         <LegendTitle
                             key={'legend-title'}
                             variant={'right'}
-                            position={[0, 0]}
+                            position={zeroPosition}
                             size={itemSize}
                             padding={itemPadding}
                             translate={[0, r]}

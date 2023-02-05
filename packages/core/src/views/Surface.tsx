@@ -1,4 +1,4 @@
-import { useDimensions, BOTTOM, HEIGHT, LEFT, RIGHT, TOP, WIDTH } from '../general'
+import { useDimensions, TOP, BOTTOM, LEFT, RIGHT, X, Y } from '../general'
 import { getClassName, useThemedProps } from '../themes'
 import { SurfaceProps } from './types'
 import { defaultSurfaceProps } from './defaults'
@@ -14,8 +14,8 @@ const UnthemedSurface = ({
     const isOuter = variant === 'outer'
     const x = isOuter ? -dimensions.padding[LEFT] : 0
     const y = isOuter ? -dimensions.padding[TOP] : 0
-    const width = isOuter ? dimensions.size[WIDTH] : dimensions.innerSize[WIDTH]
-    const height = isOuter ? dimensions.size[HEIGHT] : dimensions.innerSize[HEIGHT]
+    const width = isOuter ? dimensions.size[X] : dimensions.innerSize[X]
+    const height = isOuter ? dimensions.size[Y] : dimensions.innerSize[Y]
     const surfaceSize: [number, number] = [
         width + (expansion ? expansion[LEFT] + expansion[RIGHT] : 0),
         height + (expansion ? expansion[TOP] + expansion[BOTTOM] : 0),
@@ -26,8 +26,8 @@ const UnthemedSurface = ({
             role={setRole ? 'surface-' + variant : undefined}
             x={x - (expansion ? expansion[LEFT] : 0)}
             y={y - (expansion ? expansion[TOP] : 0)}
-            width={surfaceSize[WIDTH]}
-            height={surfaceSize[HEIGHT]}
+            width={surfaceSize[X]}
+            height={surfaceSize[Y]}
             className={compositeClassName}
             style={style}
         />

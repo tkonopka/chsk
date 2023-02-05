@@ -1,4 +1,4 @@
-import { X, Y } from '../general'
+import { X, Y, zeroPosition } from '../general'
 import { Line } from '../shapes'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { TickFormatType, AxisTicksProps } from './types'
@@ -27,7 +27,7 @@ export const getScaleTicks = ({
     ticks,
     tickSize,
     labelOffset,
-    labelTranslate = [0, 0],
+    labelTranslate = zeroPosition,
     labelRotate,
     labelFormat,
     labelStyle,

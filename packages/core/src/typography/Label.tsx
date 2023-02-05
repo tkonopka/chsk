@@ -1,16 +1,24 @@
 import { m } from 'framer-motion'
 import { LabelProps } from './types'
-import { X, Y, getAlignPosition, getAnchoredOrigin } from '../general'
+import {
+    X,
+    Y,
+    getAlignPosition,
+    getAnchoredOrigin,
+    zeroPadding,
+    zeroPosition,
+    centerAlign,
+} from '../general'
 import { getClassName } from '../themes'
 
 export const Label = ({
-    position = [0, 0],
+    position = zeroPosition,
     variant = 'label',
     rotate,
     size = [20, 20],
-    padding = [0, 0, 0, 0],
-    anchor = [0.5, 0.5],
-    align = [0.5, 0.5],
+    padding = zeroPadding,
+    anchor = centerAlign,
+    align = centerAlign,
     style,
     className,
     setRole = true,
