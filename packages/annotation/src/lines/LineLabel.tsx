@@ -1,5 +1,5 @@
 import { LineLabelProps } from './types'
-import { Line, useDimensions, useScales, Typography } from '@chsk/core'
+import { Line, useDimensions, useScales, Typography, getClassName } from '@chsk/core'
 import { getLineAbsolutePositions } from './utils'
 
 export const LineLabel = ({
@@ -37,9 +37,10 @@ export const LineLabel = ({
         lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,
         lineStart[1] + translate[1] + (lineEnd[1] - lineStart[1]) * align,
     ]
+    const compositeClassName = getClassName('line-label', className)
 
     return (
-        <g style={style} className={className} role={setRole ? 'line' : undefined}>
+        <g style={style} className={className} role={setRole ? 'line-label' : undefined}>
             <Line
                 variant={'line'}
                 x1={lineStart[0]}
@@ -48,15 +49,15 @@ export const LineLabel = ({
                 y2={lineEnd[1]}
                 markerStart={markerStart}
                 markerEnd={markerEnd}
-                className={className}
+                className={compositeClassName}
                 style={lineStyle}
                 setRole={setRole}
             />
             <Typography
-                variant={'line-label'}
+                variant={'label'}
                 position={textPos}
                 rotate={rotate}
-                className={className}
+                className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}
             >

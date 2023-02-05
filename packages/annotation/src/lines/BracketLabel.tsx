@@ -1,5 +1,5 @@
 import { BracketLabelProps } from './types'
-import { useDimensions, useScales, Typography, Path } from '@chsk/core'
+import { useDimensions, useScales, Typography, Path, getClassName } from '@chsk/core'
 import { getLineAbsolutePositions, getBracketPositions } from './utils'
 
 export const BracketLabel = ({
@@ -45,21 +45,26 @@ export const BracketLabel = ({
         lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,
         lineStart[1] + translate[1] + (lineEnd[1] - lineStart[1]) * align,
     ]
+    const compositeClassName = getClassName('bracket-label', className)
 
     return (
-        <g style={style} className={className} role={setRole ? 'bracket' : undefined}>
+        <g
+            style={style}
+            className={compositeClassName}
+            role={setRole ? 'bracket-label-' + variant : undefined}
+        >
             <Path
                 variant={'bracket'}
                 points={[tickStart, lineStart, lineEnd, tickEnd]}
-                className={className}
+                className={compositeClassName}
                 style={lineStyle}
                 setRole={setRole}
             />
             <Typography
-                variant={'bracket-label'}
+                variant={'label'}
                 position={textPos}
                 rotate={rotate}
-                className={className}
+                className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}
             >

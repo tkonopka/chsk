@@ -37,20 +37,23 @@ export const BoxedTitle = ({
     const rotate = variant === 'left' ? -90 : variant === 'right' ? 90 : 0
 
     return (
-        <BoxedLabel
-            position={[x, y]}
-            size={boxSize}
-            expansion={expansion}
-            rotate={rotate}
-            className={className}
-            rx={rx}
-            ry={ry}
-            boxStyle={boxStyle}
-            textStyle={textStyle}
-            style={style}
-            setRole={setRole}
-        >
-            {children}
-        </BoxedLabel>
+        <g role={setRole ? 'boxed-title-' + variant : undefined}>
+            <BoxedLabel
+                variant={'boxed-title'}
+                position={[x, y]}
+                size={boxSize}
+                expansion={expansion}
+                rotate={rotate}
+                className={className}
+                rx={rx}
+                ry={ry}
+                boxStyle={boxStyle}
+                textStyle={textStyle}
+                style={style}
+                setRole={setRole}
+            >
+                {children}
+            </BoxedLabel>
+        </g>
     )
 }

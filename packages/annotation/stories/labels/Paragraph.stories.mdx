@@ -3,7 +3,7 @@ import { Chart, Surface } from '@chsk/core'
 import { Paragraph, BoxedLabel } from '../../src'
 import { ChartDecorator } from '../decorators'
 
-<Meta title="Addons/Annotation/Typography/Paragraph" />
+<Meta title="Addons/Annotation/Text/Paragraph" />
 
 # Paragraph
 
@@ -29,6 +29,7 @@ that aligns with `position`.
             position: [0, 0],
             size: [100, 26],
             align: 0,
+            style: { textAnchor: 'start' },
             children: 'Long text should wrap.',
         }}
         component={Paragraph}
@@ -42,6 +43,7 @@ that aligns with `position`.
             position: [0, 0],
             size: [100, 26],
             align: 0.5,
+            style: { textAnchor: 'start' },
             children: 'Long text should wrap.',
         }}
         component={Paragraph}
@@ -60,6 +62,7 @@ To rotate the entire paragraph rotate around `position`, use prop `rotate`.
             position: [60, 80],
             size: [100, 26],
             rotate: -30,
+            style: { textAnchor: 'start' },
             children: 'Long text should wrap.',
         }}
         component={Paragraph}
@@ -81,6 +84,7 @@ Prop `size` determines the recommended width of each line, and also the spacing 
             position: [0, 0],
             size: [180, 22],
             align: 0,
+            style: { textAnchor: 'start' },
             children: 'Long text should wrap into several lines.',
         }}
         component={Paragraph}
@@ -94,6 +98,7 @@ Prop `size` determines the recommended width of each line, and also the spacing 
             position: [0, 0],
             size: [80, 32],
             align: 0,
+            style: { textAnchor: 'start' },
             children: 'Long text should wrap into several lines.',
         }}
         component={Paragraph}
@@ -115,6 +120,7 @@ Other line breaks are created as in the previous examples, i.e. based on the lin
             size: [180, 22],
             align: 0,
             separator: '\n',
+            style: { textAnchor: 'start' },
             children: 'Long\ntext should wrap into several lines.',
         }}
         component={Paragraph}

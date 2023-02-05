@@ -1,8 +1,7 @@
 import {
-    SvgElementProps,
+    SvgElementVariantProps,
     CssProps,
     ContainerProps,
-    SvgElementVariantProps,
     AlignSpec,
     SideType,
     FourSideSizeSpec,
@@ -27,7 +26,9 @@ interface BoxedTextProps {
     children?: ReactNode
 }
 
-export interface BoxedLabelProps extends SvgElementProps, ContainerProps, BoxedTextProps {
+export interface BoxedLabelProps extends SvgElementVariantProps, ContainerProps, BoxedTextProps {
+    /** variant */
+    variant?: 'boxed-label' | string
     /** position of label anchor point */
     position: PositionSpec
     /** size of box in absolute units */

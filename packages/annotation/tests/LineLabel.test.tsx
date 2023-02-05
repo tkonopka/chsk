@@ -14,7 +14,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line')[0]
+        const result = screen.getByRole('line-label')
         const line = result.querySelector('line')
         // the line should go from (0, 0) to (60, 0)
         expect(line?.getAttribute('x1')).toBe('0')
@@ -32,9 +32,8 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line')[0]
-        const line = result.querySelector('line')
-        expect(Number(line?.getAttribute('x2'))).toBeGreaterThan(100)
+        const result = screen.getByRole('line')
+        expect(Number(result.getAttribute('x2'))).toBeGreaterThan(100)
     })
 
     it('creates a line with view coordinates', () => {
@@ -47,9 +46,8 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line')[0]
-        const line = result.querySelector('line')
-        expect(Number(line?.getAttribute('x2'))).toBeGreaterThan(100)
+        const result = screen.getByRole('line')
+        expect(Number(result.getAttribute('x2'))).toBeGreaterThan(100)
     })
 
     it('creates a line with text rotation', () => {
@@ -62,7 +60,7 @@ describe('LineLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('line')[0]
+        const result = screen.getByRole('line-label')
         expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
             'rotate(45'
         )

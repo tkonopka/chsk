@@ -15,8 +15,3 @@ export const viewProps = {
     scaleX: scaleProps,
     scaleY: scaleProps,
 }
-
-export const getNumber = (s: string | undefined | null) => {
-    if (!s) return s
-    return Number(s.replace('px', ''))
-}

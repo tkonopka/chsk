@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { BoxedLabelProps } from './types'
 import {
     BOTTOM,
@@ -8,13 +9,13 @@ import {
     LEFT,
     Rectangle,
     RIGHT,
-    Typography,
     TOP,
     useDimensions,
     useScales,
 } from '@chsk/core'
 
 export const BoxedLabel = ({
+    variant = 'boxed-label',
     position,
     positionUnits = 'absolute',
     size = [100, 32],
@@ -47,39 +48,28 @@ export const BoxedLabel = ({
     absSize[0] += expansion[LEFT] + expansion[RIGHT]
     absSize[1] += expansion[TOP] + expansion[BOTTOM]
 
-    // location and rotation of center of label
-    const translation = 'translate(' + x + ',' + y + ')'
-    const rotation = rotate === 0 ? '' : ' rotate(' + rotate + ')'
-
-    let compositeClassName: string | undefined = className ?? ''
-    if (compositeClassName.search('boxedLabel') < 0) {
-        compositeClassName = getClassName('label boxedLabel', className)
-    }
-
     // content of the label - text or custom node
+    const compositeClassName = getClassName(variant, className)
     const content =
         typeof children === 'string' ? (
-            <Typography
-                variant={'boxed-label'}
-                className={compositeClassName}
-                style={textStyle}
-                setRole={setRole}
-            >
+            <text style={textStyle} className={'label ' + compositeClassName}>
                 {children}
-            </Typography>
+            </text>
         ) : (
             children
         )
 
+    const config = { x, y, rotate, originX: '0px', originY: '0px' }
     return (
-        <g
-            transform={translation + rotation}
+        <m.g
+            role={setRole ? variant : undefined}
+            initial={config}
+            animate={config}
             style={style}
             className={compositeClassName}
-            role={setRole ? 'boxed-label' : undefined}
         >
             <Rectangle
-                variant={'boxed-label'}
+                variant={'label'}
                 x={0}
                 y={0}
                 width={absSize[0]}
@@ -89,9 +79,9 @@ export const BoxedLabel = ({
                 center={true}
                 className={compositeClassName}
                 style={boxStyle}
-                setRole={setRole}
+                setRole={false}
             />
             {content}
-        </g>
+        </m.g>
     )
 }

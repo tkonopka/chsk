@@ -1,7 +1,8 @@
 import { BoxedTitle } from '../src/boxes'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { chartProps, getNumber } from './props'
+import { chartProps } from './props'
+import { getNumberAttr } from '../../core/tests/utils'
 
 describe('BoxedTitle', () => {
     it('creates a title (top)', () => {
@@ -12,9 +13,9 @@ describe('BoxedTitle', () => {
                 </BoxedTitle>
             </Chart>
         )
-        const result = screen.getAllByRole('boxed-label')[0]
-        expect(getNumber(result.querySelector('rect')?.getAttribute('height'))).toEqual(20)
-        expect(getNumber(result.querySelector('rect')?.getAttribute('width'))).toBe(320)
+        const result = screen.getByRole('boxed-title')
+        expect(getNumberAttr(result.querySelector('rect'), 'height')).toEqual(20)
+        expect(getNumberAttr(result.querySelector('rect'), 'width')).toBe(320)
         expect(result.querySelector('text')?.textContent).toBe('Label')
     })
 
@@ -26,9 +27,9 @@ describe('BoxedTitle', () => {
                 </BoxedTitle>
             </Chart>
         )
-        const result = screen.getAllByRole('boxed-label')[0]
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('height'))).toEqual(20)
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('width'))).toEqual(320)
+        const result = screen.getByRole('boxed-title')
+        expect(getNumberAttr(result?.querySelector('rect'), 'height')).toEqual(20)
+        expect(getNumberAttr(result?.querySelector('rect'), 'width')).toEqual(320)
         expect(result?.querySelector('text')?.textContent).toBe('Label')
     })
 
@@ -40,11 +41,11 @@ describe('BoxedTitle', () => {
                 </BoxedTitle>
             </Chart>
         )
-        const result = screen.getAllByRole('boxed-label')[0]
+        const result = screen.getByRole('boxed-title')
         // the label is prepared horizontally and then rotated, so height is 20
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('height'))).toEqual(20)
+        expect(getNumberAttr(result?.querySelector('rect'), 'height')).toEqual(20)
         // the width is 300 - 40 -40
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('width'))).toEqual(220)
+        expect(getNumberAttr(result?.querySelector('rect'), 'width')).toEqual(220)
         expect(result?.querySelector('text')?.textContent).toBe('Label')
     })
 
@@ -56,9 +57,9 @@ describe('BoxedTitle', () => {
                 </BoxedTitle>
             </Chart>
         )
-        const result = screen.getAllByRole('boxed-label')[0]
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('height'))).toEqual(20)
-        expect(getNumber(result?.querySelector('rect')?.getAttribute('width'))).toEqual(220)
+        const result = screen.getByRole('boxed-title')
+        expect(getNumberAttr(result?.querySelector('rect'), 'height')).toEqual(20)
+        expect(getNumberAttr(result?.querySelector('rect'), 'width')).toEqual(220)
         expect(result?.querySelector('text')?.textContent).toBe('Label')
     })
 
@@ -68,7 +69,7 @@ describe('BoxedTitle', () => {
                 <BoxedTitle variant={'top'} size={20} />
             </Chart>
         )
-        const result = screen.queryByRole('boxed-label-top')
-        expect(result).toBeNull()
+        const result = screen.getByRole('boxed-title')
+        expect(result.querySelector('text')).toBeNull()
     })
 })

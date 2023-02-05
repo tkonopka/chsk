@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, Typography } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
-import { Download } from '../src'
+import { Download, BoxedLabel } from '../src'
 import { barProps } from './decorators'
 
 <Meta title="Addons/Annotation/Download" />
@@ -22,11 +22,23 @@ The example below uses a simple `Bar` view; click the text above the bars to dow
 
 <Canvas>
     <Story name="data download">
-        <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+        <Chart
+            id={'downloadData'}
+            size={[400, 300]}
+            padding={[40, 40, 20, 40]}
+            style={{ display: 'inline-block' }}
+        >
             <Bar {...barProps}>
                 <Bars />
                 <Download variant={'data'} filename={'example.json'}>
-                    <Typography position={[0, -10]}>click to download data</Typography>
+                    <BoxedLabel
+                        position={[0, -24]}
+                        size={[200, 24]}
+                        anchor={[0, 0]}
+                        style={{ cursor: 'pointer' }}
+                        boxStyle={{ fill: '#f2f2f2', strokeWidth: 1 }}
+                        children={'click this box to download data'}
+                    />
                 </Download>
             </Bar>
         </Chart>
@@ -39,11 +51,23 @@ Set prop `variant` to `'image'` to fetch an image of the entire chart (in `svg` 
 
 <Canvas>
     <Story name="image download">
-        <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+        <Chart
+            id={'downloadImage'}
+            size={[400, 300]}
+            padding={[40, 40, 20, 40]}
+            style={{ display: 'inline-block' }}
+        >
             <Bar {...barProps}>
                 <Bars />
                 <Download variant={'image'} filename={'example.svg'}>
-                    <Typography position={[0, -10]}>click to download image</Typography>
+                    <BoxedLabel
+                        position={[0, -24]}
+                        size={[200, 24]}
+                        anchor={[0, 0]}
+                        style={{ cursor: 'pointer' }}
+                        boxStyle={{ fill: '#f2f2f2', strokeWidth: 1 }}
+                        children={'click this box to download image'}
+                    />
                 </Download>
             </Bar>
         </Chart>
