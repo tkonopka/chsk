@@ -12,7 +12,6 @@ import {
     useThemedProps,
     mergeThemes,
 } from '../../src'
-import { camelCase } from '../../src/themes/helpers'
 
 describe('mergeTheme', () => {
     it('creates a copy', () => {
@@ -121,40 +120,6 @@ describe('mergeThemes', () => {
     })
 })
 
-/**
-describe('composeClassName', () => {
-    it('concatenates class names', () => {
-        const result = composeClassName(['a', 'b', 'c'])
-        expect(result).toEqual('a b c')
-    })
-
-    it('handles undefined', () => {
-        const result = composeClassName(['a', undefined])
-        expect(result).toEqual('a')
-    })
-
-    it('converts hyphens to camel case', () => {
-        const result = composeClassName(['long-name', 'very-long-name', 'partial-'])
-        expect(result).toEqual('longName veryLongName partial')
-    })
-
-    it('removes starting default', () => {
-        const result = composeClassName(['default', 'a'])
-        expect(result).toEqual('a')
-    })
-
-    it('preserves starting default with optional flat', () => {
-        const result = composeClassName(['default', 'a'], false)
-        expect(result).toEqual('default a')
-    })
-
-    it('handles empty input', () => {
-        const result = composeClassName([])
-        expect(result).toBeUndefined()
-    })
-})
-*/
-
 describe('getClassName', () => {
     it('concatenates class names', () => {
         const result = getClassName('a', 'b')
@@ -171,6 +136,11 @@ describe('getClassName', () => {
         expect(result).toEqual('longName veryLongName')
     })
 
+    it('converts multiple hyphens to camel case', () => {
+        const result = getClassName('long-name', 'very-long-name a-b')
+        expect(result).toEqual('longName veryLongName aB')
+    })
+
     it('removes default variant', () => {
         const result = getClassName('default', 'a')
         expect(result).toEqual('a')
@@ -182,7 +152,7 @@ describe('getClassName', () => {
     })
 })
 
-describe.skip('addColor', () => {
+describe('addColor', () => {
     it('adds to an existing style', () => {
         const result = addColor({ strokeWidth: 1 }, 'blue')
         expect(result.fill).toEqual('blue')
@@ -207,7 +177,7 @@ describe.skip('addColor', () => {
     })
 })
 
-describe.skip('addOpacity', () => {
+describe('addOpacity', () => {
     it('add to an existing style', () => {
         const result = addOpacity({ stroke: 'red' }, 0.75)
         expect(result.opacity).toEqual(0.75)
@@ -219,7 +189,7 @@ describe.skip('addOpacity', () => {
     })
 })
 
-describe.skip('useThemedProps', () => {
+describe('useThemedProps', () => {
     it('completes props from theme', () => {
         const customTheme: ThemeSpec = {
             Axis: {

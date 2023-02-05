@@ -31,14 +31,14 @@ describe('componentStyles', () => {
 
     it('formats property names with hyphens', () => {
         const customTheme: ThemeSpec = { rect: { custom: { fillOpacity: 0.5 } } }
-        const theme = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
+        const theme = mergeTheme(emptyTheme, customTheme) as CompleteThemeSpec
         const result = componentStyles('chart', 'rect', theme)
         expect(result.join('\n')).toContain('fill-opacity: 0.5')
     })
 
     it('handles default keyword', () => {
         const customTheme: ThemeSpec = { rect: { default: { fill: '#123123' } } }
-        const theme = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
+        const theme = mergeTheme(emptyTheme, customTheme) as CompleteThemeSpec
         const result = componentStyles('chart', 'rect', theme)
         expect(result.join('\n')).not.toContain('default')
         // the default rect should be the first in the sequence
@@ -48,7 +48,7 @@ describe('componentStyles', () => {
 
     it('removes undefined property values', () => {
         const customTheme: ThemeSpec = { rect: { default: { fill: '#123123' } } }
-        const theme = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
+        const theme = mergeTheme(emptyTheme, customTheme) as CompleteThemeSpec
         theme.rect = { default: { fill: undefined } }
         const result = componentStyles('chart', 'rect', theme)
         expect(result.join('\n')).not.toContain('undefined')
@@ -56,7 +56,7 @@ describe('componentStyles', () => {
 
     it('removes empty definitions', () => {
         const customTheme: ThemeSpec = { rect: { default: { fill: '#123123' } } }
-        const theme = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
+        const theme = mergeTheme(emptyTheme, customTheme) as CompleteThemeSpec
         theme.rect = { default: {} }
         const result = componentStyles('chart', 'rect', theme)
         expect(result.join('\n')).not.toContain('#chart rect {')
