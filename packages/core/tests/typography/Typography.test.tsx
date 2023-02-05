@@ -88,6 +88,27 @@ describe('Typography', () => {
         expect(result).toBeNull()
     })
 
+    it('accepts a number', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom'}>10</Typography>
+            </Chart>
+        )
+        const result = screen.getByRole('custom')
+        expect(result.querySelector('text')?.textContent).toBe('10')
+    })
+
+    it('accepts complex content with {}', () => {
+        const value = 10
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom'}>The value is {value}</Typography>
+            </Chart>
+        )
+        const result = screen.getByRole('custom')
+        expect(result.querySelector('text')?.textContent).toBe('The value is 10')
+    })
+
     it('sets inline styles', () => {
         render(
             <Chart {...chartProps}>
