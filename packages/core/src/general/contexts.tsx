@@ -17,7 +17,7 @@ export const DimensionsProvider = ({
 }: DimensionsProviderProps & { setRole?: boolean; children: ReactNode }) => {
     const ref = useRef<SVGSVGElement>(null)
     const value: DimensionsContextProps = useMemo(
-        () => ({ size, padding, containerRef: ref, innerSize: getInnerSize(size, padding) }),
+        () => ({ size, padding, ref, innerSize: getInnerSize(size, padding) }),
         [size, padding, ref]
     )
     return (

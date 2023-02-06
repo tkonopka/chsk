@@ -7,7 +7,7 @@ export const DetectorWithTooltip = () => {
     const size = dimensions.innerSize
 
     const handleMouseMove = (event: MouseEvent) => {
-        const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
+        const clientRect = dimensions.ref?.current?.getBoundingClientRect()
         if (clientRect === undefined) return
         const x = Math.round(event.clientX - clientRect?.x)
         const y = Math.round(event.clientY - clientRect?.y)
@@ -37,7 +37,7 @@ export const ShapesWithTooltip = () => {
 
     const keys = ['alpha', 'beta', 'gamma']
     const handleMouseMove = (event: MouseEvent, indexes: number[]) => {
-        const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
+        const clientRect = dimensions.ref?.current?.getBoundingClientRect()
         if (clientRect === undefined) return
         const x = Math.round(event.clientX - clientRect?.x)
         const y = Math.round(event.clientY - clientRect?.y)

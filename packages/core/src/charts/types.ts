@@ -1,5 +1,5 @@
 import { ReactNode, Ref } from 'react'
-import { CssProps, SvgElementProps } from '../general'
+import { SvgElementProps } from '../general'
 import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from '../themes'
 import { ContainerProps, WithId } from '../views'
 import { motionPresets, transitionPresets } from './presets'

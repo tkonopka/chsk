@@ -47,11 +47,11 @@ export type DimensionsProviderProps = {
     size: SizeSpec
     /** padding */
     padding: FourSideSizeSpec
-    /** ref to element that can provide client coordinates */
-    containerRef?: RefObject<SVGSVGElement>
 }
 
-export type DimensionsContextProps = DimensionsProviderProps & {
+export type DimensionsContextProps = Omit<DimensionsProviderProps, 'containerRef'> & {
+    /** ref to element that can provide client coordinates */
+    ref: RefObject<SVGSVGElement>
     /** inner size of chart / view */
     innerSize: SizeSpec
 }
