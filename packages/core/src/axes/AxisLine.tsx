@@ -1,19 +1,18 @@
-import { useDimensions } from '../general'
+import { useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { AxisLineProps } from './types'
 import { getClassName } from '../themes'
 
 export const AxisLine = ({ variant, className, style, setRole }: AxisLineProps) => {
     const horizontal = variant === 'top' || variant === 'bottom'
-    const dimensions = useDimensions()
-    const [width, height] = dimensions.innerSize
+    const { size } = useDimensions()
     const compositeClassName = getClassName(variant, className)
     return (
         <Line
             x1={0}
             y1={0}
-            x2={horizontal ? width : 0}
-            y2={horizontal ? 0 : height}
+            x2={horizontal ? size[X] : 0}
+            y2={horizontal ? 0 : size[Y]}
             variant={'axis'}
             className={compositeClassName}
             style={style}

@@ -17,15 +17,11 @@ const UnthemedAxis = ({
     setRole = true,
     children,
 }: AxisProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}
-            transform={getAxisTranslate({
-                variant,
-                offset,
-                size: dimensions.innerSize,
-            })}
+            transform={getAxisTranslate({ variant, offset, size })}
             className={className}
             style={style}
         >

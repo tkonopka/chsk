@@ -101,7 +101,7 @@ const BandHighlightMask = (
 
 export const BandHighlight = ({ ids, className, setRole = true, style }: BandHighlightProps) => {
     const processedData = useProcessedData()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
@@ -110,7 +110,7 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
     const [zone, setZone] = useState<null | DetectorZone>(null)
 
     const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
-    const valueSize = horizontal ? dimensions.innerSize[X] : dimensions.innerSize[Y]
+    const valueSize = horizontal ? size[X] : size[Y]
     const detectorIntervals = useMemo(
         () => createDetectorIntervals(indexScale, idSet, valueSize, horizontal),
         [indexScale, idSet, valueSize, horizontal]
@@ -135,8 +135,8 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
         <rect
             ref={detectorRef}
             role={setRole ? 'band-detector' : undefined}
-            width={dimensions.innerSize[X]}
-            height={dimensions.innerSize[Y]}
+            width={size[X]}
+            height={size[Y]}
             style={{ opacity: 0.0 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -144,10 +144,7 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
     )
 
     // rectangles that mask non-selected regions of the heatmap
-    const mask =
-        zone === null
-            ? null
-            : BandHighlightMask(zone, dimensions.innerSize, horizontal, style, className)
+    const mask = zone === null ? null : BandHighlightMask(zone, size, horizontal, style, className)
 
     return (
         <g role={'band-highlight'}>

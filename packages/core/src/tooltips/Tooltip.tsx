@@ -131,7 +131,9 @@ const UnthemedTooltip = ({
                 animate={config}
                 className={compositeClassName}
             >
-                <DimensionsProvider {...dimsProps}>{content}</DimensionsProvider>
+                <DimensionsProvider {...dimsProps} role={setRole ? 'tooltip-content' : undefined}>
+                    {content}
+                </DimensionsProvider>
             </m.g>
         </OpacityMotion>
     )

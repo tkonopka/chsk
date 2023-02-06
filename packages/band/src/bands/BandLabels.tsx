@@ -59,7 +59,7 @@ export const BandLabels = ({
     const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
 
     // label position and details
-    const valuePos = getAbsoluteValuePos(position, unit, dimensions.innerSize, scales, horizontal)
+    const valuePos = getAbsoluteValuePos(position, unit, dimensions.size, scales, horizontal)
     const labelSize: SizeSpec =
         unit === 'relative' ? [size[0] * bandwidth, size[1] * bandwidth] : size
     const compositeClassName = getClassName('bandLabel', className)

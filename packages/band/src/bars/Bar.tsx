@@ -130,7 +130,7 @@ export const Bar = ({
     ...props
 }: BarProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -151,7 +151,7 @@ export const Bar = ({
         processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
-        dimsProps.innerSize,
+        innerSize,
         horizontal,
         autoRescale ? disabled : Array(keys.length).fill(false),
         stacked

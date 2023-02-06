@@ -131,7 +131,7 @@ export const ScatterCrosshair = ({
     const originalData = useRawData().data
     const processedData = useProcessedData().data
     const preparedData = useScatterPreparedData()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
     const { disabledKeys } = useDisabledKeys()
     const detectorRef = useRef<SVGRectElement>(null)
@@ -202,8 +202,8 @@ export const ScatterCrosshair = ({
             role={setRole ? 'crosshair-detector' : undefined}
             x={-padding[LEFT]}
             y={-padding[TOP]}
-            width={dimensions.innerSize[X] + padding[LEFT] + padding[RIGHT]}
-            height={dimensions.innerSize[Y] + padding[TOP] + padding[BOTTOM]}
+            width={size[X] + padding[LEFT] + padding[RIGHT]}
+            height={size[Y] + padding[TOP] + padding[BOTTOM]}
             style={{ opacity: 0.0 }}
             onMouseMove={debouncedHandleMouseMove}
             onMouseLeave={handleMouseLeave}
@@ -230,7 +230,7 @@ export const ScatterCrosshair = ({
     })
     const lines = createCrosshairLines({
         variant: variant ?? 'default',
-        size: dimensions.innerSize,
+        size,
         coordinates,
         style,
         className,

@@ -108,7 +108,7 @@ export const HeatMapHighlight = ({
 }: HeatMapHighlightProps) => {
     const processedData = useProcessedData()
     const scales = useScales()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
     if (!isHeatMapSetting(processedData.data, scales)) return null
@@ -152,16 +152,15 @@ export const HeatMapHighlight = ({
         <rect
             ref={detectorRef}
             role={setRole ? 'heatmap-detector' : undefined}
-            width={dimensions.innerSize[X]}
-            height={dimensions.innerSize[Y]}
+            width={size[X]}
+            height={size[Y]}
             style={{ opacity: 0.0 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
         />
     )
     // rectangles that mask non-selected regions of the heatmap
-    const mask =
-        zone === null ? null : HeatMapHighlightMask(zone, dimensions.innerSize, style, className)
+    const mask = zone === null ? null : HeatMapHighlightMask(zone, size, style, className)
 
     return (
         <g role={'heatmap-highlight'}>

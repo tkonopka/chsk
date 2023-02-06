@@ -1,5 +1,4 @@
 import { DimensionsProviderProps, FourSideSizeSpec, SizeSpec, SizeUnits } from './types'
-import { getInnerSize } from './utils'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
@@ -18,12 +17,11 @@ export const getDimensionsProps = (
     units: SizeUnits,
     referenceSize: SizeSpec,
     padding: FourSideSizeSpec
-): DimensionsProviderProps & { innerSize: SizeSpec } => {
+): DimensionsProviderProps => {
     const absoluteSize = getAbsoluteSize(size, units, referenceSize)
-    const innerSize = getInnerSize(absoluteSize, padding)
-    return {
-        size: absoluteSize,
-        padding,
-        innerSize,
-    }
+    return { size: absoluteSize, padding }
+}
+
+export const getTranslate = (x: number, y: number) => {
+    return x === 0 && y === 0 ? undefined : 'translate(' + x + ',' + y + ')'
 }

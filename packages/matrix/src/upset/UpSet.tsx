@@ -105,7 +105,7 @@ export const UpSet = ({
     ...props
 }: UpSetProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -122,15 +122,7 @@ export const UpSet = ({
     )
 
     const { scalePropsX, scalePropsY } = useMemo(
-        () =>
-            getXYScaleProps(
-                seriesIds,
-                keys,
-                horizontal,
-                scaleIndex,
-                scaleMembership,
-                dimsProps.innerSize
-            ),
+        () => getXYScaleProps(seriesIds, keys, horizontal, scaleIndex, scaleMembership, innerSize),
         [seriesIds, keys, horizontal, scaleIndex, scaleMembership, dimsProps]
     )
     const colorScaleProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, [''])

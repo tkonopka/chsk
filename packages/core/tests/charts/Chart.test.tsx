@@ -12,11 +12,11 @@ describe('Chart', () => {
     })
 
     it('creates a dimensions reference rect', () => {
-        render(<Chart size={[200, 100]} />)
+        render(<Chart size={[200, 100]} padding={[10, 10, 10, 10]} />)
         const result = screen.getByRole('dimensions-reference')
         expect(result).toBeDefined()
-        expect(getNumberAttr(result.querySelector('rect'), 'width')).toEqual(200)
-        expect(getNumberAttr(result.querySelector('rect'), 'height')).toEqual(100)
+        expect(getNumberAttr(result.querySelector('rect'), 'width')).toEqual(180)
+        expect(getNumberAttr(result.querySelector('rect'), 'height')).toEqual(80)
     })
 
     it('creates a chart without role', () => {

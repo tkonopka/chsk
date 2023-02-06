@@ -22,7 +22,7 @@ export const BracketLabel = ({
     setRole = true,
     children,
 }: BracketLabelProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
 
     // toggle left-handed and right-handed symbol via tickSize
@@ -34,7 +34,7 @@ export const BracketLabel = ({
         units,
         expansion,
         scales,
-        size: dimensions.innerSize,
+        size,
     })
     const { tickStart, tickEnd } = getBracketPositions({
         start: lineStart,

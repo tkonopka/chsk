@@ -115,13 +115,13 @@ const UnthemedLegend = ({
     }
 
     return (
-        <DimensionsProvider {...dimsProps}>
-            <g
-                role={setRole ? 'legend' : undefined}
-                transform={translate}
-                style={style}
-                className={className}
-            >
+        <g
+            role={setRole ? 'legend' : undefined}
+            transform={translate}
+            style={style}
+            className={className}
+        >
+            <DimensionsProvider {...dimsProps} role={setRole ? 'legend-content' : undefined}>
                 {children ? (
                     children
                 ) : (
@@ -141,8 +141,8 @@ const UnthemedLegend = ({
                         {content}
                     </>
                 )}
-            </g>
-        </DimensionsProvider>
+            </DimensionsProvider>
+        </g>
     )
 }
 

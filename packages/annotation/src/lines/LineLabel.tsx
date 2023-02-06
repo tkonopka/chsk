@@ -22,7 +22,7 @@ export const LineLabel = ({
     setRole = true,
     children,
 }: LineLabelProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
 
     const { lineStart, lineEnd } = getLineAbsolutePositions({
@@ -31,7 +31,7 @@ export const LineLabel = ({
         units,
         expansion,
         scales,
-        size: dimensions.innerSize,
+        size,
     })
     const textPos: [number, number] = [
         lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,

@@ -109,7 +109,7 @@ export const Scatter = ({
     ...props
 }: ScatterProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -134,7 +134,7 @@ export const Scatter = ({
             processedData,
             scaleX,
             scaleY,
-            dimsProps.innerSize,
+            innerSize,
             autoRescale ? disabled : Array(seriesIds.length).fill(false)
         )
     }, [processedData, scaleX, scaleY, disabled, autoRescale, disabled, seriesIds])

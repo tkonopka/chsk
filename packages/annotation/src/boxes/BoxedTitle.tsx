@@ -22,7 +22,7 @@ export const BoxedTitle = ({
     const vertical = variant === 'left' || variant === 'right'
 
     // size of box to fill entire width/height of a view
-    const [width, height] = dimensions.innerSize
+    const [width, height] = dimensions.size
     const boxSize: [number, number] = horizontal ? [width, size] : [height, size]
 
     // location and rotation of center of label

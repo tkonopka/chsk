@@ -105,7 +105,7 @@ export const Histogram = ({
     ...props
 }: HistogramProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -132,7 +132,7 @@ export const Histogram = ({
         processedData,
         scaleX,
         scaleY,
-        dimsProps.innerSize,
+        innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
     const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)

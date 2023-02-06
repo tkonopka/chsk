@@ -1,7 +1,4 @@
-import { render, screen } from '@testing-library/react'
 import {
-    Chart,
-    View,
     getAnchoredOrigin,
     getIndexes,
     getIdKeySets,
@@ -9,9 +6,7 @@ import {
     SizeSpec,
     AnchorSpec,
     ProcessedDataContextProps,
-    useProcessedData,
 } from '../../src'
-import { chartProps, viewProps } from '../props'
 
 describe('getAnchoredOrigin', () => {
     it('computes origin - top-left position with top-left anchor', () => {

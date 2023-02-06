@@ -1,6 +1,6 @@
 import { uniq } from 'lodash'
 import { getTickCoordinates, useScales } from '../scales'
-import { useDimensions } from '../general'
+import { useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
 import { GridLinesProps } from './types'
@@ -15,8 +15,7 @@ const UnthemedGridLines = ({
     setRole = true,
 }: GridLinesProps) => {
     const scales = useScales()
-    const dimensions = useDimensions()
-    const [width, height] = dimensions.innerSize
+    const { size } = useDimensions()
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y
 
@@ -35,7 +34,7 @@ const UnthemedGridLines = ({
                 x1={v}
                 x2={v}
                 y1={-e1}
-                y2={height + e2}
+                y2={size[Y] + e2}
                 variant={'grid'}
                 key={'grid-x-' + i}
                 className={className}
@@ -47,7 +46,7 @@ const UnthemedGridLines = ({
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
                 x1={-e1}
-                x2={width + e2}
+                x2={size[X] + e2}
                 y1={v}
                 y2={v}
                 variant={'grid'}

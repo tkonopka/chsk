@@ -107,7 +107,7 @@ export const Venn = ({
     ...props
 }: VennProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -128,7 +128,7 @@ export const Venn = ({
         seriesIds,
         scaleX,
         scaleY,
-        dimsProps.innerSize
+        innerSize
     )
     const colorScaleProps = getColorScaleProps(
         processedData,

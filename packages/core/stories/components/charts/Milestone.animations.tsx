@@ -18,8 +18,8 @@ import {
 // helper component that displays an array of milestones at the bottom of a view
 export const MilestonePreview = () => {
     const milestones = Array.from(useMilestones() ?? [])
-    const dimensions = useDimensions()
-    const pos: NumericPositionSpec = [dimensions.innerSize[X] / 2, dimensions.innerSize[Y] + 20]
+    const { size } = useDimensions()
+    const pos: NumericPositionSpec = [size[X] / 2, size[Y] + 20]
     return (
         <Typography
             position={pos}

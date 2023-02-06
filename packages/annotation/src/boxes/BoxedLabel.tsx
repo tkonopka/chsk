@@ -37,8 +37,8 @@ export const BoxedLabel = ({
     const scales = useScales()
 
     // compute effective x, y position for top-left corner or box
-    const absPos = getAbsolutePosition(position, positionUnits, dimensions.innerSize, scales)
-    const absSize = getAbsoluteSize(size, sizeUnits, dimensions.innerSize)
+    const absPos = getAbsolutePosition(position, positionUnits, dimensions.size, scales)
+    const absSize = getAbsoluteSize(size, sizeUnits, dimensions.size)
     let [x, y] = getAnchoredOrigin(absPos, absSize, anchor)
     // adjust to get the box center
     x += size[0] / 2 + translate[0]

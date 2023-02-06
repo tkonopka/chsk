@@ -38,7 +38,7 @@ export const ScatterLabel = ({
 }: ScatterLabelProps) => {
     const preparedData = useScatterPreparedData()
     const scales = useScales()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {
@@ -51,7 +51,7 @@ export const ScatterLabel = ({
         const value = getAbsoluteCoordinate(
             x,
             Array.isArray(units) ? units[0] : units,
-            dimensions.innerSize[0],
+            size[0],
             scales.x
         )
         const pointIndex = getClosestPointToX(value, data)

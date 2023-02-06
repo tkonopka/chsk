@@ -1,5 +1,5 @@
 import { CSSProperties, ReactNode } from 'react'
-import { NumericPositionSpec, SvgElementVariantProps } from '../general'
+import { NumericPositionSpec, SvgElementVariantProps, TwoSideSizeSpec } from '../general'
 
 export type SideType = 'top' | 'right' | 'left' | 'bottom'
 
@@ -96,5 +96,5 @@ export interface GridLinesProps extends SvgElementVariantProps {
     /** shift gridlines compared to natural tick position (multiple of bandwidth) */
     shift?: number[]
     /** expansion of lines at the start and end of the scale */
-    expansion?: number | [number, number]
+    expansion?: number | TwoSideSizeSpec
 }

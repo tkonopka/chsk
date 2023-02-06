@@ -62,7 +62,7 @@ export const HeatMap = ({
     ...props
 }: HeatMapProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -79,21 +79,9 @@ export const HeatMap = ({
         [keyAccessors, data, dataSize]
     )
 
-    const { scalePropsX, scalePropsY } = getXYScaleProps(
-        seriesIds,
-        keys,
-        scaleX,
-        scaleY,
-        dimsProps.innerSize
-    )
+    const { scalePropsX, scalePropsY } = getXYScaleProps(seriesIds, keys, scaleX, scaleY, innerSize)
     const colorScaleProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
-    const sizeScaleProps = getSizeScaleProps(
-        processedData,
-        scaleSize,
-        dimsProps.innerSize,
-        seriesIds,
-        keys
-    )
+    const sizeScaleProps = getSizeScaleProps(processedData, scaleSize, innerSize, seriesIds, keys)
     const scales = createScales(scalePropsX, scalePropsY, colorScaleProps, sizeScaleProps)
 
     return (

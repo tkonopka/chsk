@@ -3,11 +3,10 @@ import { Circle, useDimensions, useScales, useTooltip, X, Y } from '../../../src
 
 export const DetectorWithTooltip = () => {
     const { setData: setTooltipData } = useTooltip()
-    const dimensions = useDimensions()
-    const size = dimensions.innerSize
+    const { size, ref } = useDimensions()
 
     const handleMouseMove = (event: MouseEvent) => {
-        const clientRect = dimensions.ref?.current?.getBoundingClientRect()
+        const clientRect = ref?.current?.getBoundingClientRect()
         if (clientRect === undefined) return
         const x = Math.round(event.clientX - clientRect?.x)
         const y = Math.round(event.clientY - clientRect?.y)
@@ -33,11 +32,11 @@ export const DetectorWithTooltip = () => {
 export const ShapesWithTooltip = () => {
     const { setData: setTooltipData } = useTooltip()
     const colorScale = useScales().color
-    const dimensions = useDimensions()
+    const { ref } = useDimensions()
 
     const keys = ['alpha', 'beta', 'gamma']
     const handleMouseMove = (event: MouseEvent, indexes: number[]) => {
-        const clientRect = dimensions.ref?.current?.getBoundingClientRect()
+        const clientRect = ref?.current?.getBoundingClientRect()
         if (clientRect === undefined) return
         const x = Math.round(event.clientX - clientRect?.x)
         const y = Math.round(event.clientY - clientRect?.y)

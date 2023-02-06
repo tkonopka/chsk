@@ -1,4 +1,4 @@
-import { useDimensions } from '../general'
+import { useDimensions, X, Y } from '../general'
 import { AxisLabelProps } from './types'
 import { Typography } from '../typography'
 import { useThemedProps } from '../themes'
@@ -20,20 +20,18 @@ const UnthemedAxisLabel = ({
     setRole,
     children,
 }: AxisLabelProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     if (children === undefined || children === '') return null
 
-    const [width, height] = dimensions.innerSize
     const anchorFraction = getAnchorFraction(anchor)
-
     let x = 0,
         y = 0
     if (variant === 'left') x -= offset
     if (variant === 'right') x += offset
     if (variant === 'top') y -= offset
     if (variant === 'bottom') y += offset
-    if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * height
-    if (variant === 'top' || variant === 'bottom') x += anchorFraction * width
+    if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * size[Y]
+    if (variant === 'top' || variant === 'bottom') x += anchorFraction * size[X]
 
     return (
         <Typography

@@ -11,6 +11,7 @@ import {
     LEFT,
     TOP,
     zeroPadding,
+    getInnerSize,
 } from '../general'
 import { getDimensionsProps } from '../general/dimensions'
 import { AnchorSpec } from './types'
@@ -34,14 +35,15 @@ export const useView = ({
 }) => {
     const dimensions = useDimensions()
     const scales = useScales()
-    const { dimsProps, origin } = useMemo(() => {
-        const dimsProps = getDimensionsProps(size, sizeUnits, dimensions.innerSize, padding)
-        const pos = getAbsolutePosition(position, positionUnits, dimensions.innerSize, scales)
+    const { dimsProps, origin, innerSize } = useMemo(() => {
+        const dimsProps = getDimensionsProps(size, sizeUnits, dimensions.size, padding)
+        const innerSize = getInnerSize(dimsProps.size, padding)
+        const pos = getAbsolutePosition(position, positionUnits, dimensions.size, scales)
         const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
-        return { dimsProps, origin }
+        return { dimsProps, origin, innerSize }
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
     const x = origin[X] + padding[LEFT]
     const y = origin[Y] + padding[TOP]
     const translate = 'translate(' + x + ',' + y + ')'
-    return { dimensions, dimsProps, origin, translate, x, y }
+    return { dimensions, dimsProps, origin, translate, x, y, innerSize }
 }

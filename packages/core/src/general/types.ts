@@ -47,13 +47,15 @@ export type DimensionsProviderProps = {
     size: SizeSpec
     /** padding */
     padding: FourSideSizeSpec
+    /** role */
+    role?: string
 }
 
-export type DimensionsContextProps = Omit<DimensionsProviderProps, 'containerRef'> & {
+export type DimensionsContextProps = Pick<DimensionsProviderProps, 'size'> & {
     /** ref to element that can provide client coordinates */
     ref: RefObject<SVGSVGElement>
-    /** inner size of chart / view */
-    innerSize: SizeSpec
+    /** margin */
+    margin: FourSideSizeSpec
 }
 
 export type DataItem = Record<string, unknown>

@@ -23,7 +23,7 @@ export const BraceLabel = ({
     setRole = true,
     children,
 }: BraceLabelProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
 
     // toggle left-handed and right-handed symbol via tickSize
@@ -35,7 +35,7 @@ export const BraceLabel = ({
         units,
         expansion,
         scales,
-        size: dimensions.innerSize,
+        size,
     })
     const {
         tickStart,

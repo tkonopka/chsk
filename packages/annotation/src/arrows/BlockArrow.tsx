@@ -16,11 +16,11 @@ export const BlockArrow = ({
     style,
     setRole = true,
 }: BlockArrowProps) => {
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
 
-    const lineStart = getAbsolutePosition(start, units, dimensions.innerSize, scales)
-    const lineEnd = getAbsolutePosition(end, units, dimensions.innerSize, scales)
+    const lineStart = getAbsolutePosition(start, units, size, scales)
+    const lineEnd = getAbsolutePosition(end, units, size, scales)
     const points = getBlockArrowPoints({
         start: lineStart,
         end: lineEnd,

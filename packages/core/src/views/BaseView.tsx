@@ -1,4 +1,4 @@
-import { DimensionsProvider, LEFT, TOP, X, Y } from '../general'
+import { DimensionsProvider, getTranslate, X, Y } from '../general'
 import { ScalesProvider } from '../scales'
 import { BaseViewProps } from './types'
 import { OriginalDataProvider, ProcessedDataProvider } from './contexts'
@@ -19,29 +19,29 @@ export const BaseView = ({
     style,
     children,
 }: BaseViewProps) => {
-    const translate =
-        'translate(' + (position[X] + padding[LEFT]) + ',' + (position[Y] + padding[TOP]) + ')'
     return (
         <g
             role={setRole ? 'view-' + variant : undefined}
-            transform={translate}
+            transform={getTranslate(position[X], position[Y])}
             style={style}
             className={className}
         >
-            <DimensionsProvider size={size} padding={padding} setRole={setRole}>
-                <g role={setRole ? 'view-content' : undefined}>
-                    <OriginalDataProvider data={originalData}>
-                        <ScalesProvider scales={scales}>
-                            <ProcessedDataProvider
-                                data={processedData}
-                                seriesIndexes={seriesIndexes}
-                                keys={keys}
-                            >
-                                <TooltipProvider>{children}</TooltipProvider>
-                            </ProcessedDataProvider>
-                        </ScalesProvider>
-                    </OriginalDataProvider>
-                </g>
+            <DimensionsProvider
+                size={size}
+                padding={padding}
+                role={setRole ? 'view-content' : undefined}
+            >
+                <OriginalDataProvider data={originalData}>
+                    <ScalesProvider scales={scales}>
+                        <ProcessedDataProvider
+                            data={processedData}
+                            seriesIndexes={seriesIndexes}
+                            keys={keys}
+                        >
+                            <TooltipProvider>{children}</TooltipProvider>
+                        </ProcessedDataProvider>
+                    </ScalesProvider>
+                </OriginalDataProvider>
             </DimensionsProvider>
         </g>
     )

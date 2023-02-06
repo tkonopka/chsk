@@ -26,7 +26,7 @@ const UnthemedView = ({
     style,
     children,
 }: ViewProps) => {
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -35,7 +35,7 @@ const UnthemedView = ({
         padding,
     })
 
-    const { x: scalePropsX, y: scalePropsY } = fillScaleSize(dimsProps.innerSize, scaleX, scaleY)
+    const { x: scalePropsX, y: scalePropsY } = fillScaleSize(innerSize, scaleX, scaleY)
     const scales = createScales(scalePropsX, scalePropsY)
 
     const isArray = Array.isArray(data)

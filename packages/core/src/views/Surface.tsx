@@ -10,16 +10,16 @@ const UnthemedSurface = ({
     style,
     setRole = true,
 }: SurfaceProps) => {
-    const dimensions = useDimensions()
+    const { size, margin } = useDimensions()
     const isOuter = variant === 'outer'
-    const x = isOuter ? -dimensions.padding[LEFT] : 0
-    const y = isOuter ? -dimensions.padding[TOP] : 0
-    const width = isOuter ? dimensions.size[X] : dimensions.innerSize[X]
-    const height = isOuter ? dimensions.size[Y] : dimensions.innerSize[Y]
-    const surfaceSize: [number, number] = [
-        width + (expansion ? expansion[LEFT] + expansion[RIGHT] : 0),
-        height + (expansion ? expansion[TOP] + expansion[BOTTOM] : 0),
-    ]
+    const x = isOuter ? -margin[LEFT] : 0
+    const y = isOuter ? -margin[TOP] : 0
+    const width = size[X] + (isOuter ? margin[LEFT] + margin[RIGHT] : 0)
+    const height = size[Y] + (isOuter ? margin[TOP] + margin[BOTTOM] : 0)
+    const surfaceSize: [number, number] = expansion
+        ? [width + expansion[LEFT] + expansion[RIGHT], height + expansion[TOP] + expansion[BOTTOM]]
+        : [width, height]
+
     const compositeClassName = getClassName(variant, className)
     return (
         <rect

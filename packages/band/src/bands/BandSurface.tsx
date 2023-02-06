@@ -22,14 +22,14 @@ export const BandSurface = ({
     style,
 }: BandSurfaceProps) => {
     const processedData = useProcessedData()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scales = useScales()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const step = indexScale.step()
     const keyPrefix = 'band-surface-'
 
-    const valueSize = horizontal ? dimensions.innerSize[X] : dimensions.innerSize[Y]
+    const valueSize = horizontal ? size[X] : size[Y]
     const expandedSize = valueSize + expansion[0] + expansion[1]
     const height = horizontal ? step : expandedSize
     const width = horizontal ? expandedSize : step

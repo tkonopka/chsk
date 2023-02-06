@@ -114,7 +114,7 @@ export const Schedule = ({
     ...props
 }: ScheduleProps) => {
     const theme = useTheme()
-    const { dimsProps, origin } = useView({
+    const { dimsProps, origin, innerSize } = useView({
         position,
         positionUnits,
         size,
@@ -141,7 +141,7 @@ export const Schedule = ({
         processedData.map(d => d.domain),
         scaleIndex,
         scaleValue,
-        dimsProps.innerSize,
+        innerSize,
         horizontal,
         autoRescale ? disabled : Array(keys.length).fill(false)
     )

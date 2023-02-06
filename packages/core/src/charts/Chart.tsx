@@ -2,7 +2,7 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion'
 import { debounce } from 'lodash'
 import { ChartDataContextProps, ChartProps } from './types'
-import { DimensionsProvider, SizeSpec, TOP, LEFT, X, Y } from '../general'
+import { DimensionsProvider, SizeSpec, X, Y } from '../general'
 import { defaultTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
 import { mergeMotionConfig } from '../themes/helpers'
@@ -66,8 +66,6 @@ export const Chart = ({
         resizeObserver.observe(parent)
     }, [])
 
-    // rendering
-    const translate = 'translate(' + padding[LEFT] + ',' + padding[TOP] + ')'
     return (
         <ThemeProvider baseTheme={baseTheme} theme={theme}>
             <ChartDataProvider value={{ data: state, setData: setState }}>
@@ -85,18 +83,14 @@ export const Chart = ({
                             className={className}
                             ref={ref}
                         >
-                            <Styles chartId={id} styles={styles} />
+                            <Styles key={'styles'} chartId={id} styles={styles} />
                             <DimensionsProvider
+                                key={'content'}
                                 size={chartSize}
                                 padding={padding}
-                                setRole={setRole}
+                                role={setRole ? 'chart-content' : undefined}
                             >
-                                <g
-                                    role={setRole ? 'chart-content' : undefined}
-                                    transform={translate}
-                                >
-                                    {children}
-                                </g>
+                                {children}
                             </DimensionsProvider>
                         </svg>
                     </LazyMotion>

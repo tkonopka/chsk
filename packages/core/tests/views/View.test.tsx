@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View, ProcessedDataContextProps, useProcessedData } from '../../src'
 import { chartProps, viewProps } from '../props'
+import { getNumberAttr } from '../utils'
 
 describe('View', () => {
     it('creates view with default props', () => {
@@ -9,8 +10,33 @@ describe('View', () => {
                 <View />
             </Chart>
         )
+        expect(screen.getByRole('view-content')).toBeDefined()
+        const result = screen.getByRole('view-default').querySelector('rect')
+        expect(getNumberAttr(result, 'width')).toEqual(360)
+        expect(getNumberAttr(result, 'height')).toEqual(260)
+    })
+
+    it('creates view with shifted position', () => {
+        render(
+            <Chart {...chartProps}>
+                <View position={[10, 0]} positionUnits={'absolute'} {...viewProps}></View>
+            </Chart>
+        )
+        const result = screen.getByRole('view-default')
+        expect(result.getAttribute('transform')).toEqual('translate(10,0)')
+    })
+
+    it('creates view with padding', () => {
+        render(
+            <Chart {...chartProps}>
+                <View padding={[10, 10, 10, 10]} {...viewProps}></View>
+            </Chart>
+        )
         const result = screen.getByRole('view-content')
-        expect(result).toBeDefined()
+        expect(result.getAttribute('transform')).toEqual('translate(10,10)')
+        const viewRect = screen.getByRole('view-default').querySelector('rect')
+        expect(getNumberAttr(viewRect, 'width')).toEqual(340)
+        expect(getNumberAttr(viewRect, 'height')).toEqual(240)
     })
 
     it('creates view with complete props', () => {

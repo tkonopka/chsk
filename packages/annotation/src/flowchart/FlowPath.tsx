@@ -24,10 +24,10 @@ export const FlowPath = ({
     ...props
 }: FlowPathProps) => {
     const scales = useScales()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const viewPoints = useMemo(
-        () => points.map(point => getAbsolutePosition(point, units, dimensions.innerSize, scales)),
-        [points, units, dimensions, scales]
+        () => points.map(point => getAbsolutePosition(point, units, size, scales)),
+        [points, units, size, scales]
     )
     const compositeClassName = getClassName(variant, className)
     const generator = useMemo(() => createLineGenerator(curve), [curve])
