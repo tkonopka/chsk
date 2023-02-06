@@ -1,6 +1,7 @@
 import { act, render, screen } from '@testing-library/react'
 import { Chart, useDisabledKeys, useChartData, ChartRef, useMilestones } from '../../src'
 import { ForwardedRef, useEffect } from 'react'
+import { getNumberAttr } from '../utils'
 
 global.ResizeObserver = require('resize-observer-polyfill')
 
@@ -8,6 +9,23 @@ describe('Chart', () => {
     it('creates a chart with default props', () => {
         render(<Chart />)
         expect(screen.getByRole('chart-content')).toBeDefined()
+    })
+
+    it('creates a dimensions reference rect', () => {
+        render(<Chart size={[200, 100]} />)
+        const result = screen.getByRole('dimensions-reference')
+        expect(result).toBeDefined()
+        expect(getNumberAttr(result.querySelector('rect'), 'width')).toEqual(200)
+        expect(getNumberAttr(result.querySelector('rect'), 'height')).toEqual(100)
+    })
+
+    it('creates a chart without role', () => {
+        const result = render(<Chart size={[200, 100]} setRole={false} />)
+        const container = result.container
+        expect(screen.queryByRole('chart')).toBeNull()
+        expect(screen.queryByRole('dimensions-reference')).toBeNull()
+        expect(container.querySelectorAll('rect')).toHaveLength(1)
+        expect(container.querySelectorAll('g')).toHaveLength(2)
     })
 
     it('sets an initial state', () => {

@@ -23,7 +23,9 @@ export const Chart = ({
     baseTheme = defaultTheme,
     data = {},
     styles,
+    className,
     style,
+    setRole = true,
     children,
     fref,
 }: ChartProps) => {
@@ -68,30 +70,38 @@ export const Chart = ({
     const translate = 'translate(' + padding[LEFT] + ',' + padding[TOP] + ')'
     return (
         <ThemeProvider baseTheme={baseTheme} theme={theme}>
-            <DimensionsProvider size={chartSize} padding={padding}>
-                <ChartDataProvider value={{ data: state, setData: setState }}>
-                    <MotionConfig
-                        transition={{ type: 'spring', ...mergeMotionConfig(baseTheme, theme) }}
-                    >
-                        <LazyMotion features={domAnimation}>
-                            <svg
-                                id={id}
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={chartSize[X]}
-                                height={chartSize[Y]}
-                                role={'chart'}
-                                style={style}
-                                ref={ref}
+            <ChartDataProvider value={{ data: state, setData: setState }}>
+                <MotionConfig
+                    transition={{ type: 'spring', ...mergeMotionConfig(baseTheme, theme) }}
+                >
+                    <LazyMotion features={domAnimation}>
+                        <svg
+                            id={id}
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={chartSize[X]}
+                            height={chartSize[Y]}
+                            role={setRole ? 'chart' : undefined}
+                            style={style}
+                            className={className}
+                            ref={ref}
+                        >
+                            <Styles chartId={id} styles={styles} />
+                            <DimensionsProvider
+                                size={chartSize}
+                                padding={padding}
+                                setRole={setRole}
                             >
-                                <Styles chartId={id} styles={styles} />
-                                <g role="chart-content" transform={translate}>
+                                <g
+                                    role={setRole ? 'chart-content' : undefined}
+                                    transform={translate}
+                                >
                                     {children}
                                 </g>
-                            </svg>
-                        </LazyMotion>
-                    </MotionConfig>
-                </ChartDataProvider>
-            </DimensionsProvider>
+                            </DimensionsProvider>
+                        </svg>
+                    </LazyMotion>
+                </MotionConfig>
+            </ChartDataProvider>
         </ThemeProvider>
     )
 }

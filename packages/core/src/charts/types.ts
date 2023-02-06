@@ -1,5 +1,5 @@
 import { ReactNode, Ref } from 'react'
-import { CssProps } from '../general'
+import { CssProps, SvgElementProps } from '../general'
 import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from '../themes'
 import { ContainerProps, WithId } from '../views'
 import { motionPresets, transitionPresets } from './presets'
@@ -27,7 +27,7 @@ export interface ChartRef {
     toggleMilestone: (milestone: string) => void
 }
 
-export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
+export interface ChartProps extends SvgElementProps, Omit<ContainerProps, 'x' | 'y'> {
     /** identifier for the chart */
     id?: string
     /** adjust size to fill parent container */
@@ -38,10 +38,8 @@ export interface ChartProps extends Omit<ContainerProps, 'x' | 'y'> {
     theme?: ThemeSpec
     /** chart settings, e.g. milestones */
     data?: Omit<ChartDataContextProps, 'id'>
-    /** list of styles to include in svg **/
+    /** svg components to include in <styles> tag **/
     styles?: Array<SvgBaseComponent>
-    /** css style for svg component */
-    style?: CssProps
     /** forwarded ref */
     fref?: Ref<ChartRef>
 }

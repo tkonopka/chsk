@@ -1,16 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    View,
-    getAnchoredOrigin,
-    getIndexes,
-    getIdKeySets,
-    NumericPositionSpec,
-    SizeSpec,
-    AnchorSpec,
-    ProcessedDataContextProps,
-    useProcessedData,
-} from '../../src'
+import { Chart, View, ProcessedDataContextProps, useProcessedData } from '../../src'
 import { chartProps, viewProps } from '../props'
 
 describe('View', () => {
@@ -20,7 +9,7 @@ describe('View', () => {
                 <View />
             </Chart>
         )
-        const result = screen.getByRole('view')
+        const result = screen.getByRole('view-content')
         expect(result).toBeDefined()
     })
 
@@ -30,7 +19,7 @@ describe('View', () => {
                 <View {...viewProps}></View>
             </Chart>
         )
-        const result = screen.getByRole('view')
+        const result = screen.getByRole('view-content')
         expect(result).toBeDefined()
     })
 
