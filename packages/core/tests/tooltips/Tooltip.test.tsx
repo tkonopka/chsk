@@ -45,10 +45,15 @@ describe('Tooltip', () => {
         )
         const tooltip = screen.getByRole('tooltip')
         expect(tooltip).toBeDefined()
+        const surface = screen.getByRole('tooltip-surface')
+        expect(surface.getAttribute('class')).toContain('tooltip surface')
         const items = screen.getAllByRole('tooltip-item')
         expect(items).toHaveLength(1)
         const label = tooltip.querySelector('text')
         expect(label?.textContent).toEqual('label')
+        const symbol = items[0].querySelector('rect')
+        expect(symbol?.getAttribute('class')).toContain('tooltip')
+        expect(symbol?.getAttribute('class')).not.toContain('surface')
     })
 
     it('creates tooltip items without role', () => {
@@ -140,7 +145,7 @@ describe('Tooltip', () => {
         const surface = screen.getByRole('tooltip-surface')
         expect(surface.getAttribute('height')).toEqual('30')
         const items = screen.getAllByRole('tooltip-item')
-        expect(items[0].getAttribute('transform')).toContain('translate(0,0)')
+        expect(items[0].getAttribute('transform')).toBeNull()
     })
 
     it('uses padding', () => {

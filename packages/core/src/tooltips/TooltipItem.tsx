@@ -2,7 +2,7 @@ import { Square } from '../shapes'
 import { Typography } from '../typography'
 import { addColor, getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
-import { LEFT, RIGHT, TOP, X, Y } from '../general'
+import { getTranslate, TOP, LEFT, RIGHT, X, Y } from '../general'
 import { defaultTooltipItemProps } from './defaults'
 import { TooltipItemProps } from './types'
 import { createElement } from 'react'
@@ -56,13 +56,11 @@ const UnthemedTooltipItem = ({
         }
     }
 
-    const transform = 'translate(' + position[0] + ',' + position[1] + ')'
-
     return (
         <g
             key={'tooltip-item-' + item}
             role={setRole ? 'tooltip-item' : undefined}
-            transform={transform}
+            transform={getTranslate(position[0], position[1])}
             style={style}
             className={'tooltipItem'}
         >

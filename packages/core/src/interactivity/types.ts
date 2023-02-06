@@ -1,5 +1,5 @@
 import { FC, MouseEvent } from 'react'
-import { SvgElementVariantProps } from '../general'
+import { SvgElementVariantProps, WithId } from '../general'
 
 // handling events on svg elements
 export interface InteractivityProps {
@@ -15,7 +15,7 @@ export interface InteractivityProps {
 
 // handling events in a data-dependent way (e.g. by points in scatter plot)
 export interface DataInteractivityProps<
-    DataSpec,
+    DataSpec extends WithId,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 > {
     /** function triggered upon mouse event */
@@ -42,7 +42,7 @@ export interface SimpleDataComponentProps<
 }
 
 export interface DataComponentProps<
-    DataSpec,
+    DataSpec extends WithId,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 > extends SimpleDataComponentProps<ComponentProps>,
         Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {

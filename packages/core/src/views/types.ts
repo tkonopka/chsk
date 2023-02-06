@@ -7,6 +7,7 @@ import {
     PositionUnits,
     SizeUnits,
     SvgElementProps,
+    WithId,
 } from '../general'
 import {
     BandScaleProps,
@@ -16,11 +17,6 @@ import {
     ScalesContextProps,
 } from '../scales'
 import { ReactNode } from 'react'
-
-export type WithId = {
-    /** identifier string */
-    id: string
-}
 
 export type RecordWithId = WithId & Record<string, unknown>
 export type RawData = Array<RecordWithId>

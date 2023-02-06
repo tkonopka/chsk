@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [packages/core]: component `TooltipDataComponent` to set tooltip data
 -   [packages/core]: prop `anchor` for `Label`
 -   [packages/core]: prop `baseTheme` for `Chart` to enable resetting the entire
     theme

@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart, DataComponent, Circle } from '../../src'
+import { Chart, DataComponent, Circle, WithId } from '../../src'
 import { chartProps } from '../props'
 
 describe('DataComponent', () => {
@@ -9,7 +9,7 @@ describe('DataComponent', () => {
             <Chart {...chartProps}>
                 <DataComponent
                     component={Circle}
-                    data={'A'}
+                    data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
                 />
             </Chart>
@@ -20,14 +20,14 @@ describe('DataComponent', () => {
 
     it('creates a component with a click handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: string | undefined, event: MouseEvent) => {
-            value = data
+        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+            value = data?.id
         }
         render(
             <Chart {...chartProps}>
                 <DataComponent
                     component={Circle}
-                    data={'A'}
+                    data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
                     onClick={customHandler}
                 />
@@ -42,14 +42,14 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseEnter handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: string | undefined, event: MouseEvent) => {
-            value = data
+        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+            value = data?.id
         }
         render(
             <Chart {...chartProps}>
                 <DataComponent
                     component={Circle}
-                    data={'A'}
+                    data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
                     onMouseEnter={customHandler}
                 />
@@ -62,14 +62,14 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseLeave handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: string | undefined, event: MouseEvent) => {
-            value = data
+        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+            value = data?.id
         }
         render(
             <Chart {...chartProps}>
                 <DataComponent
                     component={Circle}
-                    data={'A'}
+                    data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
                     onMouseLeave={customHandler}
                 />
@@ -82,14 +82,14 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseMove handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: string | undefined, event: MouseEvent) => {
-            value = data
+        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+            value = data?.id
         }
         render(
             <Chart {...chartProps}>
                 <DataComponent
                     component={Circle}
-                    data={'A'}
+                    data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
                     onMouseMove={customHandler}
                 />

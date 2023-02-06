@@ -54,7 +54,7 @@ export interface VennProps
     scaleColor?: CategoricalScaleSpec
 }
 
-export type VennInteractiveDataItem = {
+export type VennInteractiveDataItem = WithId & {
     size: number
 }
 

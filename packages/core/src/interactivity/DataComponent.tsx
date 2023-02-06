@@ -1,9 +1,9 @@
 import { createElement, MouseEvent, useCallback } from 'react'
 import { DataComponentProps, InteractivityProps } from './types'
-import { SvgElementVariantProps } from '../general'
+import { SvgElementVariantProps, WithId } from '../general'
 
 export const DataComponent = <
-    DataSpec,
+    DataSpec extends WithId,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 >({
     component,

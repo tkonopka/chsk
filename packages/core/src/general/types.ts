@@ -60,3 +60,8 @@ export type DimensionsContextProps = Pick<DimensionsProviderProps, 'size'> & {
 
 export type DataItem = Record<string, unknown>
 export type AccessorFunction<T> = (item: DataItem) => T
+
+export type WithId = {
+    /** identifier string */
+    id: string
+}

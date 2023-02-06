@@ -143,6 +143,11 @@ export const defaultTheme: CompleteThemeSpec = {
         tooltip: {
             fill: '#ffffff',
         },
+        'tooltip.surface': {
+            strokeWidth: 0.5,
+            stroke: '#aaaaaa',
+            filter: 'drop-shadow(2px 2px 4px #00000044)',
+        },
         legendItem: {
             fill: '#ffffff',
         },

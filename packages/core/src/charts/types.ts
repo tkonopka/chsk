@@ -1,7 +1,7 @@
 import { ReactNode, Ref } from 'react'
-import { SvgElementProps } from '../general'
+import { SvgElementProps, WithId } from '../general'
 import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from '../themes'
-import { ContainerProps, WithId } from '../views'
+import { ContainerProps } from '../views'
 import { motionPresets, transitionPresets } from './presets'
 
 /** Chart */

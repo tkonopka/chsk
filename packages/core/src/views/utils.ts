@@ -1,7 +1,6 @@
-import { WithId } from './types'
 import { ProcessedDataContextProps } from './types'
 import { cloneDeep } from 'lodash'
-import { SizeSpec, X, Y } from '../general'
+import { SizeSpec, X, Y, WithId } from '../general'
 import { ScaleProps } from '../scales'
 
 // build a dictionary mapping series string ids to integers

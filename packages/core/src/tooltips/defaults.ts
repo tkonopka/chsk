@@ -7,8 +7,8 @@ export const defaultTooltipProps: TooltipThemedProps = {
     firstOffset: [0, 0],
     r: 8,
     labelOffset: 6,
-    rx: 0,
-    ry: 0,
+    rx: 2,
+    ry: 2,
 }
 
 export const defaultTooltipItemListProps: TooltipItemListThemedProps = {

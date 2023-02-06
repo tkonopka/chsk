@@ -7,8 +7,7 @@ import {
     LegendItemListProps,
     LegendItemListThemedProps,
 } from '../legends'
-import { WithId } from '../views'
-import { NumericPositionSpec } from '../general'
+import { NumericPositionSpec, WithId } from '../general'
 
 export type TooltipTitleProps = LegendTitleProps
 

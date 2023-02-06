@@ -80,7 +80,7 @@ const UnthemedTooltip = ({
                 height={size[Y]}
                 rx={rx}
                 ry={ry}
-                className={compositeClassName}
+                className={getClassName('tooltip surface', className)}
                 style={style}
             />
             <TooltipTitle

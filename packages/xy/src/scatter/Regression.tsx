@@ -68,7 +68,7 @@ const PooledRegression = ({
 
     if (points === null) return null
     const element = createElement(dataComponent, {
-        data: { ids: pooledIds, variant: 'pooled' },
+        data: { id: pooledIds.join(' '), ids: pooledIds, variant: 'pooled' },
         component: Line,
         props: {
             x1: points[0][X],
@@ -120,7 +120,7 @@ const IndividualRegression = ({
             coefficients[id]
         )
         const element = createElement(dataComponent, {
-            data: { ids: [id], variant: 'series' },
+            data: { id, ids: [id], variant: 'series' },
             component: Line,
             props: {
                 x1: points[0][X],

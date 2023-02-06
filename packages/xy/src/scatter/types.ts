@@ -66,8 +66,7 @@ export interface ScatterProps
     scaleSize?: SizeScaleSpec
 }
 
-export type ScatterInteractiveDataItem = {
-    id: string
+export type ScatterInteractiveDataItem = WithId & {
     index?: number
     point?: NumericPositionSpec
     size?: number
@@ -147,7 +146,7 @@ export interface ScatterSeriesProps
     symbolStyle?: CssProps
 }
 
-export type RegressionInteractiveData = {
+export type RegressionInteractiveData = WithId & {
     ids: string[]
     variant: 'series' | 'pooled'
 }
