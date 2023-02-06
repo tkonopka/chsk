@@ -1,5 +1,13 @@
 import { MilestoneStory } from '../types'
-import { Axis, AxisTicks, Chart, GridLines, Legend } from '@chsk/core'
+import {
+    Axis,
+    AxisTicks,
+    Chart,
+    GridLines,
+    Legend,
+    Tooltip,
+    TooltipDataComponent,
+} from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { DownloadButtons } from '../navigation'
 import { generateBarData } from './generators'
@@ -19,7 +27,7 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
             data={chartData}
             id="grouped-diverging"
             size={[480, 300]}
-            padding={[90, 40, 30, 80]}
+            padding={[90, 40, 40, 80]}
             theme={groupedTheme}
         >
             <Bar
@@ -45,9 +53,10 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         labelStyle={{ textAnchor: 'start' }}
                     />
                 </Axis>
-                <Bars />
+                <Bars dataComponent={TooltipDataComponent} />
+                <Tooltip position={[0, -10]} anchor={[0.5, 1]} />
                 <Legend
-                    position={[-60, -22]}
+                    position={[-60, -45]}
                     positionUnits={'absolute'}
                     size={[300, 80]}
                     sizeUnits={'absolute'}

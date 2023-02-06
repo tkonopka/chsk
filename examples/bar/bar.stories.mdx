@@ -36,6 +36,15 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
             generator={generateGroupedData}
             chart={GroupedHorizontalBarChart}
             steps={['grid', 'bars-before', 'bars-after', 'percentages']}
+            comment={
+                <div>
+                    <p>
+                        This example is non-interactive. (The legends are not clickable. There is no
+                        tooltip).
+                    </p>
+                    <p>Instead, it shows customized calculations for each band.</p>
+                </div>
+            }
         />
     </Story>
 </Canvas>

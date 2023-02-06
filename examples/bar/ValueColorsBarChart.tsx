@@ -9,6 +9,10 @@ import {
     Rectangle,
     RectangleProps,
     useScales,
+    TooltipDataComponent,
+    Tooltip,
+    TooltipItem,
+    useTooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
@@ -70,6 +74,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     },
 })
 
+// custom rectangle change color based on data value
 const CustomRectangle = ({ width, height, style, ...props }: RectangleProps) => {
     const scales = useScales()
     const colorScale = scales.color
@@ -85,6 +90,26 @@ const CustomRectangle = ({ width, height, style, ...props }: RectangleProps) => 
             stroke={color}
             style={adjustedStyle}
             {...props}
+        />
+    )
+}
+
+// tooltip item also changes color based on data value
+const CustomTooltipItem = () => {
+    const { data } = useTooltip()
+    const item = data.data?.[0]
+    if (item === undefined) return null
+    const value = 'data' in item ? Number(item['data']) : 0
+    return (
+        <TooltipItem
+            variant={'right'}
+            position={[0, 0]}
+            size={[120, 30]}
+            padding={[8, 8, 8, 8]}
+            item={item.id}
+            label={'value: ' + value + '%'}
+            colorIndex={value > 0 ? 0 : 1}
+            labelOffset={14}
         />
     )
 }
@@ -137,13 +162,27 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <Bars component={CustomRectangle} />
+                <Bars component={CustomRectangle} dataComponent={TooltipDataComponent} />
                 <GridLines
                     variant={'y'}
                     values={[0]}
                     expansion={[0, 26]}
                     style={{ strokeWidth: 2, stroke: '#000000' }}
                 />
+                <Tooltip position={[0, -10]} anchor={[0.5, 1]}>
+                    <Rectangle
+                        key={'surface'}
+                        variant={'tooltip-surface'}
+                        x={0}
+                        y={0}
+                        width={120}
+                        height={30}
+                        rx={1}
+                        ry={1}
+                        className={'tooltip surface'}
+                    />
+                    <CustomTooltipItem key={'tooltip-item'} />
+                </Tooltip>
                 <DownloadButtons position={[450, -50]} data image />
             </Bar>
         </Chart>

@@ -95,7 +95,7 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 horizontal={true}
             >
                 <Legend
-                    position={[-60, -22]}
+                    position={[-60, -45]}
                     positionUnits={'absolute'}
                     size={[300, 80]}
                     sizeUnits={'absolute'}

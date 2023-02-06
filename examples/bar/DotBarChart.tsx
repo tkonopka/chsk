@@ -10,18 +10,13 @@ import {
     Circle,
     Legend,
     Tooltip,
-    SvgElementVariantProps,
-    InteractivityProps,
-    DataComponentProps,
-    useTooltip,
-    useDimensions,
+    TooltipDataComponent,
 } from '@chsk/core'
-import { Bar, BarInteractiveDataItem, Bars } from '@chsk/band'
+import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { createElement, MouseEvent, useCallback } from 'react'
 
 export const generateDotBarData = () =>
     ['alpha', 'beta', 'gamma', 'delta'].map(id => {
@@ -65,45 +60,6 @@ const CustomBarSymbol = ({ y, width, height, ...props }: RectangleProps) => {
     return <Circle cx={width} cy={y + height / 2} r={6} {...props} />
 }
 const customSymbolStyle = { fill: '#ffffff' }
-
-export const CustomDataComponent = <
-    DataSpec extends BarInteractiveDataItem,
-    ComponentProps extends SvgElementVariantProps & InteractivityProps
->({
-    component,
-    data,
-    props,
-    onMouseEnter,
-    onMouseLeave,
-}: DataComponentProps<DataSpec, ComponentProps>) => {
-    const { setData: setTooltipData } = useTooltip()
-    const dimensions = useDimensions()
-    const handleMouseEnter = useCallback(
-        (event: MouseEvent) => {
-            const clientRect = dimensions.containerRef?.current?.getBoundingClientRect()
-            if (clientRect === undefined || data === undefined) return
-            const x = Math.round(event.clientX - clientRect?.x)
-            const y = Math.round(event.clientY - clientRect?.y)
-            const tooltipItem = { ...data, label: data.key + ': ' + data.data }
-            setTooltipData({ x, y, eventPosition: [x, y], title: data.id, data: [tooltipItem] })
-            onMouseEnter?.(data, event)
-        },
-        [data, onMouseEnter, dimensions, setTooltipData]
-    )
-    const handleMouseLeave = useCallback(
-        (event: MouseEvent) => {
-            setTooltipData({})
-            onMouseLeave?.(data, event)
-        },
-        [data, onMouseLeave, setTooltipData]
-    )
-
-    return createElement(component, {
-        ...props,
-        onMouseEnter: handleMouseEnter,
-        onMouseLeave: handleMouseLeave,
-    })
-}
 
 export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -153,7 +109,7 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <Bars
                         component={CustomBarSymbol}
                         style={customSymbolStyle}
-                        dataComponent={CustomDataComponent}
+                        dataComponent={TooltipDataComponent}
                     />
                     <Tooltip
                         position={[0, -10]}
