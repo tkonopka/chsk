@@ -10,9 +10,7 @@ import {
     Typography,
     mergeTheme,
     Tooltip,
-    useTooltip,
-    Rectangle,
-    TooltipItem,
+    TooltipDataItem,
 } from '@chsk/core'
 import { isScheduleData, Schedule, Schedules } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
@@ -81,27 +79,11 @@ const surveyProps = {
 const surveyColors = ['#762a83', '#9970ab', '#dddddd', '#5aae61', '#1b7837']
 const surveyKeys = ['SD', 'D', 'N', 'A', 'SA']
 
-// tooltip displaying interval size
-const CustomTooltipItem = () => {
-    const { data } = useTooltip()
-    const item = data.data?.[0]
-    if (item === undefined) return null
-    const end = 'end' in item ? Number(item['end']) : 0
-    const start = 'start' in item ? Number(item['start']) : 0
+const customTooltipLabel = (x: TooltipDataItem) => {
+    const start = 'start' in x ? Number(x['start']) : 0
+    const end = 'end' in x ? Number(x['end']) : 0
     const value = round1dp(end - start)
-    return (
-        <TooltipItem
-            key={'item-' + item.id + '-' + item.key}
-            variant={'right'}
-            position={[0, 0]}
-            size={[100, 30]}
-            padding={[8, 8, 8, 8]}
-            item={item.id}
-            label={item.key + ': ' + value + '%'}
-            colorIndex={surveyKeys.indexOf(item.key ?? '')}
-            labelOffset={14}
-        />
-    )
+    return x.key + ': ' + value + '%'
 }
 
 export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -150,7 +132,7 @@ export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <GridLines
                     variant={'x'}
                     values={[0]}
-                    style={{ stroke: '#000000', strokeWidth: 2 }}
+                    style={{ stroke: '#000000', strokeWidth: 2, pointerEvents: 'none' }}
                 />
                 <Legend
                     position={[-30, -60]}
@@ -190,20 +172,8 @@ export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         symbol={VerticalGoldenRectangle}
                     />
                 </Legend>
-                <Tooltip>
-                    <Rectangle
-                        variant={'tooltip-surface'}
-                        x={0}
-                        y={0}
-                        width={100}
-                        height={30}
-                        rx={1}
-                        ry={1}
-                        className={'tooltip surface'}
-                    />
-                    <CustomTooltipItem />
-                </Tooltip>
                 <DownloadButtons position={[440, 240]} data image />
+                <Tooltip labelFormat={customTooltipLabel} />
             </Schedule>
             <Typography variant={'title'} position={[-25, -70]}>
                 Survey responses

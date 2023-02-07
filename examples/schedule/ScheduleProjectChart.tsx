@@ -5,8 +5,6 @@ import {
     Typography,
     MilestoneMotion,
     Tooltip,
-    useTooltip,
-    TooltipItem,
     TooltipDataItem,
     TooltipData,
 } from '@chsk/core'
