@@ -4,7 +4,7 @@ import {
     useDisabledKeys,
     useScales,
     getIdKeySets,
-    DataComponent,
+    TooltipDataComponent,
     useProcessedData,
     Rectangle,
 } from '@chsk/core'
@@ -19,7 +19,7 @@ export const Schedules = ({
     component = Rectangle,
     className,
     setRole = true,
-    dataComponent = DataComponent,
+    dataComponent = TooltipDataComponent,
     style,
     ...props
 }: SchedulesProps) => {

@@ -16,7 +16,7 @@ export const Template = args => <Bars {...args} />
 
 ## Data subsets
 
-By default, `Bars` draws the entire dataset. To draw subsets of bars, set the props `ids` and `keys`.
+By default, `Bars` draws the entire dataset. To draw subsets of bars, set props `ids` and `keys`.
 
 <Canvas>
     <Story
@@ -56,23 +56,22 @@ To make bars respond to mouse events, set props starting with the prefix `on`, f
 
 ## Tooltip
 
-To make a tooltip appear upon hovering the mouse on a bar, there are two steps needed.
-
-First, prop `dataComponent` should be set with a functional component that forwards data to the tooltip context.
-`TooltipDataComponent` from `@chsk/core` is a suitable choice, or it can act as a template for customization.
-
-Second, the chart code should be extended with a `Tooltip` component.
+By default, `Bars` automatically manages data for a tooltip.
+To make a tooltip visible, include a `Tooltip` component beside `Bars`.
 
 <Canvas>
     <Story name="tooltip">
-        <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Chart size={[400, 300]} style={{ display: 'inline-block' }}>
             <Bar {...commonBarProps} horizontal={false} variant={'stacked'}>
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'} />
                 <Axis variant={'left'} label={'Values (a.u.)'} />
-                <Bars dataComponent={TooltipDataComponent} />
-                <Tooltip position={[0, -10]} rx={2} ry={2} anchor={[0.5, 1]} />
+                <Bars />
+                <Tooltip />
             </Bar>
         </Chart>
     </Story>
 </Canvas>
+
+If a tooltip is not needed, having `Bars` manage tooltip data is unnecessary.
+To remove tooltip management, set prop `dataComponent` to either `DataComponent` or `SimpleDataComponent` from `@chsk/core`.

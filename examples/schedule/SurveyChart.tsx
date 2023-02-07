@@ -9,12 +9,14 @@ import {
     LinearScaleSpec,
     Typography,
     mergeTheme,
+    Tooltip,
+    useTooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
-import { randomUniformValue } from '../utils'
+import {randomUniformValue, round1dp} from '../utils'
 import { DownloadButtons } from '../navigation'
 
 const surveyIds = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
@@ -35,7 +37,7 @@ const generateQuestionData = (id: string) => {
     while (!done) {
         const values = Array(4)
             .fill(0)
-            .map(() => randomUniformValue(5, 35))
+            .map(() => round1dp(randomUniformValue(5, 35)))
         const sum = values[0] + values[1] + values[2] + values[3]
         const neutral = (100 - sum) / 2
         result.SD = -values[0]
@@ -81,6 +83,17 @@ const surveyColors = {
     NA: '#dddddd',
     A: '#5aae61',
     SA: '#1b7837',
+}
+
+const CustomTooltipContent = () => {
+    const { data } = useTooltip()
+    console.log("CustomContent " + JSON.stringify(data))
+    return null
+}
+const CustomComp = () => {
+    const { data } = useTooltip()
+    console.log("CustomComp " + JSON.stringify(data))
+    return null
 }
 
 export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -147,6 +160,10 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                         symbol={VerticalGoldenRectangle}
                     />
                 </Legend>
+                <CustomComp />
+                <Tooltip key={'tooltip-negative'}>
+                    <CustomTooltipContent />
+                </Tooltip>
             </Bar>
             <Bar
                 data={rawData}
@@ -192,3 +209,5 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
         </Chart>
     )
 }
+
+// <Tooltip key={'tooltip-positive'} />

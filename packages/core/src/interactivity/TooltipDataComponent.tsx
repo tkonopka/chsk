@@ -1,8 +1,7 @@
 import { createElement, MouseEvent, useCallback } from 'react'
 import { DataComponentProps, InteractivityProps } from './types'
 import { SvgElementVariantProps, useDimensions, WithId } from '../general'
-import { TooltipDataItem, useTooltip } from '../tooltips'
-import { guessLabel } from './utils'
+import { useTooltip } from '../tooltips'
 
 export const TooltipDataComponent = <
     DataSpec extends WithId,
@@ -25,9 +24,7 @@ export const TooltipDataComponent = <
             if (clientRect === undefined || data === undefined || data === null) return
             const x = Math.round(event.clientX - clientRect?.x)
             const y = Math.round(event.clientY - clientRect?.y)
-            const tooltipData = data as TooltipDataItem
-            tooltipData.label = guessLabel(data)
-            setTooltipData({ x, y, data: [tooltipData] })
+            setTooltipData({ x, y, data: [data] })
         },
         [data]
     )

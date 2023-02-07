@@ -5,7 +5,7 @@ import {
     useDisabledKeys,
     useScales,
     getIdKeySets,
-    DataComponent,
+    TooltipDataComponent,
     useProcessedData,
 } from '@chsk/core'
 import { BarPreparedDataItem, BarsProps } from './types'
@@ -19,7 +19,7 @@ export const Bars = ({
     component = Rectangle,
     className,
     style,
-    dataComponent = DataComponent,
+    dataComponent = TooltipDataComponent,
     ...props
 }: BarsProps) => {
     const processedData = useProcessedData().data

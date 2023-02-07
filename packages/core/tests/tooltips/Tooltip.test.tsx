@@ -163,4 +163,32 @@ describe('Tooltip', () => {
         const items = screen.getAllByRole('tooltip-item')
         expect(items[0].getAttribute('transform')).toContain('translate(0,10)')
     })
+
+    it('sets custom title', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip titleFormat={() => 'custom title'} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const title = screen.getByRole('tooltip-title')
+        expect(title.textContent).toEqual('custom title')
+    })
+
+    it('sets custom item labels', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip labelFormat={() => 'custom label'} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const title = screen.getByRole('tooltip-item')
+        expect(title.textContent).toEqual('custom label')
+    })
 })

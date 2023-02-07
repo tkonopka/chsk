@@ -1,4 +1,4 @@
-import { guessLabel } from '../../src/interactivity'
+import { guessLabel } from '../../src/tooltips/utils'
 
 describe('guessLabel', () => {
     it('uses an available label', () => {

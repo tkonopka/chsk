@@ -9,6 +9,7 @@ import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
 import { TooltipItemList } from './TooltipItemList'
 import { useTooltip } from './contexts'
+import { guessLabel } from './utils'
 import { TooltipProps } from './types'
 
 const UnthemedTooltip = ({
@@ -29,11 +30,13 @@ const UnthemedTooltip = ({
     // title and items
     title,
     titleStyle,
+    titleFormat,
     r = defaultTooltipProps.r,
     symbol,
     symbolStyle,
     labelStyle,
     labelOffset = defaultTooltipProps.labelOffset,
+    labelFormat = guessLabel,
     //
     className,
     style,
@@ -43,7 +46,7 @@ const UnthemedTooltip = ({
     const { data: tooltip } = useTooltip()
     const data = tooltip.data ?? []
     const n = data.length
-    title = title ?? tooltip.title
+    title = title ?? (titleFormat ? titleFormat(tooltip) : tooltip.title)
     const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
     size = size ?? [
         itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
@@ -100,7 +103,7 @@ const UnthemedTooltip = ({
                 horizontal={horizontal}
                 position={itemsPosition}
                 items={data.map(item => item.key ?? item.id)}
-                labels={data.map(item => item.label ?? item.id)}
+                labels={data.map(item => labelFormat(item))}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
                 r={Array(data.length).fill(r)}

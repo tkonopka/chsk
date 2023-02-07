@@ -52,6 +52,8 @@
 
 ### Changed
 
+-   [packages/band]: changed the default `dataComponent` to
+    `TooltipDataComponent` for `Bars`, `Schedules`
 -   [packages/core]: removed constants `WIDTH` and `HEIGHT`
 -   [packages/core]: replaced `composeClassName` by `getClassName`
 -   [pacakges/core]: reorganized tests into subdirectories

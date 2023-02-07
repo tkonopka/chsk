@@ -22,6 +22,10 @@ export interface TooltipProps extends Omit<LegendProps, 'scaleSize' | 'sizeTicks
     rx?: number
     /** vertical corner radius */
     ry?: number
+    /** construction of title */
+    titleFormat?: (d: TooltipData) => string | undefined
+    /** construction of label */
+    labelFormat?: (d: TooltipDataItem) => string
 }
 
 export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
