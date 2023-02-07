@@ -83,13 +83,14 @@ const BetweenBandsLabel = ({
 
 export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isStripData(rawData)) return null
-
-    const subsetData = rawData.filter(d => Math.abs(Number(d.data[0])) > 2.5)
+    const subsetData = rawData.filter(d => Math.abs((d.data as number[])[0]) > 2.5)
     const omitted = '(' + (rawData.length - subsetData.length) + ' samples)'
 
     // band scale with a gap for a custom label
-    const lastPositiveId = subsetData.filter(d => Number(d.data[0]) > 0).reverse()[0].id
-    const firstNegativeId = subsetData.filter(d => Number(d.data[0]) < 0)[0].id
+    const lastPositiveId = subsetData
+        .filter(d => Number((d.data as number[])[0]) > 0)
+        .reverse()[0].id
+    const firstNegativeId = subsetData.filter(d => Number((d.data as number[])[0]) < 0)[0].id
     const scaleIndex: BandScaleSpec = {
         variant: 'band' as const,
         paddingOuter: 0.1,

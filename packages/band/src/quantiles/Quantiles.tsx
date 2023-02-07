@@ -5,7 +5,7 @@ import {
     useScales,
     getIdKeySets,
     isBandAxisScale,
-    DataComponent,
+    TooltipDataComponent,
     useProcessedData,
 } from '@chsk/core'
 import { useQuantilePreparedData } from './context'
@@ -24,7 +24,7 @@ export const Quantiles = ({
     whiskerStyle,
     medianStyle,
     whiskerCapWidth,
-    dataComponent = DataComponent,
+    dataComponent = TooltipDataComponent,
     ...props
 }: QuantilesProps) => {
     const processedData = useProcessedData().data

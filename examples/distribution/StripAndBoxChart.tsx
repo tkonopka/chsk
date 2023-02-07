@@ -1,6 +1,17 @@
-import { Chart, Axis, GridLines, MilestoneMotion, ThemeSpec, Legend, AxisLine } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    GridLines,
+    MilestoneMotion,
+    ThemeSpec,
+    Legend,
+    AxisLine,
+    Tooltip,
+    TooltipDataItem,
+    TooltipData,
+} from '@chsk/core'
 import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chsk/band'
-import { generateMixedPopulation } from '../utils'
+import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 
 const stripAndBoxKeys = ['x', 'y', 'z']
@@ -72,6 +83,18 @@ const quantileProps: Omit<QuantileProps, 'data'> = {
     },
 }
 
+const customTooltipTitle = (x: TooltipData) => {
+    const x0 = x.data?.[0]
+    if (!x0) return undefined
+    return x0?.key
+}
+const customTooltipLabel = (x: TooltipDataItem) => {
+    const values = 'values' in x ? (x['values'] as number[]) : ([] as number[])
+    const roundedValues = values.map(v => round2dp(v))
+    const q1q3 = '[' + roundedValues[1] + ', ' + roundedValues[3] + ']'
+    return roundedValues[2] + ' ' + q1q3
+}
+
 export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -114,6 +137,13 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 1.5 }}
                         medianStyle={{ stroke: '#161616', strokeWidth: 3 }}
                         whiskerCapWidth={0.3}
+                    />
+                    <Tooltip
+                        padding={[4, 0, 4, 0]}
+                        itemSize={[160, 26]}
+                        itemPadding={[4, 8, 4, 8]}
+                        titleFormat={customTooltipTitle}
+                        labelFormat={customTooltipLabel}
                     />
                 </MilestoneMotion>
             </Quantile>
