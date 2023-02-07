@@ -10,7 +10,6 @@ import {
     Circle,
     Legend,
     Tooltip,
-    TooltipDataComponent,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
@@ -106,15 +105,9 @@ export const DotBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <Axis variant={'left'} label={''} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                    <Bars
-                        component={CustomBarSymbol}
-                        style={customSymbolStyle}
-                        dataComponent={TooltipDataComponent}
-                    />
+                    <Bars component={CustomBarSymbol} style={customSymbolStyle} />
                     <Tooltip
-                        position={[0, -10]}
                         padding={[8, 0, 8, 0]}
-                        anchor={[0.5, 1]}
                         itemSize={[120, 20]}
                         itemPadding={[2, 8, 2, 8]}
                         r={7}

@@ -7,6 +7,7 @@ import {
     MilestoneMotion,
     ThemeSpec,
     RectangleProps,
+    Tooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { alphabetGreek } from '../utils'
@@ -63,7 +64,7 @@ const customProps = {
     },
 }
 
-const BarsComponentWithArrow = ({ x, y, width, height, className, style }: RectangleProps) => {
+const BarsComponentWithArrow = ({ x, y, width, height, ...props }: RectangleProps) => {
     if (width < 0) {
         width = Math.abs(width)
         x -= width
@@ -77,9 +78,8 @@ const BarsComponentWithArrow = ({ x, y, width, height, className, style }: Recta
             start={[x + width / 2, y + height]}
             end={[x + width / 2, y]}
             units={'absolute'}
-            style={style}
             headLength={Math.min(14, height)}
-            className={className}
+            {...props}
         />
     )
 }
@@ -107,6 +107,7 @@ export const ArrowsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     <AxisTicks variant={'bottom'} labelRotate={45} labelOffset={11} />
                 </Axis>
             </MilestoneMotion>
+            <Tooltip />
         </Bar>
     </Chart>
 )

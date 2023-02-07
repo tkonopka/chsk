@@ -7,6 +7,7 @@ import {
     mergeTheme,
     MilestoneMotion,
     ThemeSpec,
+    Tooltip,
     useProcessedData,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
@@ -125,6 +126,7 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'bars-after'}>
                     <Bars keys={['after']} />
+                    <Tooltip />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'percentages'}>
                     <PercentageChangeLabels keys={groupedKeys} />

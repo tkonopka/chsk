@@ -1,12 +1,4 @@
-import {
-    Chart,
-    Axis,
-    GridLines,
-    Legend,
-    Tooltip,
-    TooltipDataComponent,
-    TooltipProvider,
-} from '@chsk/core'
+import { Chart, Axis, GridLines, Legend, Tooltip, TooltipProvider } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
@@ -38,8 +30,8 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 <Axis variant={'top'} />
                 <Axis variant={'left'} label={'Samples'} />
                 <TooltipProvider>
-                    <Bars dataComponent={TooltipDataComponent} />
-                    <Tooltip position={[0, -10]} rx={2} ry={2} anchor={[0.5, 1]} />
+                    <Bars />
+                    <Tooltip />
                 </TooltipProvider>
                 <Legend
                     position={[-2, -45]}

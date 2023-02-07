@@ -8,6 +8,9 @@ import {
     LegendItem,
     ThemeSpec,
     mergeTheme,
+    Tooltip,
+    TooltipDataItem,
+    TooltipData,
 } from '@chsk/core'
 import { isScheduleData, ScheduleDataItem, Schedule, Schedules } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
@@ -68,6 +71,23 @@ const weekTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
     },
 })
 
+const keyLabels: Record<string, string> = {
+    A: 'daytime',
+    B: 'evening',
+    C: 'weekend',
+}
+const customTooltipTitle = (x: TooltipData) => {
+    const item = x.data?.[0]
+    if (!item) return undefined
+    return item.id + ' ' + keyLabels[item.key ?? '']
+}
+const customTooltipLabel = (x: TooltipDataItem): string => {
+    const start = 'start' in x ? Number(x['start']) : 0
+    const end = 'end' in x ? Number(x['end']) : 0
+    const duration = end - start
+    return String(start) + ' - ' + String(end) + ' (' + duration + ' hours)'
+}
+
 export const ScheduleWeekChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScheduleData(rawData)) return null
     return (
@@ -105,7 +125,8 @@ export const ScheduleWeekChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     horizontal={false}
                     position={[470, 60]}
                     size={[80, 100]}
-                    units={'absolute'}
+                    positionUnits={'absolute'}
+                    sizeUnits={'absolute'}
                     anchor={[0, 0]}
                     padding={[0, 12, 0, 12]}
                     r={10.5}
@@ -114,10 +135,17 @@ export const ScheduleWeekChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     title={'Activities'}
                 >
                     <LegendTitle position={[0, 0]}>Activities</LegendTitle>
-                    <LegendItem position={[0, 16]} item={'A'} label={'Daytime'} />
-                    <LegendItem position={[0, 40]} item={'B'} label={'Evening'} />
-                    <LegendItem position={[0, 64]} item={'C'} label={'Weekend'} />
+                    <LegendItem position={[0, 16]} item={'A'} label={keyLabels['A']} />
+                    <LegendItem position={[0, 40]} item={'B'} label={keyLabels['B']} />
+                    <LegendItem position={[0, 64]} item={'C'} label={keyLabels['C']} />
                 </Legend>
+                <Tooltip
+                    padding={[4, 0, 2, 0]}
+                    itemSize={[140, 26]}
+                    itemPadding={[4, 8, 4, 8]}
+                    titleFormat={customTooltipTitle}
+                    labelFormat={customTooltipLabel}
+                />
                 <DownloadButtons position={[480, -40]} data image />
             </Schedule>
         </Chart>

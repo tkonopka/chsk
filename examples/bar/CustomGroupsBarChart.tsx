@@ -8,6 +8,9 @@ import {
     ThemeSpec,
     RecordWithId,
     Typography,
+    Tooltip,
+    TooltipData,
+    TooltipDataItem,
 } from '@chsk/core'
 import { LineLabel } from '@chsk/annotation'
 import { Bar, Bars } from '@chsk/band'
@@ -78,6 +81,14 @@ const customGroupsBarProps = {
 }
 customGroupsBarProps.scaleIndex.extraPadding[idsB[0]] = 0.4
 customGroupsBarProps.scaleIndex.extraPadding[idsC[0]] = 0.4
+
+const customTooltipTitle = (x: TooltipData) => {
+    return x?.data?.[0]?.id
+}
+const customTooltipLabel = (x: TooltipDataItem) => {
+    const value = 'data' in x ? Number(x['data']) : 0
+    return value + '%'
+}
 
 export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
     <Chart
@@ -159,6 +170,13 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                     />
                 </Axis>
             </MilestoneMotion>
+            <Tooltip
+                padding={[4, 0, 4, 0]}
+                itemSize={[70, 24]}
+                itemPadding={[4, 8, 4, 8]}
+                titleFormat={customTooltipTitle}
+                labelFormat={customTooltipLabel}
+            />
         </Bar>
     </Chart>
 )

@@ -1,4 +1,15 @@
-import { Chart, Axis, GridLines, Typography, MilestoneMotion } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    GridLines,
+    Typography,
+    MilestoneMotion,
+    Tooltip,
+    useTooltip,
+    TooltipItem,
+    TooltipDataItem,
+    TooltipData,
+} from '@chsk/core'
 import { Schedule, Schedules, isScheduleData } from '@chsk/band'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
@@ -21,12 +32,22 @@ export const generateScheduleProjectData = () => {
         maxTime + Math.floor(randomUniformValue(-2, 0.5)),
         maxTime + Math.floor(randomUniformValue(2, 9)),
     ])
-    const ids = ['phase 1', 'phase 2', 'phase 3', 'phase 4']
+    const ids = ['Phase 1', 'Phase 2', 'Phase 3', 'Phase 4']
     const keys = ['A', 'B', 'C', 'D']
     return ids.map((id, i) => ({
         id: id,
         data: [{ start: times[i][0], end: times[i][1], key: keys[i] }],
     }))
+}
+
+const customTooltipTitle = (x: TooltipData) => {
+    return x.data?.[0]?.id
+}
+const customTooltipLabel = (x: TooltipDataItem) => {
+    const start = 'start' in x ? Number(x['start']) : 0
+    const end = 'end' in x ? Number(x['end']) : 0
+    const duration = end - start
+    return String(start) + '-' + String(end) + ' (' + duration + ' days)'
 }
 
 export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -49,21 +70,28 @@ export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStor
                     <GridLines variant={'y'} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'A'}>
-                    <Axis variant={'left'} ticks={['phase 1']} />
+                    <Axis variant={'left'} ticks={['Phase 1']} />
                     <Schedules keys={['A']} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'B'}>
-                    <Axis variant={'left'} ticks={['phase 2']} />
+                    <Axis variant={'left'} ticks={['Phase 2']} />
                     <Schedules keys={['B']} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'C'}>
-                    <Axis variant={'left'} ticks={['phase 3']} />
+                    <Axis variant={'left'} ticks={['Phase 3']} />
                     <Schedules keys={['C']} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'D'}>
-                    <Axis variant={'left'} ticks={['phase 4']} />
+                    <Axis variant={'left'} ticks={['Phase 4']} />
                     <Schedules keys={['D']} />
                 </MilestoneMotion>
+                <Tooltip
+                    padding={[4, 0, 2, 0]}
+                    itemSize={[120, 26]}
+                    itemPadding={[4, 8, 4, 8]}
+                    titleFormat={customTooltipTitle}
+                    labelFormat={customTooltipLabel}
+                />
             </Schedule>
         </Chart>
     )

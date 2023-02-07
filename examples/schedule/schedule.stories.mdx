@@ -2,6 +2,7 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateScheduleProjectData, ScheduleProjectChart } from './ScheduleProjectChart'
 import { generateScheduleWeekData, ScheduleWeekChart } from './ScheduleWeekChart'
+import { generateSurveyData, SurveyChart } from './SurveyChart'
 
 <Meta title="Gallery/Schedule charts" />
 
@@ -20,5 +21,23 @@ import { generateScheduleWeekData, ScheduleWeekChart } from './ScheduleWeekChart
 <Canvas>
     <Story name="week schedule">
         <Controller generator={generateScheduleWeekData} chart={ScheduleWeekChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="survey">
+        <Controller
+            generator={generateSurveyData}
+            chart={SurveyChart}
+            comment={
+                <span>
+                    The design of this example is inspired by{' '}
+                    <a href="https://observablehq.com/@observablehq/plot-diverging-stacked-bar">
+                        this blog post
+                    </a>
+                    .
+                </span>
+            }
+        />
     </Story>
 </Canvas>

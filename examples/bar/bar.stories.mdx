@@ -10,7 +10,6 @@ import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroup
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
 import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
-import { generateSurveyData, SurveyBarChart } from './SurveyBarChart'
 import {
     generateQuestionMultipleChoicesData,
     QuestionMultipleChoicesChart,
@@ -36,15 +35,7 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
             generator={generateGroupedData}
             chart={GroupedHorizontalBarChart}
             steps={['grid', 'bars-before', 'bars-after', 'percentages']}
-            comment={
-                <div>
-                    <p>
-                        This example is non-interactive. (The legends are not clickable. There is no
-                        tooltip).
-                    </p>
-                    <p>Instead, it shows customized calculations for each band.</p>
-                </div>
-            }
+            comment={<div>This example is non-interactive. (The legends are not clickable.)</div>}
         />
     </Story>
 </Canvas>
@@ -80,24 +71,6 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
 <Canvas>
     <Story name="value colors">
         <Controller generator={generateValueColorsBarData} chart={ValueColorsBarChart} />
-    </Story>
-</Canvas>
-
-<Canvas>
-    <Story name="survey">
-        <Controller
-            generator={generateSurveyData}
-            chart={SurveyBarChart}
-            comment={
-                <span>
-                    The design of this example is inspired by{' '}
-                    <a href="https://observablehq.com/@observablehq/plot-diverging-stacked-bar">
-                        this blog post
-                    </a>
-                    .
-                </span>
-            }
-        />
     </Story>
 </Canvas>
 

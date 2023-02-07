@@ -1,4 +1,4 @@
-import { Chart, Axis, GridLines, Legend, TooltipDataComponent, Tooltip } from '@chsk/core'
+import { Chart, Axis, GridLines, Legend, Tooltip } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { generateBarData } from './generators'
@@ -37,8 +37,8 @@ export const StackedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
                 <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                 <Axis variant={'bottom'} label={'Samples'} />
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
-                <Bars dataComponent={TooltipDataComponent} />
-                <Tooltip position={[0, -10]} rx={2} ry={2} anchor={[0.5, 1]} />
+                <Bars />
+                <Tooltip />
                 <Legend
                     position={[310, 280]}
                     positionUnits={'absolute'}

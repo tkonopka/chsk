@@ -1,4 +1,4 @@
-import { Chart, Axis, GridLines, LabelProps } from '@chsk/core'
+import { Chart, Axis, GridLines, LabelProps, Tooltip } from '@chsk/core'
 import { Bar, Bars, BandLabels } from '@chsk/band'
 import { BoxedLabel } from '@chsk/annotation'
 import { generateBarData } from './generators'
@@ -60,6 +60,7 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             <StyledBoxedLabel position={[460, -14]} size={[80, 26]}>
                 3rd variable
             </StyledBoxedLabel>
+            <Tooltip />
         </Bar>
     </Chart>
 )

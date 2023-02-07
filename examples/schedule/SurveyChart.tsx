@@ -11,46 +11,48 @@ import {
     mergeTheme,
     Tooltip,
     useTooltip,
+    Rectangle,
+    TooltipItem,
 } from '@chsk/core'
-import { Bar, Bars } from '@chsk/band'
+import { isScheduleData, Schedule, Schedules } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
-import {randomUniformValue, round1dp} from '../utils'
+import { randomUniformValue, round1dp } from '../utils'
 import { DownloadButtons } from '../navigation'
 
 const surveyIds = ['Q1', 'Q2', 'Q3', 'Q4', 'Q5', 'Q6']
 
-type SurveyItem = {
-    id: string
-    SA: number // strongly agree
-    A: number // agree
-    NA: number // neutral on agree side
-    ND: number // neutral on disagree side
-    D: number // agree
-    SD: number // strongly disagree
-}
-
 const generateQuestionData = (id: string) => {
     let done = false
-    const result: SurveyItem = { id, SD: 0, D: 0, ND: 0, NA: 0, A: 0, SA: 0 }
+    const data = []
     while (!done) {
         const values = Array(4)
             .fill(0)
             .map(() => round1dp(randomUniformValue(5, 35)))
         const sum = values[0] + values[1] + values[2] + values[3]
         const neutral = (100 - sum) / 2
-        result.SD = -values[0]
-        result.D = -values[1]
-        result.ND = -neutral
-        result.NA = neutral
-        result.A = values[2]
-        result.SA = values[3]
-        done = neutral >= 5
+        done = neutral > 5
+        if (done) {
+            let start = -values[0] - values[1] - neutral / 2
+            data.push({ key: 'SD', value: values[0], start, end: start + values[0] })
+            start += values[0]
+            data.push({ key: 'D', value: values[1], start, end: start + values[1] })
+            start += values[1]
+            data.push({ key: 'N', value: neutral, start, end: start + neutral })
+            start += neutral
+            data.push({ key: 'A', value: values[2], start, end: start + values[2] })
+            start += values[2]
+            data.push({ key: 'SA', value: values[3], start, end: start + values[3] })
+        }
     }
-    return result
+    data.forEach(item => {
+        item.value = round1dp(item.value)
+        item.start = round1dp(item.start)
+        item.end = round1dp(item.end)
+    })
+    return { id, data }
 }
-
 export const generateSurveyData = () => surveyIds.map(id => generateQuestionData(id))
 
 const surveyTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
@@ -76,33 +78,43 @@ const surveyProps = {
     },
 }
 
-const surveyColors = {
-    SD: '#762a83',
-    D: '#9970ab',
-    ND: '#dddddd',
-    NA: '#dddddd',
-    A: '#5aae61',
-    SA: '#1b7837',
+const surveyColors = ['#762a83', '#9970ab', '#dddddd', '#5aae61', '#1b7837']
+const surveyKeys = ['SD', 'D', 'N', 'A', 'SA']
+
+// tooltip displaying interval size
+const CustomTooltipItem = () => {
+    const { data } = useTooltip()
+    const item = data.data?.[0]
+    if (item === undefined) return null
+    const end = 'end' in item ? Number(item['end']) : 0
+    const start = 'start' in item ? Number(item['start']) : 0
+    const value = round1dp(end - start)
+    return (
+        <TooltipItem
+            key={'item-' + item.id + '-' + item.key}
+            variant={'right'}
+            position={[0, 0]}
+            size={[100, 30]}
+            padding={[8, 8, 8, 8]}
+            item={item.id}
+            label={item.key + ': ' + value + '%'}
+            colorIndex={surveyKeys.indexOf(item.key ?? '')}
+            labelOffset={14}
+        />
+    )
 }
 
-const CustomTooltipContent = () => {
-    const { data } = useTooltip()
-    console.log("CustomContent " + JSON.stringify(data))
-    return null
-}
-const CustomComp = () => {
-    const { data } = useTooltip()
-    console.log("CustomComp " + JSON.stringify(data))
-    return null
-}
+export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
+    if (!isScheduleData(rawData)) return null
 
-export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     // manually compute extent of value axis
-    const surveyData = rawData as Array<SurveyItem>
-    const max: number = surveyData
-        .map(d => [Math.abs(d.NA + d.A + d.SA), Math.abs(d.ND + d.D + d.SD)])
+    const allStartEnd = (data: Record<string, unknown>[]) => {
+        return data.map(d => [Number(d['start']), Number(d['end'])]).flat()
+    }
+    const max: number = rawData
+        .map(d => allStartEnd(d.data))
         .flat()
-        .reduce((acc, v) => Math.max(v, acc), 0)
+        .reduce((acc, v) => Math.max(Math.abs(v), acc), 0)
     const valueScaleSpec: LinearScaleSpec = {
         variant: 'linear',
         domain: [-max, max],
@@ -117,23 +129,29 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
             padding={[90, 40, 30, 60]}
             theme={surveyTheme}
         >
-            <Bar
+            <Schedule
                 data={rawData}
-                keys={['ND', 'D', 'SD']}
+                keys={surveyKeys}
                 {...surveyProps}
                 scaleValue={valueScaleSpec}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: [surveyColors['ND'], surveyColors['D'], surveyColors['SD']],
+                    colors: surveyColors,
                 }}
             >
                 <Axis variant={'top'}>
                     <AxisTicks variant={'top'} ticks={5} labelFormat={s => s + '%'} />
                 </Axis>
-                <Bars />
                 <Axis variant={'left'}>
                     <AxisTicks variant={'left'} tickSize={0} />
                 </Axis>
+                <GridLines variant={'x'} />
+                <Schedules />
+                <GridLines
+                    variant={'x'}
+                    values={[0]}
+                    style={{ stroke: '#000000', strokeWidth: 2 }}
+                />
                 <Legend
                     position={[-30, -60]}
                     positionUnits={'absolute'}
@@ -155,39 +173,10 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     />
                     <LegendItem
                         position={[230, 0]}
-                        item={'ND'}
+                        item={'N'}
                         label={'Neutral'}
                         symbol={VerticalGoldenRectangle}
                     />
-                </Legend>
-                <CustomComp />
-                <Tooltip key={'tooltip-negative'}>
-                    <CustomTooltipContent />
-                </Tooltip>
-            </Bar>
-            <Bar
-                data={rawData}
-                keys={['NA', 'A', 'SA']}
-                {...surveyProps}
-                scaleValue={valueScaleSpec}
-                scaleColor={{
-                    variant: 'categorical',
-                    colors: [surveyColors['NA'], surveyColors['A'], surveyColors['SA']],
-                }}
-            >
-                <Bars />
-                <GridLines
-                    variant={'x'}
-                    values={[0]}
-                    style={{ stroke: '#000000', strokeWidth: 2 }}
-                />
-                <Legend
-                    position={[-30, -60]}
-                    positionUnits={'absolute'}
-                    size={[400, 30]}
-                    sizeUnits={'absolute'}
-                    horizontal={true}
-                >
                     <LegendItem
                         position={[320, 0]}
                         item={'A'}
@@ -201,13 +190,24 @@ export const SurveyBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                         symbol={VerticalGoldenRectangle}
                     />
                 </Legend>
+                <Tooltip>
+                    <Rectangle
+                        variant={'tooltip-surface'}
+                        x={0}
+                        y={0}
+                        width={100}
+                        height={30}
+                        rx={1}
+                        ry={1}
+                        className={'tooltip surface'}
+                    />
+                    <CustomTooltipItem />
+                </Tooltip>
                 <DownloadButtons position={[440, 240]} data image />
-            </Bar>
+            </Schedule>
             <Typography variant={'title'} position={[-25, -70]}>
                 Survey responses
             </Typography>
         </Chart>
     )
 }
-
-// <Tooltip key={'tooltip-positive'} />

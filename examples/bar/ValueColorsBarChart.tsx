@@ -9,7 +9,6 @@ import {
     Rectangle,
     RectangleProps,
     useScales,
-    TooltipDataComponent,
     Tooltip,
     TooltipItem,
     useTooltip,
@@ -31,7 +30,7 @@ export const generateValueColorsBarData = () => {
     let value = round2dp(randomUniformValue(-1, 1))
     while (year !== now.getFullYear() || month !== now.getMonth()) {
         value = round2dp(value)
-        result.push({ id: year + '-' + (month + 1), value })
+        result.push({ id: year + '-' + (month < 9 ? '0' : '') + (month + 1), value })
         if (month === 11) {
             month = 0
             year += 1
@@ -100,14 +99,15 @@ const CustomTooltipItem = () => {
     const item = data.data?.[0]
     if (item === undefined) return null
     const value = 'data' in item ? Number(item['data']) : 0
+    const date = String(item['id'])
     return (
         <TooltipItem
             variant={'right'}
             position={[0, 0]}
-            size={[120, 30]}
+            size={[130, 30]}
             padding={[8, 8, 8, 8]}
             item={item.id}
-            label={'value: ' + value + '%'}
+            label={date + ': ' + value + '%'}
             colorIndex={value > 0 ? 0 : 1}
             labelOffset={14}
         />
@@ -162,20 +162,20 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <Bars component={CustomRectangle} dataComponent={TooltipDataComponent} />
+                <Bars component={CustomRectangle} />
                 <GridLines
                     variant={'y'}
                     values={[0]}
                     expansion={[0, 26]}
                     style={{ strokeWidth: 2, stroke: '#000000' }}
                 />
-                <Tooltip position={[0, -10]} anchor={[0.5, 1]}>
+                <Tooltip>
                     <Rectangle
                         key={'surface'}
                         variant={'tooltip-surface'}
                         x={0}
                         y={0}
-                        width={120}
+                        width={130}
                         height={30}
                         rx={1}
                         ry={1}

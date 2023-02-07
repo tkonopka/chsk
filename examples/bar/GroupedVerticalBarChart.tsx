@@ -7,7 +7,6 @@ import {
     Legend,
     ThemeSpec,
     mergeTheme,
-    TooltipDataComponent,
     Tooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
@@ -71,8 +70,8 @@ export const GroupedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
                     </AxisLabel>
                     <AxisTicks variant={'left'} labelFormat={v => v + '%'} />
                 </Axis>
-                <Bars dataComponent={TooltipDataComponent} />
-                <Tooltip position={[0, -10]} anchor={[0.5, 1]} />
+                <Bars />
+                <Tooltip />
                 <Legend
                     position={[95, 310]}
                     positionUnits={'absolute'}

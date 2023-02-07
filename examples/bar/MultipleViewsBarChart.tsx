@@ -7,6 +7,7 @@ import {
     GridLines,
     ThemeSpec,
     SizeSpec,
+    Tooltip,
 } from '@chsk/core'
 import { Bar, Bars, BarsLabels } from '@chsk/band'
 import { generateKeyValues } from './generators'
@@ -110,6 +111,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <Axis variant={'left'}>
                 <AxisTicks variant={'left'} tickSize={0} />
             </Axis>
+            <Tooltip />
         </Bar>
         <Bar position={[0.35, 0]} {...multiviewBarProps} data={rawData} keys={['beta']}>
             <GridLines variant={'y'} shift={[-0.6]} />
@@ -122,6 +124,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <Axis variant={'bottom'} ticks={[]} />
             <Bars />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+            <Tooltip />
         </Bar>
         <Bar position={[0.7, 0]} {...multiviewBarProps} data={rawData} keys={['gamma']}>
             <GridLines variant={'y'} shift={[-0.6]} />
@@ -134,6 +137,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             <Axis variant={'bottom'} ticks={[]} />
             <Bars />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+            <Tooltip />
         </Bar>
     </Chart>
 )

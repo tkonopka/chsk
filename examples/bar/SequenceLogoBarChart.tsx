@@ -12,12 +12,24 @@ import {
     Path,
     useScales,
     mergeTheme,
+    Tooltip,
+    Rectangle,
+    useTooltip,
+    TooltipItem,
+    RawDataContextProps,
 } from '@chsk/core'
-import { Bar, BarInteractiveDataItem, Bars, useBarPreparedData } from '@chsk/band'
+import {
+    Bar,
+    BarInteractiveDataItem,
+    BarPreparedDataContextProps,
+    Bars,
+    useBarPreparedData,
+} from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
 import { randomUniformValue, round4dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
+import { useMemo } from 'react'
 
 const threshold = (v: number, threshold: number) => (v > threshold ? v : 0)
 const acgt = ['A', 'C', 'G', 'T']
@@ -71,6 +83,19 @@ const baseDimension: Record<string, [number, number]> = {
     T: [9.0867796, 12.088151],
 }
 
+// get a letter code 'A', 'C', etc. from a data object holding id, key / rank
+const getBaseLetter = (
+    rawData: RawDataContextProps,
+    preparedData: BarPreparedDataContextProps,
+    data?: BarInteractiveDataItem
+) => {
+    const dataIndex = preparedData.seriesIndexes[data?.id ?? ''] ?? 0
+    const dataKey = data?.key ?? preparedData.keys[0]
+    const keyIndex = keyMapping[dataKey] ?? 0
+    const base = (rawData.data[dataIndex]['bases'] as string[])[keyIndex ?? 0]
+    return { base, baseIndex: acgt.indexOf(base) }
+}
+
 const LogoDataComponent = ({
     data,
     props,
@@ -80,11 +105,7 @@ const LogoDataComponent = ({
     const colorScale = useScales().color
 
     // use the "data" for the component to find the base (A, C, G, T) that it represents
-    const dataIndex = preparedData.seriesIndexes[data?.id ?? ''] ?? 0
-    const dataKey = data?.key ?? preparedData.keys[0]
-    const keyIndex = keyMapping[dataKey] ?? 0
-    const base = (rawData.data[dataIndex]['bases'] as string[])[keyIndex]
-    const baseIndex = acgt.indexOf(base)
+    const { base, baseIndex } = getBaseLetter(rawData, preparedData, data)
 
     // extract svg properties for ACGT components
     const dim = baseDimension[base]
@@ -103,6 +124,32 @@ const LogoDataComponent = ({
         <m.g initial={config} animate={config} key={'logo-' + data?.id + '-' + base}>
             <Path d={path} className={'logo'} style={{ fill: colorScale(baseIndex) }} />
         </m.g>
+    )
+}
+
+const LogoTooltipItem = () => {
+    const rawData = useRawData()
+    const preparedData = useBarPreparedData()
+    const { data } = useTooltip()
+    const item = data.data?.[0]
+    if (item === undefined) return null
+    const { base, baseIndex } = useMemo(
+        () => getBaseLetter(rawData, preparedData, item as BarInteractiveDataItem),
+        [rawData, preparedData, item]
+    )
+    const value = 'data' in item ? Number(item['data']) : 0
+    return (
+        <TooltipItem
+            key={'item-' + item.id + '-' + item.key}
+            variant={'right'}
+            position={[0, 0]}
+            size={[120, 30]}
+            padding={[8, 8, 8, 8]}
+            item={item.id}
+            label={base + ': ' + value + ' bits'}
+            colorIndex={baseIndex}
+            labelOffset={14}
+        />
     )
 }
 
@@ -178,7 +225,22 @@ export const SequenceLogoBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
                     <LazyMotion features={domAnimation}>
                         <Bars dataComponent={LogoDataComponent} />
+                        <Bars style={{ fillOpacity: 0 }} />
                     </LazyMotion>
+                    <Tooltip>
+                        <Rectangle
+                            key={'surface'}
+                            variant={'tooltip-surface'}
+                            x={0}
+                            y={0}
+                            width={120}
+                            height={30}
+                            rx={1}
+                            ry={1}
+                            className={'tooltip surface'}
+                        />
+                        <LogoTooltipItem key={'tooltip-item'} />
+                    </Tooltip>
                     <DownloadButtons position={[390, -45]} data image />
                 </MilestoneMotion>
             </Bar>
