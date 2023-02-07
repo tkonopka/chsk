@@ -1,6 +1,6 @@
-import { PositionSpec, PositionUnits, SvgElementVariantProps } from '@chsk/core'
+import { InteractivityProps, PositionSpec, PositionUnits, SvgElementVariantProps } from '@chsk/core'
 
-export interface BlockArrowProps extends SvgElementVariantProps {
+export interface BlockArrowProps extends SvgElementVariantProps, InteractivityProps {
     /** start position */
     start: PositionSpec
     /** end position */

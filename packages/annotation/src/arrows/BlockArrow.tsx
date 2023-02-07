@@ -11,10 +11,7 @@ export const BlockArrow = ({
     headWidth = 20,
     headLength = 14,
     stemWidth = 8,
-    //
-    className,
-    style,
-    setRole = true,
+    ...props
 }: BlockArrowProps) => {
     const { size } = useDimensions()
     const scales = useScales()
@@ -30,13 +27,5 @@ export const BlockArrow = ({
         stemWidth,
     })
 
-    return (
-        <Path
-            variant={variant}
-            points={points}
-            className={className}
-            style={style}
-            setRole={setRole}
-        />
-    )
+    return <Path variant={variant} points={points} {...props} />
 }
