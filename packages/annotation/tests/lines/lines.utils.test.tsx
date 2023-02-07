@@ -1,4 +1,4 @@
-import { getBracketPositions, getBracePositions } from '../src/lines/utils'
+import { getBracketPositions, getBracePositions } from '../../src/lines/utils'
 
 describe('getLineTickPositions', () => {
     it('finds tick ends for horizontal line (size > 0)', () => {

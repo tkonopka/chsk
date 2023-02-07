@@ -1,8 +1,8 @@
-import { BoxedTitle } from '../src/boxes'
-import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { chartProps } from './props'
-import { getNumberAttr } from '../../core/tests/utils'
+import { render, screen } from '@testing-library/react'
+import { BoxedTitle } from '../../src/boxes'
+import { chartProps } from '../props'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('BoxedTitle', () => {
     it('creates a title (top)', () => {

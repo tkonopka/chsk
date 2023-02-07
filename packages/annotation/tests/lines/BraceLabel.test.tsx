@@ -1,7 +1,7 @@
-import { BraceLabel } from '../src/lines'
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { chartProps, viewProps } from './props'
+import { BraceLabel } from '../../src/lines'
+import { chartProps, viewProps } from '../props'
 
 describe('temp', () => {
     it('creates a line with absolute coordinates', () => {
