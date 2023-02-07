@@ -8,10 +8,13 @@ import {
     ThemeSpec,
     Circle,
     mergeTheme,
+    Tooltip,
+    TooltipData,
+    TooltipDataItem,
 } from '@chsk/core'
-import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
+import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
 import { generateXYValues } from './generators'
-import { generateMixedPopulation, randomNormalValue } from '../utils'
+import { generateMixedPopulation, randomNormalValue, round1dp, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { downloadThemePiece } from '@chsk/themes'
@@ -23,22 +26,22 @@ export const generateBubbleScatterData = () => {
         {
             id: 'alpha',
             data: generateXYValues(
-                x1,
+                x1.map(round3dp),
                 ['y', 'size'],
                 [
-                    x => 1.5 * x + randomNormalValue(0, 2),
-                    x => Math.abs(1 + 0.5 * x + randomNormalValue(0, 8)),
+                    x => round3dp(1.5 * x + randomNormalValue(0, 2)),
+                    x => round1dp(Math.abs(1 + 0.5 * x + randomNormalValue(0, 8))),
                 ]
             ),
         },
         {
             id: 'beta',
             data: generateXYValues(
-                x2,
+                x2.map(round3dp),
                 ['y', 'size'],
                 [
-                    x => 0.5 * x + randomNormalValue(0, 3),
-                    x => Math.abs(1 + x + randomNormalValue(0, 12)),
+                    x => round3dp(0.5 * x + randomNormalValue(0, 3)),
+                    x => round1dp(Math.abs(1 + x + randomNormalValue(0, 12))),
                 ]
             ),
         },
@@ -64,13 +67,20 @@ const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
         legendSymbol: {
             fillOpacity: 1,
         },
-        'custom:hover': {
-            cursor: 'pointer',
-            stroke: '#222222',
-            strokeWidth: 3,
-        },
     },
 })
+
+const customTooltipTitle = (x: TooltipData) => {
+    if (!x || !x.data) return ''
+    const item = x.data?.[0] as Record<string, unknown>
+    return x.title + ' - index ' + String(item['index'])
+}
+const customTooltipLabel = (x: TooltipDataItem) => {
+    if (!x) return ''
+    const point = 'point' in x ? (x['point'] as [number, number]) : [0, 0]
+    const size = 'size' in x ? x['size'] : ''
+    return '(' + point[0] + ', ' + point[1] + ') size: ' + size
+}
 
 export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
@@ -116,6 +126,20 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'data'}>
                     <ScatterPoints symbolClassName="custom" />
+                    <ScatterCrosshair
+                        symbolStyle={{ stroke: '#ssssss', strokeWidth: 1, fillOpacity: 1 }}
+                        style={{ stroke: '#000000' }}
+                    />
+                    <Tooltip
+                        position={[16, -16]}
+                        anchor={[0, 1]}
+                        padding={[4, 0, 4, 0]}
+                        itemSize={[180, 26]}
+                        itemPadding={[4, 8, 4, 8]}
+                        titleFormat={customTooltipTitle}
+                        labelFormat={customTooltipLabel}
+                        symbol={Circle}
+                    />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
                     <Legend

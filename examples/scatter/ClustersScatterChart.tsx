@@ -1,45 +1,72 @@
-import { useState } from 'react'
-import { Chart, Axis, GridLines, Legend, MilestoneMotion, Surface, Typography } from '@chsk/core'
-import { Scatter, ScatterPoints, isScatterData, ScatterInteractiveDataItem } from '@chsk/xy'
+import {
+    Chart,
+    Axis,
+    GridLines,
+    Legend,
+    MilestoneMotion,
+    Surface,
+    Typography,
+    Tooltip,
+    TooltipProvider,
+    mergeThemes,
+    AxisTicks,
+} from '@chsk/core'
+import { Scatter, ScatterPoints, isScatterData, ScatterCrosshair } from '@chsk/xy'
 import { generateXYValues } from './generators'
-import { generateMixedPopulation, randomNormalValue } from '../utils'
+import { generateMixedPopulation, randomNormalValue, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
-import { PointSummaryDiv } from './PointSummaryDiv'
+import { downloadThemePiece, faintTicksThemePiece } from '@chsk/themes'
+import { DownloadButtons } from '../navigation'
 
-export const generateClusterScatterData = () => [
-    {
-        id: 'alpha',
-        data: generateXYValues(
-            generateMixedPopulation([80], [0], [1]),
-            ['y'],
-            [x => 0 * x + randomNormalValue(0, 1)]
-        ),
-    },
-    {
-        id: 'beta',
-        data: generateXYValues(
-            generateMixedPopulation([80], [3], [1]),
-            ['y'],
-            [x => x + randomNormalValue(0, 3)]
-        ),
-    },
-    {
-        id: 'gamma',
-        data: generateXYValues(
-            generateMixedPopulation([80], [1], [1]),
-            ['y'],
-            [x => 4 + x + randomNormalValue(0, 1)]
-        ),
-    },
-]
+export const generateClusterScatterData = () => {
+    return [
+        {
+            id: 'alpha',
+            data: generateXYValues(
+                generateMixedPopulation([160], [0], [1]).map(round3dp),
+                ['y'],
+                [x => round3dp(0 * x + randomNormalValue(0, 1))]
+            ),
+        },
+        {
+            id: 'beta',
+            data: generateXYValues(
+                generateMixedPopulation([160], [3], [1]).map(round3dp),
+                ['y'],
+                [x => round3dp(x + randomNormalValue(0, 3))]
+            ),
+        },
+        {
+            id: 'gamma',
+            data: generateXYValues(
+                generateMixedPopulation([160], [1], [1]).map(round3dp),
+                ['y'],
+                [x => round3dp(4 + x + randomNormalValue(0, 1))]
+            ),
+        },
+    ]
+}
 
-const customTheme = {
-    circle: {
-        'custom:hover': {
-            cursor: 'pointer',
+const customTheme = mergeThemes([
+    downloadThemePiece,
+    faintTicksThemePiece,
+    {
+        circle: {
+            custom: {
+                opacity: 0.8,
+            },
+            'custom:hover': {
+                cursor: 'pointer',
+            },
+        },
+        AxisTicks: {
+            left: { tickSize: -6, labelOffset: 4 },
+            bottom: { tickSize: -6, labelOffset: 4 },
+            top: { tickSize: -6 },
+            right: { tickSize: -6 },
         },
     },
-}
+])
 
 const scatterProps = {
     x: 'x',
@@ -48,72 +75,75 @@ const scatterProps = {
     scaleX: {
         variant: 'linear' as const,
         domain: 'auto' as const,
-        nice: true,
+        nice: 6,
     },
     scaleY: {
         variant: 'linear' as const,
         domain: 'auto' as const,
-        nice: true,
+        nice: 6,
     },
 }
 
 export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-
-    //type ScatterItem = { id: string; index?: number }
-    const [active, setActive] = useState<ScatterInteractiveDataItem | null>(null)
-    const customOnMouseEnter = (data: ScatterInteractiveDataItem | undefined) => {
-        setActive(data ?? null)
-    }
-    const customOnMouseLeave = () => {
-        setActive(null)
-    }
-
     return (
-        <div>
-            <Chart
-                data={chartData}
-                fref={fref}
-                id="uniform-scatter"
-                size={[600, 400]}
-                padding={[40, 120, 60, 60]}
-                theme={customTheme}
-            >
-                <Scatter data={rawData} {...scatterProps}>
-                    <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
-                        <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
-                        <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
-                        <Surface style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: 1 }} />
-                        <Axis variant={'bottom'} label={'x values (a.u.)'} />
-                        <Axis variant={'left'} label={'y values (a.u.)'} />
-                    </MilestoneMotion>
-                    <MilestoneMotion initial={'invisible'} initialOn={'data'}>
-                        <ScatterPoints
-                            symbolClassName={'custom'}
-                            onMouseEnter={customOnMouseEnter}
-                            onMouseLeave={customOnMouseLeave}
+        <Chart
+            data={chartData}
+            fref={fref}
+            id="uniform-scatter"
+            size={[640, 480]}
+            padding={[50, 120, 60, 60]}
+            theme={customTheme}
+        >
+            <Scatter data={rawData} {...scatterProps}>
+                <Typography position={[0, -20]} variant={'title'}>
+                    Scatter plot with clusters
+                </Typography>
+                <DownloadButtons position={[480, -20]} data image />
+                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                    <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                    <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
+                    <Surface style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: 1 }} />
+                    <Axis variant={'bottom'} label={'x values (a.u.)'} />
+                    <Axis variant={'left'} label={'y values (a.u.)'} />
+                    <Axis variant={'top'}>
+                        <AxisTicks variant={'top'} labelFormat={() => ''} />
+                    </Axis>
+                    <Axis variant={'right'}>
+                        <AxisTicks variant={'right'} labelFormat={() => ''} />
+                    </Axis>
+                </MilestoneMotion>
+                <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                    <Legend
+                        position={[1, 0.2]}
+                        positionUnits={'relative'}
+                        size={[100, 88]}
+                        sizeUnits={'absolute'}
+                        anchor={[0, 0.5]}
+                        padding={[0, 8, 0, 8]}
+                        r={10.5}
+                        itemSize={[80, 22]}
+                        itemPadding={[1, 2, 1, 2]}
+                        title={'Populations'}
+                    />
+                </MilestoneMotion>
+                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                    <TooltipProvider>
+                        <ScatterPoints symbolClassName={'custom'} />
+                        <ScatterCrosshair
+                            style={{ opacity: 0 }}
+                            symbolStyle={{ opacity: 1, stroke: '#000000', strokeWidth: 0.5 }}
+                            minDistance={20}
                         />
-                    </MilestoneMotion>
-                    <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
-                        <Legend
-                            position={[440, 80]}
-                            positionUnits={'absolute'}
-                            size={[80, 80]}
-                            sizeUnits={'absolute'}
-                            anchor={[0, 0.5]}
-                            padding={[0, 12, 0, 12]}
-                            r={10.5}
-                            itemSize={[80, 20]}
-                            itemPadding={[2, 2, 2, 2]}
-                            title={'Populations'}
+                        <Tooltip
+                            position={[0, -15]}
+                            padding={[4, 0, 4, 0]}
+                            itemSize={[160, 26]}
+                            itemPadding={[4, 8, 4, 8]}
                         />
-                    </MilestoneMotion>
-                    <Typography position={[0, -20]} variant={'title'}>
-                        Scatter plot with mouse events
-                    </Typography>
-                </Scatter>
-            </Chart>
-            <PointSummaryDiv data={active} />
-        </div>
+                    </TooltipProvider>
+                </MilestoneMotion>
+            </Scatter>
+        </Chart>
     )
 }

@@ -31,12 +31,10 @@ import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatte
             chart={ClustersScatterChart}
             steps={['axes', 'legend', 'data']}
             comment={
-                <div>
-                    <p>In this chart, mouse events are attached to individual data points.</p>
-                    <p>
-                        Hover the mouse on data points to display a summary in the box underneath.
-                    </p>
-                </div>
+                <p>
+                    Here, the tooltip is configured via the `ScatterCrosshair` component, although
+                    the crosshair lines themselves are hidden from view.
+                </p>
             }
         />
     </Story>

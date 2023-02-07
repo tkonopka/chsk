@@ -24,6 +24,7 @@ import {
     ScalesContextProps,
     useRawData,
     useTooltip,
+    NumericAxisScale,
 } from '@chsk/core'
 import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
@@ -99,6 +100,7 @@ const createActiveSymbol = ({
     seriesIndex: number
 }) => {
     if (activeData === undefined || activeData.point === undefined) return null
+    const scaleSize = scales.size as NumericAxisScale
     return createElement(dataComponent, {
         key: 'active-' + seriesIndex + '-' + activeData.index,
         component: symbol,
@@ -106,7 +108,7 @@ const createActiveSymbol = ({
             variant: 'active',
             cx: coordinates[X],
             cy: coordinates[Y],
-            r: activeData.size,
+            r: scaleSize(activeData.size ?? 0),
             className: symbolClassName,
             style: addColor(symbolStyle, scales.color(seriesIndex)),
             setRole,
@@ -145,6 +147,12 @@ export const ScatterCrosshair = ({
 
     const symbolData = getSymbolData(processedData, preparedData)
     const targets = getTargets(preparedData, disabledKeys)
+
+    const handleMouseLeave = useCallback(() => {
+        setActiveData(undefined)
+        setTooltipData({})
+    }, [setActiveData, setTooltipData])
+
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (!detectorRef || !detectorRef.current) return
@@ -160,7 +168,7 @@ export const ScatterCrosshair = ({
             )
             const hitDistance = Math.sqrt(hit[0])
             if (minDistance && hitDistance > minDistance) {
-                setActiveData(undefined)
+                handleMouseLeave()
                 return
             }
             const target = targets[hit[1] ?? 0]
@@ -190,11 +198,6 @@ export const ScatterCrosshair = ({
         [activeData, setActiveData, setTooltipData, targets, processedData]
     )
     const debouncedHandleMouseMove = debounce(handleMouseMove, 10, { leading: true })
-
-    const handleMouseLeave = useCallback(() => {
-        setActiveData(undefined)
-        setTooltipData({})
-    }, [setActiveData, setTooltipData])
 
     const detector = (
         <rect
