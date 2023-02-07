@@ -41,6 +41,7 @@ export type TwoSideSizeSpec = [number, number]
 // other spec types
 export type AlignSpec = [number, number]
 export type TranslateSpec = [number, number]
+export type AnchorSpec = [number, number]
 
 export type DimensionsProviderProps = {
     /** width and height */
@@ -65,3 +66,4 @@ export type WithId = {
     /** identifier string */
     id: string
 }
+export type RecordWithId = WithId & Record<string, unknown>

@@ -6,7 +6,7 @@ describe('guessLabel', () => {
     })
 
     it('combines key and data', () => {
-        expect(guessLabel({ id: 'A', key: 'custom', data: 5 })).toEqual('custom - 5')
+        expect(guessLabel({ id: 'A', key: 'custom', data: 5 })).toEqual('custom: 5')
     })
 
     it('uses key', () => {

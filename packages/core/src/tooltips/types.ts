@@ -7,7 +7,7 @@ import {
     LegendItemListProps,
     LegendItemListThemedProps,
 } from '../legends'
-import { NumericPositionSpec, WithId } from '../general'
+import { NumericPositionSpec, AnchorSpec, WithId } from '../general'
 
 export type TooltipTitleProps = LegendTitleProps
 
@@ -25,6 +25,8 @@ export interface TooltipProps extends Omit<LegendProps, 'scaleSize' | 'sizeTicks
 }
 
 export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
+    position: NumericPositionSpec
+    anchor: AnchorSpec
     rx: number
     ry: number
 }

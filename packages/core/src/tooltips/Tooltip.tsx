@@ -2,7 +2,7 @@ import { m } from 'framer-motion'
 import { OpacityMotion } from '../charts'
 import { useView } from '../views'
 import { getClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, zeroPosition, zeroPadding } from '../general'
+import { DimensionsProvider, NumericPositionSpec, zeroPadding } from '../general'
 import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { SideType } from '../axes'
@@ -13,11 +13,11 @@ import { TooltipProps } from './types'
 
 const UnthemedTooltip = ({
     // layout of container
-    position = zeroPosition,
+    position = defaultTooltipProps.position,
     positionUnits = 'absolute',
     size,
     sizeUnits = 'absolute',
-    anchor = [1, 1],
+    anchor = defaultTooltipProps.anchor,
     padding = zeroPadding,
     rx = defaultTooltipProps.rx,
     ry = defaultTooltipProps.ry,

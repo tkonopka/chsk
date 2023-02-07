@@ -3,11 +3,12 @@ import {
     FourSideSizeSpec,
     SizeSpec,
     NumericPositionSpec,
+    AnchorSpec,
+    SvgElementProps,
     SvgElementVariantProps,
     PositionUnits,
     SizeUnits,
-    SvgElementProps,
-    WithId,
+    RecordWithId,
 } from '../general'
 import {
     BandScaleProps,
@@ -18,7 +19,6 @@ import {
 } from '../scales'
 import { ReactNode } from 'react'
 
-export type RecordWithId = WithId & Record<string, unknown>
 export type RawData = Array<RecordWithId>
 
 export type RawDataContextProps = {
@@ -34,9 +34,6 @@ export type ProcessedDataContextProps = {
     /** list of keys */
     keys: string[]
 }
-
-/** alignment values in [0, 1] for x and y axes */
-export type AnchorSpec = [number, number]
 
 export interface ContainerProps {
     /** container position as an array [x, y] */

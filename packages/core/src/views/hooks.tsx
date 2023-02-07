@@ -3,6 +3,7 @@ import {
     PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
+    AnchorSpec,
     PositionUnits,
     SizeUnits,
     useDimensions,
@@ -14,7 +15,6 @@ import {
     getInnerSize,
 } from '../general'
 import { getDimensionsProps } from '../general/dimensions'
-import { AnchorSpec } from './types'
 import { getAbsolutePosition, useScales } from '../scales'
 import { useMemo } from 'react'
 

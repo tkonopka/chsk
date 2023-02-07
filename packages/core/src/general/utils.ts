@@ -1,6 +1,5 @@
-import { NumericPositionSpec, FourSideSizeSpec, SizeSpec } from './types'
+import { NumericPositionSpec, FourSideSizeSpec, SizeSpec, AnchorSpec } from './types'
 import { TOP, BOTTOM, LEFT, RIGHT, X, Y } from './constants'
-import { AnchorSpec } from '../views'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
 export const roundDecimalPlaces = (x: number, n: number) => {
