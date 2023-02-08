@@ -19,9 +19,12 @@ jobs:
             - name: Build library
               run: |
                   npm run build-dev
-            - name: Lint check
+            - name: Lint examples
               run: |
                   npm run lint-examples
+            - name: Build examples
+              run: |
+                  npm run build-examples
             - name: Build storybook
               run: |
                   npm run build-storybook
