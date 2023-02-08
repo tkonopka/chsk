@@ -1,6 +1,10 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { HeatMap, HeatMapHighlight } from '../src'
-import { ChartHeatMapCellsDecorator, ChartHeatMapPaddedCellsDecorator } from './decorators'
+import {
+    ChartHeatMapCellsDecorator,
+    ChartHeatMapPaddedCellsDecorator,
+    ChartHeatMapCellsTooltipDecorator,
+} from './decorators'
 
 # HeatMapHighlight
 
@@ -73,6 +77,21 @@ Interactivity and mouse motion can be turned off via prop `interactive`. Then, `
         }}
         component={HeatMapHighlight}
         decorators={[ChartHeatMapCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Tooltip
+
+`HeatMapHighlight` automatically sets data for a tooltip.
+To activate a tooltip, use a `Tooltip` component.
+
+<Canvas>
+    <Story
+        name="tooltip"
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapCellsTooltipDecorator]}
     >
         {Template.bind({})}
     </Story>

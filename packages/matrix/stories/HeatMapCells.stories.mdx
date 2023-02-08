@@ -100,7 +100,7 @@ Using custom colors in `HeatMapCells` automatically resets the scale for all its
                 <Legend
                     variant={'color'}
                     position={[280, -30]}
-                    units={'absolute'}
+                    positionUnits={'absolute'}
                     size={[60, 60]}
                     title={'Colors 1'}
                 />
@@ -112,12 +112,13 @@ Using custom colors in `HeatMapCells` automatically resets the scale for all its
                         domain: [0, 50],
                     }}
                 >
-                    <Legend variant={'color'} position={[280, 110]} units={'absolute'}>
+                    <Legend variant={'color'} position={[280, 110]} positionUnits={'absolute'}>
                         <LegendTitle position={[0, 0]}>Colors 2</LegendTitle>
                         <LegendColorScale
                             variant="right"
                             size={[8, 80]}
                             position={[0, 20]}
+                            positionUnits={'absolute'}
                             gradientId="second-scale"
                         />
                     </Legend>

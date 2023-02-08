@@ -6,7 +6,6 @@ import {
     useProcessedData,
     useScales,
     createColorScale,
-    isContinuousAxisScale,
     ScalesProvider,
     getClassName,
     createContinuousScale,
@@ -35,7 +34,6 @@ export const HeatMapCells = ({
     if (!isHeatMapSetting(data, scales)) return null
 
     const colorScale = scaleColor ? createColorScale(scaleColor) : scales.color
-    const continuous: boolean = isContinuousAxisScale(colorScale)
     const sizeScale = (
         scaleSize ? createContinuousScale(scaleSize) : scales.size
     ) as ContinuousAxisScale
@@ -64,9 +62,7 @@ export const HeatMapCells = ({
             const sizes = seriesData.size
             return seriesData.value.map((v, i) => {
                 if (!cellFilter(seriesData.id, processedData.keys[i])) return null
-                const cellColor = continuous
-                    ? colorScale(Number(values[i]))
-                    : colorScale(values[i] as number)
+                const cellColor = colorScale(values[i] as number)
                 const cellStyle = addColor(style, cellColor)
                 // cell2R is 2*radius for the cell symbol
                 const cell2R = 2 * (isFinite(sizes[i]) ? sizeScale(sizes[i]) : maxSize)

@@ -17,9 +17,11 @@ import {
     inZone,
     findZone,
     getMinMax,
+    useTooltip,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
+import { sortedIndex } from 'lodash'
 
 const createDetectorIntervals = (
     scaleX: BandAxisScale,
@@ -111,15 +113,18 @@ export const HeatMapHighlight = ({
     const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
-    if (!isHeatMapSetting(processedData.data, scales)) return null
+    const { setData: setTooltipData } = useTooltip()
+    const data = processedData.data
+    if (!isHeatMapSetting(data, scales)) return null
 
-    const { idSet, keySet } = useMemo(
+    const { idSet, keySet, idArray, keyArray } = useMemo(
         () => getIdKeySets(ids, keys, processedData),
         [ids, keys, processedData]
     )
 
     const scaleX = scales.x as BandAxisScale
     const scaleY = scales.y as BandAxisScale
+    const scaleColor = scales.color
     const detectorIntervals = useMemo(
         () => createDetectorIntervals(scaleX, scaleY, idSet, keySet),
         [scaleX, scaleY, idSet, keySet]
@@ -133,19 +138,55 @@ export const HeatMapHighlight = ({
         }
     })
 
+    const handleMouseLeave = useCallback(() => {
+        setZone(null)
+        setTooltipData({})
+    }, [setZone, setTooltipData])
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (detectorRef === null) return
             if (detectorRef.current === null) return
             const { x, y } = detectorRef.current.getBoundingClientRect()
             const mouse: NumericPositionSpec = [event.clientX - x, event.clientY - y]
-            if (!inZone(mouse, zone)) {
-                setZone(findZone(mouse, detectorIntervals))
+            if (inZone(mouse, zone)) return
+            const newZone = findZone(mouse, detectorIntervals)
+            if (newZone === null) {
+                handleMouseLeave()
+                return
             }
+            const zoneCenter = [
+                (newZone[0][0] + newZone[0][1]) / 2,
+                (newZone[1][0] + newZone[1][1]) / 2,
+            ]
+            const keyIndex = (sortedIndex(detectorIntervals[X], mouse[X]) - 1) / 2
+            const idIndex = (sortedIndex(detectorIntervals[Y], mouse[Y]) - 1) / 2
+            const zoneId = idArray[idIndex]
+            const zoneKey = keyArray[keyIndex]
+            const idData = data[idIndex]
+            const zoneValue = idData.value[keyIndex]
+            const zoneSize = idData.size[keyIndex]
+            const zoneLabel =
+                (zoneValue === null || isNaN(Number(zoneValue)) ? '' : 'value: ' + zoneValue) +
+                ' ' +
+                (zoneSize === null || isNaN(Number(zoneSize)) ? '' : 'size: ' + zoneSize)
+            const activeData = {
+                id: zoneId,
+                key: zoneKey,
+                value: zoneValue,
+                size: zoneSize,
+                label: zoneLabel,
+                color: scaleColor(zoneValue as number),
+            }
+            setTooltipData({
+                x: zoneCenter[0],
+                y: zoneCenter[1],
+                title: zoneId + ', ' + zoneKey,
+                data: [activeData],
+            })
+            setZone(newZone)
         },
-        [detectorIntervals, detectorRef, zone]
+        [detectorIntervals, detectorRef, zone, setZone]
     )
-    const handleMouseLeave = useCallback(() => setZone(null), [])
 
     // invisible rectangle that detects mouse motion
     const detector = (

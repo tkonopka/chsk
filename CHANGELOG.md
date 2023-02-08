@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [matrix] support for tooltip in `HeatMapHighlight`
 -   [annotation] factory `createConcentricSymbol` to create custom symbols
 -   [annotation] interactivity props to `BlockArrow`
 -   [core] component `TooltipDataComponent` to set tooltip data

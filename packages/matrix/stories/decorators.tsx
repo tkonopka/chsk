@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis } from '@chsk/core'
+import { Chart, Axis, Tooltip } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
 import { UpSet, UpSetGrid, UpSetProps } from '../src/'
 import {
@@ -70,6 +70,18 @@ export const ChartHeatMapCellsDecorator = (Story: () => ReactNode) => (
             <Axis variant={'left'} />
             <HeatMapCells />
             {Story()}
+        </HeatMap>
+    </Chart>
+)
+
+export const ChartHeatMapCellsTooltipDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[60, 40, 40, 60]} style={{ display: 'inline-block' }}>
+        <HeatMap {...commonProps}>
+            <Axis variant={'top'} />
+            <Axis variant={'left'} />
+            <HeatMapCells />
+            {Story()}
+            <Tooltip />
         </HeatMap>
     </Chart>
 )
