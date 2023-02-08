@@ -1,11 +1,12 @@
+import { createElement } from 'react'
 import { Square } from '../shapes'
 import { Typography } from '../typography'
-import { addColor, getClassName, useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
-import { getTranslate, TOP, LEFT, RIGHT, X, Y } from '../general'
+import { getTranslate } from '../general'
 import { defaultTooltipItemProps } from './defaults'
 import { TooltipItemProps } from './types'
-import { createElement } from 'react'
+import { getLabelPosition, getSymbolPosition, getSymbolStyle } from '../legends/utils'
 
 const UnthemedTooltipItem = ({
     variant = 'right',
@@ -22,39 +23,16 @@ const UnthemedTooltipItem = ({
     labelStyle,
     labelPosition,
     labelOffset = defaultTooltipItemProps.labelOffset,
-    colorIndex,
+    color,
     className,
     style,
     setRole = true,
 }: TooltipItemProps) => {
     const colorScale = useScales().color
-    const cIndex = colorIndex ?? colorScale.domain().indexOf(item ?? '')
-    const itemStyle = addColor(symbolStyle, colorScale(cIndex))
-    label = label ?? item
 
-    // determine position of symbol and text label
-    if (!symbolPosition) {
-        symbolPosition = [r + padding[LEFT], r + padding[TOP]]
-        if (variant === 'left') {
-            symbolPosition[X] = size[0] - padding[RIGHT] - r
-        } else if (variant === 'bottom') {
-            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
-        } else if (variant === 'top') {
-            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
-        }
-    }
-    if (!labelPosition) {
-        labelPosition = [symbolPosition[X], symbolPosition[Y]]
-        if (variant === 'left') {
-            labelPosition[X] -= labelOffset
-        } else if (variant === 'right') {
-            labelPosition[X] += labelOffset
-        } else if (variant === 'bottom') {
-            labelPosition[Y] += labelOffset
-        } else if (variant === 'top') {
-            labelPosition[Y] -= labelOffset
-        }
-    }
+    symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
+    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset)
+    const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
 
     return (
         <g
@@ -79,7 +57,7 @@ const UnthemedTooltipItem = ({
                 className={className}
                 setRole={false}
             >
-                {label}
+                {label ?? item}
             </Typography>
         </g>
     )

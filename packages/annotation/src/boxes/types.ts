@@ -3,7 +3,7 @@ import {
     CssProps,
     ContainerProps,
     AlignSpec,
-    SideType,
+    SideVariant,
     FourSideSizeSpec,
     PositionSpec,
     SizeSpec,
@@ -43,7 +43,7 @@ export interface BoxedLabelProps extends SvgElementVariantProps, ContainerProps,
 
 export interface BoxedTitleProps extends SvgElementVariantProps, BoxedTextProps {
     /** variant, side of the chart */
-    variant: SideType
+    variant: SideVariant
     /** absolute size of box in direction orthogonal to the axis */
     size?: number
     /** distance from axis */

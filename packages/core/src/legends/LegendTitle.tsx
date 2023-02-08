@@ -3,7 +3,7 @@ import { Typography } from '../typography'
 import { useThemedProps } from '../themes'
 import { LegendTitleProps } from './types'
 import { defaultLegendItemProps } from './defaults'
-import { getTitlePosition } from './positions'
+import { getTitlePosition } from './utils'
 
 const UnthemedLegendTitle = ({
     variant = 'right',

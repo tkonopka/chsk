@@ -1,5 +1,4 @@
-import { SideType } from './types'
-import { SizeSpec, X, Y } from '../general'
+import { SideVariant, SizeSpec, X, Y } from '../general'
 
 // produce a 'transform' string for an entire axis
 export const getAxisTranslate = ({
@@ -7,7 +6,7 @@ export const getAxisTranslate = ({
     offset,
     size,
 }: {
-    variant: SideType
+    variant: SideVariant
     offset: number
     size: SizeSpec
 }) => {

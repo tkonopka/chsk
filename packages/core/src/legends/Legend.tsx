@@ -3,13 +3,18 @@ import { LegendProps } from './types'
 import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, zeroPadding, zeroPosition } from '../general'
+import {
+    DimensionsProvider,
+    NumericPositionSpec,
+    SideVariant,
+    zeroPadding,
+    zeroPosition,
+} from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
 import { defaultLegendProps } from './defaults'
 import { LegendItemList } from './LegendItemList'
 import { LegendSizeScale } from './LegendSizeScale'
-import { SideType } from '../axes'
 
 const UnthemedLegend = ({
     variant = 'list',
@@ -63,7 +68,7 @@ const UnthemedLegend = ({
         pos[1] += step[1] + firstOffset[1]
     }
 
-    const sideVariant: SideType = horizontal ? 'bottom' : 'right'
+    const sideVariant: SideVariant = horizontal ? 'bottom' : 'right'
     const vhp = { variant: sideVariant, horizontal, position: pos }
 
     // legend content
@@ -75,7 +80,7 @@ const UnthemedLegend = ({
                 key={'legend-list'}
                 {...vhp}
                 variant={'right'}
-                items={colorDomain}
+                keys={colorDomain}
                 labels={colorDomain}
                 interactive={interactive}
                 itemSize={itemSize}

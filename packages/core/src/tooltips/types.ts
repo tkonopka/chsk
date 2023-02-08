@@ -35,7 +35,10 @@ export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive
     ry: number
 }
 
-export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'>
+export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'> & {
+    /** array of ids */
+    ids?: string[]
+}
 
 export type TooltipItemListThemedProps = Omit<LegendItemListThemedProps, 'interactive'>
 
@@ -44,6 +47,7 @@ export type TooltipItemListThemedProps = Omit<LegendItemListThemedProps, 'intera
 export type TooltipDataItem = WithId & {
     key?: string
     label?: string
+    color?: string | number
 }
 
 export type TooltipData = {

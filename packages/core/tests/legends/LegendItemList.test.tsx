@@ -24,7 +24,7 @@ describe('LegendItemList', () => {
                         <LegendItemList
                             position={[0, 0]}
                             variant={'right'}
-                            items={keys}
+                            keys={keys}
                             labels={keys}
                         />
                     </Legend>
@@ -59,7 +59,7 @@ describe('LegendItemList', () => {
                         <LegendItemList
                             position={[0, 0]}
                             variant={'right'}
-                            items={[keys[2]]}
+                            keys={[keys[2]]}
                             labels={[keys[2]]}
                         />
                     </Legend>

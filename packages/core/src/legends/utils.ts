@@ -1,4 +1,3 @@
-import { SideType } from '../axes'
 import {
     FourSideSizeSpec,
     NumericPositionSpec,
@@ -9,12 +8,15 @@ import {
     RIGHT,
     X,
     Y,
+    SideVariant,
+    CssProps,
 } from '../general'
-import { getMinMax } from '../scales'
+import { ColorScale, getMinMax } from '../scales'
+import { addColor } from '../themes'
 
 // compute absolute positions for item bounding rectangles, symbols, and labels
 export const getItemPositions = (
-    variant: SideType,
+    variant: SideVariant,
     position: NumericPositionSpec,
     horizontal: boolean,
     size: SizeSpec,
@@ -22,7 +24,6 @@ export const getItemPositions = (
     labelOffset: number,
     symbolSizes: number[]
 ) => {
-    // shorthand and book-keeping
     const pad = itemPadding
     const stepSize = horizontal ? size[0] : size[1]
     const stepPadding = horizontal ? pad[LEFT] + pad[RIGHT] : pad[TOP] + pad[BOTTOM]
@@ -69,7 +70,7 @@ export const getItemPositions = (
 }
 
 export const getTitlePosition = (
-    variant: SideType,
+    variant: SideVariant,
     position: NumericPositionSpec,
     size: SizeSpec,
     padding: FourSideSizeSpec,
@@ -84,4 +85,52 @@ export const getTitlePosition = (
         x += padding[LEFT] + (size[0] - padding[LEFT] - padding[RIGHT]) / 2
     }
     return [x, position[1] + padding[TOP] + r]
+}
+
+export const getSymbolPosition = (
+    variant: SideVariant,
+    size: SizeSpec,
+    padding: FourSideSizeSpec,
+    r: number
+): NumericPositionSpec => {
+    const result: NumericPositionSpec = [r + padding[LEFT], r + padding[TOP]]
+    if (variant === 'left') {
+        result[X] = size[X] - padding[RIGHT] - r
+    } else if (variant === 'bottom') {
+        result[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
+    } else if (variant === 'top') {
+        result[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
+    }
+    return result
+}
+
+export const getLabelPosition = (
+    variant: SideVariant,
+    symbolPosition: NumericPositionSpec,
+    labelOffset: number
+): NumericPositionSpec => {
+    const result: NumericPositionSpec = [symbolPosition[X], symbolPosition[Y]]
+    if (variant === 'left') {
+        result[X] -= labelOffset
+    } else if (variant === 'right') {
+        result[X] += labelOffset
+    } else if (variant === 'bottom') {
+        result[Y] += labelOffset
+    } else if (variant === 'top') {
+        result[Y] -= labelOffset
+    }
+    return result
+}
+
+export const getSymbolStyle = (
+    style: CssProps | undefined,
+    color: string | number | undefined,
+    colorScale: ColorScale,
+    item: string
+) => {
+    const itemColor =
+        typeof color === 'number'
+            ? colorScale(color)
+            : color ?? colorScale(colorScale.domain().indexOf(item ?? ''))
+    return addColor(style, itemColor)
 }

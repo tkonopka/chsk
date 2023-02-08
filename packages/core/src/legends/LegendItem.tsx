@@ -1,12 +1,12 @@
+import { createElement } from 'react'
 import { Rectangle, Square } from '../shapes'
 import { Typography } from '../typography'
-import { addColor, addOpacity, getClassName, useThemedProps } from '../themes'
+import { addOpacity, getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
-import { LEFT, RIGHT, TOP, X, Y } from '../general'
 import { useChartData } from '../charts'
 import { defaultLegendItemProps } from './defaults'
 import { LegendItemProps } from './types'
-import { createElement } from 'react'
+import { getLabelPosition, getSymbolPosition, getSymbolStyle } from './utils'
 
 const UnthemedLegendItem = ({
     variant = 'right',
@@ -23,7 +23,7 @@ const UnthemedLegendItem = ({
     labelStyle,
     labelPosition,
     labelOffset = defaultLegendItemProps.labelOffset,
-    colorIndex,
+    color,
     interactive = defaultLegendItemProps.interactive,
     className,
     style,
@@ -31,33 +31,10 @@ const UnthemedLegendItem = ({
 }: LegendItemProps) => {
     const colorScale = useScales().color
     const { data: chartData, setData: setChartData } = useChartData()
-    const cIndex = colorIndex ?? colorScale.domain().indexOf(item ?? '')
-    const itemStyle = addColor(symbolStyle, colorScale(cIndex))
-    label = label ?? item
 
-    // determine position of symbol and text label
-    if (!symbolPosition) {
-        symbolPosition = [r + padding[LEFT], r + padding[TOP]]
-        if (variant === 'left') {
-            symbolPosition[X] = size[0] - padding[RIGHT] - r
-        } else if (variant === 'bottom') {
-            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
-        } else if (variant === 'top') {
-            symbolPosition[X] = padding[LEFT] + (size[X] - padding[LEFT] - padding[RIGHT]) / 2
-        }
-    }
-    if (!labelPosition) {
-        labelPosition = [symbolPosition[X], symbolPosition[Y]]
-        if (variant === 'left') {
-            labelPosition[X] -= labelOffset
-        } else if (variant === 'right') {
-            labelPosition[X] += labelOffset
-        } else if (variant === 'bottom') {
-            labelPosition[Y] += labelOffset
-        } else if (variant === 'top') {
-            labelPosition[Y] -= labelOffset
-        }
-    }
+    symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
+    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset)
+    const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
 
     const handleClick = () => {
         if (!interactive) return
@@ -105,7 +82,7 @@ const UnthemedLegendItem = ({
                 className={className}
                 setRole={false}
             >
-                {label}
+                {label ?? item}
             </Typography>
         </g>
     )

@@ -2,7 +2,7 @@ import { Typography } from '../typography'
 import { useThemedProps } from '../themes'
 import { TooltipTitleProps } from './types'
 import { defaultTooltipItemProps } from './defaults'
-import { getTitlePosition } from '../legends/positions'
+import { getTitlePosition } from '../legends/utils'
 
 const UnthemedTooltipTitle = ({
     variant = 'right',

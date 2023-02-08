@@ -2,10 +2,9 @@ import { m } from 'framer-motion'
 import { OpacityMotion } from '../charts'
 import { useView } from '../views'
 import { getClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, zeroPadding } from '../general'
+import { DimensionsProvider, NumericPositionSpec, SideVariant, zeroPadding } from '../general'
 import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
-import { SideType } from '../axes'
 import { TooltipTitle } from './TooltipTitle'
 import { TooltipItemList } from './TooltipItemList'
 import { useTooltip } from './contexts'
@@ -67,7 +66,7 @@ const UnthemedTooltip = ({
         itemsPosition[0] += step[0] + firstOffset[0]
         itemsPosition[1] += step[1] + firstOffset[1]
     }
-    const variant: SideType = horizontal ? 'bottom' : 'right'
+    const variant: SideVariant = horizontal ? 'bottom' : 'right'
     const compositeClassName = getClassName('tooltip', className)
 
     const content = children ? (
@@ -102,8 +101,10 @@ const UnthemedTooltip = ({
                 variant={variant}
                 horizontal={horizontal}
                 position={itemsPosition}
-                items={data.map(item => item.key ?? item.id)}
+                ids={data.map(item => item.id)}
+                keys={data.map(item => item.key ?? item.id)}
                 labels={data.map(item => labelFormat(item))}
+                colors={data.map(item => item.color)}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
                 r={Array(data.length).fill(r)}

@@ -113,4 +113,10 @@ describe('getIdKeySets', () => {
         expect(Array.from(result.idSet).sort()).toEqual(['B'])
         expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
     })
+
+    it('creates arrays for ids and keys', () => {
+        const result = getIdKeySets(['C', 'A'], ['z', 'y', 'w'], tempProcessedDataProps)
+        expect(result.idArray).toEqual(['A', 'C'])
+        expect(result.keyArray).toEqual(['y', 'z'])
+    })
 })

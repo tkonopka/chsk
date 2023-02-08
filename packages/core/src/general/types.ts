@@ -42,6 +42,7 @@ export type TwoSideSizeSpec = [number, number]
 export type AlignSpec = [number, number]
 export type TranslateSpec = [number, number]
 export type AnchorSpec = [number, number]
+export type SideVariant = 'top' | 'right' | 'left' | 'bottom'
 
 export type DimensionsProviderProps = {
     /** width and height */

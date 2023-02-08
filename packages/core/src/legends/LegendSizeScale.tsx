@@ -35,7 +35,7 @@ const UnthemedLegendSizeScale = ({
             <LegendItemList
                 key={'legend-size-scale'}
                 variant={variant}
-                items={pairs.map(ab => String(ab[0]))}
+                keys={pairs.map(ab => String(ab[0]))}
                 labels={pairs.map(ab => String(ab[0]))}
                 position={position}
                 itemSize={itemSize}

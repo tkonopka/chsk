@@ -30,7 +30,11 @@ export const getIdKeySets = (
 ) => {
     const allIds = new Set(Object.keys(processedData.seriesIndexes))
     const allKeys = new Set(processedData.keys)
-    return { idSet: getSet(ids, allIds), keySet: getSet(keys, allKeys) }
+    const idSet = getSet(ids, allIds)
+    const keySet = getSet(keys, allKeys)
+    const keyArray = processedData.keys.filter(x => keySet.has(x))
+    const idArray = Object.keys(processedData.seriesIndexes).filter(x => idSet.has(x))
+    return { idSet, keySet, idArray, keyArray }
 }
 
 export const fillScaleSize = (

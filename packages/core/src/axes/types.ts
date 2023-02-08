@@ -1,13 +1,16 @@
 import { CSSProperties, ReactNode } from 'react'
-import { NumericPositionSpec, SvgElementVariantProps, TwoSideSizeSpec } from '../general'
-
-export type SideType = 'top' | 'right' | 'left' | 'bottom'
+import {
+    NumericPositionSpec,
+    SideVariant,
+    SvgElementVariantProps,
+    TwoSideSizeSpec,
+} from '../general'
 
 export type TickType = undefined | number | number[] | string[]
 
 export interface AxisProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideType
+    variant: SideVariant
     /** specification for tick positions */
     ticks?: TickType
     /** text label for axis */
@@ -24,12 +27,12 @@ export interface AxisThemedProps extends Pick<AxisProps, 'offset' | 'ticks' | 's
 
 export interface AxisLineProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideType
+    variant: SideVariant
 }
 
 export interface AxisLabelProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideType
+    variant: SideVariant
     /** distance between axis line and label */
     offset?: number
     /** position of label along the axis */
@@ -51,7 +54,7 @@ export type TickFormatType = (value: unknown, index: number) => string
 
 export interface AxisTicksProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideType
+    variant: SideVariant
     /** specification for tick positions **/
     ticks?: TickType
     /** length of tick lines */

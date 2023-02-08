@@ -3,13 +3,15 @@ import { TooltipItem } from './TooltipItem'
 import { defaultTooltipProps } from './defaults'
 import { TooltipItemListProps } from './types'
 import { useThemedProps } from '../themes'
-import { getItemPositions } from '../legends/positions'
+import { getItemPositions } from '../legends/utils'
 
 const UnthemedTooltipItemList = ({
     variant,
     position,
-    items,
+    ids,
+    keys,
     labels,
+    colors,
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
@@ -24,7 +26,7 @@ const UnthemedTooltipItemList = ({
     style,
     setRole = true,
 }: TooltipItemListProps) => {
-    const rs = r ?? Array(items?.length ?? 1).fill(r)
+    const rs = r ?? Array(keys?.length ?? 1).fill(r)
     const {
         itemPosition,
         itemSize: itemSizes,
@@ -36,7 +38,7 @@ const UnthemedTooltipItemList = ({
         return (
             <TooltipItem
                 variant={variant}
-                key={'tooltip-item-' + i}
+                key={'tooltip-item-' + i + '-' + ids?.[i]}
                 position={pos}
                 size={itemSizes[i]}
                 padding={itemPadding}
@@ -44,7 +46,8 @@ const UnthemedTooltipItemList = ({
                 symbol={symbol}
                 symbolPosition={symbolPosition[i]}
                 symbolStyle={symbolStyle}
-                item={items ? items[i] : ''}
+                item={keys ? keys[i] : ''}
+                color={colors ? colors[i] : undefined}
                 label={labels ? labels[i] : ''}
                 labelPosition={labelPosition[i]}
                 labelStyle={labelStyle}

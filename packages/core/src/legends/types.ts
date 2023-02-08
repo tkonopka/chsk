@@ -4,16 +4,17 @@ import {
     NumericPositionSpec,
     FourSideSizeSpec,
     SizeSpec,
+    SideVariant,
     SvgElementProps,
     TranslateSpec,
 } from '../general'
 import { ContainerProps } from '../views'
 import { SymbolProps } from '../shapes'
-import { AxisTicksProps, SideType } from '../axes'
+import { AxisTicksProps } from '../axes'
 
 export interface LegendTitleProps extends SvgElementProps {
     /** variant */
-    variant?: SideType
+    variant?: SideVariant
     /** position of symbol */
     position: NumericPositionSpec
     /** size of a single legend item */
@@ -50,8 +51,8 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     labelStyle?: CssProps
     /** offset of label from symbol */
     labelOffset?: number
-    /** color index (internal use) */
-    colorIndex?: number
+    /** color */
+    color?: string | number
 }
 
 export interface LegendItemThemedProps
@@ -128,11 +129,13 @@ export interface LegendItemListProps
         'variant' | 'position' | 'title' | 'titleStyle' | 'firstOffset' | 'r'
     > {
     /** variant */
-    variant: SideType
+    variant: SideVariant
     /** array of items to display (for categorical keys) */
-    items?: string[]
+    keys?: string[]
     /** array of labels to display next to symbols */
     labels?: string[]
+    /** array of colors */
+    colors?: Array<string | number | undefined>
     /** array of symbol sizes */
     r?: number[]
     /** position */
