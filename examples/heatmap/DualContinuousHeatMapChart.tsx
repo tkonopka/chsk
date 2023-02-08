@@ -9,6 +9,10 @@ import {
     MilestoneMotion,
     WithId,
     ColorScaleProps,
+    Tooltip,
+    TooltipProps,
+    useTooltip,
+    createColorScale,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform, generateHeatMapRowCategorical } from './generators'
@@ -67,6 +71,18 @@ const scalePurples: ColorScaleProps = {
     domain: [0, 10],
 }
 const scaleSize: [number, number] = [13, 80]
+const purpleScale = createColorScale(scalePurples)
+
+const CustomTooltip = (props: TooltipProps) => {
+    const { data: tooltip } = useTooltip()
+    const data = tooltip?.data?.[0]
+    if (!data) return null
+    if (data.id === 'group') return null
+    if (alphabetUppercaseConsonants.indexOf(data.id) >= 0) {
+        data.color = 'value' in data ? purpleScale(data['value']) : purpleScale(0)
+    }
+    return <Tooltip {...props} />
+}
 
 export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -174,6 +190,11 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         </Legend>
                     </HeatMapCells>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                    <CustomTooltip
+                        itemSize={[120, 26]}
+                        itemPadding={[4, 8, 4, 8]}
+                        padding={[4, 0, 2, 0]}
+                    />
                 </MilestoneMotion>
             </HeatMap>
         </Chart>

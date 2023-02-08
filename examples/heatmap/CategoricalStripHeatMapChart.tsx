@@ -8,6 +8,9 @@ import {
     LegendColorScale,
     MilestoneMotion,
     WithId,
+    Tooltip,
+    TooltipProps,
+    useTooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform, generateHeatMapRowCategorical } from './generators'
@@ -47,6 +50,18 @@ const customTheme = {
             labelRotate: -45,
         },
     },
+    g: {
+        'legendItem:hover': {
+            cursor: 'auto',
+        },
+    },
+}
+
+// only display a tooltip on the main part of the heatmap
+const CustomTooltip = (props: TooltipProps) => {
+    const { data: tooltip } = useTooltip()
+    if (tooltip?.data?.[0].id === 'group') return null
+    return <Tooltip {...props} />
 }
 
 export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -106,6 +121,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                             itemPadding={[2, 4, 2, 4]}
                             anchor={[0, 0]}
                             title={'Groups'}
+                            interactive={false}
                         />
                     </HeatMapCells>
                 </MilestoneMotion>
@@ -132,6 +148,11 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         />
                     </Legend>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                    <CustomTooltip
+                        padding={[4, 0, 4, 0]}
+                        itemSize={[120, 24]}
+                        itemPadding={[2, 8, 2, 8]}
+                    />
                 </MilestoneMotion>
             </HeatMap>
         </Chart>

@@ -6,10 +6,11 @@ import {
     Legend,
     LegendTitle,
     LegendColorScale,
+    Tooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
-import { alphabetGreek } from '../utils'
+import { alphabetGreek, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
 
 const ids = alphabetGreek
@@ -31,7 +32,7 @@ export const generateTriangularHeatMapData = () => {
         ids.forEach((idB, j) => {
             if (i < j) return
             const multiplier = groupMultiplier(idA, idB)
-            const value = Number(result[i][idB]) + Math.random() * multiplier
+            const value = round3dp(Number(result[i][idB]) + Math.random() * multiplier)
             result[i][idB] = value
             result[j][idA] = value
         })
@@ -81,8 +82,8 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
             data={chartData}
             fref={fref}
             id="triangular-heat"
-            size={[550, 470]}
-            padding={[40, 120, 80, 80]}
+            size={[560, 480]}
+            padding={[50, 130, 80, 80]}
             theme={customTheme}
         >
             <HeatMap
@@ -133,6 +134,13 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                         gradientId={'grad-triangular'}
                     />
                 </Legend>
+                <Tooltip
+                    position={[15, -15]}
+                    anchor={[0, 1]}
+                    padding={[4, 0, 4, 0]}
+                    itemSize={[115, 26]}
+                    itemPadding={[4, 8, 4, 8]}
+                />
             </HeatMap>
         </Chart>
     )

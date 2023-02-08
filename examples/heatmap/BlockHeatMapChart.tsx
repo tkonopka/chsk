@@ -8,10 +8,11 @@ import {
     LegendColorScale,
     MilestoneMotion,
     Surface,
+    Tooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
-import { alphabetGreek } from '../utils'
+import { alphabetGreek, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
 
 const ids = alphabetGreek
@@ -39,7 +40,7 @@ export const generateBlockHeatMapData = () => {
                 return
             }
             const multiplier = groupMultiplier(idA, idB)
-            const value = Number(result[i][idB]) + Math.random() * multiplier
+            const value = round3dp(Number(result[i][idB]) + Math.random() * multiplier)
             result[i][idB] = value
             result[j][idA] = value
         })
@@ -90,8 +91,8 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
             data={chartData}
             fref={fref}
             id="blocks"
-            size={[550, 470]}
-            padding={[80, 120, 40, 80]}
+            size={[570, 500]}
+            padding={[80, 120, 70, 100]}
             theme={customTheme}
         >
             <HeatMap
@@ -176,6 +177,13 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'final'} initial={'invisible'}>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                    <Tooltip
+                        position={[0, 18]}
+                        anchor={[0.5, 0]}
+                        padding={[4, 0, 4, 0]}
+                        itemSize={[140, 26]}
+                        itemPadding={[4, 8, 4, 8]}
+                    />
                 </MilestoneMotion>
             </HeatMap>
         </Chart>

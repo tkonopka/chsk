@@ -147,7 +147,7 @@ const LogoTooltipItem = () => {
             padding={[8, 8, 8, 8]}
             item={item.id}
             label={base + ': ' + value + ' bits'}
-            colorIndex={baseIndex}
+            color={baseIndex}
             labelOffset={14}
         />
     )

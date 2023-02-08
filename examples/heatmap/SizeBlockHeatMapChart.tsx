@@ -10,6 +10,8 @@ import {
     WithId,
     Circle,
     mergeTheme,
+    Tooltip,
+    TooltipDataItem,
 } from '@chsk/core'
 import {
     HeatMap,
@@ -58,6 +60,10 @@ const customTheme = mergeTheme(downloadThemePiece, {
     },
 })
 
+const customLabelFormat = (x: TooltipDataItem) => {
+    return 'size' in x ? 'size: ' + x['size'] : ''
+}
+
 export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isHeatMapData(rawData)) return null
 
@@ -75,7 +81,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
             fref={fref}
             id="sizeBlocks"
             size={[640, 320]}
-            padding={[80, 90, 40, 60]}
+            padding={[80, 120, 40, 60]}
             theme={customTheme}
         >
             <HeatMap
@@ -105,7 +111,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 <Legend
                     variant={'color'}
                     horizontal={false}
-                    position={[500, 0]}
+                    position={[470, 0]}
                     size={[100, 180]}
                     positionUnits={'absolute'}
                     sizeUnits={'absolute'}
@@ -124,7 +130,15 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     />
                 </Legend>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
-                <DownloadButtons position={[480, 230]} data image />
+                <DownloadButtons position={[450, 230]} data image />
+                <Tooltip
+                    position={[18, 0]}
+                    anchor={[0, 0.5]}
+                    padding={[4, 0, 4, 0]}
+                    itemSize={[105, 26]}
+                    itemPadding={[4, 8, 4, 8]}
+                    labelFormat={customLabelFormat}
+                />
             </HeatMap>
         </Chart>
     )

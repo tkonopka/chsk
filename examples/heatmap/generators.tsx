@@ -37,7 +37,7 @@ export const generateHeatMapMatrixUniform = (
         let temp = 0
         keys.map(k => {
             const value = (min + Math.random() * size + autocor * temp) / (1 + autocor)
-            item[k] = roundDecimalPlaces(value, 4)
+            item[k] = roundDecimalPlaces(value, 3)
             temp = value
         })
         return item

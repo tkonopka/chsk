@@ -7,6 +7,7 @@ import {
     LegendTitle,
     LegendColorScale,
     Surface,
+    Tooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
@@ -68,7 +69,6 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     />
                     <AxisLabel variant={'top'}>Samples</AxisLabel>
                 </Axis>
-                <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Legend
                     variant={'color'}
                     horizontal={false}
@@ -90,6 +90,13 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                         gradientId={'grad-sequential'}
                     />
                 </Legend>
+                <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                <Tooltip
+                    position={[16, -16]}
+                    padding={[0, 0, 6, 0]}
+                    anchor={[0, 1]}
+                    itemSize={[120, 26]}
+                />
             </HeatMap>
         </Chart>
     )

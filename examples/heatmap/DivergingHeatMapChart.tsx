@@ -6,11 +6,13 @@ import {
     LegendColorScale,
     LegendTitle,
     Typography,
+    Tooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
+import { TooltipProvider } from '../../packages/core/src'
 
 const ids = ['A a', 'BB bb', 'CC cc', 'DDD ddd', 'EEE eee']
 const keys = alphabetGreek
@@ -52,7 +54,6 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                         labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                 </Axis>
-                <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Typography variant={'title'} position={[-55, -45]}>
                     Horizontal heat map
                 </Typography>
@@ -84,6 +85,15 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                         gradientId={'grad-diverging'}
                     />
                 </Legend>
+                <TooltipProvider>
+                    <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                    <Tooltip
+                        position={[-18, -18]}
+                        anchor={[1, 1]}
+                        padding={[0, 0, 6, 0]}
+                        itemSize={[120, 28]}
+                    />
+                </TooltipProvider>
             </HeatMap>
         </Chart>
     )

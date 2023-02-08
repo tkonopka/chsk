@@ -9,6 +9,9 @@ import {
     MilestoneMotion,
     WithId,
     mergeTheme,
+    Tooltip,
+    TooltipProps,
+    useTooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chsk/matrix'
 import { downloadThemePiece } from '@chsk/themes'
@@ -59,6 +62,13 @@ const customTheme = mergeTheme(downloadThemePiece, {
         },
     },
 })
+
+// only display a tooltip on the main part of the heatmap
+const CustomTooltip = (props: TooltipProps) => {
+    const { data: tooltip } = useTooltip()
+    if (tooltip?.data?.[0].key?.startsWith('flag')) return null
+    return <Tooltip {...props} />
+}
 
 export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -173,6 +183,15 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         />
                     </Legend>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                    <CustomTooltip
+                        position={[-15, 15]}
+                        anchor={[1, 0]}
+                        padding={[4, 0, 2, 0]}
+                        itemSize={[120, 28]}
+                        itemPadding={[4, 8, 4, 8]}
+                        rx={6}
+                        ry={6}
+                    />
                 </MilestoneMotion>
                 <DownloadButtons position={[440, 390]} data image />
             </HeatMap>

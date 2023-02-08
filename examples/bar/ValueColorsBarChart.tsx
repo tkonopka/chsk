@@ -108,7 +108,7 @@ const CustomTooltipItem = () => {
             padding={[8, 8, 8, 8]}
             item={item.id}
             label={date + ': ' + value + '%'}
-            colorIndex={value > 0 ? 0 : 1}
+            color={value > 0 ? 0 : 1}
             labelOffset={14}
         />
     )
