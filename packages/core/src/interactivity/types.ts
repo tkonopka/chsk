@@ -3,14 +3,14 @@ import { SvgElementVariantProps, WithId } from '../general'
 
 // handling events on svg elements
 export interface InteractivityProps {
-    /** function triggered upon mouse event */
+    /** handler for mouse enter event */
     onMouseEnter?: (event: MouseEvent) => void
-    /** function triggered upon mouse event */
+    /** handler for mouse leave event */
     onMouseLeave?: (event: MouseEvent) => void
-    /** function triggered upon mouse event */
-    onClick?: (event: MouseEvent) => void
-    /** function triggered upon mouse event */
+    /** handler for mouse move event */
     onMouseMove?: (event: MouseEvent) => void
+    /** handler for click event */
+    onClick?: (event: MouseEvent) => void
 }
 
 // handling events in a data-dependent way (e.g. by points in scatter plot)
@@ -18,14 +18,14 @@ export interface DataInteractivityProps<
     DataSpec extends WithId,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 > {
-    /** function triggered upon mouse event */
+    /** handler for mouse enter event */
     onMouseEnter?: (data: DataSpec | undefined, event: MouseEvent) => void
-    /** function triggered upon mouse event */
+    /** handler for mouse leave event */
     onMouseLeave?: (data: DataSpec | undefined, event: MouseEvent) => void
-    /** function triggered upon mouse event */
-    onClick?: (data: DataSpec | undefined, event: MouseEvent) => void
-    /** function triggered upon mouse event */
+    /** handler for mouse move event */
     onMouseMove?: (data: DataSpec | undefined, event: MouseEvent) => void
+    /** handler for click event */
+    onClick?: (data: DataSpec | undefined, event: MouseEvent) => void
     /** function binding data to interactivity handlers */
     dataComponent?: FC<DataComponentProps<DataSpec, ComponentProps>>
 }
