@@ -1,0 +1,97 @@
+import { ArgsTable, Canvas, Meta, Story, Source } from '@storybook/addon-docs'
+import { Chart, Surface, Circle } from '@chsk/core'
+import { createConcentricSymbol } from '../../src'
+import {
+    ChartSymbolDecorator,
+    ConcentricCirclesBg,
+    ConcentricCirclesFg,
+    ConcentricSquares,
+    ConcentricHybrid,
+} from './decorators'
+
+<Meta title="Addons/Annotation/Symbols/createConcentricSymbol" />
+
+# createConcentricSymbol
+
+export const Template = args => <createConcentricSymbol {...args} />
+
+`createConcentricSymbol` is a factory.
+It creates a function that creates a symbol composed of two concentric parts.
+It can be used to create composite symbols such as concentric circles, squares, or any other shapes.
+
+<ArgsTable of={createConcentricSymbol} />
+
+**Note:** `createConcentricSymbol` is a factory method and creates new functions.
+An example usage is as follows.
+
+<Source
+    language="javascript"
+    code={`
+import { createConcentricSymbol } from '@chsk/annotation'
+
+const ConcentricCirclesBg = createConcentricSymbol({ variant: 'background', rMultiplier: 1.4 })
+`} />
+
+The examples below demonstrate behavior of components creates with this pattern.
+
+## Variant
+
+A concentric symbol is composed of one primary symbol and one secondary symbol.
+Prop `variant` determines whether the secondary object appears in the background or in the foreground.
+
+`variant` is often used together with prop `rMultiplier`,
+which determines the size of the secondary object relative to the size of the primary symbol.
+
+<Canvas>
+    <Story name="background">
+        <Chart size={[200, 140]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface variant={'inner'} />
+            <ConcentricCirclesBg
+                cx={80}
+                cy={50}
+                r={20}
+                style={{ fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' }}
+            />
+        </Chart>
+    </Story>
+    <Story name="foreground">
+        <Chart size={[200, 140]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface variant={'inner'} />
+            <ConcentricCirclesFg
+                cx={80}
+                cy={50}
+                r={20}
+                style={{ fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Symbols
+
+The shapes of the primary and secondary parts are controlled with props `symbolPrimary` and `symbolSecondary`.
+
+<Canvas>
+    <Story name="squares">
+        <Chart size={[200, 140]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface variant={'inner'} />
+            <ConcentricSquares
+                cx={80}
+                cy={50}
+                r={20}
+                style={{ fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' }}
+            />
+        </Chart>
+    </Story>
+    <Story name="hybrid">
+        <Chart size={[200, 140]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface variant={'inner'} />
+            <ConcentricHybrid
+                cx={80}
+                cy={50}
+                r={20}
+                style={{ fill: '#dd9999', stroke: '#993333', strokeWidth: '1px' }}
+            />
+        </Chart>
+    </Story>
+</Canvas>

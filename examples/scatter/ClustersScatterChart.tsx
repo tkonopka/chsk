@@ -12,6 +12,7 @@ import {
     AxisTicks,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, isScatterData, ScatterCrosshair } from '@chsk/xy'
+import { createConcentricSymbol } from '@chsk/annotation'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -23,7 +24,7 @@ export const generateClusterScatterData = () => {
         {
             id: 'alpha',
             data: generateXYValues(
-                generateMixedPopulation([160], [0], [1]).map(round3dp),
+                generateMixedPopulation([60], [0], [1]).map(round3dp),
                 ['y'],
                 [x => round3dp(0 * x + randomNormalValue(0, 1))]
             ),
@@ -31,7 +32,7 @@ export const generateClusterScatterData = () => {
         {
             id: 'beta',
             data: generateXYValues(
-                generateMixedPopulation([160], [3], [1]).map(round3dp),
+                generateMixedPopulation([60], [3], [1]).map(round3dp),
                 ['y'],
                 [x => round3dp(x + randomNormalValue(0, 3))]
             ),
@@ -39,7 +40,7 @@ export const generateClusterScatterData = () => {
         {
             id: 'gamma',
             data: generateXYValues(
-                generateMixedPopulation([160], [1], [1]).map(round3dp),
+                generateMixedPopulation([60], [1], [1]).map(round3dp),
                 ['y'],
                 [x => round3dp(4 + x + randomNormalValue(0, 1))]
             ),
@@ -83,6 +84,12 @@ const scatterProps = {
         nice: 6,
     },
 }
+
+const CustomActiveSymbol = createConcentricSymbol({
+    variant: 'background',
+    rMultiplier: 2.2,
+    styleModifier: { strokeWidth: 2, fill: '#ffffff', stroke: '#555555' },
+})
 
 export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
@@ -132,11 +139,12 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <ScatterPoints symbolClassName={'custom'} />
                         <ScatterCrosshair
                             style={{ opacity: 0 }}
+                            symbol={CustomActiveSymbol}
                             symbolStyle={{ opacity: 1, stroke: '#000000', strokeWidth: 0.5 }}
                             minDistance={20}
                         />
                         <Tooltip
-                            position={[0, -15]}
+                            position={[0, -25]}
                             padding={[4, 0, 4, 0]}
                             itemSize={[160, 26]}
                             itemPadding={[4, 8, 4, 8]}
