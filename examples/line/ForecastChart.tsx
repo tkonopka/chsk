@@ -80,14 +80,14 @@ const getYear = (v: unknown) => {
 export const ForecastRectangle = () => {
     const now = new Date(Date.now())
     const scales = useScales()
-    const dimensions = useDimensions()
+    const { size } = useDimensions()
     const scaleX = scales.x as TimeAxisScale
     const xCoordinate = scaleX(Number(now))
     return (
         <>
             <LineLabel
                 start={[xCoordinate, 0]}
-                end={[dimensions.innerSize[X], 0]}
+                end={[size[X], 0]}
                 units={['absolute', 'absolute']}
                 className={'forecast'}
                 lineStyle={{ visibility: 'hidden' }}
@@ -97,9 +97,9 @@ export const ForecastRectangle = () => {
             </LineLabel>
             <Rectangle
                 x={xCoordinate}
-                width={dimensions.innerSize[X] - xCoordinate}
+                width={size[X] - xCoordinate}
                 y={0}
-                height={dimensions.innerSize[Y]}
+                height={size[Y]}
                 className={'forecast'}
             />
         </>
