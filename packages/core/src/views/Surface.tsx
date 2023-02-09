@@ -20,7 +20,7 @@ const UnthemedSurface = ({
         ? [width + expansion[LEFT] + expansion[RIGHT], height + expansion[TOP] + expansion[BOTTOM]]
         : [width, height]
 
-    const compositeClassName = getClassName(variant, className)
+    const compositeClassName = getClassName('surface ' + variant, className)
     return (
         <rect
             role={setRole ? 'surface-' + variant : undefined}

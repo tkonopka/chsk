@@ -34,4 +34,14 @@ describe('Surface', () => {
         const result = screen.getByRole('chart-content')
         expect(result.querySelectorAll('rect')).toHaveLength(1)
     })
+
+    it('creates surface with class names', () => {
+        render(
+            <Chart {...chartProps}>
+                <Surface variant={'inner'} className={'custom'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('class')).toBe('surface inner custom')
+    })
 })
