@@ -48,6 +48,7 @@ export type TooltipDataItem = WithId & {
     key?: string
     label?: string
     color?: string | number
+    data?: unknown
 }
 
 export type TooltipData = {

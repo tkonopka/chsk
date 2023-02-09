@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] bar chart with shadows
 -   [matrix] support for tooltip in `HeatMapHighlight`
 -   [annotation] factory `createConcentricSymbol` to create custom symbols
 -   [annotation] interactivity props to `BlockArrow`

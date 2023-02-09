@@ -9,6 +9,7 @@ import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBa
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
 import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
+import { generateFractionShadowsBarData, FractionShadowsBarChart } from './FractionShadowsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import {
     generateQuestionMultipleChoicesData,
@@ -95,6 +96,16 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
             generator={generateFractionsBarData}
             chart={FractionsBarChart}
             steps={['title', 'A', 'B', 'C']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="shadows">
+        <Controller
+            generator={generateFractionShadowsBarData}
+            chart={FractionShadowsBarChart}
+            steps={['title', 'description', 'A', 'B', 'C']}
         />
     </Story>
 </Canvas>
