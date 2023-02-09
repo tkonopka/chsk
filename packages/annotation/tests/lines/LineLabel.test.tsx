@@ -79,4 +79,21 @@ describe('LineLabel', () => {
         const result = screen.queryByRole('line')
         expect(result).toBeNull()
     })
+
+    it('creates class names', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <LineLabel start={[0, 0]} end={[60, 0]} className={'custom'}>
+                        Label
+                    </LineLabel>
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('line-label')
+        const text = result.querySelector('text')
+        const line = result.querySelector('line')
+        expect(text?.getAttribute('class')).toContain('label lineLabel custom')
+        expect(line?.getAttribute('class')).toContain('lineLabel custom')
+    })
 })

@@ -73,4 +73,21 @@ describe('BracketLabel', () => {
         const result = screen.queryByRole('bracket')
         expect(result).toBeNull()
     })
+
+    it('creates class names', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <BracketLabel start={[0, 0]} end={[60, 0]} className={'custom'}>
+                        abc
+                    </BracketLabel>
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('bracket-label-right')
+        const text = result.querySelector('text')
+        const path = result.querySelector('path')
+        expect(text?.getAttribute('class')).toContain('label bracketLabel custom')
+        expect(path?.getAttribute('class')).toContain('bracketLabel custom')
+    })
 })

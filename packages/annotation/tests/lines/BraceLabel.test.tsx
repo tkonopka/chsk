@@ -3,23 +3,6 @@ import { Chart, View } from '@chsk/core'
 import { BraceLabel } from '../../src/lines'
 import { chartProps, viewProps } from '../props'
 
-describe('temp', () => {
-    it('creates a line with absolute coordinates', () => {
-        render(
-            <Chart {...chartProps}>
-                <View {...viewProps}>
-                    <BraceLabel start={[0, 0]} end={[60, 0]} units={'absolute'}>
-                        Label
-                    </BraceLabel>
-                </View>
-            </Chart>
-        )
-        const result = screen.getByRole('brace-label-right')
-        const path = result.querySelector('path')
-        expect(path).toBeDefined()
-    })
-})
-
 describe('BraceLabel', () => {
     it('creates a line with absolute coordinates', () => {
         render(
@@ -94,5 +77,22 @@ describe('BraceLabel', () => {
         )
         expect(screen.queryByRole('brace')).toBeNull()
         expect(screen.queryByRole('brace-label')).toBeNull()
+    })
+
+    it('creates class names', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <BraceLabel start={[0, 0]} end={[60, 0]} className={'custom'}>
+                        abc
+                    </BraceLabel>
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('brace-label-right')
+        const text = result.querySelector('text')
+        const path = result.querySelector('path')
+        expect(text?.getAttribute('class')).toContain('label braceLabel custom')
+        expect(path?.getAttribute('class')).toContain('braceLabel custom')
     })
 })
