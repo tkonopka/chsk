@@ -12,10 +12,10 @@ export const Rectangle = ({
     className,
     style,
     setRole = true,
-    onMouseLeave,
-    onMouseEnter,
-    onMouseMove,
-    onClick,
+    stroke,
+    strokeWidth,
+    fill,
+    fillOpacity,
     ...props
 }: RectangleProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -32,7 +32,10 @@ export const Rectangle = ({
         y: center ? y - height / 2 : y,
         width,
         height,
-        ...props,
+        stroke,
+        strokeWidth,
+        fill,
+        fillOpacity,
     }
     return (
         <m.rect
@@ -41,10 +44,7 @@ export const Rectangle = ({
             role={setRole ? variant : undefined}
             style={style}
             className={compositeClassName}
-            onMouseLeave={onMouseLeave}
-            onMouseEnter={onMouseEnter}
-            onMouseMove={onMouseMove}
-            onClick={onClick}
+            {...props}
         />
     )
 }

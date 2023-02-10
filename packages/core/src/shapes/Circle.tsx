@@ -21,10 +21,7 @@ export const Circle = ({
             animate={config}
             style={style}
             className={compositeClassName}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
+            {...props}
         />
     )
 }

@@ -13,7 +13,6 @@ export const Line = ({
     className,
     setRole = true,
     style,
-    // interactivity
     ...props
 }: LineProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -27,10 +26,7 @@ export const Line = ({
             className={compositeClassName}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
-            onMouseLeave={props.onMouseLeave}
-            onMouseEnter={props.onMouseEnter}
-            onMouseMove={props.onMouseMove}
-            onClick={props.onClick}
+            {...props}
         />
     )
 }
