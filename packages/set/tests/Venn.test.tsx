@@ -3,6 +3,7 @@ import {
     ContinuousAxisScale,
     defaultScaleX,
     defaultScaleY,
+    roundDecimalPlaces,
     ScalesContextProps,
     useProcessedData,
     useScales,
@@ -11,8 +12,9 @@ import {
 } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
-import { round2dp } from './intersections.test'
 import { Venn, VennDataContextProps, isVennProcessedData } from '../src'
+
+const round2dp = (x: number) => roundDecimalPlaces(x, 2)
 
 describe('Venn', () => {
     it('defines a view', () => {
@@ -24,7 +26,7 @@ describe('Venn', () => {
         expect(screen.getByRole('view-venn')).not.toBeNull()
     })
 
-    it('defines a view even for empty data', () => {
+    it('handles empty data', () => {
         render(
             <Chart>
                 <Venn data={[]} />
@@ -125,8 +127,8 @@ describe('Venn', () => {
                 </Venn>
             </Chart>
         )
-        expect(processed.data[0].position[X]).toBeLessThan(-1)
-        expect(processed.data[1].position[X]).toBeGreaterThan(1)
+        expect(processed.data[0].center[X]).toBeLessThan(-1)
+        expect(processed.data[1].center[X]).toBeGreaterThan(1)
     })
 
     it('computes positions for two sets at angle', () => {
@@ -143,15 +145,15 @@ describe('Venn', () => {
             </Chart>
         )
         // first dataset should have sets side-by-side along x-axis
-        expect(processed0.data[0].position[X]).toBeLessThan(0)
-        expect(Math.abs(processed0.data[0].position[Y])).toEqual(0)
-        expect(processed0.data[1].position[X]).toBeGreaterThan(0)
-        expect(Math.abs(processed0.data[1].position[Y])).toEqual(0)
+        expect(processed0.data[0].center[X]).toBeLessThan(0)
+        expect(Math.abs(processed0.data[0].center[Y])).toEqual(0)
+        expect(processed0.data[1].center[X]).toBeGreaterThan(0)
+        expect(Math.abs(processed0.data[1].center[Y])).toEqual(0)
         // second dataset should have sets above / below the y-axis
-        expect(Math.abs(100 * processed1.data[0].position[X])).toBeLessThan(0.001)
-        expect(processed1.data[0].position[Y]).toBeGreaterThan(0)
-        expect(Math.abs(processed1.data[1].position[X])).toBeLessThan(0.001)
-        expect(processed1.data[1].position[Y]).toBeLessThan(0)
+        expect(Math.abs(100 * processed1.data[0].center[X])).toBeLessThan(0.001)
+        expect(processed1.data[0].center[Y]).toBeGreaterThan(0)
+        expect(Math.abs(processed1.data[1].center[X])).toBeLessThan(0.001)
+        expect(processed1.data[1].center[Y]).toBeLessThan(0)
     })
 
     it('computes positions for three sets at angle', () => {
@@ -168,24 +170,24 @@ describe('Venn', () => {
             </Chart>
         )
         // first dataset should have two sets side-by-side, and one set below
-        expect(Math.abs(round2dp(processed0.data[0].position[X]))).toEqual(
-            Math.abs(round2dp(processed0.data[1].position[X]))
+        expect(Math.abs(round2dp(processed0.data[0].center[X]))).toEqual(
+            Math.abs(round2dp(processed0.data[1].center[X]))
         )
-        expect(Math.abs(round2dp(processed0.data[0].position[Y]))).toEqual(
-            Math.abs(round2dp(processed0.data[1].position[Y]))
+        expect(Math.abs(round2dp(processed0.data[0].center[Y]))).toEqual(
+            Math.abs(round2dp(processed0.data[1].center[Y]))
         )
-        expect(processed0.data[0].position[Y]).toBeGreaterThan(0)
-        expect(round2dp(processed0.data[2].position[X])).toEqual(0)
-        expect(processed0.data[2].position[Y]).toBeLessThan(0)
+        expect(processed0.data[0].center[Y]).toBeGreaterThan(0)
+        expect(round2dp(processed0.data[2].center[X])).toEqual(0)
+        expect(processed0.data[2].center[Y]).toBeLessThan(0)
         // rotated dataset should have two sets side-by-side, and one set above
-        expect(Math.abs(round2dp(processed1.data[0].position[X]))).toEqual(
-            Math.abs(round2dp(processed1.data[1].position[X]))
+        expect(Math.abs(round2dp(processed1.data[0].center[X]))).toEqual(
+            Math.abs(round2dp(processed1.data[1].center[X]))
         )
-        expect(Math.abs(round2dp(processed1.data[0].position[Y]))).toEqual(
-            Math.abs(round2dp(processed1.data[1].position[Y]))
+        expect(Math.abs(round2dp(processed1.data[0].center[Y]))).toEqual(
+            Math.abs(round2dp(processed1.data[1].center[Y]))
         )
-        expect(processed1.data[0].position[Y]).toBeLessThan(0)
-        expect(round2dp(processed1.data[2].position[X])).toEqual(0)
-        expect(processed1.data[2].position[Y]).toBeGreaterThan(0)
+        expect(processed1.data[0].center[Y]).toBeLessThan(0)
+        expect(Math.abs(round2dp(processed1.data[2].center[X]))).toEqual(0)
+        expect(processed1.data[2].center[Y]).toBeGreaterThan(0)
     })
 })

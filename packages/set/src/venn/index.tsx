@@ -1,3 +1,4 @@
+export * from './contexts'
 export * from './predicates'
 export * from './types'
 export * from './Venn'

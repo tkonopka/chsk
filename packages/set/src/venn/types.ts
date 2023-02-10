@@ -5,10 +5,10 @@ import {
     LabelProps,
     LinearScaleSpec,
     NumericPositionSpec,
+    PathProps,
     ProcessedDataContextProps,
     SizeSpec,
     SvgElementProps,
-    SymbolProps,
     TranslateSpec,
     ViewProps,
     WithId,
@@ -21,17 +21,32 @@ export type VennDataItem = WithId & {
 
 export type VennProcessedDataItem = WithId & {
     index: number
+    // counts of set elements
     size: number
     intersection: number[]
     common: number
-    position: NumericPositionSpec
+    // layout
     r: number
+    center: NumericPositionSpec
+    points: NumericPositionSpec[]
+    largeArcs: number[]
+}
+
+export type VennPreparedDataItem = WithId & {
+    membership: boolean[]
+    label: string
+    labelPosition: NumericPositionSpec
+    value: number
+    color: string
+    d: string
 }
 
 export type VennDataContextProps = ProcessedDataContextProps & {
     /** data */
-    data: Array<VennProcessedDataItem>
+    data: Array<VennPreparedDataItem>
 }
+
+export type VennInterpolation = (c1: string, c2: string, c3?: string) => string
 
 export interface VennProps
     extends Omit<
@@ -52,25 +67,23 @@ export interface VennProps
     scaleY?: LinearScaleSpec
     /** scale for colors */
     scaleColor?: CategoricalScaleSpec
+    /** interpolation of colors for set intersections */
+    interpolation?: VennInterpolation
 }
 
-export type VennInteractiveDataItem = WithId & {
-    size: number
-}
+export type VennInteractiveDataItem = VennPreparedDataItem
 
 export interface VennSetsProps
     extends SvgElementProps,
-        DataInteractivityProps<VennInteractiveDataItem, SymbolProps> {
-    /** ids to display (defaults to all ids) */
-    ids?: string[]
+        DataInteractivityProps<VennInteractiveDataItem, PathProps> {
     /** component used to draw individual bars */
-    component?: FC<SymbolProps>
+    component?: FC<PathProps>
 }
 
 export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
     /** ids to display (defaults to all ids) */
     ids?: string[]
-    /** relative radius for label position */
+    /** relative radius for label labelPosition */
     rs?: number[]
     /** angles */
     angles?: number[]
@@ -84,13 +97,7 @@ export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
     component?: FC<LabelProps>
 }
 
-export type VennIntersectionSpec = {
-    position: NumericPositionSpec
-    value: number
-    label: string
-}
-
 export interface VennIntersectionLabelsProps
     extends Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'> {
-    format?: (v: string | number, item?: VennIntersectionSpec) => string
+    format?: (v: string | number, item?: VennPreparedDataItem) => string
 }

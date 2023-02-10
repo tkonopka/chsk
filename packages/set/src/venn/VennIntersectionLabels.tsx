@@ -1,17 +1,12 @@
-import { createElement, ReactNode, useMemo } from 'react'
-import { getClassName, Label, LinearAxisScale, useProcessedData, useScales, X, Y } from '@chsk/core'
-import { isVennProcessedData } from './predicates'
-import { VennIntersectionLabelsProps, VennProcessedDataItem, VennIntersectionSpec } from './types'
-import { get1Positions, get2Positions, get3Positions } from './intersections'
-
-const getIntersectionLabels = (data: Array<VennProcessedDataItem>): Array<VennIntersectionSpec> => {
-    if (data.length === 3) return get3Positions(data)
-    if (data.length === 2) return get2Positions(data)
-    return get1Positions(data)
-}
+import { createElement, ReactNode } from 'react'
+import { getClassName, Label } from '@chsk/core'
+import { isVennPreparedData } from './predicates'
+import { VennIntersectionLabelsProps, VennInteractiveDataItem } from './types'
+import { useVennPreparedData } from './contexts'
 
 export const VennIntersectionLabels = ({
-    format = (v: string | number, item?: VennIntersectionSpec) => String(v) ?? String(item?.value),
+    format = (v: string | number, item?: VennInteractiveDataItem) =>
+        String(v) ?? String(item?.value),
     padding = [4, 4, 4, 4],
     size = [40, 10],
     align = [0.5, 0.5],
@@ -20,22 +15,17 @@ export const VennIntersectionLabels = ({
     style,
     component = Label,
 }: VennIntersectionLabelsProps) => {
-    const processedData = useProcessedData()
-    const scales = useScales()
-    const data = processedData.data
-    if (!isVennProcessedData(data)) return null
+    const preparedData = useVennPreparedData()
+    const data = preparedData.data
+    if (!isVennPreparedData(data)) return null
 
-    const scaleX = scales.x as LinearAxisScale
-    const scaleY = scales.y as LinearAxisScale
     const compositeClassName = getClassName('vennIntersectionLabel', className)
-
-    const labels = useMemo(() => getIntersectionLabels(data), [data])
-    const result: Array<ReactNode> = labels.map((item, i) => {
+    const result: Array<ReactNode> = data.map((item, i) => {
         return createElement(
             component,
             {
                 key: 'venn-intersection-label-' + i,
-                position: [scaleX(item.position[X]), scaleY(item.position[Y])],
+                position: item.labelPosition,
                 size,
                 align,
                 padding,

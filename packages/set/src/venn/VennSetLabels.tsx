@@ -40,9 +40,9 @@ export const VennSetLabels = ({
     const result: Array<ReactNode> = (ids ?? seriesIds)
         .map((id, i) => {
             if (!idSet.has(id)) return null
-            const index = processedData.seriesIndexes[id]
+            const index: number = processedData.seriesIndexes[id]
             const seriesData = data[index]
-            const pos = [seriesData.position[X], seriesData.position[Y]]
+            const pos = [seriesData.center[X], seriesData.center[Y]]
             pos[X] += rs[i] * seriesData.r * Math.sin(angles[i])
             pos[Y] += rs[i] * seriesData.r * Math.cos(angles[i])
             const value = format(id)

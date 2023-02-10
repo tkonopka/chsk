@@ -5,8 +5,11 @@ import {
     ChartDecorator,
     commonVenn1Props,
     commonVenn2Props,
+    commonVenn2bProps,
     commonVenn3Props,
     commonVennDisjointProps,
+    commonVennASubsetProps,
+    commonVennBSubsetProps,
 } from './decorators'
 
 # Venn
@@ -104,9 +107,57 @@ For datasets with two sets, it is possible to compute sizes that reflect the num
 
 <Canvas>
     <Story
-        name="proportional"
+        name="proportional, small overlap"
         args={{
             ...commonVenn2Props,
+            proportional: true,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="proportional, large overlap"
+        args={{
+            ...commonVenn2bProps,
+            proportional: true,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="A contained in B"
+        args={{
+            ...commonVennASubsetProps,
+            proportional: true,
+            children: (
+                <>
+                    <VennSets />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="B contained in A"
+        args={{
+            ...commonVennBSubsetProps,
             proportional: true,
             children: (
                 <>
@@ -139,7 +190,7 @@ For datasets with two sets, it is possible to compute sizes that reflect the num
 
 ## Number of sets
 
-`Venn` can accept datasets with one, two, or three sets. However, proportional areas are only supported for diagrams with two sets.
+`Venn` can also accept datasets with just one set, or three sets.
 
 <Canvas>
     <Story
@@ -173,6 +224,8 @@ For datasets with two sets, it is possible to compute sizes that reflect the num
         {Template.bind({})}
     </Story>
 </Canvas>
+
+Note that proportional areas are only supported for diagrams with two sets.
 
 To visualize datasets with more than three sets, see the `UpSet` chart in the `@chsk/matrix` package.
 
@@ -221,15 +274,45 @@ Positions and sizes of the sets are determined automatically. The tune the visua
 
 <Canvas>
     <Story
-        name="custom scale"
+        name="custom size"
         args={{
             ...commonVenn3Props,
-            scaleX: { type: 'linear', domain: [-4.5, 4.5] },
+            scaleX: { type: 'linear', domain: [-5.5, 5.5] },
             children: (
                 <>
                     <VennSets />
                     <Axis variant="left" ticks={5} />
                     <Axis variant="bottom" ticks={[-4, -2, 0, 2, 4]} />
+                </>
+            ),
+        }}
+        component={Venn}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Color interpolation
+
+Colors for sets are determined by the color scale (via prop `scaleColor` or via themes).
+Colors for intersections are determined by interpolation between the set colors.
+The default interpolation can adjusted with a custom function with prop `interpolation`.
+
+For charts with only two sets, `interpolation` is only called once.
+It can therefore just return the desired color for the intersection.
+For charts with three sets, the function is called several times,
+and should thus handle combinations of two and three set colors.
+
+<Canvas>
+    <Story
+        name="custom colors"
+        args={{
+            ...commonVenn2Props,
+            interpolation: () => '#d0d0d0',
+            children: (
+                <>
+                    <VennSets />
                 </>
             ),
         }}

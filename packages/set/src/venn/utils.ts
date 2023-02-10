@@ -10,6 +10,7 @@ import {
     createContinuousScaleProps,
     CategoricalScaleSpec,
     LinearScaleSpec,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 import { VennProcessedDataItem } from './types'
@@ -28,8 +29,8 @@ export const getXYScaleProps = (
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data
             .map(seriesData => [
-                seriesData.position[X] - seriesData.r,
-                seriesData.position[X] + seriesData.r,
+                seriesData.center[X] - seriesData.r,
+                seriesData.center[X] + seriesData.r,
             ])
             .flat()
         result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
@@ -37,8 +38,8 @@ export const getXYScaleProps = (
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
             .map(seriesData => [
-                seriesData.position[Y] - seriesData.r,
-                seriesData.position[Y] + seriesData.r,
+                seriesData.center[Y] - seriesData.r,
+                seriesData.center[Y] + seriesData.r,
             ])
             .flat()
         result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
@@ -79,6 +80,13 @@ export const getColorScaleProps = (
     return createColorScaleProps(scaleSpec, Array.from(allValues))
 }
 
+// count elements in common in two sets
+export const countOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
+    let result = 0
+    setA.forEach(x => (result += Number(setB.has(x))))
+    return result
+}
+
 // count elements that are present in all the provided sets
 export const countCommonElements = (sets: Array<Set<unknown>>): number => {
     if (sets.length === 0) return 0
@@ -93,4 +101,54 @@ export const countCommonElements = (sets: Array<Set<unknown>>): number => {
         common = newCommon
     })
     return common.size
+}
+
+export const rotatePointTrig = (
+    p: NumericPositionSpec,
+    cosAngle: number,
+    sinAngle: number
+): NumericPositionSpec => {
+    return [p[X] * cosAngle + p[Y] * sinAngle, -p[X] * sinAngle + p[Y] * cosAngle]
+}
+
+export const rotatePoint = (p: NumericPositionSpec, angle: number): NumericPositionSpec => {
+    return rotatePointTrig(p, Math.cos(angle), Math.sin(angle))
+}
+
+export const addPoints = (a: NumericPositionSpec, b: NumericPositionSpec): NumericPositionSpec => {
+    return [a[X] + b[X], a[Y] + b[Y]]
+}
+
+export const equalCoordinates = (a: NumericPositionSpec, b: NumericPositionSpec): boolean => {
+    return a[X] === b[X] && a[Y] === b[Y]
+}
+
+export const midpoint = (a: NumericPositionSpec, b: NumericPositionSpec): NumericPositionSpec => {
+    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+}
+
+export const distance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+    return Math.sqrt((a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2)
+}
+
+// angle between y axis and vector from point a to point b
+export const angle = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+    const deltaX = b[X] - a[X]
+    const deltaY = b[Y] - a[Y]
+    if (deltaX === 0) {
+        return deltaY >= 0 ? 0 : Math.PI
+    }
+    const result = Math.atan(deltaX / Math.abs(deltaY))
+    return deltaY >= 0 ? result : Math.PI - result
+}
+
+export const translatedPosition = (
+    start: NumericPositionSpec,
+    distance: number,
+    angle: number
+): NumericPositionSpec => {
+    const result: NumericPositionSpec = [start[X], start[Y]]
+    result[X] += distance * Math.sin(angle)
+    result[Y] += distance * Math.cos(angle)
+    return result
 }

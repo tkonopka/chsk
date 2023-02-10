@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { VennDataItem, VennProcessedDataItem, VennProps } from './types'
+import { VennProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
@@ -8,81 +8,17 @@ import {
     getIndexes,
     useTheme,
     defaultLinearScaleSpec,
-    X,
-    Y,
 } from '@chsk/core'
-import { countCommonElements, getColorScaleProps, getXYScaleProps } from './utils'
-import { computeVenn2 } from './compute'
+import { getColorScaleProps, getXYScaleProps } from './utils'
+import { VennPreparedDataProvider } from './contexts'
+import { interpolateRgb } from 'd3-interpolate'
+import { processData } from './process'
+import { prepareData } from './prepare'
 
-const setOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
-    let result = 0
-    setA.forEach(x => (result += Number(setB.has(x))))
-    return result
-}
-
-// compute overlaps between sets - only suited for 2 or three sets
-const processData = (
-    data: Array<VennDataItem>,
-    angle: number,
-    separation: number,
-    proportional: boolean
-): Array<VennProcessedDataItem> => {
-    const sets = data.slice(0, 3).map(seriesData => new Set(seriesData.data))
-    // count elements common to all sets
-    if (sets.length === 0) return []
-    const common = countCommonElements(sets)
-    // compute intersections
-    const result = data.slice(0, 3).map((seriesData, index) => {
-        const id = seriesData.id
-        return {
-            id,
-            index,
-            size: sets[index].size,
-            intersection: data
-                .slice(0, 3)
-                .map((otherSeries, index2) => setOverlap(sets[index], sets[index2])),
-            common,
-            position: [0, 0] as [number, number],
-            r: 1,
-        }
-    })
-    // assign positions to set symbols / circles
-    if (result.length === 2) {
-        const intersection = result[0].intersection[1]
-        if (proportional) {
-            const { positionA, positionB, rA, rB } = computeVenn2(
-                result[0].size,
-                result[1].size,
-                intersection,
-                separation
-            )
-            result[0].position = positionA
-            result[1].position = positionB
-            result[0].r = rA
-            result[1].r = rB
-        } else if (intersection > 0) {
-            result[0].position[X] = -separation
-            result[1].position[X] = separation
-        } else {
-            result[0].position[X] = -1 - (1 - separation)
-            result[1].position[X] = 1 + (1 - separation)
-        }
-    } else if (result.length === 3) {
-        const shiftY = separation * Math.tan(Math.PI / 6)
-        result[0].position = [-separation, shiftY]
-        result[1].position = [separation, shiftY]
-        result[2].position = [0, -2 * separation * Math.sin(Math.PI / 3) + shiftY]
-    }
-    // rotate the positions
-    const cosAngle = Math.cos(angle),
-        sinAngle = Math.sin(angle)
-    return result.map((item: VennProcessedDataItem) => {
-        item.position = [
-            item.position[X] * cosAngle + item.position[Y] * sinAngle,
-            -item.position[X] * sinAngle + item.position[Y] * cosAngle,
-        ]
-        return item
-    })
+const defaultInterpolation = (c1: string, c2: string, c3?: string) => {
+    if (c3 === undefined) return interpolateRgb(c1, c2)(0.5)
+    const intermediate = interpolateRgb(c1, c2)(0.5)
+    return interpolateRgb(intermediate, c3)(1.0 / 3)
 }
 
 export const Venn = ({
@@ -101,9 +37,9 @@ export const Venn = ({
     scaleX = defaultLinearScaleSpec,
     scaleY = defaultLinearScaleSpec,
     scaleColor,
+    interpolation = defaultInterpolation,
     //
     children,
-    // svg
     ...props
 }: VennProps) => {
     const theme = useTheme()
@@ -123,18 +59,24 @@ export const Venn = ({
         [data, separation, proportional]
     )
 
-    const { scalePropsX, scalePropsY } = getXYScaleProps(
-        processedData,
-        seriesIds,
-        scaleX,
-        scaleY,
-        innerSize
+    const { scalePropsX, scalePropsY } = useMemo(
+        () => getXYScaleProps(processedData, seriesIds, scaleX, scaleY, innerSize),
+        [processedData, seriesIds, scaleX, scaleY, innerSize]
     )
-    const colorScaleProps = getColorScaleProps(
-        processedData,
-        scaleColor ?? theme.Colors.categorical
+    const colorScaleProps = useMemo(
+        () => getColorScaleProps(processedData, scaleColor ?? theme.Colors.categorical),
+        [processedData, scaleColor, theme]
     )
-    const scales = createScales(scalePropsX, scalePropsY, colorScaleProps)
+    const scales = useMemo(
+        () => createScales(scalePropsX, scalePropsY, colorScaleProps),
+        [scalePropsX, scalePropsY, colorScaleProps]
+    )
+
+    // compute coordinates
+    const preparedData = useMemo(
+        () => prepareData(processedData, scales, interpolation),
+        [processedData, scales, interpolation]
+    )
 
     return (
         <BaseView
@@ -149,7 +91,13 @@ export const Venn = ({
             scales={scales}
             {...props}
         >
-            <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            <VennPreparedDataProvider
+                data={preparedData}
+                seriesIndexes={seriesIndexes}
+                keys={seriesIds}
+            >
+                <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            </VennPreparedDataProvider>
         </BaseView>
     )
 }

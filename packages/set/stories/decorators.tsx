@@ -22,11 +22,29 @@ export const commonVenn1Props = {
 export const commonVenn2Props = {
     data: setData2,
 }
+export const commonVenn2bProps = {
+    data: [
+        { id: 'alpha', data: ['a', 'b', 'c', 'f', 'g', 'h'] },
+        { id: 'beta', data: ['a', 'b', 'c', 'd'] },
+    ],
+}
 export const commonVennDisjointProps = {
     data: setDisjoint,
 }
 export const commonVenn3Props = {
     data: setData3,
+}
+export const commonVennASubsetProps = {
+    data: [
+        { id: 'alpha', data: ['a', 'b', 'c'] },
+        { id: 'beta', data: ['a', 'b', 'c', 'd', 'e', 'f'] },
+    ],
+}
+export const commonVennBSubsetProps = {
+    data: [
+        { id: 'alpha', data: ['a', 'b', 'c', 'd', 'e', 'f'] },
+        { id: 'beta', data: ['a', 'b'] },
+    ],
 }
 
 export const ChartDecorator = (Story: () => ReactNode) => (

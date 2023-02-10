@@ -18,37 +18,6 @@ export const Template = args => <VennSets {...args} />
 
 <ArgsTable of={VennSets} />
 
-## Data subsets
-
-By default, `VennSets` draws all sets in the dataset. To draw subsets, set the props `ids`.
-
-<Canvas>
-    <Story name="default" component={VennSets} decorators={[ChartVenn2Decorator]}>
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="one set"
-        args={{ ids: ['alpha'] }}
-        component={VennSets}
-        decorators={[ChartVenn2Decorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-Prop `ids` also determines the order in which the sets are layered in the view. Specifying the ids in reverse order, the left-most set can be displayed on top rather than on the bottom.
-
-<Canvas>
-    <Story
-        name="layering"
-        args={{ ids: ['beta', 'alpha'] }}
-        component={VennSets}
-        decorators={[ChartVenn2Decorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
 ## Styling
 
 Sets can be styled using css.
@@ -67,47 +36,6 @@ Sets can be styled using css.
         args={{ style: { strokeWidth: 1, stroke: '#222', fillOpacity: 0.7 } }}
         component={VennSets}
         decorators={[ChartVenn3Decorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-To change the order of the set layers or to display boundaries on top of the background colors, apply `VennSets` multiple times.
-
-<Canvas>
-    <Story name="multiple layers - two sets">
-        <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
-            <Venn {...commonVenn2Props}>
-                <VennSets style={{ fillOpacity: 0.7, strokeWidth: 0 }} />
-                <VennSets style={{ fillOpacity: 0, strokeWidth: 1, stroke: '#222' }} />
-            </Venn>
-        </Chart>
-    </Story>
-    <Story name="multiple layers - three sets">
-        <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
-            <Venn {...commonVenn3Props}>
-                <VennSets style={{ fillOpacity: 0.7, strokeWidth: 0 }} />
-                <VennSets style={{ fillOpacity: 0, strokeWidth: 1, stroke: '#222' }} />
-            </Venn>
-        </Chart>
-    </Story>
-</Canvas>
-
-Note that the colors of the sets are determined by the chart color scale. A custom color scale can be set in the parent `Venn` view.
-
-## Set symbol
-
-The usual way to display sets on a Venn diagram is using circles, and this is the default behavior also for `VennSets`. However, it is possible to change the shape by setting prop `component`.
-
-<Canvas>
-    <Story
-        name="custom symbols"
-        args={{
-            component: Square,
-            style: { fillOpacity: 0.7, strokeWidth: 1, stroke: '#222' },
-        }}
-        component={VennSets}
-        decorators={[ChartVenn2Decorator]}
     >
         {Template.bind({})}
     </Story>

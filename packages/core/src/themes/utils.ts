@@ -20,7 +20,7 @@ export const getClassName = function (
     return camelCase(variant) + ' ' + camelCase(className)
 }
 
-export const addColor = (style: CssProps | undefined, color: string) => {
+export const addColor = (style: CssProps | undefined, color: string | undefined) => {
     if (!style) return { fill: color, stroke: color }
     const result = cloneDeep(style)
     if (!result.fill) {
