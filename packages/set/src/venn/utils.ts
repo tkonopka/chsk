@@ -132,23 +132,25 @@ export const distance = (a: NumericPositionSpec, b: NumericPositionSpec): number
 }
 
 // angle between y axis and vector from point a to point b
-export const angle = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+// note: works with svg coordinates system
+export const svgAngle = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
     const deltaX = b[X] - a[X]
     const deltaY = b[Y] - a[Y]
     if (deltaX === 0) {
-        return deltaY >= 0 ? 0 : Math.PI
+        return deltaY <= 0 ? 0 : Math.PI
     }
     const result = Math.atan(deltaX / Math.abs(deltaY))
-    return deltaY >= 0 ? result : Math.PI - result
+    return deltaY <= 0 ? result : Math.PI - result
 }
 
-export const translatedPosition = (
+// note: works with svg coordinates system
+export const svgTranslatedPosition = (
     start: NumericPositionSpec,
     distance: number,
     angle: number
 ): NumericPositionSpec => {
     const result: NumericPositionSpec = [start[X], start[Y]]
     result[X] += distance * Math.sin(angle)
-    result[Y] += distance * Math.cos(angle)
+    result[Y] -= distance * Math.cos(angle)
     return result
 }

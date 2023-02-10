@@ -3,6 +3,7 @@ import {
     ContinuousAxisScale,
     defaultScaleX,
     defaultScaleY,
+    ProcessedDataContextProps,
     roundDecimalPlaces,
     ScalesContextProps,
     useProcessedData,
@@ -12,7 +13,8 @@ import {
 } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
-import { Venn, VennDataContextProps, isVennProcessedData } from '../src'
+import { Venn, isVennProcessedData } from '../src'
+import { VennProcessedDataItem } from '../dist/types'
 
 const round2dp = (x: number) => roundDecimalPlaces(x, 2)
 
@@ -35,7 +37,12 @@ describe('Venn', () => {
         expect(screen.getByRole('view-venn')).not.toBeNull()
     })
 
-    const GetProcessedData = ({ target }: { target: VennDataContextProps }) => {
+    type VennProcessedContextProps = ProcessedDataContextProps & {
+        /** data */
+        data: Array<VennProcessedDataItem>
+    }
+
+    const GetProcessedData = ({ target }: { target: VennProcessedContextProps }) => {
         const temp = useProcessedData()
         if (isVennProcessedData(temp.data)) {
             target.data = temp.data
@@ -46,7 +53,7 @@ describe('Venn', () => {
     }
 
     it('defines processed data', () => {
-        const processed: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         render(
             <Chart>
                 <Venn {...venn2Props}>
@@ -87,7 +94,7 @@ describe('Venn', () => {
     })
 
     it('computes proportional sizes', () => {
-        const processed: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const dataSizes = [
             {
                 id: 'alpha',
@@ -109,7 +116,7 @@ describe('Venn', () => {
     })
 
     it('computes positions for disjoint sets', () => {
-        const processed: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const dataDisjoint = [
             {
                 id: 'alpha',
@@ -132,8 +139,8 @@ describe('Venn', () => {
     })
 
     it('computes positions for two sets at angle', () => {
-        const processed0: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const processed1: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed0: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed1: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         render(
             <Chart>
                 <Venn {...venn2Props} angle={0}>
@@ -157,8 +164,8 @@ describe('Venn', () => {
     })
 
     it('computes positions for three sets at angle', () => {
-        const processed0: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const processed1: VennDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed0: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const processed1: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         render(
             <Chart>
                 <Venn {...venn3Props} angle={0}>

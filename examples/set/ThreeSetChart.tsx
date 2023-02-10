@@ -29,10 +29,13 @@ export const generateThreeSetData = () => {
         randomSelection(other, n).forEach(x => set.add(x))
         return Array.from(set)
     }
+    const setA = generateSet(sizeAlpha)
+    const setB = generateSet(sizeBeta)
+    const setC = generateSet(sizeGamma)
     return [
-        { id: 'A', data: generateSet(sizeAlpha), size: sizeAlpha },
-        { id: 'B', data: generateSet(sizeBeta), size: sizeBeta },
-        { id: 'C', data: generateSet(sizeGamma), size: sizeGamma },
+        { id: 'A', data: setA, size: setA.length },
+        { id: 'B', data: setB, size: setB.length },
+        { id: 'C', data: setC, size: setC.length },
     ]
 }
 
