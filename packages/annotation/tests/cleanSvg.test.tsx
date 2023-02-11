@@ -88,6 +88,12 @@ describe('cleaning transform strings', () => {
         const input = 'rotate(90)'
         expect(cleanTransform(input, 2)).toEqual(input)
     })
+
+    it('extract skewX', () => {
+        const input = 'skewX(1.0002)'
+        const expected = 'skewX(1.0002)'
+        expect(cleanTransform(input, 2)).toEqual(expected)
+    })
 })
 
 describe('Svg format', () => {
