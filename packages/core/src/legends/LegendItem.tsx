@@ -1,6 +1,6 @@
 import { createElement } from 'react'
-import { Rectangle, Square } from '../shapes'
-import { Typography } from '../typography'
+import { getTranslate, X, Y } from '../general'
+import { Square } from '../shapes'
 import { addOpacity, getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
 import { useChartData } from '../charts'
@@ -48,42 +48,36 @@ const UnthemedLegendItem = ({
     }
 
     const isDisabled = chartData.disabledKeys ? chartData.disabledKeys.has(item) : false
-    const transform = 'translate(' + position[0] + ',' + position[1] + ')'
     const gStyle = addOpacity(style, isDisabled ? 0.5 : 1)
+    const symbolClassName = getClassName('legendSymbol', className)
+    const textClassName = getClassName('legendItem', className)
 
+    // the <rect> is needed to provide a surface that can be clicked on
     return (
         <g
             role={setRole ? 'legend-item' : undefined}
-            transform={transform}
+            transform={getTranslate(position[X], position[Y])}
             style={gStyle}
             className={'legendItem'}
             onClick={handleClick}
         >
-            <Rectangle
-                variant={'legend-item'}
-                x={0}
-                y={0}
-                width={size[0]}
-                height={size[1]}
-                setRole={false}
-            />
+            <rect x={0} y={0} width={size[X]} height={size[Y]} className={textClassName} />
             {createElement(symbol, {
-                cx: symbolPosition[0] + translate[0],
-                cy: symbolPosition[1] + translate[1],
+                cx: symbolPosition[X] + translate[X],
+                cy: symbolPosition[Y] + translate[Y],
                 r: r,
-                className: getClassName('legendSymbol', className),
+                className: symbolClassName,
                 style: itemStyle,
                 setRole: false,
             })}
-            <Typography
-                variant={'legend-item'}
-                position={[labelPosition[0] + translate[0], labelPosition[1] + translate[1]]}
+            <text
+                x={labelPosition[X] + translate[X]}
+                y={labelPosition[Y] + translate[Y]}
                 style={labelStyle}
-                className={className}
-                setRole={false}
+                className={textClassName}
             >
                 {label ?? item}
-            </Typography>
+            </text>
         </g>
     )
 }

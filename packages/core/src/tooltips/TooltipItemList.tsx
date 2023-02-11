@@ -16,7 +16,7 @@ const UnthemedTooltipItemList = ({
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
     horizontal = defaultTooltipProps.horizontal,
-    r,
+    r = defaultTooltipProps.r,
     symbol,
     symbolStyle,
     labelStyle,
@@ -26,7 +26,7 @@ const UnthemedTooltipItemList = ({
     style,
     setRole = true,
 }: TooltipItemListProps) => {
-    const rs = r ?? Array(keys?.length ?? 1).fill(r)
+    const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
     const {
         itemPosition,
         itemSize: itemSizes,

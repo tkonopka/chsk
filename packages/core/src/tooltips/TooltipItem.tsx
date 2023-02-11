@@ -1,9 +1,8 @@
 import { createElement } from 'react'
+import { getTranslate, X, Y } from '../general'
 import { Square } from '../shapes'
-import { Typography } from '../typography'
 import { getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
-import { getTranslate } from '../general'
 import { defaultTooltipItemProps } from './defaults'
 import { TooltipItemProps } from './types'
 import { getLabelPosition, getSymbolPosition, getSymbolStyle } from '../legends/utils'
@@ -29,36 +28,36 @@ const UnthemedTooltipItem = ({
     setRole = true,
 }: TooltipItemProps) => {
     const colorScale = useScales().color
-
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
     labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
+    const symbolClassName = getClassName('tooltipSymbol', className)
+    const textClassName = getClassName('tooltipItem', className)
 
     return (
         <g
             key={'tooltip-item-' + item}
             role={setRole ? 'tooltip-item' : undefined}
-            transform={getTranslate(position[0], position[1])}
+            transform={getTranslate(position[X], position[Y])}
             style={style}
             className={'tooltipItem'}
         >
             {createElement(symbol, {
-                cx: symbolPosition[0] + translate[0],
-                cy: symbolPosition[1] + translate[1],
+                cx: symbolPosition[X] + translate[X],
+                cy: symbolPosition[Y] + translate[Y],
                 r: r,
-                className: getClassName('tooltipSymbol', className),
+                className: symbolClassName,
                 style: itemStyle,
                 setRole: false,
             })}
-            <Typography
-                variant={'tooltip-item'}
-                position={[labelPosition[0] + translate[0], labelPosition[1] + translate[1]]}
+            <text
+                x={labelPosition[X] + translate[X]}
+                y={labelPosition[Y] + translate[Y]}
+                className={textClassName}
                 style={labelStyle}
-                className={className}
-                setRole={false}
             >
                 {label ?? item}
-            </Typography>
+            </text>
         </g>
     )
 }

@@ -1,7 +1,7 @@
 import { Chart, Circle, Legend, LegendItem, LegendItemProps, View } from '../../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
-import { getTranslate, getNumberAttr } from '../utils'
+import { getNumberAttr } from '../utils'
 import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
 
 describe('LegendItem', () => {
@@ -24,9 +24,9 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')?.closest('g')
-        expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
-        expect(getNumberAttr(symbol, 'cx')).toBeLessThan(getTranslate(label, 'X'))
+        const label = item.querySelector('text')
+        expect(getNumberAttr(symbol, 'cy')).toEqual(getNumberAttr(label, 'y'))
+        expect(getNumberAttr(symbol, 'cx')).toBeLessThan(getNumberAttr(label, 'x'))
     })
 
     it('creates a legend item (variant left)', () => {
@@ -41,9 +41,9 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')?.closest('g')
-        expect(getNumberAttr(symbol, 'cy')).toEqual(getTranslate(label, 'Y'))
-        expect(getNumberAttr(symbol, 'cx')).toBeGreaterThan(getTranslate(label, 'X'))
+        const label = item.querySelector('text')
+        expect(getNumberAttr(symbol, 'cy')).toEqual(getNumberAttr(label, 'y'))
+        expect(getNumberAttr(symbol, 'cx')).toBeGreaterThan(getNumberAttr(label, 'x'))
     })
 
     it('creates a legend item (variant top)', () => {
@@ -58,9 +58,9 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')?.closest('g')
-        expect(getNumberAttr(symbol, 'cy')).toBeGreaterThan(getTranslate(label, 'Y'))
-        expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
+        const label = item.querySelector('text')
+        expect(getNumberAttr(symbol, 'cy')).toBeGreaterThan(getNumberAttr(label, 'y'))
+        expect(getNumberAttr(symbol, 'cx')).toEqual(getNumberAttr(label, 'x'))
     })
 
     it('creates a legend item (variant bottom)', () => {
@@ -75,8 +75,8 @@ describe('LegendItem', () => {
         )
         const item = screen.getByRole('legend-item')
         const symbol = item.querySelector('circle')
-        const label = item.querySelector('text')?.closest('g')
-        expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getTranslate(label, 'Y'))
-        expect(getNumberAttr(symbol, 'cx')).toEqual(getTranslate(label, 'X'))
+        const label = item.querySelector('text')
+        expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getNumberAttr(label, 'y'))
+        expect(getNumberAttr(symbol, 'cx')).toEqual(getNumberAttr(label, 'x'))
     })
 })

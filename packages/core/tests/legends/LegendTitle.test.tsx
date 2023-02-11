@@ -2,6 +2,7 @@ import { Chart, Legend, LegendItemProps, LegendTitle, View } from '../../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
 import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
+import { getNumberAttr } from '../utils'
 
 describe('LegendTitle', () => {
     const legendTitleProps: Pick<LegendItemProps, 'position' | 'size' | 'padding'> = {
@@ -24,8 +25,9 @@ describe('LegendTitle', () => {
         )
         const legendTitle = screen.getAllByRole('legend-title')
         expect(legendTitle).toBeDefined()
-        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('legend').querySelector('text')
+        expect(getNumberAttr(title, 'x')).toEqual(4)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a legend title (variant left)', () => {
@@ -40,9 +42,9 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
-        expect(title?.getAttribute('style')).toContain('196px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('legend').querySelector('text')
+        expect(getNumberAttr(title, 'x')).toEqual(196)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a legend title (variant top)', () => {
@@ -57,10 +59,10 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
+        const title = screen.getByRole('legend').querySelector('text')
         // title should be centered in a width size of [200, 40]
-        expect(title?.getAttribute('style')).toContain('100px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        expect(getNumberAttr(title, 'x')).toEqual(100)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a legend title (variant bottom)', () => {
@@ -75,9 +77,9 @@ describe('LegendTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('legend').querySelector('text')?.closest('g')
+        const title = screen.getByRole('legend').querySelector('text')
         // title should be centered in a width/size of [200, 40]
-        expect(title?.getAttribute('style')).toContain('100px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        expect(getNumberAttr(title, 'x')).toEqual(100)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 })

@@ -1,9 +1,8 @@
-import { Rectangle } from '../shapes'
-import { Typography } from '../typography'
-import { useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { LegendTitleProps } from './types'
 import { defaultLegendItemProps } from './defaults'
 import { getTitlePosition } from './utils'
+import { X, Y } from '../general'
 
 const UnthemedLegendTitle = ({
     variant = 'right',
@@ -16,27 +15,28 @@ const UnthemedLegendTitle = ({
     setRole = true,
     children,
 }: LegendTitleProps) => {
+    if (!children) return null
     const [x, y] = getTitlePosition(variant, position, size, padding)
+    const compositeClassName = getClassName('legendTitle', className)
     return (
         <g role={setRole ? 'legend-title' : undefined} className={'legendTitle'}>
-            <Rectangle
-                variant={'legend-title'}
+            <rect
+                role={setRole ? 'legend-title' : undefined}
                 x={0}
                 y={0}
-                width={size[0]}
-                height={size[1]}
-                className={className}
-                setRole={setRole}
+                width={size[X]}
+                height={size[Y]}
+                className={compositeClassName}
             />
-            <Typography
-                position={[x + translate[0], y + translate[1]]}
-                variant={'legend-title'}
-                className={className}
+            <text
+                role={setRole ? 'legend-title' : undefined}
+                x={x + translate[X]}
+                y={y + translate[Y]}
+                className={compositeClassName}
                 style={style}
-                setRole={setRole}
             >
                 {children}
-            </Typography>
+            </text>
         </g>
     )
 }

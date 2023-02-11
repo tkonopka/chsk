@@ -137,7 +137,7 @@ export interface LegendItemListProps
     /** array of colors */
     colors?: Array<string | number | undefined>
     /** array of symbol sizes */
-    r?: number[]
+    r?: number | number[]
     /** position */
     position: NumericPositionSpec
 }

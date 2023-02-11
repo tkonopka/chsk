@@ -1,8 +1,8 @@
-import { Typography } from '../typography'
-import { useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { TooltipTitleProps } from './types'
 import { defaultTooltipItemProps } from './defaults'
 import { getTitlePosition } from '../legends/utils'
+import { X, Y } from '../general'
 
 const UnthemedTooltipTitle = ({
     variant = 'right',
@@ -15,17 +15,19 @@ const UnthemedTooltipTitle = ({
     setRole = true,
     children,
 }: TooltipTitleProps) => {
+    if (!children) return null
     const [x, y] = getTitlePosition(variant, position, size, padding)
+    const compositeClassName = getClassName('tooltip-title', className)
     return (
-        <Typography
-            position={[x + translate[0], y + translate[1]]}
-            variant={'tooltip-title'}
-            className={className}
+        <text
+            role={setRole ? 'tooltip-title' : undefined}
+            x={x + translate[X]}
+            y={y + translate[Y]}
+            className={compositeClassName}
             style={style}
-            setRole={setRole}
         >
             {children}
-        </Typography>
+        </text>
     )
 }
 

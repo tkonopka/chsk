@@ -2,6 +2,7 @@ import { Chart, Tooltip, TooltipDataItem, TooltipItemProps, TooltipTitle, View }
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
 import { scaleCategorical, viewSeriesIndexesKeys, MockTooltipSetter } from './Tooltip.test'
+import { getNumberAttr } from '../utils'
 
 describe('TooltipTitle', () => {
     const tooltipTitleProps: Pick<TooltipItemProps, 'position' | 'size' | 'padding'> = {
@@ -26,8 +27,9 @@ describe('TooltipTitle', () => {
         )
         const tooltipTitle = screen.getAllByRole('tooltip-title')
         expect(tooltipTitle).toBeDefined()
-        const title = screen.getByRole('tooltip').querySelector('text')?.closest('g')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('tooltip').querySelector('text')
+        expect(getNumberAttr(title, 'x')).toEqual(4)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a tooltip title (variant left)', () => {
@@ -44,9 +46,9 @@ describe('TooltipTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip').querySelector('text')?.closest('g')
-        expect(title?.getAttribute('style')).toContain('96px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('tooltip').querySelector('text')
+        expect(getNumberAttr(title, 'x')).toEqual(96)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a tooltip title (variant top)', () => {
@@ -63,10 +65,10 @@ describe('TooltipTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip').querySelector('text')?.closest('g')
-        // title should be centered in a width size of [100, 40]
-        expect(title?.getAttribute('style')).toContain('50px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('tooltip').querySelector('text')
+        // title should be centered in a box of size [100, 40]
+        expect(getNumberAttr(title, 'x')).toEqual(50)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 
     it('creates a tooltip title (variant bottom)', () => {
@@ -83,9 +85,9 @@ describe('TooltipTitle', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip').querySelector('text')?.closest('g')
-        // title should be centered in a width/size of [100, 40]
-        expect(title?.getAttribute('style')).toContain('50px')
-        expect(title?.getAttribute('style')).toContain('4px')
+        const title = screen.getByRole('tooltip').querySelector('text')
+        // title should be centered in a box of size [100, 40]
+        expect(getNumberAttr(title, 'x')).toEqual(50)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
     })
 })

@@ -14,7 +14,7 @@ const UnthemedLegendItemList = ({
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
     horizontal = defaultLegendProps.horizontal,
-    r,
+    r = defaultLegendProps.r,
     symbol,
     symbolStyle,
     labelStyle,
@@ -25,7 +25,7 @@ const UnthemedLegendItemList = ({
     style,
     setRole = true,
 }: LegendItemListProps) => {
-    const rs = r ?? Array(keys?.length ?? 1).fill(r)
+    const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
     const {
         itemPosition,
         itemSize: itemSizes,
