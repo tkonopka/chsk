@@ -53,6 +53,12 @@ const customTheme: ThemeSpec = {
     },
 }
 
+// style modifiers
+const customModifiers = {
+    onMouseEnter: { strokeWidth: 6, cursor: 'pointer' },
+    onMouseLeave: {},
+}
+
 export const ManyRandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
     // split the ids into two groups (for the legend)
@@ -102,7 +108,11 @@ export const ManyRandomWalksChart = ({ fref, chartData, rawData }: MilestoneStor
                 />
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
-                <ScatterCurve curve={'Natural'} style={{ strokeWidth: 2 }} />
+                <ScatterCurve
+                    curve={'Natural'}
+                    style={{ strokeWidth: 2 }}
+                    modifiers={customModifiers}
+                />
                 <Legend
                     position={[1, 0.5]}
                     positionUnits={'relative'}

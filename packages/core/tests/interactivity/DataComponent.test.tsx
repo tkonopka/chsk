@@ -29,7 +29,7 @@ describe('DataComponent', () => {
                     component={Circle}
                     data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
-                    onClick={customHandler}
+                    handlers={{ onClick: customHandler }}
                 />
             </Chart>
         )
@@ -51,7 +51,7 @@ describe('DataComponent', () => {
                     component={Circle}
                     data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
-                    onMouseEnter={customHandler}
+                    handlers={{ onMouseEnter: customHandler }}
                 />
             </Chart>
         )
@@ -71,7 +71,7 @@ describe('DataComponent', () => {
                     component={Circle}
                     data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
-                    onMouseLeave={customHandler}
+                    handlers={{ onMouseLeave: customHandler }}
                 />
             </Chart>
         )
@@ -91,7 +91,7 @@ describe('DataComponent', () => {
                     component={Circle}
                     data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'abc' }}
-                    onMouseMove={customHandler}
+                    handlers={{ onMouseMove: customHandler }}
                 />
             </Chart>
         )

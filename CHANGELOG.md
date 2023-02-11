@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] support for style modifiers in `DataComponent` and `TooltipDataComponent`
 -   [examples] bar chart with shadows
 -   [matrix] support for tooltip in `HeatMapHighlight`
 -   [annotation] factory `createConcentricSymbol` to create custom symbols
@@ -55,6 +56,8 @@
 
 ### Changed
 
+-   [core] changed props for interactive components, now using `handlers` and
+    `modifiers`
 -   [band] changed the default `dataComponent` to `TooltipDataComponent` for
     `Bars`, `Schedules`
 -   [core] removed constants `WIDTH` and `HEIGHT`

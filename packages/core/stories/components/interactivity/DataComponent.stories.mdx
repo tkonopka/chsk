@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story, Source } from '@storybook/addon-docs'
-import { Chart, DataComponent, Surface, Circle } from '../../../src'
+import { Chart, DataComponent, Surface, Circle, Typography } from '../../../src'
 import { CustomDataComponent } from './CustomDataComponent'
+import { CustomChart } from './CustomChart'
 
 # DataComponent
 
@@ -50,20 +51,31 @@ export const customOnClick = (data, event) => {
             <DataComponent
                 component={Circle}
                 data={{ id: 'A', value: 'first circle' }}
-                props={{ cx: 80, cy: 80, r: 30, style: { fill: '#cccccc' } }}
-                onClick={customOnClick}
+                props={{ cx: 50, cy: 50, r: 30, style: { fill: '#cccccc' } }}
+                handlers={{ onClick: customOnClick }}
             />
             <DataComponent
                 component={Circle}
                 data={{ id: 'B', value: 'second circle' }}
-                props={{ cx: 160, cy: 80, r: 15, style: { fill: '#999999' } }}
-                onClick={customOnClick}
+                props={{ cx: 50, cy: 120, r: 30, style: { fill: '#999999' } }}
+                handlers={{ onClick: customOnClick }}
             />
+            <Typography position={[120, 50]} style={{ textAnchor: 'start' }}>
+                Click to log into console
+            </Typography>
         </Chart>
     </Story>
 </Canvas>
 
 (Click on a circle, then check the browser console with `Ctrl Shift J` for output.)
+
+## Style modifiers
+
+<Canvas>
+    <Story name="style modifiers">
+        <CustomChart />
+    </Story>
+</Canvas>
 
 ## Custom implementations
 
@@ -90,8 +102,8 @@ Hover the mouse pointer and click on the circles, and observe changes to the out
                 component={Circle}
                 data={{ id: 'A', value: 'first circle' }}
                 props={{
-                    cx: 80,
-                    cy: 80,
+                    cx: 50,
+                    cy: 50,
                     r: 30,
                     style: { fill: '#ddaaaa', fillOpacity: 0.5, stroke: '#ddaaaa' },
                 }}
@@ -100,15 +112,18 @@ Hover the mouse pointer and click on the circles, and observe changes to the out
                 component={Circle}
                 data={{ id: 'B', value: 'second circle' }}
                 props={{
-                    cx: 160,
-                    cy: 80,
-                    r: 15,
+                    cx: 50,
+                    cy: 120,
+                    r: 30,
                     style: { fill: '#aaaadd', fillOpacity: 0.5, stroke: '#aaaadd' },
                 }}
             />
+            <Typography position={[120, 50]} style={{ textAnchor: 'start' }}>
+                Hover and click
+            </Typography>
         </Chart>
     </Story>
 </Canvas>
 
 The above example uses a custom function `CustomDataComponent` that is a stand-in for `DataComponent`.
-The full code is available in the [source repository](https://github.com/tkonopka/chsk/blob/main/packages/core/stories/components/CustomDataComponent.tsx).
+The full code is available [here](https://github.com/tkonopka/chsk/blob/main/packages/core/stories/components/interactivity/CustomDataComponent.tsx).

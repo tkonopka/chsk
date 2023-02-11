@@ -151,9 +151,9 @@ export const OverlappingHistogramChart = ({ fref, chartData, rawData }: Mileston
                             values (a.u.)
                         </AxisLabel>
                     </Axis>
-                    <HistogramArea ids={['A']} curve={'Step'} onClick={onClickArea} />
+                    <HistogramArea ids={['A']} curve={'Step'} handlers={{ onClick: onClickArea }} />
                     <HistogramCurve ids={['A']} curve={'Step'} />
-                    <HistogramBars ids={['B']} onClick={onClickBars} />
+                    <HistogramBars ids={['B']} handlers={{ onClick: onClickBars }} />
                     <HistogramCurve ids={['B']} curve={'Step'} />
                     <Typography variant={'title'} position={[-50, -40]}>
                         Clickable histograms

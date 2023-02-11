@@ -39,12 +39,31 @@ By default, `Bars` draws the entire dataset. To draw subsets of bars, set props 
 
 ## Mouse events
 
-To make bars respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+To make bars respond to mouse events, set prop `handlers`.
 
 <Canvas>
     <Story
         name="mouse click"
-        args={{ onClick: onBarsClick }}
+        args={{ handlers: { onClick: onBarsClick } }}
+        component={Bars}
+        decorators={[ChartBarH0S1Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Check the browser console with `Ctrl Shift J` for output.)
+
+## Style modifiers
+
+Prop `modifiers` accepts specifications for css styles that are applied following mouse events.
+
+<Canvas>
+    <Story
+        name="style modifiers"
+        args={{
+            modifiers: { onMouseEnter: { strokeWidth: 3, stroke: '#222222' }, onMouseLeave: {} },
+        }}
         component={Bars}
         decorators={[ChartBarH0S1Decorator]}
     >

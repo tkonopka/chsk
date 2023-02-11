@@ -43,12 +43,12 @@ By default, `Schedules` draws the entire dataset. To draw subsets, set the props
 
 ## Mouse events
 
-To make points respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+To make elements respond to mouse events, set prop `handlers`.
 
 <Canvas>
     <Story
         name="mouse click"
-        args={{ onClick: onSchedulesClick }}
+        args={{ handlers: { onClick: onSchedulesClick } }}
         component={Schedules}
         decorators={[ChartScheduleDecorator]}
     >

@@ -1,7 +1,8 @@
-import { createElement, MouseEvent, useCallback } from 'react'
+import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { DataComponentProps, InteractivityProps } from './types'
-import { SvgElementVariantProps, useDimensions, WithId } from '../general'
+import { CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
 import { useTooltip } from '../tooltips'
+import { clone, merge } from 'lodash'
 
 export const TooltipDataComponent = <
     DataSpec extends WithId,
@@ -10,13 +11,14 @@ export const TooltipDataComponent = <
     component,
     data,
     props,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
+    handlers,
+    modifiers,
 }: DataComponentProps<DataSpec, ComponentProps>) => {
     const { setData: setTooltipData } = useTooltip()
     const { ref } = useDimensions()
+    const [componentStyle, setComponentStyle] = useState<CssProps | undefined>(props.style)
+    const [key, setKey] = useState(0)
+    const style = props.style
 
     const handleTooltip = useCallback(
         (event: MouseEvent) => {
@@ -32,28 +34,51 @@ export const TooltipDataComponent = <
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
             handleTooltip(event)
-            onMouseEnter?.(data, event)
+            handlers?.onMouseEnter?.(data, event)
+            if (modifiers?.onMouseEnter) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseEnter))
+                setKey(key => key + 1)
+            }
         },
-        [data, onMouseEnter]
+        [data, handlers, modifiers]
     )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             handleTooltip(event)
-            onMouseMove?.(data, event)
+            handlers?.onMouseMove?.(data, event)
+            if (modifiers?.onMouseMove) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseMove))
+                setKey(key => key + 1)
+            }
         },
-        [data, onMouseMove]
+        [data, handlers, modifiers]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
             setTooltipData({})
-            onMouseLeave?.(data, event)
+            handlers?.onMouseLeave?.(data, event)
+            if (modifiers?.onMouseLeave) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseLeave))
+                setKey(key => key + 1)
+            }
         },
-        [data, onMouseLeave]
+        [data, handlers, modifiers]
     )
-    const handleClick = useCallback((event: MouseEvent) => onClick?.(data, event), [data, onClick])
+    const handleClick = useCallback(
+        (event: MouseEvent) => {
+            handlers?.onClick?.(data, event)
+            if (modifiers?.onClick) {
+                setComponentStyle(merge(clone(style), modifiers.onClick))
+                setKey(key => key + 1)
+            }
+        },
+        [data, handlers, modifiers]
+    )
 
     return createElement(component, {
         ...props,
+        key,
+        style: componentStyle,
         onMouseEnter: handleMouseEnter,
         onMouseMove: handleMouseMove,
         onMouseLeave: handleMouseLeave,

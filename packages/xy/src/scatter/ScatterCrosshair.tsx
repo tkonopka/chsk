@@ -193,7 +193,7 @@ export const ScatterCrosshair = ({
                 title: newActiveData.id,
                 data: [newActiveData],
             })
-            props.onMouseEnter?.(data, event)
+            props.handlers?.onMouseEnter?.(data, event)
         },
         [activeData, setActiveData, setTooltipData, targets, processedData]
     )

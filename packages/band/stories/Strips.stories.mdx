@@ -65,12 +65,12 @@ See documentation in `@chsk/core` for symbols `Circle`, `Diamond`, `Square`, `Tr
 
 ## Mouse events
 
-To make points respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+To make points respond to mouse events, set prop `handlers`.
 
 <Canvas>
     <Story
         name="mouse click"
-        args={{ onClick: onStripsClick }}
+        args={{ handlers: { onClick: onStripsClick } }}
         component={Strips}
         decorators={[ChartStripDecorator]}
     >

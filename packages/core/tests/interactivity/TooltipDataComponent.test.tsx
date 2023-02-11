@@ -43,7 +43,7 @@ describe('TooltipDataComponent', () => {
                     component={Circle}
                     data={{ id: 'A' }}
                     props={{ cx: 10, cy: 10, r: 10, variant: 'target' }}
-                    onClick={customHandler}
+                    handlers={{ onClick: customHandler }}
                 />
                 <CustomGetter />
             </Chart>
@@ -74,15 +74,13 @@ describe('TooltipDataComponent', () => {
                         component={Circle}
                         data={{ id: 'A' }}
                         props={{ cx: 10, cy: 10, r: 10, variant: 'target' }}
-                        onMouseEnter={enterHandler}
-                        onMouseLeave={leaveHandler}
+                        handlers={{ onMouseEnter: enterHandler, onMouseLeave: leaveHandler }}
                     />
                     <TooltipDataComponent
                         component={Circle}
                         data={undefined}
                         props={{ cx: 10, cy: 10, r: 10, variant: 'empty' }}
-                        onMouseEnter={enterHandler}
-                        onMouseLeave={leaveHandler}
+                        handlers={{ onMouseEnter: enterHandler, onMouseLeave: leaveHandler }}
                     />
                     <CustomGetter />
                 </TooltipProvider>

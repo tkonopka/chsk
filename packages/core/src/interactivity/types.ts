@@ -1,5 +1,5 @@
 import { FC, MouseEvent } from 'react'
-import { SvgElementVariantProps, WithId } from '../general'
+import { CssProps, SvgElementVariantProps, WithId } from '../general'
 
 // handling events on svg elements
 export interface InteractivityProps {
@@ -13,11 +13,7 @@ export interface InteractivityProps {
     onClick?: (event: MouseEvent) => void
 }
 
-// handling events in a data-dependent way (e.g. by points in scatter plot)
-export interface DataInteractivityProps<
-    DataSpec extends WithId,
-    ComponentProps extends SvgElementVariantProps & InteractivityProps
-> {
+export interface DataInteractivityHandlers<DataSpec extends WithId> {
     /** handler for mouse enter event */
     onMouseEnter?: (data: DataSpec | undefined, event: MouseEvent) => void
     /** handler for mouse leave event */
@@ -26,6 +22,28 @@ export interface DataInteractivityProps<
     onMouseMove?: (data: DataSpec | undefined, event: MouseEvent) => void
     /** handler for click event */
     onClick?: (data: DataSpec | undefined, event: MouseEvent) => void
+}
+
+export interface DataInteractivityModifiers {
+    /** style modifier upon mouse enter event */
+    onMouseEnter?: CssProps
+    /** style modifier upon mouse leave event */
+    onMouseLeave?: CssProps
+    /** style modifier upon mouse move event */
+    onMouseMove?: CssProps
+    /** style modifier upon clik */
+    onClick?: CssProps
+}
+
+// handling events in a data-dependent way (e.g. by points in scatter plot)
+export interface DataInteractivityProps<
+    DataSpec extends WithId,
+    ComponentProps extends SvgElementVariantProps & InteractivityProps
+> {
+    /** handlers for events */
+    handlers?: DataInteractivityHandlers<DataSpec>
+    /** style modifiers */
+    modifiers?: DataInteractivityModifiers
     /** function binding data to interactivity handlers */
     dataComponent?: FC<DataComponentProps<DataSpec, ComponentProps>>
 }

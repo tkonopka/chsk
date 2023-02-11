@@ -191,7 +191,7 @@ describe('Svg format', () => {
         render(
             <svg role={'svg'}>
                 <g role={'dimensions-reference'}>
-                    <rect x={0} y={0} width={100} height={100}/>
+                    <rect x={0} y={0} width={100} height={100} />
                 </g>
                 <circle role={'target'} cx={'20'} cy={'20'} r={'3'} />
             </svg>
@@ -211,13 +211,15 @@ describe('Svg format', () => {
         render(
             <svg role={'svg'}>
                 <g role={'dimensions-reference'}>
-                    <rect x={0} y={0} width={100} height={100}/>
+                    <rect x={0} y={0} width={100} height={100} />
                 </g>
                 <g role={'other'}>
                     <g role={'dimensions-reference'}>
-                        <rect x={0} y={0} width={100} height={100}/>
+                        <rect x={0} y={0} width={100} height={100} />
                     </g>
-                    <text role={'target'} x={'20'} y={'20'}>abc</text>
+                    <text role={'target'} x={'20'} y={'20'}>
+                        abc
+                    </text>
                 </g>
             </svg>
         )

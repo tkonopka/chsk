@@ -68,7 +68,7 @@ The size of the whisker 'cap' can be adjusted with prop `whiskerCapWidth`.
 
 ## Mouse events
 
-To make the box and whiskers respond to mouse events, set props starting with the prefix `on`, for example `onClick`.
+To make the box and whiskers respond to mouse events, set prop `handlers`.
 
 <Canvas>
     <Story
@@ -76,7 +76,7 @@ To make the box and whiskers respond to mouse events, set props starting with th
         args={{
             medianStyle: { strokeWidth: 3, stroke: '#222222' },
             whiskerStyle: { strokeWidth: 2 },
-            onClick: onQuantilesClick,
+            handlers: { onClick: onQuantilesClick },
         }}
         component={Quantiles}
         decorators={[ChartQuantileDecorator]}

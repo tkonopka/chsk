@@ -56,7 +56,7 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
 
     // remove some child nodes
     if (element.hasChildNodes() && config.skipRoles.length > 0) {
-        element.childNodes.forEach((child) => {
+        element.childNodes.forEach(child => {
             const childElement = child as HTMLElement
             if (!childElement.attributes) return
             const role = childElement.getAttribute('role')

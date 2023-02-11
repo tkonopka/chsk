@@ -1,18 +1,15 @@
 import { createElement, MouseEvent, useCallback } from 'react'
-import { DataComponentProps, InteractivityProps, useChartData } from '../../../src'
+import { WithId, DataComponentProps, InteractivityProps, useChartData } from '../../../src'
 import { SvgElementVariantProps } from '../../../src'
 
 export const CustomDataComponent = <
-    DataSpec extends { id?: string },
+    DataSpec extends WithId,
     ComponentProps extends SvgElementVariantProps & InteractivityProps
 >({
     component,
     data,
     props,
-    onMouseEnter,
-    onMouseMove,
-    onMouseLeave,
-    onClick,
+    handlers,
 }: DataComponentProps<DataSpec, ComponentProps>) => {
     const { data: chartData, setData: setChartData } = useChartData()
 
@@ -39,20 +36,20 @@ export const CustomDataComponent = <
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
             setChartData({ ...chartData, activeId: data?.id })
-            onMouseEnter?.(data, event)
+            handlers?.onMouseEnter?.(data, event)
         },
-        [data, onMouseEnter, chartData]
+        [data, handlers, chartData]
     )
     const handleMouseMove = useCallback(
-        (event: MouseEvent) => onMouseMove?.(data, event),
-        [data, onMouseMove]
+        (event: MouseEvent) => handlers?.onMouseMove?.(data, event),
+        [data, handlers]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
             setChartData({ ...chartData, activeId: null })
-            onMouseLeave?.(data, event)
+            handlers?.onMouseLeave?.(data, event)
         },
-        [data, onMouseLeave, chartData]
+        [data, handlers, chartData]
     )
     const handleClick = useCallback(
         (event: MouseEvent) => {
@@ -62,9 +59,9 @@ export const CustomDataComponent = <
                 clickedIds.add(id)
             }
             setChartData({ ...chartData, clickedIds })
-            onClick?.(data, event)
+            handlers?.onClick?.(data, event)
         },
-        [data, onClick, chartData]
+        [data, handlers, chartData]
     )
 
     return createElement(component, {

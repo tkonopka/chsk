@@ -89,6 +89,10 @@ const customTooltipLabel = (x: TooltipDataItem) => {
     const value = 'data' in x ? Number(x['data']) : 0
     return value + '%'
 }
+const customModifiers = {
+    onMouseEnter: { strokeWidth: 2, stroke: '#222222' },
+    onMouseLeave: {},
+}
 
 export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
     <Chart
@@ -111,7 +115,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 <Axis variant={'left'} label={'Score (%)'} />
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'A'}>
-                <Bars keys={['A']} />
+                <Bars keys={['A']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsA[0], 105]}
                     end={[idsA[idsA.length - 1], 105]}
@@ -131,7 +135,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </Axis>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'B'}>
-                <Bars keys={['B']} />
+                <Bars keys={['B']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsB[0], 105]}
                     end={[idsB[idsB.length - 1], 105]}
@@ -151,7 +155,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </Axis>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'C'}>
-                <Bars keys={['C']} />
+                <Bars keys={['C']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsC[0], 105]}
                     end={[idsC[idsC.length - 1], 105]}
@@ -171,6 +175,8 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </Axis>
             </MilestoneMotion>
             <Tooltip
+                position={[16, 0]}
+                anchor={[0, 0.5]}
                 padding={[4, 0, 4, 0]}
                 itemSize={[70, 24]}
                 itemPadding={[4, 8, 4, 8]}

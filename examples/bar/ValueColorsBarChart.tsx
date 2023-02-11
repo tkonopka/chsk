@@ -114,6 +114,12 @@ const CustomTooltipItem = () => {
     )
 }
 
+// style modifiers
+const customModifiers = {
+    onMouseEnter: { strokeWidth: 2, stroke: '#222222' },
+    onMouseLeave: {},
+}
+
 export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -162,14 +168,14 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <Bars component={CustomRectangle} />
+                <Bars component={CustomRectangle} modifiers={customModifiers} />
                 <GridLines
                     variant={'y'}
                     values={[0]}
                     expansion={[0, 26]}
                     style={{ strokeWidth: 2, stroke: '#000000' }}
                 />
-                <Tooltip>
+                <Tooltip position={[16, 0]} anchor={[0, 0.5]}>
                     <Rectangle
                         key={'surface'}
                         variant={'tooltip-surface'}
