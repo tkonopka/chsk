@@ -114,11 +114,11 @@ describe('Svg format', () => {
         const cleanRoot = cleanSvg(root.cloneNode(true) as HTMLElement)
         expect(root.outerHTML).toContain('<svg')
         expect(cleanRoot.outerHTML).toContain('<svg')
-        const raw = root.querySelector('rect')
-        const result = cleanRoot.querySelector('rect')
-        expect(result?.getAttribute('width')).toEqual('25.625px')
-        expect(raw?.getAttribute('height')).toEqual('130.344827px')
-        expect(result?.getAttribute('height')).toEqual('130.345px')
+        const rect = root.querySelector('rect')
+        const cleanRect = cleanRoot.querySelector('rect')
+        expect(cleanRect?.getAttribute('width')).toEqual('25.625px')
+        expect(rect?.getAttribute('height')).toEqual('130.344827px')
+        expect(cleanRect?.getAttribute('height')).toEqual('130.345px')
     })
 
     it('transfers transform from style (translateX, translateY) into attribute (rect)', () => {
@@ -178,5 +178,48 @@ describe('Svg format', () => {
         const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('style')).not.toBeNull()
         expect(clean.getAttribute('style')).toBeNull()
+    })
+
+    it('removes g with role dimensions-reference', () => {
+        const transform = 'none'
+        render(
+            <svg role={'svg'}>
+                <g role={'dimensions-reference'}>
+                    <rect x={0} y={0} width={100} height={100}/>
+                </g>
+                <circle role={'target'} cx={'20'} cy={'20'} r={'3'} />
+            </svg>
+        )
+        const svg = screen.getByRole('svg')
+        expect(svg.querySelector('circle')).not.toBeNull()
+        expect(svg.querySelector('g')).not.toBeNull()
+        expect(svg.querySelector('rect')).not.toBeNull()
+        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        expect(clean.querySelector('circle')).not.toBeNull()
+        expect(clean.querySelector('g')).toBeNull()
+        expect(clean.querySelector('rect')).toBeNull()
+    })
+
+    it('removes nested g with role dimensions-reference', () => {
+        const transform = 'none'
+        render(
+            <svg role={'svg'}>
+                <g role={'dimensions-reference'}>
+                    <rect x={0} y={0} width={100} height={100}/>
+                </g>
+                <g role={'other'}>
+                    <g role={'dimensions-reference'}>
+                        <rect x={0} y={0} width={100} height={100}/>
+                    </g>
+                    <text role={'target'} x={'20'} y={'20'}>abc</text>
+                </g>
+            </svg>
+        )
+        const svg = screen.getByRole('svg')
+        expect(svg.querySelector('text')).not.toBeNull()
+        expect(svg.querySelectorAll('rect')).toHaveLength(2)
+        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        expect(clean.querySelector('text')).not.toBeNull()
+        expect(clean.querySelectorAll('rect')).toHaveLength(0)
     })
 })

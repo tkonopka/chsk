@@ -13,6 +13,7 @@ export interface DownloadProps extends SvgElementVariantProps {
 
 export interface CleanSvgConfig {
     skipAttributeNames: string[]
+    skipRoles: string[]
     roundAttributeNames: string[]
     roundAttributeDecimalPlaces: number
     newlineAfterTags: string[]

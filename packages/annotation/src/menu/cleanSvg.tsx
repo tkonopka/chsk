@@ -2,6 +2,7 @@ import { cleanStyle, roundPxDecimalPlaces } from './helpers'
 
 export const defaultCleanSvgConfig = {
     skipAttributeNames: ['transform-origin'],
+    skipRoles: ['dimensions-reference'],
     roundAttributeNames: ['x', 'x1', 'x2', 'y', 'y1', 'y2', 'width', 'height', 'cx', 'cy', 'r'],
     roundAttributeDecimalPlaces: 3,
     newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text'],
@@ -52,6 +53,18 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
     config.skipAttributeNames.forEach(attrName => {
         element.removeAttribute(attrName)
     })
+
+    // remove some child nodes
+    if (element.hasChildNodes() && config.skipRoles.length > 0) {
+        element.childNodes.forEach((child) => {
+            const childElement = child as HTMLElement
+            if (!childElement.attributes) return
+            const role = childElement.getAttribute('role')
+            if (role !== null && config.skipRoles.indexOf(role) >= 0) {
+                child.remove()
+            }
+        })
+    }
 
     // apply the same transformations to all child elements
     if (element.hasChildNodes())
