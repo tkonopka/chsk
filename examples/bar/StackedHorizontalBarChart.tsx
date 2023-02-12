@@ -4,6 +4,7 @@ import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { stackedIds, stackedKeys } from './StackedVerticalBarChart'
+import { FilterInsetColor } from '../../packages/annotation/src'
 
 export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -15,6 +16,7 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
             padding={[90, 40, 40, 60]}
             theme={downloadThemePiece}
         >
+            <FilterInsetColor id={'lighter'} floodColor={'#000000'} erodeR={0} floodOpacity={0.2} />
             <Bar
                 data={rawData}
                 keys={stackedKeys}
@@ -30,7 +32,9 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 <Axis variant={'top'} />
                 <Axis variant={'left'} label={'Samples'} />
                 <TooltipProvider>
-                    <Bars />
+                    <Bars
+                        modifiers={{ onMouseEnter: { filter: 'url(#lighter)' }, onMouseLeave: {} }}
+                    />
                     <Tooltip />
                 </TooltipProvider>
                 <Legend

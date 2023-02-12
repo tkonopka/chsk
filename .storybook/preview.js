@@ -28,7 +28,7 @@ export const parameters = {
                 'Addons',
                 [
                     'Annotation',
-                    ['Overview', 'Labels', 'Symbols'],
+                    ['Overview', 'Labels', 'Filters', 'Symbols'],
                     'Band',
                     ['Overview'],
                     'Matrix',

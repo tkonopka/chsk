@@ -4,6 +4,7 @@ import { downloadThemePiece } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
+import { FilterInsetShadow } from '../../packages/annotation/src'
 
 export const generateTwoSetData = () => {
     const elements = generateIdentifiers(600, 10000, 'el')
@@ -56,6 +57,7 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             padding={[60, 60, 60, 60]}
             theme={customTheme}
         >
+            <FilterInsetShadow id={'inset-shadow'} blurStdDeviation={6} floodOpacity={0.6} />
             <Venn
                 data={rawData}
                 proportional={true}
@@ -64,8 +66,10 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     colors: ['#75b9be', '#e57a44'],
                 }}
             >
-                <VennSets />
-                <VennSets style={{ fillOpacity: 0, stroke: '#000', strokeWidth: 1 }} />
+                <VennSets
+                    style={{ stroke: '#000', strokeWidth: 1 }}
+                    modifiers={{ onMouseEnter: { filter: 'url(#inset-shadow)' }, onMouseLeave: {} }}
+                />
                 <VennSetLabels
                     ids={['alpha']}
                     rs={[1]}
@@ -82,7 +86,11 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 />
                 <VennIntersectionLabels />
                 <DownloadButtons position={[240, -40]} data image />
-                <Tooltip itemSize={[140, 30]} labelFormat={tooltipLabelFormat} />
+                <Tooltip
+                    position={[0, -20]}
+                    itemSize={[150, 30]}
+                    labelFormat={tooltipLabelFormat}
+                />
             </Venn>
         </Chart>
     )

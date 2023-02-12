@@ -1,0 +1,153 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Rectangle } from '@chsk/core'
+import { FilterInsetColor } from '../../src/filters'
+
+<Meta title="Addons/Annotation/Filters/FilterInsetColor" />
+
+# FilterInsetColor
+
+export const Template = args => <FilterInsetColor {...args} />
+
+`FilterInsetColor` creates an svg filter that applies a solid color mask.
+
+<ArgsTable of={FilterInsetColor} />
+
+## Color and opacity
+
+Prop `floodColor` determines the color of the mask.
+Prop `floodOpacity` determines the intensity of the filter.
+
+Each of the examples below shows a shape with a regular fill and the same shape with a filter.
+
+<Canvas>
+    <Story name="lighter">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetColor id={'lighter'} floodColor={'#ffffff'} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                    filter: 'url(#lighter)',
+                }}
+            />
+        </Chart>
+    </Story>
+    <Story name="darker">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetColor id={'darker'} floodColor={'#222222'} floodOpacity={0.6} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                    filter: 'url(#darker)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Inset
+
+By default, `FilterInsetColor` affects the entire shape, including the boundary.
+To exclude the boundary from the filter, set prop `erodeR` with the width of the boundary stroke.
+
+<Canvas>
+    <Story name="inset">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetColor id={'inset-lighter'} erodeR={3} floodColor={'#ffffff'} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                    filter: 'url(#inset-lighter)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that the filter appears to affect only the inside of the shape because `erodeR` is matched with the boundary stroke width.
+The matching must be done manually. Otherwise, the filter can affect only a part of the object.
+
+<Canvas>
+    <Story name="mismatched radius">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetColor id={'inset-mismatched'} erodeR={12} floodColor={'#ffffff'} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                    filter: 'url(#inset-mismatched)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>

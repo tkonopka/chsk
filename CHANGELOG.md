@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [annotation] filters `FilterInsetShadow`, `FilterInsetColor`,
+    `FilterInsetBoundary`
 -   [core] support for style modifiers in `DataComponent` and `TooltipDataComponent`
 -   [examples] bar chart with shadows
 -   [matrix] support for tooltip in `HeatMapHighlight`

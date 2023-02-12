@@ -1,0 +1,120 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Rectangle } from '@chsk/core'
+import { FilterInsetShadow } from '../../src/filters'
+
+<Meta title="Addons/Annotation/Filters/FilterInsetShadow" />
+
+# FilterInsetShadow
+
+export const Template = args => <FilterInsetShadow {...args} />
+
+`FilterInsetShadow` creates an svg filter that creates a lighter-color mask.
+
+<ArgsTable of={FilterInsetShadow} />
+
+## Blur
+
+Prop `blurStdDeviation` determines the amount of blur for the shadow.
+Larger values makes the shadow spread further into the target object.
+
+<Canvas>
+    <Story name="narrow">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetShadow id={'narrow-shadow'} blurStdDeviation={6} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                    filter: 'url(#narrow-shadow)',
+                }}
+            />
+        </Chart>
+    </Story>
+    <Story name="wide">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetShadow id={'wide-shadow'} blurStdDeviation={18} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                    filter: 'url(#wide-shadow)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+## Flood color
+
+Props 'floodColor' and 'floodOpacity' control the coloring of the shadow.
+
+<Canvas>
+    <Story name="light">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <FilterInsetShadow
+                id={'light-shadow'}
+                blurStdDeviation={6}
+                floodColor={'#ffffff'}
+                floodOpacity={0.8}
+            />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                    filter: 'url(#light-shadow)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>

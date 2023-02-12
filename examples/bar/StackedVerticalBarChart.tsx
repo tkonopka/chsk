@@ -1,6 +1,7 @@
 import { Chart, Axis, GridLines, Legend, Tooltip } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { downloadThemePiece } from '@chsk/themes'
+import { FilterInsetBorder } from '@chsk/annotation'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -24,6 +25,7 @@ export const StackedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
             padding={[40, 120, 60, 60]}
             theme={downloadThemePiece}
         >
+            <FilterInsetBorder id={'inset'} floodColor={'#000000'} floodOpacity={0.5} r={2} />
             <Bar
                 data={rawData}
                 keys={stackedKeys}
@@ -37,7 +39,7 @@ export const StackedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
                 <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                 <Axis variant={'bottom'} label={'Samples'} />
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
-                <Bars />
+                <Bars modifiers={{ onMouseEnter: { filter: 'url(#inset)' }, onMouseLeave: {} }} />
                 <Tooltip />
                 <Legend
                     position={[310, 280]}
