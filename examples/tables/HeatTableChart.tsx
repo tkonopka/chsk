@@ -10,8 +10,17 @@ import {
     WithId,
     MilestoneMotion,
     Typography,
+    Tooltip,
+    TooltipData,
+    TooltipDataItem,
 } from '@chsk/core'
-import { HeatMap, HeatMapCellProps, HeatMapCells, HeatMapDataItem } from '@chsk/matrix'
+import {
+    HeatMap,
+    HeatMapCellProps,
+    HeatMapCells,
+    HeatMapHighlight,
+    HeatMapDataItem,
+} from '@chsk/matrix'
 import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomUniformValue } from '../utils'
@@ -140,6 +149,15 @@ export const HeatMapSquareCounter = ({
     )
 }
 
+const customTitleFormat = (x: TooltipData) => {
+    const data = x.data?.[0]
+    if (!data) return ''
+    return 'id' in data ? idLabels[data['id']] : ''
+}
+const customLabelFormat = (x: TooltipDataItem) => {
+    return x['key'] + ': ' + ('size' in x ? x['size'] : '') + '%'
+}
+
 export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     const colorData: Array<HeatMapDataItem> = rawData.map(seriesData => {
         const item: WithId & Record<string, string> = { id: seriesData.id }
@@ -202,6 +220,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'F'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['F']} />
+                    <HeatMapHighlight style={{ opacity: 0.5 }} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'title'}>
                     <Typography variant={'title'} position={[-80, -60]}>
@@ -220,6 +239,14 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     </Typography>
                     <DownloadButtons position={[450, 420]} data image />
                 </MilestoneMotion>
+                <Tooltip
+                    position={[0, -15]}
+                    padding={[4, 0, 4, 0]}
+                    itemSize={[80, 26]}
+                    itemPadding={[4, 8, 4, 8]}
+                    titleFormat={customTitleFormat}
+                    labelFormat={customLabelFormat}
+                />
             </HeatMap>
         </Chart>
     )
