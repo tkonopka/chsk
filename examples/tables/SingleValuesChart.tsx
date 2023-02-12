@@ -11,6 +11,8 @@ import {
     Y,
     useScales,
     FourSideSizeSpec,
+    BOTTOM,
+    LEFT,
 } from '@chsk/core'
 import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
@@ -78,7 +80,7 @@ const DashboardValue = ({
     const scales = useScales()
     const color = scales.color(value)
     // hand-coded offsets for percentage sign after the numeric value
-    const percentOffset = value < 10 ? 21 : value > 99 ? 63 : 42
+    const percentOffset = 8 + (value < 10 ? 20 : value > 99 ? 60 : 40)
     const activeClassName =
         value < thresholds[1] ? ' error' : value < thresholds[0] ? ' warning' : ''
     return (
@@ -99,7 +101,7 @@ const DashboardValue = ({
             </Typography>
             <Counter
                 setRole={false}
-                position={[position[X] + padding[3], position[Y] + size[Y] - padding[2]]}
+                position={[position[X] + padding[LEFT], position[Y] + size[Y] - padding[BOTTOM]]}
                 align={[0.5, 0.5]}
                 className={activeClassName}
             >
@@ -107,8 +109,8 @@ const DashboardValue = ({
             </Counter>
             <Typography
                 position={[
-                    position[X] + padding[3] + percentOffset,
-                    position[Y] + size[Y] - padding[2],
+                    position[X] + padding[LEFT] + percentOffset,
+                    position[Y] + size[Y] - padding[BOTTOM],
                 ]}
                 className={'percent' + activeClassName}
             >

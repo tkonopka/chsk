@@ -220,7 +220,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'F'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['F']} />
-                    <HeatMapHighlight style={{ opacity: 0.5 }} />
+                    <HeatMapHighlight style={{ opacity: 0 }} />
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'title'}>
                     <Typography variant={'title'} position={[-80, -60]}>
