@@ -94,7 +94,11 @@ describe('Tooltip', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
                     <MockTooltipSetter x={10} y={10} data={tooltipData}>
-                        <Tooltip itemSize={[80, 20]} title={'custom title'} />
+                        <Tooltip
+                            padding={[0, 0, 0, 0]}
+                            itemSize={[80, 20]}
+                            title={'custom title'}
+                        />
                     </MockTooltipSetter>
                 </View>
             </Chart>
@@ -116,7 +120,7 @@ describe('Tooltip', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
                     <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
-                        <Tooltip itemSize={[80, 30]} />
+                        <Tooltip padding={[0, 0, 0, 0]} itemSize={[80, 30]} />
                     </MockTooltipSetter>
                 </View>
             </Chart>
@@ -135,7 +139,7 @@ describe('Tooltip', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
                     <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
-                        <Tooltip title={''} itemSize={[80, 30]} />
+                        <Tooltip title={''} padding={[0, 0, 0, 0]} itemSize={[80, 30]} />
                     </MockTooltipSetter>
                 </View>
             </Chart>
@@ -184,6 +188,20 @@ describe('Tooltip', () => {
                 <View data={viewSeriesIndexesKeys}>
                     <MockTooltipSetter x={10} y={10} data={tooltipData}>
                         <Tooltip labelFormat={() => 'custom label'} />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const title = screen.getByRole('tooltip-item')
+        expect(title.textContent).toEqual('custom label')
+    })
+
+    it('accepts symbols of size zero', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip symbol={() => null} labelFormat={() => 'custom label'} />
                     </MockTooltipSetter>
                 </View>
             </Chart>

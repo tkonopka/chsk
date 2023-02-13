@@ -133,9 +133,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <Tooltip
                         position={[16, -16]}
                         anchor={[0, 1]}
-                        padding={[4, 0, 4, 0]}
                         itemSize={[180, 26]}
-                        itemPadding={[4, 8, 4, 8]}
                         titleFormat={customTooltipTitle}
                         labelFormat={customTooltipLabel}
                         symbol={Circle}

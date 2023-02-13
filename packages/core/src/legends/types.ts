@@ -78,6 +78,7 @@ export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>
 
 export interface LegendColorScaleThemedProps
     extends Pick<LegendColorScaleProps, 'ticks' | 'tickSize' | 'labelRotate' | 'labelOffset'> {
+    padding: FourSideSizeSpec
     ticks: number | number[]
 }
 
@@ -111,7 +112,7 @@ export interface LegendProps
 export interface LegendThemedProps
     extends Pick<
         LegendProps,
-        'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
+        'padding' | 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
     > {
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec

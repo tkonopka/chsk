@@ -1,5 +1,5 @@
 import { LegendColorScaleProps } from './types'
-import { LEFT, TOP, X, Y, zeroPadding, zeroPosition } from '../general'
+import { LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { LinearGradient } from '../defs'
@@ -12,7 +12,7 @@ const UnthemedLegendColorScale = ({
     variant = 'bottom',
     position,
     size = [10, 10],
-    padding = zeroPadding,
+    padding = defaultLegendColorScaleProps.padding,
     translate = zeroPosition,
     offset = 0,
     horizontal = false,
@@ -44,9 +44,9 @@ const UnthemedLegendColorScale = ({
 
     const transform =
         'translate(' +
-        (position[0] + padding[LEFT] + translate[X]) +
+        (position[X] + padding[LEFT] + translate[X]) +
         ',' +
-        (position[1] + padding[TOP] + translate[Y]) +
+        (position[Y] + padding[TOP] + translate[Y]) +
         ')'
     return (
         <g role={setRole ? 'legend-color-scale' : undefined} transform={transform}>

@@ -8,6 +8,7 @@ import {
     LegendTitle,
     LegendItemList,
     ThemeSpec,
+    Tooltip,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve } from '@chsk/xy'
 import { generateRandomWalk } from './generators'
@@ -109,7 +110,7 @@ export const ManyRandomWalksChart = ({ fref, chartData, rawData }: MilestoneStor
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
                 <ScatterCurve
-                    curve={'Natural'}
+                    curve={'Linear'}
                     style={{ strokeWidth: 2 }}
                     modifiers={customModifiers}
                 />
@@ -149,6 +150,7 @@ export const ManyRandomWalksChart = ({ fref, chartData, rawData }: MilestoneStor
                         r={Array(idsB.length).fill(9)}
                     />
                 </Legend>
+                <Tooltip size={[90, 30]} />
             </Scatter>
         </Chart>
     )

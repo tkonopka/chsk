@@ -134,7 +134,6 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 <Tooltip
                     position={[18, 0]}
                     anchor={[0, 0.5]}
-                    padding={[4, 0, 4, 0]}
                     itemSize={[105, 26]}
                     itemPadding={[4, 8, 4, 8]}
                     labelFormat={customLabelFormat}

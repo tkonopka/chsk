@@ -3,13 +3,7 @@ import { LegendProps } from './types'
 import { useView } from '../views'
 import { LegendTitle } from './LegendTitle'
 import { useThemedProps } from '../themes'
-import {
-    DimensionsProvider,
-    NumericPositionSpec,
-    SideVariant,
-    zeroPadding,
-    zeroPosition,
-} from '../general'
+import { DimensionsProvider, NumericPositionSpec, SideVariant, zeroPosition } from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
 import { defaultLegendProps } from './defaults'
@@ -24,7 +18,7 @@ const UnthemedLegend = ({
     size = [0.2, 0.5],
     sizeUnits = 'relative',
     anchor = [0, 0],
-    padding = zeroPadding,
+    padding = defaultLegendProps.padding,
     // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
@@ -94,14 +88,7 @@ const UnthemedLegend = ({
             />
         )
     } else if (variant === 'color' && scales.color.variant !== 'categorical') {
-        content = (
-            <LegendColorScale
-                key={'legend-color-scale'}
-                {...vhp}
-                size={scaleSize}
-                padding={itemPadding}
-            />
-        )
+        content = <LegendColorScale key={'legend-color-scale'} {...vhp} size={scaleSize} />
     } else if (variant === 'size') {
         content = (
             <LegendSizeScale

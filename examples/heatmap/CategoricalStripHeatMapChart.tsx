@@ -136,15 +136,14 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         sizeUnits={'absolute'}
                         anchor={[0, 1]}
                     >
-                        <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 8, 0, 8]}>
+                        <LegendTitle position={[0, 8]} size={[60, 24]}>
                             Scores
                         </LegendTitle>
                         <LegendColorScale
                             key={'legend-color-scale'}
                             variant={'right'}
                             size={[13, 100]}
-                            padding={[0, 8, 0, 8]}
-                            position={[0, 30]}
+                            position={[1, 30]}
                         />
                     </Legend>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />

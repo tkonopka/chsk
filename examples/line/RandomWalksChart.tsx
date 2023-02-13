@@ -1,7 +1,17 @@
-import { Chart, Axis, GridLines, Surface, Typography } from '@chsk/core'
-import { isScatterData, Scatter, ScatterCurve } from '@chsk/xy'
+import {
+    Chart,
+    Axis,
+    GridLines,
+    Surface,
+    Typography,
+    Tooltip,
+    TooltipDataItem,
+    NumericPositionSpec,
+} from '@chsk/core'
+import { isScatterData, Scatter, ScatterCurve, ScatterCrosshair } from '@chsk/xy'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
+import { round2dp } from '../utils'
 
 export const generateRandomWalksData = () => [
     {
@@ -14,6 +24,11 @@ export const generateRandomWalksData = () => [
     },
 ]
 
+const customLabelFormat = (x: TooltipDataItem) => {
+    const p: NumericPositionSpec = 'point' in x ? x['point'] : [0, 0]
+    return x.id + ' ' + '(' + round2dp(p[0]) + ', ' + round2dp(p[1]) + ')'
+}
+
 export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
     return (
@@ -21,8 +36,8 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
             data={chartData}
             fref={fref}
             id="random-walks"
-            size={[600, 400]}
-            padding={[80, 40, 70, 75]}
+            size={[640, 400]}
+            padding={[80, 80, 70, 80]}
         >
             <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />
             <Scatter
@@ -63,6 +78,18 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 <Typography variant={'title'} position={[0, -40]}>
                     Two random walks
                 </Typography>
+                <ScatterCrosshair
+                    variant={'vertical'}
+                    style={{ strokeDasharray: 5, stroke: '#000000', strokeWidth: 0.5 }}
+                    symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
+                />
+                <Tooltip
+                    position={[20, 0]}
+                    itemSize={[140, 24]}
+                    anchor={[0, 0.5]}
+                    labelFormat={customLabelFormat}
+                    title={''}
+                />
             </Scatter>
         </Chart>
     )

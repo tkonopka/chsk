@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import {
     addColor,
-    DataComponent,
+    TooltipDataComponent,
     NumericPositionSpec,
     OpacityMotion,
     Path,
@@ -26,7 +26,7 @@ export const ScatterCurve = ({
     style,
     className = 'scatterCurve',
     setRole,
-    dataComponent = DataComponent,
+    dataComponent = TooltipDataComponent,
     ...props
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()

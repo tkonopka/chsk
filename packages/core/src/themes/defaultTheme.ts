@@ -146,7 +146,7 @@ export const defaultTheme: CompleteThemeSpec = {
         'tooltip.surface': {
             strokeWidth: 0.5,
             stroke: '#aaaaaa',
-            filter: 'drop-shadow(2px 2px 4px #00000044)',
+            filter: 'drop-shadow(2px 2px 4px #00000033)',
         },
         legendItem: {
             fill: '#ffffff',
