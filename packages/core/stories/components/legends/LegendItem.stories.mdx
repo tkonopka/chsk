@@ -106,8 +106,24 @@ Use prop `symbol` to change the symbol.
             r: 9,
             symbol: Circle,
             symbolStyle: { fill: '#dd3333', strokeWidth: 0 },
-            label: 'label',
+            label: 'circle',
             labelOffset: 16,
+        }}
+        component={LegendItem}
+        decorators={[ChartWithRightLegendDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="no symbol"
+        args={{
+            variant: 'right',
+            position: [0, 16],
+            size: [80, 28],
+            r: 0,
+            symbol: () => null,
+            label: 'no symbol',
+            labelOffset: 0,
         }}
         component={LegendItem}
         decorators={[ChartWithRightLegendDecorator]}

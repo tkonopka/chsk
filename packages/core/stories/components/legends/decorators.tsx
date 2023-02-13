@@ -42,7 +42,7 @@ export const ChartWithRightLegendDecorator = (Story: () => ReactNode) => (
                 size={[100, 80]}
                 sizeUnits={'absolute'}
                 anchor={[0, 0]}
-                padding={[12, 10, 12, 10]}
+                padding={[12, 4, 12, 4]}
             >
                 {Story()}
             </Legend>
