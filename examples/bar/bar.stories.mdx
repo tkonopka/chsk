@@ -10,6 +10,10 @@ import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroup
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
 import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
 import { generateFractionShadowsBarData, FractionShadowsBarChart } from './FractionShadowsBarChart'
+import {
+    generateFractionGradientsBarData,
+    FractionGradientsBarChart,
+} from './FractionGradientsBarChart'
 import { generateBandLabelsData, BandLabelsChart } from './BandLabelsChart'
 import {
     generateQuestionMultipleChoicesData,
@@ -106,6 +110,15 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
             generator={generateFractionShadowsBarData}
             chart={FractionShadowsBarChart}
             steps={['title', 'description', 'A', 'B', 'C']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="gradients">
+        <Controller
+            generator={generateFractionGradientsBarData}
+            chart={FractionGradientsBarChart}
         />
     </Story>
 </Canvas>

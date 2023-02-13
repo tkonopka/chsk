@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] bar chart with gradients within bars
 -   [annotation] filters `FilterInsetShadow`, `FilterInsetColor`,
     `FilterInsetBoundary`
 -   [core] support for style modifiers in `DataComponent` and `TooltipDataComponent`
