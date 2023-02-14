@@ -24,8 +24,7 @@ describe('ScatterCurve', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-curve')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-curve')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -36,7 +35,6 @@ describe('ScatterCurve', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-curve')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-curve')).toBeNull()
     })
 })

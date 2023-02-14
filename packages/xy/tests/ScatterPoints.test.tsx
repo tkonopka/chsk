@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Scatter, ScatterPoints } from '../src/scatter'
 import { scatterProps, timeScatterProps } from './props'
 
@@ -122,5 +122,16 @@ describe('ScatterPoints', () => {
         )
         const result = screen.getByRole('scatter-points').querySelectorAll('circle')
         expect(result).toHaveLength(4)
+    })
+
+    it('skips work in non-scatter context', () => {
+        render(
+            <Chart>
+                <View data={[{ id: 'a' }]}>
+                    <ScatterPoints />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('scatter-points')).toBeNull()
     })
 })

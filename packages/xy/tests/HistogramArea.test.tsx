@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Histogram, HistogramArea } from '../src/histogram'
 import { histogramProps } from './props'
 
@@ -38,5 +38,27 @@ describe('HistogramArea', () => {
         )
         const result = screen.queryByRole('histogram-area')
         expect(result).toBeNull()
+    })
+
+    it('skips work in non-histogram context', () => {
+        render(
+            <Chart>
+                <View data={[{ id: 'a' }]}>
+                    <HistogramArea />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('histogram-area')).toBeNull()
+    })
+
+    it('skips work when scale is not linear', () => {
+        render(
+            <Chart>
+                <View scaleY={{ variant: 'band', domain: ['a', 'b'] }}>
+                    <HistogramArea />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('histogram-area')).toBeNull()
     })
 })

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Histogram, HistogramBars } from '../src/histogram'
 import { histogramProps } from './props'
 
@@ -24,8 +24,7 @@ describe('HistogramBars', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-bars')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-bars')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -36,7 +35,28 @@ describe('HistogramBars', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-bars')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-bars')).toBeNull()
+    })
+
+    it('skips work in non-histogram context', () => {
+        render(
+            <Chart>
+                <View data={[{ id: 'a' }]}>
+                    <HistogramBars />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('histogram-bars')).toBeNull()
+    })
+
+    it('skips work when scale is not linear', () => {
+        render(
+            <Chart>
+                <View scaleY={{ variant: 'band', domain: ['a', 'b'] }}>
+                    <HistogramBars />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('histogram-bars')).toBeNull()
     })
 })

@@ -115,7 +115,7 @@ describe('isSHistogramData', () => {
         expect(isHistogramData(input)).toBeTruthy()
     })
 
-    it('rejects objects with missing keys', () => {
+    it('rejects objects with missing data', () => {
         const input = [
             {
                 id: 'a',
@@ -123,10 +123,9 @@ describe('isSHistogramData', () => {
             },
             {
                 id: 'b',
-                values: [1, 2, 3, 4],
             },
         ]
-        expect(isScatterData(input)).toBeFalsy()
+        expect(isHistogramData(input)).toBeFalsy()
     })
 })
 

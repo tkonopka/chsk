@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Scatter, ScatterArea } from '../src/scatter'
 import { scatterProps } from './props'
 
@@ -24,8 +24,7 @@ describe('ScatterArea', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-area')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-area')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -36,7 +35,17 @@ describe('ScatterArea', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-area')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-area')).toBeNull()
+    })
+
+    it('skips work in non-scatter context', () => {
+        render(
+            <Chart>
+                <View scaleY={{ variant: 'band', domain: ['a', 'b'] }}>
+                    <ScatterArea />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('scatter-area')).toBeNull()
     })
 })

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Histogram, HistogramCurve } from '../src/histogram'
 import { histogramProps } from './props'
 
@@ -24,8 +24,7 @@ describe('HistogramCurve', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-curve')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -36,7 +35,17 @@ describe('HistogramCurve', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-curve')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
+    })
+
+    it('skips work in non-histogram context', () => {
+        render(
+            <Chart>
+                <View data={[{ id: 'a' }]}>
+                    <HistogramCurve />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 })

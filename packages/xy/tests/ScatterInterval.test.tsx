@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { Chart, View } from '@chsk/core'
 import { Scatter, ScatterInterval } from '../src/scatter'
 import { scatterProps } from './props'
 
@@ -52,5 +52,16 @@ describe('ScatterInterval', () => {
         )
         const result = screen.queryByRole('scatter-interval')
         expect(result).toBeNull()
+    })
+
+    it('skips work in non-scatter context', () => {
+        render(
+            <Chart>
+                <View scaleY={{ variant: 'band', domain: ['a', 'b'] }}>
+                    <ScatterInterval lower={'lo'} upper={'hi'} />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('scatter-interval')).toBeNull()
     })
 })
