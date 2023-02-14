@@ -1,5 +1,5 @@
-import { Chart, Circle, Legend, LegendItem, LegendItemProps, View } from '../../src'
-import { render, screen } from '@testing-library/react'
+import { Chart, Circle, Legend, LegendItem, LegendItemProps, useChartData, View } from '../../src'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../utils'
 import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
@@ -78,5 +78,57 @@ describe('LegendItem', () => {
         const label = item.querySelector('text')
         expect(getNumberAttr(symbol, 'cy')).toBeLessThan(getNumberAttr(label, 'y'))
         expect(getNumberAttr(symbol, 'cx')).toEqual(getNumberAttr(label, 'x'))
+    })
+
+    it('toggles opacity and disabled state upon click', async () => {
+        const ShowDisabled = () => {
+            const { data } = useChartData()
+            const disabledKeys = Array.from(data.disabledKeys ?? []).join('')
+            if (!data.disabledKeys) return null
+            return <text role={'show-disabled'}>{disabledKeys}</text>
+        }
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend variant={'list'} key={1}>
+                        <LegendItem variant={'bottom'} {...legendItemProps} />
+                    </Legend>
+                    <ShowDisabled key={2} />
+                </View>
+            </Chart>
+        )
+        const item = screen.getByRole('legend-item')
+        expect(item.getAttribute('style')).toContain('opacity: 1')
+        // toggle to disabled state
+        fireEvent.click(item)
+        const item2 = await screen.findByRole('legend-item')
+        expect(item2.getAttribute('style')).not.toContain('opacity: 1')
+        const show = await screen.findByRole('show-disabled')
+        expect(show.textContent).toContain('alpha')
+        // toggle back to active state
+        fireEvent.click(item)
+        const item3 = await screen.findByRole('legend-item')
+        expect(item3.getAttribute('style')).toContain('opacity: 1')
+        // toggle again to disabled state
+        fireEvent.click(item)
+        const item4 = await screen.findByRole('legend-item')
+        expect(item4.getAttribute('style')).not.toContain('opacity: 1')
+    })
+
+    it('does not toggle when interactivity is turned off', async () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend variant={'list'}>
+                        <LegendItem variant={'bottom'} {...legendItemProps} interactive={false} />
+                    </Legend>
+                </View>
+            </Chart>
+        )
+        const item = screen.getByRole('legend-item')
+        expect(item.getAttribute('style')).toContain('opacity: 1')
+        fireEvent.click(item)
+        const item2 = await screen.findByRole('legend-item')
+        expect(item2.getAttribute('style')).toContain('opacity: 1')
     })
 })

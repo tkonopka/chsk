@@ -1,6 +1,7 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, Counter } from '../../src'
 import { chartProps } from '../props'
+import { useState } from 'react'
 
 describe('Counter', () => {
     it('creates a default counter component', () => {
@@ -14,17 +15,31 @@ describe('Counter', () => {
         expect(result).toHaveLength(1)
     })
 
-    it('updates values', () => {
+    it('updates values', async () => {
+        const CustomCounter = () => {
+            const [value, setValue] = useState<number>(0)
+            return (
+                <>
+                    <circle
+                        key={1}
+                        role="circle"
+                        onClick={() => {
+                            setValue(value => value + 100)
+                        }}
+                    />
+                    <Counter key={2}>{value}</Counter>
+                </>
+            )
+        }
         render(
             <Chart {...chartProps}>
-                <Counter>50</Counter>
+                <CustomCounter />
             </Chart>
         )
-        const counter = screen.getByRole('counter')
-        expect(counter).toBeDefined()
-        // this is an attempt to trigger the counter animation,
-        // but the animation code is not covered... this needs improvement
-        fireEvent.change(counter, { target: { textContent: 60 } })
-        expect(counter.textContent).toEqual('60')
+        expect(screen.getByRole('counter').textContent).toEqual('0')
+        // trigger the counter animation
+        fireEvent.click(screen.getByRole('circle'))
+        const counter = await screen.findByText('100')
+        expect(counter.textContent).toEqual('100')
     })
 })
