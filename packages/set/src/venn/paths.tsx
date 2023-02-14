@@ -1,6 +1,6 @@
-import { NumericPositionSpec, X, Y } from '@chsk/core'
+import { NumericPositionSpec, addPositions, X, Y } from '@chsk/core'
 import { VennProcessedDataItem } from './types'
-import { addPoints, equalCoordinates } from './utils'
+import { equalCoordinates } from './utils'
 
 // create an arc definition in svg format:
 // A rx, ry, x-axis-rotation, large-arc-flag, sweep-flag, x, y
@@ -21,8 +21,8 @@ export type pathVennProps = {
 
 const pathVenn1of1 = ({ data, index }: pathVennProps) => {
     const item = data[index]
-    const p1: NumericPositionSpec = addPoints(item.points[0], [0, -0.01])
-    const p2: NumericPositionSpec = addPoints(item.points[0], [0, 0.01])
+    const p1: NumericPositionSpec = addPositions(item.points[0], [0, -0.01])
+    const p2: NumericPositionSpec = addPositions(item.points[0], [0, 0.01])
     return [pathM(p1), pathArc(p2, item.r, 0, 0), pathArc(p1, item.r, 1, 1)].join(' ')
 }
 
@@ -35,8 +35,8 @@ const pathVenn1of2 = ({ data, index }: pathVennProps) => {
     let p2effective = p2
     if (equalCoordinates(p1, p2)) {
         const ysign = index === 0 ? 1 : -1
-        p1effective = addPoints(p1, [0, -ysign * 0.01])
-        p2effective = addPoints(p2, [0, ysign * 0.01])
+        p1effective = addPositions(p1, [0, -ysign * 0.01])
+        p2effective = addPositions(p2, [0, ysign * 0.01])
     }
     //const p2effective = equalCoordinates(p1, p2) ? addPoints(p2, [0, 1e-6]) : p2
     // sweep for arc of the boundary between item and other

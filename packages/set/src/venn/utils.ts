@@ -115,16 +115,12 @@ export const rotatePoint = (p: NumericPositionSpec, angle: number): NumericPosit
     return rotatePointTrig(p, Math.cos(angle), Math.sin(angle))
 }
 
-export const addPoints = (a: NumericPositionSpec, b: NumericPositionSpec): NumericPositionSpec => {
-    return [a[X] + b[X], a[Y] + b[Y]]
-}
-
 export const equalCoordinates = (a: NumericPositionSpec, b: NumericPositionSpec): boolean => {
     return a[X] === b[X] && a[Y] === b[Y]
 }
 
 export const midpoint = (a: NumericPositionSpec, b: NumericPositionSpec): NumericPositionSpec => {
-    return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
+    return [(a[X] + b[X]) / 2, (a[Y] + b[Y]) / 2]
 }
 
 export const distance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {

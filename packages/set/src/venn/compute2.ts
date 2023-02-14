@@ -1,6 +1,7 @@
-import { NumericPositionSpec, X } from '@chsk/core'
+import { NumericPositionSpec, X, addPositions } from '@chsk/core'
 import { VennProcessedDataItem } from './types'
-import { addPoints } from './utils'
+
+const add = addPositions
 
 // modifies object 'result'
 export const processData2 = (
@@ -75,8 +76,8 @@ export const computeVenn2 = (
         const factor = 1 + disjointSpacing / 2
         posA[X] = -rA * factor
         posB[X] = rB * factor
-        const pointA: NumericPositionSpec = addPoints(posA, [rA, 0])
-        const pointB: NumericPositionSpec = addPoints(posB, [-rB, 0])
+        const pointA: NumericPositionSpec = add(posA, [rA, 0])
+        const pointB: NumericPositionSpec = add(posB, [-rB, 0])
         pointsA.push(pointA)
         pointsA.push([...pointA]) // a clone is needed because objects will be shifted later
         pointsB.push(pointB)
@@ -87,14 +88,14 @@ export const computeVenn2 = (
         if (sizeIntersectionAB === sizeA) {
             posB[X] = rB - rA
             thetaA = Math.PI
-            pointA = addPoints(posA, [-rA, 0])
-            pointB = addPoints(posB, [-rB, 0])
+            pointA = add(posA, [-rA, 0])
+            pointB = add(posB, [-rB, 0])
         }
         if (sizeIntersectionAB === sizeB) {
             posB[X] = rA - rB
             thetaB = Math.PI
-            pointA = addPoints(posA, [rA, 0])
-            pointB = addPoints(posB, [rB, 0])
+            pointA = add(posA, [rA, 0])
+            pointB = add(posB, [rB, 0])
         }
         const r = (rA + rB) / 2
         pointsA.push([pointA[X], 0.01 * r])
