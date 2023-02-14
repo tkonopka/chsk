@@ -42,3 +42,9 @@ export const getAnchoredOrigin = (
 ): NumericPositionSpec => {
     return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
 }
+
+/** vector addition */
+export const addPositions = (
+    a: NumericPositionSpec,
+    b: NumericPositionSpec
+): NumericPositionSpec => [a[X] + b[X], a[Y] + b[Y]]

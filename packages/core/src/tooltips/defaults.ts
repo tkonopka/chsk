@@ -12,6 +12,7 @@ export const defaultTooltipProps: TooltipThemedProps = {
     labelOffset: 6,
     rx: 2,
     ry: 2,
+    maxOverhang: [16, 16, 16, 16],
 }
 
 export const defaultTooltipItemListProps: TooltipItemListThemedProps = {

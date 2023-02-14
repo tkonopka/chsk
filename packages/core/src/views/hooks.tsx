@@ -20,16 +20,16 @@ import { useMemo } from 'react'
 
 export const useView = ({
     position,
-    positionUnits,
+    positionUnits = 'absolute',
     size,
-    sizeUnits,
+    sizeUnits = 'absolute',
     padding = zeroPadding,
     anchor,
 }: {
     position: PositionSpec
-    positionUnits: PositionUnits
+    positionUnits?: PositionUnits
     size: SizeSpec
-    sizeUnits: SizeUnits
+    sizeUnits?: SizeUnits
     padding?: FourSideSizeSpec
     anchor: AnchorSpec
 }) => {

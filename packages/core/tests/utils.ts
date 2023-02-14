@@ -14,11 +14,3 @@ export const getNumberAttr = (item: SVGElement | null, attribute: string) => {
     const raw = item ? item.getAttribute(attribute) : ''
     return Number(raw?.replace('px', ''))
 }
-
-export const getTranslate = (item: SVGElement | null | undefined, variant: string) => {
-    const raw: string = (item ? item.getAttribute('style') : '') ?? ''
-    const prefix = 'translate' + variant
-    const part = raw.split(' ').filter(p => p.startsWith(prefix))[0]
-    const result = part.replace(prefix, '').replace('(', '').replace('px)', '').replace(';', '')
-    return Number(result)
-}

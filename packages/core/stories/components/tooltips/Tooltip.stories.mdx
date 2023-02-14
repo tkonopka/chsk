@@ -77,6 +77,47 @@ Hover on the examples below to display a tooltip anchored at different location 
     </Story>
 </Canvas>
 
+## Overhang
+
+A tooltip created within a view may hover beyond the view boundary, and sometimes, that is acceptable.
+However, when the tooltip moves beyond the entire chart boundary, it may become clipped.
+
+To avoid clipping, use prop `maxOverhang` to set a margin around the view.
+Tooltips that move beyond the overhang will flip direction.
+
+<Canvas>
+    <Story
+        name="large overhang"
+        args={{
+            position: [0, 0],
+            size: [80, 80],
+            sizeUnits: 'absolute',
+            anchor: [0, 1],
+            maxOverhang: [100, 100, 100, 100],
+            children: <Surface style={{ fill: '#aabbee' }} />,
+        }}
+        component={Tooltip}
+        decorators={[ChartForDetectorTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="small overhang"
+        args={{
+            position: [0, 0],
+            size: [80, 80],
+            sizeUnits: 'absolute',
+            anchor: [0, 1],
+            maxOverhang: [0, 0, 0, 0],
+            children: <Surface style={{ fill: '#aabbee' }} />,
+        }}
+        component={Tooltip}
+        decorators={[ChartForDetectorTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Tooltip content
 
 The content of the tooltip consists of a number of distinct pieces.

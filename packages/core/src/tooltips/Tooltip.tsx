@@ -2,25 +2,31 @@ import { m } from 'framer-motion'
 import { OpacityMotion } from '../charts'
 import { useView } from '../views'
 import { getClassName, useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, SideVariant, zeroPadding } from '../general'
+import {
+    addPositions,
+    DimensionsProvider,
+    getAnchoredOrigin,
+    NumericPositionSpec,
+    SideVariant,
+    zeroPadding,
+} from '../general'
 import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { TooltipTitle } from './TooltipTitle'
 import { TooltipItemList } from './TooltipItemList'
 import { useTooltip } from './contexts'
-import { guessLabel } from './utils'
+import { exitsParent, flipPositionAnchor, guessLabel } from './utils'
 import { TooltipProps } from './types'
 
 const UnthemedTooltip = ({
     // layout of container
     position = defaultTooltipProps.position,
-    positionUnits = 'absolute',
     size,
-    sizeUnits = 'absolute',
     anchor = defaultTooltipProps.anchor,
     padding = zeroPadding,
     rx = defaultTooltipProps.rx,
     ry = defaultTooltipProps.ry,
+    maxOverhang = defaultTooltipProps.maxOverhang,
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
@@ -51,14 +57,29 @@ const UnthemedTooltip = ({
         itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
         itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
     ]
-    const { x, y, dimsProps } = useView({
+    const {
+        x: x0,
+        y: y0,
+        dimsProps,
+        dimensions,
+    } = useView({
         position,
-        positionUnits,
         size,
-        sizeUnits,
         anchor,
     })
-    // position of first non-title item
+
+    // in cases when the tooltip would exit the parent container, adjust position and anchor
+    const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
+    const flip = exitsParent(
+        addPositions([x0, y0], tooltipPosition),
+        size,
+        dimensions.size,
+        maxOverhang
+    )
+    const { flippedPosition, flippedAnchor } = flipPositionAnchor(position, anchor, flip)
+    const [x, y] = getAnchoredOrigin(flippedPosition, size, flippedAnchor)
+
+    // relative position of first non-title item
     const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
     const itemsPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
@@ -118,8 +139,8 @@ const UnthemedTooltip = ({
     )
 
     const config = {
-        x: x + (tooltip.x ?? 0),
-        y: y + (tooltip.y ?? 0),
+        x: x + tooltipPosition[X],
+        y: y + tooltipPosition[Y],
         originX: '0px',
         originY: '0px',
     }

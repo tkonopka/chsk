@@ -1,7 +1,7 @@
 import { Chart, Circle, Tooltip, TooltipItem, TooltipItemProps, View } from '../../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
-import { getTranslate, getNumberAttr } from '../utils'
+import { getNumberAttr } from '../utils'
 import { MockTooltipSetter, scaleCategorical, viewSeriesIndexesKeys } from './Tooltip.test'
 
 describe('TooltipItem', () => {
