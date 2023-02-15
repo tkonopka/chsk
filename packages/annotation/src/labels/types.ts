@@ -8,6 +8,7 @@ import {
     PositionSpec,
     SizeSpec,
     TranslateSpec,
+    TypographyProps,
 } from '@chsk/core'
 import { ReactNode } from 'react'
 
@@ -48,4 +49,17 @@ export interface BoxedTitleProps extends SvgElementVariantProps, BoxedTextProps 
     size?: number
     /** distance from axis */
     offset?: number
+}
+
+export interface ParagraphProps extends Omit<TypographyProps, 'variant'> {
+    /** size of individual lines (width, height) */
+    size: SizeSpec
+    /** vertical alignment */
+    align?: number
+    /** separator string used to split text into lines */
+    separator?: string
+    /** base letter width profiles */
+    letterBaseWidths?: 'serif' | 'sans'
+    /** letter widths */
+    letterWidths?: Record<string, number>
 }

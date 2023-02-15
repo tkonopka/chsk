@@ -1,6 +1,6 @@
 import { Chart } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
-import { BoxedTitle } from '../../src/boxes'
+import { BoxedTitle } from '../../src'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../../../core/tests/utils'
 

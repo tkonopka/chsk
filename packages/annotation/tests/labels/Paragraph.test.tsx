@@ -1,9 +1,9 @@
-import { Paragraph } from '../src/paragraphs'
-import { splitText } from '../src/paragraphs/utils'
-import sans from '../src/paragraphs/arial.json'
+import { Paragraph } from '../../src/labels'
+import { splitText } from '../../src/labels/utils'
+import sans from '../../src/labels/arial.json'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { chartProps } from './props'
+import { chartProps } from '../props'
 
 describe('splitText', () => {
     it('handles empty text', () => {

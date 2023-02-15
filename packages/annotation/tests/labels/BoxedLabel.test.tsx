@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { BoxedLabel } from '../../src/boxes'
+import { BoxedLabel } from '../../src'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../../../core/tests/utils'
 
