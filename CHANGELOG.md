@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] component `AxisTooltip`
 -   [examples] bar chart with gradients within bars
 -   [annotation] filters `FilterInsetShadow`, `FilterInsetColor`,
     `FilterInsetBoundary`

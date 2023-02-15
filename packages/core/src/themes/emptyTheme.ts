@@ -24,6 +24,7 @@ export const emptyTheme: CompleteThemeSpec = {
     TooltipItemList: {},
     TooltipItem: {},
     TooltipTitle: {},
+    AxisTooltip: {},
     View: {},
     Colors: defaultTheme.Colors,
     Motion: {},

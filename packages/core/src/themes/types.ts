@@ -69,6 +69,7 @@ export interface ThemeSpec {
     TooltipItemList?: Record<string, TooltipItemListThemedProps | undefined>
     TooltipItem?: Record<string, TooltipItemThemedProps | undefined>
     TooltipTitle?: Record<string, TooltipItemThemedProps | undefined>
+    AxisTooltip?: Record<string, TooltipThemedProps | undefined>
     View?: Record<string, Partial<ViewThemedProps> | undefined>
     Colors?: Record<string, ColorScaleSpec | undefined>
     Motion?: MotionProps
@@ -97,6 +98,7 @@ export interface CompleteThemeSpec {
     TooltipItemList: Record<string, TooltipItemListThemedProps | undefined>
     TooltipItem: Record<string, TooltipItemThemedProps | undefined>
     TooltipTitle: Record<string, TooltipItemThemedProps | undefined>
+    AxisTooltip: Record<string, TooltipThemedProps | undefined>
     View: Record<string, ViewThemedProps | undefined>
     Colors: ColorsRecords
     Motion: MotionProps
@@ -121,4 +123,5 @@ export type ThemedComponent =
     | 'TooltipTitle'
     | 'TooltipItem'
     | 'TooltipItemList'
+    | 'AxisTooltip'
     | 'View'

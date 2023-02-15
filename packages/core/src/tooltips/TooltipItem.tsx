@@ -31,8 +31,8 @@ const UnthemedTooltipItem = ({
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
     labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
-    const symbolClassName = getClassName('tooltipSymbol', className)
-    const textClassName = getClassName('tooltipItem', className)
+    const symbolClassName = getClassName('tooltipSymbol ' + variant, className)
+    const textClassName = getClassName('tooltipItem ' + variant, className)
 
     return (
         <g

@@ -7,7 +7,7 @@ import {
     LegendItemListProps,
     LegendItemListThemedProps,
 } from '../legends'
-import { NumericPositionSpec, AnchorSpec, WithId, FourSideSizeSpec } from '../general'
+import { NumericPositionSpec, AnchorSpec, WithId, FourSideSizeSpec, SideVariant } from '../general'
 
 export type TooltipTitleProps = LegendTitleProps
 
@@ -37,19 +37,29 @@ export interface TooltipProps
     /** vertical corner radius */
     ry?: number
     /** construction of title */
-    titleFormat?: (d: TooltipData) => string | undefined
+    titleFormat?: null | ((d: TooltipData) => string | undefined)
     /** construction of label */
-    labelFormat?: (d: TooltipDataItem) => string
+    labelFormat?: null | ((d: TooltipDataItem) => string)
     /** extent tooltip can exit its reference region */
     maxOverhang?: FourSideSizeSpec
 }
 
 export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
     position: NumericPositionSpec
+    padding: FourSideSizeSpec
     anchor: AnchorSpec
     rx: number
     ry: number
     maxOverhang: FourSideSizeSpec
+}
+
+export interface AxisTooltipProps extends Omit<TooltipProps, 'variant'> {
+    /** variant */
+    variant: SideVariant
+}
+
+export interface AxisTooltipThemedProps extends TooltipThemedProps {
+    variant: SideVariant
 }
 
 export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'> & {
@@ -85,3 +95,38 @@ export type TooltipProviderValue = {
     data: TooltipData
     setData: (d: TooltipData) => unknown
 }
+
+/**
+export interface TooltipContentProps
+    extends Omit<
+        LegendProps,
+        | 'variant'
+        | 'position'
+        | 'positionUnits'
+        | 'size'
+        | 'sizeUnits'
+        | 'anchor'
+        | 'padding'
+        | 'firstOffset'
+        | 'scaleSize'
+        | 'sizeTicks'
+        | 'interactive'
+    > {
+    / tooltip type /
+    variant: SideVariant
+    / size /
+    size: NumericPositionSpec
+    / horizontal corner radius /
+    rx?: number
+    / vertical corner radius /
+    ry?: number
+    / construction of label /
+    labelFormat?: (d: TooltipDataItem) => string
+    / data /
+    data: TooltipDataItem[]
+    / position for first element in items list /
+    itemsPosition: NumericPositionSpec
+    / position for title /
+    titlePosition: NumericPositionSpec
+}
+*/

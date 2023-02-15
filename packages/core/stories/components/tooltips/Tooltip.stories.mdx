@@ -29,7 +29,6 @@ Further, the tooltip can be offset from the target position with prop `position`
         args={{
             position: [0, -10],
             size: [80, 40],
-            sizeUnits: 'absolute',
             anchor: [0.5, 1],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -52,7 +51,6 @@ Hover on the examples below to display a tooltip anchored at different location 
         args={{
             position: [0, 0],
             size: [80, 40],
-            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -66,7 +64,6 @@ Hover on the examples below to display a tooltip anchored at different location 
         args={{
             position: [0, 0],
             size: [80, 120],
-            sizeUnits: 'absolute',
             anchor: [1, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
@@ -91,7 +88,6 @@ Tooltips that move beyond the overhang will flip direction.
         args={{
             position: [0, 0],
             size: [80, 80],
-            sizeUnits: 'absolute',
             anchor: [0, 1],
             maxOverhang: [100, 100, 100, 100],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -106,7 +102,6 @@ Tooltips that move beyond the overhang will flip direction.
         args={{
             position: [0, 0],
             size: [80, 80],
-            sizeUnits: 'absolute',
             anchor: [0, 1],
             maxOverhang: [0, 0, 0, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -123,15 +118,16 @@ Tooltips that move beyond the overhang will flip direction.
 The content of the tooltip consists of a number of distinct pieces.
 These pieces can be tuned with props such as `itemSize` and `itemPadding`.
 
-The examples below display tooltips that have: compact padding, ample padding,
-and a title line.
+The examples below display tooltips that have: compact padding, ample padding, and a title line.
+(Note that the tooltips do not disappear when the mouse moves away.
+In these examples, this behavior is intentional -
+it facilitates inspection of the tooltip using developer tools `Ctrl Shift C`.)
 
 <Canvas>
     <Story
         name="small item padding"
         args={{
             position: [10, 0],
-            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             itemSize: [100, 20],
             itemPadding: [2, 2, 2, 2],
@@ -145,7 +141,6 @@ and a title line.
         name="large item padding"
         args={{
             position: [10, 0],
-            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],
@@ -159,9 +154,8 @@ and a title line.
         name="title"
         args={{
             position: [10, 0],
-            sizeUnits: 'absolute',
             anchor: [0, 0.5],
-            itemPadding: [6, 6, 6, 6],
+            itemPadding: [4, 6, 4, 6],
             title: 'Tooltip title',
         }}
         component={Tooltip}
@@ -171,9 +165,26 @@ and a title line.
     </Story>
 </Canvas>
 
-Note that the tooltips do not disappear when the mouse moves away.
-In these examples, this behavior is intentional -
-it facilitates inspection of the tooltip using developer tools (`Ctrl Shift C`).
+To create a tooltip with only a title, i.e. without entries with a symbol and label,
+set prop `labelFormat` to null.
+
+<Canvas>
+    <Story
+        name="only title"
+        args={{
+            position: [10, 0],
+            anchor: [0, 0.5],
+            itemSize: [100, 20],
+            itemPadding: [2, 0, 0, 6],
+            title: 'Tooltip title',
+            labelFormat: null,
+        }}
+        component={Tooltip}
+        decorators={[ChartForShapesTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
 
 ## Custom style
 
@@ -184,7 +195,6 @@ The tooltip can be styled using css.
         name="custom style"
         args={{
             position: [10, 0],
-            sizeUnits: 'absolute',
             anchor: [0, 0.5],
             itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],

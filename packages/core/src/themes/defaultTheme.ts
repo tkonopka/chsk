@@ -79,15 +79,25 @@ export const defaultTheme: CompleteThemeSpec = {
             dominantBaseline: 'central',
         },
         tooltipTitle: {
-            textAnchor: 'start',
             dominantBaseline: 'central',
             fontSize: '12px',
             fontWeight: 600,
         },
         tooltipItem: {
-            textAnchor: 'start',
             dominantBaseline: 'central',
             fontSize: '12px',
+        },
+        'tooltipTitle.right': {
+            textAnchor: 'start',
+        },
+        'tooltipTitle.left': {
+            textAnchor: 'end',
+        },
+        'tooltipItem.right': {
+            textAnchor: 'start',
+        },
+        'tooltipItem.left': {
+            textAnchor: 'end',
         },
     },
     g: {
@@ -227,6 +237,28 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     TooltipTitle: {
         default: cloneDeep(defaultTooltipItemProps),
+    },
+    AxisTooltip: {
+        top: {
+            ...cloneDeep(defaultTooltipProps),
+            position: [0, 0],
+            anchor: [0.5, 1],
+        },
+        right: {
+            ...cloneDeep(defaultTooltipProps),
+            position: [0, 0],
+            anchor: [0, 0.5],
+        },
+        bottom: {
+            ...cloneDeep(defaultTooltipProps),
+            position: [0, 0],
+            anchor: [0.5, 0],
+        },
+        left: {
+            ...cloneDeep(defaultTooltipProps),
+            position: [0, 0],
+            anchor: [1, 0.5],
+        },
     },
     View: {
         default: cloneDeep(defaultViewProps),

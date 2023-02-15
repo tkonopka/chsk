@@ -17,7 +17,7 @@ const UnthemedTooltipTitle = ({
 }: TooltipTitleProps) => {
     if (!children) return null
     const [x, y] = getTitlePosition(variant, position, size, padding)
-    const compositeClassName = getClassName('tooltip-title', className)
+    const compositeClassName = getClassName('tooltip-title ' + variant, className)
     return (
         <text
             role={setRole ? 'tooltip-title' : undefined}

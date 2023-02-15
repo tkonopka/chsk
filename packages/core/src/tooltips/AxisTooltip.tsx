@@ -1,23 +1,15 @@
 import { useView } from '../views'
 import { useThemedProps } from '../themes'
-import {
-    addPositions,
-    BOTTOM,
-    getAnchoredOrigin,
-    LEFT,
-    NumericPositionSpec,
-    RIGHT,
-    TOP,
-    X,
-    Y,
-} from '../general'
+import { NumericPositionSpec, useDimensions } from '../general'
+import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { useTooltip } from './contexts'
-import { exitsParent, flipPositionAnchor, guessLabel } from './utils'
-import { TooltipProps } from './types'
+import { guessLabel } from './utils'
 import { BaseTooltip } from './BaseTooltip'
+import { AxisTooltipProps } from './types'
 
-const UnthemedTooltip = ({
+const UnthemedAxisTooltip = ({
+    variant = 'right',
     // layout of container
     position = defaultTooltipProps.position,
     size,
@@ -25,7 +17,6 @@ const UnthemedTooltip = ({
     padding = defaultTooltipProps.padding,
     rx = defaultTooltipProps.rx,
     ry = defaultTooltipProps.ry,
-    maxOverhang = defaultTooltipProps.maxOverhang,
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
@@ -46,34 +37,34 @@ const UnthemedTooltip = ({
     style,
     setRole = true,
     children,
-}: TooltipProps) => {
+}: AxisTooltipProps) => {
     const { data: tooltip } = useTooltip()
+    const container = useDimensions()
     const data = tooltip.data ?? []
     const n = labelFormat === null ? 0 : data.length
-    title =
-        title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
+    title = title ?? (titleFormat ? titleFormat(tooltip) : tooltip.title)
     const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
     size = size ?? [
         itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
         itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
     ]
-    const { x, y, dimensions } = useView({ position, size, anchor })
+    const { x, y } = useView({ position, size, anchor })
 
-    // in cases when the tooltip would exit the parent container, adjust position and anchor
-    const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
-    const flip = exitsParent(
-        addPositions([x, y], tooltipPosition),
-        size,
-        dimensions.size,
-        maxOverhang
-    )
-    const { flippedPosition, flippedAnchor } = flipPositionAnchor(position, anchor, flip)
-    const originPosition = getAnchoredOrigin(flippedPosition, size, flippedAnchor)
+    const tooltipPosition: NumericPositionSpec = [x + (tooltip.x ?? 0), y + (tooltip.y ?? 0)]
+    if (variant === 'top') {
+        tooltipPosition[Y] = y
+    } else if (variant === 'right') {
+        tooltipPosition[X] = x + container.size[X]
+    } else if (variant === 'bottom') {
+        tooltipPosition[Y] = y + container.size[Y]
+    } else if (variant === 'left') {
+        tooltipPosition[X] = x
+    }
 
     return (
         <BaseTooltip
-            variant={horizontal ? 'bottom' : 'right'}
-            position={addPositions(originPosition, tooltipPosition)}
+            variant={variant}
+            position={[tooltipPosition[X], tooltipPosition[Y]]}
             size={size}
             padding={padding}
             data={data}
@@ -100,6 +91,6 @@ const UnthemedTooltip = ({
     )
 }
 
-export const Tooltip = (props: TooltipProps) => (
-    <UnthemedTooltip {...useThemedProps(props, 'Tooltip')} />
+export const AxisTooltip = (props: AxisTooltipProps) => (
+    <UnthemedAxisTooltip {...useThemedProps(props, 'AxisTooltip')} />
 )

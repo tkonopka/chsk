@@ -1,3 +1,4 @@
+export * from './AxisTooltip'
 export * from './contexts'
 export * from './defaults'
 export * from './Tooltip'

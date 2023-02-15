@@ -152,6 +152,26 @@ describe('Tooltip', () => {
         expect(items[0].getAttribute('transform')).toBeNull()
     })
 
+    it('omits items when labelFormat is null', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} title={'context title'} data={tooltipData}>
+                        <Tooltip
+                            title={'abc'}
+                            padding={[0, 0, 0, 0]}
+                            itemSize={[80, 30]}
+                            labelFormat={null}
+                        />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('tooltip-title')).not.toBeNull()
+        expect(screen.getByRole('tooltip-surface').getAttribute('height')).toEqual('30')
+        expect(screen.queryAllByRole('tooltip-item')).toHaveLength(0)
+    })
+
     it('uses padding', () => {
         render(
             <Chart {...chartProps}>
