@@ -144,7 +144,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                             minDistance={20}
                         />
                         <Tooltip
-                            position={[0, -25]}
+                            translate={[0, -25]}
                             padding={[4, 0, 4, 0]}
                             itemSize={[160, 26]}
                             itemPadding={[4, 8, 4, 8]}

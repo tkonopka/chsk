@@ -38,13 +38,11 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                     <Tooltip />
                 </TooltipProvider>
                 <Legend
-                    position={[-2, -45]}
+                    position={[-2, -80]}
                     positionUnits={'absolute'}
                     size={[300, 80]}
                     sizeUnits={'absolute'}
                     horizontal={true}
-                    anchor={[0, 1]}
-                    padding={[20, 0, 20, 0]}
                     r={10.5}
                     itemSize={[85, 20]}
                     itemPadding={[2, 2, 2, 2]}

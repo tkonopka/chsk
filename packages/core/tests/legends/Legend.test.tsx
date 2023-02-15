@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Legend, View, ColorScaleProps } from '../../src'
 import { chartProps } from '../props'
+import { getNumberAttr } from '../utils'
 
 export const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },
@@ -71,6 +72,38 @@ describe('Legend (list)', () => {
         )
         const items = screen.getAllByRole('legend-item')
         expect(items[0].getAttribute('transform')).toContain('translate(0,20)')
+    })
+
+    it('creates a background surface rectangle', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <Legend itemSize={[80, 20]} title={'custom title'} />
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('legend-surface')).toBeDefined()
+    })
+
+    it('uses padding to shift title and items', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <Legend
+                        position={[0, 0]}
+                        size={[100, 60]}
+                        sizeUnits={'absolute'}
+                        padding={[5, 5, 5, 5]}
+                        itemSize={[80, 20]}
+                        title={'custom title'}
+                    />
+                </View>
+            </Chart>
+        )
+        const title = screen.getAllByRole('legend-title')
+        const titleRect = title[0].querySelector('rect')
+        expect(getNumberAttr(titleRect, 'x')).toEqual(5)
+        expect(getNumberAttr(titleRect, 'y')).toEqual(5)
     })
 })
 

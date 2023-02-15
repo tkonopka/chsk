@@ -91,9 +91,10 @@ In the examples below, the gray area is the current view, and the blue rectangle
     </Story>
 </Canvas>
 
-## Padding
+## Translation
 
-A prop `padding` introduces space between the legend's bounding container (determined by `position`, `size`, and `anchor`) and the legend content.
+A prop `translate` introduces an additional shift (in absolute coordinates)
+with respect to the position determined by `position`, `size`, and `anchor`.
 
 <Canvas>
     <Story
@@ -104,7 +105,7 @@ A prop `padding` introduces space between the legend's bounding container (deter
             size: [60, 80],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
-            padding: [0, 12, 0, 12],
+            translate: [10, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}
@@ -113,8 +114,6 @@ A prop `padding` introduces space between the legend's bounding container (deter
         {Template.bind({})}
     </Story>
 </Canvas>
-
-Note that adding padding can have a very similar effect to adjusting the position and size. This is just a convenience prop that makes the API consistent with other container-based components.
 
 ## Categorical content
 

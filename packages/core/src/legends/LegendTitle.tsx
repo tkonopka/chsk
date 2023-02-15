@@ -22,8 +22,8 @@ const UnthemedLegendTitle = ({
         <g role={setRole ? 'legend-title' : undefined} className={'legendTitle'}>
             <rect
                 role={setRole ? 'legend-title' : undefined}
-                x={0}
-                y={0}
+                x={position[X]}
+                y={position[Y]}
                 width={size[X]}
                 height={size[Y]}
                 className={compositeClassName}

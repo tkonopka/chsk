@@ -184,7 +184,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     </Legend>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                     <CustomTooltip
-                        position={[-15, 15]}
+                        translate={[-15, 15]}
                         anchor={[1, 0]}
                         padding={[4, 0, 2, 0]}
                         itemSize={[120, 28]}

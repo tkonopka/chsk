@@ -19,7 +19,7 @@ import { BaseTooltip } from './BaseTooltip'
 
 const UnthemedTooltip = ({
     // layout of container
-    position = defaultTooltipProps.position,
+    translate = defaultTooltipProps.translate,
     size,
     anchor = defaultTooltipProps.anchor,
     padding = defaultTooltipProps.padding,
@@ -57,7 +57,7 @@ const UnthemedTooltip = ({
         itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
         itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
     ]
-    const { x, y, dimensions } = useView({ position, size, anchor })
+    const { x, y, dimensions } = useView({ position: translate, size, anchor })
 
     // in cases when the tooltip would exit the parent container, adjust position and anchor
     const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
@@ -67,7 +67,7 @@ const UnthemedTooltip = ({
         dimensions.size,
         maxOverhang
     )
-    const { flippedPosition, flippedAnchor } = flipPositionAnchor(position, anchor, flip)
+    const { flippedPosition, flippedAnchor } = flipPositionAnchor(translate, anchor, flip)
     const originPosition = getAnchoredOrigin(flippedPosition, size, flippedAnchor)
 
     return (

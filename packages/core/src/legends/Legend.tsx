@@ -1,12 +1,21 @@
 import { ReactNode } from 'react'
 import { LegendProps } from './types'
 import { useView } from '../views'
-import { LegendTitle } from './LegendTitle'
-import { useThemedProps } from '../themes'
-import { DimensionsProvider, NumericPositionSpec, SideVariant, zeroPosition } from '../general'
+import { getClassName, useThemedProps } from '../themes'
+import {
+    DimensionsProvider,
+    getTranslate,
+    NumericPositionSpec,
+    SideVariant,
+    X,
+    Y,
+    TOP,
+    LEFT,
+} from '../general'
 import { useScales } from '../scales'
 import { LegendColorScale } from './LegendColorScale'
 import { defaultLegendProps } from './defaults'
+import { LegendTitle } from './LegendTitle'
 import { LegendItemList } from './LegendItemList'
 import { LegendSizeScale } from './LegendSizeScale'
 
@@ -19,6 +28,9 @@ const UnthemedLegend = ({
     sizeUnits = 'relative',
     anchor = [0, 0],
     padding = defaultLegendProps.padding,
+    translate = defaultLegendProps.translate,
+    rx = defaultLegendProps.rx,
+    ry = defaultLegendProps.ry,
     // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
@@ -45,25 +57,26 @@ const UnthemedLegend = ({
     children,
 }: LegendProps) => {
     const scales = useScales()
-    const { translate, dimsProps } = useView({
+    const { x, y, dimsProps } = useView({
         position,
         positionUnits,
         size,
         sizeUnits,
         anchor,
-        padding,
     })
 
-    // position of first non-title item
-    const pos: NumericPositionSpec = [0, 0]
+    // position of title and first non-title item (in Legend DimensionsProvider)
+    const titlePosition: NumericPositionSpec = padding ? [padding[LEFT], padding[TOP]] : [0, 0]
+    const itemsPosition: NumericPositionSpec = [...titlePosition]
+
     const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
     if (title) {
-        pos[0] += step[0] + firstOffset[0]
-        pos[1] += step[1] + firstOffset[1]
+        itemsPosition[0] += step[0] + firstOffset[0]
+        itemsPosition[1] += step[1] + firstOffset[1]
     }
 
     const sideVariant: SideVariant = horizontal ? 'bottom' : 'right'
-    const vhp = { variant: sideVariant, horizontal, position: pos }
+    const vhp = { variant: sideVariant, horizontal, position: itemsPosition }
 
     // legend content
     let content: ReactNode | null | ReactNode[] = null
@@ -109,8 +122,7 @@ const UnthemedLegend = ({
     return (
         <g
             role={setRole ? 'legend' : undefined}
-            transform={translate}
-            style={style}
+            transform={getTranslate(x + translate[X], y + translate[Y])}
             className={className}
         >
             <DimensionsProvider {...dimsProps} role={setRole ? 'legend-content' : undefined}>
@@ -118,10 +130,22 @@ const UnthemedLegend = ({
                     children
                 ) : (
                     <>
+                        <rect
+                            key={'legend-surface'}
+                            role={setRole ? 'legend-surface' : undefined}
+                            x={0}
+                            y={0}
+                            width={size[X]}
+                            height={size[Y]}
+                            rx={rx}
+                            ry={ry}
+                            className={getClassName('legend surface', className)}
+                            style={style}
+                        />
                         <LegendTitle
                             key={'legend-title'}
                             variant={'right'}
-                            position={zeroPosition}
+                            position={titlePosition}
                             size={itemSize}
                             padding={itemPadding}
                             translate={[0, r]}

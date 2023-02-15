@@ -55,13 +55,11 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 />
                 <Tooltip />
                 <Legend
-                    position={[-60, -45]}
+                    position={[-60, -80]}
                     positionUnits={'absolute'}
                     size={[300, 80]}
                     sizeUnits={'absolute'}
                     horizontal={true}
-                    anchor={[0, 1]}
-                    padding={[20, 0, 20, 0]}
                     r={10.5}
                     itemSize={[85, 20]}
                     itemPadding={[2, 0, 2, 0]}

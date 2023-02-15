@@ -19,15 +19,14 @@ The examples in this documentation page use custom elements that set tooltip dat
 
 ## Position
 
-`Tooltip` determines its target position from the tooltip context via the `useTooltip` hook.
-The target position is often the location of a mouse pointer.
-Further, the tooltip can be offset from the target position with prop `position`.
+`Tooltip` determines its position from the tooltip context via the `useTooltip` hook.
+Further, the tooltip can be offset with prop `translate`.
 
 <Canvas>
     <Story
         name="position"
         args={{
-            position: [0, -10],
+            translate: [0, -10],
             size: [80, 40],
             anchor: [0.5, 1],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -49,7 +48,7 @@ Hover on the examples below to display a tooltip anchored at different location 
     <Story
         name="anchored middle-left"
         args={{
-            position: [0, 0],
+            translate: [0, 0],
             size: [80, 40],
             anchor: [0, 0.5],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -62,7 +61,7 @@ Hover on the examples below to display a tooltip anchored at different location 
     <Story
         name="anchored top-right"
         args={{
-            position: [0, 0],
+            translate: [0, 0],
             size: [80, 120],
             anchor: [1, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
@@ -86,7 +85,7 @@ Tooltips that move beyond the overhang will flip direction.
     <Story
         name="large overhang"
         args={{
-            position: [0, 0],
+            translate: [0, 0],
             size: [80, 80],
             anchor: [0, 1],
             maxOverhang: [100, 100, 100, 100],
@@ -100,7 +99,7 @@ Tooltips that move beyond the overhang will flip direction.
     <Story
         name="small overhang"
         args={{
-            position: [0, 0],
+            translate: [0, 0],
             size: [80, 80],
             anchor: [0, 1],
             maxOverhang: [0, 0, 0, 0],
@@ -127,7 +126,7 @@ it facilitates inspection of the tooltip using developer tools `Ctrl Shift C`.)
     <Story
         name="small item padding"
         args={{
-            position: [10, 0],
+            translate: [10, 0],
             anchor: [0, 0.5],
             itemSize: [100, 20],
             itemPadding: [2, 2, 2, 2],
@@ -140,7 +139,7 @@ it facilitates inspection of the tooltip using developer tools `Ctrl Shift C`.)
     <Story
         name="large item padding"
         args={{
-            position: [10, 0],
+            translate: [10, 0],
             anchor: [0, 0.5],
             itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],
@@ -153,7 +152,7 @@ it facilitates inspection of the tooltip using developer tools `Ctrl Shift C`.)
     <Story
         name="title"
         args={{
-            position: [10, 0],
+            translate: [10, 0],
             anchor: [0, 0.5],
             itemPadding: [4, 6, 4, 6],
             title: 'Tooltip title',
@@ -172,7 +171,7 @@ set prop `labelFormat` to null.
     <Story
         name="only title"
         args={{
-            position: [10, 0],
+            translate: [10, 0],
             anchor: [0, 0.5],
             itemSize: [100, 20],
             itemPadding: [2, 0, 0, 6],
@@ -194,7 +193,7 @@ The tooltip can be styled using css.
     <Story
         name="custom style"
         args={{
-            position: [10, 0],
+            translate: [10, 0],
             anchor: [0, 0.5],
             itemSize: [100, 28],
             itemPadding: [6, 6, 6, 6],

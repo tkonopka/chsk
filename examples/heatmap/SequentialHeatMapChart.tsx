@@ -91,7 +91,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 </Legend>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <Tooltip
-                    position={[16, -16]}
+                    translate={[16, -16]}
                     padding={[0, 0, 6, 0]}
                     anchor={[0, 1]}
                     itemSize={[120, 26]}

@@ -158,6 +158,9 @@ export const defaultTheme: CompleteThemeSpec = {
             stroke: '#aaaaaa',
             filter: 'drop-shadow(2px 2px 4px #00000033)',
         },
+        'legend.surface': {
+            fillOpacity: 0,
+        },
         legendItem: {
             fill: '#ffffff',
         },
@@ -241,22 +244,22 @@ export const defaultTheme: CompleteThemeSpec = {
     AxisTooltip: {
         top: {
             ...cloneDeep(defaultTooltipProps),
-            position: [0, 0],
+            translate: [0, 0],
             anchor: [0.5, 1],
         },
         right: {
             ...cloneDeep(defaultTooltipProps),
-            position: [0, 0],
+            translate: [0, 0],
             anchor: [0, 0.5],
         },
         bottom: {
             ...cloneDeep(defaultTooltipProps),
-            position: [0, 0],
+            translate: [0, 0],
             anchor: [0.5, 0],
         },
         left: {
             ...cloneDeep(defaultTooltipProps),
-            position: [0, 0],
+            translate: [0, 0],
             anchor: [1, 0.5],
         },
     },

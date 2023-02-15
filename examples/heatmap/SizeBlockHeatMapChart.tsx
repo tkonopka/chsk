@@ -132,7 +132,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <DownloadButtons position={[450, 230]} data image />
                 <Tooltip
-                    position={[18, 0]}
+                    translate={[18, 0]}
                     anchor={[0, 0.5]}
                     itemSize={[105, 26]}
                     itemPadding={[4, 8, 4, 8]}

@@ -7,7 +7,10 @@ import {
 } from './types'
 
 export const defaultLegendProps: LegendThemedProps = {
+    translate: [0, 0],
     padding: [0, 0, 0, 0],
+    rx: 0,
+    ry: 0,
     horizontal: false,
     itemSize: [60, 20],
     itemPadding: [4, 4, 4, 4],

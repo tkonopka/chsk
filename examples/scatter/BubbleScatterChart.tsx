@@ -131,7 +131,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         style={{ stroke: '#000000' }}
                     />
                     <Tooltip
-                        position={[16, -16]}
+                        translate={[16, -16]}
                         anchor={[0, 1]}
                         itemSize={[180, 26]}
                         titleFormat={customTooltipTitle}

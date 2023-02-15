@@ -28,14 +28,8 @@ export interface TooltipProps
     > {
     /** tooltip type */
     variant?: 'list'
-    /** position */
-    position?: NumericPositionSpec
     /** size */
     size?: NumericPositionSpec
-    /** horizontal corner radius */
-    rx?: number
-    /** vertical corner radius */
-    ry?: number
     /** construction of title */
     titleFormat?: null | ((d: TooltipData) => string | undefined)
     /** construction of label */
@@ -45,7 +39,7 @@ export interface TooltipProps
 }
 
 export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
-    position: NumericPositionSpec
+    translate: NumericPositionSpec
     padding: FourSideSizeSpec
     anchor: AnchorSpec
     rx: number
@@ -95,38 +89,3 @@ export type TooltipProviderValue = {
     data: TooltipData
     setData: (d: TooltipData) => unknown
 }
-
-/**
-export interface TooltipContentProps
-    extends Omit<
-        LegendProps,
-        | 'variant'
-        | 'position'
-        | 'positionUnits'
-        | 'size'
-        | 'sizeUnits'
-        | 'anchor'
-        | 'padding'
-        | 'firstOffset'
-        | 'scaleSize'
-        | 'sizeTicks'
-        | 'interactive'
-    > {
-    / tooltip type /
-    variant: SideVariant
-    / size /
-    size: NumericPositionSpec
-    / horizontal corner radius /
-    rx?: number
-    / vertical corner radius /
-    ry?: number
-    / construction of label /
-    labelFormat?: (d: TooltipDataItem) => string
-    / data /
-    data: TooltipDataItem[]
-    / position for first element in items list /
-    itemsPosition: NumericPositionSpec
-    / position for title /
-    titlePosition: NumericPositionSpec
-}
-*/

@@ -91,6 +91,12 @@ export interface LegendProps
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
+    /** offset position (absolute values) */
+    translate?: NumericPositionSpec
+    /** horizontal corner radius */
+    rx?: number
+    /** vertical corner radius */
+    ry?: number
     /** size of a single legend item */
     itemSize?: SizeSpec
     /** padding for a single legend item */
@@ -101,7 +107,7 @@ export interface LegendProps
     titleStyle?: CssProps
     /** arrange the legend items horizontally */
     horizontal?: boolean
-    /** offset/translate first item relative to default position */
+    /** offset/translate first non-title item relative to default position */
     firstOffset?: NumericPositionSpec
     /** size for color gradient scale */
     scaleSize?: SizeSpec
@@ -114,6 +120,9 @@ export interface LegendThemedProps
         LegendProps,
         'padding' | 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
     > {
+    translate: NumericPositionSpec
+    rx: number
+    ry: number
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec
     horizontal: boolean

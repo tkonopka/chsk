@@ -11,7 +11,7 @@ import { AxisTooltipProps } from './types'
 const UnthemedAxisTooltip = ({
     variant = 'right',
     // layout of container
-    position = defaultTooltipProps.position,
+    translate = defaultTooltipProps.translate,
     size,
     anchor = defaultTooltipProps.anchor,
     padding = defaultTooltipProps.padding,
@@ -48,7 +48,7 @@ const UnthemedAxisTooltip = ({
         itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
         itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
     ]
-    const { x, y } = useView({ position, size, anchor })
+    const { x, y } = useView({ position: translate, size, anchor })
 
     const tooltipPosition: NumericPositionSpec = [x + (tooltip.x ?? 0), y + (tooltip.y ?? 0)]
     if (variant === 'top') {

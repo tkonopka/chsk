@@ -87,7 +87,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 <TooltipProvider>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                     <Tooltip
-                        position={[-18, -18]}
+                        translate={[-18, -18]}
                         anchor={[1, 1]}
                         padding={[0, 0, 6, 0]}
                         itemSize={[120, 28]}
