@@ -37,7 +37,7 @@ Use prop `ids` to specify the bands to highlight.
 
 ## Interactivity
 
-Flag `interactive` activates interactivity. Hover the mouse on the examples below to make the surfaces appear.
+Flag `interactive` activates interactivity. Hover the mouse on the example below to make the surfaces appear.
 
 <Canvas>
     <Story name="highlights 1">
@@ -55,6 +55,13 @@ Flag `interactive` activates interactivity. Hover the mouse on the examples belo
             </Bar>
         </Chart>
     </Story>
+</Canvas>
+
+Above, parts of each band show bars, and hovering on those bars may not not activate the highlight.
+One way to make the surface appear is to include a style `pointer-events: 'none'`.
+This style can be set inline, or via themes.
+
+<Canvas>
     <Story name="highlights 2">
         <Chart
             id={'bh2'}
@@ -72,4 +79,28 @@ Flag `interactive` activates interactivity. Hover the mouse on the examples belo
     </Story>
 </Canvas>
 
-When a band contains content, for example bars in a bar chart, then hovering on that content may not activate the highlight (see first example above). To make the highlight visible, the style on that content must include `pointer-events: 'none'`. This can be set inline (see second example above), or via themes.
+## Tooltip
+
+Another way to activate the highlights is with prop `tooltip`.
+Setting this flag indicates that the surface should become visible based on data from the tooltip context.
+
+<Canvas>
+    <Story name="tooltip">
+        <Chart
+            id={'bh2'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true} stacked={false}>
+                <BandSurface tooltip={true} interactive={false} style={{ fill: '#eeeeee' }} />
+                <Bars />
+                <Axis variant={'top'} label={'Values (a.u.)'} />
+                <Axis variant={'left'} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that setting `tooltip` makes the surface appear when the mouse hovers on the bars, and not
+on the empty space. To activate both behaviors, set both `tooltip` and `interactive`.

@@ -16,6 +16,7 @@ export const Rectangle = ({
     strokeWidth,
     fill,
     fillOpacity,
+    opacity,
     ...props
 }: RectangleProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -36,6 +37,7 @@ export const Rectangle = ({
         strokeWidth,
         fill,
         fillOpacity,
+        opacity,
     }
     return (
         <m.rect

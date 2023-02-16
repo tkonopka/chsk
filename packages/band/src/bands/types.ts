@@ -5,6 +5,7 @@ import {
     LabelLocationSpec,
     LabelProps,
     LinearScaleSpec,
+    RectangleProps,
     SizeSpec,
     SizeUnit,
     SvgElementProps,
@@ -19,6 +20,10 @@ export interface BandSurfaceProps extends SvgElementProps, WithInteractive {
     ids?: string[]
     /** expansion along the value axis */
     expansion?: TwoSideSizeSpec
+    /** component */
+    component?: FC<RectangleProps>
+    /** use tooltip data to display surface */
+    tooltip?: boolean
 }
 
 export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
@@ -34,7 +39,7 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
     translate?: TranslateSpec
     /** format for text */
     format?: (v: Record<string, unknown>) => string
-    /** components used to render label */
+    /** component used to render label */
     component?: FC<LabelProps>
 }
 

@@ -1,6 +1,6 @@
 import { MilestoneStory } from '../types'
 import { Axis, AxisTicks, Chart, GridLines, Legend, Tooltip } from '@chsk/core'
-import { Bar, Bars } from '@chsk/band'
+import { BandSurface, Bar, Bars } from '@chsk/band'
 import { DownloadButtons } from '../navigation'
 import { generateBarData } from './generators'
 import { groupedKeys, groupedIds, groupedTheme } from './GroupedVerticalBarChart'
@@ -37,6 +37,7 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 }}
                 horizontal={true}
             >
+                <BandSurface interactive={true} tooltip={true} style={{ fill: '#f0f0f0' }} />
                 <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                 <Axis variant={'top'} />
                 <Axis variant={'left'}>

@@ -6,7 +6,10 @@ import {
 import { InteractivityProps } from '../interactivity'
 import { CSSProperties } from 'react'
 
-type FillStrokeProps = Pick<CSSProperties, 'stroke' | 'strokeWidth' | 'fill' | 'fillOpacity'>
+type FillStrokeProps = Pick<
+    CSSProperties,
+    'stroke' | 'strokeWidth' | 'fill' | 'fillOpacity' | 'opacity'
+>
 
 export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, InteractivityProps {
     /** x coordinate */

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [band] allow `BandSurface` to appear using tooltip context
 -   [core] component `AxisTooltip`
 -   [examples] bar chart with gradients within bars
 -   [annotation] filters `FilterInsetShadow`, `FilterInsetColor`,
