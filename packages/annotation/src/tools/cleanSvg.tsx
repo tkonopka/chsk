@@ -5,7 +5,7 @@ export const defaultCleanSvgConfig = {
     skipRoles: ['dimensions-reference'],
     roundAttributeNames: ['x', 'x1', 'x2', 'y', 'y1', 'y2', 'width', 'height', 'cx', 'cy', 'r'],
     roundAttributeDecimalPlaces: 3,
-    newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text'],
+    newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text', 'filter', 'defs'],
 }
 
 /**
@@ -48,6 +48,9 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
             if (transform) {
                 element.setAttribute('transform', transform)
             }
+        }
+        if (attr.value === 'undefined') {
+            element.removeAttribute(attr.name)
         }
     }
     config.skipAttributeNames.forEach(attrName => {

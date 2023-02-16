@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { roundPxDecimalPlaces, cleanTransform } from '../src/menu/helpers'
-import { cleanSvg } from '../src/menu'
+import { roundPxDecimalPlaces, cleanTransform } from '../../src/tools/helpers'
+import { cleanSvg } from '../../src/tools'
 
 describe('converting pixels to fixed decimal places', () => {
     it('leaves standard strings alone', () => {
@@ -184,6 +184,18 @@ describe('Svg format', () => {
         const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('style')).not.toBeNull()
         expect(clean.getAttribute('style')).toBeNull()
+    })
+
+    it('removes attributes with value set to undefined', () => {
+        render(
+            <svg>
+                <rect role={'target'} width={'10px'} height={'20px'} opacity={'undefined'} />
+            </svg>
+        )
+        const raw = screen.getByRole('target')
+        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        expect(raw.getAttribute('width')).not.toBeNull()
+        expect(clean.getAttribute('opacity')).toBeNull()
     })
 
     it('removes g with role dimensions-reference', () => {

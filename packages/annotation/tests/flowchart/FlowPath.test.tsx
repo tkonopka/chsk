@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { chartProps, viewProps } from './props'
-import { FlowPath } from '../src'
+import { chartProps, viewProps } from '../props'
+import { FlowPath } from '../../src'
 
 describe('FlowPath', () => {
     it('creates a line with absolute coordinates', () => {
