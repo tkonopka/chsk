@@ -15,7 +15,7 @@ import {
 } from '@chsk/core'
 import { ScatterAreaProps } from './types'
 import { useScatterPreparedData } from './context'
-import { getScatterCurvePoints } from './ScatterCurve'
+import { curvePoints } from './signals'
 
 export const getAreaD = ({
     points,
@@ -39,11 +39,17 @@ export const ScatterArea = ({
     baseline,
     curve = 'Linear',
     variant = 'default',
+    // signal processing
+    convolutionMask,
+    convolutionOffset,
+    downsampleFactor,
+    downsampleIndex,
+    // other props
     style,
     className = 'scatterArea',
     setRole,
     dataComponent = DataComponent,
-    ...props
+    ...pathProps
 }: ScatterAreaProps) => {
     const preparedData = useScatterPreparedData()
     const scales = useScales()
@@ -55,15 +61,33 @@ export const ScatterArea = ({
     const areas: Record<string, string> = {}
     preparedData.keys.map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
+        const seriesData = preparedData.data[seriesIndex]
         areas[id] = useMemo(
             () =>
                 getAreaD({
-                    points: getScatterCurvePoints(preparedData.data[seriesIndex]),
+                    points: curvePoints({
+                        x: seriesData.x,
+                        y: seriesData.y,
+                        convolutionMask,
+                        convolutionOffset,
+                        downsampleFactor,
+                        downsampleIndex,
+                    }),
                     curve,
                     scaleY,
                     baseline,
                 }),
-            [seriesIndex, preparedData, curve, scaleY, baseline]
+            [
+                seriesIndex,
+                preparedData,
+                curve,
+                scaleY,
+                baseline,
+                convolutionMask,
+                convolutionOffset,
+                downsampleFactor,
+                downsampleIndex,
+            ]
         )
     })
 
@@ -82,7 +106,7 @@ export const ScatterArea = ({
                 style: seriesStyle,
                 className,
             },
-            ...props,
+            ...pathProps,
         })
 
         return (

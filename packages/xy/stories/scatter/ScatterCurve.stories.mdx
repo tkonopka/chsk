@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis } from '@chsk/core'
 import { Scatter, ScatterCurve } from '../../src'
-import { ChartScatterDecorator } from './decorators'
+import { ChartScatterDecorator, ChartWithNoisyPointsDecorator } from './decorators'
 import data from './dataPolynomials.json'
 
 # ScatterCurve
@@ -77,3 +77,124 @@ Use `ScatterCurve` multiple times to overlay multiple series. Each series can ha
         </Chart>
     </Story>
 </Canvas>
+
+## Down-sampling
+
+By default, `ScatterCurve` draws a line through all the data points in a series.
+To reduce the complexity of the curve, it is possible to set prop `downsampleFactor` and use
+a fraction of the data points, extracted at regular intervals.
+A prop `downsampleIndex` determines the first data point of the down-sampled curve.
+
+<Canvas>
+    <Story
+        name="downsample, index 0"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            downsampleFactor: 0.5,
+            downsampleIndex: 0,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="downsample, index 1"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            downsampleFactor: 0.5,
+            downsampleIndex: 1,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+The examples above show that starting down-sampling from different data points can produce quite different curve shapes.
+This makes down-sampling, when used on its own, unreliable as a smoothing technique.
+However, it can be attractive when used together with convolution (see next section).
+
+## Convolution
+
+`ScatterCurve` can perform a convolution of the data with an array-like mask.
+This can be used to display moving averages of various types: simple / historical moving average, symmetrical averages,
+and weighted averages.
+
+The properties of the convolution are specified in prop `convolutionMask` and prop `convolutionOffset`.
+For example, in a time-series context, it may be desirable to compute a moving average of three time points in the immediate past.
+This would correspond to a mask `[1, 1, 1]` and an offset of `0` (the default). In another context, it may be
+desirable to compute a smoothing curve by averaging three nearby data points in a symmetrical fashion. This would be
+achieved by setting the convolution offset to `-1`.
+
+<Canvas>
+    <Story
+        name="historic average"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            convolutionMask: [1, 1, 1],
+            convolutionOffset: 0,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="symmetric average"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            convolutionMask: [1, 1, 1],
+            convolutionOffset: -1,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that the domain of the resulting curve shifts depending on `convolutionOffset`.
+
+Once a curve is smoothed with convolution, it may be attractive to perform down-sampling.
+
+<Canvas>
+    <Story
+        name="averaged, downsampled, index 0"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            convolutionMask: [1, 1, 1],
+            convolutionOffset: -1,
+            downsampleFactor: 0.5,
+            downsampleIndex: 0,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="averaged, downsampled, index 1"
+        args={{
+            ids: ['A'],
+            curve: 'Natural',
+            convolutionMask: [1, 1, 1],
+            convolutionOffset: -1,
+            downsampleFactor: 0.5,
+            downsampleIndex: 1,
+        }}
+        component={ScatterCurve}
+        decorators={[ChartWithNoisyPointsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+The two examples above, which differ in `downsampleIndex`, produce qualitatively similar shapes.
+As such, the arbitrary aspects of down-sampling become less pronounced after convolution.

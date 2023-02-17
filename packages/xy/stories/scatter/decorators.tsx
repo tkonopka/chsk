@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Legend, Circle, SymbolProps, Square, Tooltip } from '@chsk/core'
+import { Axis, Chart, Legend, Circle, SymbolProps, Square, Tooltip, GridLines } from '@chsk/core'
 import {
     Scatter,
     ScatterCurve,
@@ -8,7 +8,8 @@ import {
     ScatterCrosshair,
 } from '../../src'
 import dataPolynomials from './dataPolynomials.json'
-import { generateScatterSeries } from './generators'
+import dataNoisy from './dataNoisy.json'
+import { generateScatterSeries, generateScatterSeriesWithInterval } from './generators'
 
 export const ChartScatterDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
@@ -162,7 +163,7 @@ export const ChartWithTooltipDecorator = () => (
             <ScatterPoints />
             <ScatterCrosshair style={{ stroke: '#444', strokeWidth: 1, strokeDasharray: 6 }} />
             <Tooltip
-                position={[0, -10]}
+                translate={[0, -10]}
                 anchor={[0.5, 1]}
                 itemSize={[160, 32]}
                 itemPadding={[8, 8, 8, 8]}
@@ -170,10 +171,70 @@ export const ChartWithTooltipDecorator = () => (
             />
             <Legend
                 position={[220, 160]}
-                anchor={[0, 0.5]}
                 positionUnits={'absolute'}
+                anchor={[0, 0.5]}
                 symbol={Circle}
             />
+        </Scatter>
+    </Chart>
+)
+
+export const ChartWithNoisyPointsDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Scatter
+            data={dataNoisy}
+            x={'x'}
+            y={'y'}
+            valueSize={3}
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+        >
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} />
+            <ScatterPoints />
+            {Story()}
+        </Scatter>
+    </Chart>
+)
+
+export const dataWithInterval = [
+    generateScatterSeriesWithInterval(
+        'A',
+        Array(16)
+            .fill(0)
+            .map((v, i) => i),
+        x => 1 + 0.3 * x + Math.random() * 1.5,
+        [-0.8, 1.0]
+    ),
+]
+
+export const ChartForIntervalDecorator = (Story: () => ReactNode) => (
+    <Chart size={[500, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Scatter
+            data={dataWithInterval}
+            x={'x'}
+            y={'y'}
+            valueSize={6}
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+                nice: true,
+            }}
+        >
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} ticks={5} />
+            <GridLines variant={'y'} values={5} />
+            {Story()}
         </Scatter>
     </Chart>
 )

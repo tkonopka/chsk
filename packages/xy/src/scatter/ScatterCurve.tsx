@@ -2,32 +2,30 @@ import { createElement } from 'react'
 import {
     addColor,
     TooltipDataComponent,
-    NumericPositionSpec,
     OpacityMotion,
     Path,
     useDisabledKeys,
     useScales,
 } from '@chsk/core'
-import { ScatterCurveProps, ScatterPreparedDataItem } from './types'
+import { ScatterCurveProps } from './types'
 import { useScatterPreparedData } from './context'
-
-export const getScatterCurvePoints = (
-    data: ScatterPreparedDataItem
-): Array<NumericPositionSpec> => {
-    const x = data.x
-    const y = data.y
-    return x.map((v: number, i: number) => [v, y[i]])
-}
+import { curvePoints } from './signals'
 
 export const ScatterCurve = ({
     ids,
     curve = 'Linear',
     variant = 'default',
+    // signal processing
+    convolutionMask,
+    convolutionOffset,
+    downsampleFactor,
+    downsampleIndex,
+    // component props
     style,
     className = 'scatterCurve',
     setRole,
     dataComponent = TooltipDataComponent,
-    ...props
+    ...pathProps
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()
     const colorScale = useScales().color
@@ -39,7 +37,15 @@ export const ScatterCurve = ({
         if (seriesIndex === undefined) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
-        const points = getScatterCurvePoints(preparedData.data[seriesIndex])
+        const seriesData = preparedData.data[seriesIndex]
+        const points = curvePoints({
+            x: seriesData.x,
+            y: seriesData.y,
+            convolutionMask,
+            convolutionOffset,
+            downsampleFactor,
+            downsampleIndex,
+        })
         const element = createElement(dataComponent, {
             data: { id },
             component: Path,
@@ -51,7 +57,7 @@ export const ScatterCurve = ({
                 style: seriesStyle,
                 setRole,
             },
-            ...props,
+            ...pathProps,
         })
         return (
             <OpacityMotion

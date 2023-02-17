@@ -2,7 +2,6 @@ import { ScatterPoints } from './ScatterPoints'
 import { ScatterCurve } from './ScatterCurve'
 import { ScatterArea } from './ScatterArea'
 import { ScatterSeriesLayer, ScatterSeriesProps } from './types'
-import { DataComponent } from '@chsk/core'
 
 export const ScatterSeries = ({
     ids,
@@ -14,12 +13,9 @@ export const ScatterSeries = ({
     areaStyle,
     curveStyle,
     symbolStyle,
-    className,
-    setRole,
-    dataComponent = DataComponent,
     ...props
 }: ScatterSeriesProps) => {
-    const commonProps = { variant, curve, className, setRole, dataComponent, ...props }
+    const commonProps = { variant, curve, ...props }
     const result = layers.map((layer: ScatterSeriesLayer) => {
         if (layer === 'points') {
             return (

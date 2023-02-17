@@ -86,9 +86,21 @@ export interface ScatterPointsProps
     symbolStyle?: CssProps
 }
 
+export type SignalProcessingProps = {
+    /** convolution mask */
+    convolutionMask?: number[]
+    /** offset used during convolution */
+    convolutionOffset?: number
+    /** down-sampling factor [0, 1] */
+    downsampleFactor?: number
+    /** offset used during down-sampling */
+    downsampleIndex?: number
+}
+
 export interface ScatterCurveProps
     extends SvgElementVariantProps,
-        DataInteractivityProps<ScatterInteractiveDataItem, PathProps> {
+        DataInteractivityProps<ScatterInteractiveDataItem, PathProps>,
+        SignalProcessingProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** curve type */

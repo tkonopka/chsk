@@ -14,10 +14,14 @@ import {
     useDisabledKeys,
     DataComponent,
     Path,
+    NumericPositionSpec,
+    X,
+    Y,
 } from '@chsk/core'
-import { ScatterDataContextProps, ScatterIntervalProps } from './types'
+import { ScatterDataContextProps, ScatterIntervalProps, SignalProcessingProps } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
+import { curvePoints } from './signals'
 
 const getScatterIntervalD = ({
     seriesIndex,
@@ -27,6 +31,10 @@ const getScatterIntervalD = ({
     lower,
     upper,
     curve,
+    convolutionMask,
+    convolutionOffset,
+    downsampleFactor,
+    downsampleIndex,
 }: {
     seriesIndex: number
     rawData: RawDataContextProps
@@ -35,18 +43,19 @@ const getScatterIntervalD = ({
     lower: string | AccessorFunction<number>
     upper: string | AccessorFunction<number>
     curve: CurveSpec
-}) => {
+} & SignalProcessingProps) => {
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
     const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
     const lowerValues = originalSeriesData.map(item => scaleY(getLower(item)))
     const upperValues = originalSeriesData.map(item => scaleY(getUpper(item)))
     const x = preparedData.data[seriesIndex].x
-    const pointIntervals: Array<NumericPositionIntervalSpec> = x.map((v: number, i: number) => [
-        v,
-        lowerValues[i],
-        upperValues[i],
-    ])
+    const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
+    const lowerPoints = curvePoints({ x, y: lowerValues, ...signalProps })
+    const upperPoints = curvePoints({ x, y: upperValues, ...signalProps })
+    const pointIntervals: Array<NumericPositionIntervalSpec> = lowerPoints.map(
+        (p: NumericPositionSpec, i: number) => [p[X], p[Y], upperPoints[i][Y]]
+    )
     const generator = createAreaGenerator(curve)
     return generator(pointIntervals) ?? ''
 }
@@ -55,13 +64,19 @@ export const ScatterInterval = ({
     ids,
     lower,
     upper,
+    // signal processing
+    convolutionMask,
+    convolutionOffset,
+    downsampleFactor,
+    downsampleIndex,
+    // curves
     curve = 'Linear',
     variant = 'default',
     style,
     className,
     setRole,
     dataComponent = DataComponent,
-    ...props
+    ...pathProps
 }: ScatterIntervalProps) => {
     const preparedData = useScatterPreparedData()
     const rawData = useRawData()
@@ -71,6 +86,7 @@ export const ScatterInterval = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     if (!isContinuousAxisScale(scaleY)) return null
+    const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
 
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
@@ -87,6 +103,7 @@ export const ScatterInterval = ({
                     lower,
                     upper,
                     curve,
+                    ...signalProps,
                 }),
             [seriesIndex, rawData, preparedData, scaleY, lower, upper, curve]
         )
@@ -100,7 +117,7 @@ export const ScatterInterval = ({
                 style: seriesStyle,
                 className,
             },
-            ...props,
+            ...pathProps,
         })
         return (
             <OpacityMotion
