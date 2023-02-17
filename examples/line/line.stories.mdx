@@ -7,10 +7,7 @@ import { generateOverlayData, LineOverlayChart } from './LineOverlayChart'
 import { generateSurvivalData, SurvivalChart } from './SurvivalChart'
 import { generateTimeSeriesData, TimeSeriesChart } from './TimeSeriesChart'
 import { generateInnerPanelLineData, InnerPanelLineChart } from './InnerPanelLineChart'
-import {
-    generateTimeQuarterlySeriesData,
-    TimeQuarterlySeriesChart,
-} from './TimeQuarterlySeriesChart'
+import { generateConvolutionSeriesData, ConvolutionSeriesChart } from './ConvolutionSeriesChart'
 import { generateForecastData, ForecastChart } from './ForecastChart'
 
 <Meta title="Gallery/Line charts" />
@@ -46,8 +43,8 @@ import { generateForecastData, ForecastChart } from './ForecastChart'
 </Canvas>
 
 <Canvas>
-    <Story name="custom tick marks">
-        <Controller generator={generateTimeQuarterlySeriesData} chart={TimeQuarterlySeriesChart} />
+    <Story name="moving averages">
+        <Controller generator={generateConvolutionSeriesData} chart={ConvolutionSeriesChart} />
     </Story>
 </Canvas>
 

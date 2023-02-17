@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] random walks with moving averages
 -   [xy] basic signal-processing props (convolution, downsampling) for curves,
     areas, and intervals
 -   [band] allow `BandSurface` to appear using tooltip context

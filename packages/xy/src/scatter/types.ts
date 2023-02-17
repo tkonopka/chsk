@@ -74,6 +74,8 @@ export type ScatterInteractiveDataItem = WithId & {
     original?: Record<string, unknown>
 }
 
+// this uses symbolClassName and symbolStyle instead of SvgElementProps
+// that is to facilitate transferring props from ScatterSeries to ScatterPoints
 export interface ScatterPointsProps
     extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps> {
     /** ids to display (defaults to all ids) */
