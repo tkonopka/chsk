@@ -9,6 +9,7 @@ import {
     Typography,
     TooltipData,
     Surface,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCrosshair, ScatterPoints } from '@chsk/xy'
 import { downloadThemePiece, faintTicksThemePiece } from '@chsk/themes'
@@ -169,12 +170,12 @@ const customTooltipTitle = (x: TooltipData) => {
 const customLeftTitle = (x: TooltipData) => {
     const d0 = x?.data?.[0]
     if (!d0) return ''
-    const point = 'point' in d0 ? d0['point'] : [0, 0]
+    const point = 'point' in d0 ? (d0['point'] as NumericPositionSpec) : [0, 0]
     return String(point[1])
 }
 const customBottomTitle = (x: TooltipData) => {
     const d0 = x?.data?.[0]
     if (!d0) return ''
-    const point = 'point' in d0 ? d0['point'] : [0, 0]
+    const point = 'point' in d0 ? (d0['point'] as NumericPositionSpec) : [0, 0]
     return String(point[0])
 }

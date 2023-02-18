@@ -25,7 +25,7 @@ export const generateRandomWalksData = () => [
 ]
 
 const customLabelFormat = (x: TooltipDataItem) => {
-    const p: NumericPositionSpec = 'point' in x ? x['point'] : [0, 0]
+    const p: NumericPositionSpec = 'point' in x ? (x['point'] as NumericPositionSpec) : [0, 0]
     return x.id + ' ' + '(' + round2dp(p[0]) + ', ' + round2dp(p[1]) + ')'
 }
 

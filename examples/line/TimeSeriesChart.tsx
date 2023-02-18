@@ -11,6 +11,7 @@ import {
     addColor,
     Tooltip,
     TooltipDataItem,
+    NumericPositionSpec,
 } from '@chsk/core'
 import {
     isScatterData,
@@ -67,7 +68,7 @@ const FirstPoint = ({
 }
 
 const customLabelFormat = (x: TooltipDataItem) => {
-    const point = 'point' in x ? x['point'] : [0, 0]
+    const point: NumericPositionSpec = 'point' in x ? (x['point'] as NumericPositionSpec) : [0, 0]
     const date = dateToString(new Date(point[0]))
     return '(' + date + ', ' + point[1] + ')'
 }

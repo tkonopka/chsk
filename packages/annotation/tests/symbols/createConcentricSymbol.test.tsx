@@ -1,9 +1,8 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Chart, Circle, Square } from '@chsk/core'
 import { createConcentricSymbol } from '../../src/symbols'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../../../core/tests/utils'
-import { fireEvent } from '@storybook/testing-library'
 
 describe('createConcentricSymbol', () => {
     it('creates secondary symbol in the background', () => {

@@ -191,7 +191,7 @@ const d3schemes = [
     'YlOrRd',
 ] as const
 
-export type D3Scheme = typeof d3schemes[number]
+export type D3Scheme = (typeof d3schemes)[number]
 
 export type CategoricalScaleSpec = {
     variant: 'categorical'

@@ -105,7 +105,7 @@ export interface CompleteThemeSpec {
 }
 
 export const svgBaseComponents = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'] as const
-export type SvgBaseComponent = typeof svgBaseComponents[number]
+export type SvgBaseComponent = (typeof svgBaseComponents)[number]
 
 export type ThemedComponent =
     | 'Axis'

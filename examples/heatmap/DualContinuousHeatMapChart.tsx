@@ -79,7 +79,7 @@ const CustomTooltip = (props: TooltipProps) => {
     if (!data) return null
     if (data.id === 'group') return null
     if (alphabetUppercaseConsonants.indexOf(data.id) >= 0) {
-        data.color = 'value' in data ? purpleScale(data['value']) : purpleScale(0)
+        data.color = 'value' in data ? purpleScale(Number(data['value'])) : purpleScale(0)
     }
     return <Tooltip {...props} />
 }
