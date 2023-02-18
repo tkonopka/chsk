@@ -1,0 +1,68 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Props/Handlers" />
+
+# Handlers
+
+Handlers are functions that perform bespoke actions in response to user interactions.
+In chsk, there are two types of handlers - one type that applies to individual components,
+and another that is used by components that create many visual elements in batch.
+
+## Handlers for individual components
+
+Components such as `Rectangle` and `Path` create single visual elements on a chart.
+Such components accept handlers for common mouse events: mouse enter, mouse move, mouse leave, and click.
+
+Handlers for individual components receive as input an object summarizing the triggering event.
+A custom implementation is as follows.
+
+<Source
+    language="javascript"
+    code={`
+const handleIndividualClick = (event) => {
+  console.log('handling event')
+}`}
+/>
+
+Such a custom handler can be provided to a component via one of the handler props: `onMouseEnter`,
+`onMouseMove`, `onMouseLeave`, and `onClick`.
+
+<Source
+    language="javascript"
+    code={`
+<Rectangle x={0} y={0} width={10} height={10} onClick={handleIndividualClick} />
+`}
+/>
+
+## Data-dependent handlers
+
+Some components, especially in add-on packages, create several visual components in batch based on a dataset.
+For example, `Bars` (from the `@chsk/band` package) creates many rectangles to represent bars in a bar chart.
+In such scenarios, handlers receive two inputs: a data object and another object summarizing the triggering event.
+
+An implementation of a custom handler can have two arguments.
+
+<Source
+    language="javascript"
+    code={`
+const handleDataClick = (data, event) => {
+  console.log('clicked ' + JSON.stringify(data))
+}`}
+/>
+
+The content of the data object varies.
+In the bar chart context, for example, it would contain identifiers and data values for bars in the chart.
+
+Data-dependent handlers should be grouped and provided as a single prop `handlers`.
+
+<Source
+    language="javascript"
+    code={`
+<Bars handlers={{ onClick: handleDataClick }} />
+`}
+/>
+
+This API with prop `handlers` is a design choice with following rationale:
+(1) it emphasizes the difference in functional signature for data-dependent and invidual handlers;
+(2) it provides some consistency with definitions for style modifiers (see section on style modifiers);
+(3) it allows components such as `Bars` to group props and simplify internal prop propagation.
