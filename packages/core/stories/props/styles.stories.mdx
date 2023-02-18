@@ -1,0 +1,64 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Props/Styles" />
+
+# Styles
+
+Style props tune the visual appearance of chart elements.
+
+## `className`
+
+The prop `className` accepts a string. Its value is passed to an svg component as a class.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+
+<Circle r={2} class={'special'}} />
+
+// resulting SVG code
+
+<circle role="default" r="2" class="special"></circle>
+`} />
+
+If the class is included in the global chart style, it will affect the appearance of the svg element.
+To include the class in the global chart style, create a `<style>` tag inside the chart, or use themes.
+
+## `style`
+
+The prop `style` accepts css definitions. These custom styles are applied inline to individual svg components.
+
+In the example below, a `Circle` component is given a unique set of visual properties, which are passed to the svg graphic.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+
+<Circle r={2} style={{ stroke: 'red', strokeWidth: '2px' }} />
+
+// resulting SVG code
+
+<circle role="default" r="2" style="stroke: red; stroke-width: 2px;"></circle>
+`} />
+
+## `variant`
+
+The prop `variant` is used to assign a semantic role and a visual style to a component.
+
+The detailed behavior of the prop is component-dependent. However, one of the effects of the prop is that
+it's value is copied as a class name in the resulting svg. Thus, values for the `variant` prop are
+automatically used as css class names.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+
+<Typography variant={'title'}>Title</Typography>
+
+// resulting SVG code
+
+<text class="title">Title</text>
+`} />

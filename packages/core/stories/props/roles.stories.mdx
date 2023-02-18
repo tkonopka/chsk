@@ -1,0 +1,22 @@
+import { Meta, Source } from '@storybook/addon-docs'
+
+<Meta title="Core/Props/Roles" />
+
+## `setRole`
+
+Prop `setRole` is a boolean flag. It toggles the `role` attribute in the svg graphic.
+
+By default, the `setRole` prop is set to `true` so that the graphic source code includes some semantic information.
+Setting `setRole` to 'false' removes those tags.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+
+<Circle r={2} setRole={false} />
+
+// resulting SVG code
+
+<circle r="2"></circle>
+`} />
