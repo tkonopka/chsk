@@ -135,3 +135,27 @@ Components can be adjusted individually using css styles.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Content
+
+The component accepts complex children, including styled `<tspan>` elements.
+
+<Canvas>
+    <Story
+        name="tspan"
+        args={{
+            variant: 'default',
+            position: [40, 40],
+            style: { textAnchor: 'start' },
+            children: (
+                <tspan>
+                    This is <tspan style={{ fontWeight: 600 }}>bold</tspan>
+                </tspan>
+            ),
+        }}
+        component={Typography}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

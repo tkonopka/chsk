@@ -1,10 +1,19 @@
 import { cloneDeep, merge } from 'lodash'
+import { ReactElement, ReactNode } from 'react'
 
 export const getLetterProfile = (
     profile: Record<string, number>,
     adjustment?: Record<string, number>
 ) => {
     return merge(cloneDeep(profile), adjustment)
+}
+
+export const getTextContent = (node?: ReactNode): string => {
+    if (!node) return ''
+    if (typeof node === 'string') return node
+    if (typeof node !== 'object') return String(node).toString()
+    if (Array.isArray(node)) return node.map(x => getTextContent(x)).join('')
+    return String((node as ReactElement).props.children).toString()
 }
 
 // compute the length of one word by summing width associated with individual letters

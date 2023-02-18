@@ -123,7 +123,7 @@ describe('Typography', () => {
         expect(result?.getAttribute('style')).toContain('fill: #ff0000')
     })
 
-    it('ignores html', () => {
+    it('ignores html tags', () => {
         render(
             <Chart {...chartProps}>
                 <Typography variant={'custom'}>
@@ -133,5 +133,26 @@ describe('Typography', () => {
         )
         const result = screen.getByRole('custom').querySelector('text')
         expect(result?.textContent).toBe('html')
+    })
+
+    it('preserves tspan children', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom'}>
+                    one{' '}
+                    <tspan>
+                        two <tspan>three</tspan>
+                    </tspan>{' '}
+                    <tspan>four</tspan>
+                </Typography>
+            </Chart>
+        )
+        const result = screen.getByRole('custom')
+        const textContent = result.textContent
+        expect(textContent).toContain('one')
+        expect(textContent).toContain('two')
+        expect(textContent).toContain('three')
+        expect(textContent).toContain('four')
+        expect(result.querySelectorAll('tspan')).toHaveLength(3)
     })
 })

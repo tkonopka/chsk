@@ -1,9 +1,9 @@
 import { domAnimation, m, LazyMotion } from 'framer-motion'
+import { getClassName, X, Y } from '@chsk/core'
+import { getTextContent, getLetterProfile, splitText } from './utils'
 import { ParagraphProps } from './types'
-import { getClassName, getTextContent, X, Y } from '@chsk/core'
 import sans from './arial.json'
 import serif from './times-new-roman.json'
-import { getLetterProfile, splitText } from './utils'
 
 export const Paragraph = ({
     position = [0, 0],
