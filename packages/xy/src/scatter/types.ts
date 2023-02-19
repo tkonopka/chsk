@@ -7,12 +7,14 @@ import {
     CurveSpec,
     DataInteractivityProps,
     FourSideSizeSpec,
+    InteractivityProps,
     LineProps,
     NumericPositionSpec,
     PathProps,
     PositionUnits,
     ProcessedDataContextProps,
     SizeScaleSpec,
+    SvgElementProps,
     SvgElementVariantProps,
     SymbolProps,
     TranslateSpec,
@@ -133,6 +135,29 @@ export interface ScatterIntervalProps
     lower: string | AccessorFunction<number>
     /** key or function to extract upper bound for interval */
     upper: string | AccessorFunction<number>
+}
+
+export interface ScatterErrorBarProps extends SvgElementProps, InteractivityProps {
+    /** horizontal or vertical error bar */
+    variant: 'x' | 'y'
+    /** width of cap at the end of error bar */
+    capWidth?: number
+    /** position of lower bound */
+    lower: NumericPositionSpec
+    /** position of upper bound */
+    upper: NumericPositionSpec
+}
+
+export interface ScatterErrorsProps
+    extends SvgElementVariantProps,
+        DataInteractivityProps<ScatterInteractiveDataItem, ScatterErrorBarProps>,
+        Pick<ScatterIntervalProps, 'ids' | 'lower' | 'upper'> {
+    /** horizontal or vertical error bars */
+    variant: 'x' | 'y'
+    /** width of error bar ends */
+    capWidth?: number
+    /** component used to draw error bars */
+    component?: FC<ScatterErrorBarProps>
 }
 
 export interface ScatterAreaProps

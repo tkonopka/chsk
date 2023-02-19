@@ -238,3 +238,47 @@ export const ChartForIntervalDecorator = (Story: () => ReactNode) => (
         </Scatter>
     </Chart>
 )
+
+/** error bars */
+
+export const dataWithErrors = [
+    generateScatterSeries(
+        'A',
+        Array(16)
+            .fill(0)
+            .map((v, i) => i + 1),
+        x => 1 + 0.3 * x + Math.random() * 1.5
+    ),
+]
+dataWithErrors[0].data = dataWithErrors[0].data.map(item => ({
+    ...item,
+    ylo: item.y - 0.5,
+    yhi: item.y + 0.5,
+    xlo: item.x - 0.5,
+    xhi: item.x + 0.5,
+}))
+
+export const ChartForErrorsDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Scatter
+            data={dataWithErrors}
+            x={'x'}
+            y={'y'}
+            valueSize={3}
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+                nice: true,
+            }}
+        >
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} ticks={5} />
+            {Story()}
+            <ScatterPoints />
+        </Scatter>
+    </Chart>
+)

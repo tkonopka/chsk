@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [xy] support for error bars with `ScatterErrors`
 -   [examples] random walks with moving averages
 -   [xy] basic signal-processing props (convolution, downsampling) for curves,
     areas, and intervals
