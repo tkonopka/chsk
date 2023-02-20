@@ -1,0 +1,39 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { QuantileTooltip } from '../src'
+import { ChartQuantileWithTooltipDecorator, round2dp } from './decorators'
+
+# QuantileTooltip
+
+<Meta title="Addons/Band/QuantileTooltip" />
+export const Template = args => <QuantileTooltip {...args} />
+
+`QuantileTooltip` creates a tooltip summarizing a box-and-whisker element.
+
+<ArgsTable of={QuantileTooltip} />
+
+## Example
+
+`QuantileTooltip` creates a tooltip with a number of text fields arranged in a table-like layout.
+
+<Canvas>
+    <Story
+        name="tooltip"
+        args={{
+          translate: [8, 0],
+          size: [198, 136],
+          padding: [8, 8, 8, 8],
+          anchor: [0, 0.5],
+          cellSize: [40, 20],
+          cellPadding: 20,
+          labelFormat: ((d) => d.id + ' - ' + d.key),
+          valueFormat: round2dp,
+        }}
+        component={QuantileTooltip}
+        decorators={[ChartQuantileWithTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+
+</Canvas>
+
+Note that it may be necessary to set some styles via themes in order to align all the text elements correctly.

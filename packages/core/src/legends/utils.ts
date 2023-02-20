@@ -107,13 +107,14 @@ export const getSymbolPosition = (
 export const getLabelPosition = (
     variant: SideVariant,
     symbolPosition: NumericPositionSpec,
-    labelOffset: number
+    labelOffset: number,
+    r: number
 ): NumericPositionSpec => {
     const result: NumericPositionSpec = [symbolPosition[X], symbolPosition[Y]]
     if (variant === 'left') {
-        result[X] -= labelOffset
+        result[X] -= r + labelOffset
     } else if (variant === 'right') {
-        result[X] += labelOffset
+        result[X] += r + labelOffset
     } else if (variant === 'bottom') {
         result[Y] += labelOffset
     } else if (variant === 'top') {

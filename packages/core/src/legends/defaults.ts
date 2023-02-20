@@ -35,7 +35,7 @@ export const defaultLegendItemProps: LegendItemThemedProps = {
     padding: [4, 4, 4, 4],
     translate: [0, 0],
     r: 8,
-    labelOffset: 6,
+    labelOffset: 4,
     interactive: true,
 }
 
@@ -52,5 +52,5 @@ export const defaultLegendSizeScaleProps: LegendSizeScaleThemedProps = {
     itemSize: [60, 20],
     itemPadding: [4, 4, 4, 4],
     ticks: 3,
-    labelOffset: 6,
+    labelOffset: 4,
 }

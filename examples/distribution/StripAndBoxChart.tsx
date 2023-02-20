@@ -6,11 +6,17 @@ import {
     ThemeSpec,
     Legend,
     AxisLine,
-    Tooltip,
     TooltipDataItem,
-    TooltipData,
 } from '@chsk/core'
-import { Quantile, QuantileProps, Quantiles, Strip, StripProps, Strips } from '@chsk/band'
+import {
+    Quantile,
+    QuantileProps,
+    Quantiles,
+    QuantileTooltip,
+    Strip,
+    StripProps,
+    Strips,
+} from '@chsk/band'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -51,6 +57,12 @@ const customTheme: ThemeSpec = {
             fontWeight: 400,
             fill: '#222255',
         },
+        'tooltipItem.label': { textAnchor: 'start' },
+        'tooltipItem.value': {
+            textAnchor: 'start',
+            fontWeight: 600,
+            dominantBaseline: 'central',
+        },
     },
 }
 
@@ -83,26 +95,14 @@ const quantileProps: Omit<QuantileProps, 'data'> = {
     },
 }
 
-const customTooltipTitle = (x: TooltipData) => {
-    const x0 = x.data?.[0]
-    if (!x0) return undefined
-    return x0?.key
-}
-const customTooltipLabel = (x: TooltipDataItem) => {
-    const values = 'values' in x ? (x['values'] as number[]) : ([] as number[])
-    const roundedValues = values.map(v => round2dp(v))
-    const q1q3 = '[' + roundedValues[1] + ', ' + roundedValues[3] + ']'
-    return roundedValues[2] + ' ' + q1q3
-}
-
 export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
             id="stripAndBox"
             fref={fref}
             data={chartData}
-            size={[320, 400]}
-            padding={[60, 40, 60, 60]}
+            size={[360, 400]}
+            padding={[60, 60, 60, 80]}
             theme={customTheme}
         >
             <Strip {...stripProps} data={rawData}>
@@ -138,12 +138,16 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         medianStyle={{ stroke: '#161616', strokeWidth: 3 }}
                         whiskerCapWidth={0.3}
                     />
-                    <Tooltip
-                        padding={[4, 0, 4, 0]}
+                    <QuantileTooltip
+                        maxOverhang={[40, 40, 40, 40]}
+                        size={[200, 140]}
+                        cellSize={[40, 20]}
+                        cellPadding={20}
+                        padding={[8, 8, 8, 8]}
                         itemSize={[160, 26]}
-                        itemPadding={[4, 8, 4, 8]}
-                        titleFormat={customTooltipTitle}
-                        labelFormat={customTooltipLabel}
+                        labelFormat={(x: TooltipDataItem) => x.key ?? ''}
+                        valueFormat={round2dp}
+                        title={''}
                     />
                 </MilestoneMotion>
             </Quantile>

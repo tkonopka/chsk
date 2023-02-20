@@ -164,6 +164,8 @@ describe('Quantile', () => {
             {
                 id: 'A',
                 x: {
+                    n: 20,
+                    mean: 15,
                     values: [5, 10, 15, 20, 25],
                     quantiles: q5,
                     extrema: [5, 30],

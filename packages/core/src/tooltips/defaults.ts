@@ -12,7 +12,7 @@ export const defaultTooltipProps: TooltipThemedProps = {
     itemPadding: [4, 8, 4, 8],
     firstOffset: [0, 0],
     r: 8,
-    labelOffset: 6,
+    labelOffset: 4,
 }
 
 export const defaultTooltipItemListProps: TooltipItemListThemedProps = {
@@ -20,7 +20,7 @@ export const defaultTooltipItemListProps: TooltipItemListThemedProps = {
     itemSize: [100, 26],
     itemPadding: [4, 8, 4, 8],
     r: 8,
-    labelOffset: 6,
+    labelOffset: 4,
 }
 
 export const defaultTooltipItemProps: TooltipItemThemedProps = {
@@ -28,5 +28,5 @@ export const defaultTooltipItemProps: TooltipItemThemedProps = {
     padding: [4, 8, 4, 8],
     translate: [0, 0],
     r: 8,
-    labelOffset: 6,
+    labelOffset: 4,
 }

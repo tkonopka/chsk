@@ -14,3 +14,8 @@ export const getQuantiles = (values: number[], quantiles: number[]) => {
     const sortedValues = [...values].sort((a, b) => a - b)
     return quantiles.map(v => getQuantile(sortedValues, v, n1))
 }
+
+export const getMean = (values: number[]): number => {
+    const total = values.reduce((total, v) => total + v, 0)
+    return total / values.length
+}

@@ -54,7 +54,7 @@ describe('isQuantileProcessedSummary', () => {
     const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
 
     it('detects correct data format', () => {
-        const input = { values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
+        const input = { n: 20, mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
         expect(isQuantileProcessedSummary(input)).toBeTruthy()
     })
 
@@ -63,17 +63,39 @@ describe('isQuantileProcessedSummary', () => {
         expect(isQuantileProcessedSummary(input)).toBeFalsy()
     })
 
+    it('rejects objects without n', () => {
+        const input = { mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
+        expect(isQuantileProcessedSummary(input)).toBeFalsy()
+    })
+
+    it('rejects objects without mean', () => {
+        const input = { n: 20, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
+        expect(isQuantileProcessedSummary(input)).toBeFalsy()
+    })
+
     it('rejects partial objects', () => {
-        const input = { values: [1, 2, 3, 4, 5], quantiles: q5 }
+        const input = { n: 20, mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5 }
         expect(isQuantileProcessedSummary(input)).toBeFalsy()
     })
 
     it('rejects incorrect lengths', () => {
-        const inputV = { values: [1, 2, 4, 5], quantiles: q5, extrema: [0, 8] }
+        const inputV = { n: 20, mean: 3, values: [1, 2, 4, 5], quantiles: q5, extrema: [0, 8] }
         expect(isQuantileProcessedSummary(inputV)).toBeFalsy()
-        const inputQ = { values: [1, 2, 3, 4, 5], quantiles: [0, 1], extrema: [0, 8] }
+        const inputQ = {
+            n: 20,
+            mean: 3,
+            values: [1, 2, 3, 4, 5],
+            quantiles: [0, 1],
+            extrema: [0, 8],
+        }
         expect(isQuantileProcessedSummary(inputQ)).toBeFalsy()
-        const inputE = { values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8, 12] }
+        const inputE = {
+            n: 20,
+            mean: 3,
+            values: [1, 2, 3, 4, 5],
+            quantiles: q5,
+            extrema: [0, 8, 12],
+        }
         expect(isQuantileProcessedSummary(inputE)).toBeFalsy()
     })
 })

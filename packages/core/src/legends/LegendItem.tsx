@@ -33,7 +33,7 @@ const UnthemedLegendItem = ({
     const { data: chartData, setData: setChartData } = useChartData()
 
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
-    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset)
+    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset, r)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
 
     const handleClick = () => {

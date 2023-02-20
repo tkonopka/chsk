@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis, Surface, GridLines } from '@chsk/core'
+import { Chart, Axis, Surface, GridLines, roundDecimalPlaces } from '@chsk/core'
 import {
     Bar,
     Bars,
@@ -12,6 +12,7 @@ import {
     Schedule,
     ScheduleInteractiveDataItem,
     ScheduleProps,
+    Quantiles,
 } from '../src/'
 import dataGroups from './dataGroups.json'
 import dataSchedules from './dataSchedules.json'
@@ -128,6 +129,34 @@ export const ChartQuantileDecorator = (Story: () => ReactNode) => (
 export const onQuantilesClick = (data: QuantileInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
 }
+
+export const round2dp = (x: number) => String(roundDecimalPlaces(x, 2))
+
+export const ChartQuantileWithTooltipDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[40, 40, 60, 60]}
+        style={{ display: 'inline-block' }}
+        theme={{
+            text: {
+                'tooltipItem.label': { textAnchor: 'start' },
+                'tooltipItem.value': {
+                    textAnchor: 'start',
+                    fontWeight: 600,
+                    dominantBaseline: 'central',
+                },
+            },
+        }}
+    >
+        <Quantile {...commonQuantileProps} horizontal={false}>
+            <GridLines variant={'y'} />
+            <Axis variant={'bottom'} />
+            <Axis variant={'left'} label={'Values (a.u.)'} />
+            <Quantiles medianStyle={{ stroke: '#000000', strokeWidth: 2 }} />
+            {Story()}
+        </Quantile>
+    </Chart>
+)
 
 /** strip charts */
 

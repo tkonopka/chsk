@@ -13,6 +13,8 @@ export const generateQuantileGroupsData = () => {
             .map(() => randomNormalValue(mean, sd))
             .sort((a, b) => a - b)
         return {
+            n: Math.round(randomNormalValue(100, 15)),
+            mean: (values[3] + values[5]) / 2,
             values: [values[0], values[2], values[4], values[6], values[8]],
             quantiles: q5,
             extrema: [values[0] - 0.5, values[8] + 0.5],

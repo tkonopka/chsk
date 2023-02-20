@@ -4,7 +4,10 @@ import {
     DataInteractivityProps,
     InteractivityProps,
     ProcessedDataContextProps,
+    SizeSpec,
     SvgElementProps,
+    TooltipItemProps,
+    TooltipProps,
     WithId,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
@@ -16,8 +19,10 @@ export type FiveNumbers = [number, number, number, number, number]
 export type QuantileProcessedSummary =
     | undefined
     | {
-          values: FiveNumbers
+          n: number
+          mean: number
           quantiles: FiveNumbers
+          values: FiveNumbers
           extrema: [number, number]
       }
 
@@ -89,4 +94,17 @@ export interface QuantilesProps
         Pick<BoxAndWhiskersProps, 'boxStyle' | 'whiskerStyle' | 'medianStyle' | 'whiskerCapWidth'> {
     /** component used to draw box and whiskers */
     component?: FC<BoxAndWhiskersProps>
+}
+
+export interface QuantileTooltipProps
+    extends Omit<TooltipProps, 'variant' | 'horizontal' | 'children'>,
+        Pick<TooltipItemProps, 'color'> {
+    /** format for quantile values */
+    valueFormat?: (x: number) => string | number
+    /** size of each cell in information layout */
+    cellSize?: SizeSpec
+    /** padding between columns in information layout */
+    cellPadding?: number
+    /** string label next to color symbol */
+    label?: string
 }

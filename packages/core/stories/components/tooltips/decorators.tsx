@@ -47,9 +47,8 @@ export const ChartWithDetectorWithTooltipDecorator = (Story: () => ReactNode) =>
                 <DetectorWithTooltip key={'detector'} />
                 <Tooltip
                     size={[100, 48]}
-                    style={{ strokeWidth: 1, stroke: '#222222', fill: '#f0f85d' }}
+                    style={{ strokeWidth: 0.5, stroke: '#222222', fill: '#ffffff' }}
                 >
-                    <rect x={0} y={0} width={100} height={48} className={'tooltip surface'} />
                     {Story()}
                 </Tooltip>
             </TooltipProvider>

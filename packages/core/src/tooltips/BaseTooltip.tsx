@@ -21,7 +21,7 @@ import { TooltipItemList } from './TooltipItemList'
 
 import { useTooltip } from './contexts'
 
-type TooltipContentProps = Omit<
+type BaseTooltipProps = Omit<
     LegendProps,
     | 'variant'
     | 'positionUnits'
@@ -75,7 +75,7 @@ export const BaseTooltip = ({
     style,
     setRole = true,
     children,
-}: TooltipContentProps) => {
+}: BaseTooltipProps) => {
     const { data: tooltip } = useTooltip()
 
     // relative position of first non-title item
@@ -91,18 +91,6 @@ export const BaseTooltip = ({
         children
     ) : (
         <>
-            <rect
-                key={'tooltip-surface'}
-                role={setRole ? 'tooltip-surface' : undefined}
-                x={0}
-                y={0}
-                width={size[X]}
-                height={size[Y]}
-                rx={rx}
-                ry={ry}
-                className={getClassName('tooltip surface', className)}
-                style={style}
-            />
             <TooltipTitle
                 key={'tooltip-title'}
                 variant={variant}
@@ -161,6 +149,18 @@ export const BaseTooltip = ({
                     padding={padding}
                     role={setRole ? 'tooltip-content' : undefined}
                 >
+                    <rect
+                        key={'tooltip-surface'}
+                        role={setRole ? 'tooltip-surface' : undefined}
+                        x={0}
+                        y={0}
+                        width={size[X]}
+                        height={size[Y]}
+                        rx={rx}
+                        ry={ry}
+                        className={getClassName('tooltip surface', className)}
+                        style={style}
+                    />
                     {content}
                 </DimensionsProvider>
             </m.g>

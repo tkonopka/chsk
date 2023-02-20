@@ -13,6 +13,8 @@ export const isQuantileData = (data: Array<unknown>): data is Array<QuantileData
 
 export const isQuantileProcessedSummary = (x: unknown): x is QuantileProcessedSummary => {
     if (typeof x !== 'object' || x === null) return false
+    if (!('n' in x)) return false
+    if (!('mean' in x)) return false
     const keys = [
         'values' as keyof typeof x,
         'quantiles' as keyof typeof x,

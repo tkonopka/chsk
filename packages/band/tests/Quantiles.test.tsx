@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chsk/core'
-import { Quantile, Quantiles, Strip, Strips } from '../src'
+import { Quantile, Quantiles } from '../src'
 import { dataMissingKeys, quantileProps, stripProps } from './props'
 
 describe('Quantiles', () => {

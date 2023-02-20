@@ -26,7 +26,7 @@ import {
 } from './types'
 import { QuantilePreparedDataProvider } from './context'
 import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
-import { getQuantiles } from './utils'
+import { getMean, getQuantiles } from './utils'
 import { isQuantileProcessedSummary } from './predicates'
 
 // turn raw data into objects with computed quantile levels
@@ -41,6 +41,8 @@ const processData = (
             if (!raw) return undefined
             if (isQuantileProcessedSummary(raw)) {
                 return {
+                    n: raw.n,
+                    mean: raw.mean,
                     values: raw.values,
                     quantiles: raw.quantiles,
                     extrema: raw.extrema,
@@ -48,6 +50,8 @@ const processData = (
             }
             if (!Array.isArray(raw)) return undefined
             return {
+                n: raw.length,
+                mean: getMean(raw),
                 values: getQuantiles(raw as number[], quantiles) as FiveNumbers,
                 quantiles,
                 extrema: getMinMax(raw as number[]),
@@ -77,6 +81,8 @@ const prepareData = (
             bandStart += width + gap
             if (summary === undefined) return undefined
             return {
+                n: summary.values.length,
+                mean: valueScale(summary.mean),
                 values: summary.values.map(v => valueScale(v)) as FiveNumbers,
                 quantiles: summary.quantiles as FiveNumbers,
                 extrema: summary.extrema.map(v => valueScale(v)) as [number, number],
