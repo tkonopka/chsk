@@ -33,7 +33,7 @@ export const Counter = ({
     const [working, setWorking] = useState(false)
 
     const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
-    const pos = getAlignPosition(corner, size, padding, align)
+    const pos = getAlignPosition(corner, size, align, padding)
 
     if (Number(value) != Number(children) && !working) {
         animate(value, Number(children), {

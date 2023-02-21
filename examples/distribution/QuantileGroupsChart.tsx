@@ -1,7 +1,16 @@
-import { Axis, Chart, GridLines, Legend, mergeTheme, ThemeSpec, Typography } from '@chsk/core'
-import { BandHighlight, Quantile, QuantileProps, Quantiles } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
-import { alphabetGreek, randomNormalValue } from '../utils'
+import {
+    Axis,
+    Chart,
+    GridLines,
+    Legend,
+    mergeThemes,
+    ThemeSpec,
+    TooltipDataItem,
+    Typography,
+} from '@chsk/core'
+import { BandHighlight, Quantile, QuantileProps, Quantiles, QuantileTooltip } from '@chsk/band'
+import { downloadThemePiece, quantileTooltipThemePiece } from '@chsk/themes'
+import { alphabetGreek, randomNormalValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
@@ -27,39 +36,43 @@ export const generateQuantileGroupsData = () => {
     }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
-    line: {
-        axis: {
-            visibility: 'visible',
+const customTheme: ThemeSpec = mergeThemes([
+    downloadThemePiece,
+    quantileTooltipThemePiece,
+    {
+        line: {
+            axis: {
+                visibility: 'visible',
+            },
         },
-    },
-    text: {
-        axisLabel: {
-            textAnchor: 'middle',
-            dominantBaseline: 'auto',
+        text: {
+            axisLabel: {
+                textAnchor: 'middle',
+                dominantBaseline: 'auto',
+            },
+            intervalLabel: {
+                textAnchor: 'middle',
+                fontWeight: 400,
+                fill: '#222255',
+            },
         },
-        intervalLabel: {
-            textAnchor: 'middle',
-            fontWeight: 400,
-            fill: '#222255',
+        AxisLabel: {
+            bottom: {
+                offset: 60,
+            },
         },
-    },
-    AxisLabel: {
-        bottom: {
-            offset: 60,
-        },
-    },
-    AxisTicks: {
-        bottom: {
-            labelRotate: -45,
-            labelOffset: 10,
-            labelStyle: {
-                textAnchor: 'end',
-                dominantBaseline: 'middle',
+        AxisTicks: {
+            bottom: {
+                labelRotate: -45,
+                labelOffset: 10,
+                labelStyle: {
+                    textAnchor: 'end',
+                    dominantBaseline: 'middle',
+                },
             },
         },
     },
-})
+])
 
 const quantileProps: Omit<QuantileProps, 'data'> = {
     keys: ['before', 'after'],
@@ -121,6 +134,20 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                     Boxes and whiskers drawn from pre-computed quantile data
                 </Typography>
                 <DownloadButtons position={[620, 270]} data image />
+                <QuantileTooltip
+                    anchor={[0, 0.5]}
+                    translate={[20, 0]}
+                    maxOverhang={[40, 40, 40, 40]}
+                    padding={[8, 8, 8, 8]}
+                    itemSize={[160, 26]}
+                    cellSize={[40, 20]}
+                    cellPadding={20}
+                    labelFormat={(x: TooltipDataItem) => x.key ?? ''}
+                    valueFormat={round2dp}
+                    title={''}
+                    style={{ strokeWidth: 1, stroke: '#000000' }}
+                    labelStyle={{ fontWeight: 600 }}
+                />
             </Quantile>
         </Chart>
     )

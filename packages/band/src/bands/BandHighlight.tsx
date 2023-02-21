@@ -17,6 +17,10 @@ import {
     inZone,
     findZone,
     OpacityMotion,
+    useTooltip,
+    TooltipDataItem,
+    getAlignPosition,
+    getZoneSize,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -89,13 +93,19 @@ const BandHighlightMask = (
     )
 }
 
-export const BandHighlight = ({ ids, className, setRole = true, style }: BandHighlightProps) => {
+export const BandHighlight = ({
+    ids,
+    tooltipAlign = [0.5, 0.5],
+    className,
+    setRole = true,
+    style,
+}: BandHighlightProps) => {
     const processedData = useProcessedData()
     const { size } = useDimensions()
     const scales = useScales()
+    const { setData: setTooltipData } = useTooltip()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
-
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
 
@@ -106,20 +116,48 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
         [indexScale, idSet, valueSize, horizontal]
     )
 
-    // handlers are the same as in HeatMapHighlight
+    // handlers are similar as in HeatMapHighlight
+    const handleMouseLeave = useCallback(() => {
+        setTooltipData({})
+        setZone(null)
+    }, [setTooltipData, setZone])
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (!detectorRef || !detectorRef.current) return
-            const { x, y } = detectorRef.current.getBoundingClientRect()
-            const mouse: NumericPositionSpec = [event.clientX - x, event.clientY - y]
-            if (!inZone(mouse, zone)) {
-                const newZone = findZone(mouse, detectorIntervals)
-                setZone(newZone)
+            const { x: detectorX, y: detectorY } = detectorRef.current.getBoundingClientRect()
+            const mouse: NumericPositionSpec = [
+                event.clientX - detectorX,
+                event.clientY - detectorY,
+            ]
+            if (inZone(mouse, zone)) return
+            const { indexes, zone: newZone } = findZone(mouse, detectorIntervals)
+            if (newZone === null) {
+                handleMouseLeave()
+                return
             }
+            const [x, y] = getAlignPosition(
+                [newZone[X][0], newZone[Y][0]],
+                getZoneSize(newZone),
+                tooltipAlign
+            )
+            const idIndex = horizontal ? indexes[Y] : indexes[X]
+            const zoneId = processedData.data[idIndex].id
+            const seriesData = processedData.data[idIndex].data as Record<string, unknown>[]
+            const activeData: TooltipDataItem[] = seriesData.map((data, j) => ({
+                ...data,
+                id: zoneId,
+                key: processedData.keys[j],
+            }))
+            setTooltipData({
+                x,
+                y,
+                title: zoneId,
+                data: activeData,
+            })
+            setZone(newZone)
         },
         [detectorIntervals, detectorRef, zone, setZone]
     )
-    const handleMouseLeave = useCallback(() => setZone(null), [setZone])
 
     // invisible rectangle that detects mouse motion
     const detector = (

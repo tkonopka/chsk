@@ -26,7 +26,7 @@ export const Label = ({
 }: LabelProps) => {
     if (children === undefined || children === '') return null
     const corner = getAnchoredOrigin(position, size, anchor)
-    const pos = getAlignPosition(corner, size, padding, align)
+    const pos = getAlignPosition(corner, size, align, padding)
     const compositeClassName = getClassName(variant, className)
     const config = { x: pos[X], y: pos[Y], rotate, originX: '0px', originY: '0px' }
     return (

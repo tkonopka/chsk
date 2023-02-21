@@ -19,10 +19,11 @@ import {
     getMinMax,
     useTooltip,
     OpacityMotion,
+    getAlignPosition,
+    getZoneSize,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
-import { sortedIndex } from 'lodash'
 
 const createDetectorIntervals = (
     scaleX: BandAxisScale,
@@ -98,6 +99,7 @@ export const HeatMapHighlight = ({
     ids,
     keys,
     interactive = true,
+    tooltipAlign = [0.5, 0.5],
     className,
     setRole = true,
     style,
@@ -140,25 +142,27 @@ export const HeatMapHighlight = ({
         (event: MouseEvent) => {
             if (detectorRef === null) return
             if (detectorRef.current === null) return
-            const { x, y } = detectorRef.current.getBoundingClientRect()
-            const mouse: NumericPositionSpec = [event.clientX - x, event.clientY - y]
+            const { x: detectorX, y: detectorY } = detectorRef.current.getBoundingClientRect()
+            const mouse: NumericPositionSpec = [
+                event.clientX - detectorX,
+                event.clientY - detectorY,
+            ]
             if (inZone(mouse, zone)) return
-            const newZone = findZone(mouse, detectorIntervals)
+            const { indexes, zone: newZone } = findZone(mouse, detectorIntervals)
             if (newZone === null) {
                 handleMouseLeave()
                 return
             }
-            const zoneCenter = [
-                (newZone[0][0] + newZone[0][1]) / 2,
-                (newZone[1][0] + newZone[1][1]) / 2,
-            ]
-            const keyIndex = (sortedIndex(detectorIntervals[X], mouse[X]) - 1) / 2
-            const idIndex = (sortedIndex(detectorIntervals[Y], mouse[Y]) - 1) / 2
+            const [x, y] = getAlignPosition(
+                [newZone[X][0], newZone[Y][0]],
+                getZoneSize(newZone),
+                tooltipAlign
+            )
+            const [keyIndex, idIndex] = indexes
             const zoneId = idArray[idIndex]
             const zoneKey = keyArray[keyIndex]
-            const idData = data[idIndex]
-            const zoneValue = idData.value[keyIndex]
-            const zoneSize = idData.size[keyIndex]
+            const zoneValue = data[idIndex].value[keyIndex]
+            const zoneSize = data[idIndex].size[keyIndex]
             const zoneLabel =
                 (zoneValue === null || isNaN(Number(zoneValue)) ? '' : 'value: ' + zoneValue) +
                 ' ' +
@@ -172,8 +176,8 @@ export const HeatMapHighlight = ({
                 color: scaleColor(zoneValue as number),
             }
             setTooltipData({
-                x: zoneCenter[0],
-                y: zoneCenter[1],
+                x,
+                y,
                 title: zoneId + ', ' + zoneKey,
                 data: [activeData],
             })

@@ -22,15 +22,15 @@ export const getInnerSize = (size: SizeSpec, padding: FourSideSizeSpec): SizeSpe
 
 /** get a position in a container */
 export const getAlignPosition = (
-    pos: NumericPositionSpec,
-    size: SizeSpec,
-    padding: FourSideSizeSpec,
-    align: SizeSpec
+    pos: NumericPositionSpec, // top-left corner of a container
+    size: SizeSpec, // size of container
+    align: SizeSpec, // relative position inside container
+    padding?: FourSideSizeSpec // padding inside the container
 ): NumericPositionSpec => {
-    const innerSize = getInnerSize(size, padding)
+    const innerSize = padding ? getInnerSize(size, padding) : size
     return [
-        pos[X] + padding[LEFT] + innerSize[X] * align[X],
-        pos[Y] + padding[TOP] + innerSize[Y] * align[Y],
+        pos[X] + (padding?.[LEFT] ?? 0) + innerSize[X] * align[X],
+        pos[Y] + (padding?.[TOP] ?? 0) + innerSize[Y] * align[Y],
     ]
 }
 

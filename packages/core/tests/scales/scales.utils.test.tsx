@@ -6,7 +6,9 @@ import {
     inZone,
     getMinMax,
     getMax,
+    getZoneSize,
 } from '../../src/scales'
+import { DetectorZone } from '../../dist/types'
 
 describe('getMinMax', () => {
     it('finds min and max values from non-empty array', () => {
@@ -57,11 +59,11 @@ describe('zones', () => {
             createBandDetectorIntervals(scale, new Set<string>(['a', 'b', 'c'])),
         ] as DetectorIntervals
         // points within bounds
-        expect(findZone([30, 10], intervals)).toBeTruthy()
-        expect(findZone([80, 240], intervals)).toBeTruthy()
+        expect(findZone([30, 10], intervals).zone).toBeTruthy()
+        expect(findZone([80, 240], intervals).zone).toBeTruthy()
         // points outside bounds
-        expect(findZone([1000, 10], intervals)).toBeNull()
-        expect(findZone([80, 1000], intervals)).toBeNull()
+        expect(findZone([1000, 10], intervals).zone).toBeNull()
+        expect(findZone([80, 1000], intervals).zone).toBeNull()
     })
 
     it('determines a position is already in a zone (Y)', () => {
@@ -74,7 +76,7 @@ describe('zones', () => {
             [0, 100],
             createBandDetectorIntervals(scale, new Set<string>(['a', 'b', 'c'])),
         ] as DetectorIntervals
-        const zone = findZone([30, 10], intervals)
+        const zone = findZone([30, 10], intervals).zone
         // points nearby should be in the same zone
         expect(inZone([20, 15], zone)).toBeTruthy()
         expect(inZone([50, 15], zone)).toBeTruthy()
@@ -94,7 +96,7 @@ describe('zones', () => {
             createBandDetectorIntervals(scale, new Set<string>(['a', 'b', 'c'])),
             [0, 100],
         ] as DetectorIntervals
-        const zone = findZone([30, 10], intervals)
+        const zone = findZone([30, 10], intervals).zone
         // points nearby should be in the same zone
         expect(inZone([20, 15], zone)).toBeTruthy()
         expect(inZone([50, 15], zone)).toBeTruthy()
@@ -105,7 +107,7 @@ describe('zones', () => {
     })
 
     it('handles extra padding on band scales', () => {
-        // scale with extra padding in the middle betwen 'a' and 'b'
+        // scale with extra padding in the middle between 'a' and 'b'
         const scale = createBandScale({
             domain: ['a', 'b'],
             padding: 0,
@@ -117,9 +119,17 @@ describe('zones', () => {
             [0, 100],
         ] as DetectorIntervals
         // points at edges of band scale should give zone hits
-        expect(findZone([30, 10], intervals)).toBeTruthy()
+        expect(findZone([30, 10], intervals).zone).toBeTruthy()
         // points in the middle should not give zone hits
-        expect(findZone([95, 10], intervals)).toBeNull()
-        expect(findZone([115, 60], intervals)).toBeNull()
+        expect(findZone([95, 10], intervals).zone).toBeNull()
+        expect(findZone([115, 60], intervals).zone).toBeNull()
+    })
+
+    it('computes zone size', () => {
+        const zone: DetectorZone = [
+            [10, 20],
+            [100, 200],
+        ]
+        expect(getZoneSize(zone)).toEqual([10, 100])
     })
 })

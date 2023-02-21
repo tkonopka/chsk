@@ -20,12 +20,12 @@ export const Template = args => <QuantileTooltip {...args} />
         name="tooltip"
         args={{
           translate: [8, 0],
-          size: [198, 136],
           padding: [8, 8, 8, 8],
           anchor: [0, 0.5],
           cellSize: [40, 20],
           cellPadding: 20,
           labelFormat: ((d) => d.id + ' - ' + d.key),
+          labelStyle: { fontWeight: 600 },
           valueFormat: round2dp,
         }}
         component={QuantileTooltip}

@@ -1,77 +1,21 @@
 import {
-    addColor,
-    ColorScale,
-    CssProps,
-    getClassName,
     LEFT,
     Square,
     TOP,
-    useScales,
     useTooltip,
     X,
     Y,
     NumericPositionSpec,
-    SizeSpec,
     Tooltip,
     defaultTooltipProps,
     TooltipTitle,
+    RIGHT,
+    BOTTOM,
+    TooltipDataItem,
 } from '@chsk/core'
-import { createElement } from 'react'
 import { QuantileTooltipProps } from './types'
 import { isQuantileProcessedSummary } from './predicates'
-
-const getSymbolStyle = (
-    style: CssProps | undefined,
-    color: string | number | undefined,
-    colorScale: ColorScale,
-    item: string
-) => {
-    const itemColor =
-        typeof color === 'number'
-            ? colorScale(color)
-            : color ?? colorScale(colorScale.domain().indexOf(item ?? ''))
-    return addColor(style, itemColor)
-}
-
-// create a set of label: value pairs
-const InformationTable = ({
-    position,
-    size,
-    labels,
-    values,
-    className,
-}: {
-    position: NumericPositionSpec
-    size: SizeSpec
-    labels: Array<string>
-    values: Array<string | number>
-    className: string
-}) => {
-    return (
-        <>
-            {labels.map((label, i) => (
-                <text
-                    key={'label-' + i}
-                    x={position[X]}
-                    y={position[Y] + i * size[Y]}
-                    className={className + ' label'}
-                >
-                    {label + ':'}
-                </text>
-            ))}
-            {values.map((value, i) => (
-                <text
-                    key={'value-' + i}
-                    x={position[X] + size[X]}
-                    y={position[Y] + i * size[Y]}
-                    className={className + ' value'}
-                >
-                    {value}
-                </text>
-            ))}
-        </>
-    )
-}
+import { QuantileTooltipItem } from './QuantileTooltipItem'
 
 export const QuantileTooltip = ({
     // layout of container
@@ -90,11 +34,9 @@ export const QuantileTooltip = ({
     title,
     titleStyle,
     titleFormat,
-    color,
     r = defaultTooltipProps.r,
     symbol = Square,
     symbolStyle,
-    label,
     labelStyle,
     labelOffset = defaultTooltipProps.labelOffset,
     labelFormat,
@@ -106,67 +48,59 @@ export const QuantileTooltip = ({
     valueFormat = (x: number) => String(x),
     cellSize = [40, 20],
     cellPadding = 20,
-}: //
-
-QuantileTooltipProps) => {
+}: QuantileTooltipProps) => {
     const { data: tooltip } = useTooltip()
-    const colorScale = useScales().color
-    const data = tooltip?.data?.[0] ?? null
-    if (!isQuantileProcessedSummary(data)) return null
+    const tooltipData: TooltipDataItem[] = tooltip?.data ?? []
+    if (!tooltipData.every(data => isQuantileProcessedSummary(data))) return null
 
-    const item = data.key ?? ''
     title =
         title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
+    const n = tooltipData.length
+    const infoSize = [cellSize[X] * 4 + cellPadding, cellSize[Y] * 5]
+    size = size ?? [
+        Math.max(itemSize[X], infoSize[X]) + padding[LEFT] + padding[RIGHT],
+        itemSize[Y] * n +
+            (title ? itemSize[Y] : 0) +
+            infoSize[Y] * n +
+            padding[TOP] +
+            padding[BOTTOM],
+    ]
+
     const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
-    const itemPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
+    const itemsPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
     const step = [0, itemSize[Y]]
     if (title) {
-        itemPosition[0] += step[0] + firstOffset[0]
-        itemPosition[1] += step[1] + firstOffset[1]
+        itemsPosition[0] += step[0] + firstOffset[0]
+        itemsPosition[1] += step[1] + firstOffset[1]
     }
-    const symbolPosition = [itemPosition[X] + r, itemPosition[Y] + r]
-    const labelPosition = [symbolPosition[X] + r + labelOffset, symbolPosition[Y]]
+    const infoPositions: NumericPositionSpec[] = Array(n)
+        .fill(0)
+        .map((_, i) => [padding[LEFT], itemsPosition[Y] + (itemSize[Y] + infoSize[Y]) * i])
 
-    const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
-    const symbolClassName = getClassName('tooltipSymbol right', className)
-    const textClassName = getClassName('tooltipItem right', className)
-    const infoClassName = getClassName('tooltipItem', className) as string
-
-    const infoPosition: NumericPositionSpec = [
-        padding[LEFT],
-        Math.max(padding[TOP] + cellSize[Y] * 1.5, labelPosition[Y] * 2),
-    ]
-    const content1 = (
-        <InformationTable
-            key="info-n-mean"
-            position={infoPosition}
-            size={cellSize}
-            labels={['n', 'mean', 'min', 'max']}
-            values={[
-                data.n,
-                valueFormat(data.mean),
-                valueFormat(data.extrema[0]),
-                valueFormat(data.extrema[1]),
-            ]}
-            className={infoClassName}
-        />
-    )
-    const content2 = (
-        <InformationTable
-            key={'info-q'}
-            position={[infoPosition[X] + 2 * cellSize[X] + cellPadding, infoPosition[Y]]}
-            size={cellSize}
-            labels={data.quantiles.map(q => String(q * 100) + '%')}
-            values={data.values.map(v => valueFormat(v))}
-            className={infoClassName}
-        />
-    )
-
+    const content = tooltipData.map((data, i) => {
+        if (!isQuantileProcessedSummary(data)) return null
+        return (
+            <QuantileTooltipItem
+                key={'tooltip-item-' + i}
+                position={infoPositions[i]}
+                data={data}
+                label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
+                labelOffset={labelOffset}
+                item={data.key ?? ''}
+                padding={itemPadding}
+                symbol={symbol}
+                symbolStyle={symbolStyle}
+                labelStyle={labelStyle}
+                className={className}
+                valueFormat={valueFormat}
+            />
+        )
+    })
     return (
         <Tooltip
             translate={translate}
             size={size}
-            padding={[0, 0, 0, 0]}
+            padding={padding}
             anchor={anchor}
             rx={rx}
             ry={ry}
@@ -182,29 +116,11 @@ QuantileTooltipProps) => {
                 padding={itemPadding}
                 translate={[0, r]}
                 style={titleStyle}
+                className={className}
             >
                 {title}
             </TooltipTitle>
-            {createElement(symbol, {
-                key: 'tooltip-symbol-' + item,
-                cx: symbolPosition[X],
-                cy: symbolPosition[Y],
-                r: r,
-                className: symbolClassName,
-                style: itemStyle,
-                setRole: false,
-            })}
-            <text
-                key={'tooltip-label'}
-                x={labelPosition[X]}
-                y={labelPosition[Y]}
-                className={textClassName}
-                style={labelStyle}
-            >
-                {label ?? labelFormat ? labelFormat?.(data) : item}
-            </text>
-            {content1}
-            {content2}
+            {content}
         </Tooltip>
     )
 }

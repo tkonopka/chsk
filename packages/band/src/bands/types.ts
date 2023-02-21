@@ -1,5 +1,6 @@
 import { FC } from 'react'
 import {
+    AlignSpec,
     BandScaleSpec,
     CategoricalScaleSpec,
     LabelLocationSpec,
@@ -46,6 +47,8 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
 export interface BandHighlightProps extends SvgElementProps {
     /** target ids (defaults to all ids) */
     ids?: string[]
+    /** alignment of tooltip within a highlighted zone */
+    tooltipAlign?: AlignSpec
 }
 
 // base interface for BarProps, StripProps, QuantileProps

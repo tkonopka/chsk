@@ -146,7 +146,7 @@ export const BaseTooltip = ({
             >
                 <DimensionsProvider
                     size={size}
-                    padding={padding}
+                    padding={[0, 0, 0, 0]}
                     role={setRole ? 'tooltip-content' : undefined}
                 >
                     <rect

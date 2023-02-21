@@ -6,6 +6,7 @@ import {
     ProcessedDataContextProps,
     SizeSpec,
     SvgElementProps,
+    TooltipDataItem,
     TooltipItemProps,
     TooltipProps,
     WithId,
@@ -105,6 +106,13 @@ export interface QuantileTooltipProps
     cellSize?: SizeSpec
     /** padding between columns in information layout */
     cellPadding?: number
+}
+
+export interface QuantileTooltipItemProps
+    extends Omit<TooltipItemProps, 'variant' | 'data' | 'size'>,
+        Pick<QuantileTooltipProps, 'valueFormat' | 'cellSize' | 'cellPadding'> {
+    /** data */
+    data: TooltipDataItem & QuantileProcessedSummary
     /** string label next to color symbol */
-    label?: string
+    label: string
 }

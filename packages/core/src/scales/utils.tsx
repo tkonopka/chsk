@@ -1,6 +1,6 @@
 import { BandAxisScale } from './types'
 import { sortedIndex } from 'lodash'
-import { NumericPositionSpec, X, Y } from '../general'
+import { NumericPositionSpec, SizeSpec, X, Y } from '../general'
 import { DetectorZone, DetectorIntervals } from './types'
 
 // get min and max values in an array
@@ -47,9 +47,18 @@ export const inZone = (pos: NumericPositionSpec, zone: DetectorZone | null): boo
 export const findZone = (
     pos: NumericPositionSpec,
     intervals: DetectorIntervals
-): DetectorZone | null => {
+): { indexes: [number, number]; zone: DetectorZone | null } => {
     const i = sortedIndex(intervals[X], pos[X])
     const j = sortedIndex(intervals[Y], pos[Y])
-    if (i % 2 == 0 || j % 2 == 0) return null
-    return [intervals[X].slice(i - 1, i + 1), intervals[Y].slice(j - 1, j + 1)] as DetectorZone
+    if (i % 2 == 0 || j % 2 == 0)
+        return { indexes: [Math.floor(i / 2), Math.floor(j / 2)], zone: null }
+    const zone = [
+        intervals[X].slice(i - 1, i + 1),
+        intervals[Y].slice(j - 1, j + 1),
+    ] as DetectorZone
+    return { indexes: [(i - 1) / 2, (j - 1) / 2], zone }
+}
+
+export const getZoneSize = (zone: DetectorZone): SizeSpec => {
+    return [zone[X][1] - zone[X][0], zone[Y][1] - zone[Y][0]]
 }

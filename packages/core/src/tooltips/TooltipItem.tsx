@@ -40,7 +40,7 @@ const UnthemedTooltipItem = ({
             role={setRole ? 'tooltip-item' : undefined}
             transform={getTranslate(position[X], position[Y])}
             style={style}
-            className={'tooltipItem'}
+            className={textClassName}
         >
             {createElement(symbol, {
                 cx: symbolPosition[X] + translate[X],

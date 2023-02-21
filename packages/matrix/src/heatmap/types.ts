@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react'
 import {
+    AlignSpec,
     BandScaleSpec,
     ColorScaleProps,
     ColorScaleSpec,
@@ -51,6 +52,8 @@ export interface HeatMapHighlightProps extends SvgElementProps {
     keys?: string[]
     /** interactive */
     interactive?: boolean
+    /** alignment of tooltip within a highlighted zone */
+    tooltipAlign?: AlignSpec
 }
 
 export interface HeatMapCellProps extends RectangleProps {

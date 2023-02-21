@@ -7,9 +7,12 @@ import {
     Surface,
     ThemeSpec,
     Typography,
+    TooltipDataItem,
+    mergeTheme,
 } from '@chsk/core'
-import { BandHighlight, Quantile, Quantiles, Strip, Strips } from '@chsk/band'
-import { generateMixedPopulation } from '../utils'
+import { BandHighlight, Quantile, Quantiles, QuantileTooltip, Strip, Strips } from '@chsk/band'
+import { quantileTooltipThemePiece } from '@chsk/themes'
+import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomNormalValue } from '../utils'
 
@@ -24,7 +27,7 @@ export const generateManyDistributionsData = () => {
     }))
 }
 
-export const customTheme: ThemeSpec = {
+export const customTheme: ThemeSpec = mergeTheme(quantileTooltipThemePiece, {
     line: {
         axis: {
             visibility: 'visible',
@@ -42,7 +45,7 @@ export const customTheme: ThemeSpec = {
             fill: '#ffffff',
         },
     },
-}
+})
 
 const customProps = {
     keys: ['data'],
@@ -66,6 +69,12 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
             padding={[60, 40, 60, 60]}
             theme={customTheme}
         >
+            <Typography variant={'title'} position={[0, -40]}>
+                Many distributions
+            </Typography>
+            <Typography variant={'subtitle'} position={[0, -18]}>
+                Letters arranged in alphabetical order, values in ascending order
+            </Typography>
             <Strip {...customProps} data={rawData} variant={'ascending'}>
                 <Surface />
                 <GridLines variant={'y'} />
@@ -98,13 +107,21 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                     medianStyle={{ stroke: '#dd0000', strokeWidth: 3, strokeLinecap: 'round' }}
                 />
                 <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
+                <QuantileTooltip
+                    anchor={[0, 0.5]}
+                    translate={[20, 0]}
+                    maxOverhang={[40, 40, 40, 40]}
+                    padding={[8, 8, 8, 8]}
+                    itemSize={[160, 26]}
+                    cellSize={[40, 20]}
+                    cellPadding={20}
+                    labelFormat={(x: TooltipDataItem) => x.id ?? ''}
+                    valueFormat={round2dp}
+                    title={''}
+                    style={{ strokeWidth: 1, stroke: '#000000' }}
+                    labelStyle={{ fontWeight: 600 }}
+                />
             </Quantile>
-            <Typography variant={'title'} position={[0, -40]}>
-                Many distributions
-            </Typography>
-            <Typography variant={'subtitle'} position={[0, -18]}>
-                Letters arranged in alphabetical order, values in ascending order
-            </Typography>
         </Chart>
     )
 }

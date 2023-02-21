@@ -32,7 +32,7 @@ describe('QuantileTooltip', () => {
     it('does not create content for non-quantile data', async () => {
         render(
             <Chart>
-                <TooltipProvider data={{ x: 10, y: 10, title: '', data: [] }}>
+                <TooltipProvider data={{ x: 10, y: 10, title: '', data: [{ id: 'a' }] }}>
                     <QuantileTooltip />
                 </TooltipProvider>
             </Chart>
