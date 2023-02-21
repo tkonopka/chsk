@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] scatter chart with points with error bars
 -   [band] custom tooltip component `QuantileTooltip` to display quantile
     details in a table
 -   [xy] support for error bars with `ScatterErrors`
