@@ -1,5 +1,5 @@
 import { MouseEvent, useCallback, useMemo, useRef, useState } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
     BandAxisScale,
     getIdKeySets,
@@ -16,6 +16,7 @@ import {
     NumericPositionSpec,
     inZone,
     findZone,
+    OpacityMotion,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -37,65 +38,54 @@ const BandHighlightMask = (
     className?: string
 ) => {
     const [width, height] = size
-    return (
-        <AnimatePresence>
-            <m.g
-                role={'band-highlight-mask'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
-                {horizontal ? (
-                    <>
-                        <m.rect
-                            // mask: top
-                            initial={{ height: 0 }}
-                            animate={{
-                                width: zone[X][1],
-                                height: zone[Y][0],
-                            }}
-                            style={style}
-                            className={className}
-                        />
-                        <m.rect
-                            // mask: bottom
-                            initial={{ height: 0 }}
-                            transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                            animate={{
-                                width: zone[X][1],
-                                height: height - zone[Y][1],
-                            }}
-                            style={style}
-                            className={className}
-                        />
-                    </>
-                ) : (
-                    <>
-                        <m.rect
-                            // mask: left
-                            initial={{ width: 0 }}
-                            animate={{
-                                width: zone[X][0],
-                                height: zone[Y][1],
-                            }}
-                            style={style}
-                            className={className}
-                        />
-                        <m.rect
-                            // mask: right
-                            initial={{ width: 0 }}
-                            transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                            animate={{
-                                width: width - zone[X][1],
-                                height: zone[Y][1],
-                            }}
-                            style={style}
-                            className={className}
-                        />
-                    </>
-                )}
-            </m.g>
-        </AnimatePresence>
+    return horizontal ? (
+        <>
+            <m.rect
+                key={'mask-top'}
+                initial={{ height: 0 }}
+                animate={{
+                    width: zone[X][1],
+                    height: zone[Y][0],
+                }}
+                style={style}
+                className={className}
+            />
+            <m.rect
+                key={'mask-bottom'}
+                initial={{ height: 0 }}
+                transform={'translate(' + width + ',' + height + ')rotate(180)'}
+                animate={{
+                    width: zone[X][1],
+                    height: height - zone[Y][1],
+                }}
+                style={style}
+                className={className}
+            />
+        </>
+    ) : (
+        <>
+            <m.rect
+                key={'mask-left'}
+                initial={{ width: 0 }}
+                animate={{
+                    width: zone[X][0],
+                    height: zone[Y][1],
+                }}
+                style={style}
+                className={className}
+            />
+            <m.rect
+                key={'mask-right'}
+                initial={{ width: 0 }}
+                transform={'translate(' + width + ',' + height + ')rotate(180)'}
+                animate={{
+                    width: width - zone[X][1],
+                    height: zone[Y][1],
+                }}
+                style={style}
+                className={className}
+            />
+        </>
     )
 }
 
@@ -123,12 +113,13 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
             const { x, y } = detectorRef.current.getBoundingClientRect()
             const mouse: NumericPositionSpec = [event.clientX - x, event.clientY - y]
             if (!inZone(mouse, zone)) {
-                setZone(findZone(mouse, detectorIntervals))
+                const newZone = findZone(mouse, detectorIntervals)
+                setZone(newZone)
             }
         },
-        [detectorIntervals, detectorRef, zone]
+        [detectorIntervals, detectorRef, zone, setZone]
     )
-    const handleMouseLeave = useCallback(() => setZone(null), [])
+    const handleMouseLeave = useCallback(() => setZone(null), [setZone])
 
     // invisible rectangle that detects mouse motion
     const detector = (
@@ -143,12 +134,16 @@ export const BandHighlight = ({ ids, className, setRole = true, style }: BandHig
         />
     )
 
-    // rectangles that mask non-selected regions of the heatmap
-    const mask = zone === null ? null : BandHighlightMask(zone, size, horizontal, style, className)
-
     return (
         <g role={'band-highlight'}>
-            {mask}
+            <OpacityMotion
+                key={'band-highlight-mask'}
+                role={setRole ? 'band-highlight-mask' : undefined}
+                visible={zone !== null}
+                firstRender={false}
+            >
+                {zone === null ? null : BandHighlightMask(zone, size, horizontal, style, className)}
+            </OpacityMotion>
             {detector}
         </g>
     )

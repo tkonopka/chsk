@@ -64,10 +64,13 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Axis variant={'left'} label={'Samples'} />
                 <Axis variant={'top'}>
                     <AxisTicks
+                        key={'ticks'}
                         variant={'top'}
                         labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                     />
-                    <AxisLabel variant={'top'}>Samples</AxisLabel>
+                    <AxisLabel key={'label'} variant={'top'}>
+                        Samples
+                    </AxisLabel>
                 </Axis>
                 <Legend
                     variant={'color'}
@@ -78,7 +81,12 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     sizeUnits={'absolute'}
                     anchor={[0, 0]}
                 >
-                    <LegendTitle position={[0, 8]} size={[60, 24]} padding={[0, 0, 0, 0]}>
+                    <LegendTitle
+                        key={'title'}
+                        position={[0, 8]}
+                        size={[60, 24]}
+                        padding={[0, 0, 0, 0]}
+                    >
                         scores
                     </LegendTitle>
                     <LegendColorScale

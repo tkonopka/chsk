@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Bar, BandHighlight } from '../src'
 import { barProps } from './props'
@@ -39,7 +39,7 @@ describe('BandHighlight', () => {
         expect(screen.queryByRole('band-detector')).toBeNull()
     })
 
-    it('creates masks on mouseover and removes on mouseleave', () => {
+    it('creates masks on mouseover and removes on mouseleave', async () => {
         render(
             <Chart>
                 <Bar {...barProps} keys={['x', 'y', 'z']}>
@@ -51,6 +51,8 @@ describe('BandHighlight', () => {
         fireEvent.mouseMove(detector, { clientX: 40, clientY: 40 })
         expect(screen.getByRole('band-highlight-mask')).toBeDefined()
         fireEvent.mouseLeave(detector)
-        expect(screen.queryByRole('band-highlight-mask')).toBeNull()
+        await waitFor(() => {
+            expect(screen.queryByRole('band-highlight-mask')).toBeNull()
+        })
     })
 })

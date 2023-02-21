@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useRef, useState, MouseEvent, useEffect } from 'react'
-import { AnimatePresence, m } from 'framer-motion'
+import { m } from 'framer-motion'
 import {
     getIdKeySets,
     BandAxisScale,
@@ -18,6 +18,7 @@ import {
     findZone,
     getMinMax,
     useTooltip,
+    OpacityMotion,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
@@ -45,58 +46,51 @@ const HeatMapHighlightMask = (
 ) => {
     const [width, height] = size
     return (
-        <AnimatePresence>
-            <m.g
-                role={'heatmap-highlight-mask'}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
-                <m.rect
-                    // mask: top left
-                    initial={wh0}
-                    animate={{
-                        width: zone[X][0],
-                        height: zone[Y][0],
-                    }}
-                    style={style}
-                    className={className}
-                />
-                <m.rect
-                    // mask: top-right
-                    transform={'translate(' + width + ',0)rotate(90)'}
-                    initial={wh0}
-                    animate={{
-                        height: width - zone[X][1],
-                        width: zone[Y][0],
-                    }}
-                    style={style}
-                    className={className}
-                />
-                <m.rect
-                    // mask: bottom-left
-                    initial={wh0}
-                    transform={'translate(0,' + height + ')rotate(-90)'}
-                    animate={{
-                        width: height - zone[Y][1],
-                        height: zone[X][0],
-                    }}
-                    style={style}
-                    className={className}
-                />
-                <m.rect
-                    // mask: bottom-right
-                    initial={wh0}
-                    transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                    animate={{
-                        width: width - zone[X][1],
-                        height: height - zone[Y][1],
-                    }}
-                    style={style}
-                    className={className}
-                />
-            </m.g>
-        </AnimatePresence>
+        <>
+            <m.rect
+                key={'top-left'}
+                initial={wh0}
+                animate={{
+                    width: zone[X][0],
+                    height: zone[Y][0],
+                }}
+                style={style}
+                className={className}
+            />
+            <m.rect
+                key={'top-right'}
+                transform={'translate(' + width + ',0)rotate(90)'}
+                initial={wh0}
+                animate={{
+                    height: width - zone[X][1],
+                    width: zone[Y][0],
+                }}
+                style={style}
+                className={className}
+            />
+            <m.rect
+                key={'bottom-left'}
+                initial={wh0}
+                transform={'translate(0,' + height + ')rotate(-90)'}
+                animate={{
+                    width: height - zone[Y][1],
+                    height: zone[X][0],
+                }}
+                style={style}
+                className={className}
+            />
+            <m.rect
+                key={'bottom-right'}
+                initial={wh0}
+                transform={'translate(' + width + ',' + height + ')rotate(180)'}
+                animate={{
+                    width: width - zone[X][1],
+                    height: height - zone[Y][1],
+                }}
+                style={style}
+                className={className}
+            />
+        </>
     )
 }
 
@@ -200,12 +194,17 @@ export const HeatMapHighlight = ({
             onMouseLeave={handleMouseLeave}
         />
     )
-    // rectangles that mask non-selected regions of the heatmap
-    const mask = zone === null ? null : HeatMapHighlightMask(zone, size, style, className)
 
     return (
         <g role={'heatmap-highlight'}>
-            {mask}
+            <OpacityMotion
+                key={'heatmap-highlight-mask'}
+                role={setRole ? 'heatmap-highlight-mask' : undefined}
+                visible={zone !== null}
+                firstRender={false}
+            >
+                {zone === null ? null : HeatMapHighlightMask(zone, size, style, className)}
+            </OpacityMotion>
             {interactive ? detector : null}
         </g>
     )
