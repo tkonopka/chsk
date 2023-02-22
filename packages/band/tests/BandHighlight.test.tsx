@@ -76,8 +76,7 @@ describe('BandHighlight', () => {
         const tooltip: TooltipData = { x: 0, y: 0, data: [] }
         const GetTooltipData = () => {
             const { data } = useTooltip()
-            if (!data.data) return null
-            tooltip.data = data.data
+            tooltip.data = data.data ?? []
             return null
         }
         render(
@@ -97,8 +96,7 @@ describe('BandHighlight', () => {
         const tooltip: TooltipData = { x: 0, y: 0, data: [] }
         const GetTooltipData = () => {
             const { data } = useTooltip()
-            if (!data.data) return null
-            tooltip.data = data.data
+            tooltip.data = data.data ?? []
             return null
         }
         render(
