@@ -22,6 +22,7 @@ import {
     getAlignPosition,
     getZoneSize,
     getClassName,
+    useDisabledKeys,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -104,6 +105,7 @@ export const BandHighlight = ({
     const processedData = useProcessedData()
     const { size } = useDimensions()
     const scales = useScales()
+    const { disabledKeys } = useDisabledKeys()
     const { setData: setTooltipData } = useTooltip()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
@@ -144,11 +146,13 @@ export const BandHighlight = ({
             const idIndex = horizontal ? indexes[Y] : indexes[X]
             const zoneId = processedData.data[idIndex].id
             const seriesData = processedData.data[idIndex].data as Record<string, unknown>[]
-            const activeData: TooltipDataItem[] = seriesData.map((data, j) => ({
-                ...data,
-                id: zoneId,
-                key: processedData.keys[j],
-            }))
+            const activeData: TooltipDataItem[] = seriesData
+                .map((data, j) => ({
+                    ...data,
+                    id: zoneId,
+                    key: processedData.keys[j],
+                }))
+                .filter(data => !(data.key && disabledKeys.has(data.key)))
             setTooltipData({
                 x,
                 y,
