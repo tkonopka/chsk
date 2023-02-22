@@ -53,14 +53,14 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
 </Canvas>
 
 <Canvas>
-    <Story name="stacked, vertical">
-        <Controller generator={generateStackedData} chart={StackedVerticalBarChart} />
+    <Story name="grouped tooltip">
+        <Controller generator={generateGroupedData} chart={GroupedTooltipBarChart} />
     </Story>
 </Canvas>
 
 <Canvas>
-    <Story name="grouped tooltip">
-        <Controller generator={generateGroupedData} chart={GroupedTooltipBarChart} />
+    <Story name="stacked, vertical">
+        <Controller generator={generateStackedData} chart={StackedVerticalBarChart} />
     </Story>
 </Canvas>
 
