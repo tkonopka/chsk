@@ -39,7 +39,7 @@ describe('HeatMapHighlight', () => {
             <Chart>
                 <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
                     <HeatMapCells />
-                    <HeatMapHighlight className={'custom'}/>
+                    <HeatMapHighlight className={'custom'} />
                 </HeatMap>
             </Chart>
         )

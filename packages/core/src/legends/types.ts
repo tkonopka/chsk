@@ -121,6 +121,7 @@ export interface LegendThemedProps
         'padding' | 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
     > {
     translate: NumericPositionSpec
+    padding: FourSideSizeSpec
     rx: number
     ry: number
     itemSize: SizeSpec

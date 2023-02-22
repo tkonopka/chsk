@@ -1,21 +1,12 @@
 import { useView } from '../views'
 import { useThemedProps } from '../themes'
-import {
-    addPositions,
-    BOTTOM,
-    getAnchoredOrigin,
-    LEFT,
-    NumericPositionSpec,
-    RIGHT,
-    TOP,
-    X,
-    Y,
-} from '../general'
+import { addPositions, getAnchoredOrigin, NumericPositionSpec } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { useTooltip } from './contexts'
 import { exitsParent, flipPositionAnchor, guessLabel } from './utils'
 import { TooltipProps } from './types'
 import { BaseTooltip } from './BaseTooltip'
+import { getSizeEstimate } from '../legends/utils'
 
 const UnthemedTooltip = ({
     // layout of container
@@ -52,11 +43,7 @@ const UnthemedTooltip = ({
     const n = labelFormat === null ? 0 : data.length
     title =
         title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
-    const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
-    size = size ?? [
-        itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
-        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
-    ]
+    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, false)
     const { x, y, dimensions } = useView({ position: translate, size, anchor })
 
     // in cases when the tooltip would exit the parent container, adjust position and anchor

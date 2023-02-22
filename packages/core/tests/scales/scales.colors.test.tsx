@@ -14,7 +14,7 @@ import {
     ThresholdScaleProps,
 } from '../../src/scales'
 
-const rgb = (x: string): { red: number, green: number, blue: number } => ({
+const rgb = (x: string): { red: number; green: number; blue: number } => ({
     red: parseInt(x.substring(1, 3), 16),
     green: parseInt(x.substring(3, 5), 16),
     blue: parseInt(x.substring(5, 7), 16),

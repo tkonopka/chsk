@@ -13,12 +13,12 @@ import {
 import { OpacityMotion } from '../charts'
 import { getClassName } from '../themes'
 import { LegendProps } from '../legends'
+import { getContentPosition } from '../legends/utils'
 import { defaultTooltipProps } from './defaults'
 import { TooltipDataItem } from './types'
 import { guessLabel } from './utils'
 import { TooltipTitle } from './TooltipTitle'
 import { TooltipItemList } from './TooltipItemList'
-
 import { useTooltip } from './contexts'
 
 type BaseTooltipProps = Omit<
@@ -49,7 +49,7 @@ type BaseTooltipProps = Omit<
 export const BaseTooltip = ({
     // specific to BaseTooltip
     variant = 'right',
-    position = [0, 0], // absolute position for DimensionProvider
+    position = [0, 0], // absolute position for origin of DimensionsProvider
     data = [],
     // props from Tooltip
     size = zeroPosition,
@@ -80,12 +80,13 @@ export const BaseTooltip = ({
 
     // relative position of first non-title item
     const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
-    const itemsPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
-    const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
-    if (title) {
-        itemsPosition[0] += step[0] + firstOffset[0]
-        itemsPosition[1] += step[1] + firstOffset[1]
-    }
+    const contentPosition = getContentPosition(
+        titlePosition,
+        itemSize,
+        firstOffset,
+        title,
+        horizontal
+    )
 
     const content = children ? (
         children
@@ -107,7 +108,7 @@ export const BaseTooltip = ({
                     key={'tooltip-list'}
                     variant={variant}
                     horizontal={horizontal}
-                    position={itemsPosition}
+                    position={contentPosition}
                     ids={data.map(item => item.id)}
                     keys={data.map(item => item.key ?? item.id)}
                     labels={data.map(item => labelFormat(item))}

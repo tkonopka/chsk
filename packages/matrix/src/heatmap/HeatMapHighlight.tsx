@@ -20,7 +20,8 @@ import {
     useTooltip,
     OpacityMotion,
     getAlignPosition,
-    getZoneSize, getClassName,
+    getZoneSize,
+    getClassName,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'

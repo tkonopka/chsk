@@ -18,14 +18,15 @@ import { defaultLegendProps } from './defaults'
 import { LegendTitle } from './LegendTitle'
 import { LegendItemList } from './LegendItemList'
 import { LegendSizeScale } from './LegendSizeScale'
+import { getContentPosition, getSizeEstimate } from './utils'
 
 const UnthemedLegend = ({
     variant = 'list',
     // layout of container
     position = [1, 0.5],
     positionUnits = 'relative',
-    size = [0.2, 0.5],
-    sizeUnits = 'relative',
+    size,
+    sizeUnits = 'absolute',
     anchor = [0, 0],
     padding = defaultLegendProps.padding,
     translate = defaultLegendProps.translate,
@@ -57,6 +58,20 @@ const UnthemedLegend = ({
     children,
 }: LegendProps) => {
     const scales = useScales()
+    const colorDomain = scales.color.domain().map(String)
+    const n = colorDomain.length
+
+    // position of title and first non-title item (in Legend DimensionsProvider)
+    const titlePosition: NumericPositionSpec = padding ? [padding[LEFT], padding[TOP]] : [0, 0]
+    const contentPosition = getContentPosition(
+        titlePosition,
+        itemSize,
+        firstOffset,
+        title,
+        horizontal
+    )
+    // size and position of entire legend
+    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, horizontal)
     const { x, y, dimsProps } = useView({
         position,
         positionUnits,
@@ -65,18 +80,8 @@ const UnthemedLegend = ({
         anchor,
     })
 
-    // position of title and first non-title item (in Legend DimensionsProvider)
-    const titlePosition: NumericPositionSpec = padding ? [padding[LEFT], padding[TOP]] : [0, 0]
-    const itemsPosition: NumericPositionSpec = [...titlePosition]
-
-    const step = horizontal ? [itemSize[0], 0] : [0, itemSize[1]]
-    if (title) {
-        itemsPosition[0] += step[0] + firstOffset[0]
-        itemsPosition[1] += step[1] + firstOffset[1]
-    }
-
     const sideVariant: SideVariant = horizontal ? 'bottom' : 'right'
-    const vhp = { variant: sideVariant, horizontal, position: itemsPosition }
+    const vhp = { variant: sideVariant, horizontal, position: contentPosition }
 
     // legend content
     let content: ReactNode | null | ReactNode[] = null

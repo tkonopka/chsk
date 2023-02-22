@@ -1,7 +1,7 @@
 import { useView } from '../views'
 import { useThemedProps } from '../themes'
-import { NumericPositionSpec, useDimensions } from '../general'
-import { X, Y, LEFT, RIGHT, TOP, BOTTOM } from '../general'
+import { NumericPositionSpec, useDimensions, X, Y } from '../general'
+import { getSizeEstimate } from '../legends/utils'
 import { defaultTooltipProps } from './defaults'
 import { useTooltip } from './contexts'
 import { guessLabel } from './utils'
@@ -43,11 +43,7 @@ const UnthemedAxisTooltip = ({
     const data = tooltip.data ?? []
     const n = labelFormat === null ? 0 : data.length
     title = title ?? (titleFormat ? titleFormat(tooltip) : tooltip.title)
-    const sizeMultiplier = horizontal ? [n + (title ? 1 : 0), 1] : [1, n + (title ? 1 : 0)]
-    size = size ?? [
-        itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
-        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
-    ]
+    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, false)
     const { x, y } = useView({ position: translate, size, anchor })
 
     const tooltipPosition: NumericPositionSpec = [x + (tooltip.x ?? 0), y + (tooltip.y ?? 0)]

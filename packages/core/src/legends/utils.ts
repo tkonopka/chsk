@@ -14,6 +14,41 @@ import {
 import { ColorScale, getMinMax } from '../scales'
 import { addColor } from '../themes'
 
+// estimate the size of a legend based on number of items
+export const getSizeEstimate = (
+    padding: FourSideSizeSpec,
+    itemSize: SizeSpec,
+    nItems: number,
+    firstOffset: NumericPositionSpec,
+    title: string | undefined,
+    horizontal: boolean
+): SizeSpec => {
+    const sizeMultiplier = horizontal
+        ? [nItems + (title ? 1 : 0), 1]
+        : [1, nItems + (title ? 1 : 0)]
+    return [
+        itemSize[X] * sizeMultiplier[X] + firstOffset[X] + padding[LEFT] + padding[RIGHT],
+        itemSize[Y] * sizeMultiplier[Y] + firstOffset[Y] + padding[TOP] + padding[BOTTOM],
+    ]
+}
+
+// calculate position of first non-title element in a legend / tooltip
+export const getContentPosition = (
+    titlePosition: NumericPositionSpec,
+    itemSize: SizeSpec,
+    firstOffset: NumericPositionSpec,
+    title: string | undefined,
+    horizontal: boolean
+) => {
+    const result: NumericPositionSpec = [...titlePosition]
+    if (title) {
+        const step = horizontal ? [itemSize[X], 0] : [0, itemSize[Y]]
+        result[X] += step[X] + firstOffset[X]
+        result[Y] += step[Y] + firstOffset[Y]
+    }
+    return result
+}
+
 // compute absolute positions for item bounding rectangles, symbols, and labels
 export const getItemPositions = (
     variant: SideVariant,
