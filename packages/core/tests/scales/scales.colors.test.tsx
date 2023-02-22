@@ -14,6 +14,12 @@ import {
     ThresholdScaleProps,
 } from '../../src/scales'
 
+const rgb = (x: string): { red: number, green: number, blue: number } => ({
+    red: parseInt(x.substring(1, 3), 16),
+    green: parseInt(x.substring(3, 5), 16),
+    blue: parseInt(x.substring(5, 7), 16),
+})
+
 describe('createCategoricalScale', () => {
     it('with custom colors', () => {
         const result = createCategoricalScale({
@@ -90,7 +96,7 @@ describe('createCategoricalScale', () => {
         expect(colors[1]).not.toEqual(colors[2])
     })
 
-    it('using d3 sequential scheme', () => {
+    it('using d3 sequential scheme with long domain', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
             colors: 'Blues',
@@ -101,6 +107,21 @@ describe('createCategoricalScale', () => {
         expect(colors[0]).not.toEqual(colors[1])
         expect(colors[0]).not.toEqual(colors[2])
         expect(colors[1]).not.toEqual(colors[2])
+        expect(rgb(result(0)).blue).toBeGreaterThan(123)
+        expect(rgb(result(1)).blue).toBeGreaterThan(123)
+    })
+
+    it('using d3 sequential scheme with short domain', () => {
+        const result = createCategoricalScale({
+            variant: 'categorical',
+            colors: 'Reds',
+            size: 6,
+            domain: ['a', 'b'],
+        })
+        expect(result.domain().length).toEqual(2)
+        // colors should be mostly red
+        expect(rgb(result(0)).red).toBeGreaterThan(123)
+        expect(rgb(result(1)).red).toBeGreaterThan(123)
     })
 
     it('using d3 scheme with fixed size', () => {

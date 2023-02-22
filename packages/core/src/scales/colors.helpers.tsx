@@ -98,9 +98,8 @@ export const createCategoricalScale = ({
     size,
     domain,
 }: CategoricalScaleProps): CategoricalColorScale => {
-    const allColors = getColorArray(colors, Math.min(domain.length, size ?? domain.length))
+    const allColors = getColorArray(colors, size ?? domain.length)
     const nColors = allColors.length
-
     const domainMap: Record<string, number> = {}
     domain.forEach((d, index) => {
         domainMap[String(d)] = index
