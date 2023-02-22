@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { MouseEvent } from 'react'
 import {
     Chart,
@@ -103,5 +103,48 @@ describe('TooltipDataComponent', () => {
         fireEvent.mouseEnter(screen.getByRole('empty'))
         expect(value).toBeUndefined()
         expect(tooltipData).toEqual({})
+    })
+
+    it('applies style modifiers', async () => {
+        render(
+            <Chart {...chartProps}>
+                <TooltipProvider>
+                    <TooltipDataComponent
+                        component={Circle}
+                        data={{ id: 'A' }}
+                        props={{
+                            cx: 10,
+                            cy: 10,
+                            r: 10,
+                            variant: 'A',
+                            style: { fill: '#000000' },
+                        }}
+                        modifiers={{
+                            onClick: { strokeWidth: 5 },
+                            onMouseEnter: { stroke: '#ff0000' },
+                            onMouseMove: { scale: 2 },
+                            onMouseLeave: { opacity: 0 },
+                        }}
+                    />
+                </TooltipProvider>
+            </Chart>
+        )
+        expect(screen.getByRole('A').getAttribute('style')).not.toContain('stroke')
+        fireEvent.click(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('width')
+        })
+        fireEvent.mouseEnter(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('stroke')
+        })
+        fireEvent.mouseMove(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('scale')
+        })
+        fireEvent.mouseLeave(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('opacity')
+        })
     })
 })

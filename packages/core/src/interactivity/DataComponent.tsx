@@ -25,7 +25,7 @@ export const DataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, modifiers]
+        [data, handlers, style, modifiers]
     )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -35,7 +35,7 @@ export const DataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, modifiers]
+        [data, handlers, style, modifiers]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
@@ -55,7 +55,7 @@ export const DataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, modifiers]
+        [data, handlers, style, modifiers]
     )
 
     return createElement(component, {

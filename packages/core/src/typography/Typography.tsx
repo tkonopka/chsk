@@ -13,7 +13,6 @@ export const Typography = ({
     children,
 }: TypographyProps) => {
     if (!children) return null
-    if (typeof children === 'string' && children === '') return null
     const compositeClassName = getClassName(variant, className)
     const config = { x: position[X], y: position[Y], rotate, originX: '0px', originY: '0px' }
     return (

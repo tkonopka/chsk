@@ -1,5 +1,5 @@
 import { MouseEvent } from 'react'
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, DataComponent, Circle, WithId } from '../../src'
 import { chartProps } from '../props'
 
@@ -98,5 +98,40 @@ describe('DataComponent', () => {
         expect(value).toEqual('')
         fireEvent.mouseMove(screen.getByRole('abc'))
         expect(value).toEqual('A')
+    })
+
+    it('applies style modifiers', async () => {
+        render(
+            <Chart {...chartProps}>
+                <DataComponent
+                    component={Circle}
+                    data={{ id: 'A' }}
+                    props={{ cx: 10, cy: 10, r: 10, variant: 'A', style: { fill: '#000000' } }}
+                    modifiers={{
+                        onClick: { strokeWidth: 5 },
+                        onMouseEnter: { stroke: '#ff0000' },
+                        onMouseMove: { scale: 2 },
+                        onMouseLeave: { opacity: 0 },
+                    }}
+                />
+            </Chart>
+        )
+        expect(screen.getByRole('A').getAttribute('style')).not.toContain('stroke')
+        fireEvent.mouseEnter(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('stroke')
+        })
+        fireEvent.mouseLeave(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('opacity')
+        })
+        fireEvent.mouseMove(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('scale')
+        })
+        fireEvent.click(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('width')
+        })
     })
 })

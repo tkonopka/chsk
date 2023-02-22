@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, Counter } from '../../src'
 import { chartProps } from '../props'
 import { useState } from 'react'
@@ -36,10 +36,15 @@ describe('Counter', () => {
                 <CustomCounter />
             </Chart>
         )
-        expect(screen.getByRole('counter').textContent).toEqual('0')
-        // trigger the counter animation
+        const counter = screen.getByRole('counter')
+        expect(counter.textContent).toEqual('0')
         fireEvent.click(screen.getByRole('circle'))
-        const counter = await screen.findByText('100')
-        expect(counter.textContent).toEqual('100')
+        await waitFor(() => {
+            expect(counter.textContent).toEqual('100')
+        })
+        fireEvent.click(screen.getByRole('circle'))
+        await waitFor(() => {
+            expect(counter.textContent).toEqual('200')
+        })
     })
 })
