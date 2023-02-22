@@ -6,11 +6,11 @@ module.exports = {
         '@storybook/addon-interactions',
     ],
     framework: {
-        name: '@storybook/react-webpack5',
-        options: {},
+        name: '@storybook/react',
     },
     core: {
         disableTelemetry: true,
+        builder: '@storybook/builder-webpack5',
     },
     features: {
         previewMdx2: true,
