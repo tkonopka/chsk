@@ -28,7 +28,7 @@ export const TooltipDataComponent = <
             const y = Math.round(event.clientY - clientRect?.y)
             setTooltipData({ x, y, data: [data] })
         },
-        [data]
+        [data, ref, setTooltipData]
     )
 
     const handleMouseEnter = useCallback(
@@ -40,7 +40,7 @@ export const TooltipDataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, style, modifiers]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
     )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -51,7 +51,7 @@ export const TooltipDataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, style, modifiers]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
@@ -62,7 +62,7 @@ export const TooltipDataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, style, modifiers]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
     )
     const handleClick = useCallback(
         (event: MouseEvent) => {
@@ -72,7 +72,7 @@ export const TooltipDataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handlers, style, modifiers]
+        [data, handlers, modifiers, style, setComponentStyle, key, setKey]
     )
 
     return createElement(component, {

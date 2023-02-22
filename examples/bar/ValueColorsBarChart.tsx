@@ -175,18 +175,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                     expansion={[0, 26]}
                     style={{ strokeWidth: 2, stroke: '#000000' }}
                 />
-                <Tooltip translate={[16, 0]} anchor={[0, 0.5]} itemSize={[130, 30]}>
-                    <Rectangle
-                        key={'surface'}
-                        variant={'tooltip-surface'}
-                        x={0}
-                        y={0}
-                        width={130}
-                        height={30}
-                        rx={1}
-                        ry={1}
-                        className={'tooltip surface'}
-                    />
+                <Tooltip translate={[16, 0]} anchor={[0, 0.5]} itemSize={[130, 24]}>
                     <CustomTooltipItem key={'tooltip-item'} />
                 </Tooltip>
                 <DownloadButtons position={[450, -50]} data image />
