@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] bar chart with a grouped tooltip
 -   [examples] scatter chart with points with error bars
 -   [band] custom tooltip component `QuantileTooltip` to display quantile
     details in a table

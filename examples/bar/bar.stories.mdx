@@ -5,6 +5,7 @@ import { StackedHorizontalBarChart } from './StackedHorizontalBarChart'
 import { generateGroupedData, GroupedVerticalBarChart } from './GroupedVerticalBarChart'
 import { GroupedHorizontalBarChart } from './GroupedHorizontalBarChart'
 import { generateDivergingBarData, DivergingBarChart } from './DivergingBarChart'
+import { GroupedTooltipBarChart } from './GroupedTooltipBarChart'
 import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBarChart'
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
@@ -54,6 +55,12 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
 <Canvas>
     <Story name="stacked, vertical">
         <Controller generator={generateStackedData} chart={StackedVerticalBarChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="grouped tooltip">
+        <Controller generator={generateGroupedData} chart={GroupedTooltipBarChart} />
     </Story>
 </Canvas>
 
