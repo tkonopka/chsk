@@ -20,7 +20,7 @@ import {
     useTooltip,
     OpacityMotion,
     getAlignPosition,
-    getZoneSize,
+    getZoneSize, getClassName,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
@@ -199,6 +199,7 @@ export const HeatMapHighlight = ({
         />
     )
 
+    const maskClassName = getClassName('heatmap-highlight', className)
     return (
         <g role={'heatmap-highlight'}>
             <OpacityMotion
@@ -207,7 +208,7 @@ export const HeatMapHighlight = ({
                 visible={zone !== null}
                 firstRender={false}
             >
-                {zone === null ? null : HeatMapHighlightMask(zone, size, style, className)}
+                {zone === null ? null : HeatMapHighlightMask(zone, size, style, maskClassName)}
             </OpacityMotion>
             {interactive ? detector : null}
         </g>

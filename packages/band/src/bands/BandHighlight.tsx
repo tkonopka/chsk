@@ -21,6 +21,7 @@ import {
     TooltipDataItem,
     getAlignPosition,
     getZoneSize,
+    getClassName,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -172,6 +173,7 @@ export const BandHighlight = ({
         />
     )
 
+    const maskClassName = getClassName('band-highlight', className)
     return (
         <g role={'band-highlight'}>
             <OpacityMotion
@@ -180,7 +182,9 @@ export const BandHighlight = ({
                 visible={zone !== null}
                 firstRender={false}
             >
-                {zone === null ? null : BandHighlightMask(zone, size, horizontal, style, className)}
+                {zone === null
+                    ? null
+                    : BandHighlightMask(zone, size, horizontal, style, maskClassName)}
             </OpacityMotion>
             {detector}
         </g>

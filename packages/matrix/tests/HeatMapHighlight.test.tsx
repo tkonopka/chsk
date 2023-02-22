@@ -34,6 +34,25 @@ describe('HeatMapHighlight', () => {
         })
     })
 
+    it('creates masks with class name', async () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
+                    <HeatMapCells />
+                    <HeatMapHighlight className={'custom'}/>
+                </HeatMap>
+            </Chart>
+        )
+        const detector = screen.getByRole('heatmap-detector')
+        fireEvent.mouseMove(detector, { clientX: 40, clientY: 40 })
+        expect(screen.getByRole('heatmap-highlight-mask')).toBeDefined()
+        fireEvent.mouseLeave(detector)
+        const maskRects = screen.getByRole('heatmap-highlight-mask').querySelectorAll('rect')
+        expect(maskRects).toHaveLength(4)
+        expect(maskRects[0].getAttribute('class')).toContain('heatmapHighlight')
+        expect(maskRects[0].getAttribute('class')).toContain('custom')
+    })
+
     it('omits detector surface for non-interactive use', () => {
         render(
             <Chart>

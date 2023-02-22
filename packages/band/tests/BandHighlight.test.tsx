@@ -55,4 +55,20 @@ describe('BandHighlight', () => {
             expect(screen.queryByRole('band-highlight-mask')).toBeNull()
         })
     })
+
+    it('creates masks with class name', () => {
+        render(
+            <Chart>
+                <Bar {...barProps} keys={['x', 'y', 'z']}>
+                    <BandHighlight className={'custom'} />
+                </Bar>
+            </Chart>
+        )
+        const detector = screen.getByRole('band-detector')
+        fireEvent.mouseMove(detector, { clientX: 40, clientY: 40 })
+        const maskRects = screen.getByRole('band-highlight-mask').querySelectorAll('rect')
+        expect(maskRects).toHaveLength(2)
+        expect(maskRects[0].getAttribute('class')).toContain('bandHighlight')
+        expect(maskRects[0].getAttribute('class')).toContain('custom')
+    })
 })
