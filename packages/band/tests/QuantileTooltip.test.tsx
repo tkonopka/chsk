@@ -4,7 +4,7 @@ import { Quantile, Quantiles, QuantileTooltip } from '../src'
 import { quantileProps } from './props'
 
 describe('QuantileTooltip', () => {
-    it('creates boxes and whiskers (vertical)', async () => {
+    it('creates a plain tooltip', async () => {
         render(
             <Chart>
                 <Quantile {...quantileProps}>
@@ -15,7 +15,6 @@ describe('QuantileTooltip', () => {
         )
         const boxwhiskers = screen.getAllByRole('boxwhisker')
         expect(boxwhiskers.length).toBeGreaterThan(0)
-        // make a tooltip appear
         fireEvent.mouseEnter(boxwhiskers[0])
         await waitFor(() => {
             const content = screen.getByRole('tooltip-content')
@@ -26,6 +25,51 @@ describe('QuantileTooltip', () => {
             // tooltip should have many text fields with various info
             const infoText = content.querySelectorAll('text')
             expect(infoText.length).toBeGreaterThan(10)
+        })
+    })
+
+    it('creates a tooltip with title', async () => {
+        render(
+            <Chart>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                    <QuantileTooltip title={'Custom title'} />
+                </Quantile>
+            </Chart>
+        )
+        fireEvent.mouseEnter(screen.getAllByRole('boxwhisker')[0])
+        await waitFor(() => {
+            const content = screen.getByRole('tooltip-content')
+            const title = screen.getByRole('tooltip-title')
+            expect(title.textContent).toEqual('Custom title')
+            expect(title.getAttribute('class')).toContain('tooltipTitle')
+        })
+    })
+
+    it('creates a table with distribution information', async () => {
+        render(
+            <Chart>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                    <QuantileTooltip
+                        itemSize={[100, 30]}
+                        cellStyle={{ fill: '#0000dd' }}
+                        cellSize={[40, 40]}
+                    />
+                </Quantile>
+            </Chart>
+        )
+        fireEvent.mouseEnter(screen.getAllByRole('boxwhisker')[0])
+        await waitFor(() => {
+            const content = screen.getByRole('tooltip-content')
+            // tooltip should have many text fields with various info
+            const infoText = content.querySelectorAll('text')
+            expect(infoText.length).toBeGreaterThan(10)
+            // the first row in the should be some distance down from the top
+            const nText = screen.queryByText('n:')
+            expect(Number(nText?.getAttribute('y'))).toBeGreaterThan(60)
+            // cells in the table should carry the custom style
+            expect(nText?.getAttribute('style')).toContain('fill')
         })
     })
 

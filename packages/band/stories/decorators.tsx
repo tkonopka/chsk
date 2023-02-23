@@ -133,21 +133,7 @@ export const onQuantilesClick = (data: QuantileInteractiveDataItem) => {
 export const round2dp = (x: number) => String(roundDecimalPlaces(x, 2))
 
 export const ChartQuantileWithTooltipDecorator = (Story: () => ReactNode) => (
-    <Chart
-        size={[400, 300]}
-        padding={[40, 40, 60, 60]}
-        style={{ display: 'inline-block' }}
-        theme={{
-            text: {
-                'tooltipItem.label': { textAnchor: 'start' },
-                'tooltipItem.value': {
-                    textAnchor: 'start',
-                    fontWeight: 600,
-                    dominantBaseline: 'central',
-                },
-            },
-        }}
-    >
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Quantile {...commonQuantileProps} horizontal={false}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />

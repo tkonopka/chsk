@@ -13,7 +13,7 @@ import {
     BOTTOM,
     TooltipDataItem,
 } from '@chsk/core'
-import { QuantileTooltipProps } from './types'
+import { QuantileProcessedSummary, QuantileTooltipProps } from './types'
 import { isQuantileProcessedSummary } from './predicates'
 import { QuantileTooltipItem } from './QuantileTooltipItem'
 
@@ -26,11 +26,10 @@ export const QuantileTooltip = ({
     rx = defaultTooltipProps.rx,
     ry = defaultTooltipProps.ry,
     maxOverhang = defaultTooltipProps.maxOverhang,
-    // organization of items within the container
+    // organization of items (title and labels)
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
     firstOffset = defaultTooltipProps.firstOffset,
-    // title and items
     title,
     titleStyle,
     titleFormat,
@@ -40,14 +39,15 @@ export const QuantileTooltip = ({
     labelStyle,
     labelOffset = defaultTooltipProps.labelOffset,
     labelFormat,
+    // organization of information table
+    valueFormat = (x: number) => String(x),
+    cellSize = [40, 20],
+    cellPadding = 20,
+    cellStyle,
     //
     className,
     style,
     setRole = true,
-    //
-    valueFormat = (x: number) => String(x),
-    cellSize = [40, 20],
-    cellPadding = 20,
 }: QuantileTooltipProps) => {
     const { data: tooltip } = useTooltip()
     const tooltipData: TooltipDataItem[] = tooltip?.data ?? []
@@ -78,12 +78,11 @@ export const QuantileTooltip = ({
         .map((_, i) => [padding[LEFT], itemsPosition[Y] + (itemSize[Y] + infoSize[Y]) * i])
 
     const content = tooltipData.map((data, i) => {
-        if (!isQuantileProcessedSummary(data)) return null
         return (
             <QuantileTooltipItem
                 key={'tooltip-item-' + i}
                 position={infoPositions[i]}
-                data={data}
+                data={data as QuantileProcessedSummary & TooltipDataItem} // already check at start
                 label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
                 labelOffset={labelOffset}
                 item={data.key ?? ''}
@@ -93,6 +92,9 @@ export const QuantileTooltip = ({
                 labelStyle={labelStyle}
                 className={className}
                 valueFormat={valueFormat}
+                cellPadding={cellPadding}
+                cellSize={cellSize}
+                cellStyle={cellStyle}
             />
         )
     })

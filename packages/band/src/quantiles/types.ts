@@ -102,15 +102,17 @@ export interface QuantileTooltipProps
         Pick<TooltipItemProps, 'color'> {
     /** format for quantile values */
     valueFormat?: (x: number) => string | number
-    /** size of each cell in information layout */
+    /** size of each cell in information table */
     cellSize?: SizeSpec
-    /** padding between columns in information layout */
+    /** padding between columns in information table */
     cellPadding?: number
+    /** style for cells in information table */
+    cellStyle?: CssProps
 }
 
 export interface QuantileTooltipItemProps
     extends Omit<TooltipItemProps, 'variant' | 'data' | 'size'>,
-        Pick<QuantileTooltipProps, 'valueFormat' | 'cellSize' | 'cellPadding'> {
+        Pick<QuantileTooltipProps, 'valueFormat' | 'cellSize' | 'cellPadding' | 'cellStyle'> {
     /** data */
     data: TooltipDataItem & QuantileProcessedSummary
     /** string label next to color symbol */

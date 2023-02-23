@@ -39,12 +39,14 @@ const InformationTable = ({
     labels,
     values,
     className,
+    style,
 }: {
     position: NumericPositionSpec
     size: SizeSpec
     labels: Array<string>
     values: Array<string | number>
     className: string
+    style?: CssProps
 }) => {
     return (
         <>
@@ -54,6 +56,7 @@ const InformationTable = ({
                     x={position[X]}
                     y={position[Y] + i * size[Y]}
                     className={className + ' label'}
+                    style={style}
                 >
                     {label + ':'}
                 </text>
@@ -64,6 +67,7 @@ const InformationTable = ({
                     x={position[X] + size[X]}
                     y={position[Y] + i * size[Y]}
                     className={className + ' value'}
+                    style={style}
                 >
                     {value}
                 </text>
@@ -76,6 +80,7 @@ export const QuantileTooltipItem = ({
     position = [0, 0],
     data,
     padding = defaultTooltipItemProps.padding,
+    // basic tooltip item with symbol and label
     color,
     r = defaultTooltipProps.r,
     symbol = Square,
@@ -83,14 +88,15 @@ export const QuantileTooltipItem = ({
     label,
     labelStyle,
     labelOffset = defaultTooltipProps.labelOffset,
+    // information table
+    valueFormat = (x: number) => String(x),
+    cellSize = [40, 20],
+    cellPadding = 20,
+    cellStyle,
     //
     className,
     style,
     setRole = true,
-    //
-    valueFormat = (x: number) => String(x),
-    cellSize = [40, 20],
-    cellPadding = 20,
 }: QuantileTooltipItemProps) => {
     const colorScale = useScales().color
     if (!isQuantileProcessedSummary(data)) return null
@@ -122,6 +128,7 @@ export const QuantileTooltipItem = ({
                 valueFormat(data.extrema[1]),
             ]}
             className={infoClassName}
+            style={cellStyle}
         />
     )
     const content2 = (
