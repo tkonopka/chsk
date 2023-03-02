@@ -4,7 +4,11 @@
 
 ### Added
 
+-   [annotation] component `GridStripes`
+
 ### Changed
+
+-   [documentation] edited miscellaneous documentation pages
 
 ## v0.2.0
 

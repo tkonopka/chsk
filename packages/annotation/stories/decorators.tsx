@@ -9,6 +9,28 @@ export const ChartDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const ChartBandViewDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Surface variant={'inner'} />
+        <View
+            scaleX={{
+                variant: 'band',
+                domain: ['A', 'B', 'C', 'D', 'E', 'F'],
+                padding: 0.2,
+                paddingOuter: 0,
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 100],
+            }}
+        >
+            {Story()}
+            <Axis variant={'bottom'} />
+            <Axis variant={'left'} />
+        </View>
+    </Chart>
+)
+
 export const ChartBandViewAxisDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Surface variant={'inner'} />
@@ -28,6 +50,27 @@ export const ChartBandViewAxisDecorator = (Story: () => ReactNode) => (
             <Axis variant={'bottom'} />
             <Axis variant={'left'} />
             {Story()}
+        </View>
+    </Chart>
+)
+
+export const ChartLinearViewDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 60, 60, 60]} style={{ display: 'inline-block' }}>
+        <Surface variant={'inner'} />
+        <View
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 100],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 100],
+            }}
+        >
+            <Surface variant={'inner'} />
+            {Story()}
+            <Axis variant={'bottom'} />
+            <Axis variant={'left'} />
         </View>
     </Chart>
 )

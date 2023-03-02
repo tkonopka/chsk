@@ -88,4 +88,17 @@ describe('GridLines', () => {
         expect(result[0].getAttribute('x1')).toBe('-10')
         expect(result[0].getAttribute('x2')).toBe('370')
     })
+
+    it('creates grid lines without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <GridLines variant="x" setRole={false} />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryByRole('grid-x')).toBeNull()
+        expect(screen.queryByRole('grid-y')).toBeNull()
+        expect(screen.getByRole('chart-content').querySelectorAll('line')).toHaveLength(6)
+    })
 })

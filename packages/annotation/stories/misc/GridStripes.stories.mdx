@@ -1,0 +1,115 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, ArrowMarker, View, Axis, GridLines } from '@chsk/core'
+import { GridStripes } from '../../src'
+import { ChartLinearViewDecorator, ChartBandViewDecorator } from '../decorators'
+
+<Meta title="Addons/Annotation/Misc/GridStripes" />
+
+# GridStripes
+
+export const Template = args => <GridStripes {...args} />
+
+`GridStripes` displays rectangular stripes to mark regions along an axis.
+
+<ArgsTable of={GridStripes} />
+
+## Variants
+
+Prop `variant` toggles between vertical and horizontal stripes that mark regions along the x- and y-axis.
+
+<Canvas>
+    <Story
+        name="x"
+        args={{
+            variant: 'x',
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartLinearViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="y"
+        args={{
+            variant: 'y',
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartLinearViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Parity
+
+`GridStripes`, like 'GridLines', divides an axis into regions. Whereas `GridLines` draws lines at the
+boundaries between these regions, `GridStripes` draws rectangles in alternating regions.
+Prop `parity` determines whether these rectangles appear in even or odd-indexed regions.
+
+<Canvas>
+    <Story
+        name="even"
+        args={{
+            variant: 'x',
+            parity: 'even',
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartLinearViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="odd"
+        args={{
+            variant: 'x',
+            parity: 'odd',
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartLinearViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To draw alternating stripes with different colors / styles, use two separate `GridStripes` components.
+
+## Shift
+
+Prop `shift` adjusts the position of region boundaries on band scales.
+This can be used to create stripes between adjacent bands or to highlight alternating bands.
+
+<Canvas>
+    <Story
+        name="between bands"
+        args={{
+            variant: 'x',
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartBandViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="centered on bands"
+        args={{
+            variant: 'x',
+            parity: 'even',
+            shift: [-0.625],
+            style: { fill: '#ffdddd' },
+        }}
+        component={GridStripes}
+        decorators={[ChartBandViewDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Other props
+
+`GridStripes` shares many props with `GridLines` from the `@chsk/core` package.
+See the documentation for `GridLines` for further details.

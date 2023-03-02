@@ -57,7 +57,7 @@ const UnthemedGridLines = ({
             />
         ))
     }
-    return <g role={'grid-' + variant}>{result}</g>
+    return <g role={setRole ? 'grid-' + variant : undefined}>{result}</g>
 }
 
 export const GridLines = (props: GridLinesProps) => (
