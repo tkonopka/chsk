@@ -51,7 +51,11 @@ const coverage = packages.map(pkg => {
     })
     const coverage = Math.round((10000 * hits) / statements) / 100
     console.log(packageLinePrefix(pkg) + '\t' + statements + '\t\t' + coverage)
-    return { package: pkg, statements, coverage }
+    return { package: pkg, statements, hits, coverage }
 })
 console.log(dashLine)
+const totalStatements = coverage.reduce((total, x) => total + x['statements'], 0)
+const totalHits = coverage.reduce((total, x) => total + x['hits'], 0)
+const overallCoverage = Math.round((10000 * totalHits) / totalStatements) / 100
+console.log('total\t\t' + totalStatements + '\t\t' + overallCoverage)
 console.log('')
