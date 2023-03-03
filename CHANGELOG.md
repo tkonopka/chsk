@@ -4,10 +4,13 @@
 
 ### Added
 
+-   [matrix] prop `cornerAnimation` in `HeatMapHighlight` to toggle between
+    fade-in and corner animations
 -   [annotation] component `GridStripes`
 
 ### Changed
 
+-   [matrix] changed default animation in `HeatMapHighlight` to simple fade-in
 -   [documentation] edited miscellaneous documentation pages
 
 ## v0.2.0

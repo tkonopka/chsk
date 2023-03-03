@@ -50,8 +50,10 @@ export interface HeatMapHighlightProps extends SvgElementProps {
     ids?: string[]
     /** keys to display (default to all keys) */
     keys?: string[]
-    /** interactive */
+    /** toggle response to mouse motion */
     interactive?: boolean
+    /** animate initial appearance from corners */
+    cornerAnimation?: boolean
     /** alignment of tooltip within a highlighted zone */
     tooltipAlign?: AlignSpec
 }

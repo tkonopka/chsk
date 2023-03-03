@@ -1,4 +1,4 @@
-// letters of the alphabet
+/** letters of the alphabet */
 export const alphabetUppercase = [
     'A',
     'B',
@@ -52,7 +52,7 @@ export const alphabetUppercaseConsonants = [
     'Z',
 ]
 
-// letters of the Greek alphabet
+/** letters of the Greek alphabet */
 export const alphabetGreek = [
     'alpha',
     'beta',
@@ -119,7 +119,7 @@ export const randomSelection = (pool: string[], n = 1, allowDuplicates = true): 
     return result
 }
 
-// create an array of values from superposed normal distributions
+/** create an array of values from superposed normal distributions */
 export const generateMixedPopulation = (n: number[], mean: number[], sd: number[]) => {
     const result: number[][] = []
     n.forEach((size, i) => {
@@ -131,12 +131,13 @@ export const generateMixedPopulation = (n: number[], mean: number[], sd: number[
     return result.flat()
 }
 
-// generate an array of n values from a uniform
+/** generate an array of n values from a uniform distribution */
 export const generateUniformPopulation = (n: number, min: number, max: number): number[] =>
     Array(n)
         .fill(0)
         .map(() => randomUniformValue(min, max))
 
+/** generate an array of n strings of the form [prefix][random integer < size] */
 export const generateIdentifiers = (n: number, size: number, prefix = 'A'): string[] => {
     const ids = new Set<string>()
     while (ids.size < n) {
@@ -145,7 +146,7 @@ export const generateIdentifiers = (n: number, size: number, prefix = 'A'): stri
     return Array.from(ids)
 }
 
-// create an array of numbers in an interval
+/** create an array of numbers in an interval */
 export const stepSequence = (interval: [number, number], step = 1) => {
     let x = interval[0]
     const result = []

@@ -46,7 +46,8 @@ The effect works on maps with and without padding. The appearance of the masks c
 
 ## Data subsets
 
-To restrict the highlighting to a subset of rows and columns, use props `ids` and `keys`. In the example below, the highlights should activate only on the first few rows.
+To restrict the highlighting to a subset of rows and columns, use props `ids` and `keys`.
+In the example below, the highlights should activate only on the first few rows.
 
 <Canvas>
     <Story
@@ -64,7 +65,8 @@ To restrict the highlighting to a subset of rows and columns, use props `ids` an
 
 ## Interactivity
 
-Interactivity and mouse motion can be turned off via prop `interactive`. Then, `HeatmapHighlight` can be used as a static tool to highlight a subset of ids and/or keys.
+Interactivity and mouse motion can be turned off via prop `interactive`.
+Then, `HeatmapHighlight` can be used as a static tool to highlight a subset of ids and/or keys.
 
 <Canvas>
     <Story
@@ -81,6 +83,29 @@ Interactivity and mouse motion can be turned off via prop `interactive`. Then, `
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Corner animation
+
+By default, when the mouse enters the heatmap, `HeatMapHighlight` displays masks using a fade-in effect
+(cf. previous examples).
+Prop `cornerAnimation` is a flag that instead triggers an animation that initially places masks at the corners
+of the matrix and then spreads these masks to zoom onto a cell.
+
+<Canvas>
+    <Story
+        name="corner animation"
+        args={{
+            cornerAnimation: true,
+            style: { fill: '#222222', opacity: 0.9 },
+        }}
+        component={HeatMapHighlight}
+        decorators={[ChartHeatMapCellsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(The distinction between `cornerAnimation` values is more pronounced in larger heatmaps.)
 
 ## Tooltip
 
