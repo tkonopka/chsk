@@ -62,7 +62,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
             fref={fref}
             id="vertical-upset"
             size={[480, 600]}
-            padding={[80, 280, 40, 40]}
+            padding={[80, 320, 40, 40]}
             theme={customTheme}
         >
             <UpSet data={rawData} horizontal={false}>
@@ -85,7 +85,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
                 </MilestoneMotion>
                 <MilestoneMotion initial={'invisible'} initialOn={'bars'}>
                     <UpSetBar
-                        size={240}
+                        size={260}
                         padding={[0, 0, 0, 10]}
                         scaleIndex={{ variant: 'band', padding: 0.25 }}
                     >

@@ -106,7 +106,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     </Axis>
                     <Axis variant={'left'} label={'Set size'} />
                     <Bars />
-                    <Tooltip itemSize={[90, 30]} />
+                    <Tooltip itemSize={[90, 24]} />
                 </Bar>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'intersections'}>
@@ -147,7 +147,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     />
                     <VennSetLabels ids={['C']} format={labelFormat} rs={[1.3]} angles={[Math.PI]} />
                     <VennIntersectionLabels component={Counter} />
-                    <Tooltip itemSize={[140, 30]} labelFormat={tooltipLabelFormat} />
+                    <Tooltip itemSize={[140, 24]} labelFormat={tooltipLabelFormat} />
                 </Venn>
             </MilestoneMotion>
         </Chart>

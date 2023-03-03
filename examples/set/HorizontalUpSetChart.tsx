@@ -1,10 +1,20 @@
-import { Chart, Axis, AxisLine, MilestoneMotion, ThemeSpec, mergeTheme } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    AxisLine,
+    MilestoneMotion,
+    ThemeSpec,
+    mergeTheme,
+    Tooltip,
+    TooltipDataItem,
+} from '@chsk/core'
 import { UpSet, UpSetGrid, UpSetMemberships, UpSetBar, isUpSetData } from '@chsk/matrix'
 import { Bars } from '@chsk/band'
+import { downloadThemePiece } from '@chsk/themes'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemePiece } from '@chsk/themes'
+import { BandSurface } from '../../packages/band/src'
 
 export const generateHorizontalUpSetData = () => {
     const elements = generateIdentifiers(200, 10000, 'el')
@@ -73,7 +83,16 @@ export const HorizontalUpSetChart = ({ fref, chartData, rawData }: MilestoneStor
                         <Axis variant={'bottom'}>
                             <AxisLine variant={'bottom'} />
                         </Axis>
+                        <BandSurface
+                            interactive={true}
+                            tooltip={true}
+                            style={{ fill: '#eeeeee' }}
+                        />
                         <Bars />
+                        <Tooltip
+                            itemSize={[60, 24]}
+                            labelFormat={(x: TooltipDataItem) => String(x.data)}
+                        />
                     </UpSetBar>
                 </MilestoneMotion>
                 <DownloadButtons position={[580, -230]} data image />
