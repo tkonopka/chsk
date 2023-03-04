@@ -1,4 +1,4 @@
-import { useDimensions, useScales, Path, getAbsolutePosition, getClassName } from '@chsk/core'
+import { useDimensions, useScales, Path, getAbsolutePosition } from '@chsk/core'
 import { ArcArrowProps } from './types'
 import { getArcArrowPath } from './arrows'
 

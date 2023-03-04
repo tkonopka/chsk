@@ -1,9 +1,8 @@
-import { useDimensions, useScales, Path, getAbsolutePosition, getClassName } from '@chsk/core'
+import { useDimensions, useScales, Path, getAbsolutePosition } from '@chsk/core'
 import { BlockArrowProps } from './types'
 import { getBlockArrowPath } from './arrows'
 
 export const BlockArrow = ({
-    variant = 'block-arrow',
     start,
     end,
     units = 'view',
