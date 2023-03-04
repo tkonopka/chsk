@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { Axis, ArrowMarker, Chart, ChartRef, MilestoneMotion, Surface, View } from '@chsk/core'
-import { FlowPath, FlowPathProps } from '../src'
+import { FlowPath, FlowPathProps } from '../../src'
 
 export const FlowMilestones = ({
     points,

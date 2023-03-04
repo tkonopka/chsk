@@ -1,6 +1,6 @@
+import { useDimensions, useScales, Path, getAbsolutePosition, getClassName } from '@chsk/core'
 import { BlockArrowProps } from './types'
-import { useDimensions, useScales, Path, getAbsolutePosition } from '@chsk/core'
-import { getBlockArrowPoints } from './utils'
+import { getBlockArrowPath } from './arrows'
 
 export const BlockArrow = ({
     variant = 'block-arrow',
@@ -18,7 +18,7 @@ export const BlockArrow = ({
 
     const lineStart = getAbsolutePosition(start, units, size, scales)
     const lineEnd = getAbsolutePosition(end, units, size, scales)
-    const points = getBlockArrowPoints({
+    const path = getBlockArrowPath({
         start: lineStart,
         end: lineEnd,
         heads,
@@ -27,5 +27,5 @@ export const BlockArrow = ({
         stemWidth,
     })
 
-    return <Path variant={variant} points={points} {...props} />
+    return <Path variant={'block-arrow'} d={path} {...props} />
 }

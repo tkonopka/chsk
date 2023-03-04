@@ -1,4 +1,3 @@
-export * from './arrows'
 export * from './filters'
 export * from './flowchart'
 export * from './labels'
