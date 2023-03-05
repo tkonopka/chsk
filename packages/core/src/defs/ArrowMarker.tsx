@@ -53,6 +53,7 @@ export const ArrowMarker = ({
             markerWidth={size / 2}
             markerHeight={size / 2}
             orient="auto-start-reverse"
+            style={{ overflow: 'visible' }}
         >
             <path d={d} style={style} />
         </marker>

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] component `BluntMarker`
 -   [annotation] component `ArcArrow`
 -   [matrix] prop `cornerAnimation` in `HeatMapHighlight` to toggle between
     fade-in and corner animations

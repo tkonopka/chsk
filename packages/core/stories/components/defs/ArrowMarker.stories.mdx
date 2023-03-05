@@ -7,7 +7,7 @@ import { DivDecorator } from '../decorators'
 <Meta title="Core/Components/Defs/ArrowMarker" />
 export const Template = args => <ArrowMarker {...args} />
 
-`ArrowMarker` is a component that defines a 'marker'. Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
+`ArrowMarker` creates a definition for an arrow-head 'marker'. Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
 
 `ArrowMarker` objects should be contained within an svg `def` tag.
 
@@ -15,7 +15,7 @@ export const Template = args => <ArrowMarker {...args} />
 
 ## Variants
 
-Arrows come in several variants, which can be activated via prop `variant`.
+Prop `variant` determines the shape of the arrowhead.
 
 <Canvas>
     <Story name="triangle" decorators={[DivDecorator]}>

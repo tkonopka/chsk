@@ -1,16 +1,24 @@
 import { CssProps, NumericPositionSpec } from '../general'
 
-export interface ArrowMarkerProps {
+interface BaseMarkerProps {
+    /** identifier */
+    id: string
+    /** marker size */
+    size?: number
+    /** style for marker path */
+    style?: CssProps
+}
+
+export interface ArrowMarkerProps extends BaseMarkerProps {
     /** variant of arrowhead */
     variant: 'Triangle' | 'Chevron' | 'Winged'
-    /** identifier used to apply the marker to lines */
-    id: string
-    /** length of arrowhead */
-    size?: number
     /** numeric parameter [0, 1] to control width of arrowhead */
     width?: number
-    /** style for path */
-    style?: CssProps
+}
+
+export interface BluntMarkerProps extends BaseMarkerProps {
+    /** variant of arrowhead */
+    variant: 'Circle' | 'Square' | 'Diamond'
 }
 
 export interface LinearGradientProps {
