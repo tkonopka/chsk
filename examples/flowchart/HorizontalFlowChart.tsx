@@ -1,5 +1,5 @@
-import { Chart, ThemeSpec, mergeTheme, ArrowMarker, View, Label, MilestoneMotion } from '@chsk/core'
-import { FlowPath } from '@chsk/annotation'
+import { Chart, ThemeSpec, mergeTheme, View, Label, MilestoneMotion } from '@chsk/core'
+import { FlowPath, ArrowMarker } from '@chsk/annotation'
 import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'

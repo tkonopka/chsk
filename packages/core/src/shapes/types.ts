@@ -84,7 +84,10 @@ export type CurveFunction = (xy: Array<NumericPositionSpec>) => string | null
 
 export type AreaFunction = (xy: Array<NumericPositionIntervalSpec>) => string | null
 
-export interface PathProps extends SvgElementVariantProps, InteractivityProps {
+export interface PathProps
+    extends SvgElementVariantProps,
+        InteractivityProps,
+        Pick<LineProps, 'markerStart' | 'markerEnd'> {
     /** variant */
     variant?: 'default' | string
     /** array of coordinates */

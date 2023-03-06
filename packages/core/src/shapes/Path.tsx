@@ -9,9 +9,10 @@ export const Path = ({
     points,
     curve = 'Linear',
     d,
+    markerStart,
+    markerEnd,
     className,
     setRole = true,
-    style,
     ...props
 }: PathProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -21,8 +22,9 @@ export const Path = ({
         <m.path
             initial={{ d: path ?? undefined }}
             animate={{ d: path ?? undefined }}
+            markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
+            markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
             role={setRole ? variant : undefined}
-            style={style}
             className={compositeClassName}
             {...props}
         />

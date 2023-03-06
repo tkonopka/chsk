@@ -1,14 +1,5 @@
-import {
-    Chart,
-    ThemeSpec,
-    mergeTheme,
-    View,
-    Typography,
-    Label,
-    MilestoneMotion,
-    ArrowMarker,
-} from '@chsk/core'
-import { BoxedLabel, FlowPath } from '@chsk/annotation'
+import { Chart, ThemeSpec, mergeTheme, View, Typography, Label, MilestoneMotion } from '@chsk/core'
+import { BoxedLabel, FlowPath, ArrowMarker } from '@chsk/annotation'
 import { downloadThemePiece } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'

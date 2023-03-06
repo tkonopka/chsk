@@ -38,4 +38,15 @@ describe('Path', () => {
         const result = screen.getByRole('custom')
         expect(result?.getAttribute('d')).toContain('M')
     })
+
+    it('assigns markers', () => {
+        render(
+            <Chart {...chartProps}>
+                <Path points={threePoints} markerStart={'abc'} markerEnd={'xyz'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('path')?.getAttribute('marker-start')).toEqual('url(#abc)')
+        expect(result.querySelector('path')?.getAttribute('marker-end')).toEqual('url(#xyz)')
+    })
 })

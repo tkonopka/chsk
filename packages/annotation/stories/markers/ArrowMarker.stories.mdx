@@ -1,24 +1,24 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, ArrowMarker, Line } from '../../../src'
-import { DivDecorator } from '../decorators'
+import { Chart, Line } from '@chsk/core'
+import { ArrowMarker } from '../../src'
 
 # ArrowMarker
 
-<Meta title="Core/Components/Defs/ArrowMarker" />
+<Meta title="Addons/Annotation/Markers/ArrowMarker" />
 export const Template = args => <ArrowMarker {...args} />
 
 `ArrowMarker` creates a definition for an arrow-head 'marker'. Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
 
-`ArrowMarker` objects should be contained within an svg `def` tag.
-
 <ArgsTable of={ArrowMarker} />
+
+`ArrowMarker` objects should be contained within an svg `def` tag.
 
 ## Variants
 
 Prop `variant` determines the shape of the arrowhead.
 
 <Canvas>
-    <Story name="triangle" decorators={[DivDecorator]}>
+    <Story name="triangle">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker id="triangle" variant="Triangle" style={{ fill: '#222222' }} />
@@ -33,7 +33,7 @@ Prop `variant` determines the shape of the arrowhead.
             />
         </Chart>
     </Story>
-    <Story name="winged" decorators={[DivDecorator]}>
+    <Story name="winged">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker id="winged" variant="Winged" style={{ fill: '#222222' }} />
@@ -41,7 +41,7 @@ Prop `variant` determines the shape of the arrowhead.
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'winged'} style={{ strokeWidth: 3 }} />
         </Chart>
     </Story>
-    <Story name="chevron" decorators={[DivDecorator]}>
+    <Story name="chevron">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker id="chevron" variant="Chevron" style={{ stroke: '#222222' }} />
@@ -63,7 +63,7 @@ Prop `variant` determines the shape of the arrowhead.
 The shape of the arrowheads can further be adjusted using props `size` and `width`. The overall weight is also scaled by the stroke width of the line.
 
 <Canvas>
-    <Story name="narrow" decorators={[DivDecorator]}>
+    <Story name="narrow">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker
@@ -76,7 +76,7 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'narrow'} style={{ strokeWidth: 3 }} />
         </Chart>
     </Story>
-    <Story name="large" decorators={[DivDecorator]}>
+    <Story name="large">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker id="large" variant="Winged" size={16} style={{ fill: '#222222' }} />
@@ -84,7 +84,7 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'large'} style={{ strokeWidth: 3 }} />
         </Chart>
     </Story>
-    <Story name="double sided" decorators={[DivDecorator]}>
+    <Story name="double sided">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <ArrowMarker id="color" variant="Chevron" style={{ stroke: '#2222dd' }} />

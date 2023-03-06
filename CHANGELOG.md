@@ -12,6 +12,7 @@
 
 ### Changed
 
+-   [core] moved `ArrowMarker` and `BluntMarker` to the annotation package
 -   [matrix] changed default animation in `HeatMapHighlight` to simple fade-in
 -   [documentation] edited miscellaneous documentation pages
 

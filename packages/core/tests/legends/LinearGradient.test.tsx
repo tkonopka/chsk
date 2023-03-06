@@ -17,7 +17,6 @@ describe('LinearGradient', () => {
             </Chart>
         )
         const result = screen.getByRole('linear-gradient')
-        expect(result).toBeDefined()
         expect(result.getAttribute('id')).toBe('grad1')
         const stops = result.querySelectorAll('stop')
         expect(stops).toHaveLength(2)
@@ -40,7 +39,6 @@ describe('LinearGradient', () => {
             </Chart>
         )
         const result = screen.getByRole('linear-gradient')
-        expect(result).toBeDefined()
         expect(result.getAttribute('id')).toBe('grad1')
         const stops = result.querySelectorAll('stop')
         expect(stops).toHaveLength(3)
@@ -48,7 +46,7 @@ describe('LinearGradient', () => {
         expect(stops[2].getAttribute('offset')).toEqual('1')
     })
 
-    it('corrects erroneous offsets', () => {
+    it('corrects mis-specified offsets', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
@@ -63,11 +61,11 @@ describe('LinearGradient', () => {
             </Chart>
         )
         const result = screen.getByRole('linear-gradient')
-        expect(result).toBeDefined()
         expect(result.getAttribute('id')).toBe('grad1')
         const stops = result.querySelectorAll('stop')
+        // offsets in props are incorrect (length 2 does not match stops array)
+        // so component should use regular spacing instead
         expect(stops).toHaveLength(3)
-        // offsets in props are incorrect, so component should use regular spacing instead
         expect(stops[0].getAttribute('offset')).toEqual('0')
         expect(stops[1].getAttribute('offset')).toEqual('0.5')
         expect(stops[2].getAttribute('offset')).toEqual('1')
@@ -81,7 +79,6 @@ describe('LinearGradient', () => {
                 </defs>
             </Chart>
         )
-        const result = screen.queryByRole('linear-gradient')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('linear-gradient')).toBeNull()
     })
 })

@@ -12,7 +12,6 @@ export const Line = ({
     markerEnd,
     className,
     setRole = true,
-    style,
     ...props
 }: LineProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -22,7 +21,6 @@ export const Line = ({
             role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
             className={compositeClassName}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}

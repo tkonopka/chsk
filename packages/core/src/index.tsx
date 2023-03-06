@@ -1,6 +1,5 @@
 export * from './axes'
 export * from './charts'
-export * from './defs'
 export * from './general'
 export * from './interactivity'
 export * from './legends'

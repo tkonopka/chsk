@@ -1,5 +1,5 @@
-import { LinearGradientProps } from './types'
 import { roundDecimalPlaces, X, Y } from '../general'
+import { LinearGradientProps } from './types'
 
 export const LinearGradient = ({
     id,

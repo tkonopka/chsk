@@ -25,4 +25,15 @@ describe('Line', () => {
         const result = screen.getByRole('chart-content')
         expect(result.querySelectorAll('line')).toHaveLength(1)
     })
+
+    it('assigns markers', () => {
+        render(
+            <Chart {...chartProps}>
+                <Line x1={0} y1={0} x2={10} y2={20} markerStart={'abc'} markerEnd={'xyz'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('line')?.getAttribute('marker-start')).toEqual('url(#abc)')
+        expect(result.querySelector('line')?.getAttribute('marker-end')).toEqual('url(#xyz)')
+    })
 })

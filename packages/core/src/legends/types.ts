@@ -12,6 +12,19 @@ import { ContainerProps } from '../views'
 import { SymbolProps } from '../shapes'
 import { AxisTicksProps } from '../axes'
 
+export interface LinearGradientProps {
+    /** identifier for the gradient */
+    id: string
+    /** start position */
+    start: NumericPositionSpec
+    /** end position */
+    end: NumericPositionSpec
+    /** color stops */
+    stops: string[]
+    /** offsets for color stops */
+    offsets?: number[]
+}
+
 export interface LegendTitleProps extends SvgElementProps {
     /** variant */
     variant?: SideVariant

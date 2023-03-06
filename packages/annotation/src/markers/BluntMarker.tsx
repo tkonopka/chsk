@@ -28,7 +28,6 @@ export const BluntMarker = ({ variant = 'Circle', id, size = 10, style }: BluntM
             markerWidth={size / 2}
             markerHeight={size / 2}
             orient="auto-start-reverse"
-            style={{ overflow: 'visible' }}
         >
             {content}
         </marker>

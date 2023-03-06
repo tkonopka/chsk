@@ -1,6 +1,11 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, BluntMarker } from '../../src'
-import { chartProps } from '../props'
+import { Chart } from '@chsk/core'
+import { BluntMarker } from '../../src'
+
+export const chartProps = {
+    size: [400, 300] as [number, number],
+    padding: [20, 20, 20, 20] as [number, number, number, number],
+}
 
 describe('BluntMarker', () => {
     it('creates a circle def', () => {

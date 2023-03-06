@@ -1,24 +1,24 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { Chart, BluntMarker, Line, Circle } from '../../../src'
-import { DivDecorator } from '../decorators'
+import { Chart, Line, Circle } from '@chsk/core'
+import { BluntMarker } from '../../src'
 
 # BluntMarker
 
-<Meta title="Core/Components/Defs/BluntMarker" />
+<Meta title="Addons/Annotation/Markers/BluntMarker" />
 export const Template = args => <BluntMarker {...args} />
 
 `BluntMarker` creates a definition for a 'marker'. Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
 
-`BluntMarker` objects should be contained within an svg `def` tag.
-
 <ArgsTable of={BluntMarker} />
+
+`BluntMarker` objects should be contained within an svg `def` tag.
 
 ## Variants
 
 Prop `variant` determines the shape of the marker.
 
 <Canvas>
-    <Story name="circle" decorators={[DivDecorator]}>
+    <Story name="circle">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker id="circle" variant="Circle" style={{ fill: '#222222' }} />
@@ -26,7 +26,7 @@ Prop `variant` determines the shape of the marker.
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'circle'} style={{ strokeWidth: 3 }} />
         </Chart>
     </Story>
-    <Story name="square" decorators={[DivDecorator]}>
+    <Story name="square">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker id="square" variant="Square" style={{ fill: '#222222' }} />
@@ -34,7 +34,7 @@ Prop `variant` determines the shape of the marker.
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'square'} style={{ strokeWidth: 3 }} />
         </Chart>
     </Story>
-    <Story name="diamond" decorators={[DivDecorator]}>
+    <Story name="diamond">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker id="diamond" variant="Diamond" style={{ fill: '#222222' }} />
@@ -56,7 +56,7 @@ Prop `variant` determines the shape of the marker.
 The size of the marker is set with props `size`.
 
 <Canvas>
-    <Story name="small" decorators={[DivDecorator]}>
+    <Story name="small">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker
@@ -76,7 +76,7 @@ The size of the marker is set with props `size`.
             />
         </Chart>
     </Story>
-    <Story name="large" decorators={[DivDecorator]}>
+    <Story name="large">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker
@@ -96,7 +96,7 @@ The size of the marker is set with props `size`.
             />
         </Chart>
     </Story>
-    <Story name="double sided" decorators={[DivDecorator]}>
+    <Story name="double sided">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
                 <BluntMarker

@@ -1,12 +1,12 @@
-import { LegendColorScaleProps } from './types'
+import { cloneDeep } from 'lodash'
 import { LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
-import { LinearGradient } from '../defs'
-import { cloneDeep } from 'lodash'
 import { getAxisTranslate, getScaleTicks } from '../axes'
 import { useThemedProps } from '../themes'
+import { LinearGradient } from './LinearGradient'
 import { defaultLegendColorScaleProps } from './defaults'
+import { LegendColorScaleProps } from './types'
 
 const UnthemedLegendColorScale = ({
     variant = 'bottom',
