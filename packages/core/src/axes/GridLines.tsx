@@ -3,13 +3,14 @@ import { getTickCoordinates, useScales } from '../scales'
 import { useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
+import { defaultGridLinesProps } from './defaults'
 import { GridLinesProps } from './types'
 
 const UnthemedGridLines = ({
     variant,
     values,
-    shift = [0],
-    expansion = [0, 0],
+    shift = defaultGridLinesProps.shift,
+    expansion = defaultGridLinesProps.expansion,
     className,
     style,
     setRole = true,

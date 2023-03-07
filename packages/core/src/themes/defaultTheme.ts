@@ -17,6 +17,7 @@ import {
     defaultAxisLabelRightProps,
     defaultAxisProps,
     defaultAxisTicksProps,
+    defaultGridLinesProps,
 } from '../axes/defaults'
 import { CompleteThemeSpec } from './types'
 import { cloneDeep } from 'lodash'
@@ -175,36 +176,18 @@ export const defaultTheme: CompleteThemeSpec = {
         },
     },
     Axis: {
-        top: cloneDeep(defaultAxisProps),
-        bottom: cloneDeep(defaultAxisProps),
-        left: cloneDeep(defaultAxisProps),
-        right: cloneDeep(defaultAxisProps),
+        default: cloneDeep(defaultAxisProps),
     },
     AxisLabel: {
-        top: cloneDeep(defaultAxisLabelProps),
-        bottom: cloneDeep(defaultAxisLabelProps),
+        default: cloneDeep(defaultAxisLabelProps),
         left: cloneDeep(defaultAxisLabelLeftProps),
         right: cloneDeep(defaultAxisLabelRightProps),
     },
     AxisTicks: {
-        top: cloneDeep(defaultAxisTicksProps),
-        bottom: cloneDeep(defaultAxisTicksProps),
-        left: cloneDeep(defaultAxisTicksProps),
-        right: cloneDeep(defaultAxisTicksProps),
+        default: cloneDeep(defaultAxisTicksProps),
     },
     GridLines: {
-        default: {
-            shift: [0],
-            expansion: [0, 0],
-        },
-        x: {
-            shift: [0],
-            expansion: [0, 0],
-        },
-        y: {
-            shift: [0],
-            expansion: [0, 0],
-        },
+        default: cloneDeep(defaultGridLinesProps),
     },
     Legend: {
         list: cloneDeep(defaultLegendProps),

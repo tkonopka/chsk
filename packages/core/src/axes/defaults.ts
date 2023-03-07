@@ -1,4 +1,9 @@
-import { AxisLabelThemedProps, AxisThemedProps, AxisTicksThemedProps } from './types'
+import {
+    AxisLabelThemedProps,
+    AxisThemedProps,
+    AxisTicksThemedProps,
+    GridLinesThemedProps,
+} from './types'
 
 export const defaultAxisProps: AxisThemedProps = {
     offset: 0,
@@ -29,4 +34,9 @@ export const defaultAxisTicksProps: AxisTicksThemedProps = {
     labelOffset: 9,
     labelTranslate: [0, 0],
     labelRotate: 0,
+}
+
+export const defaultGridLinesProps: GridLinesThemedProps = {
+    shift: [0],
+    expansion: [0, 0],
 }

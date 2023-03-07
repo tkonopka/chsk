@@ -73,19 +73,19 @@ describe('mergeTheme', () => {
     it('replaces an array', () => {
         const customTheme: ThemeSpec = {
             GridLines: {
-                x: {
+                default: {
                     expansion: [1234, 1234],
                 },
             },
         }
         const result = mergeTheme(defaultTheme, customTheme) as CompleteThemeSpec
-        expect(defaultTheme['GridLines']['x']).toHaveProperty('expansion', [0, 0])
-        expect(result['GridLines']['x']).toHaveProperty('expansion', [1234, 1234])
+        expect(defaultTheme['GridLines']['default']).toHaveProperty('expansion', [0, 0])
+        expect(result['GridLines']['default']).toHaveProperty('expansion', [1234, 1234])
         // attempt to modify custom theme
-        expect(result['GridLines']['x']).toBeDefined()
-        const x = result['GridLines']['x'] ?? {}
+        expect(result['GridLines']['default']).toBeDefined()
+        const x = result['GridLines']['default'] ?? {}
         x.expansion = [567, 567]
-        expect(defaultTheme['GridLines']['x']).toHaveProperty('expansion', [0, 0])
+        expect(defaultTheme['GridLines']['default']).toHaveProperty('expansion', [0, 0])
     })
 })
 

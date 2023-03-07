@@ -101,3 +101,8 @@ export interface GridLinesProps extends SvgElementVariantProps {
     /** expansion of lines at the start and end of the scale */
     expansion?: number | TwoSideSizeSpec
 }
+
+export interface GridLinesThemedProps extends Pick<GridLinesProps, 'shift' | 'expansion'> {
+    shift: number[]
+    expansion: number | TwoSideSizeSpec
+}

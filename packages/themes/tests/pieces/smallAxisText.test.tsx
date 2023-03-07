@@ -19,14 +19,16 @@ describe('small axis text', () => {
 
     it('decreases distance between axis and tick labels', () => {
         expect(smallAxisTextThemePiece).toHaveProperty('text')
-        const refOffset = defaultTheme.AxisTicks?.top?.labelOffset
+        const refOffset =
+            defaultTheme.AxisTicks?.top?.labelOffset ?? defaultTheme.AxisTicks?.default?.labelOffset
         const themeOffset = smallAxisTextThemePiece.AxisTicks?.top?.labelOffset
         expect(pxValue(themeOffset)).toBeLessThan(pxValue(refOffset))
     })
 
     it('decreases distance between axis and axis labels', () => {
         expect(smallAxisTextThemePiece).toHaveProperty('text')
-        const refOffset = defaultTheme.AxisLabel?.top?.offset
+        const refOffset =
+            defaultTheme.AxisLabel?.top?.offset ?? defaultTheme.AxisLabel?.default?.offset
         const themeOffset = smallAxisTextThemePiece.AxisLabel?.top?.offset
         expect(pxValue(themeOffset)).toBeLessThan(pxValue(refOffset))
     })

@@ -128,3 +128,7 @@ export interface SurfaceProps extends SvgElementVariantProps {
     /** expansion of background surface */
     expansion?: FourSideSizeSpec
 }
+
+export interface SurfaceThemedProps extends Pick<SurfaceProps, 'expansion'> {
+    expansion: FourSideSizeSpec
+}

@@ -9,7 +9,7 @@ import {
     AxisLabelThemedProps,
     AxisThemedProps,
     AxisTicksThemedProps,
-    GridLinesProps,
+    GridLinesThemedProps,
 } from '../axes'
 import {
     LegendColorScaleThemedProps,
@@ -19,13 +19,14 @@ import {
     LegendThemedProps,
 } from '../legends'
 import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
-import { SurfaceProps, ViewThemedProps } from '../views'
+import { SurfaceThemedProps, ViewThemedProps } from '../views'
 
 export type WithVariant = {
     variant?: 'default' | string
 }
 
 export interface SideRecords<T = Record<string, unknown>> extends Record<string, T | undefined> {
+    default?: T
     top?: T
     bottom?: T
     left?: T
@@ -57,14 +58,14 @@ export interface ThemeSpec {
     Axis?: Record<string, Partial<AxisThemedProps> | undefined>
     AxisLabel?: Record<string, Partial<AxisLabelThemedProps> | undefined>
     AxisTicks?: Record<string, Partial<AxisTicksThemedProps> | undefined>
-    GridLines?: Record<string, Partial<GridLinesProps> | undefined>
+    GridLines?: Record<string, Partial<GridLinesThemedProps> | undefined>
     Legend?: Record<string, Partial<LegendThemedProps> | undefined>
     LegendItem?: Record<string, Partial<LegendItemThemedProps> | undefined>
     LegendItemList?: Record<string, Partial<LegendItemListThemedProps> | undefined>
     LegendTitle?: Record<string, Partial<LegendItemThemedProps> | undefined>
     LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
-    Surface?: Record<string, Partial<SurfaceProps> | undefined>
+    Surface?: Record<string, Partial<SurfaceThemedProps> | undefined>
     Tooltip?: Record<string, Partial<TooltipThemedProps> | undefined>
     TooltipItemList?: Record<string, TooltipItemListThemedProps | undefined>
     TooltipItem?: Record<string, TooltipItemThemedProps | undefined>
@@ -86,14 +87,14 @@ export interface CompleteThemeSpec {
     Axis: SideRecords<AxisThemedProps>
     AxisLabel: SideRecords<AxisLabelThemedProps>
     AxisTicks: SideRecords<AxisTicksThemedProps>
-    GridLines: Record<string, Partial<GridLinesProps> | undefined>
+    GridLines: Record<string, Partial<GridLinesThemedProps> | undefined>
     Legend: Record<string, Partial<LegendThemedProps> | undefined>
     LegendItemList: Record<string, LegendItemListThemedProps | undefined>
     LegendItem: Record<string, LegendItemThemedProps | undefined>
     LegendTitle: Record<string, LegendItemThemedProps | undefined>
     LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps> | undefined>
     LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps> | undefined>
-    Surface: Record<string, Partial<SurfaceProps> | undefined>
+    Surface: Record<string, Partial<SurfaceThemedProps> | undefined>
     Tooltip: Record<string, Partial<TooltipThemedProps> | undefined>
     TooltipItemList: Record<string, TooltipItemListThemedProps | undefined>
     TooltipItem: Record<string, TooltipItemThemedProps | undefined>
