@@ -13,7 +13,7 @@ import { Bar, Bars, BarsLabels } from '@chsk/band'
 import { LineLabel, Paragraph } from '@chsk/annotation'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
-import { fontSystemUIThemePiece } from '@chsk/themes'
+import { fontSystemUITheme } from '@chsk/themes'
 
 export const generateFractionShadowsBarData = () => {
     const valueA = randomUniformValue(35, 60)
@@ -37,7 +37,7 @@ export const generateFractionShadowsBarData = () => {
 }
 
 const customTheme: ThemeSpec = mergeThemes([
-    fontSystemUIThemePiece,
+    fontSystemUITheme,
     {
         text: {
             title: {

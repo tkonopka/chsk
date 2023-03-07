@@ -1,9 +1,10 @@
 import { ThemeSpec } from '@chsk/core'
 
-export const quantileTooltipThemePiece: ThemeSpec = {
+export const tooltipItemLabelValueTheme: ThemeSpec = {
     text: {
         'tooltipItem.label': {
             textAnchor: 'start',
+            dominantBaseline: 'central',
         },
         'tooltipItem.value': {
             textAnchor: 'start',

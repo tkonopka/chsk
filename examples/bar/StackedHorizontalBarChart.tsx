@@ -1,10 +1,10 @@
 import { Chart, Axis, GridLines, Legend, Tooltip, TooltipProvider } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
+import { FilterInsetColor } from '@chsk/annotation'
+import { downloadTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { stackedIds, stackedKeys } from './StackedVerticalBarChart'
-import { FilterInsetColor } from '../../packages/annotation/src'
 
 export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -14,7 +14,7 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
             id="stacked-horizontal"
             size={[600, 320]}
             padding={[90, 40, 40, 60]}
-            theme={downloadThemePiece}
+            theme={downloadTheme}
         >
             <FilterInsetColor id={'lighter'} floodColor={'#000000'} erodeR={0} floodOpacity={0.2} />
             <Bar

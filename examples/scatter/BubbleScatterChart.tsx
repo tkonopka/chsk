@@ -13,11 +13,11 @@ import {
     TooltipDataItem,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
+import { downloadTheme } from '@chsk/themes'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue, round1dp, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemePiece } from '@chsk/themes'
 
 export const generateBubbleScatterData = () => {
     const x1 = generateMixedPopulation([80, 10, 10], [1, 3, 5], [1, 1, 1])
@@ -48,7 +48,7 @@ export const generateBubbleScatterData = () => {
     ]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     line: {
         grid: {
             stroke: '#dddddd',

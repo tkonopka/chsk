@@ -6,7 +6,7 @@ export const colArray = (x?: string) => {
     const hex = x.replace('#', '').replace(';', '')
     let indexes = [0, 1, 2, 3, 4, 5]
     if (hex.length == 3) {
-        let indexes = [0, 0, 1, 1, 2, 2]
+        indexes = [0, 0, 1, 1, 2, 2]
     }
     return [
         parseInt(hex[indexes[0]] + hex[indexes[1]], 16),

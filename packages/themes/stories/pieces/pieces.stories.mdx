@@ -1,93 +1,45 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Chart, Surface, View, Circle, Rectangle, Typography } from '@chsk/core'
-import {
-    defaultTheme,
-    downloadThemePiece,
-    fontSystemUIThemePiece,
-    smallAxisTextThemePiece,
-    faintTicksThemePiece,
-} from '../../src'
+import { defaultTheme, downloadTheme, tooltipItemLabelValueTheme } from '../../src'
 import { ThemeController } from '../ThemeController'
-import { PieceDownloadChart } from './PieceDownloadChart'
+import { DownloadExample, TooltipItemLabelValueExample } from './examples'
 import { ThemeScatterChart } from '../complete/ThemeScatterChart'
 
 <Meta title="Addons/Themes/Theme pieces" />
 
 # Theme pieces
 
-Theme pieces are small objects (dictionaries) with combinations of css styles. The objects are
-constructed to satisfy typescript type `ThemeSpec` from `@chsk/core`.
+Theme pieces, like partial themes, are objects that satisfy typescript type `ThemeSpec` from `@chsk/core`.
+Unlike partial themes, theme pieces have more targeted effects and only modify the appearance of a small number of
+elements.
 
-On their own, the individual pieces are unlikely to be suitable as themes for a chart.
-However, the pieces can be combined with one another, with a complete theme, or with
-custom styles using `mergeTheme`.
+## `downloadTheme`
 
-<Source
-    language="javascript"
-    code={`
-import { mergeTheme } from '@chsk/core'
+`downloadTheme` holds definitions for `text`, `rect`, and `path` associated with css class `'download'`.
 
-const customTheme = mergeTheme(themePiece, {
-... custom theme definitions ...
-})
-`}
-/>
-
-## `downloadThemePiece`
-
-`downloadThemePiece` holds definitions for `text`, `rect`, and `path` associated with css class `'download'`.
-
-This theme piece may be suitable for labels and buttons.
-It is used in some of the examples in the gallery to style buttons that trigger downloads of chart svg files and dataset json files.
+This theme piece is used in some of the examples in the gallery to style buttons that trigger downloads of chart svg files and dataset json files.
 
 <Canvas>
     <Story name="download">
         <ThemeController
-            chart={PieceDownloadChart}
+            chart={DownloadExample}
             chartId={'pieceDownload'}
-            themes={{ downloadThemePiece, defaultTheme }}
+            themes={{ downloadTheme, defaultTheme }}
         />
     </Story>
 </Canvas>
 
-## `fontSystemUIThemePiece`
+## `tooltipItemLabelValue`
 
-`fontSystemUIThemePiece` changes the default font style to 'system-ui'.
+`tooltipItemLabelValue` holds definitions for `text` components with css classes `tooltipItem label` and `tooltipItem value`.
 
-<Canvas>
-    <Story name="font system-ui">
-        <ThemeController
-            chart={ThemeScatterChart}
-            chartId={'pieceFontSystemUI'}
-            themes={{ fontSystemUIThemePiece, defaultTheme }}
-        />
-    </Story>
-</Canvas>
-
-## `smallAxisTextThemePiece`
-
-`smallAxisTextThemePiece` sets the font size for axis labels and axis ticks to '10px'
+This theme piece is useful to style tooltips in quantile charts, which display tables with key-value pairs.
 
 <Canvas>
-    <Story name="small axis text">
+    <Story name="tooltip item label and value">
         <ThemeController
-            chart={ThemeScatterChart}
-            chartId={'pieceSmallAxisText'}
-            themes={{ smallAxisTextThemePiece, defaultTheme }}
-        />
-    </Story>
-</Canvas>
-
-## `faintTicksThemePiece`
-
-`faintTicksThemePiece` sets colors and line widths to de-emphasize ticks on the axes.
-
-<Canvas>
-    <Story name="faint ticks">
-        <ThemeController
-            chart={ThemeScatterChart}
-            chartId={'pieceFaintTicks'}
-            themes={{ faintTicksThemePiece, defaultTheme }}
+            chart={TooltipItemLabelValueExample}
+            chartId={'tooltipItemLabelValue'}
+            themes={{ tooltipItemLabelValueTheme, defaultTheme }}
         />
     </Story>
 </Canvas>

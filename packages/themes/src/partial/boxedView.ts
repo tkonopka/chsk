@@ -1,6 +1,6 @@
 import { ThemeSpec } from '@chsk/core'
 
-export const boxedTheme: ThemeSpec = {
+export const boxedViewTheme: ThemeSpec = {
     line: {
         tick: {
             stroke: '#222222',

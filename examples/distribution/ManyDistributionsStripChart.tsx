@@ -11,7 +11,7 @@ import {
     mergeTheme,
 } from '@chsk/core'
 import { BandHighlight, Quantile, Quantiles, QuantileTooltip, Strip, Strips } from '@chsk/band'
-import { quantileTooltipThemePiece } from '@chsk/themes'
+import { tooltipItemLabelValueTheme } from '@chsk/themes'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomNormalValue } from '../utils'
@@ -27,7 +27,7 @@ export const generateManyDistributionsData = () => {
     }))
 }
 
-export const customTheme: ThemeSpec = mergeTheme(quantileTooltipThemePiece, {
+export const customTheme: ThemeSpec = mergeTheme(tooltipItemLabelValueTheme, {
     line: {
         axis: {
             visibility: 'visible',

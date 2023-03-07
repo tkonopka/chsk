@@ -1,6 +1,6 @@
 import { ThemeSpec } from '@chsk/core'
 
-export const downloadThemePiece: ThemeSpec = {
+export const downloadTheme: ThemeSpec = {
     text: {
         download: {
             fontStyle: 'normal',

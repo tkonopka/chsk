@@ -15,7 +15,7 @@ import { isScatterData, Scatter, ScatterCurve, ScatterPoints, ScatterCrosshair }
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 
 // generates monthly data with a yearly seasonal pattern
 export const generateConvolutionSeriesData = () => {
@@ -35,7 +35,7 @@ export const generateConvolutionSeriesData = () => {
     ]
 }
 
-const customTheme = mergeTheme(downloadThemePiece, {
+const customTheme = mergeTheme(downloadTheme, {
     rect: {
         tooltip: {
             fill: '#444444ee',

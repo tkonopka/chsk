@@ -1,0 +1,92 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import {
+    boxedViewTheme,
+    defaultTheme,
+    fontSystemUITheme,
+    inverseGridTheme,
+    smallAxisTextTheme,
+    faintTicksTheme,
+} from '../../src'
+import { ThemeController } from '../ThemeController'
+import { ThemeScatterChart } from '../complete/ThemeScatterChart'
+
+<Meta title="Addons/Themes/Partial themes" />
+
+# Partial themes
+
+Partial themes are objects that satisfy typescript type `ThemeSpec` from `@chsk/core`.
+These objects can be passed to the `theme` prop of a `Chart` component.
+They can also be extended and augmented using `mergeTheme` and `mergeThemes` utilities.
+
+The sections below showcase partial themes in `@chsk/themes`.
+For simplicity of presentation, these sections are named after the theme objects and are arranged alphabetically.
+
+## `boxedViewTheme`
+
+The boxed theme is characterized by axes that are offset slightly from the edges of the view. `Surface` components create a bounding box around a view.
+
+<Canvas>
+    <Story name="boxed view">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'chartBoxed'}
+            themes={{ boxedViewTheme, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `faintTicksTheme`
+
+`faintTicksTheme` sets colors and line widths to de-emphasize ticks on the axes.
+
+<Canvas>
+    <Story name="faint ticks">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceFaintTicks'}
+            themes={{ faintTicksTheme, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `fontSystemUITheme`
+
+`fontSystemUITheme` changes the default font style to 'system-ui'.
+
+<Canvas>
+    <Story name="font system-ui">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceFontSystemUI'}
+            themes={{ fontSystemUITheme, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `inverseGridTheme`
+
+The inverse grid theme is characterized by white grid lines.
+
+<Canvas>
+    <Story name="inverse grid">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'chartInverseGrid'}
+            themes={{ inverseGridTheme, defaultTheme }}
+        />
+    </Story>
+</Canvas>
+
+## `smallAxisTextTheme`
+
+`smallAxisTextTheme` sets the font size for axis labels and axis ticks to '10px'
+
+<Canvas>
+    <Story name="small axis text">
+        <ThemeController
+            chart={ThemeScatterChart}
+            chartId={'pieceSmallAxisText'}
+            themes={{ smallAxisTextTheme, defaultTheme }}
+        />
+    </Story>
+</Canvas>

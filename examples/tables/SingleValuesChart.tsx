@@ -14,7 +14,7 @@ import {
     BOTTOM,
     LEFT,
 } from '@chsk/core'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 
@@ -23,7 +23,7 @@ export const generateSingleValuesData = () =>
         .fill(0)
         .map(() => Math.round(randomUniformValue(0, 100)))
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     text: {
         default: {
             fill: undefined,

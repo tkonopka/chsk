@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [themes] object `darkTheme` for charts on a dark background
 -   [core] component `BluntMarker`
 -   [annotation] component `ArcArrow`
 -   [matrix] prop `cornerAnimation` in `HeatMapHighlight` to toggle between
@@ -12,6 +13,7 @@
 
 ### Changed
 
+-   [themes] refactored organization of the objects in src, stories, and tests
 -   [core] moved `ArrowMarker` and `BluntMarker` to the annotation package
 -   [matrix] changed default animation in `HeatMapHighlight` to simple fade-in
 -   [documentation] edited miscellaneous documentation pages

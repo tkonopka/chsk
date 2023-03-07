@@ -30,7 +30,7 @@ export const parameters = {
                     'Set',
                     ['Overview'],
                     'Themes',
-                    ['Overview'],
+                    ['Overview', 'Complete themes', 'Partial themes'],
                     'XY',
                     ['Overview'],
                 ],

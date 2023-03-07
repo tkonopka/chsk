@@ -1,8 +1,8 @@
-import { ThemeSpec, defaultTheme as coreDefaultTheme } from '@chsk/core'
+import { defaultTheme as coreDefaultTheme, CompleteThemeSpec } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 
-// This theme is exactly the same as 'defaultTheme' in @chsk/core
-// it is provided here for consistency with the other complete themes.
-// Thus, it is possible to import all themes - default or otherwise - from @chsk/themes
+// This theme is exactly the same as 'defaultTheme' in @chsk/core.
+// It is provided here for consistency with other complete themes in @chsk/themes.
+// With this definition, it is possible to import the default theme from @chsk/themes.
 
-export const defaultTheme: ThemeSpec = cloneDeep(coreDefaultTheme)
+export const defaultTheme: CompleteThemeSpec = cloneDeep(coreDefaultTheme)

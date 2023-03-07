@@ -10,7 +10,7 @@ import {
 } from '@chsk/core'
 import { HeatMap, HeatMapCellProps, HeatMapCells } from '@chsk/matrix'
 import { BoxedTitle } from '@chsk/annotation'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -37,7 +37,7 @@ export const generateConfusionTableData = () => [
     },
 ]
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     rect: {
         boxedTitle: {
             stroke: '#222222',

@@ -1,6 +1,6 @@
 import { ThemeSpec } from '@chsk/core'
 
-export const faintTicksThemePiece: ThemeSpec = {
+export const faintTicksTheme: ThemeSpec = {
     text: {
         tickLabel: {
             fill: '#777777',

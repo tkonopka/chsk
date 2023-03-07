@@ -21,7 +21,7 @@ import {
     HeatMapHighlight,
     HeatMapDataItem,
 } from '@chsk/matrix'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -59,7 +59,7 @@ const idLabels: Record<string, string> = {
     zeta: 'Option 6',
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     AxisTicks: {
         bottom: {
             tickSize: 0,

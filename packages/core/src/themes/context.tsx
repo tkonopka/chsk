@@ -14,7 +14,10 @@ export const ThemeProvider = ({
     theme?: ThemeSpec
     children: ReactNode
 }) => {
-    const mergedTheme = useMemo(() => mergeTheme(baseTheme, theme) as CompleteThemeSpec, [theme])
+    const mergedTheme = useMemo(
+        () => mergeTheme(baseTheme, theme) as CompleteThemeSpec,
+        [baseTheme, theme]
+    )
     return <ThemeContext.Provider value={mergedTheme}>{children}</ThemeContext.Provider>
 }
 

@@ -12,7 +12,7 @@ import {
     Tooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -28,7 +28,7 @@ export const generateDotBarData = () =>
         }
     })
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     circle: {
         default: {
             strokeWidth: 3,

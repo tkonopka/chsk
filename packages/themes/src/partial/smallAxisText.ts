@@ -6,7 +6,7 @@ import {
     ThemeSpec,
 } from '@chsk/core'
 
-export const smallAxisTextThemePiece: ThemeSpec = {
+export const smallAxisTextTheme: ThemeSpec = {
     text: {
         axisLabel: {
             fontSize: '10px',

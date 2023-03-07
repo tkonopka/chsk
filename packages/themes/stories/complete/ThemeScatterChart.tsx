@@ -25,9 +25,15 @@ const data: ScatterDataItem[] = [
     },
 ]
 
-export const ThemeScatterChart = ({ chartId, theme }: ThemeStory) => {
+export const ThemeScatterChart = ({ chartId, theme, baseTheme }: ThemeStory) => {
     return (
-        <Chart id={chartId} {...themeStoryChartProps} theme={theme ?? undefined}>
+        <Chart
+            id={chartId}
+            {...themeStoryChartProps}
+            theme={theme ?? undefined}
+            baseTheme={baseTheme ?? undefined}
+        >
+            <Surface variant={'outer'} />
             <Scatter
                 data={data}
                 x={'x'}

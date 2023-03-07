@@ -23,7 +23,7 @@ import {
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 
 const round3 = (x: unknown | number): number => Math.round(Number(x) * 1000) / 1000
 
@@ -88,7 +88,7 @@ export const generateManhattanScatterData = () => {
     return result
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     line: {
         grid: {
             stroke: '#dddddd',

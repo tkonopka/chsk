@@ -1,21 +1,23 @@
-import { Meta } from '@storybook/addon-docs'
+import { Meta, Source } from '@storybook/addon-docs'
 
 <Meta title="Addons/Themes/Overview" />
 
 # Themes
 
-Package `@chsk/themes` provides a collection of ready-made visual themes that can be applied to any chart.
+Package `@chsk/themes` provides a collection of objects that adjust the look-and-feel of charts.
 
-The package is organized into two parts.
+At the technical level, theme objects are dictionaries that satisfy typescript type `ThemeSpec` from `@chsk/core`.
+In practice, the objects define values for arguments for core chart components (e.g. `Axis`, `Legend`).
+They also hold css styles for svg components (e.g. `line`, `text`).
 
-## Complete themes
+The content in package `@chsk/themes` is organized into three categories:
 
-Complete themes specify styles for multiple SVG elements (e.g. `rect`, `path`) and default prop values for multiple library-specific components (e.g. `Axis`, `Legend`).
-These adjustments can affect the look-and-feel of default shapes and components.
+-   **complete themes** are objects that overhaul props and css styles for many library components, providing a unique look-and-feel;
+-   **partial themes** are adjustments that affect substantial parts of a chart, but also leave many other elements unchanged;
+-   **theme pieces** are even more targeted adjustments, for example, affecting only elements with specific class names.
 
-## Theme pieces
+The distinction between these categories is fuzzy and does not carry deep meaning.
+It is primarily an attempt to organize the package to manage development and documentation.
 
-Theme pieces specify smaller, targeted style adjustments. For example, a theme piece may tune styles associated with a specific class name.
-
-Theme pieces are similar to complete themes in technical terms.
-In particular, they have the same object format (and typescript type).
+All theme objects can be combined using `mergeTheme` and `mergeThemes` utilities in `@chsk/core`, and passed to
+`Chart` objects using the `theme` prop.

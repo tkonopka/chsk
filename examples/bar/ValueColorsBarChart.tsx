@@ -14,7 +14,7 @@ import {
     useTooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -51,7 +51,7 @@ const yearTickFormat = (v: unknown) => {
     return index > 1 ? '' : String(v).split('-')[0]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     AxisTicks: {
         bottom: { tickSize: 0 },
         right: { tickSize: 0 },

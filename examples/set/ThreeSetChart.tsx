@@ -13,7 +13,7 @@ import {
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { Venn, VennSets, isVennData, VennSetLabels, VennIntersectionLabels } from '@chsk/set'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -39,7 +39,7 @@ export const generateThreeSetData = () => {
     ]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     circle: {
         default: {
             fillOpacity: 0.7,

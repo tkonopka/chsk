@@ -12,7 +12,7 @@ import {
 import { Bar, Bars } from '@chsk/band'
 import { alphabetGreek, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
-import { fontSystemUIThemePiece } from '@chsk/themes'
+import { fontSystemUITheme } from '@chsk/themes'
 
 export const generateFractionGradientsBarData = () => {
     return alphabetGreek.slice(0, 8).map(id => ({
@@ -22,7 +22,7 @@ export const generateFractionGradientsBarData = () => {
 }
 
 const customTheme: ThemeSpec = mergeThemes([
-    fontSystemUIThemePiece,
+    fontSystemUITheme,
     {
         text: {
             title: {

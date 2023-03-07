@@ -9,12 +9,11 @@ import {
     TooltipDataItem,
 } from '@chsk/core'
 import { UpSet, UpSetGrid, UpSetMemberships, UpSetBar, isUpSetData } from '@chsk/matrix'
-import { Bars } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
+import { Bars, BandSurface } from '@chsk/band'
+import { downloadTheme } from '@chsk/themes'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { BandSurface } from '../../packages/band/src'
 
 export const generateHorizontalUpSetData = () => {
     const elements = generateIdentifiers(200, 10000, 'el')
@@ -31,7 +30,7 @@ export const generateHorizontalUpSetData = () => {
     return ids.map(id => ({ id, data: generateSet(50) }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     line: {
         upSetMembership: {
             strokeWidth: 4,

@@ -10,7 +10,7 @@ import {
     Tooltip,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
-import { downloadThemePiece } from '@chsk/themes'
+import { downloadTheme } from '@chsk/themes'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 
@@ -24,7 +24,7 @@ export const generateGroupedData = () =>
         interval: [15, 95],
     })
 
-export const groupedTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+export const groupedTheme: ThemeSpec = mergeTheme(downloadTheme, {
     text: {
         title: {
             fontSize: '16px',

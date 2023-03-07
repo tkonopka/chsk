@@ -9,7 +9,7 @@ import {
     Typography,
 } from '@chsk/core'
 import { BandHighlight, Quantile, QuantileProps, Quantiles, QuantileTooltip } from '@chsk/band'
-import { downloadThemePiece, quantileTooltipThemePiece } from '@chsk/themes'
+import { downloadTheme, tooltipItemLabelValueTheme } from '@chsk/themes'
 import { alphabetGreek, randomNormalValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -37,8 +37,8 @@ export const generateQuantileGroupsData = () => {
 }
 
 const customTheme: ThemeSpec = mergeThemes([
-    downloadThemePiece,
-    quantileTooltipThemePiece,
+    downloadTheme,
+    tooltipItemLabelValueTheme,
     {
         line: {
             axis: {

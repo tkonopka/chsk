@@ -1,10 +1,10 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip, TooltipDataItem } from '@chsk/core'
 import { Venn, VennSets, VennSetLabels, VennIntersectionLabels, isVennData } from '@chsk/set'
-import { downloadThemePiece } from '@chsk/themes'
+import { FilterInsetShadow } from '@chsk/annotation'
+import { downloadTheme } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { FilterInsetShadow } from '../../packages/annotation/src'
 
 export const generateTwoSetData = () => {
     const elements = generateIdentifiers(600, 10000, 'el')
@@ -21,7 +21,7 @@ export const generateTwoSetData = () => {
     ]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadThemePiece, {
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     circle: {
         default: {
             fillOpacity: 0.7,

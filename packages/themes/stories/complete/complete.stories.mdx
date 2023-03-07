@@ -1,5 +1,5 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { defaultTheme, inverseGridTheme, boxedTheme } from '../../src'
+import { darkTheme, defaultTheme, emptyTheme } from '../../src/complete'
 import { ThemeController } from '../ThemeController'
 import { ThemeScatterChart } from './ThemeScatterChart'
 
@@ -7,56 +7,44 @@ import { ThemeScatterChart } from './ThemeScatterChart'
 
 # Complete Themes
 
-Complete themes specify a distinctive look-and-feel.
+Complete themes are objects that satisfy typescript type `CompleteThemeSpec` from `@chsk/core`.
 
-To apply one of the themes to a chart, import the corresponding object and pass it to the prop `theme` in a `Chart` component.
+## `darkTheme`
 
-<Source
-    language="javascript"
-    code={`
-import { classicTheme } from '@chsk/themes'
-
-<Chart {...props} theme={classicTheme}>
-    ...
-</Chart>
-`} />
-
-Complete themes can be augmented with theme pieces or with custom styles. See `mergeTheme`.
-
-## `defaultTheme`
-
-The default theme is applied automatically to all charts. The examples below show how some simple chart layout look with the default settings.
+`darkTheme` defines a theme suitable for use with dark backgrounds.
+But apart from reversing dark and light colors, `darkTheme` is otherwise very similar to the default theme.
 
 <Canvas>
-    <Story name="default">
-        <ThemeController chart={ThemeScatterChart} chartId={'chart0'} themes={{ defaultTheme }} />
-    </Story>
-</Canvas>
-
-## `inverseGridTheme`
-
-The inverse grid theme is characterized by white grid lines.
-
-<Canvas>
-    <Story name="inverse grid">
+    <Story name="dark">
         <ThemeController
             chart={ThemeScatterChart}
-            chartId={'chartInverseGrid'}
-            themes={{ inverseGridTheme, defaultTheme }}
+            chartId={'darkTheme'}
+            themes={{ darkTheme, defaultTheme }}
+            baseTheme={true}
         />
     </Story>
 </Canvas>
 
-## `boxedTheme`
+Note that if a chart specifies colors using inline styles, those styles will not be affected by the theme.
+In the chart above, for example, the regression line specifies a dark-gray color with a `stroke` setting passed to a `style` prop,
+and that color is not adjusted via the theme, becoming almost imperceptible on a dark background.
+This detail reveals that toggling themes may not automatically give perfect outcomes,
+and some charts may require manual adjustment.
 
-The boxed theme is characterized by axes that are offset slightly from the edges of the view. `Surface` components create a bounding box around a view.
+## `emptyTheme`
+
+`emptyTheme` is an object that satisfies the `CompleteThemeSpec` interface but does not hold any data.
+
+As evidenced in the example below, using `emptyTheme` on its own produces very poor outcomes.
+The value of `emptyTheme` lies entirely as a bare-bones structure that can be augmented with custom definitions.
 
 <Canvas>
-    <Story name="boxed">
+    <Story name="empty">
         <ThemeController
             chart={ThemeScatterChart}
-            chartId={'chartBoxed'}
-            themes={{ boxedTheme, defaultTheme }}
+            chartId={'emptyTheme'}
+            themes={{ emptyTheme, defaultTheme }}
+            baseTheme={true}
         />
     </Story>
 </Canvas>

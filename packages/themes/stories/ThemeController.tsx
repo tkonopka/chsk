@@ -1,11 +1,13 @@
 import { createElement, FC, useState } from 'react'
-import { ThemeSpec } from '@chsk/core'
+import { CompleteThemeSpec, ThemeSpec } from '@chsk/core'
 
 export interface ThemeStory {
     /** id for chart */
     chartId: string
     /** theme */
     theme: ThemeSpec | null
+    /** base theme */
+    baseTheme?: CompleteThemeSpec | null
 }
 
 export const themeStoryChartProps = {
@@ -20,11 +22,18 @@ export interface ThemeControllerProps {
     chartId: string
     /** dictionary of themes */
     themes: Record<string, ThemeSpec>
+    /** flag to provide themes to the baseTheme prop instead of the theme prop */
+    baseTheme?: boolean
     /** first theme to display */
     start: string
 }
 
-export const ThemeController = ({ chart, chartId, themes = {} }: ThemeControllerProps) => {
+export const ThemeController = ({
+    chart,
+    chartId,
+    themes = {},
+    baseTheme,
+}: ThemeControllerProps) => {
     const themeNames = Object.keys(themes)
     const [theme, setTheme] = useState<ThemeSpec | null>(themes[themeNames[0]])
     const [selection, setSelection] = useState(0)
@@ -38,6 +47,9 @@ export const ThemeController = ({ chart, chartId, themes = {} }: ThemeController
         setSelection(1)
     }
 
+    const chartProps: ThemeStory = baseTheme
+        ? { chartId, theme: null, baseTheme: theme as CompleteThemeSpec }
+        : { chartId, theme }
     return (
         <div>
             <div className={'controller'}>
@@ -60,12 +72,7 @@ export const ThemeController = ({ chart, chartId, themes = {} }: ThemeController
                 ) : null}
             </div>
             <div className={'controller-chart'}>
-                <div className={'chart'}>
-                    {createElement(chart, {
-                        chartId,
-                        theme,
-                    })}
-                </div>
+                <div className={'chart'}>{createElement(chart, chartProps)}</div>
             </div>
         </div>
     )

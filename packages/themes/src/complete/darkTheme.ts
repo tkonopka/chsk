@@ -1,45 +1,18 @@
-import {
-    defaultLegendColorScaleProps,
-    defaultLegendItemListProps,
-    defaultLegendItemProps,
-    defaultLegendProps,
-    defaultLegendSizeScaleProps,
-} from '../legends/defaults'
-import {
-    defaultTooltipItemListProps,
-    defaultTooltipItemProps,
-    defaultTooltipProps,
-} from '../tooltips/defaults'
-import { defaultSurfaceProps, defaultViewProps } from '../views/defaults'
-import {
-    defaultAxisLabelLeftProps,
-    defaultAxisLabelProps,
-    defaultAxisLabelRightProps,
-    defaultAxisProps,
-    defaultAxisTicksProps,
-    defaultGridLinesProps,
-} from '../axes/defaults'
-import { CompleteThemeSpec } from './types'
+import { CompleteThemeSpec } from '@chsk/core'
+import { defaultTheme } from './defaultTheme'
 import { cloneDeep } from 'lodash'
 
-export const defaultTheme: CompleteThemeSpec = {
+export const darkTheme: CompleteThemeSpec = {
     circle: {
         default: {
-            stroke: '#333333',
+            stroke: '#bbbbbb',
             strokeWidth: 0,
         },
     },
-    g: {
-        'legendItem:hover': {
-            cursor: 'pointer',
-        },
-        tooltip: {
-            pointerEvents: 'none',
-        },
-    },
+    g: cloneDeep(defaultTheme.g),
     line: {
         default: {
-            stroke: '#222222',
+            stroke: '#bbbbbb',
             strokeWidth: 1,
         },
         grid: {
@@ -51,41 +24,41 @@ export const defaultTheme: CompleteThemeSpec = {
             strokeWidth: 0,
         },
         tick: {
-            stroke: '#555555',
+            stroke: '#bbbbbb',
             strokeWidth: 2,
         },
     },
     path: {
         default: {
-            stroke: '#222222',
+            stroke: '#bbbbbb',
             strokeWidth: 2,
             fill: 'transparent',
         },
     },
     polygon: {
         default: {
-            stroke: '#333333',
+            stroke: '#bbbbbb',
             strokeWidth: 0,
         },
     },
     rect: {
         default: {
-            stroke: '#333333',
+            stroke: '#bbbbbb',
             strokeWidth: 0,
         },
         inner: {
-            fill: '#f2f2f2',
+            fill: '#333333',
         },
         outer: {
-            fill: '#ffffff',
+            fill: '#222222',
         },
         tooltip: {
-            fill: '#ffffff',
+            fill: '#000000',
         },
         'tooltip.surface': {
             strokeWidth: 0.5,
-            stroke: '#aaaaaa',
-            filter: 'drop-shadow(2px 2px 4px #00000033)',
+            stroke: '#cccccc',
+            filter: 'drop-shadow(2px 2px 4px #cccccc33)',
         },
         'legend.surface': {
             fillOpacity: 0,
@@ -101,7 +74,7 @@ export const defaultTheme: CompleteThemeSpec = {
         default: {
             fontFamily: 'sans-serif',
             fontSize: '14px',
-            fill: '#222222',
+            fill: '#bbbbbb',
             textAnchor: 'middle',
         },
         label: {
@@ -119,7 +92,7 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         subtitle: {
             fontSize: '14px',
-            fill: '#777777',
+            fill: '#888888',
             textAnchor: 'start',
         },
         axisLabel: {
@@ -175,80 +148,23 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'end',
         },
     },
-    Axis: {
-        default: cloneDeep(defaultAxisProps),
-    },
-    AxisLabel: {
-        default: cloneDeep(defaultAxisLabelProps),
-        left: cloneDeep(defaultAxisLabelLeftProps),
-        right: cloneDeep(defaultAxisLabelRightProps),
-    },
-    AxisTicks: {
-        default: cloneDeep(defaultAxisTicksProps),
-    },
-    GridLines: {
-        default: cloneDeep(defaultGridLinesProps),
-    },
-    Legend: {
-        list: cloneDeep(defaultLegendProps),
-        color: cloneDeep(defaultLegendProps),
-        size: cloneDeep(defaultLegendProps),
-    },
-    LegendItemList: {
-        default: cloneDeep(defaultLegendItemListProps),
-    },
-    LegendItem: {
-        default: cloneDeep(defaultLegendItemProps),
-    },
-    LegendTitle: {
-        default: cloneDeep(defaultLegendItemProps),
-    },
-    LegendColorScale: {
-        default: cloneDeep(defaultLegendColorScaleProps),
-    },
-    LegendSizeScale: {
-        default: cloneDeep(defaultLegendSizeScaleProps),
-    },
-    Surface: {
-        default: cloneDeep(defaultSurfaceProps),
-    },
-    Tooltip: {
-        default: cloneDeep(defaultTooltipProps),
-    },
-    TooltipItemList: {
-        default: cloneDeep(defaultTooltipItemListProps),
-    },
-    TooltipItem: {
-        default: cloneDeep(defaultTooltipItemProps),
-    },
-    TooltipTitle: {
-        default: cloneDeep(defaultTooltipItemProps),
-    },
-    AxisTooltip: {
-        top: {
-            ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
-            anchor: [0.5, 1],
-        },
-        right: {
-            ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
-            anchor: [0, 0.5],
-        },
-        bottom: {
-            ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
-            anchor: [0.5, 0],
-        },
-        left: {
-            ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
-            anchor: [1, 0.5],
-        },
-    },
-    View: {
-        default: cloneDeep(defaultViewProps),
-    },
+    Axis: cloneDeep(defaultTheme.Axis),
+    AxisLabel: cloneDeep(defaultTheme.AxisLabel),
+    AxisTicks: cloneDeep(defaultTheme.AxisTicks),
+    GridLines: cloneDeep(defaultTheme.GridLines),
+    Legend: cloneDeep(defaultTheme.Legend),
+    LegendItemList: cloneDeep(defaultTheme.LegendItemList),
+    LegendItem: cloneDeep(defaultTheme.LegendItem),
+    LegendTitle: cloneDeep(defaultTheme.LegendTitle),
+    LegendColorScale: cloneDeep(defaultTheme.LegendColorScale),
+    LegendSizeScale: cloneDeep(defaultTheme.LegendSizeScale),
+    Surface: cloneDeep(defaultTheme.Surface),
+    Tooltip: cloneDeep(defaultTheme.Tooltip),
+    TooltipItemList: cloneDeep(defaultTheme.TooltipItemList),
+    TooltipItem: cloneDeep(defaultTheme.TooltipItem),
+    TooltipTitle: cloneDeep(defaultTheme.TooltipTitle),
+    AxisTooltip: cloneDeep(defaultTheme.AxisTooltip),
+    View: cloneDeep(defaultTheme.View),
     Colors: {
         categorical: {
             variant: 'categorical',
@@ -266,9 +182,5 @@ export const defaultTheme: CompleteThemeSpec = {
             domain: 'auto',
         },
     },
-    Motion: {
-        mass: 0.5,
-        stiffness: 250,
-        damping: 25,
-    },
+    Motion: cloneDeep(defaultTheme.Motion),
 }

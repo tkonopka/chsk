@@ -1,3 +1,3 @@
+export * from './darkTheme'
 export * from './defaultTheme'
-export * from './inverseGridTheme'
-export * from './boxedTheme'
+export * from './emptyTheme'
