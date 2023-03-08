@@ -13,6 +13,9 @@
 
 ### Changed
 
+-   [core] adjusted the default theme to disable pointer events on decorative items, e.g. grid lines
+-   [band] updated `BandSurface` to respond to mouse events and use a
+    customizable 'dataComponent'
 -   [themes] refactored organization of the objects in src, stories, and tests
 -   [core] moved `ArrowMarker` and `BluntMarker` to the annotation package
 -   [matrix] changed default animation in `HeatMapHighlight` to simple fade-in

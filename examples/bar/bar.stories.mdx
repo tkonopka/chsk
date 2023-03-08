@@ -175,7 +175,16 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
 
 <Canvas>
     <Story name="multiple views">
-        <Controller generator={generateMultiViewsData} chart={MultipleViewsBarChart} />
+        <Controller
+            generator={generateMultiViewsData}
+            chart={MultipleViewsBarChart}
+            comment={
+                <div>
+                    This example uses a custom component to coordinate `BandSurface` across multiple
+                    bar views.
+                </div>
+            }
+        />
     </Story>
 </Canvas>
 

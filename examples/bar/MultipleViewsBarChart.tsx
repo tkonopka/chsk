@@ -8,10 +8,24 @@ import {
     ThemeSpec,
     SizeSpec,
     Tooltip,
+    WithId,
+    SvgElementVariantProps,
+    InteractivityProps,
+    DataComponentProps,
+    useTooltip,
+    useDimensions,
+    CssProps,
+    useChartData,
+    TooltipProvider,
+    TooltipData,
+    TooltipDataItem,
 } from '@chsk/core'
-import { Bar, Bars, BarsLabels } from '@chsk/band'
+import { BandSurface, Bar, Bars, BarsLabels } from '@chsk/band'
 import { generateKeyValues } from './generators'
 import { MilestoneStory } from '../types'
+import { createElement, MouseEvent, ReactNode, useCallback, useState } from 'react'
+import { clone, merge } from 'lodash'
+import { FilterInsetColor } from '@chsk/annotation'
 
 const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -49,6 +63,17 @@ export const generateMultiViewsData = () => [
 ]
 
 const multiviewTheme: ThemeSpec = {
+    rect: {
+        bandSurface: {
+            fill: '#f2f2f2',
+        },
+        'tooltip.surface': {
+            fill: '#ffffff',
+            strokeWidth: 1,
+            stroke: '#161616',
+            opacity: 1,
+        },
+    },
     line: {
         axis: {
             visibility: 'visible',
@@ -64,9 +89,18 @@ const multiviewTheme: ThemeSpec = {
         barLabel: {
             textAnchor: 'start',
             fill: '#ffffff',
+            pointerEvents: 'none',
         },
         'barLabel.out': {
             fill: '#222222',
+        },
+        tooltipItem: {
+            fill: '#000000',
+        },
+    },
+    Tooltip: {
+        default: {
+            itemSize: [120, 26],
         },
     },
 }
@@ -88,6 +122,113 @@ const multiviewBarProps = {
     },
 }
 
+// custom DataComponent that mostly reproduces TooltipDataComponent from @chsk/core,
+// but also sets an 'activeId' into the global chart state
+const GlobalHoverDataComponent = <
+    DataSpec extends WithId,
+    ComponentProps extends SvgElementVariantProps & InteractivityProps
+>({
+    component,
+    data,
+    props,
+    handlers,
+    modifiers,
+}: DataComponentProps<DataSpec, ComponentProps>) => {
+    const { setData: setTooltipData } = useTooltip()
+    const { data: chartData, setData: setChartData } = useChartData()
+    const { ref } = useDimensions()
+    const [componentStyle, setComponentStyle] = useState<CssProps | undefined>(props.style)
+    const [key, setKey] = useState(0)
+    const style = props.style
+
+    const handleTooltip = useCallback(
+        (event: MouseEvent) => {
+            const clientRect = ref?.current?.getBoundingClientRect()
+            if (clientRect === undefined || data === undefined || data === null) return
+            if (!('data' in data)) return
+            const x = Math.round(event.clientX - clientRect?.x)
+            const y = Math.round(event.clientY - clientRect?.y)
+            setTooltipData({ x, y, data: [data] })
+        },
+        [data, ref, setTooltipData]
+    )
+
+    const handleMouseEnter = useCallback(
+        (event: MouseEvent) => {
+            handleTooltip(event)
+            setChartData({ ...chartData, activeId: data?.id })
+            handlers?.onMouseEnter?.(data, event)
+            if (modifiers?.onMouseEnter) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseEnter))
+                setKey(key => key + 1)
+            }
+        },
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+    )
+    const handleMouseMove = useCallback(
+        (event: MouseEvent) => {
+            handleTooltip(event)
+            handlers?.onMouseMove?.(data, event)
+            if (modifiers?.onMouseMove) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseMove))
+                setKey(key => key + 1)
+            }
+        },
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+    )
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            setTooltipData({})
+            setChartData({ ...chartData, activeId: undefined })
+            handlers?.onMouseLeave?.(data, event)
+            if (modifiers?.onMouseLeave) {
+                setComponentStyle(merge(clone(style), modifiers.onMouseLeave))
+                setKey(key => key + 1)
+            }
+        },
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+    )
+    const handleClick = useCallback(
+        (event: MouseEvent) => {
+            handlers?.onClick?.(data, event)
+            if (modifiers?.onClick) {
+                setComponentStyle(merge(clone(style), modifiers.onClick))
+                setKey(key => key + 1)
+            }
+        },
+        [data, handlers, modifiers, style, setComponentStyle, key, setKey]
+    )
+
+    return createElement(component, {
+        ...props,
+        key,
+        style: componentStyle,
+        onMouseEnter: handleMouseEnter,
+        onMouseMove: handleMouseMove,
+        onMouseLeave: handleMouseLeave,
+        onClick: handleClick,
+    })
+}
+
+// custom React layer that transfers information from chart context to a tooltip context
+const ActiveIdTooltipProvider = ({ children }: { children: ReactNode }) => {
+    const { data: chartData } = useChartData()
+    const { data: tooltipData, setData } = useTooltip()
+    // set tooltip data with priority: existing tooltip info, info from chart data, empty object
+    let compositeData: TooltipData = {}
+    if (chartData.activeId) {
+        compositeData = { data: [{ id: String(chartData.activeId) }] }
+    }
+    if (tooltipData.x !== undefined) {
+        compositeData = tooltipData
+    }
+    return <TooltipProvider value={{ data: compositeData, setData }}>{children}</TooltipProvider>
+}
+
+const customTooltipLabel = (x: TooltipDataItem) => {
+    return x?.key + ', ' + x?.id + ': ' + x?.data
+}
+
 export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
     <Chart
         fref={fref}
@@ -97,7 +238,16 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
         padding={[40, 40, 40, 60]}
         theme={multiviewTheme}
     >
+        <FilterInsetColor id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
         <Bar position={[0, 0]} {...multiviewBarProps} data={rawData} keys={['alpha']}>
+            <ActiveIdTooltipProvider>
+                <BandSurface
+                    tooltip={true}
+                    interactive={true}
+                    expansion={[0, 8]}
+                    dataComponent={GlobalHoverDataComponent}
+                />
+            </ActiveIdTooltipProvider>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
@@ -106,14 +256,25 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
-            <Bars />
+            <Bars
+                dataComponent={GlobalHoverDataComponent}
+                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
+            />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
             <Axis variant={'left'}>
                 <AxisTicks variant={'left'} tickSize={0} />
             </Axis>
-            <Tooltip />
+            <Tooltip labelFormat={customTooltipLabel} />
         </Bar>
         <Bar position={[0.35, 0]} {...multiviewBarProps} data={rawData} keys={['beta']}>
+            <ActiveIdTooltipProvider>
+                <BandSurface
+                    tooltip={true}
+                    interactive={true}
+                    expansion={[0, 8]}
+                    dataComponent={GlobalHoverDataComponent}
+                />
+            </ActiveIdTooltipProvider>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
@@ -122,11 +283,21 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
-            <Bars />
+            <Bars
+                dataComponent={GlobalHoverDataComponent}
+                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
+            />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            <Tooltip />
+            <Tooltip labelFormat={customTooltipLabel} />
         </Bar>
         <Bar position={[0.7, 0]} {...multiviewBarProps} data={rawData} keys={['gamma']}>
+            <ActiveIdTooltipProvider>
+                <BandSurface
+                    tooltip={true}
+                    interactive={true}
+                    dataComponent={GlobalHoverDataComponent}
+                />
+            </ActiveIdTooltipProvider>
             <GridLines variant={'y'} shift={[-0.6]} />
             <Axis variant={'top'}>
                 <AxisLine variant={'top'} />
@@ -135,9 +306,12 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 </AxisLabel>
             </Axis>
             <Axis variant={'bottom'} ticks={[]} />
-            <Bars />
+            <Bars
+                dataComponent={GlobalHoverDataComponent}
+                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
+            />
             <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            <Tooltip />
+            <Tooltip labelFormat={customTooltipLabel} />
         </Bar>
     </Chart>
 )

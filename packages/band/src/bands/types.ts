@@ -3,6 +3,7 @@ import {
     AlignSpec,
     BandScaleSpec,
     CategoricalScaleSpec,
+    DataInteractivityProps,
     LabelLocationSpec,
     LabelProps,
     LinearScaleSpec,
@@ -13,10 +14,14 @@ import {
     TranslateSpec,
     TwoSideSizeSpec,
     ViewProps,
+    WithId,
     WithInteractive,
 } from '@chsk/core'
 
-export interface BandSurfaceProps extends SvgElementProps, WithInteractive {
+export interface BandSurfaceProps
+    extends SvgElementProps,
+        WithInteractive,
+        DataInteractivityProps<WithId, RectangleProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** expansion along the value axis */

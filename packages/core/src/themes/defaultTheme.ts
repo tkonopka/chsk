@@ -45,6 +45,7 @@ export const defaultTheme: CompleteThemeSpec = {
         grid: {
             stroke: '#cccccc',
             strokeWidth: 0.5,
+            pointerEvents: 'none',
         },
         axis: {
             strokeLinecap: 'square',

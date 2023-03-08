@@ -1,4 +1,4 @@
-import { createElement, FC, ReactNode, useCallback, useMemo, useState } from 'react'
+import { createElement, ReactNode, useCallback, useMemo, useState, MouseEvent } from 'react'
 import {
     BandAxisScale,
     getClassName,
@@ -11,8 +11,6 @@ import {
     RecordWithId,
     Rectangle,
     DataComponent,
-    DataComponentProps,
-    RectangleProps,
     WithId,
     useTooltip,
 } from '@chsk/core'
@@ -24,6 +22,9 @@ export const BandSurface = ({
     interactive = false,
     tooltip = false,
     component = Rectangle,
+    dataComponent = DataComponent,
+    handlers,
+    modifiers,
     className,
     setRole = false,
     style,
@@ -48,17 +49,21 @@ export const BandSurface = ({
 
     const tooltipId = tooltipData?.data?.[0].id
     const onMouseEnter = useCallback(
-        (data?: WithId) => {
+        (data: WithId | undefined, event: MouseEvent) => {
+            handlers?.onMouseEnter?.(data, event)
             setActive(data?.id)
         },
-        [setActive]
+        [handlers, setActive]
     )
-    const onMouseLeave = useCallback(() => {
-        setActive(undefined)
-    }, [setActive])
-    const handlers = interactive ? { onMouseEnter, onMouseLeave } : undefined
+    const onMouseLeave = useCallback(
+        (data: WithId | undefined, event: MouseEvent) => {
+            handlers?.onMouseLeave?.(data, event)
+            setActive(undefined)
+        },
+        [handlers, setActive]
+    )
+    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
 
-    const dataComponent: FC<DataComponentProps<WithId, RectangleProps>> = DataComponent
     const bands: Array<ReactNode> = processedData.data
         .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
@@ -82,7 +87,8 @@ export const BandSurface = ({
                     style,
                     opacity: Number(fixedOpacity || interactiveOpacity || tooltipOpacity),
                 },
-                handlers,
+                handlers: compositeHandlers,
+                modifiers,
             })
         })
         .filter(Boolean)
