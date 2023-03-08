@@ -12,7 +12,7 @@ Complete themes are objects that satisfy typescript type `CompleteThemeSpec` fro
 ## `darkTheme`
 
 `darkTheme` defines a theme suitable for use with dark backgrounds.
-But apart from reversing dark and light colors, `darkTheme` is otherwise very similar to the default theme.
+Apart from reversing dark and light colors, `darkTheme` is otherwise very similar to the default theme.
 
 <Canvas>
     <Story name="dark">
@@ -35,9 +35,6 @@ and some charts may require manual adjustment.
 
 `emptyTheme` is an object that satisfies the `CompleteThemeSpec` interface but does not hold any data.
 
-As evidenced in the example below, using `emptyTheme` on its own produces very poor outcomes.
-The value of `emptyTheme` lies entirely as a bare-bones structure that can be augmented with custom definitions.
-
 <Canvas>
     <Story name="empty">
         <ThemeController
@@ -48,3 +45,17 @@ The value of `emptyTheme` lies entirely as a bare-bones structure that can be au
         />
     </Story>
 </Canvas>
+
+As evidenced in the example above, using `emptyTheme` on its own is likely to produce very poor outcomes.
+However, `emptyTheme` is valuable because it is a bare-bones structure that can be provided to prop `baseTheme`
+in the `Chart` component, upon which it is then possible to build a new theme from scratch.
+
+To understand why a bare-bones theme is valuable, recall that the `Chart` component uses the chart theme to
+generate the content of the `<style>` tag in an svg graphic.
+The default theme provides styles for several commonly-used elements such as text in titles, legends, and tooltips.
+Altogether, those definitions add around 3kb to the size of each chart.
+If a particular chart type does not require many of those styles, it may be worthwhile to exclude them.
+Unfortunately, removing styles from the default theme is not straightforward
+(it has to do with how nested objects are merged in lodash/javascript, and with typescript types).
+Thus, to achieve a smaller footprint for the `<style>` tag, it is necessary to start from a bare theme and then
+add the elements required for a given application.
