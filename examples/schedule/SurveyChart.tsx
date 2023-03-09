@@ -67,15 +67,6 @@ const surveyTheme: ThemeSpec = mergeTheme(downloadTheme, {
     },
 })
 
-const surveyProps = {
-    variant: 'stacked' as const,
-    horizontal: true,
-    scaleIndex: {
-        variant: 'band' as const,
-        padding: 0.25,
-    },
-}
-
 const surveyColors = ['#762a83', '#9970ab', '#dddddd', '#5aae61', '#1b7837']
 const surveyKeys = ['SD', 'D', 'N', 'A', 'SA']
 
@@ -114,7 +105,11 @@ export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             <Schedule
                 data={rawData}
                 keys={surveyKeys}
-                {...surveyProps}
+                horizontal={true}
+                scaleIndex={{
+                    variant: 'band' as const,
+                    padding: 0.25,
+                }}
                 scaleValue={valueScaleSpec}
                 scaleColor={{
                     variant: 'categorical',

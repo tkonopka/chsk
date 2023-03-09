@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] schedule chart with arrows
 -   [themes] object `darkTheme` for charts on a dark background
 -   [core] component `BluntMarker`
 -   [annotation] component `ArcArrow`
@@ -13,6 +14,7 @@
 
 ### Changed
 
+-   [core] changed fill opacity for path components in `defaultTheme`
 -   [annotation] fixed bug with `BlockArrow` rotation
 -   [core] simplified typescript type for tick label format in `AxisTicks`
 -   [core] adjusted the default theme to disable pointer events on decorative items, e.g. grid lines
