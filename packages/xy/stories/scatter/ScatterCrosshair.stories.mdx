@@ -15,7 +15,7 @@ export const Template = args => <ScatterCrosshair {...args} />
 
 ## Variants
 
-The default `ScatterCrosshair` variant draws horizontal and vertical lines that span across the entire chart view.
+The default `ScatterCrosshair` component draws horizontal and vertical lines that span the entire chart view.
 
 <Canvas>
     <Story
@@ -30,7 +30,8 @@ The default `ScatterCrosshair` variant draws horizontal and vertical lines that 
     </Story>
 </Canvas>
 
-Other variants, set with prop `variant`, draw only horizontal or only vertical lines
+To remove the lines, or to display only horizontal or vertical lines,
+set prop `variant` to 'none', 'horizontal', or 'vertical', respectively.
 
 <Canvas>
     <Story

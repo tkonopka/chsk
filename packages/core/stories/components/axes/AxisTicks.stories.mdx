@@ -136,7 +136,8 @@ Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the
 
 ## Label format
 
-Labels can be formatted with a custom function through the prop `labelFormat`.
+Labels can be tuned with prop `labelFormat`, which accepts a function with
+signature `(value: unknown, index: number) => string`.
 
 <Canvas>
     <Story

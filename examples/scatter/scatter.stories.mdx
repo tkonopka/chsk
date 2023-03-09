@@ -11,6 +11,7 @@ import {
     generateMultiViewsScatterData,
     MultipleViewsScatterChart,
 } from './MultipleViewsScatterChart'
+import { generateDotScatterData, DotScatterChart } from './DotScatterChart'
 
 <Meta title="Gallery/Scatter charts" />
 
@@ -107,4 +108,20 @@ import {
             steps={['legend', 'A', 'B', 'C']}
         />
     </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="dots">
+        <Controller
+        generator={generateDotScatterData}
+        chart={DotScatterChart} steps={['axes', 'data']}
+                    comment={
+                        <div>
+                            A dot chart should arguably use one band (categorical) scale and one continuous scales. This example, however, is implemented with two continuous scales in order to take advantage of `ScatterCrosshair`. The appearance of the vertical axis as a categorical scale is achieved through custom tick labels.
+                        </div>
+                    }
+
+        />
+    </Story>
+
 </Canvas>

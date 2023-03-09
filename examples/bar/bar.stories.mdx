@@ -23,7 +23,6 @@ import {
 import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './QuestionTwoChoicesChart'
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLogoBarChart'
-import { generateDotBarData, DotBarChart } from './DotBarChart'
 
 <Meta title="Gallery/Bar charts" />
 
@@ -154,22 +153,17 @@ import { generateDotBarData, DotBarChart } from './DotBarChart'
             comment={
                 <div>
                     <p>
-                        'Sequence logo' charts use letter-shaped custom components in place of
-                        rectangles.
+                        'Sequence logo' charts use letter-shaped components of various sizes to
+                        display numerical values. Another unusual property is that elements are
+                        arranged so that the largest elements are always on top.
                     </p>
                     <p>
-                        Another unusual property is that elements are arranged so that the largest
-                        elements are always on top.
+                        This implementation uses a `Bar` view with custom components in place of the
+                        usual rectangles.
                     </p>
                 </div>
             }
         />
-    </Story>
-</Canvas>
-
-<Canvas>
-    <Story name="dots">
-        <Controller generator={generateDotBarData} chart={DotBarChart} steps={['axes', 'data']} />
     </Story>
 </Canvas>
 
