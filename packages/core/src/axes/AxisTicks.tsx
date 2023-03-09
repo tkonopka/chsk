@@ -1,21 +1,13 @@
 import { X, Y, zeroPosition } from '../general'
 import { Line } from '../shapes'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
-import { TickFormatType, AxisTicksProps } from './types'
+import { AxisTicksProps } from './types'
 import { useThemedProps } from '../themes'
 import { Typography } from '../typography'
 import { defaultAxisTicksProps } from './defaults'
 
 // special formatting functions
 const stringFormat = (v: unknown) => String(v)
-// emptyFormat always returns an empty string; the if-else construct avoids lint warnings
-const emptyFormat = (v: unknown) => (v ? '' : '')
-
-const getFormatFunction = (format: undefined | null | TickFormatType) => {
-    if (format === undefined) return stringFormat
-    if (format === null) return emptyFormat
-    return format
-}
 
 // create an array of tick marks (tick lines and tick labels)
 // Note this re-uses AxisTicksProps with optional props, e.g. tickSize
@@ -52,7 +44,7 @@ export const getScaleTicks = ({
 
     const labelX = labelTranslate[X] + (horizontal ? 0 : offset * xMultiplier)
     const labelY = labelTranslate[Y] + (horizontal ? offset * yMultiplier : 0)
-    const tickFormat = getFormatFunction(labelFormat)
+    const tickFormat = labelFormat ?? stringFormat
 
     return tickTranslations.map((translations, i) => {
         const x = translations[X]

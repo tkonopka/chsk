@@ -37,7 +37,7 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={6} labelFormat={null} />
+                        <AxisTicks variant="top" ticks={6} labelFormat={() => ''} />
                     </Axis>
                 </View>
             </Chart>

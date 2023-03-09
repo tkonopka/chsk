@@ -50,8 +50,6 @@ export interface AxisLabelThemedProps
     rotate: number
 }
 
-export type TickFormatType = (value: unknown, index: number) => string
-
 export interface AxisTicksProps extends SvgElementVariantProps {
     /** type of axis */
     variant: SideVariant
@@ -68,7 +66,7 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     /** rotation angle (degrees) */
     labelRotate?: number
     /** format */
-    labelFormat?: undefined | null | TickFormatType
+    labelFormat?: (value: unknown, index: number) => string
     /** style for tick labels (text) */
     labelStyle?: Partial<CSSProperties>
 }
