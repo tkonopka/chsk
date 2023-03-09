@@ -28,8 +28,9 @@ export const getStartToEndAxis = (start: NumericPositionSpec, end: NumericPositi
     const theta = Math.atan(-deltaY / deltaX)
     // angle of a right-hand turn from direction along start-to-end axis
     const beta = Math.PI / 2 - theta
-    const cosBeta = Math.cos(beta)
-    const sinBeta = Math.sin(beta)
+    const adjustment = deltaX < 0 ? Math.PI : 0
+    const cosBeta = Math.cos(beta + adjustment)
+    const sinBeta = Math.sin(beta + adjustment)
     return { deltaX, deltaY, cosBeta, sinBeta }
 }
 

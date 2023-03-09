@@ -70,6 +70,22 @@ describe('getBlockArrowPoints', () => {
         expect(result[7].map(Math.round)).toEqual([60, 80])
     })
 
+    it('creates rotated arrow (different angle)', () => {
+        // arrow at some angle
+        const result = getBlockArrowPoints({
+            start: [60, 40],
+            end: [20, 80],
+            heads: [true, true],
+            headWidth: 20,
+            headLength: 10,
+            stemWidth: 10,
+        })
+        expect(result).toHaveLength(5 + 5)
+        // arrow tips should match the start/end positions
+        expect(result[2].map(Math.round)).toEqual([60, 40])
+        expect(result[7].map(Math.round)).toEqual([20, 80])
+    })
+
     it('creates diagonal arrow', () => {
         // arrow at 45 degree angle, arrowhead sides should be vertical/horizontal
         const result = getBlockArrowPoints({

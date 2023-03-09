@@ -13,7 +13,8 @@
 
 ### Changed
 
--   [core] simplify typescript type for tick label format in `AxisTicks`
+-   [annotation] fixed bug with `BlockArrow` rotation
+-   [core] simplified typescript type for tick label format in `AxisTicks`
 -   [core] adjusted the default theme to disable pointer events on decorative items, e.g. grid lines
 -   [band] updated `BandSurface` to respond to mouse events and use a
     customizable 'dataComponent'
