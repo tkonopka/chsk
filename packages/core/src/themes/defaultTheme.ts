@@ -59,18 +59,18 @@ export const defaultTheme: CompleteThemeSpec = {
     path: {
         default: {
             stroke: '#222222',
-            strokeWidth: 2,
+            strokeWidth: 1,
         },
     },
     polygon: {
         default: {
-            stroke: '#333333',
-            strokeWidth: 0,
+            stroke: '#222222',
+            strokeWidth: 1,
         },
     },
     rect: {
         default: {
-            stroke: '#333333',
+            stroke: '#222222',
             strokeWidth: 0,
         },
         inner: {
@@ -103,6 +103,7 @@ export const defaultTheme: CompleteThemeSpec = {
             fontSize: '14px',
             fill: '#222222',
             textAnchor: 'middle',
+            dominantBaseline: 'middle',
         },
         label: {
             fontSize: '12px',
@@ -118,24 +119,17 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'start',
         },
         subtitle: {
-            fontSize: '14px',
             fill: '#777777',
             textAnchor: 'start',
-        },
-        axisLabel: {
-            fontSize: '14px',
-            dominantBaseline: 'middle',
         },
         tickLabel: {
             fontSize: '12px',
         },
         'tickLabel.left': {
             textAnchor: 'end',
-            dominantBaseline: 'middle',
         },
         'tickLabel.right': {
             textAnchor: 'start',
-            dominantBaseline: 'middle',
         },
         'tickLabel.top': {
             textAnchor: 'middle',

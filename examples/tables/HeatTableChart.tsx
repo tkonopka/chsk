@@ -110,6 +110,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
             fill: '#444444',
             fontSize: '11px',
             dominantBaseline: 'middle',
+            textAnchor: 'start',
         },
     },
 })

@@ -1,0 +1,49 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Polygon } from '../../../src'
+import { ChartDecorator } from '../decorators'
+
+# Polygon
+
+<Meta title="Core/Components/Shapes/Polygon" />
+export const Template = args => <Polygon {...args} />
+
+`Polygon` displays a closed shape composed of straight-line segments.
+
+<ArgsTable of={Polygon} />
+
+## Style
+
+export const points = [
+    [50, 120],
+    [140, 50],
+    [270, 90],
+    [200, 190],
+    [100, 100],
+]
+
+Polygons are defined by a series of points. The resulting shape can be styled with css.
+
+<Canvas>
+    <Story
+        name="transparent"
+        args={{
+            points: points,
+            style: { stroke: '#993333', strokeWidth: 2, fillOpacity: 0 },
+        }}
+        component={Polygon}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name=" filled"
+        args={{
+            points: points,
+            style: { stroke: '#993333', strokeWidth: 2, fill: '#993333', fillOpacity: 0.5 },
+        }}
+        component={Polygon}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

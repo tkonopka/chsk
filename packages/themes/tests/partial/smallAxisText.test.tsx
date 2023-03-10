@@ -5,9 +5,12 @@ import { pxValue } from '../utils'
 describe('small axis text', () => {
     it('specifies a small axis label size', () => {
         expect(smallAxisTextTheme).toHaveProperty('text')
-        const refStyle = defaultTheme.text?.['axisLabel']
+        const refLabelStyle = defaultTheme.text?.['axisLabel']
+        const refDefaultStyle = defaultTheme.text?.['default']
         const themeStyle = smallAxisTextTheme.text?.['axisLabel']
-        expect(pxValue(themeStyle?.fontSize)).toBeLessThan(pxValue(refStyle?.fontSize))
+        expect(pxValue(themeStyle?.fontSize)).toBeLessThan(
+            pxValue(refLabelStyle?.fontSize ?? refDefaultStyle?.fontSize)
+        )
     })
 
     it('specifies a small tick label size', () => {
