@@ -24,6 +24,7 @@ export const downloadTheme: ThemeSpec = {
             cursor: 'pointer',
             strokeWidth: 0,
             fill: '#555555',
+            fillOpacity: 1,
         },
     },
 }
