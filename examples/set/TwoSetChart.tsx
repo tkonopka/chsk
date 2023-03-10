@@ -88,7 +88,7 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <DownloadButtons position={[240, -40]} data image />
                 <Tooltip
                     translate={[0, -20]}
-                    itemSize={[150, 30]}
+                    itemSize={[150, 26]}
                     labelFormat={tooltipLabelFormat}
                 />
             </Venn>
