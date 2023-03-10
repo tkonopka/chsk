@@ -158,6 +158,9 @@ export const customTheme: ThemeSpec = {
         },
     },
     path: {
+        default: {
+            fillOpacity: 0,
+        },
         scatterCurve: {
             strokeWidth: 3,
         },

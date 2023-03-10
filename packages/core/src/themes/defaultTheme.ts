@@ -60,7 +60,6 @@ export const defaultTheme: CompleteThemeSpec = {
         default: {
             stroke: '#222222',
             strokeWidth: 2,
-            fillOpacity: 0,
         },
     },
     polygon: {

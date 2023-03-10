@@ -59,7 +59,11 @@ export const RandomWalkAreaChart = ({ fref, chartData, rawData }: MilestoneStory
                         fillOpacity: 1,
                     }}
                 />
-                <ScatterCurve ids={['alpha']} curve={'Natural'} style={{ strokeWidth: 3 }} />
+                <ScatterCurve
+                    ids={['alpha']}
+                    curve={'Natural'}
+                    style={{ strokeWidth: 3, fillOpacity: 0 }}
+                />
                 <Typography variant={'title'} position={[0, -30]}>
                     Shifted random walk
                 </Typography>

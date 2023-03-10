@@ -66,15 +66,23 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 <ScatterCurve
                     ids={['alpha']}
                     curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7 }}
+                    style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
                 />
-                <ScatterCurve ids={['alpha']} curve={'Natural'} style={{ strokeWidth: 4 }} />
+                <ScatterCurve
+                    ids={['alpha']}
+                    curve={'Natural'}
+                    style={{ strokeWidth: 4, fillOpacity: 0 }}
+                />
                 <ScatterCurve
                     ids={['beta']}
                     curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7 }}
+                    style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
                 />
-                <ScatterCurve ids={['beta']} curve={'Natural'} style={{ strokeWidth: 4 }} />
+                <ScatterCurve
+                    ids={['beta']}
+                    curve={'Natural'}
+                    style={{ strokeWidth: 4, fillOpacity: 0 }}
+                />
                 <Typography variant={'title'} position={[0, -40]}>
                     Two random walks
                 </Typography>

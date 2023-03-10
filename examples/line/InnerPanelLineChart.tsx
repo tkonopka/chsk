@@ -49,6 +49,9 @@ const customTheme = {
         },
     },
     path: {
+        default: {
+            fillOpacity: 0,
+        },
         flow: {
             strokeWidth: 1.5,
             stroke: '#222222',

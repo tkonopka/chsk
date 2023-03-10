@@ -38,6 +38,9 @@ const multiviewTheme: ThemeSpec = {
         },
     },
     path: {
+        default: {
+            fillOpacity: 0,
+        },
         histogramCurve: {
             strokeWidth: 3,
         },

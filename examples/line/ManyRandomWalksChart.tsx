@@ -38,6 +38,11 @@ const customTheme: ThemeSpec = {
             fillOpacity: 0,
         },
     },
+    path: {
+        default: {
+            fillOpacity: 0,
+        },
+    },
     text: {
         legendTitle: {
             fontSize: '13px',

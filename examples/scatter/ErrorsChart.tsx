@@ -62,6 +62,7 @@ const customTheme: ThemeSpec = {
     path: {
         scatterCurve: {
             pointerEvents: 'none',
+            fillOpacity: 0,
         },
     },
 }

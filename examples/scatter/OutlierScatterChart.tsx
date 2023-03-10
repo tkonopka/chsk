@@ -45,6 +45,7 @@ const customTheme: ThemeSpec = {
     path: {
         outliers: {
             stroke: '#777777',
+            fillOpacity: 0,
         },
         blockArrow: {
             strokeWidth: 0,

@@ -27,6 +27,11 @@ const customHistogramTheme: ThemeSpec = {
             stroke: '#222255',
         },
     },
+    path: {
+        default: {
+            fillOpacity: 0,
+        },
+    },
     text: {
         axisLabel: {
             textAnchor: 'middle',

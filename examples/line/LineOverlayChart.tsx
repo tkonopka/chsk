@@ -26,6 +26,7 @@ const overlayTheme: ThemeSpec = {
     path: {
         scatterCurve: {
             strokeWidth: 2,
+            fillOpacity: 0,
         },
         scatterArea: {
             opacity: 0.8,

@@ -15,7 +15,7 @@ export const Template = args => <Path {...args} />
 
 export const openCurve = [
     [0, 200],
-    [80, 170],
+    [80, 180],
     [160, 50],
     [240, 90],
     [320, 20],
@@ -29,7 +29,7 @@ Paths are defined by a series of points, and interpolations are controlled via t
         args={{
             points: openCurve,
             curve: 'Linear',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -41,7 +41,7 @@ Paths are defined by a series of points, and interpolations are controlled via t
         args={{
             points: openCurve,
             curve: 'Natural',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -53,7 +53,7 @@ Paths are defined by a series of points, and interpolations are controlled via t
         args={{
             points: openCurve,
             curve: 'MonotoneX',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -65,7 +65,7 @@ Paths are defined by a series of points, and interpolations are controlled via t
         args={{
             points: openCurve,
             curve: 'Step',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -92,7 +92,7 @@ Paths can display closed curves.
         args={{
             points: closedCurve,
             curve: 'LinearClosed',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -104,7 +104,7 @@ Paths can display closed curves.
         args={{
             points: closedCurve,
             curve: 'BasisClosed',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -116,7 +116,7 @@ Paths can display closed curves.
         args={{
             points: closedCurve,
             curve: 'CardinalClosed',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
         }}
         component={Path}
         decorators={[ChartDecorator]}
@@ -128,7 +128,39 @@ Paths can display closed curves.
         args={{
             points: closedCurve,
             curve: 'CatmullRomClosed',
-            style: { stroke: '#993333' },
+            style: { stroke: '#993333', fillOpacity: 0 },
+        }}
+        component={Path}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Style
+
+Paths can be styled with css.
+In particular, paths may require setting the `fill` or `fillOpacity` attributes.
+
+<Canvas>
+    <Story
+        name="open, filled"
+        args={{
+            points: openCurve,
+            curve: 'Linear',
+            style: { stroke: '#993333', fill: '#993333', fillOpacity: 0.5 },
+        }}
+        component={Path}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="closed, filled"
+        args={{
+            points: closedCurve,
+            curve: 'LinearClosed',
+            style: { stroke: '#993333', fill: '#993333', fillOpacity: 0.5 },
         }}
         component={Path}
         decorators={[ChartDecorator]}

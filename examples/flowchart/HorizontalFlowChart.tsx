@@ -11,6 +11,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     path: {
         flow: {
             strokeWidth: '1px',
+            fillOpacity: 0,
         },
         icon: {
             fill: '#4292c6',

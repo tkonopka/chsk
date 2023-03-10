@@ -63,7 +63,7 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <ScatterCurve
                         ids={['control']}
                         curve={'StepAfter'}
-                        style={{ strokeWidth: 3 }}
+                        style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
                     <ScatterLabel
                         ids={['control']}
@@ -85,7 +85,7 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <ScatterCurve
                         ids={['treated']}
                         curve={'StepAfter'}
-                        style={{ strokeWidth: 3 }}
+                        style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
                     <ScatterLabel
                         ids={['treated']}

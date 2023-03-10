@@ -51,6 +51,9 @@ const customHistogramTheme: ThemeSpec = {
         },
     },
     path: {
+        default: {
+            fillOpacity: 0,
+        },
         histogramArea: {
             cursor: 'pointer',
             fillOpacity: 0.2,
