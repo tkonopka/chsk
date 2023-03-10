@@ -14,6 +14,8 @@
 
 ### Changed
 
+-   [all] changed rollup config to reduce bundle sizes by excluding
+    framer-motion
 -   [core] changed a typing on cart context props to simplify tests
 -   [core] changed prop `role` in `MilestoneMotion` to `setRole` for
     consistency with other components, and to enable setting a role by default

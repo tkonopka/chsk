@@ -46,7 +46,7 @@ const D3_WARNING = /Circular dependency.*d3-interpolate/
 
 const commonConfig = {
     input,
-    external: ['react', 'react/jsx-runtime'],
+    external: ['react', 'react-dom', 'react/jsx-runtime', 'framer-motion'],
     plugins: commonPlugins,
     onwarn: function (message) {
         if (D3_WARNING.test(message)) {
@@ -77,7 +77,6 @@ const configs = [
 if (env === 'production') {
     configs.push({
         ...commonConfig,
-        external: ['react', 'react-dom', 'prop-types', 'react/jsx-runtime'],
         output: {
             file: `./packages/${pkg}/dist/chsk-${pkg}.umd.js`,
             format: 'umd',
@@ -85,7 +84,6 @@ if (env === 'production') {
             globals: {
                 react: 'React',
                 'react-dom': 'ReactDOM',
-                'prop-types': 'PropTypes',
                 'react/jsx-runtime': 'jsxRuntime',
             },
             sourcemap: true,
