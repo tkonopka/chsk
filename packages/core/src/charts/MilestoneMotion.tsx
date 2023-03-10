@@ -5,7 +5,6 @@ import { getMotionValue, getTransitionValue } from './utils'
 import { MilestoneMotionProps } from './types'
 
 export const MilestoneMotion = ({
-    role,
     initial,
     initialOn,
     exit,
@@ -13,6 +12,7 @@ export const MilestoneMotion = ({
     animate = 'none',
     transition,
     visible,
+    setRole = true,
     children,
 }: MilestoneMotionProps) => {
     const [active, setActive] = useState(visible ?? initialOn === undefined)
@@ -38,11 +38,12 @@ export const MilestoneMotion = ({
         }
     }
 
+    const role = 'milestone-' + initialOn + (exitOn ? '-' + exitOn : '')
     return (
         <AnimatePresence>
             {active && (
                 <m.g
-                    role={role}
+                    role={setRole ? role : undefined}
                     initial={getMotionValue(initial)}
                     animate={getMotionValue(animate)}
                     exit={getMotionValue(exit)}

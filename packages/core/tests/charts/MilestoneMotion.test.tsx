@@ -11,11 +11,10 @@ describe('MilestoneMotion', () => {
                 </MilestoneMotion>
             </Chart>
         )
-        const result = screen.getByRole('chart-content')
-        expect(result.querySelector('rect')).toBeNull()
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeNull()
     })
 
-    it('always displays content in first render', () => {
+    it('displays content in first render', () => {
         render(
             <Chart {...chartProps}>
                 <MilestoneMotion initial={'invisible'} initialOn={'A'} visible={true}>
@@ -23,8 +22,38 @@ describe('MilestoneMotion', () => {
                 </MilestoneMotion>
             </Chart>
         )
-        const result = screen.getByRole('chart-content')
-        expect(result.querySelector('rect')).toBeDefined()
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
+        expect(screen.queryByRole('milestone-A')).toBeDefined()
+    })
+
+    it('displays content without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <MilestoneMotion
+                    initial={'invisible'}
+                    initialOn={'A'}
+                    visible={true}
+                    setRole={false}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
+        expect(screen.queryByRole('milestone-A')).toBeNull()
+    })
+
+    it('displays content between entry and exit milestones', () => {
+        const setExit = new Set<string>(['entry'])
+        render(
+            <Chart {...chartProps} data={{ milestones: setExit }}>
+                <MilestoneMotion initialOn={'entry'} exitOn={'exit'}>
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
+        expect(screen.queryByRole('milestone-entry-exit')).toBeDefined()
     })
 
     it('hides content after an exit milestone', () => {

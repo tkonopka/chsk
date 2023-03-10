@@ -7,7 +7,7 @@ export interface SvgElementProps {
     className?: string
     /** css style */
     style?: CssProps
-    /** include role attribute in the svg source */
+    /** toggle role attribute in svg code */
     setRole?: boolean
 }
 

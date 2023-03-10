@@ -79,9 +79,7 @@ export type AnimationTransitionSpec =
     | keyof typeof transitionPresets
     | GTransitionProp
 
-export interface MilestoneMotionProps {
-    /** role string */
-    role?: string
+export interface MilestoneMotionProps extends Pick<SvgElementProps, 'setRole'> {
     /** initial animation settings */
     initial?: AnimationSpec
     /** milestone on which to initialize animation */

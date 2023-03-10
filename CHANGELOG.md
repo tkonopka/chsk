@@ -14,6 +14,8 @@
 
 ### Changed
 
+-   [core] changed prop `role` in `MilestoneMotion` to `setRole` for
+    consistency with other components, and to enable setting a role by default
 -   [core] changed fill opacity for path components in `defaultTheme`
 -   [annotation] fixed bug with `BlockArrow` rotation
 -   [core] simplified typescript type for tick label format in `AxisTicks`
