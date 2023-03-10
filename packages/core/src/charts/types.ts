@@ -14,7 +14,7 @@ export type ChartDataContextProps = WithId &
 
 export type ChartDataProviderValue = {
     data: ChartDataContextProps
-    setData: (d: ChartDataContextProps) => unknown
+    setData?: (d: ChartDataContextProps) => unknown
 }
 
 export type ChartDataProviderProps = {

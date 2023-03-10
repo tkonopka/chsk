@@ -44,7 +44,7 @@ const UnthemedLegendItem = ({
         } else {
             disabledKeys.add(item)
         }
-        setChartData({ ...chartData, disabledKeys })
+        setChartData?.({ ...chartData, disabledKeys })
     }
 
     const isDisabled = chartData.disabledKeys ? chartData.disabledKeys.has(item) : false

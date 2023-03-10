@@ -14,6 +14,7 @@
 
 ### Changed
 
+-   [core] changed a typing on cart context props to simplify tests
 -   [core] changed prop `role` in `MilestoneMotion` to `setRole` for
     consistency with other components, and to enable setting a role by default
 -   [core] changed fill opacity for path components in `defaultTheme`

@@ -140,6 +140,7 @@ const GlobalHoverDataComponent = <
     const [componentStyle, setComponentStyle] = useState<CssProps | undefined>(props.style)
     const [key, setKey] = useState(0)
     const style = props.style
+    if (!setChartData) return null
 
     const handleTooltip = useCallback(
         (event: MouseEvent) => {
