@@ -26,7 +26,7 @@ describe('useDisabledKeys', () => {
             const { data, setData } = useChartData()
             useEffect(() => {
                 if (!data.disabledKeys) {
-                    setData({ ...data, disabledKeys: new Set() })
+                    setData?.({ ...data, disabledKeys: new Set() })
                 }
             })
             return null
