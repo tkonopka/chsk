@@ -61,10 +61,11 @@ const prepareData = (
     valueScale: ContinuousAxisScale,
     horizontal: boolean,
     width: number,
+    offset: number,
     gap: number
 ): Array<SchedulePreparedDataItem> => {
     return data.map(seriesData => {
-        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
+        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2 + offset
         const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
             const start = valueScale(summary.start)
@@ -156,11 +157,20 @@ export const Schedule = ({
 
     // compute dimensions of bars/boxes
     // (schedules do not have internal padding, they are always stacked)
-    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, 0, 'layered')
+    const [boxWidth, boxOffset, boxGap] = getInternalWidthAndGap(indexScale, keys, 0, 'layered')
 
     const preparedData = useMemo(
-        () => prepareData(processedData, indexScale, valueScale, horizontal, boxWidth, boxGap),
-        [processedData, indexScale, valueScale, horizontal, boxWidth, boxGap]
+        () =>
+            prepareData(
+                processedData,
+                indexScale,
+                valueScale,
+                horizontal,
+                boxWidth,
+                boxOffset,
+                boxGap
+            ),
+        [processedData, indexScale, valueScale, horizontal, boxWidth, boxOffset, boxGap]
     )
 
     return (

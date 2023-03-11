@@ -66,7 +66,7 @@ export const Quantiles = ({
                     const processedSummary = processedData[seriesData.index].data[i]
                     if (!processedSummary) return null
                     return createElement(dataComponent, {
-                        key: 'boxwhiskers-' + seriesData.index + '-' + i,
+                        key: 'quantiles-' + seriesData.index + '-' + i,
                         data: {
                             id: seriesData.id,
                             key: k,
@@ -90,7 +90,7 @@ export const Quantiles = ({
 
             return (
                 <OpacityMotion
-                    key={'boxwhiskers-' + i}
+                    key={'quantiles-' + i}
                     role={'quantiles'}
                     visible={visible}
                     firstRender={firstRender}

@@ -7,6 +7,7 @@ import {
     ManyDistributionsStripChart,
 } from './ManyDistributionsStripChart'
 import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStripChart'
+import { generateBarStripData, BarStripChart } from './BarStripChart'
 
 <Meta title="Gallery/Distribution charts" />
 
@@ -37,5 +38,22 @@ import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStri
 <Canvas>
     <Story name="waterfall">
         <Controller generator={generateWaterfallStripData} chart={WaterfallStripChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="bars">
+        <Controller
+            generator={generateBarStripData}
+            chart={BarStripChart}
+            steps={['points', 'boxes', 'bars', 'barsonly']}
+            comment={
+                <div>
+                    This example uses a custom component to summarize distributions as bars with
+                    whiskers. Click through the milestone animation to see the chart with points,
+                    box-and-whisker, and bar-and-whisker representations.
+                </div>
+            }
+        />
     </Story>
 </Canvas>

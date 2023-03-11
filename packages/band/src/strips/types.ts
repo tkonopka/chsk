@@ -58,9 +58,9 @@ export type StripInteractiveDataItem = {
     valueSize?: number
 }
 
-export type StripVariant =
-    | 'default'
-    | 'jitter'
+export type JitterVariant =
+    | 'none'
+    | 'random'
     | 'ascending'
     | 'increasing'
     | 'descending'
@@ -68,8 +68,10 @@ export type StripVariant =
     | 'middle'
 
 export interface StripProps extends BandProps {
-    /** variant, determines how points are arranged within a strip */
-    variant?: StripVariant
+    /** variant */
+    variant?: 'grouped' | 'layered'
+    /** determines how points are arranged within a strip */
+    jitter?: JitterVariant
     /** data */
     data: Array<StripDataItem>
     /** size of dots */

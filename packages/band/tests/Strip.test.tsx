@@ -20,7 +20,7 @@ import {
 import { stripProps, dummyXBandScale, dummyYLinearScale, dataMissingKeys } from './props'
 
 describe('Strip', () => {
-    it('defines processed data (variant default)', () => {
+    it('defines processed data (no jitter)', () => {
         const processed: StripProcessedDataContextProps = {
             data: [],
             seriesIndexes: {},
@@ -37,7 +37,7 @@ describe('Strip', () => {
         }
         render(
             <Chart>
-                <Strip {...stripProps} variant={'default'}>
+                <Strip {...stripProps} jitter={'none'}>
                     <GetProcessedData />
                 </Strip>
             </Chart>
@@ -51,7 +51,7 @@ describe('Strip', () => {
         expect(firstIdData[0]?.internal).toEqual(firstIdData[1]?.internal)
     })
 
-    it('defines processed data (variant jitter)', () => {
+    it('defines processed data (random jitter)', () => {
         let processed: Array<StripProcessedDataItem> = []
         const GetProcessedData = () => {
             const temp = useProcessedData()
@@ -60,7 +60,7 @@ describe('Strip', () => {
         }
         render(
             <Chart>
-                <Strip {...stripProps} variant={'jitter'}>
+                <Strip {...stripProps} jitter={'random'}>
                     <GetProcessedData />
                 </Strip>
             </Chart>
@@ -71,7 +71,7 @@ describe('Strip', () => {
         expect(firstIdData[0]?.internal).not.toEqual(firstIdData[1]?.internal)
     })
 
-    it('defines processed data (variant ascending)', () => {
+    it('defines processed data (jitter ascending)', () => {
         let processed: Array<StripProcessedDataItem> = []
         const GetProcessedData = () => {
             const temp = useProcessedData()
@@ -80,7 +80,7 @@ describe('Strip', () => {
         }
         render(
             <Chart>
-                <Strip {...stripProps} variant={'ascending'}>
+                <Strip {...stripProps} jitter={'ascending'}>
                     <GetProcessedData />
                 </Strip>
             </Chart>
@@ -101,7 +101,7 @@ describe('Strip', () => {
         )
     })
 
-    it('defines processed data (variant descending)', () => {
+    it('defines processed data (jitter descending)', () => {
         let processed: Array<StripProcessedDataItem> = []
         const GetProcessedData = () => {
             const temp = useProcessedData()
@@ -110,7 +110,7 @@ describe('Strip', () => {
         }
         render(
             <Chart>
-                <Strip {...stripProps} variant={'descending'}>
+                <Strip {...stripProps} jitter={'descending'}>
                     <GetProcessedData />
                 </Strip>
             </Chart>
@@ -131,7 +131,7 @@ describe('Strip', () => {
         )
     })
 
-    it('defines processed data (variant middle)', () => {
+    it('defines processed data (jitter middle)', () => {
         let processed: Array<StripProcessedDataItem> = []
         const GetProcessedData = () => {
             const temp = useProcessedData()
@@ -140,7 +140,7 @@ describe('Strip', () => {
         }
         render(
             <Chart>
-                <Strip {...stripProps} variant={'middle'}>
+                <Strip {...stripProps} jitter={'middle'}>
                     <GetProcessedData />
                 </Strip>
             </Chart>

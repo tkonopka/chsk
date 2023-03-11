@@ -8,15 +8,7 @@ import {
     AxisLine,
     TooltipDataItem,
 } from '@chsk/core'
-import {
-    Quantile,
-    QuantileProps,
-    Quantiles,
-    QuantileTooltip,
-    Strip,
-    StripProps,
-    Strips,
-} from '@chsk/band'
+import { Quantile, Quantiles, QuantileTooltip, Strip, StripProps, Strips } from '@chsk/band'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -68,24 +60,10 @@ const customTheme: ThemeSpec = {
 
 const stripProps: Omit<StripProps, 'data'> = {
     keys: stripAndBoxKeys,
-    paddingInternal: null,
+    variant: 'layered',
     scaleIndex: {
         variant: 'band' as const,
         domain: 'auto' as const,
-        paddingInner: 0.4,
-        paddingOuter: 0.3,
-    },
-    scaleValue: {
-        variant: 'linear' as const,
-        domain: [0, 'auto' as const],
-    },
-}
-const quantileProps: Omit<QuantileProps, 'data'> = {
-    keys: stripAndBoxKeys,
-    paddingInternal: null,
-    scaleIndex: {
-        variant: 'band' as const,
-        domain: 'auto',
         paddingInner: 0.2,
         paddingOuter: 0.2,
     },
@@ -105,7 +83,7 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
             padding={[60, 60, 60, 80]}
             theme={customTheme}
         >
-            <Strip {...stripProps} data={rawData}>
+            <Strip {...stripProps} data={rawData} paddingInternal={0.4}>
                 <MilestoneMotion initialOn={'axes'} initial={'invisible'}>
                     <GridLines variant={'y'} />
                     <Axis variant={'left'} label={'counts'} ticks={6} />
@@ -130,7 +108,7 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     <Strips />
                 </MilestoneMotion>
             </Strip>
-            <Quantile {...quantileProps} data={rawData}>
+            <Quantile {...stripProps} data={rawData} paddingInternal={0}>
                 <MilestoneMotion initialOn={'quantiles'} initial={'invisible'}>
                     <Quantiles
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 1.5 }}

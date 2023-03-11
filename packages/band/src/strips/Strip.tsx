@@ -22,7 +22,7 @@ import {
     StripPreparedDataItem,
     StripProcessedDataItem,
     StripProps,
-    StripVariant,
+    JitterVariant,
 } from './types'
 import { StripPreparedDataProvider } from './context'
 import { getInternalWidthAndGap, getScaleProps } from '../bars/utils'
@@ -33,7 +33,7 @@ const processData = (
     data: Array<StripDataItem>,
     accessors: Array<AccessorFunction<unknown>>,
     valueSize: number,
-    variant: StripVariant
+    jitter: JitterVariant
 ): Array<StripProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
@@ -42,7 +42,7 @@ const processData = (
             if (!Array.isArray(raw)) return undefined
             return {
                 value: raw as number[],
-                internal: getStripInternalOrder(variant, raw as number[]),
+                internal: getStripInternalOrder(jitter, raw as number[]),
                 valueSize: Array(raw.length).fill(valueSize),
             }
         })
@@ -62,10 +62,11 @@ const prepareData = (
     valueScale: LinearAxisScale,
     horizontal: boolean,
     width: number,
+    offset: number,
     gap: number
 ): Array<StripPreparedDataItem> => {
     return data.map(seriesData => {
-        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
+        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2 + offset
         const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
             if (!summary) return undefined
@@ -97,9 +98,10 @@ export const Strip = ({
     anchor = defaultViewProps.anchor,
     padding = defaultViewProps.padding,
     // content
+    variant = 'grouped',
     data,
     keys,
-    variant = 'default',
+    jitter = 'none',
     valueSize = 3,
     horizontal = false,
     autoRescale = true,
@@ -127,8 +129,8 @@ export const Strip = ({
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
-        () => processData(data, keyAccessors, valueSize, variant),
-        [data, keyAccessors, valueSize, variant]
+        () => processData(data, keyAccessors, valueSize, jitter),
+        [data, keyAccessors, valueSize, jitter]
     )
 
     const { scalePropsIndex, scalePropsValue } = getScaleProps(
@@ -148,15 +150,24 @@ export const Strip = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [stripWidth, stripGap] = getInternalWidthAndGap(
+    const [stripWidth, stripOffset, stripGap] = getInternalWidthAndGap(
         indexScale,
         keys,
         paddingInternal,
-        'grouped'
+        variant
     )
     const preparedData = useMemo(
-        () => prepareData(processedData, indexScale, valueScale, horizontal, stripWidth, stripGap),
-        [processedData, horizontal, indexScale, valueScale, stripWidth, stripGap]
+        () =>
+            prepareData(
+                processedData,
+                indexScale,
+                valueScale,
+                horizontal,
+                stripWidth,
+                stripOffset,
+                stripGap
+            ),
+        [processedData, horizontal, indexScale, valueScale, stripWidth, stripOffset, stripGap]
     )
 
     return (

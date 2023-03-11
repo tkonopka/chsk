@@ -83,6 +83,8 @@ export interface BoxAndWhiskersProps extends SvgElementProps, InteractivityProps
 }
 
 export interface QuantileProps extends BandProps {
+    /** variant */
+    variant?: 'grouped' | 'layered'
     /** data */
     data: Array<QuantileDataItem>
     /** five quantiles for whiskers bounds, box bounds, and central line */

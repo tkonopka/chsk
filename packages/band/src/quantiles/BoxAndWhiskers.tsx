@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { BoxAndWhiskersProps } from './types'
 import { Line, Rectangle } from '@chsk/core'
 
@@ -22,9 +23,6 @@ export const BoxAndWhiskers = ({
 
     const cx = data.bandStart + halfBand
     const cy = data.values[2]
-    const translate = horizontal
-        ? 'translate(' + cy + ',' + cx + ')'
-        : 'translate(' + cx + ',' + cy + ')'
 
     const box = (
         <Rectangle
@@ -86,9 +84,17 @@ export const BoxAndWhiskers = ({
         />,
     ]
 
+    const config = {
+        x: horizontal ? cy : cx,
+        y: horizontal ? cx : cy,
+        rotate: horizontal ? -90 : 0,
+        originX: '0px',
+        originY: '0px',
+    }
     return (
-        <g
-            transform={translate + (horizontal ? ' rotate(-90)' : '')}
+        <m.g
+            initial={config}
+            animate={config}
             role={setRole ? 'boxwhisker' : undefined}
             style={style}
             {...props}
@@ -96,6 +102,6 @@ export const BoxAndWhiskers = ({
             {box}
             {lines}
             {whiskerCapWidth > 0 ? caps : null}
-        </g>
+        </m.g>
     )
 }

@@ -88,7 +88,15 @@ Band scales transform strings into coordinates along a chart axis. The domain of
 }`}
 />
 
-Band scales work with discrete, i.e. non-continuous, domains. As such, it is often relevant to specify spacings between the domain labels. There are a number of optional parameters that tune padding. These parameters are interpretable, for example, in the context of a bar chart, where they determine the space between adjacent bars (`padding`), spacing between grouped bars belonging to the same label (`paddingInner`), and space between the axis edge and the first/last bars (`paddingOuter`). There is also a parameter that adjusts spacing before individual labels. The example below shows the formatting for all these custom parameters.
+Band scales work with discrete, i.e. non-continuous, domains.
+They partition the space along an axis into non-overlapping rectangular regions (i.e. bands or strips) with some empty regions in between.
+For example, in a bar chart, these regions determine the width of bars, and the empty space creates padding between bars.
+
+It is often relevant to control spacing between the domain labels.
+Parameter `padding` is a single-value adjustment that controls the empty space between a adjustment domain labels.
+For finer control, parameter `paddingOuter` controls the empty space between the axis edge and the first/last bars, and parameter `paddingInner` controls the other spacings between adjacent bars. Note that `paddingInner` and `paddingOuter` override `padding`.
+
+There is also a parameter that adjusts spacing before individual labels. The example below shows the formatting for all these custom parameters.
 
 <Source
     language="javascript"
@@ -102,6 +110,11 @@ Band scales work with discrete, i.e. non-continuous, domains. As such, it is oft
   extraPadding: { 'C': 0.2 }
 }`}
 />
+
+As an aside, note that some band charts, e.g. grouped bar charts or grouped quantile charts,
+display several 'keys' associated with a single position on the axis domain.
+The sizes/spacings of those components are determined by the chart variant, not by the axis scale.
+Thus, to tune those sizes/spacings, see the documentation for those specific chart views.
 
 ## Color scales
 

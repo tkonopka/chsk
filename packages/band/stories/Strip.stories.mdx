@@ -32,17 +32,17 @@ The pseudocode below shows one data item with an identifier and two numeric arra
 `}
 />
 
-## Variants
+## Jitter
 
-Prop `variant` determines how data elements are arranged within a single strip.
+Prop `jitter` determines how data elements are arranged within a single strip.
 The default behavior places the elements in the order in which they appear in the dataset. It is also possible to explicitly randomize / shuffle the order, or to sort the elements in ascending or descending order.
 
 <Canvas>
     <Story
-        name="default"
+        name="none"
         args={{
             ...commonStripProps,
-            variant: 'default',
+            jitter: 'none',
             children: <Strips />,
         }}
         component={Strip}
@@ -51,10 +51,10 @@ The default behavior places the elements in the order in which they appear in th
         {Template.bind({})}
     </Story>
     <Story
-        name="jitter"
+        name="random"
         args={{
             ...commonStripProps,
-            variant: 'jitter',
+            jitter: 'random',
             children: <Strips />,
         }}
         component={Strip}
@@ -66,7 +66,7 @@ The default behavior places the elements in the order in which they appear in th
         name="ascending"
         args={{
             ...commonStripProps,
-            variant: 'ascending',
+            jitter: 'ascending',
             children: <Strips />,
         }}
         component={Strip}
@@ -78,7 +78,7 @@ The default behavior places the elements in the order in which they appear in th
         name="descending"
         args={{
             ...commonStripProps,
-            variant: 'descending',
+            jitter: 'descending',
             children: <Strips />,
         }}
         component={Strip}
@@ -90,7 +90,7 @@ The default behavior places the elements in the order in which they appear in th
         name="middle"
         args={{
             ...commonStripProps,
-            variant: 'middle',
+            jitter: 'middle',
             children: <Strips />,
         }}
         component={Strip}
@@ -100,7 +100,8 @@ The default behavior places the elements in the order in which they appear in th
     </Story>
 </Canvas>
 
-Note that the order of data points in the dataset is randomized, so the default and jittered variants (first two examples above) produce layouts that are similarly randomized.
+Note that the data points in the dataset are randomized from the start.
+The default and newly-randomized arrangements (first two examples above) thus produce layouts that are quite similar in this case.
 
 ## Orientation
 

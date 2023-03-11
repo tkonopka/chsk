@@ -46,6 +46,7 @@ const prepareData = (
     horizontal: boolean,
     stacked: boolean,
     barWidth: number,
+    barOffset: number,
     barGap: number,
     disabled: boolean[]
 ): Array<BarPreparedDataItem> => {
@@ -84,13 +85,13 @@ const prepareData = (
         } else {
             // not stacked
             if (horizontal) {
-                let top = bandStart
+                let top = bandStart + barOffset
                 coords.forEach(() => {
                     position.push([zero, top])
                     top += barWidth + barGap
                 })
             } else {
-                let left = bandStart
+                let left = bandStart + barOffset
                 coords.forEach(() => {
                     position.push([left, zero])
                     left += barWidth + barGap
@@ -164,7 +165,12 @@ export const Bar = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [barWidth, barGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal, variant)
+    const [barWidth, barOffset, barGap] = getInternalWidthAndGap(
+        indexScale,
+        keys,
+        paddingInternal,
+        variant
+    )
     const preparedData = useMemo(
         () =>
             prepareData(
@@ -174,10 +180,21 @@ export const Bar = ({
                 horizontal,
                 stacked,
                 barWidth,
+                barOffset,
                 barGap,
                 disabled
             ),
-        [processedData, horizontal, stacked, indexScale, valueScale, barWidth, barGap, disabled]
+        [
+            processedData,
+            horizontal,
+            stacked,
+            indexScale,
+            valueScale,
+            barWidth,
+            barOffset,
+            barGap,
+            disabled,
+        ]
     )
 
     return (

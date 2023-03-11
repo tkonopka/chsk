@@ -104,6 +104,7 @@ export const dataRawValues = [
 export const commonQuantileProps: QuantileProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
+    paddingInternal: 0.0,
     scaleIndex: {
         variant: 'band',
         domain: ['alpha', 'beta'],

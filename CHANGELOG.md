@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [examples] quantile chart with bar-and-error-bar components instead of
+    box-and-whisker components
 -   [examples] schedule chart with arrows
 -   [themes] object `darkTheme` for charts on a dark background
 -   [core] component `BluntMarker`
@@ -14,6 +16,12 @@
 
 ### Changed
 
+-   [band] changed numeric interpretation of prop `paddingInternal` to
+    simplify overlaying multiple views on top of each other
+-   [band] added prop `variant' to `Quantile`and`Strip` to enable grouped /
+    layered charts
+-   [band] changed interpretation of prop `variant` in `Strip`; point
+    arrangements now set via new prop `jitter`
 -   [all] changed rollup config to reduce bundle sizes by excluding
     framer-motion
 -   [core] changed a typing on cart context props to simplify tests

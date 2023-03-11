@@ -53,19 +53,20 @@ export const getScaleProps = (
 // compute [width of individual bar/box, gap to next bar/box]
 // for grouped variants: with of individual bar can be smaller than bandwidth
 // for stacked and layered variants: gap is negative
+// returns: [bandwidth, offset, gap]
 export const getInternalWidthAndGap = (
     indexScale: BandAxisScale,
     keys: string[],
-    paddingInternal: number | null,
+    paddingInternal: number,
     variant: BarProps['variant']
-): [number, number] => {
+): [number, number, number] => {
     const bandwidth = indexScale.bandwidth()
     const nKeys = keys.length
     const padInternal = paddingInternal ? paddingInternal : 0
-    const noGap = nKeys === 1 || variant !== 'grouped' || paddingInternal === null
-    const width = noGap ? bandwidth : bandwidth / (nKeys - Math.min(1, padInternal))
-    if (noGap) {
-        return [width, -width]
+    const width = variant === 'grouped' ? bandwidth / nKeys : bandwidth
+    const advance = width * padInternal
+    if (variant === 'grouped') {
+        return [width * (1 - padInternal), advance / 2, advance]
     }
-    return [width * (1 - padInternal), width * padInternal]
+    return [width * (1 - padInternal), advance / 2, -width * (1 - padInternal)]
 }

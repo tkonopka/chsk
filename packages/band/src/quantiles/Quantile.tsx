@@ -73,10 +73,11 @@ const prepareData = (
     valueScale: LinearAxisScale,
     horizontal: boolean,
     width: number,
+    offset: number,
     gap: number
 ): Array<QuantilePreparedDataItem> => {
     return data.map(seriesData => {
-        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2
+        let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2 + offset
         const summaries = seriesData.data.map(summary => {
             bandStart += width + gap
             if (summary === undefined) return undefined
@@ -107,6 +108,7 @@ export const Quantile = ({
     anchor = defaultViewProps.anchor,
     padding = defaultViewProps.padding,
     // content
+    variant = 'grouped',
     data,
     keys,
     quantiles = [0.05, 0.25, 0.5, 0.75, 0.95],
@@ -157,10 +159,24 @@ export const Quantile = ({
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
     // compute spacings between (possibly grouped) bars
-    const [boxWidth, boxGap] = getInternalWidthAndGap(indexScale, keys, paddingInternal, 'grouped')
+    const [boxWidth, boxOffset, boxGap] = getInternalWidthAndGap(
+        indexScale,
+        keys,
+        paddingInternal,
+        variant
+    )
     const preparedData = useMemo(
-        () => prepareData(processedData, indexScale, valueScale, horizontal, boxWidth, boxGap),
-        [processedData, indexScale, valueScale, horizontal, boxWidth, boxGap]
+        () =>
+            prepareData(
+                processedData,
+                indexScale,
+                valueScale,
+                horizontal,
+                boxWidth,
+                boxOffset,
+                boxGap
+            ),
+        [processedData, indexScale, valueScale, horizontal, boxWidth, boxOffset, boxGap]
     )
 
     return (

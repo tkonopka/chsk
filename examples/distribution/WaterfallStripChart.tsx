@@ -40,7 +40,7 @@ export const customTheme: ThemeSpec = {
         },
     },
     rect: {
-        inner: {
+        'surface.inner': {
             stroke: '#222222',
             strokeWidth: 1,
             fill: '#ffffff',

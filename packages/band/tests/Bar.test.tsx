@@ -9,6 +9,8 @@ import {
     ScalesContextProps,
     useProcessedData,
     useScales,
+    X,
+    Y,
 } from '@chsk/core'
 import {
     Bar,
@@ -94,10 +96,10 @@ describe('Bar', () => {
         })
     })
 
+    // small dataset used with just three bars
+    const xyzData: Array<BarDataItem> = [{ id: 'alpha', label: 'alpha', x: 20, y: 20, z: 20 }]
+
     it('defines prepared data (layered)', () => {
-        const constantData: Array<BarDataItem> = [
-            { id: 'alpha', label: 'alpha', x: 20, y: 20, z: 20 },
-        ]
         let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
             prepared = useBarPreparedData()
@@ -105,7 +107,7 @@ describe('Bar', () => {
         }
         render(
             <Chart>
-                <Bar {...barProps} variant={'layered'} data={constantData}>
+                <Bar {...barProps} variant={'layered'} data={xyzData}>
                     <GetPreparedData />
                 </Bar>
             </Chart>
@@ -119,6 +121,102 @@ describe('Bar', () => {
                 if (i == j) return
                 expect(String(a)).toEqual(String(b))
             })
+        })
+    })
+
+    it('defines prepared data with internal padding (vertical)', () => {
+        let prepared1: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared2: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const GetPreparedData1 = () => {
+            prepared1 = useBarPreparedData()
+            return null
+        }
+        const GetPreparedData2 = () => {
+            prepared2 = useBarPreparedData()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    variant={'grouped'}
+                    horizontal={false}
+                    data={xyzData}
+                    paddingInternal={0}
+                >
+                    <GetPreparedData1 />
+                </Bar>
+                <Bar
+                    {...barProps}
+                    variant={'grouped'}
+                    horizontal={false}
+                    data={xyzData}
+                    paddingInternal={0.5}
+                >
+                    <GetPreparedData2 />
+                </Bar>
+            </Chart>
+        )
+        // second set of bars should have narrower bars
+        const indexes = [0, 1, 2]
+        indexes.map(index => {
+            expect(prepared2.data[0].size[index][X]).toBeLessThan(prepared1.data[0].size[index][X])
+        })
+        // second set of bars should be centered around the same x position
+        indexes.map(index => {
+            const d1 = prepared1.data[0]
+            const x1 = d1.position[index][X] + d1.size[index][X] / 2
+            const d2 = prepared2.data[0]
+            const x2 = d2.position[index][X] + d2.size[index][X] / 2
+            expect(Math.round(x1)).toEqual(Math.round(x2))
+        })
+    })
+
+    it('defines prepared data with internal padding (horizontal)', () => {
+        let prepared1: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared2: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const GetPreparedData1 = () => {
+            prepared1 = useBarPreparedData()
+            return null
+        }
+        const GetPreparedData2 = () => {
+            prepared2 = useBarPreparedData()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    variant={'grouped'}
+                    horizontal={true}
+                    data={xyzData}
+                    paddingInternal={0}
+                >
+                    <GetPreparedData1 />
+                </Bar>
+                <Bar
+                    {...barProps}
+                    variant={'grouped'}
+                    horizontal={true}
+                    data={xyzData}
+                    paddingInternal={0.5}
+                >
+                    <GetPreparedData2 />
+                </Bar>
+            </Chart>
+        )
+        // second set of bars should have narrower bars (in horizontal view, that means small height)
+        const indexes = [0, 1, 2]
+        indexes.map(index => {
+            expect(prepared2.data[0].size[index][Y]).toBeLessThan(prepared1.data[0].size[index][Y])
+        })
+        // second set of bars should be centered around the same y position
+        indexes.map(index => {
+            const d1 = prepared1.data[0]
+            const y1 = d1.position[index][Y] + d1.size[index][Y] / 2
+            const d2 = prepared2.data[0]
+            const y2 = d2.position[index][Y] + d2.size[index][Y] / 2
+            expect(Math.round(y1)).toEqual(Math.round(y2))
         })
     })
 

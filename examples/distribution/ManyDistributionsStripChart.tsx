@@ -75,7 +75,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
             <Typography variant={'subtitle'} position={[0, -18]}>
                 Letters arranged in alphabetical order, values in ascending order
             </Typography>
-            <Strip {...customProps} data={rawData} variant={'ascending'}>
+            <Strip {...customProps} data={rawData} jitter={'ascending'}>
                 <Surface />
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>
