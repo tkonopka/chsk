@@ -3,7 +3,6 @@ import {
     Chart,
     Axis,
     ThemeSpec,
-    Typography,
     useScales,
     TooltipDataItem,
     Rectangle,
@@ -11,8 +10,9 @@ import {
     ContinuousAxisScale,
     Legend,
     MilestoneMotion,
-    mergeTheme,
+    mergeThemes,
 } from '@chsk/core'
+import { tooltipItemLabelValueTheme, downloadTheme } from '@chsk/themes'
 import {
     BoxAndWhiskersProps,
     isStripData,
@@ -24,8 +24,8 @@ import {
     Strips,
 } from '@chsk/band'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 import { generateMixedPopulation, generateUniformPopulation, round2dp } from '../utils'
-import { tooltipItemLabelValueTheme } from '@chsk/themes'
 
 export const generateBarStripData = () => {
     const means = generateUniformPopulation(6, 10, 80)
@@ -38,27 +38,26 @@ export const generateBarStripData = () => {
     }))
 }
 
-export const customTheme: ThemeSpec = mergeTheme(tooltipItemLabelValueTheme, {
-    line: {
-        axis: {
-            stroke: '#222222',
-            strokeWidth: 2,
+export const customTheme: ThemeSpec = mergeThemes([
+    downloadTheme,
+    tooltipItemLabelValueTheme,
+    {
+        line: {
+            axis: {
+                stroke: '#222222',
+                strokeWidth: 2,
+            },
+            tick: {
+                strokeWidth: 1,
+            },
         },
-        tick: {
-            strokeWidth: 1,
+        text: {
+            tickLabel: {
+                fontSize: '12px',
+            },
         },
     },
-    circle: {
-        default: {
-            pointerEvents: 'none',
-        },
-    },
-    text: {
-        tickLabel: {
-            fontSize: '12px',
-        },
-    },
-})
+])
 
 const stripProps: Omit<StripProps, 'data'> = {
     keys: ['x', 'y'],
@@ -85,7 +84,6 @@ export const BarAndWhisker = ({
     className,
     style,
     setRole,
-    // interactivity props
     ...props
 }: BoxAndWhiskersProps) => {
     const scales = useScales()
@@ -165,15 +163,13 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             fref={fref}
             id="waterfall"
             size={[360, 400]}
-            padding={[60, 140, 60, 70]}
+            padding={[40, 140, 70, 70]}
             theme={customTheme}
         >
-            <Typography variant={'title'} position={[-50, -45]}>
-                Distributions as strip and bars
-            </Typography>
             <Quantile {...stripProps} data={rawData} paddingInternal={0}>
-                <Axis variant={'bottom'} label={'Experiments'} />
+                <Axis variant={'bottom'} label={''} />
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
+                <DownloadButtons position={[160, 350]} data image />
                 <Legend
                     translate={[20, 0]}
                     position={[1, 1]}
@@ -206,6 +202,16 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         />
                     </LazyMotion>
                 </MilestoneMotion>
+                <Strip
+                    {...stripProps}
+                    data={rawData}
+                    valueSize={4}
+                    style={{ pointerEvents: 'none' }}
+                >
+                    <MilestoneMotion initialOn={'points'} exitOn={'barsonly'}>
+                        <Strips symbolStyle={{ strokeWidth: 1, stroke: '#161616' }} />
+                    </MilestoneMotion>
+                </Strip>
                 <QuantileTooltip
                     maxOverhang={[40, 40, 40, 40]}
                     size={[200, 140]}
@@ -215,19 +221,11 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     cellPadding={20}
                     padding={[8, 8, 8, 8]}
                     itemSize={[160, 26]}
-                    labelFormat={(x: TooltipDataItem) => {
-                        console.log(JSON.stringify(x))
-                        return x.key ?? ''
-                    }}
+                    labelFormat={(x: TooltipDataItem) => x.id + ' - ' + x.key}
                     valueFormat={round2dp}
                     title={''}
                 />
             </Quantile>
-            <Strip {...stripProps} data={rawData} valueSize={4} style={{ pointerEvents: 'none' }}>
-                <MilestoneMotion initialOn={'points'} exitOn={'barsonly'}>
-                    <Strips symbolStyle={{ strokeWidth: 1, stroke: '#161616' }} />
-                </MilestoneMotion>
-            </Strip>
         </Chart>
     )
 }
