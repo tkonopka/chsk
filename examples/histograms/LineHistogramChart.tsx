@@ -23,13 +23,18 @@ export const generateLineHistogramData = () => [
 const customHistogramTheme: ThemeSpec = {
     line: {
         intervalLabel: {
-            strokeWidth: 1,
             stroke: '#222255',
         },
     },
     path: {
         default: {
             fillOpacity: 0,
+        },
+        histogramCurve: {
+            strokeWidth: 2,
+        },
+        histogramArea: {
+            fillOpacity: 0.2,
         },
     },
     text: {
@@ -61,7 +66,7 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
     if (!isHistogramData(rawData)) return null
     return (
         <Chart
-            id="customHistogram"
+            id="lineHistogram"
             fref={fref}
             data={chartData}
             size={[600, 320]}
@@ -84,7 +89,7 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'data'} initial={'invisible'}>
-                    <HistogramArea ids={['custom']} curve={'Step'} style={{ opacity: 0.2 }} />
+                    <HistogramArea ids={['custom']} curve={'Step'} />
                     <HistogramCurve ids={['custom']} curve={'Step'} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'primary-label'} initial={'invisible'}>

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] histograms with several distributions
 -   [examples] quantile chart with bar-and-error-bar components instead of
     box-and-whisker components
 -   [examples] schedule chart with arrows

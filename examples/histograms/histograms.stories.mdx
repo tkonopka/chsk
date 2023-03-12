@@ -1,6 +1,7 @@
 import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generateLineHistogramData, LineHistogramChart } from './LineHistogramChart'
+import { generateManyLinesHistogramData, ManyLinesHistogramChart } from './ManyLinesHistogramChart'
 import {
     generateOverlappingHistogramData,
     OverlappingHistogramChart,
@@ -25,7 +26,17 @@ import {
 </Canvas>
 
 <Canvas>
-    <Story name="two distributions">
+    <Story name="many distributions">
+        <Controller
+            generator={generateManyLinesHistogramData}
+            chart={ManyLinesHistogramChart}
+            steps={['axes', 'data', 'legend']}
+        />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="mouse interactions">
         <Controller
             generator={generateOverlappingHistogramData}
             chart={OverlappingHistogramChart}

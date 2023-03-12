@@ -39,20 +39,13 @@ const customHistogramTheme: ThemeSpec = {
             stroke: '#222255',
         },
     },
-    text: {
-        axisLabel: {
-            textAnchor: 'middle',
-            dominantBaseline: 'auto',
-        },
-        lineLabel: {
-            textAnchor: 'middle',
-            fontWeight: 400,
-            fill: '#222255',
-        },
-    },
     path: {
         default: {
             fillOpacity: 0,
+        },
+        histogramCurve: {
+            strokeWidth: 2,
+            pointerEvents: 'none',
         },
         histogramArea: {
             cursor: 'pointer',
@@ -60,9 +53,6 @@ const customHistogramTheme: ThemeSpec = {
         },
         'histogramArea:hover': {
             fillOpacity: 0.4,
-        },
-        histogramCurve: {
-            pointerEvents: 'none',
         },
     },
     rect: {
@@ -74,10 +64,16 @@ const customHistogramTheme: ThemeSpec = {
             fillOpacity: 0.4,
         },
     },
+    text: {
+        axisLabel: {
+            textAnchor: 'middle',
+            dominantBaseline: 'auto',
+        },
+    },
 }
 
 const customHistogramProps = {
-    breaks: stepSequence([-3, 7], 0.5),
+    breaks: stepSequence([-3, 7.2], 0.5),
     scaleX: {
         variant: 'linear' as const,
         domain: [-3, 7] as [number, number],
@@ -137,7 +133,7 @@ export const OverlappingHistogramChart = ({ fref, chartData, rawData }: Mileston
                 id="overlapping"
                 fref={fref}
                 data={chartData}
-                size={[600, 320]}
+                size={[600, 340]}
                 padding={[60, 60, 60, 60]}
                 theme={customHistogramTheme}
             >
@@ -158,7 +154,7 @@ export const OverlappingHistogramChart = ({ fref, chartData, rawData }: Mileston
                     <HistogramCurve ids={['A']} curve={'Step'} />
                     <HistogramBars ids={['B']} handlers={{ onClick: onClickBars }} />
                     <HistogramCurve ids={['B']} curve={'Step'} />
-                    <Typography variant={'title'} position={[-50, -40]}>
+                    <Typography variant={'title'} position={[-55, -40]}>
                         Clickable histograms
                     </Typography>
                     <Legend
