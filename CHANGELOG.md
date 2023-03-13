@@ -17,6 +17,8 @@
 
 ### Changed
 
+-   [annotation] fixed bug with svg cleaning that caused some attributes
+    with undefined values being retained in output
 -   [themes] simplified theme piece `downloadTheme`
 -   [band] changed numeric interpretation of prop `paddingInternal` to
     simplify overlaying multiple views on top of each other

@@ -16,7 +16,7 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
             padding={[90, 40, 40, 60]}
             theme={downloadTheme}
         >
-            <FilterInsetColor id={'lighter'} floodColor={'#000000'} erodeR={0} floodOpacity={0.2} />
+            <FilterInsetColor id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.2} />
             <Bar
                 data={rawData}
                 keys={stackedKeys}
@@ -33,7 +33,7 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 <Axis variant={'left'} label={'Samples'} />
                 <TooltipProvider>
                     <Bars
-                        modifiers={{ onMouseEnter: { filter: 'url(#lighter)' }, onMouseLeave: {} }}
+                        modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
                     />
                     <Tooltip />
                 </TooltipProvider>

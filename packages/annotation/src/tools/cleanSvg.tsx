@@ -35,6 +35,7 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
     // simplify attributes
     const roundSet = new Set<string>(config.roundAttributeNames)
     const n = config.roundAttributeDecimalPlaces
+    const skipAttributes: string[] = []
     for (const attr of element.attributes) {
         if (roundSet.has(attr.name)) {
             element.setAttribute(attr.name, roundPxDecimalPlaces(attr.value, n))
@@ -50,10 +51,10 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
             }
         }
         if (attr.value === 'undefined') {
-            element.removeAttribute(attr.name)
+            skipAttributes.push(attr.name)
         }
     }
-    config.skipAttributeNames.forEach(attrName => {
+    skipAttributes.concat(config.skipAttributeNames).forEach(attrName => {
         element.removeAttribute(attrName)
     })
 

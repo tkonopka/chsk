@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { roundPxDecimalPlaces, cleanTransform } from '../../src/tools/helpers'
 import { cleanSvg } from '../../src/tools'
 
-describe('converting pixels to fixed decimal places', () => {
+describe('roundPxDecimalPlaces', () => {
     it('leaves standard strings alone', () => {
         expect(roundPxDecimalPlaces('abc', 2)).toEqual('abc')
         expect(roundPxDecimalPlaces('10', 2)).toEqual('10')
@@ -15,7 +15,7 @@ describe('converting pixels to fixed decimal places', () => {
     })
 })
 
-describe('cleaning transform strings', () => {
+describe('cleanTransform', () => {
     it('handles undefined and null', () => {
         expect(cleanTransform(undefined, 2)).toBeUndefined()
     })
@@ -96,7 +96,7 @@ describe('cleaning transform strings', () => {
     })
 })
 
-describe('Svg format', () => {
+describe('cleanSvg', () => {
     it('rounds values in one element', () => {
         render(
             <svg>
@@ -189,13 +189,27 @@ describe('Svg format', () => {
     it('removes attributes with value set to undefined', () => {
         render(
             <svg>
-                <rect role={'target'} width={'10px'} height={'20px'} opacity={'undefined'} />
+                <rect
+                    role={'target'}
+                    width={'10px'}
+                    height={'20px'}
+                    strokeWidth={'undefined'}
+                    opacity={'undefined'}
+                    fillOpacity={'undefined'}
+                />
             </svg>
         )
         const raw = screen.getByRole('target')
         const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        // width has a legitimate value, so should be preserved
         expect(raw.getAttribute('width')).not.toBeNull()
-        expect(clean.getAttribute('opacity')).toBeNull()
+        expect(clean.getAttribute('width')).not.toBeNull()
+        // several attributes are set to 'undefined', so should be removed
+        const attrNames: string[] = ['opacity', 'stroke-width', 'fill-opacity']
+        attrNames.forEach(attrName => {
+            expect(raw.getAttribute(attrName)).not.toBeNull()
+            expect(clean.getAttribute(attrName)).toBeNull()
+        })
     })
 
     it('removes g with role dimensions-reference', () => {
