@@ -66,3 +66,60 @@ export const cleanStyle = (raw: string, n: number) => {
     const other = parts.filter(part => !part.startsWith('transform')) // without colon -> eliminates transform-origin
     return { style: other.filter(Boolean).join('; '), transform: cleanTransform(transform, n) }
 }
+
+/**
+ * scan an svg element to summarize components and class names
+ *
+ * @param element an html element
+ * @param content dictionary with components and class names, used internally to recursively traverse element
+ */
+export const scanSvg = (
+    element: HTMLElement,
+    content?: Record<string, Set<string>>
+): Record<string, Set<string>> => {
+    const result = content ?? {}
+    if (!element.attributes) return result
+
+    const nodeName = element.nodeName
+    if (!(nodeName in result)) {
+        result[nodeName] = new Set<string>()
+    }
+    for (const attr of element.attributes) {
+        if (attr.name === 'class') {
+            attr.value.split(' ').forEach(className => result[nodeName].add(className))
+        }
+    }
+
+    if (element.hasChildNodes())
+        element.childNodes.forEach(child => scanSvg(child as HTMLElement, result))
+    return result
+}
+
+/**
+ * simplify a set of style definitions so that they contain only entries that are relevant in some content
+ *
+ * @param styles string with style definitions, lines separated by newlines
+ * @param content dictionary with components and class names, used internally to recursively traverse element
+ */
+export const shakeStyles = (
+    styles: string | null,
+    content: Record<string, Set<string>>
+): string => {
+    if (!styles) return ''
+    return styles
+        .split('\n')
+        .map(line => {
+            const tokens = line.split(' ')
+            if (!tokens[0].startsWith('#')) return
+            const selectorClasses = tokens[1].split('.')
+            const selector = selectorClasses[0]
+            if (!(selector in content)) return
+            const classNames = selectorClasses.slice(1)
+            const overlaps = classNames.every(className => content[selector].has(className))
+            if (classNames.length === 0 || overlaps) {
+                return line
+            }
+        })
+        .filter(Boolean)
+        .join('\n')
+}

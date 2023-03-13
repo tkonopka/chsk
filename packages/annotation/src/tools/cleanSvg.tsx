@@ -1,15 +1,17 @@
-import { cleanStyle, roundPxDecimalPlaces } from './helpers'
+import { cleanStyle, roundPxDecimalPlaces, scanSvg, shakeStyles } from './helpers'
+import { CleanSvgConfig } from './types'
 
-export const defaultCleanSvgConfig = {
+export const defaultCleanSvgConfig: CleanSvgConfig = {
     skipAttributeNames: ['transform-origin'],
     skipRoles: ['dimensions-reference'],
     roundAttributeNames: ['x', 'x1', 'x2', 'y', 'y1', 'y2', 'width', 'height', 'cx', 'cy', 'r'],
     roundAttributeDecimalPlaces: 3,
     newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text', 'filter', 'defs'],
+    shakeStyles: true,
 }
 
 /**
- * Edits an Svg element
+ * edit an Svg element
  *
  * Motivation:
  *
@@ -25,10 +27,26 @@ export const defaultCleanSvgConfig = {
  * Warning:
  *
  * This function modifies object 'element'
+ *
+ * @param element HTML element to clean
+ * @param config object holding cleaning options
+ * @param content object summarizing svg components and styles (for internal use)
  */
-export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): HTMLElement => {
-    // pure text elements do not require any processing
+export const cleanSvg = (
+    element: HTMLElement,
+    config: CleanSvgConfig = defaultCleanSvgConfig,
+    content?: Record<string, Set<string>>
+): HTMLElement => {
+    if (element.nodeName === 'svg' && config.shakeStyles) {
+        content = scanSvg(element)
+    }
+
+    // elements without attributes are plain text
     if (!element.attributes) {
+        // style definitions might require shaking
+        if (element.parentNode?.nodeName === 'style' && config.shakeStyles && content) {
+            element.textContent = shakeStyles(element.textContent, content)
+        }
         return element
     }
 
@@ -72,7 +90,7 @@ export const cleanSvg = (element: HTMLElement, config = defaultCleanSvgConfig): 
 
     // apply the same transformations to all child elements
     if (element.hasChildNodes())
-        element.childNodes.forEach(child => cleanSvg(child as HTMLElement, config))
+        element.childNodes.forEach(child => cleanSvg(child as HTMLElement, config, content))
 
     return element
 }

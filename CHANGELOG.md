@@ -4,6 +4,9 @@
 
 ### Added
 
+-   [annotation] css style shaking; svg code produced by `cleanSvg` now
+    contains only style definitions that are relevant to a specific chart
+    (previously, the output contained all css styles defined in a theme)
 -   [examples] histograms with several distributions
 -   [examples] quantile chart with bar-and-error-bar components instead of
     box-and-whisker components
