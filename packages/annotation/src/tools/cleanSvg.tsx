@@ -38,7 +38,7 @@ export const cleanSvg = (
     content?: Record<string, Set<string>>
 ): HTMLElement => {
     if (element.nodeName === 'svg' && config.shakeStyles) {
-        content = scanSvg(element)
+        content = scanSvg(element, config)
     }
 
     // elements without attributes are plain text

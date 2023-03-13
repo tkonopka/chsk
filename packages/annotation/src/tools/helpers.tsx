@@ -1,4 +1,5 @@
 import { roundDecimalPlaces } from '@chsk/core'
+import { CleanSvgConfig } from './types'
 
 // round a string representing pixels to a fixed number of decimal places
 export const roundPxDecimalPlaces = (s: string, n: number) => {
@@ -71,14 +72,20 @@ export const cleanStyle = (raw: string, n: number) => {
  * scan an svg element to summarize components and class names
  *
  * @param element an html element
+ * @param config configuration for svg cleaning, should have 'skipRoles'
  * @param content dictionary with components and class names, used internally to recursively traverse element
  */
 export const scanSvg = (
     element: HTMLElement,
+    config: CleanSvgConfig,
     content?: Record<string, Set<string>>
 ): Record<string, Set<string>> => {
     const result = content ?? {}
+
+    // early stopping - text nodes, or nodes that should be skipped
     if (!element.attributes) return result
+    const role = element.getAttribute('role')
+    if (role !== null && config.skipRoles.indexOf(role) >= 0) return result
 
     const nodeName = element.nodeName
     if (!(nodeName in result)) {
@@ -91,7 +98,7 @@ export const scanSvg = (
     }
 
     if (element.hasChildNodes())
-        element.childNodes.forEach(child => scanSvg(child as HTMLElement, result))
+        element.childNodes.forEach(child => scanSvg(child as HTMLElement, config, result))
     return result
 }
 

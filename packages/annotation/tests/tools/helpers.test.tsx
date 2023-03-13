@@ -1,5 +1,7 @@
 import { render, screen } from '@testing-library/react'
+import { defaultCleanSvgConfig } from '../../src/tools/cleanSvg'
 import { cleanTransform, roundPxDecimalPlaces, scanSvg, shakeStyles } from '../../src/tools/helpers'
+import { cloneDeep } from 'lodash'
 
 describe('roundPxDecimalPlaces', () => {
     it('leaves standard strings alone', () => {
@@ -104,7 +106,7 @@ describe('scanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('root')
-        const result = scanSvg(raw)
+        const result = scanSvg(raw, defaultCleanSvgConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect('line' in result).toBeFalsy()
@@ -118,7 +120,7 @@ describe('scanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('root')
-        const result = scanSvg(raw)
+        const result = scanSvg(raw, defaultCleanSvgConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect(result['rect']).toContain('A')
@@ -140,11 +142,34 @@ describe('scanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('root')
-        const result = scanSvg(raw)
+        const result = scanSvg(raw, defaultCleanSvgConfig)
         expect('circle' in result).toBeTruthy()
         expect(result['circle']).toContain('A')
         expect(result['circle']).toContain('B')
         expect(result['circle']).toContain('C')
+    })
+
+    it('skips class names nested inside certain roles', () => {
+        render(
+            <svg role={'root'}>
+                <circle className={'A'} />
+                <g>
+                    <circle className={'B'} />
+                    <g role={'skip-this'}>
+                        <circle className={'B'} />
+                        <circle className={'C'} />
+                    </g>
+                </g>
+            </svg>
+        )
+        const raw = screen.getByRole('root')
+        const config = cloneDeep(defaultCleanSvgConfig)
+        config.skipRoles = ['skip-this']
+        const result = scanSvg(raw, config)
+        expect('circle' in result).toBeTruthy()
+        expect(result['circle']).toContain('A')
+        expect(result['circle']).toContain('B')
+        expect(result['circle']).not.toContain('C')
     })
 })
 
