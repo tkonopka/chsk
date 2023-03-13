@@ -105,8 +105,7 @@ describe('scanSvg', () => {
                 <circle cx={0} cy={0} r={5} />
             </svg>
         )
-        const raw = screen.getByRole('root')
-        const result = scanSvg(raw, defaultCleanSvgConfig)
+        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect('line' in result).toBeFalsy()
@@ -119,8 +118,7 @@ describe('scanSvg', () => {
                 <circle cx={0} cy={0} r={5} className={'B C'} />
             </svg>
         )
-        const raw = screen.getByRole('root')
-        const result = scanSvg(raw, defaultCleanSvgConfig)
+        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect(result['rect']).toContain('A')
@@ -141,9 +139,7 @@ describe('scanSvg', () => {
                 </g>
             </svg>
         )
-        const raw = screen.getByRole('root')
-        const result = scanSvg(raw, defaultCleanSvgConfig)
-        expect('circle' in result).toBeTruthy()
+        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
         expect(result['circle']).toContain('A')
         expect(result['circle']).toContain('B')
         expect(result['circle']).toContain('C')
@@ -162,11 +158,9 @@ describe('scanSvg', () => {
                 </g>
             </svg>
         )
-        const raw = screen.getByRole('root')
         const config = cloneDeep(defaultCleanSvgConfig)
         config.skipRoles = ['skip-this']
-        const result = scanSvg(raw, config)
-        expect('circle' in result).toBeTruthy()
+        const result = scanSvg(screen.getByRole('root'), config)
         expect(result['circle']).toContain('A')
         expect(result['circle']).toContain('B')
         expect(result['circle']).not.toContain('C')
