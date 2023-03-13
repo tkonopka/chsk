@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Chart, Axis, AxisTicks, GridLines } from '@chsk/core'
 import { Bar, Bars, BarsLabels } from '../src'
+import { ChartForBarsLabelsDecorator } from './decorators'
 
 # BarsLabels
 
@@ -13,76 +14,93 @@ export const Template = args => <BarsLabels {...args} />
 
 ## Alignment
 
-On horizontal charts, it can be interesting to place the labels inside bars, either near the baseline or at the far edge.
-For small bars, the labels can be omitted, or automatically located beside the bars.
-
-export const barsLabelsData = [
-    { id: 'alpha', value: 85 },
-    { id: 'beta', value: 60 },
-    { id: 'gamma', value: 50 },
-    { id: 'delta', value: 25 },
-    { id: 'epsilon', value: 5 },
-]
+By default, `BarsLabels` places labels at the center of bars.
 
 <Canvas>
-    <Story name="near baseline">
-        <Chart size={[400, 220]} padding={[30, 40, 30, 60]} style={{ display: 'inline-block' }}>
-            <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
-                <GridLines variant={'x'} />
-                <Axis variant={'left'} ticks={null}>
-                    <AxisTicks variant={'left'} size={0} />
-                </Axis>
-                <Bars />
-                <BarsLabels
-                    padding={[2, 8, 2, 8]}
-                    align={[0, 0.5]}
-                    showOuter={true}
-                    style={{ fill: '#ffffff', textAnchor: 'start' }}
-                    styleOuter={{ fill: '#222222', textAnchor: 'start' }}
-                />
-            </Bar>
-        </Chart>
-    </Story>
-    <Story name="near edge">
-        <Chart size={[400, 220]} padding={[30, 40, 30, 60]} style={{ display: 'inline-block' }}>
-            <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
-                <GridLines variant={'x'} />
-                <Axis variant={'left'} ticks={null}>
-                    <AxisTicks variant={'left'} size={0} />
-                </Axis>
-                <Bars />
-                <BarsLabels
-                    padding={[2, 8, 2, 8]}
-                    align={[1, 0.5]}
-                    showOuter={true}
-                    style={{ fill: '#ffffff', textAnchor: 'end' }}
-                    styleOuter={{ fill: '#222222', textAnchor: 'start' }}
-                />
-            </Bar>
-        </Chart>
+    <Story
+        name="default"
+        args={{
+            minSize: [40, 10],
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>
 
-Labels can also be placed outside the bars.
+Prop `align` sets the horizontal and vertical alignment within the bar.
+Prop `padding` controls the space between the bar edge and the text.
 
 <Canvas>
-    <Story name="outside bars">
-        <Chart size={[400, 220]} padding={[30, 40, 30, 60]} style={{ display: 'inline-block' }}>
-            <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
-                <GridLines variant={'x'} />
-                <Axis variant={'left'} ticks={null}>
-                    <AxisTicks variant={'left'} size={0} />
-                </Axis>
-                <Bars />
-                <BarsLabels
-                    padding={[2, 0, 2, 0]}
-                    align={[1, 0.5]}
-                    minSize={[0, 0]}
-                    translate={[8, 0]}
-                    style={{ fill: '#222222', textAnchor: 'start' }}
-                />
-            </Bar>
-        </Chart>
+    <Story
+        name="near baseline"
+        args={{
+            padding: [2, 8, 2, 8],
+            align: [0, 0.5],
+            style: { fill: '#ffffff', textAnchor: 'start' },
+            styleOuter: { fill: '#222222', textAnchor: 'start' },
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="near edge"
+        args={{
+            padding: [2, 8, 2, 8],
+            align: [1, 0.5],
+            style: { fill: '#ffffff', textAnchor: 'end' },
+            styleOuter: { fill: '#222222', textAnchor: 'start' },
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Labels outside bars
+
+By default, `BarsLabels` omits labels for bars smaller than the size specified with prop `minSize`.
+For such small bars, labels can be placed outside of bars with prop `showOuter`
+
+<Canvas>
+    <Story
+        name="some labels outside bars"
+        args={{
+            padding: [2, 8, 2, 8],
+            align: [0, 0.5],
+            showOuter: true,
+            style: { fill: '#ffffff', textAnchor: 'start' },
+            styleOuter: { fill: '#222222', textAnchor: 'start' },
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To display all labels outside bars, set `minSize` to a zero size to display all the labels,
+set `align` to position the labels on the edge,
+and further use prop `translate` to move the labels beyond the bar boundaries.
+
+<Canvas>
+    <Story
+        name="all labels outside bars"
+        args={{
+            padding: [2, 0, 2, 0],
+            align: [1, 0.5],
+            minSize: [0, 0],
+            translate: [8, 0],
+            style: { fill: '#222222', textAnchor: 'start' },
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>
 
@@ -91,23 +109,18 @@ Labels can also be placed outside the bars.
 It is possible to draw selected labels, only.
 
 <Canvas>
-    <Story name="selected labels">
-        <Chart size={[400, 220]} padding={[30, 40, 30, 60]} style={{ display: 'inline-block' }}>
-            <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
-                <GridLines variant={'x'} />
-                <Axis variant={'left'} ticks={null}>
-                    <AxisTicks variant={'left'} size={0} />
-                </Axis>
-                <Bars />
-                <BarsLabels
-                    ids={['beta', 'delta']}
-                    padding={[2, 8, 2, 8]}
-                    align={[0, 0.5]}
-                    showOuter={true}
-                    style={{ fill: '#ffffff', textAnchor: 'start' }}
-                    styleOuter={{ fill: '#222222', textAnchor: 'start' }}
-                />
-            </Bar>
-        </Chart>
+    <Story
+        name="selected labels"
+        args={{
+            ids: ['beta', 'delta'],
+            padding: [2, 8, 2, 8],
+            align: [0, 0.5],
+            showOuter: true,
+            style: { fill: '#ffffff', textAnchor: 'start' },
+        }}
+        component={BarsLabels}
+        decorators={[ChartForBarsLabelsDecorator]}
+    >
+        {Template.bind({})}
     </Story>
 </Canvas>

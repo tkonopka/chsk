@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Axis, Surface, GridLines, roundDecimalPlaces } from '@chsk/core'
+import { Chart, Axis, Surface, GridLines, roundDecimalPlaces, AxisTicks } from '@chsk/core'
 import {
     Bar,
     Bars,
@@ -85,6 +85,29 @@ export const ChartWithLegendDecorator = (Story: () => ReactNode) => (
 export const onBarsClick = (data: BarInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
 }
+
+/** bar charts */
+
+export const barsLabelsData = [
+    { id: 'alpha', value: 85 },
+    { id: 'beta', value: 60 },
+    { id: 'gamma', value: 50 },
+    { id: 'delta', value: 25 },
+    { id: 'epsilon', value: 5 },
+]
+
+export const ChartForBarsLabelsDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 220]} padding={[30, 40, 30, 60]} style={{ display: 'inline-block' }}>
+        <Bar data={barsLabelsData} keys={['value']} horizontal={true}>
+            <GridLines variant={'x'} />
+            <Axis variant={'left'}>
+                <AxisTicks variant={'left'} tickSize={0} />
+            </Axis>
+            <Bars />
+            {Story()}
+        </Bar>
+    </Chart>
+)
 
 /** quantile charts */
 
