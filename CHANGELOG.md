@@ -17,6 +17,7 @@
 
 ### Changed
 
+-   [themes] simplified theme piece `downloadTheme`
 -   [band] changed numeric interpretation of prop `paddingInternal` to
     simplify overlaying multiple views on top of each other
 -   [band] added prop `variant' to `Quantile`and`Strip` to enable grouped /

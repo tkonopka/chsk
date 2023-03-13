@@ -3,20 +3,12 @@ import { ThemeSpec } from '@chsk/core'
 export const downloadTheme: ThemeSpec = {
     text: {
         download: {
-            fontStyle: 'normal',
             dominantBaseline: 'central',
-            textAnchor: 'start',
-        },
-        footnote: {
+            fill: '#444444',
             fontFamily: 'sans-serif',
             fontSize: '11px',
-            fill: '#444444',
             fontStyle: 'italic',
-        },
-    },
-    rect: {
-        download: {
-            cursor: 'pointer',
+            textAnchor: 'start',
         },
     },
     path: {

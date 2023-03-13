@@ -32,7 +32,7 @@ export const DownloadButtons = ({
 
     return (
         <g role={'downloads'} transform={translate}>
-            <Typography key={'downloads-title'} variant={'footnote'} className={'download'}>
+            <Typography key={'downloads-title'} variant={'download'}>
                 download:
             </Typography>
             {data ? (
@@ -43,8 +43,7 @@ export const DownloadButtons = ({
                             y={0}
                             width={20}
                             height={20}
-                            className={'download'}
-                            style={{ fillOpacity: 0 }}
+                            style={{ fillOpacity: 0, cursor: 'pointer' }}
                         />
                         <path d={pathDataset} className={'download'} />
                     </g>
@@ -58,8 +57,7 @@ export const DownloadButtons = ({
                             y={0}
                             width={20}
                             height={20}
-                            className={'download'}
-                            style={{ fillOpacity: 0 }}
+                            style={{ fillOpacity: 0, cursor: 'pointer' }}
                         />
                         <path d={pathImage} className={'download'} />
                     </g>
