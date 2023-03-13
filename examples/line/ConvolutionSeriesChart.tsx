@@ -68,7 +68,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
         <Chart
             data={chartData}
             fref={fref}
-            id="moving-averaeg"
+            id="moving-average"
             size={[640, 400]}
             padding={[80, 100, 50, 50]}
             theme={customTheme}
