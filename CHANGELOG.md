@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [examples] flowchart in the shape of a tree
 -   [annotation] css style shaking; svg code produced by `cleanSvg` now
     contains only style definitions that are relevant to a specific chart
     (previously, the output contained all css styles defined in a theme)
