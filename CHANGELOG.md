@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [xy] calculations of mean and standard deviation for histograms
 -   [examples] flowchart in the shape of a tree
 -   [annotation] css style shaking; svg code produced by `cleanSvg` now
     contains only style definitions that are relevant to a specific chart

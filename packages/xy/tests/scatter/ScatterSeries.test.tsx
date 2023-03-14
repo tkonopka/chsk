@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { Scatter, ScatterSeries } from '../src/scatter'
-import { scatterProps } from './props'
+import { Scatter, ScatterSeries } from '../../src/scatter'
+import { scatterProps } from './scatter.props'
 
 describe('ScatterSeries', () => {
     it('creates paths for area and curve', () => {

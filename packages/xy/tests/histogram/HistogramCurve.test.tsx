@@ -1,18 +1,18 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Histogram, HistogramArea } from '../src/histogram'
-import { histogramProps } from './props'
+import { Histogram, HistogramCurve } from '../../src/histogram'
+import { histogramProps } from './histogram.props'
 
-describe('HistogramArea', () => {
+describe('HistogramCurve', () => {
     it('creates a path', () => {
         render(
             <Chart>
                 <Histogram {...histogramProps}>
-                    <HistogramArea ids={['normal']} />
+                    <HistogramCurve ids={['uniform']} />
                 </Histogram>
             </Chart>
         )
-        const result = screen.getByRole('histogram-area').querySelectorAll('path')
+        const result = screen.getByRole('histogram-curve').querySelectorAll('path')
         expect(result).toHaveLength(1)
     })
 
@@ -20,45 +20,32 @@ describe('HistogramArea', () => {
         render(
             <Chart>
                 <Histogram {...histogramProps}>
-                    <HistogramArea ids={['non-existent']} />
+                    <HistogramCurve ids={['non-existent']} />
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-area')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['uniform', 'normal']) }}>
                 <Histogram {...histogramProps}>
-                    <HistogramArea />
+                    <HistogramCurve />
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-area')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 
     it('skips work in non-histogram context', () => {
         render(
             <Chart>
                 <View data={[{ id: 'a' }]}>
-                    <HistogramArea />
+                    <HistogramCurve />
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('histogram-area')).toBeNull()
-    })
-
-    it('skips work when scale is not linear', () => {
-        render(
-            <Chart>
-                <View scaleY={{ variant: 'band', domain: ['a', 'b'] }}>
-                    <HistogramArea />
-                </View>
-            </Chart>
-        )
-        expect(screen.queryByRole('histogram-area')).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 })

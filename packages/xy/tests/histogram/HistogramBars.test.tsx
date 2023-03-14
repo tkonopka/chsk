@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Histogram, HistogramBars } from '../src/histogram'
-import { histogramProps } from './props'
+import { Histogram, HistogramBars } from '../../src/histogram'
+import { histogramProps } from './histogram.props'
 
 describe('HistogramBars', () => {
     it('creates a set of bars', () => {

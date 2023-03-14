@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { Scatter, ScatterLabel } from '../src/scatter'
-import { scatterProps } from './props'
+import { Scatter, ScatterLabel } from '../../src/scatter'
+import { scatterProps } from './scatter.props'
 
 describe('ScatterLabel', () => {
     it('creates a label', () => {

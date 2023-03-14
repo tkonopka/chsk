@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterPoints } from '../src/scatter'
-import { scatterProps, timeScatterProps } from './props'
+import { Scatter, ScatterPoints } from '../../src/scatter'
+import { scatterProps, timeScatterProps } from './scatter.props'
 
 describe('ScatterPoints', () => {
     it('creates a series of circles', () => {

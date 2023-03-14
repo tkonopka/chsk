@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterCrosshair } from '../src'
-import { scatterProps } from './props'
+import { Scatter, ScatterCrosshair } from '../../src'
+import { scatterProps } from './scatter.props'
 
 describe('ScatterCrosshair', () => {
     it('creates a rectangle for detecting mouse events', () => {

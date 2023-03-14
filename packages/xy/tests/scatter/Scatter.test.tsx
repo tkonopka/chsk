@@ -5,8 +5,8 @@ import {
     useScatterPreparedData,
     isScatterProcessedData,
     ScatterDataContextProps,
-} from '../src/'
-import { scatterProps } from './props'
+} from '../../src'
+import { scatterProps } from './scatter.props'
 
 describe('Scatter', () => {
     it('defines processed data', () => {

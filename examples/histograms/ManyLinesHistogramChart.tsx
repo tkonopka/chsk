@@ -9,13 +9,17 @@ import {
     Legend,
     Typography,
     mergeTheme,
+    Tooltip,
+    TooltipDataComponent,
+    TooltipDataItem,
 } from '@chsk/core'
-import { Histogram, HistogramCurve, isHistogramData } from '@chsk/xy'
+import { Histogram, HistogramCurve, HistogramProcessedDataItem, isHistogramData } from '@chsk/xy'
 import { Segment } from '@chsk/annotation'
 import {
     alphabetGreek,
     generateMixedPopulation,
     generateUniformPopulation,
+    round2dp,
     stepSequence,
 } from '../utils'
 import { MilestoneStory } from '../types'
@@ -26,11 +30,10 @@ const ids = alphabetGreek.slice(0, 4)
 export const generateManyLinesHistogramData = () => {
     const means = generateUniformPopulation(4, 5, 9).sort((a, b) => a - b)
     const sds = generateUniformPopulation(4, 0.5, 2.5).sort((a, b) => b - a)
-    //    const sds = means.map((x, i) => 1.0 * Math.sqrt(5 / means[i]))
     const positive = (v: number) => v > 0
     return ids.map((id, index) => ({
         id,
-        data: generateMixedPopulation([800], [means[index]], [sds[index]]).filter(positive),
+        data: generateMixedPopulation([1000], [means[index]], [sds[index]]).filter(positive),
     }))
 }
 
@@ -45,16 +48,23 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     },
     path: {
         histogramCurve: {
-            strokeWidth: 2.5,
+            strokeWidth: 3,
+            pointerEvents: 'stroke',
         },
         default: {
             fillOpacity: 0,
         },
     },
+    rect: {
+        'tooltip.surface': {
+            strokeWidth: 1,
+            stroke: '#555555',
+        },
+    },
 })
 
 const histogramProps = {
-    breaks: stepSequence([0, 12], 0.25),
+    breaks: stepSequence([0, 12], 0.4),
     scaleX: {
         variant: 'linear' as const,
         domain: [0, 12] as [number, number],
@@ -63,6 +73,13 @@ const histogramProps = {
         variant: 'linear' as const,
         domain: [0, 'auto'] as [number, 'auto'],
     },
+}
+
+const customTooltipLabel = (x: TooltipDataItem): string => {
+    const xh = x as HistogramProcessedDataItem
+    return (
+        x.id + ', ' + round2dp(xh.mean ?? 0) + ' ± ' + round2dp(xh.sd ?? 0) + ' (n = ' + xh.n + ')'
+    )
 }
 
 export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -97,9 +114,6 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                         </AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'} initial={'invisible'}>
-                    <HistogramCurve curve={'Step'} />
-                </MilestoneMotion>
                 <MilestoneMotion initialOn={'legend'} initial={'invisible'}>
                     <Legend
                         translate={[8, 0]}
@@ -112,6 +126,10 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                         firstOffset={[-85, 24]}
                         symbol={Segment}
                     />
+                </MilestoneMotion>
+                <MilestoneMotion initialOn={'data'} initial={'invisible'}>
+                    <HistogramCurve curve={'Step'} dataComponent={TooltipDataComponent} />
+                    <Tooltip itemSize={[200, 24]} labelFormat={customTooltipLabel} />
                 </MilestoneMotion>
             </Histogram>
         </Chart>

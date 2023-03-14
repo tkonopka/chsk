@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterErrors } from '../src/scatter'
-import { scatterProps } from './props'
-import { getNumberAttr } from '../../core/tests/utils'
+import { Scatter, ScatterErrors } from '../../src/scatter'
+import { scatterProps } from './scatter.props'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 export const dataWithErrors = [
     {

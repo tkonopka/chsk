@@ -10,6 +10,17 @@ export const roundDecimalPlaces = (x: number, n: number) => {
     return Math.round(x * pow10) / pow10
 }
 
+/** calculate mean and standard deviation for an array of numbers */
+export const getMeanSd = (data: number[]): [number | undefined, number | undefined] => {
+    const n = data.length
+    if (n === 0) return [undefined, undefined]
+    if (n === 1) return [data[0], undefined]
+    const total = data.reduce((acc, v) => acc + v, 0)
+    const mean = total / data.length
+    const sumSquares = data.reduce((acc, v) => acc + (v - mean) ** 2, 0)
+    return [mean, Math.sqrt(sumSquares / (n - 1))]
+}
+
 /** convert radians to degrees */
 export const rad2deg = (x: number) => {
     return (180 * x) / Math.PI

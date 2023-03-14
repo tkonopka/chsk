@@ -22,6 +22,9 @@ export type HistogramProcessedDataItem = WithId & {
     index: number
     points: Array<XY>
     breaks: number[]
+    n: number
+    mean?: number
+    sd?: number
 }
 
 export type HistogramDataContextProps = ProcessedDataContextProps & {

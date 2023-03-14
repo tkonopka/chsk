@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { Histogram, HistogramSeries } from '../src/histogram'
-import { histogramProps } from './props'
+import { Histogram, HistogramSeries } from '../../src/histogram'
+import { histogramProps } from './histogram.props'
 
 describe('HistogramSeries', () => {
     it('creates paths for area and curve', () => {

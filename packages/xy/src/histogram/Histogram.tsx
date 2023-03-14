@@ -20,6 +20,7 @@ import {
     X,
     Y,
     SizeSpec,
+    getMeanSd,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
@@ -30,12 +31,18 @@ const processData = (
     breaks: number[],
     density: boolean
 ): Array<HistogramProcessedDataItem> => {
-    return data.map((seriesData, index) => ({
-        id: seriesData.id,
-        index,
-        points: binValues(seriesData.data, breaks, density),
-        breaks,
-    }))
+    return data.map((seriesData, index) => {
+        const [mean, sd] = getMeanSd(seriesData.data)
+        return {
+            id: seriesData.id,
+            index,
+            points: binValues(seriesData.data, breaks, density),
+            breaks,
+            n: seriesData.data.length,
+            mean,
+            sd,
+        }
+    })
 }
 
 // turn processed data into view-specific coordinates
@@ -49,6 +56,7 @@ const prepareData = (
         index: seriesData.index,
         points: seriesData.points.map(point => [scaleX(point[X]), scaleY(point[Y])]),
         breaks: seriesData.breaks,
+        n: seriesData.n,
     }
 }
 

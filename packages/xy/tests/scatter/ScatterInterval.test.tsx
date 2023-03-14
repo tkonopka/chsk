@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterInterval } from '../src/scatter'
-import { scatterProps } from './props'
+import { Scatter, ScatterInterval } from '../../src/scatter'
+import { scatterProps } from './scatter.props'
 
 export const dataWithInterval = [
     {

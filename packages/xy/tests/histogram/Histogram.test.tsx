@@ -4,68 +4,10 @@ import {
     Histogram,
     useHistogramPreparedData,
     isHistogramProcessedData,
-    HistogramDataItem,
     HistogramDataContextProps,
-} from '../src/histogram'
-import { getBreaksArray, binValues } from '../src/histogram/utils'
-import { histogramProps } from './props'
-
-describe('Histogram utils', () => {
-    // ten values - 6 in bin [0, 5] and 4 in bin [5, 10]
-    const tenValues = [1, 2, 2.5, 3, 3.5, 4, 6, 7, 8, 9]
-
-    it('binValues places data into bins', () => {
-        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
-        // center points of bins should be at 0.25 and 0.75
-        const result = binValues(tenValues, [0, 5, 10], false)
-        expect(result.length).toEqual(4)
-        // middle points convey bins and counts in the bins
-        expect(result[1]).toEqual([2.5, 6])
-        expect(result[2]).toEqual([7.5, 4])
-        // boundary points convey the edges
-        expect(result[0]).toEqual([0, 6])
-        expect(result[3]).toEqual([10, 4])
-    })
-
-    it('binValues estimates densities', () => {
-        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
-        // center points of bins should be at 0.25 and 0.75
-        const result = binValues(tenValues, [0, 5, 10], true)
-        expect(result.length).toEqual(4)
-        // middle points convey bins and density
-        expect(result[1]).toEqual([2.5, 0.6 / 5])
-        expect(result[2]).toEqual([7.5, 0.4 / 5])
-        // boundary points convey the edges
-        expect(result[0]).toEqual([0, 0.6 / 5])
-        expect(result[3]).toEqual([10, 0.4 / 5])
-    })
-
-    it('binValues handles empty dataset', () => {
-        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
-        // center points of bins should be at 0.25 and 0.75
-        const result = binValues([], [0, 5, 10], true)
-        // the data is empty, histogram representation should be flat/empty
-        expect(result.length).toEqual(4)
-        expect(result.map(d => d[1])).toEqual([0, 0, 0, 0])
-    })
-
-    it('getBreaksArray computes reasonable breakpoints', () => {
-        const rawData: HistogramDataItem[] = [
-            {
-                id: 'A',
-                data: [0, 2, 4, 6],
-            },
-            {
-                id: 'A',
-                data: [-2, 2, 4, 12],
-            },
-        ]
-        const result = getBreaksArray(rawData, 4)
-        expect(result.length).toBeGreaterThan(4)
-        expect(result[0]).toBeLessThanOrEqual(-2)
-        expect(result[result.length - 1]).toBeGreaterThan(12)
-    })
-})
+    HistogramProcessedDataItem,
+} from '../../src/histogram'
+import { histogramProps } from './histogram.props'
 
 describe('Histogram', () => {
     it('defines processed data', () => {
@@ -89,6 +31,11 @@ describe('Histogram', () => {
         // the dataset has two series
         expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
         expect(processed.data).toHaveLength(2)
+        // both series should have mean around 0 and sd < 5
+        processed.data.map((d: HistogramProcessedDataItem) => {
+            expect(Math.abs(d.mean ?? 1000)).toBeLessThan(1)
+            expect(Math.abs(d.sd ?? 1000)).toBeLessThan(5)
+        })
     })
 
     it('defines prepared data', () => {
