@@ -20,6 +20,8 @@
 
 ### Changed
 
+-   [core] augmented interface `CompleteThemeSpec` to support styling `tspan`
+    components
 -   [annotation] fixed bug with svg cleaning that caused some attributes
     with undefined values being retained in output
 -   [themes] simplified theme piece `downloadTheme`

@@ -55,6 +55,7 @@ export interface ThemeSpec {
     polygon?: Record<string, Partial<CSSProperties>>
     rect?: Record<string, Partial<CSSProperties>>
     text?: Record<string, Partial<CSSProperties>>
+    tspan?: Record<string, Partial<CSSProperties>>
     Axis?: Record<string, Partial<AxisThemedProps> | undefined>
     AxisLabel?: Record<string, Partial<AxisLabelThemedProps> | undefined>
     AxisTicks?: Record<string, Partial<AxisTicksThemedProps> | undefined>
@@ -84,6 +85,7 @@ export interface CompleteThemeSpec {
     polygon: Record<string, Partial<CSSProperties>>
     rect: Record<string, Partial<CSSProperties>>
     text: Record<string, Partial<CSSProperties>>
+    tspan: Record<string, Partial<CSSProperties>>
     Axis: SideRecords<AxisThemedProps>
     AxisLabel: SideRecords<AxisLabelThemedProps>
     AxisTicks: SideRecords<AxisTicksThemedProps>
@@ -105,7 +107,16 @@ export interface CompleteThemeSpec {
     Motion: MotionProps
 }
 
-export const svgBaseComponents = ['circle', 'line', 'path', 'polygon', 'rect', 'text', 'g'] as const
+export const svgBaseComponents = [
+    'circle',
+    'g',
+    'line',
+    'path',
+    'polygon',
+    'rect',
+    'text',
+    'tspan',
+] as const
 export type SvgBaseComponent = (typeof svgBaseComponents)[number]
 
 export type ThemedComponent =

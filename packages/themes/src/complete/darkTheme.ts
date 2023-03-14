@@ -148,6 +148,7 @@ export const darkTheme: CompleteThemeSpec = {
             textAnchor: 'end',
         },
     },
+    tspan: {},
     Axis: cloneDeep(defaultTheme.Axis),
     AxisLabel: cloneDeep(defaultTheme.AxisLabel),
     AxisTicks: cloneDeep(defaultTheme.AxisTicks),

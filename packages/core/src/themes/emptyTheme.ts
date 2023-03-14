@@ -2,13 +2,16 @@ import { CompleteThemeSpec } from './types'
 import { defaultTheme } from './defaultTheme'
 
 export const emptyTheme: CompleteThemeSpec = {
-    text: {},
+    // svg components
+    circle: {},
     g: {},
     line: {},
     path: {},
     polygon: {},
     rect: {},
-    circle: {},
+    text: {},
+    tspan: {},
+    // chsk components
     Axis: {},
     AxisLabel: {},
     AxisTicks: {},
@@ -26,6 +29,7 @@ export const emptyTheme: CompleteThemeSpec = {
     TooltipTitle: {},
     AxisTooltip: {},
     View: {},
+    // other settings
     Colors: defaultTheme.Colors,
     Motion: {},
 }

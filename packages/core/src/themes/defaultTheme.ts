@@ -169,6 +169,7 @@ export const defaultTheme: CompleteThemeSpec = {
             textAnchor: 'end',
         },
     },
+    tspan: {},
     Axis: {
         default: cloneDeep(defaultAxisProps),
     },
