@@ -26,7 +26,9 @@ export const customTheme: ThemeSpec = mergeTheme(groupedTheme, {
     },
     path: {
         bracketLabel: {
-            stroke: '#555555',
+            stroke: '#222222',
+            strokeWidth: 1.5,
+            fillOpacity: 0,
         },
     },
     g: {
