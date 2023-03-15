@@ -16,7 +16,7 @@ export const Circle = ({
     const config = { cx, cy, r }
     return (
         <m.circle
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
             style={style}

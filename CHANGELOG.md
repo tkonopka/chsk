@@ -24,6 +24,7 @@
 
 ### Changed
 
+-   [core] avoided setting role as 'default' in shapes and text elements
 -   [band] renamed prop `medianStyle` to `middleStyle` to allow distributions
     to display means rather than medians
 -   [band] renamed components with prefix `Quantile` to `Distribution`

@@ -15,13 +15,27 @@ describe('Typography', () => {
         expect(result.getAttribute('y')).toBeNull()
         expect(getTransform(result, 'X')).toBeNull()
         expect(getTransform(result, 'Y')).toBeNull()
-        expect(result.closest('g')?.getAttribute('role')).toBe('default')
+        expect(result.closest('g')?.getAttribute('role')).toBeNull()
+    })
+
+    it('creates a text component with role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom-text'}>default</Typography>
+            </Chart>
+        )
+        const result = screen.getByText('default')
+        expect(result.getAttribute('x')).toBeNull()
+        expect(result.getAttribute('y')).toBeNull()
+        expect(result.closest('g')?.getAttribute('role')).toBe('custom-text')
     })
 
     it('creates a text component without role', () => {
         render(
             <Chart {...chartProps}>
-                <Typography setRole={false}>default</Typography>
+                <Typography variant={'custom-text'} setRole={false}>
+                    default
+                </Typography>
             </Chart>
         )
         const result = screen.getByText('default')

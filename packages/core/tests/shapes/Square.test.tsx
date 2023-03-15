@@ -10,32 +10,31 @@ describe('Square', () => {
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result?.getAttribute('role')).toBeNull()
         const width = result?.getAttribute('width')
         const height = result?.getAttribute('height')
         expect(width).toBe(height)
     })
 
-    it('creates a default square without role', () => {
+    it('creates a square variant with role', () => {
         render(
             <Chart {...chartProps}>
-                <Square setRole={false} />
+                <Square variant={'custom-square'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('role')).toBe('custom-square')
+        expect(result?.getAttribute('class')).toBe('customSquare')
+    })
+
+    it('creates a square variant without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Square variant={'custom-square'} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
         expect(result?.getAttribute('role')).toBeNull()
-    })
-
-    it('creates a custom square', () => {
-        render(
-            <Chart {...chartProps}>
-                <Square variant={'test'} cx={10} cy={20} r={5} setRole={true} />
-            </Chart>
-        )
-        const result = screen.getByRole('test')
-        expect(result.getAttribute('role')).toContain('test')
-        const width = result?.getAttribute('width')
-        const height = result?.getAttribute('height')
-        expect(width).toBe(height)
+        expect(result?.getAttribute('class')).toBe('customSquare')
     })
 })

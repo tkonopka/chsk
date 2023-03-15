@@ -9,30 +9,50 @@ const threePoints: NumericPositionSpec[] = [
 ]
 
 describe('Path', () => {
-    it('creates a default linear path', () => {
-        render(
-            <Chart {...chartProps}>
-                <Path points={threePoints} curve={'Linear'} setRole={true} />
-            </Chart>
-        )
-        const result = screen.getByRole('default')
-        expect(result?.getAttribute('d')).toContain('M')
-    })
-
-    it('creates a default linear path without role', () => {
+    it('creates a default path', () => {
         render(
             <Chart {...chartProps}>
                 <Path points={threePoints} curve={'Linear'} />
             </Chart>
         )
-        const result = screen.getByRole('chart-content')
-        expect(result.querySelectorAll('path')).toHaveLength(1)
+        const result = screen.getByRole('chart-content').querySelector('path')
+        expect(result?.getAttribute('d')).toContain('M')
+        expect(result?.getAttribute('role')).toBeNull()
+    })
+
+    it('creates a path variant', () => {
+        render(
+            <Chart {...chartProps}>
+                <Path variant={'custom-path'} points={threePoints} curve={'Linear'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('path')
+        expect(result?.getAttribute('d')).toContain('M')
+        expect(result?.getAttribute('class')).toBe('customPath')
+        expect(result?.getAttribute('role')).toBe('custom-path')
+    })
+
+    it('creates a path variant without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Path
+                    variant={'custom-path'}
+                    points={threePoints}
+                    curve={'Linear'}
+                    setRole={false}
+                />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('path')
+        expect(result?.getAttribute('d')).toContain('M')
+        expect(result?.getAttribute('class')).toBe('customPath')
+        expect(result?.getAttribute('role')).toBeNull()
     })
 
     it('creates a custom path with natural curve', () => {
         render(
             <Chart {...chartProps}>
-                <Path variant="custom" points={threePoints} curve={'Natural'} />
+                <Path variant={'custom'} points={threePoints} curve={'Natural'} />
             </Chart>
         )
         const result = screen.getByRole('custom')

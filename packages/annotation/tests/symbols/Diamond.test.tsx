@@ -7,30 +7,30 @@ describe('Diamond', () => {
     it('creates a default diamond', () => {
         render(
             <Chart {...chartProps}>
-                <Diamond />
+                <Diamond variant={'custom'} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result).toBeDefined()
     })
 
-    it('creates a default diamond without role', () => {
+    it('creates a diamond with role', () => {
         render(
             <Chart {...chartProps}>
-                <Diamond setRole={false} />
+                <Diamond variant={'custom'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('polygon')
+        expect(result?.getAttribute('role')).toBe('custom')
+    })
+
+    it('creates a diamond without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Diamond variant={'custom'} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
         expect(result?.getAttribute('role')).toBeNull()
-    })
-
-    it('creates a custom diamond', () => {
-        render(
-            <Chart {...chartProps}>
-                <Diamond variant={'test'} cx={10} cy={20} r={5} setRole={true} />
-            </Chart>
-        )
-        const result = screen.getByRole('test')
-        expect(result.getAttribute('role')).toContain('test')
     })
 })

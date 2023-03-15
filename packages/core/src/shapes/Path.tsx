@@ -24,7 +24,7 @@ export const Path = ({
             animate={{ d: path ?? undefined }}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             className={compositeClassName}
             {...props}
         />

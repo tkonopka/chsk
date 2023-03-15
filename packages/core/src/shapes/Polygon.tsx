@@ -16,7 +16,7 @@ export const Polygon = ({
         .join(' ')
     return (
         <polygon
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             points={pointsString}
             style={style}
             className={compositeClassName}

@@ -16,17 +16,29 @@ describe('Polygon', () => {
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result?.getAttribute('role')).toBeNull()
     })
 
-    it('creates a default polygon without role', () => {
+    it('creates a polygon variant with role', () => {
         render(
             <Chart {...chartProps}>
-                <Polygon points={points} setRole={false} />
+                <Polygon variant={'custom-polygon'} points={points} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('polygon')
+        expect(result?.getAttribute('role')).toBe('custom-polygon')
+        expect(result?.getAttribute('class')).toBe('customPolygon')
+    })
+
+    it('creates a polygon variant without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Polygon variant={'custom-polygon'} points={points} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
         expect(result?.getAttribute('role')).toBeNull()
+        expect(result?.getAttribute('class')).toBe('customPolygon')
     })
 
     it('creates a custom polygon', () => {

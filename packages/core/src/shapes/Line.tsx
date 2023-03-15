@@ -18,7 +18,7 @@ export const Line = ({
     const config = { x1, y1, x2, y2 }
     return (
         <m.line
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
             className={compositeClassName}

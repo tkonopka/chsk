@@ -25,7 +25,7 @@ export const Square = ({
     }
     return (
         <m.rect
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
             style={style}

@@ -16,13 +16,37 @@ describe('Rectangle', () => {
         // size is set via attributes
         expect(result?.getAttribute('width')).toContain('50')
         expect(result?.getAttribute('height')).toContain('20')
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result?.getAttribute('role')).toBeNull()
     })
 
-    it('creates a default rect without role', () => {
+    it('creates a rect with role', () => {
         render(
             <Chart {...chartProps}>
-                <Rectangle x={0} y={10} width={50} height={20} setRole={false} />
+                <Rectangle variant={'custom-rect'} x={5} y={10} width={50} height={20} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('rect')
+        expect(result?.getAttribute('role')).toBe('custom-rect')
+        expect(result?.getAttribute('class')).toBe('customRect')
+        // position
+        expect(result?.getAttribute('style')).toContain('5')
+        expect(result?.getAttribute('style')).toContain('10')
+        // dimensions
+        expect(result?.getAttribute('width')).toContain('50')
+        expect(result?.getAttribute('height')).toContain('20')
+    })
+
+    it('creates a rect variant without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Rectangle
+                    variant={'custom-rect'}
+                    x={0}
+                    y={10}
+                    width={50}
+                    height={20}
+                    setRole={false}
+                />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
@@ -37,22 +61,6 @@ describe('Rectangle', () => {
         )
         const result = screen.getByRole('chart-content').querySelector('rect')
         expect(result?.getAttribute('role')).toBeNull()
-    })
-
-    it('creates a custom rect', () => {
-        render(
-            <Chart {...chartProps}>
-                <Rectangle variant={'test'} x={5} y={10} width={50} height={20} setRole={true} />
-            </Chart>
-        )
-        const result = screen.getByRole('test')
-        // position
-        expect(result.getAttribute('style')).toContain('5')
-        expect(result.getAttribute('style')).toContain('10')
-        // dimensions
-        expect(result.getAttribute('width')).toContain('50')
-        expect(result.getAttribute('height')).toContain('20')
-        expect(result.getAttribute('role')).toContain('test')
     })
 
     it('creates a centered rect', () => {

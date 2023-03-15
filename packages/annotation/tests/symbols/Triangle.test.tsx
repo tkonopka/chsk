@@ -11,26 +11,26 @@ describe('Triangle', () => {
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result).toBeDefined()
     })
 
-    it('creates a default triangle without role', () => {
+    it('creates a triangle with role', () => {
         render(
             <Chart {...chartProps}>
-                <Triangle setRole={false} />
+                <Triangle variant={'custom-triangle'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('polygon')
+        expect(result?.getAttribute('role')).toBe('custom-triangle')
+    })
+
+    it('creates a triangle without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Triangle variant={'custom-triangle'} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('polygon')
         expect(result?.getAttribute('role')).toBeNull()
-    })
-
-    it('creates a custom triangle', () => {
-        render(
-            <Chart {...chartProps}>
-                <Triangle variant={'test'} cx={10} cy={20} r={5} setRole={true} />
-            </Chart>
-        )
-        const result = screen.getByRole('test')
-        expect(result.getAttribute('role')).toContain('test')
     })
 })

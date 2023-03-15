@@ -13,17 +13,29 @@ describe('Circle', () => {
         expect(isFinite(Number(result?.getAttribute('cx')))).toBeFalsy()
         expect(isFinite(Number(result?.getAttribute('cy')))).toBeFalsy()
         expect(isFinite(Number(result?.getAttribute('r')))).toBeFalsy()
-        expect(result?.getAttribute('role')).toContain('default')
+        expect(result?.getAttribute('role')).toBeNull()
     })
 
-    it('creates a default circle without role', () => {
+    it('creates a circle variant with role', () => {
         render(
             <Chart {...chartProps}>
-                <Circle setRole={false} />
+                <Circle variant={'custom-circle'} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('circle')
+        expect(result?.getAttribute('role')).toBe('custom-circle')
+        expect(result?.getAttribute('class')).toBe('customCircle')
+    })
+
+    it('creates a circle variant without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <Circle variant={'custom-circle'} setRole={false} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelector('circle')
         expect(result?.getAttribute('role')).toBeNull()
+        expect(result?.getAttribute('class')).toBe('customCircle')
     })
 
     it('creates a custom circle', () => {

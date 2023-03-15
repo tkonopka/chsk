@@ -43,7 +43,7 @@ export const Rectangle = ({
         <m.rect
             initial={config}
             animate={config}
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             style={style}
             className={compositeClassName}
             {...props}
