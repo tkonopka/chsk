@@ -37,6 +37,9 @@ const customTheme: ThemeSpec = {
         legendItem: {
             fillOpacity: 0,
         },
+        legendTitle: {
+            fillOpacity: 0,
+        },
     },
     path: {
         default: {
