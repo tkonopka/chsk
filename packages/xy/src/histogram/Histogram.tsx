@@ -20,7 +20,7 @@ import {
     X,
     Y,
     SizeSpec,
-    getMeanSd,
+    getMoments,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
@@ -32,7 +32,7 @@ const processData = (
     density: boolean
 ): Array<HistogramProcessedDataItem> => {
     return data.map((seriesData, index) => {
-        const [mean, sd] = getMeanSd(seriesData.data)
+        const [mean, variance] = getMoments(seriesData.data)
         return {
             id: seriesData.id,
             index,
@@ -40,7 +40,7 @@ const processData = (
             breaks,
             n: seriesData.data.length,
             mean,
-            sd,
+            sd: Math.sqrt(variance),
         }
     })
 }

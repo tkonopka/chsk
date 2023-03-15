@@ -1,24 +1,19 @@
-import { m, LazyMotion, domAnimation } from 'framer-motion'
 import {
     Chart,
     Axis,
     ThemeSpec,
-    useScales,
     TooltipDataItem,
-    Rectangle,
-    Line,
-    ContinuousAxisScale,
     Legend,
     MilestoneMotion,
     mergeThemes,
 } from '@chsk/core'
 import { tooltipItemLabelValueTheme, downloadTheme } from '@chsk/themes'
 import {
-    BoxAndWhiskersProps,
+    BarAndWhisker,
     isStripData,
-    Quantile,
-    Quantiles,
-    QuantileTooltip,
+    Distribution,
+    Distributions,
+    DistributionTooltip,
     Strip,
     StripProps,
     Strips,
@@ -74,99 +69,18 @@ const stripProps: Omit<StripProps, 'data'> = {
     },
 }
 
-// custom component that replaces BoxAndWhisker by a rectangle and a single whisker
-export const BarAndWhisker = ({
-    data,
-    horizontal,
-    boxStyle,
-    whiskerStyle,
-    whiskerCapWidth = 0.0,
-    className,
-    style,
-    setRole,
-    ...props
-}: BoxAndWhiskersProps) => {
-    const scales = useScales()
-    if (!data) return null
-
-    const halfBand = data.bandWidth / 2
-    const halfCap = whiskerCapWidth * halfBand
-    const coords = horizontal ? data.values.map(v => v).reverse() : data.values
-
-    const cx = data.bandStart + halfBand
-    const cy = data.values[2]
-    const scaleValue = horizontal
-        ? (scales.x as ContinuousAxisScale)
-        : (scales.y as ContinuousAxisScale)
-    const zero = scaleValue(0)
-
-    const box = (
-        <Rectangle
-            x={-halfBand}
-            y={-cy + coords[2]}
-            width={data.bandWidth}
-            height={zero - coords[2]}
-            style={boxStyle}
-            className={className}
-        />
-    )
-    const lines = [
-        <Line
-            key={'whisker-upper'}
-            x1={0}
-            x2={0}
-            y1={-cy + coords[2]}
-            y2={-cy + coords[3]}
-            style={whiskerStyle}
-            className={className}
-        />,
-    ]
-    const caps = [
-        <Line
-            key={'whisker-upper-cap'}
-            x1={-halfCap}
-            x2={halfCap}
-            y1={-cy + coords[3]}
-            y2={-cy + coords[3]}
-            style={whiskerStyle}
-            className={className}
-        />,
-    ]
-
-    const config = {
-        x: horizontal ? cy : cx,
-        y: horizontal ? cx : cy,
-        rotate: horizontal ? -90 : 0,
-        originX: '0px',
-        originY: '0px',
-    }
-    return (
-        <m.g
-            initial={config}
-            animate={config}
-            role={setRole ? 'boxwhisker' : undefined}
-            style={style}
-            {...props}
-        >
-            {box}
-            {lines}
-            {whiskerCapWidth > 0 ? caps : null}
-        </m.g>
-    )
-}
-
 export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isStripData(rawData)) return null
     return (
         <Chart
             data={chartData}
             fref={fref}
-            id="waterfall"
+            id="bar-and-whisker"
             size={[360, 400]}
             padding={[40, 140, 70, 70]}
             theme={customTheme}
         >
-            <Quantile {...stripProps} data={rawData} paddingInternal={0}>
+            <Distribution {...stripProps} data={rawData} paddingInternal={0}>
                 <Axis variant={'bottom'} label={''} />
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
                 <DownloadButtons position={[160, 350]} data image />
@@ -184,23 +98,21 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     title={'Conditions'}
                 />
                 <MilestoneMotion initialOn={'boxes'} exitOn={'bars'}>
-                    <Quantiles
+                    <Distributions
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
-                        medianStyle={{ stroke: '#161616', strokeWidth: 3 }}
+                        middleStyle={{ stroke: '#161616', strokeWidth: 3 }}
                         whiskerCapWidth={0.5}
                     />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'bars'}>
-                    <LazyMotion features={domAnimation}>
-                        <Quantiles
-                            boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
-                            whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
-                            medianStyle={{ stroke: '#161616', strokeWidth: 3 }}
-                            whiskerCapWidth={0.5}
-                            component={BarAndWhisker}
-                        />
-                    </LazyMotion>
+                    <Distributions
+                        boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
+                        whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
+                        middleStyle={{ stroke: '#161616', strokeWidth: 3 }}
+                        whiskerCapWidth={0.5}
+                        component={BarAndWhisker}
+                    />
                 </MilestoneMotion>
                 <Strip
                     {...stripProps}
@@ -212,7 +124,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         <Strips symbolStyle={{ strokeWidth: 1, stroke: '#161616' }} />
                     </MilestoneMotion>
                 </Strip>
-                <QuantileTooltip
+                <DistributionTooltip
                     maxOverhang={[40, 40, 40, 40]}
                     size={[200, 140]}
                     anchor={[0.5, 0]}
@@ -225,7 +137,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     valueFormat={round2dp}
                     title={''}
                 />
-            </Quantile>
+            </Distribution>
         </Chart>
     )
 }

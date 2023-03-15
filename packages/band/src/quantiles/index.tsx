@@ -1,7 +1,0 @@
-export * from './context'
-export * from './Quantile'
-export * from './QuantileTooltip'
-export * from './Quantiles'
-export * from './BoxAndWhiskers'
-export * from './predicates'
-export * from './types'

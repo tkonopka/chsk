@@ -1,0 +1,72 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { DistributionTooltip } from '../src'
+import { ChartDistributionWithTooltipDecorator } from './decorators'
+
+# DistributionTooltip
+
+<Meta title="Addons/Band/DistributionTooltip" />
+export const Template = args => <DistributionTooltip {...args} />
+
+`DistributionTooltip` creates a tooltip summarizing a distribution.
+
+<ArgsTable of={DistributionTooltip} />
+
+## Tooltip configuration
+
+`DistributionTooltip` creates a tooltip with information about a data distribution.
+The component shares many props with the `Tooltip` component from `@chsk/core`.
+For example, the position of the tooltip is configured with props `translate` and `anchor`.
+
+<Canvas>
+    <Story
+        name="tooltip"
+        args={{
+            translate: [8, 0],
+            padding: [8, 8, 8, 8],
+            anchor: [0, 0.5],
+            labelFormat: d => d.id + ' - ' + d.key,
+            labelStyle: { fontWeight: 600 },
+            valueFormat: x => Math.round(x * 100) / 100,
+            cellStyle: { textAnchor: 'start', dominantBaseline: 'central' },
+        }}
+        component={DistributionTooltip}
+        decorators={[ChartDistributionWithTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Table format
+
+`DistributionTooltip` differs from `Tooltip` in that it displays summary statistics for a data distribution in a
+table-like layout.
+
+The table layout is configured with props with prefix `cell`.
+Notably, for the text elements in the table to display correctly, it may be necessary to set styles with `cellStyle`.
+
+Other cell props are `cellSize` and `cellPadding`, which control the space allocated to each label / value
+in the table, and the spacing between the two columns.
+
+<Canvas>
+    <Story
+        name="table format"
+        args={{
+            translate: [8, 0],
+            padding: [8, 8, 8, 8],
+            anchor: [0.5, 1],
+            cellSize: [60, 20],
+            cellPadding: 50,
+            labelFormat: d => d.id + ' - ' + d.key,
+            labelStyle: { fontWeight: 600 },
+            valueFormat: x => Math.round(x * 100) / 100,
+            cellStyle: { textAnchor: 'start', dominantBaseline: 'central' },
+        }}
+        component={DistributionTooltip}
+        decorators={[ChartDistributionWithTooltipDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+The component does not offer further tuning props in order to keep its implementation and interface at a manageable
+complexity. To create a different type of tooltip, replace the component with a bespoke component.

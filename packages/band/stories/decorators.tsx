@@ -4,15 +4,15 @@ import {
     Bar,
     Bars,
     BarProps,
-    Quantile,
-    QuantileProps,
+    Distribution,
+    DistributionProps,
+    Distributions,
+    DistributionInteractiveDataItem,
     Strip,
     StripProps,
-    QuantileInteractiveDataItem,
     Schedule,
     ScheduleInteractiveDataItem,
     ScheduleProps,
-    Quantiles,
 } from '../src/'
 import dataGroups from './dataGroups.json'
 import dataSchedules from './dataSchedules.json'
@@ -124,7 +124,7 @@ export const dataRawValues = [
     },
 ]
 
-export const commonQuantileProps: QuantileProps = {
+export const commonDistributionProps: DistributionProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     paddingInternal: 0.0,
@@ -139,32 +139,43 @@ export const commonQuantileProps: QuantileProps = {
     },
 }
 
-export const ChartQuantileDecorator = (Story: () => ReactNode) => (
+export const ChartDistributionDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Quantile {...commonQuantileProps} horizontal={false}>
+        <Distribution {...commonDistributionProps} horizontal={false}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a.u.)'} />
             {Story()}
-        </Quantile>
+        </Distribution>
     </Chart>
 )
 
-export const onQuantilesClick = (data: QuantileInteractiveDataItem) => {
+export const ChartHorizontalDistributionDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Distribution {...commonDistributionProps} horizontal={true}>
+            <GridLines variant={'x'} />
+            <Axis variant={'left'} />
+            <Axis variant={'bottom'} label={'Values (a.u.)'} />
+            {Story()}
+        </Distribution>
+    </Chart>
+)
+
+export const onDistributionsClick = (data: DistributionInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
 }
 
 export const round2dp = (x: number) => String(roundDecimalPlaces(x, 2))
 
-export const ChartQuantileWithTooltipDecorator = (Story: () => ReactNode) => (
+export const ChartDistributionWithTooltipDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Quantile {...commonQuantileProps} horizontal={false}>
+        <Distribution {...commonDistributionProps} horizontal={false}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a.u.)'} />
-            <Quantiles medianStyle={{ stroke: '#000000', strokeWidth: 2 }} />
+            <Distributions medianStyle={{ stroke: '#000000', strokeWidth: 2 }} />
             {Story()}
-        </Quantile>
+        </Distribution>
     </Chart>
 )
 

@@ -10,7 +10,14 @@ import {
     TooltipDataItem,
     mergeTheme,
 } from '@chsk/core'
-import { BandHighlight, Quantile, Quantiles, QuantileTooltip, Strip, Strips } from '@chsk/band'
+import {
+    BandHighlight,
+    Distribution,
+    Distributions,
+    DistributionTooltip,
+    Strip,
+    Strips,
+} from '@chsk/band'
 import { tooltipItemLabelValueTheme } from '@chsk/themes'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -36,6 +43,11 @@ export const customTheme: ThemeSpec = mergeTheme(tooltipItemLabelValueTheme, {
         grid: {
             strokeDasharray: '5 5',
             stroke: '#999999',
+        },
+        median: {
+            stroke: '#dd0000',
+            strokeWidth: 3,
+            strokeLinecap: 'round',
         },
     },
     rect: {
@@ -96,18 +108,18 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                 </Axis>
                 <Strips />
             </Strip>
-            <Quantile
+            <Distribution
                 {...customProps}
                 data={rawData}
                 scaleIndex={{ variant: 'band', paddingOuter: 0.15, paddingInner: 0.3 }}
             >
-                <Quantiles
+                <Distributions
                     boxStyle={{ visibility: 'hidden' }}
                     whiskerStyle={{ visibility: 'hidden' }}
-                    medianStyle={{ stroke: '#dd0000', strokeWidth: 3, strokeLinecap: 'round' }}
+                    middleStyle={{ stroke: '#dd0000' }}
                 />
                 <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
-                <QuantileTooltip
+                <DistributionTooltip
                     anchor={[0, 0.5]}
                     translate={[20, 0]}
                     maxOverhang={[40, 40, 40, 40]}
@@ -121,7 +133,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                     style={{ strokeWidth: 1, stroke: '#000000' }}
                     labelStyle={{ fontWeight: 600 }}
                 />
-            </Quantile>
+            </Distribution>
         </Chart>
     )
 }

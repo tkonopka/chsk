@@ -1,0 +1,14 @@
+import { ArgsTable, Meta } from '@storybook/addon-docs'
+import { BarAndWhisker } from '../src'
+
+# BarAndWhisker
+
+<Meta title="Addons/Band/BarAndWhisker" />
+export const Template = args => <BarAndWhisker {...args} />
+
+`BarAndWhisker` draws a rectangle and a whisker to summarize a distribution.
+
+<ArgsTable of={BarAndWhisker} />
+
+`BarAndWhisker` is not typically used on its own.
+Rather, it is passed to prop `component` of the `Distributions` component.

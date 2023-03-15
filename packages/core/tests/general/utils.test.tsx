@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, rad2deg, getMeanSd } from '../../src/general'
+import { roundDecimalPlaces, rad2deg, getMoments } from '../../src/general'
 import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {
@@ -57,22 +57,20 @@ describe('sortedIndex', () => {
     })
 })
 
-describe('getMeanSd', () => {
+describe('getMoments', () => {
     it('computes means and standard deviation', () => {
-        const result = getMeanSd([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+        const result = getMoments([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
         expect(result[0]).toEqual(5.5)
-        expect(Math.round(1000 * Number(result[1])) / 1000).toEqual(3.028)
+        expect(Math.round(1000 * Number(result[1])) / 1000).toEqual(9.167)
     })
 
     it('handles empty array', () => {
-        const result = getMeanSd([])
-        expect(result[0]).toEqual(undefined)
-        expect(result[1]).toEqual(undefined)
+        const result = getMoments([])
+        expect(result).toEqual([NaN, NaN])
     })
 
     it('handles single value', () => {
-        const result = getMeanSd([5])
-        expect(result[0]).toEqual(5)
-        expect(result[1]).toEqual(undefined)
+        const result = getMoments([5])
+        expect(result).toEqual([5, NaN])
     })
 })

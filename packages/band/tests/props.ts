@@ -1,5 +1,6 @@
-import { BarProps, BarDataItem, QuantileProps, StripProps, ScheduleProps } from '../src'
+import { BarProps, BarDataItem, DistributionProps, StripProps, ScheduleProps } from '../src'
 import { createBandScale, createContinuousScale } from '@chsk/core'
+import { QuantileDataItem } from '../dist/types/quantiles'
 
 export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
 export const dummyYLinearScale = createContinuousScale({
@@ -69,7 +70,43 @@ export const dataMissingKeys = [
     },
 ]
 
-export const quantileProps: QuantileProps = {
+const q5: [number, number, number, number, number] = [0.05, 0.25, 0.5, 0.75, 0.95]
+export const dataPrecomputedQuantilesValues: Array<QuantileDataItem> = [
+    {
+        id: 'alpha',
+        label: 'alpha',
+        x: {
+            n: 20,
+            values: [0, 1, 2, 3, 4],
+            quantiles: q5,
+            extrema: [0, 5],
+        },
+        y: {
+            n: 20,
+            values: [1, 2, 3, 4, 5],
+            quantiles: q5,
+            extrema: [0, 5],
+        },
+    },
+    {
+        id: 'beta',
+        label: 'beta',
+        x: {
+            n: 20,
+            values: [10, 11, 12, 13, 14],
+            quantiles: q5,
+            extrema: [10, 15],
+        },
+        y: {
+            n: 20,
+            values: [21, 22, 23, 24, 25],
+            quantiles: q5,
+            extrema: [20, 25],
+        },
+    },
+]
+
+export const quantileProps: DistributionProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     scaleIndex: {

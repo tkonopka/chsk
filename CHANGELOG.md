@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [band] components `BarAndWhisker` and `LineAndWhiskers` to summarize
+    distributions
 -   [xy] calculations of mean and standard deviation for histograms
 -   [examples] flowchart in the shape of a tree
 -   [annotation] css style shaking; svg code produced by `cleanSvg` now
@@ -22,6 +24,9 @@
 
 ### Changed
 
+-   [band] renamed prop `medianStyle` to `middleStyle` to allow distributions
+    to display means rather than medians
+-   [band] renamed components with prefix `Quantile` to `Distribution`
 -   [core] augmented interface `CompleteThemeSpec` to support styling `tspan`
     components
 -   [annotation] fixed bug with svg cleaning that caused some attributes

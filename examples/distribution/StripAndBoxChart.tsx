@@ -8,7 +8,14 @@ import {
     AxisLine,
     TooltipDataItem,
 } from '@chsk/core'
-import { Quantile, Quantiles, QuantileTooltip, Strip, StripProps, Strips } from '@chsk/band'
+import {
+    Distribution,
+    Distributions,
+    DistributionTooltip,
+    Strip,
+    StripProps,
+    Strips,
+} from '@chsk/band'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -108,15 +115,15 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     <Strips />
                 </MilestoneMotion>
             </Strip>
-            <Quantile {...stripProps} data={rawData} paddingInternal={0}>
+            <Distribution {...stripProps} data={rawData} paddingInternal={0}>
                 <MilestoneMotion initialOn={'quantiles'} initial={'invisible'}>
-                    <Quantiles
+                    <Distributions
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 1.5 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 1.5 }}
-                        medianStyle={{ stroke: '#161616', strokeWidth: 3 }}
+                        middleStyle={{ stroke: '#161616', strokeWidth: 3 }}
                         whiskerCapWidth={0.3}
                     />
-                    <QuantileTooltip
+                    <DistributionTooltip
                         maxOverhang={[40, 40, 40, 40]}
                         size={[200, 140]}
                         cellSize={[40, 20]}
@@ -128,7 +135,7 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         title={''}
                     />
                 </MilestoneMotion>
-            </Quantile>
+            </Distribution>
         </Chart>
     )
 }
