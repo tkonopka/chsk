@@ -95,7 +95,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     variant: 'linear',
                 }}
                 scaleY={{
-                    domain: [0.5, ids.length + 0.5],
+                    domain: [0.5, ids.length + 1],
                     variant: 'linear',
                 }}
                 valueSize={6}
@@ -104,7 +104,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     Performance metrics
                 </Typography>
                 <Legend
-                    position={[-64, -70]}
+                    position={[-64, -65]}
                     positionUnits={'absolute'}
                     horizontal={true}
                     itemSize={[80, 28]}
