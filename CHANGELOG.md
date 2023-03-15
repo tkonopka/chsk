@@ -24,6 +24,8 @@
 
 ### Changed
 
+-   [core] removed redundant role attributes (in grid lines and ticks) to
+    reduce size of svg export
 -   [core] avoided setting role as 'default' in shapes and text elements
 -   [band] renamed prop `medianStyle` to `middleStyle` to allow distributions
     to display means rather than medians

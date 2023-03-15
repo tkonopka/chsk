@@ -11,8 +11,10 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-x')
-        expect(result.querySelectorAll('line')).toHaveLength(6)
+        const lines = screen.getByRole('grid-x').querySelectorAll('line')
+        expect(lines).toHaveLength(6)
+        expect(lines[0].getAttribute('role')).toBeNull()
+        expect(lines[1].getAttribute('role')).toBeNull()
     })
 
     it('creates vertical grid lines', () => {
@@ -23,8 +25,20 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-y')
-        expect(result.querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
+    })
+
+    it('creates grid without role', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <GridLines variant="y" values={6} setRole={false} />
+                </View>
+            </Chart>
+        )
+        const lines = screen.getByRole('view-content').querySelectorAll('line')
+        expect(lines[0].getAttribute('role')).toBeNull()
+        expect(lines[1].getAttribute('role')).toBeNull()
     })
 
     it('creates grid with boolean nice', () => {
@@ -40,8 +54,7 @@ describe('GridLines', () => {
         )
         // this criterion does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        const result = screen.getByRole('grid-y')
-        expect(result.querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates grid with numeric nice', () => {
@@ -57,8 +70,7 @@ describe('GridLines', () => {
         )
         // this test does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        const result = screen.getByRole('grid-y')
-        expect(result.querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates expanded lines (asymmetric)', () => {

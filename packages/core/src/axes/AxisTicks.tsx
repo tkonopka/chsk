@@ -2,7 +2,7 @@ import { X, Y, zeroPosition } from '../general'
 import { Line } from '../shapes'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { AxisTicksProps } from './types'
-import { useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { Typography } from '../typography'
 import { defaultAxisTicksProps } from './defaults'
 
@@ -24,6 +24,9 @@ export const getScaleTicks = ({
     labelFormat,
     labelStyle,
     tickStyle,
+    setRole,
+    className,
+    style,
 }: AxisTicksProps & {
     scale: Scale
     scaleSize?: number // only relevant for color scales
@@ -45,26 +48,30 @@ export const getScaleTicks = ({
     const labelX = labelTranslate[X] + (horizontal ? 0 : offset * xMultiplier)
     const labelY = labelTranslate[Y] + (horizontal ? offset * yMultiplier : 0)
     const tickFormat = labelFormat ?? stringFormat
+    const compositeClassName = getClassName(variant, className)
 
     return tickTranslations.map((translations, i) => {
         const x = translations[X]
         const y = translations[Y]
         return (
-            <g key={'tick-' + variant + '-' + i}>
+            <g key={'tick-' + variant + '-' + i} role={setRole ? 'tick' : undefined} style={style}>
                 <Line
+                    variant={'tick'}
                     x1={x}
                     y1={y}
                     x2={x + (horizontal ? 0 : size * xMultiplier)}
                     y2={y + (horizontal ? size * yMultiplier : 0)}
-                    variant={'tick'}
+                    className={compositeClassName}
                     style={tickStyle}
+                    setRole={false}
                 />
                 <Typography
+                    variant={'tick-label'}
                     position={[x + labelX, y + labelY]}
                     rotate={rotate}
                     style={labelStyle}
-                    variant={'tick-label'}
-                    className={variant}
+                    className={compositeClassName}
+                    setRole={false}
                 >
                     {tickFormat(tickValues[i] as string, i)}
                 </Typography>
@@ -83,6 +90,9 @@ const UnthemedAxisTicks = ({
     labelFormat,
     labelStyle,
     tickStyle,
+    setRole = true,
+    className,
+    style,
 }: AxisTicksProps) => {
     const scales = useScales()
 
@@ -97,10 +107,13 @@ const UnthemedAxisTicks = ({
         labelOffset,
         labelTranslate,
         labelRotate,
+        setRole,
+        className,
+        style,
     })
 
     if (tickMarks === null) return null
-    return <g role={'axis-ticks'}>{tickMarks}</g>
+    return <g role={setRole ? 'axis-ticks' : undefined}>{tickMarks}</g>
 }
 
 export const AxisTicks = (props: AxisTicksProps) => (

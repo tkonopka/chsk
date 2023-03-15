@@ -105,7 +105,7 @@ describe('Bars', () => {
         const result = screen.getByRole('view-content')
         expect(result.querySelectorAll('rect')).toHaveLength(3)
         // the chart should have an axis ready to display 'alpha' and 'beta'
-        const ticks = screen.getAllByRole('tick-label')
+        const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(2)
         expect(ticks[0].textContent).toEqual('alpha')
         expect(ticks[1].textContent).toEqual('beta')

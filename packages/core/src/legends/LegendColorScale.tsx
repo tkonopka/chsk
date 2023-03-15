@@ -74,6 +74,8 @@ const UnthemedLegendColorScale = ({
                     tickSize,
                     labelOffset,
                     labelRotate,
+                    className,
+                    setRole,
                 })}
             </g>
         </g>

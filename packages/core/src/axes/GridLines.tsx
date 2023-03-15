@@ -32,29 +32,29 @@ const UnthemedGridLines = ({
     if (isX) {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
+                key={'grid-x-' + i}
+                variant={'grid'}
                 x1={v}
                 x2={v}
                 y1={-e1}
                 y2={size[Y] + e2}
-                variant={'grid'}
-                key={'grid-x-' + i}
                 className={className}
                 style={style}
-                setRole={setRole}
+                setRole={false}
             />
         ))
     } else {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
+                key={'grid-y-' + i}
+                variant={'grid'}
                 x1={-e1}
                 x2={size[X] + e2}
                 y1={v}
                 y2={v}
-                variant={'grid'}
-                key={'grid-y-' + i}
                 className={className}
                 style={style}
-                setRole={setRole}
+                setRole={false}
             />
         ))
     }

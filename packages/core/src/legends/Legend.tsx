@@ -81,7 +81,13 @@ const UnthemedLegend = ({
     })
 
     const sideVariant: SideVariant = horizontal ? 'bottom' : 'right'
-    const vhp = { variant: sideVariant, horizontal, position: contentPosition }
+    const commonProps = {
+        variant: sideVariant,
+        horizontal,
+        position: contentPosition,
+        className,
+        setRole,
+    }
 
     // legend content
     let content: ReactNode | null | ReactNode[] = null
@@ -90,7 +96,7 @@ const UnthemedLegend = ({
         content = (
             <LegendItemList
                 key={'legend-list'}
-                {...vhp}
+                {...commonProps}
                 variant={'right'}
                 keys={colorDomain}
                 labels={colorDomain}
@@ -102,16 +108,15 @@ const UnthemedLegend = ({
                 symbolStyle={symbolStyle}
                 labelStyle={labelStyle}
                 labelOffset={labelOffset}
-                setRole={setRole}
             />
         )
     } else if (variant === 'color' && scales.color.variant !== 'categorical') {
-        content = <LegendColorScale key={'legend-color-scale'} {...vhp} size={scaleSize} />
+        content = <LegendColorScale key={'legend-color-scale'} {...commonProps} size={scaleSize} />
     } else if (variant === 'size') {
         content = (
             <LegendSizeScale
                 key={'legend-size-scale'}
-                {...vhp}
+                {...commonProps}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
                 ticks={sizeTicks}
@@ -119,7 +124,6 @@ const UnthemedLegend = ({
                 symbolStyle={symbolStyle}
                 labelStyle={labelStyle}
                 labelOffset={labelOffset}
-                setRole={setRole}
             />
         )
     }
@@ -154,6 +158,7 @@ const UnthemedLegend = ({
                             size={itemSize}
                             padding={itemPadding}
                             translate={[0, r]}
+                            className={className}
                             style={titleStyle}
                             setRole={setRole}
                         >
