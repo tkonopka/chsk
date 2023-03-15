@@ -1,0 +1,131 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis, Legend, LegendTitle, LegendColorScale } from '@chsk/core'
+import { HeatMap, HeatMapCells } from '../../src'
+import { commonProps, ChartHeatMapDecorator } from '../decorators'
+
+# HeatMapCells
+
+<Meta title="Addons/Matrix/HeatMaps/HeatMapCells" />
+export const Template = args => <HeatMapCells {...args} />
+
+`HeatMapCells` draws a set of rectangles to produce a heat map matrix.
+
+<ArgsTable of={HeatMapCells} />
+
+Note that `HeatMapCells` is intended to be used within a `HeatMap` component.
+
+## Data subsets
+
+By default, `HeatMapCells` shows the entire dataset. To display selected rows or columns, use props `ids` and `keys`, respectively.
+
+<Canvas>
+    <Story
+        name="selected ids"
+        args={{
+            ids: ['alpha', 'beta'],
+            style: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="selected keys"
+        args={{ keys: ['x', 'y'], style: { strokeWidth: 1, stroke: '#222222' } }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+To display only selected cells, specify an array of id-key pairs with prop `cells`.
+
+<Canvas>
+    <Story
+        name="selected cells"
+        args={{
+            cells: [
+                ['alpha', 'y'],
+                ['beta', 'x'],
+                ['delta', 'z'],
+            ],
+            style: { strokeWidth: 1, stroke: '#222222' },
+        }}
+        component={HeatMapCells}
+        decorators={[ChartHeatMapDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Custom scales
+
+`HeatMapCells` uses scales defined in `HeatMap` by default (below, first two rows). However, it is possible to specify a custom color scale (below, last two rows).
+
+<Canvas>
+    <Story name="custom scales">
+        <Chart size={[400, 300]} padding={[60, 40, 40, 60]} style={{ display: 'inline-block' }}>
+            <HeatMap {...commonProps}>
+                <Axis variant={'top'} />
+                <Axis variant={'left'} />
+                <HeatMapCells ids={['alpha', 'beta']} />
+                <HeatMapCells
+                    ids={['gamma', 'delta']}
+                    scaleColor={{
+                        variant: 'sequential',
+                        colors: 'Blues',
+                        domain: [0, 50],
+                    }}
+                />
+            </HeatMap>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that the way the color scales are specified differ slightly in `HeatMap` and `HeatMapCells`. In `HeatMap` it is possible to specify just the type of scale and required colors, and allow the component to determine appropriate domain settings. In `HeatMapCells`, it is necessary to provide the domain settings manually.
+
+## Legends for custom colors
+
+Using custom colors in `HeatMapCells` automatically resets the scale for all its child components. Thus, it is possible to create Legends based on the custom colors, including using multiple legends on the same chart.
+
+<Canvas>
+    <Story name="custom legends">
+        <Chart size={[400, 300]} padding={[60, 80, 40, 60]} style={{ display: 'inline-block' }}>
+            <HeatMap {...commonProps}>
+                <Axis variant={'top'} />
+                <Axis variant={'left'} />
+                <HeatMapCells ids={['alpha', 'beta']} />
+                <Legend
+                    variant={'color'}
+                    position={[280, -30]}
+                    positionUnits={'absolute'}
+                    size={[60, 60]}
+                    title={'Colors 1'}
+                />
+                <HeatMapCells
+                    ids={['gamma', 'delta']}
+                    scaleColor={{
+                        variant: 'sequential',
+                        colors: 'Blues',
+                        domain: [0, 50],
+                    }}
+                >
+                    <Legend variant={'color'} position={[280, 110]} positionUnits={'absolute'}>
+                        <LegendTitle position={[0, 0]}>Colors 2</LegendTitle>
+                        <LegendColorScale
+                            variant="right"
+                            size={[8, 80]}
+                            position={[0, 20]}
+                            positionUnits={'absolute'}
+                            gradientId="second-scale"
+                        />
+                    </Legend>
+                </HeatMapCells>
+            </HeatMap>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that for legends with continuous colors, it may be necessary to define a custom identifier `gradientId` to display the color gradient.

@@ -1,0 +1,50 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Axis } from '@chsk/core'
+import { Bar, Bars, BandHighlight } from '../../src'
+import { commonBarProps } from '../bars/decorators'
+
+# BandHighlight
+
+<Meta title="Addons/Band/Bands/BandHighlight" />
+export const Template = args => <BandHighlight {...args} />
+
+`BandHighlight` draws masks on a band chart in response to the mouse pointer.
+
+<ArgsTable of={BandHighlight} />
+
+## Interactivity
+
+`BandHighlight` detect mouse movements and draws masks to highlight one band. Hover the mouse on the charts below.
+
+<Canvas>
+    <Story name="vertical">
+        <Chart
+            id={'vertical'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps}>
+                <Bars />
+                <Axis variant={'left'} label={'Values (a.u.)'} />
+                <Axis variant={'bottom'} />
+                <BandHighlight style={{ fill: '#777777', opacity: 0.3 }} />
+            </Bar>
+        </Chart>
+    </Story>
+    <Story name="horizontal">
+        <Chart
+            id={'horizontal'}
+            size={[400, 240]}
+            padding={[60, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps} horizontal={true}>
+                <Bars />
+                <Axis variant={'left'} />
+                <Axis variant={'top'} label={'Values (a.u.)'} />
+                <BandHighlight style={{ fill: '#777777', opacity: 0.3 }} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>

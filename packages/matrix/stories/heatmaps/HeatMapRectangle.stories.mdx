@@ -1,0 +1,14 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { HeatMap, HeatMapCells, HeatMapRectangle } from '../../src'
+import { ChartHeatMapDecorator } from '../decorators'
+
+# HeatMapRectangle
+
+<Meta title="Addons/Matrix/HeatMaps/HeatMapRectangle" />
+export const Template = args => <HeatMapCells {...args} />
+
+`HeatMapRectangle` draws a single rectangle. This component is the default for drawing cells in `HeatMapCells`.
+
+<ArgsTable of={HeatMapRectangle} />
+
+Note that `HeatMapRectangle` has the same API as `Rectangle` and similarly produces rectangular shapes. However, the `HeatMapRectangle` implementation does not include motion animations and always creates centered shapes. These adjustments optimize this component for the heat map setting.

@@ -1,0 +1,59 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Square } from '@chsk/core'
+import { Strip, Schedules } from '../../src'
+import { ChartScheduleDecorator, onSchedulesClick } from './decorators'
+
+# Schedules
+
+<Meta title="Addons/Band/Schedules/Schedules" />
+export const Template = args => <Schedules {...args} />
+
+`Schedules` draws intervals on a schedule chart.
+
+`Schedules` is intended to be used within a `Schedule` view. Note that while the `Schedules` component is the one that draws visual elements, much of the chart layout is determined by the parent view`Schedule`.
+
+<ArgsTable of={Schedules} />
+
+## Data subsets
+
+By default, `Schedules` draws the entire dataset. To draw subsets, set the props `ids` and `keys`.
+
+<Canvas>
+    <Story
+        name="selected ids"
+        args={{
+            ids: ['alpha'],
+        }}
+        component={Schedules}
+        decorators={[ChartScheduleDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="selected keys"
+        args={{
+            keys: ['x'],
+        }}
+        component={Schedules}
+        decorators={[ChartScheduleDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Mouse events
+
+To make elements respond to mouse events, set prop `handlers`.
+
+<Canvas>
+    <Story
+        name="mouse click"
+        args={{ handlers: { onClick: onSchedulesClick } }}
+        component={Schedules}
+        decorators={[ChartScheduleDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+(Click on the boxes, then check the browser console with `Ctrl Shift J` for output.)

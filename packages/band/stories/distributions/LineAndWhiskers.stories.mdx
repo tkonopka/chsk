@@ -1,0 +1,14 @@
+import { ArgsTable, Meta } from '@storybook/addon-docs'
+import { LineAndWhiskers } from '../../src'
+
+# LineAndWhiskers
+
+<Meta title="Addons/Band/Distributions/LineAndWhiskers" />
+export const Template = args => <LineAndWhiskers {...args} />
+
+`LineAndWhiskers` draws lines to summarize a distribution.
+
+<ArgsTable of={LineAndWhiskers} />
+
+`LineAndWhiskers` is not typically used on its own.
+Rather, it is passed to prop `component` of the `Distributions` component.
