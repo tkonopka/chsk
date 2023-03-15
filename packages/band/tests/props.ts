@@ -1,6 +1,12 @@
-import { BarProps, BarDataItem, DistributionProps, StripProps, ScheduleProps } from '../src'
 import { createBandScale, createContinuousScale } from '@chsk/core'
-import { QuantileDataItem } from '../dist/types/quantiles'
+import {
+    BarProps,
+    BarDataItem,
+    DistributionProps,
+    StripProps,
+    ScheduleProps,
+    DistributionDataItem,
+} from '../src'
 
 export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
 export const dummyYLinearScale = createContinuousScale({
@@ -71,7 +77,7 @@ export const dataMissingKeys = [
 ]
 
 const q5: [number, number, number, number, number] = [0.05, 0.25, 0.5, 0.75, 0.95]
-export const dataPrecomputedQuantilesValues: Array<QuantileDataItem> = [
+export const dataPrecomputedQuantilesValues: Array<DistributionDataItem> = [
     {
         id: 'alpha',
         label: 'alpha',

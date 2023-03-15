@@ -13,8 +13,7 @@ import {
 } from '@chsk/core'
 import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
-import { Venn, isVennProcessedData } from '../src'
-import { VennProcessedDataItem } from '../dist/types'
+import { Venn, isVennProcessedData, VennProcessedDataItem } from '../src'
 
 const round2dp = (x: number) => roundDecimalPlaces(x, 2)
 

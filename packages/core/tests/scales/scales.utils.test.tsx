@@ -2,13 +2,13 @@ import {
     createBandScale,
     createBandDetectorIntervals,
     findZone,
+    DetectorZone,
     DetectorIntervals,
     inZone,
     getMinMax,
     getMax,
     getZoneSize,
 } from '../../src/scales'
-import { DetectorZone } from '../../dist/types'
 
 describe('getMinMax', () => {
     it('finds min and max values from non-empty array', () => {
