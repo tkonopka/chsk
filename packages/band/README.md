@@ -1,9 +1,20 @@
 # @chsk/band
 
-`chsk` is a charting library for React.
+`@chsk/band` is part of a data visualization framework based on `@chsk/core`.
+It provides components for charts with one discrete (band) axis and one
+continuous axis.
 
-The `@chsk/band` package builds upon the infrastructure provided by `@chsk/core`.
-It introduces components relevant to 'band charts' - charts in which
-one axis hold categorical labels and the other axis holds continuous values.
+## Features
 
-`@chsk/band` supports bar charts, quantile charts (box plots), and strip charts.
+-   **Bar charts** visualize data using grouped, stacked, or layered bars
+-   **Distribution charts** summarize number distributions, for example, using
+    box-and-whisker elements
+-   **Schedule charts** use rectangular shapes to visualize intervals with well-defined start and end boundaries
+-   **Strip charts**, similarly to distribution charts, visualize number
+    distributions, but unlike distribution charts, display all data points
+-   **Band components** are general-purpose objects that can be used in
+    any of the band-chart views (bar charts, distribution charts, etc.)
+
+## Documentation
+
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-band-overview--page)

@@ -1,8 +1,13 @@
 # @chsk/set
 
-`chsk` is a charting library for React.
+`@chsk/set` is part of a data visualization framework based on `@chsk/core`.
+It provides components for displaying set intersections.
 
-The `@chsk/set` package builds upon the infrastructure provided by `@chsk/core`.
-It introduces components that display sets.
+## Features
 
-`@chsk/sets` supports Venn diagrams with two or three sets.
+-   **Venn diagrams** with two or three sets, including (Euler) diagrams with
+    areas proportional to set size
+
+## Documentation
+
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-set-overview--page)

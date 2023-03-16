@@ -1,9 +1,15 @@
 # @chsk/matrix
 
-`chsk` is a charting library for React.
+`@chsk/matrix` is part of a data visualization framework based on `@chsk/core`.
+It provides components for charts in which both the horizontal and vertical
+axes hold categorical / discrete labels.
 
-The `@chsk/matrix` package builds upon the infrastructure provided by `@chsk/core`.
-It introduces components relevant to 'matrix charts' - charts in which
-both the horizontal and vertical axes hold categorical labels.
+## Features
 
-`@chsk/matrix` supports heat map charts and upset charts.
+-   **Heat maps** display information in a grid, conveying numerical values
+    using color and size
+-   **Upset charts** summarize overlaps between several sets
+
+## Documentation
+
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-matrix-overview--page)

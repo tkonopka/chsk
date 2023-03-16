@@ -1,7 +1,15 @@
 # `@chsk/xy`
 
-The `@chsk/xy` package builds upon the infrastructure provided by `@chsk/core`.
-It introduces components relevant to 'xy charts' - charts in which
-both the horizontal and vertical axes display continuous values.
+`@chsk/xy` is part of a data visualization framework based on `@chsk/core`.
+It provides components for charts in which both the horizontal and vertical
+axes display continuous values.
 
-`@chsk/xy` supports scatter charts, line charts, area charts, and histograms.
+## Features
+
+-   **Histograms** summarize numeric distributions using binned or smooth curves
+-   **Scatter charts** display data points as symbols on a 2D plane
+-   **Line charts**, similarly to scatter charts, display data on a 2D plane, but use curves and/or areas to show connections between data points
+
+## Documentation
+
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-scatter-overview--page)

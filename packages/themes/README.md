@@ -1,6 +1,17 @@
 # @chsk/themes
 
-`chsk` is a charting library for React.
+`@chsk/themes` is part of a data visualization framework based on `@chsk/core`.
+It provides a collection of objects that adjust look-and-feel through
+custom props and css styles.
 
-The `@chsk/themes` package builds upon the infrastructure provided by `@chsk/core`.
-It provides definitions for custom chart styles.
+## Features
+
+-   **Complete themes** overhaul props and css styles for many library
+    components, creating a distinctive look-and-feel
+-   **Partial themes** adjust props and css styles for substantial parts of a
+    chart, but also leave many other elements unchanged
+-   **Theme pieces** target specific chart elements
+
+## Documentation
+
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-themes-overview--page)
