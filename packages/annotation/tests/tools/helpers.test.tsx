@@ -1,6 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { defaultCleanSvgConfig } from '../../src/tools/cleanSvg'
-import { cleanTransform, roundPxDecimalPlaces, scanSvg, shakeStyles } from '../../src/tools/helpers'
+import {
+    roundPxDecimalPlaces,
+    rgb2hex,
+    cleanTransform,
+    cleanStyle,
+    scanSvg,
+    shakeStyles,
+} from '../../src/tools/helpers'
 import { cloneDeep } from 'lodash'
 
 describe('roundPxDecimalPlaces', () => {
@@ -13,6 +20,43 @@ describe('roundPxDecimalPlaces', () => {
         expect(roundPxDecimalPlaces('10.0000003px', 3)).toEqual('10px')
         expect(roundPxDecimalPlaces('10.123123px', 3)).toEqual('10.123px')
         expect(roundPxDecimalPlaces('10.1238px', 3)).toEqual('10.124px')
+    })
+})
+
+describe('rgb2hex', () => {
+    it('handles rgb string with commas and spaces', () => {
+        expect(rgb2hex('rgb(255, 32, 5)')).toBe('#ff2005')
+    })
+
+    it('handles rgb string with spaces', () => {
+        expect(rgb2hex('rgb(255 32 5)')).toBe('#ff2005')
+    })
+
+    it('handles rgb string with commas', () => {
+        expect(rgb2hex('rgb(255,32,5)')).toBe('#ff2005')
+    })
+
+    it('preserves non-rgb string', () => {
+        expect(rgb2hex('#222222')).toBe('#222222')
+        expect(rgb2hex('abc')).toBe('abc')
+    })
+
+    it('preserves non-rgb string', () => {
+        expect(rgb2hex('#222222')).toBe('#222222')
+        expect(rgb2hex('abc')).toBe('abc')
+    })
+
+    it('handles rgb string with slash', () => {
+        expect(rgb2hex('rgb(255 32 5 / 119)')).toBe('#ff200577')
+        expect(rgb2hex('rgb(255, 32, 5 / 119)')).toBe('#ff200577')
+    })
+
+    it('handles rgb string with percentages', () => {
+        expect(rgb2hex('rgb(50% 10% 100%)')).toBe(rgb2hex('rgb(128 26 255)'))
+    })
+
+    it('handles rgb string with decimals', () => {
+        expect(rgb2hex('rgb(0.5 0.1 1.0 0.5)')).toBe(rgb2hex('rgb(128 26 255 128)'))
     })
 })
 
@@ -94,6 +138,37 @@ describe('cleanTransform', () => {
         const input = 'skewX(1.0002)'
         const expected = 'skewX(1.0002)'
         expect(cleanTransform(input, 2)).toEqual(expected)
+    })
+})
+
+describe('cleanStyle', () => {
+    it('handles empty string', () => {
+        const result = cleanStyle('', 2)
+        expect(result.style).toBe('')
+    })
+
+    it('handles style that does not require changes', () => {
+        const style = 'stroke-width: 2'
+        const result = cleanStyle(style, 2)
+        expect(result.style).toBe(style)
+    })
+
+    it('converts fill to hex', () => {
+        const result = cleanStyle('fill: rgb(255 255 0)', 2)
+        expect(result.style).toBe('fill: #ffff00')
+    })
+
+    it('converts stroke to hex', () => {
+        const result = cleanStyle('stroke: rgb(255 255 0)', 2)
+        expect(result.style).toBe('stroke: #ffff00')
+    })
+
+    it('converts multi-part style to hex', () => {
+        const result = cleanStyle(
+            'stroke: rgb(255 255 0); stroke-dasharray: 5; fill: rgb(0 0 0)',
+            2
+        )
+        expect(result.style).toBe('stroke: #ffff00; stroke-dasharray: 5; fill: #000000')
     })
 })
 

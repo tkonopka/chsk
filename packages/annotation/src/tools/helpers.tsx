@@ -1,7 +1,7 @@
 import { roundDecimalPlaces } from '@chsk/core'
 import { CleanSvgConfig } from './types'
 
-// round a string representing pixels to a fixed number of decimal places
+/** round a string representing pixels to a fixed number of decimal places */
 export const roundPxDecimalPlaces = (s: string, n: number) => {
     const px = s.includes('px')
     const v = Number(s.replace('px', '').replace(';', ''))
@@ -9,7 +9,33 @@ export const roundPxDecimalPlaces = (s: string, n: number) => {
     return px ? result + 'px' : result
 }
 
-const extractValue = (s: string, prefix: string): string => {
+/** convert a string encoding and rgb value (examples: 128, 50%, 0.5) to hex */
+const rgbValue2hex = (x: string) => {
+    let v: number
+    if (x.includes('%')) {
+        v = Math.round((255 * Number(x.replace('%', ''))) / 100)
+    } else if (x.includes('.')) {
+        v = Math.round(255 * Number(x))
+    } else {
+        v = Number(x)
+    }
+    v = Math.max(0, Math.min(255, v))
+    return v < 10 ? '0' + v.toString(16) : v.toString(16)
+}
+
+/** convert an rgb(r g b a) string into hex */
+export const rgb2hex = (rgb: string) => {
+    if (!rgb.startsWith('rgb(')) return rgb
+    const sep = rgb.includes(',') ? ',' : ' '
+    const parts = contentInParentheses(rgb, 'rgb')
+        .replace('/', sep)
+        .split(sep)
+        .filter(Boolean)
+        .map(s => rgbValue2hex(s.trim()))
+    return '#' + parts.join('')
+}
+
+const contentInParentheses = (s: string, prefix: string): string => {
     return s.replace(prefix + '(', '').split(')')[0]
 }
 
@@ -23,15 +49,15 @@ export const cleanTransform = (x: string | undefined, n: number) => {
     const other: string[] = []
     xWoPrefix.split(' ').map(s => {
         if (s.startsWith('translateX')) {
-            translateXY[0] = extractValue(s, 'translateX')
+            translateXY[0] = contentInParentheses(s, 'translateX')
         } else if (s.startsWith('translateY')) {
-            translateXY[1] = extractValue(s, 'translateY')
+            translateXY[1] = contentInParentheses(s, 'translateY')
         } else if (s.startsWith('scaleX')) {
-            scaleXY[0] = extractValue(s, 'scaleX')
+            scaleXY[0] = contentInParentheses(s, 'scaleX')
         } else if (s.startsWith('scaleY')) {
-            scaleXY[1] = extractValue(s, 'scaleY')
+            scaleXY[1] = contentInParentheses(s, 'scaleY')
         } else if (s.startsWith('rotate(')) {
-            rotateDeg[0] = extractValue(s, 'rotate')
+            rotateDeg[0] = contentInParentheses(s, 'rotate')
         } else {
             other.push(s)
         }
@@ -64,7 +90,15 @@ export const cleanTransform = (x: string | undefined, n: number) => {
 export const cleanStyle = (raw: string, n: number) => {
     const parts = raw.split(';').map(part => part.trim())
     const transform = parts.filter(part => part.startsWith('transform:'))[0] // with colon at the end
-    const other = parts.filter(part => !part.startsWith('transform')) // without colon -> eliminates transform-origin
+    const other = parts
+        .filter(part => !part.startsWith('transform')) // without colon -> eliminates transform-origin
+        .map(part => {
+            if (part.startsWith('fill:') || part.startsWith('stroke:')) {
+                const [k, v] = part.split(':', 2)
+                return k + ': ' + rgb2hex(v.trim())
+            }
+            return part
+        })
     return { style: other.filter(Boolean).join('; '), transform: cleanTransform(transform, n) }
 }
 

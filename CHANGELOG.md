@@ -24,6 +24,8 @@
 
 ### Changed
 
+-   [annotation] replaced 'rgb(...)' colors by hex strings in svg exports to
+    reduce size of output
 -   [core] removed redundant role attributes (in grid lines and ticks) to
     reduce size of svg export
 -   [core] avoided setting role as 'default' in shapes and text elements
