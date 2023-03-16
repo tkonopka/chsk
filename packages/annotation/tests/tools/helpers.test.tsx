@@ -16,16 +16,29 @@ describe('roundPxDecimalPlaces', () => {
         expect(roundPxDecimalPlaces('10', 2)).toEqual('10')
     })
 
-    it('rounds long decimals', () => {
-        expect(roundPxDecimalPlaces('10.0000003px', 3)).toEqual('10px')
-        expect(roundPxDecimalPlaces('10.123123px', 3)).toEqual('10.123px')
-        expect(roundPxDecimalPlaces('10.1238px', 3)).toEqual('10.124px')
+    it('rounds long decimals and remove px', () => {
+        expect(roundPxDecimalPlaces('10.0000003px', 3)).toEqual('10')
+        expect(roundPxDecimalPlaces('10.123123px', 3)).toEqual('10.123')
+        expect(roundPxDecimalPlaces('10.1238px', 3)).toEqual('10.124')
+    })
+
+    it('rounds long decimals and preserve px', () => {
+        expect(roundPxDecimalPlaces('10.0000003px', 3, true)).toEqual('10px')
+        expect(roundPxDecimalPlaces('10.123123px', 3, true)).toEqual('10.123px')
+        expect(roundPxDecimalPlaces('10.1238px', 3, true)).toEqual('10.124px')
+    })
+
+    it('rounds space-separated array', () => {
+        expect(roundPxDecimalPlaces('1px 1px', 3, true)).toEqual('1px 1px')
+        expect(roundPxDecimalPlaces('1px 1px', 3, false)).toEqual('1 1')
     })
 })
 
 describe('rgb2hex', () => {
     it('handles rgb string with commas and spaces', () => {
         expect(rgb2hex('rgb(255, 32, 5)')).toBe('#ff2005')
+        expect(rgb2hex('rgb(9, 10, 15)')).toBe('#090a0f')
+        expect(rgb2hex('rgb(16, 17, 18)')).toBe('#101112')
     })
 
     it('handles rgb string with spaces', () => {

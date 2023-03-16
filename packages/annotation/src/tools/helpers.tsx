@@ -1,9 +1,15 @@
 import { roundDecimalPlaces } from '@chsk/core'
 import { CleanSvgConfig } from './types'
 
-/** round a string representing pixels to a fixed number of decimal places */
-export const roundPxDecimalPlaces = (s: string, n: number) => {
-    const px = s.includes('px')
+/** round a pixel dimensions to a fixed number of decimal places, e.g. '2px 2.1234px' -> '2 2.123'  */
+export const roundPxDecimalPlaces = (s: string, n: number, preservePx = false): string => {
+    if (s.includes(' ')) {
+        return s
+            .split(' ')
+            .map(token => roundPxDecimalPlaces(token, n, preservePx))
+            .join(' ')
+    }
+    const px = s.includes('px') && preservePx
     const v = Number(s.replace('px', '').replace(';', ''))
     const result = isFinite(v) ? String(roundDecimalPlaces(v, n)) : s
     return px ? result + 'px' : result
@@ -20,7 +26,7 @@ const rgbValue2hex = (x: string) => {
         v = Number(x)
     }
     v = Math.max(0, Math.min(255, v))
-    return v < 10 ? '0' + v.toString(16) : v.toString(16)
+    return v < 16 ? '0' + v.toString(16) : v.toString(16)
 }
 
 /** convert an rgb(r g b a) string into hex */
@@ -66,9 +72,9 @@ export const cleanTransform = (x: string | undefined, n: number) => {
     if (translateXY[0] !== '0' || translateXY[1] !== '0') {
         translate =
             'translate(' +
-            roundPxDecimalPlaces(translateXY[0].replace('px', ''), n) +
+            roundPxDecimalPlaces(translateXY[0], n, false) +
             ',' +
-            roundPxDecimalPlaces(translateXY[1].replace('px', ''), n) +
+            roundPxDecimalPlaces(translateXY[1], n, false) +
             ')'
     }
     let scale = ''

@@ -10,9 +10,9 @@ describe('cleanSvg', () => {
         )
         const raw = screen.getByRole('target')
         const result = cleanSvg(raw.cloneNode(true) as HTMLElement)
-        expect(result.getAttribute('width')).toEqual('25.625px')
+        expect(result.getAttribute('width')).toEqual('25.625')
         expect(raw.getAttribute('height')).toEqual('130.344827px')
-        expect(result.getAttribute('height')).toEqual('130.345px')
+        expect(result.getAttribute('height')).toEqual('130.345')
     })
 
     it('recursively rounds values', () => {
@@ -27,9 +27,9 @@ describe('cleanSvg', () => {
         expect(cleanRoot.outerHTML).toContain('<svg')
         const rect = root.querySelector('rect')
         const cleanRect = cleanRoot.querySelector('rect')
-        expect(cleanRect?.getAttribute('width')).toEqual('25.625px')
+        expect(cleanRect?.getAttribute('width')).toEqual('25.625')
         expect(rect?.getAttribute('height')).toEqual('130.344827px')
-        expect(cleanRect?.getAttribute('height')).toEqual('130.345px')
+        expect(cleanRect?.getAttribute('height')).toEqual('130.345')
     })
 
     it('transfers transform from style (translateX, translateY) into attribute (rect)', () => {
