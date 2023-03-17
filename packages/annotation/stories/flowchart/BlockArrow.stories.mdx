@@ -1,5 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
-import { BlockArrow } from '../../src'
+import { Chart, Surface, LinearGradient } from '@chsk/core'
+import { BlockArrow, FilterInsetShadow } from '../../src'
 import { ChartDecorator } from '../decorators'
 
 <Meta title="Addons/Annotation/Flowchart/BlockArrow" />
@@ -72,20 +73,56 @@ Arrowheads can be configured at each side via prop `heads`.
 
 ## Styling
 
-Arrows can be styled using css.
+Arrows can be styled using css, including with gradients and filters.
 
 <Canvas>
     <Story
-        name="filled"
+        name="css style"
         args={{
             start: [50, 160],
             end: [200, 60],
             units: 'absolute',
+            stemWidth: 12,
             style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777' },
         }}
         component={BlockArrow}
         decorators={[ChartDecorator]}
     >
         {Template.bind({})}
+    </Story>
+    <Story name="gradient">
+        <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+            <defs>
+                <LinearGradient
+                    id="arrow-gradient"
+                    start={[0, 1]}
+                    end={[1, 0.333]}
+                    stops={['#dd000000', '#dd0000ff']}
+                    offsets={[0.05, 0.4]}
+                />
+            </defs>
+            <Surface variant={'inner'} />
+            <BlockArrow
+                stemWidth={12}
+                start={[50, 160]}
+                end={[200, 60]}
+                units={'absolute'}
+                style={{ fill: 'url(#arrow-gradient)', strokeWidth: 0 }}
+            />
+        </Chart>
+    </Story>
+    <Story name="filter">
+        <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
+            <FilterInsetShadow id={'arrow-shadow'} blurStdDeviation={6} floodOpacity={0.95} />
+            <Surface variant={'inner'} />
+            <BlockArrow
+                stemWidth={32}
+                headWidth={16}
+                start={[50, 160]}
+                end={[200, 60]}
+                units={'absolute'}
+                style={{ fill: '#dd0000', filter: 'url(#arrow-shadow)', strokeWidth: 0 }}
+            />
+        </Chart>
     </Story>
 </Canvas>
