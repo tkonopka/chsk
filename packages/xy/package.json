@@ -2,7 +2,7 @@
     "name": "@chsk/xy",
     "version": "0.3.0-alpha.0",
     "author": "Tomasz Konopka",
-    "description": "Components for charts with xy scales",
+    "description": "Components for charts with two cartesian axes with continuous scales",
     "main": "./dist/chsk-xy.cjs.js",
     "module": "./dist/chsk-xy.es.js",
     "typings": "./dist/types/index.d.ts",

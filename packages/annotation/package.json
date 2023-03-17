@@ -2,7 +2,7 @@
     "name": "@chsk/annotation",
     "version": "0.3.0-alpha.0",
     "author": "Tomasz Konopka",
-    "description": "Components for annotating charts",
+    "description": "Components for chart annotation",
     "main": "./dist/chsk-annotation.cjs.js",
     "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",

@@ -2,7 +2,7 @@
     "name": "@chsk/band",
     "version": "0.3.0-alpha.0",
     "author": "Tomasz Konopka",
-    "description": "Components for bar plots and box plots",
+    "description": "Components for charts with one categorical axis and one continuous axis",
     "main": "./dist/chsk-band.cjs.js",
     "module": "./dist/chsk-band.es.js",
     "typings": "./dist/types/index.d.ts",

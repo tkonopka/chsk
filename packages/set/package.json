@@ -2,7 +2,7 @@
     "name": "@chsk/set",
     "version": "0.3.0-alpha.0",
     "author": "Tomasz Konopka",
-    "description": "Components for bar plots and box plots",
+    "description": "Components for diagrams summarizing sets",
     "main": "./dist/chsk-set.cjs.js",
     "module": "./dist/chsk-set.es.js",
     "typings": "./dist/types/index.d.ts",

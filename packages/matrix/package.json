@@ -2,7 +2,7 @@
     "name": "@chsk/matrix",
     "version": "0.3.0-alpha.0",
     "author": "Tomasz Konopka",
-    "description": "Components for bar plots and box plots",
+    "description": "Components for charts with two categorical axes",
     "main": "./dist/chsk-matrix.cjs.js",
     "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",
