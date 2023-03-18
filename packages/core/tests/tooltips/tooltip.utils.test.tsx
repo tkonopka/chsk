@@ -10,6 +10,10 @@ describe('guessLabel', () => {
         expect(guessLabel({ id: 'A', key: 'custom', data: 5 })).toEqual('custom: 5')
     })
 
+    it('combines id and data', () => {
+        expect(guessLabel({ id: 'A', data: 15 })).toEqual('A: 15')
+    })
+
     it('uses key', () => {
         expect(guessLabel({ id: 'A', key: 'custom' })).toEqual('custom')
     })

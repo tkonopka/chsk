@@ -20,6 +20,9 @@ export const guessLabel = <DataSpec extends WithId & Record<string, unknown>>(
     if ('key' in x && 'data' in x) {
         return String(result['key']) + ': ' + String(result['data'])
     }
+    if ('id' in x && 'data' in x) {
+        return String(result['id']) + ': ' + String(result['data'])
+    }
     if ('key' in x) {
         return String(result['key'])
     }
