@@ -84,7 +84,7 @@ const getClosedPath = (points: NumericPositionSpec[]) => {
         .slice(1)
         .map(point => 'L' + point[X] + ',' + point[Y])
         .join('')
-    return 'M' + p0 + d + 'L' + p0
+    return 'M' + p0 + d + 'Z'
 }
 
 export const getBlockArrowPath = (props: GetArrowPointsProps): string => {
