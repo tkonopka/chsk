@@ -25,6 +25,7 @@
 
 ### Changed
 
+-   [core] upgrade d3-shape to v3.2.0
 -   [annotation] removed redundant 'px' suffixes in svg exports to reduce size
     of output
 -   [annotation] replaced 'rgb(...)' colors by hex strings in svg exports to
