@@ -1,0 +1,84 @@
+import { ArgsTable, Meta, Canvas, Story } from '@storybook/addon-docs'
+import { Slice } from '../../src'
+import { ChartForSliceDecorator } from './decorators'
+
+# Slice
+
+<Meta title="Addons/Polar/Pie/Slice" />
+
+export const Template = args => <Slice {...args} />
+
+`Slice` draws one piece of a pie / doughnut chart.
+
+`Slice` components are typically not used as standalone objects, but rather used as a prop to `Slices`.
+
+<ArgsTable of={Slice} />
+
+## Corners
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            innerRadius: 40,
+            outerRadius: 80,
+            startAngle: 0,
+            endAngle: Math.PI * 1.4,
+        }}
+        component={Slice}
+        decorators={[ChartForSliceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="rounded corners"
+        args={{
+            innerRadius: 40,
+            outerRadius: 80,
+            r: 8,
+            startAngle: 0,
+            endAngle: Math.PI * 1.4,
+        }}
+        component={Slice}
+        decorators={[ChartForSliceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Padding
+
+Prop `padAngle` shrinks the effective shape to create empty space at the slice boundaries.
+The examples below display slices that form semi-circles.
+Non-zero `padAngle` values make the slices appear slightly smaller.
+
+<Canvas>
+    <Story
+        name="small angle padding"
+        args={{
+            innerRadius: 40,
+            outerRadius: 80,
+            padAngle: 0.1,
+            startAngle: -Math.PI / 2,
+            endAngle: Math.PI / 2,
+        }}
+        component={Slice}
+        decorators={[ChartForSliceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="large angle padding"
+        args={{
+            innerRadius: 40,
+            outerRadius: 80,
+            padAngle: 1,
+            startAngle: -Math.PI / 2,
+            endAngle: Math.PI / 2,
+        }}
+        component={Slice}
+        decorators={[ChartForSliceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [polar] package for charts with polar coordinate systems
 -   [band] components `BarAndWhisker` and `LineAndWhiskers` to summarize
     distributions
 -   [xy] calculations of mean and standard deviation for histograms

@@ -27,6 +27,8 @@ export const parameters = {
                     ['Overview'],
                     'Matrix',
                     ['Overview'],
+                    'Polar',
+                    ['Overview'],
                     'Set',
                     ['Overview'],
                     'Themes',

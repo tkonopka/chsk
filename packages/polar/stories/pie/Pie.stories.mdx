@@ -1,0 +1,150 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { BoxedLabel } from '@chsk/annotation'
+import { Pie, Slices } from '../../src'
+import { ChartDecorator, commonPieProps } from './decorators'
+
+# Pie
+
+<Meta title="Addons/Polar/Pie/Pie" />
+
+export const Template = args => <Pie {...args} />
+
+`Pie` sets up a view for a pie or doughnut chart.
+
+<ArgsTable of={Pie} />
+
+## Data
+
+Data should be prepared as an array of objects. All objects should contain a string identifier `id` and a numeric field `data`.
+
+The pseudocode below shows one data item with an identifier and one numeric value.
+
+<Source
+    language="javascript"
+    code={`
+[
+  {
+    "id": "alpha",
+    "data": 55,
+  },
+  ...
+]
+`}
+/>
+
+## Orientation
+
+By default `Pie` processed data so that the first data slice aligns with the vertical axis.
+Prop `angle` rotates the whole chart around its center.
+
+<Canvas>
+    <Story
+        name="default"
+        args={{
+            ...commonPieProps,
+            children: (
+                <>
+                    <Slices />
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="rotated"
+        args={{
+            ...commonPieProps,
+            angle: Math.PI / 2,
+            children: (
+                <>
+                    <Slices />
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Alignment
+
+Prop `angleAlign` adjusts the orientation of the chart in a data-dependent way.
+The default value (zero) makes the leading edge of first slice align with the global chart angle.
+A value of one instead aligns the other edge of the first slice.
+Intermediate values are possible as well.
+
+<Canvas>
+    <Story
+        name="right-aligned"
+        args={{
+            ...commonPieProps,
+            angleAlign: 1,
+            children: (
+                <>
+                    <Slices />
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="center-aligned"
+        args={{
+            ...commonPieProps,
+            angleAlign: 0.5,
+            children: (
+                <>
+                    <Slices />
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Center
+
+The center of a pie or doughnut always coincides with the center of the view.
+Thus, to place custom content at the center of a doughnut, it is possible to use absolute svg coordinates.
+
+An alternative approach is to use view-specific coordinates.
+Although `Pie` visualizes data in a polar layout, it internally uses two cartesian scales to positions
+elements in the view. The center of a pie or doughnut is always at `[0, 0]` in those view coordinates.
+A component such as `BoxedLabel` can accept such view-specific coordinates and draw a label at the center.
+
+<Canvas>
+    <Story
+        name="center label"
+        args={{
+            ...commonPieProps,
+            children: (
+                <>
+                    <Slices rInner={0.6} />
+                    <BoxedLabel
+                        position={[0, 0]}
+                        positionUnits={'view'}
+                        boxStyle={{ fill: 'none' }}
+                        textStyle={{ fontSize: '18px', fontWeight: 600 }}
+                    >
+                        Label
+                    </BoxedLabel>
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

@@ -1,0 +1,75 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Slices } from '../../src'
+import { ChartPieDecorator } from './decorators'
+
+# Slices
+
+<Meta title="Addons/Polar/Pie/Slices" />
+
+export const Template = args => <Slices {...args} />
+
+`Slices` draws pieces for a pie / doughnut chart.
+
+<ArgsTable of={Slices} />
+
+## Radii
+
+Props `rInner` and `rOuter` determine the radii of slices.
+Default values are `rInner=0` and `rOuter=1`, which create slices for a pie chart.
+Setting `rInner` to a non-zero value creates a doughnut chart.
+
+<Canvas>
+    <Story
+        name="pie"
+        args={{
+            rInner: 0,
+            rOuter: 1,
+        }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="doughnut"
+        args={{
+            rInner: 0.6,
+            rOuter: 1,
+        }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Prop `rOuter` determines the overall scale.
+
+<Canvas>
+    <Story
+        name="scaled"
+        args={{
+            rInner: 0.4,
+            rOuter: 0.6,
+        }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Styling
+
+Slices can be styled using css.
+
+<Canvas>
+    <Story
+        name="styled"
+        args={{ style: { strokeWidth: 2, stroke: '#222', fillOpacity: 0.7 } }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
