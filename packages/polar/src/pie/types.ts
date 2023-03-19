@@ -16,7 +16,7 @@ export type PieProcessedDataItem = WithId & {
     index: number
     startAngle: number
     endAngle: number
-    value: number
+    data: number
     proportion: number
 }
 
@@ -57,6 +57,8 @@ export interface SliceProps extends SvgElementProps {
 export interface SlicesProps
     extends SvgElementProps,
         DataInteractivityProps<PieInteractiveDataItem, SliceProps> {
+    /** /** ids to display (defaults to all ids) */
+    ids?: string[]
     /** component used to draw individual bars */
     component?: FC<SliceProps>
     /** outer radius */

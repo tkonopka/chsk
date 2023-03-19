@@ -57,7 +57,7 @@ describe('isPieProcessedData', () => {
             {
                 id: 'a',
                 index: 0,
-                value: 10,
+                data: 10,
                 startAngle: 0,
                 endAngle: Math.PI,
                 proportion: 1.0,
@@ -65,7 +65,7 @@ describe('isPieProcessedData', () => {
             {
                 id: 'b',
                 index: 0,
-                value: 10,
+                data: 10,
                 startAngle: Math.PI,
                 endAngle: 2 * Math.PI,
                 proportion: 0.5,
@@ -78,7 +78,7 @@ describe('isPieProcessedData', () => {
         const input = [
             {
                 id: 'a',
-                value: 10,
+                data: 10,
                 startAngle: 0,
                 endAngle: Math.PI,
                 proportion: 0.5,
@@ -92,14 +92,14 @@ describe('isPieProcessedData', () => {
             {
                 id: 'a',
                 index: 0,
-                value: 10,
+                data: 10,
                 proportion: 1.0,
             },
         ]
         expect(isPieProcessedData(input)).toBeFalsy()
     })
 
-    it('reject data with missing value', () => {
+    it('reject data with missing data', () => {
         const input = [
             {
                 id: 'a',

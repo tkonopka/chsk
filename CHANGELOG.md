@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [polar] examples with pie and doughnut chart
 -   [polar] package for charts with polar coordinate systems
 -   [band] components `BarAndWhisker` and `LineAndWhiskers` to summarize
     distributions

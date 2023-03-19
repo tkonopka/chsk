@@ -1,0 +1,20 @@
+import { Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Controller } from '../Controller'
+import { generatePieData, PieChart } from './PieChart'
+import { generateDoughnutData, DoughnutChart } from './DoughnutChart'
+
+<Meta title="Gallery/Polar" />
+
+# Examples of polar charts
+
+<Canvas>
+    <Story name="pie">
+        <Controller generator={generatePieData} chart={PieChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="doughnut">
+        <Controller generator={generateDoughnutData} chart={DoughnutChart} />
+    </Story>
+</Canvas>

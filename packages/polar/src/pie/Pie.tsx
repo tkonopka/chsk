@@ -33,7 +33,7 @@ const processData = (
         return {
             id: seriesData.id,
             index,
-            value: values[index],
+            data: values[index],
             proportion,
             startAngle,
             endAngle,

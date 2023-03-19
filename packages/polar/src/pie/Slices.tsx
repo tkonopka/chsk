@@ -6,18 +6,20 @@ import {
     useScales,
     ContinuousAxisScale,
     useProcessedData,
+    getIdKeySets,
 } from '@chsk/core'
 import { Slice } from './Slice'
 import { SlicesProps } from './types'
 import { isPieProcessedData } from './predicates'
 
 export const Slices = ({
+    ids,
     rOuter = 1,
     rInner = 0,
     rCorner = 0,
     padAngle = 0,
     //
-    component = Slice,
+    component,
     className,
     style,
     dataComponent = TooltipDataComponent,
@@ -32,6 +34,11 @@ export const Slices = ({
     const data = processedData.data
     if (!isPieProcessedData(data)) return null
 
+    const { idSet } = useMemo(
+        () => getIdKeySets(ids, undefined, processedData),
+        [ids, processedData]
+    )
+
     const styles = useMemo(
         () => processedData.keys.map((k, i) => addColor(style, colorScale(i))),
         [processedData, style, colorScale]
@@ -39,9 +46,10 @@ export const Slices = ({
 
     const x0 = xScale(0)
     const result = data.map((item, i) => {
+        if (!idSet.has(item.id)) return null
         return createElement(dataComponent, {
             key: 'slice-' + item.id,
-            component,
+            component: component ?? Slice,
             data: item,
             props: {
                 innerRadius: xScale(rInner) - x0,

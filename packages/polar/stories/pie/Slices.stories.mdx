@@ -12,6 +12,21 @@ export const Template = args => <Slices {...args} />
 
 <ArgsTable of={Slices} />
 
+## Data subsets
+
+By default, `Slices` draws an entire dataset. To draw subsets, set props `ids`.
+
+<Canvas>
+    <Story
+        name="selected ids"
+        args={{ ids: ['alpha', 'gamma'] }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Radii
 
 Props `rInner` and `rOuter` determine the radii of slices.
@@ -51,6 +66,27 @@ Prop `rOuter` determines the overall scale.
         args={{
             rInner: 0.4,
             rOuter: 0.6,
+        }}
+        component={Slices}
+        decorators={[ChartPieDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Decorations
+
+Prop `rCorner` creates slices with rounded corners.
+Prop `padAngle` creates empty space between adjacent slices.
+
+<Canvas>
+    <Story
+        name="rounded corners"
+        args={{
+            rCorner: 5,
+            rInner: 0.8,
+            rOuter: 1,
+            padAngle: 0.05,
         }}
         component={Slices}
         decorators={[ChartPieDecorator]}

@@ -38,6 +38,17 @@ describe('Slices', () => {
         expect(screen.queryByRole('slices')).toBeNull()
     })
 
+    it('creates subset of slices', () => {
+        render(
+            <Chart>
+                <Pie {...pieProps}>
+                    <Slices ids={['alpha']} />
+                </Pie>
+            </Chart>
+        )
+        expect(screen.getByRole('view-pie').querySelectorAll('path')).toHaveLength(1)
+    })
+
     it('creates slices without role', () => {
         render(
             <Chart>
