@@ -35,12 +35,14 @@ export const Counter = ({
     const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
     const pos = getAlignPosition(corner, size, align, padding)
 
-    if (Number(value) != Number(children) && !working) {
+    if (value !== Number(children) && !working) {
         animate(value, Number(children), {
             duration: theme.Motion.duration,
+            onPlay: () => {
+                setWorking(true)
+            },
             onUpdate: latest => {
                 setValue(roundDecimalPlaces(latest, nDecimalPlaces))
-                setWorking(true)
             },
             onComplete: () => {
                 setWorking(false)
