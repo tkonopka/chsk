@@ -21,9 +21,12 @@ export const getMoments = (data: number[]): [number, number] => {
     return [mean, sumSquares / (n - 1)]
 }
 
-/** convert radians to degrees */
+/** convert radians to degrees, degrees to radians */
 export const rad2deg = (x: number) => {
     return (180 * x) / Math.PI
+}
+export const deg2rad = (x: number) => {
+    return (x * Math.PI) / 180
 }
 
 /** get inner size given a padding vector */

@@ -12,9 +12,9 @@ export interface TypographyProps extends SvgElementVariantProps {
     position?: NumericPositionSpec
     /** variant */
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
-    /** rotation */
+    /** rotation (degrees) */
     rotate?: number
-    /** text content */
+    /** content */
     children?: ReactNode
 }
 
@@ -29,10 +29,7 @@ export type LabelLocationSpec = {
     align?: AlignSpec
 }
 
-export interface LabelProps extends TypographyProps, LabelLocationSpec {
-    /** position for center of label container */
-    position?: NumericPositionSpec
-}
+export type LabelProps = TypographyProps & LabelLocationSpec
 
 export interface CounterProps extends LabelProps {
     /** number of decimal places */

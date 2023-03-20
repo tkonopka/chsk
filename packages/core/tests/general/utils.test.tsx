@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, rad2deg, getMoments } from '../../src/general'
+import { roundDecimalPlaces, rad2deg, getMoments, deg2rad } from '../../src/general'
 import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {
@@ -24,9 +24,14 @@ describe('roundDecimalPlaces', () => {
 })
 
 describe('radians and degrees', () => {
-    it('simple conversion', () => {
+    it('simple conversion to degrees', () => {
         expect(Math.round(rad2deg(Math.PI))).toEqual(180)
         expect(Math.round(rad2deg(Math.PI / 2))).toEqual(90)
+    })
+
+    it('simple conversion to radians', () => {
+        expect(roundDecimalPlaces(deg2rad(180), 3)).toEqual(roundDecimalPlaces(Math.PI, 3))
+        expect(roundDecimalPlaces(deg2rad(90), 3)).toEqual(roundDecimalPlaces(Math.PI / 2, 3))
     })
 })
 

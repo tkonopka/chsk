@@ -1,16 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    ContinuousAxisScale,
-    defaultScaleX,
-    defaultScaleY,
-    ProcessedDataContextProps,
-    roundDecimalPlaces,
-    ScalesContextProps,
-    useProcessedData,
-    useScales,
-} from '@chsk/core'
-import { Pie, isPieProcessedData, PieProcessedDataItem, Slices } from '../../src'
+import { Chart } from '@chsk/core'
+import { Pie, Slices } from '../../src'
 import { pieProps } from './props'
 
 describe('Slices', () => {

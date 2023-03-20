@@ -1,5 +1,5 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip } from '@chsk/core'
-import { isPieData, Pie, Slices } from '@chsk/polar'
+import { isPieData, Origin, Pie, Slices } from '@chsk/polar'
 import { downloadTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
@@ -34,7 +34,9 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     colors: 'Blues',
                 }}
             >
-                <Slices style={{ stroke: '#000', strokeWidth: 1 }} />
+                <Origin>
+                    <Slices style={{ stroke: '#000', strokeWidth: 1 }} />
+                </Origin>
                 <DownloadButtons position={[240, -40]} data image />
                 <Tooltip translate={[0, -20]} />
             </Pie>

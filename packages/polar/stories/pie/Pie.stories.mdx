@@ -1,7 +1,8 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { BoxedLabel } from '@chsk/annotation'
-import { Pie, Slices } from '../../src'
-import { ChartDecorator, commonPieProps } from './decorators'
+import { Label } from '@chsk/core'
+import { Pie, Origin, Slices } from '../../src'
+import { ChartDecorator } from '../decorators'
+import { commonPieProps } from './decorators'
 
 # Pie
 
@@ -32,6 +33,18 @@ The pseudocode below shows one data item with an identifier and one numeric valu
 `}
 />
 
+## Coordinate system
+
+Consistently with the `View` component in `@chsk/core` (and other view components in add-on packages such as
+`Scatter` in `@chsk/xy`), the `Pie` component creates a view in which the svg/absolute position [0, 0]
+corresponds to the top-left corner of the view. This convention enables charts to place
+elements on the chart in the same way as in other views. For example, a default `Typography` component should appear
+in the top-left corner, and a `Surface` component should create a background rectangle that fills the view.
+
+Many components specific to the `Pie` view, however, assume a different convention.
+Indeed, they assume that the point [0, 0] in svg coordinates coincides with [0, 0] defined by the
+x- and y- scales within the view. To meet this assumption, use `Origin` as a child component.
+
 ## Orientation
 
 By default `Pie` processed data so that the first data slice aligns with the vertical axis.
@@ -43,9 +56,9 @@ Prop `angle` rotates the whole chart around its center.
         args={{
             ...commonPieProps,
             children: (
-                <>
+                <Origin>
                     <Slices />
-                </>
+                </Origin>
             ),
         }}
         component={Pie}
@@ -59,9 +72,9 @@ Prop `angle` rotates the whole chart around its center.
             ...commonPieProps,
             angle: Math.PI / 2,
             children: (
-                <>
+                <Origin>
                     <Slices />
-                </>
+                </Origin>
             ),
         }}
         component={Pie}
@@ -85,9 +98,9 @@ Intermediate values are possible as well.
             ...commonPieProps,
             angleAlign: 1,
             children: (
-                <>
+                <Origin>
                     <Slices />
-                </>
+                </Origin>
             ),
         }}
         component={Pie}
@@ -101,9 +114,9 @@ Intermediate values are possible as well.
             ...commonPieProps,
             angleAlign: 0.5,
             children: (
-                <>
+                <Origin>
                     <Slices />
-                </>
+                </Origin>
             ),
         }}
         component={Pie}
@@ -115,13 +128,7 @@ Intermediate values are possible as well.
 
 ## Center
 
-The center of a pie or doughnut always coincides with the center of the view.
-Thus, to place custom content at the center of a doughnut, it is possible to use absolute svg coordinates.
-
-An alternative approach is to use view-specific coordinates.
-Although `Pie` visualizes data in a polar layout, it internally uses two cartesian scales to positions
-elements in the view. The center of a pie or doughnut is always at `[0, 0]` in those view coordinates.
-A component such as `BoxedLabel` can accept such view-specific coordinates and draw a label at the center.
+The center of a pie or doughnut is always at `[0, 0]`.
 
 <Canvas>
     <Story
@@ -129,17 +136,12 @@ A component such as `BoxedLabel` can accept such view-specific coordinates and d
         args={{
             ...commonPieProps,
             children: (
-                <>
+                <Origin>
                     <Slices rInner={0.6} />
-                    <BoxedLabel
-                        position={[0, 0]}
-                        positionUnits={'view'}
-                        boxStyle={{ fill: 'none' }}
-                        textStyle={{ fontSize: '18px', fontWeight: 600 }}
-                    >
+                    <Label position={[0, 0]} style={{ fontSize: '18px', fontWeight: 600 }}>
                         Label
-                    </BoxedLabel>
-                </>
+                    </Label>
+                </Origin>
             ),
         }}
         component={Pie}

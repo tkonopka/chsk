@@ -1,0 +1,113 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Surface } from '@chsk/core'
+import { PolarTypography } from '../../src'
+import { ChartOriginDecorator } from './decorators'
+
+# PolarTypography
+
+<Meta title="Addons/Polar/Polar/PolarTypography" />
+
+export const Template = args => <PolarTypography {...args} />
+
+`PolarTypography` draws text on a polar chart.
+
+<ArgsTable of={PolarTypography} />
+
+## Position
+
+By default, `PolarTypography` creates text at the origin.
+Prop `position` specifies an alternate position in the form of a radius (in pixels) and an angle (in degrees).
+
+<Canvas>
+    <Story
+        name="origin"
+        args={{
+            position: [0, 0],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="two o clock"
+        args={{
+            position: [100, 60],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Orientation
+
+`PolarTypography` orient text horizontally by default.
+Flags `radial` and `tangential` rotate the labels based on their position along the circle.
+
+<Canvas>
+    <Story
+        name="radial"
+        args={{
+            radial: true,
+            position: [100, 60],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="tangential"
+        args={{
+            tangential: true,
+            position: [100, 60],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Variants
+
+The default variant for `PolarTypography` is `polar-label`.
+The characteristic of this variant is that it automatically rotates some labels:
+radial labels are rotated differently in the left and right hemispheres;
+tangential labels are rotated different in the top and bottom hemisphere.
+
+<Canvas>
+    <Story
+        name="radial, left hemisphere"
+        args={{
+            radial: true,
+            position: [100, -60],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="tangent, bottom hemisphere"
+        args={{
+            tangential: true,
+            position: [100, 120],
+            children: 'label',
+        }}
+        component={PolarTypography}
+        decorators={[ChartOriginDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that labels in the right and left hemispheres may require different alignments.
+That can be achieved through themes.

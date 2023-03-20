@@ -1,3 +1,4 @@
+import { FC } from 'react'
 import {
     CategoricalScaleSpec,
     DataInteractivityProps,
@@ -6,7 +7,7 @@ import {
     ViewProps,
     WithId,
 } from '@chsk/core'
-import { FC } from 'react'
+import { PolarTypographyProps } from '../general'
 
 export type PieDataItem = WithId & {
     data: number
@@ -69,4 +70,17 @@ export interface SlicesProps
     rCorner?: number
     /** angle padding */
     padAngle?: number
+}
+
+export interface SlicesLabelsProps
+    extends Omit<PolarTypographyProps, 'variant'>,
+        Pick<SlicesProps, 'ids'> {
+    /** radial position */
+    r: number
+    /** minimum angle (degrees) */
+    minAngle?: number
+    /** format for text */
+    format?: (v: string | number) => string
+    /** components used to render text */
+    component?: FC<PolarTypographyProps>
 }

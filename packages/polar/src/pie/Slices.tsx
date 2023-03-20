@@ -1,5 +1,4 @@
 import { createElement, useMemo } from 'react'
-import { m } from 'framer-motion'
 import {
     addColor,
     TooltipDataComponent,
@@ -29,7 +28,6 @@ export const Slices = ({
     const processedData = useProcessedData()
     const scales = useScales()
     const xScale = scales.x as ContinuousAxisScale
-    const yScale = scales.y as ContinuousAxisScale
     const colorScale = scales.color
     const data = processedData.data
     if (!isPieProcessedData(data)) return null
@@ -60,16 +58,11 @@ export const Slices = ({
                 r: rCorner,
                 className,
                 style: styles[i],
-                setRole: false,
+                setRole,
             },
             ...props,
         })
     })
 
-    const config = { x: xScale(0), y: yScale(0), originX: '0px', originY: '0px' }
-    return (
-        <m.g initial={config} animate={config} role={setRole ? 'slices' : undefined}>
-            {result}
-        </m.g>
-    )
+    return <>{result}</>
 }

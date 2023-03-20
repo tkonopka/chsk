@@ -1,5 +1,5 @@
-import { Chart, ThemeSpec, mergeTheme, Tooltip } from '@chsk/core'
-import { isPieData, Pie, Slices } from '@chsk/polar'
+import { Chart, ThemeSpec, mergeTheme, Tooltip, roundDecimalPlaces } from '@chsk/core'
+import { isPieData, Origin, Pie, Slices, SlicesLabels } from '@chsk/polar'
 import { downloadTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
@@ -9,10 +9,18 @@ const ids = alphabetGreek.slice(0, 6)
 
 export const generateDoughnutData = () => {
     const sizes = generateUniformPopulation(ids.length, 1, 50).map(Math.round)
-    return ids.map((id, i) => ({ id, data: sizes[i] }))
+    const total = sizes.reduce((acc, v) => acc + v, 0)
+    return ids.map((id, i) => ({ id, data: roundDecimalPlaces((100 * sizes[i]) / total, 2) }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {})
+const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+    text: {
+        sliceLabel: {
+            pointerEvents: 'none',
+            fill: '#000000',
+        },
+    },
+})
 
 export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isPieData(rawData)) return null
@@ -33,9 +41,17 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     colors: 'Oranges',
                 }}
             >
-                <Slices rInner={0.6} style={{ stroke: '#000000', strokeWidth: 1 }} />
+                <Origin>
+                    <Slices rInner={0.6} style={{ stroke: '#000000', strokeWidth: 1 }} />
+                    <SlicesLabels r={0.8} minAngle={12} format={v => Math.round(Number(v)) + '%'} />
+                </Origin>
                 <DownloadButtons position={[240, -40]} data image />
-                <Tooltip translate={[0, -20]} />
+                <Tooltip
+                    itemSize={[80, 24]}
+                    translate={[0, -20]}
+                    titleFormat={x => x.data?.[0].id}
+                    labelFormat={x => x.data + '%'}
+                />
             </Pie>
         </Chart>
     )
