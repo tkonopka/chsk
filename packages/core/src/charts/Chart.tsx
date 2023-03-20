@@ -64,6 +64,10 @@ export const Chart = ({
             debouncedSetChartSize(boxSize)
         })
         resizeObserver.observe(parent)
+
+        return () => {
+            resizeObserver.unobserve(parent)
+        }
     }, [])
 
     return (
