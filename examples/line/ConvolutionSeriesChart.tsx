@@ -36,6 +36,14 @@ export const generateConvolutionSeriesData = () => {
 }
 
 const customTheme = mergeTheme(downloadTheme, {
+    circle: {
+        default: {
+            opacity: 0.5,
+        },
+        legendSymbol: {
+            opacity: 1,
+        },
+    },
     rect: {
         tooltip: {
             fill: '#444444ee',
@@ -99,7 +107,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Axis variant={'left'}>
                     <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
                 </Axis>
-                <ScatterPoints symbolStyle={{ opacity: 0.5 }} />
+                <ScatterPoints />
                 <ScatterCurve
                     curve={'Natural'}
                     style={{ strokeWidth: 4 }}
@@ -108,7 +116,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
                 />
                 <ScatterCrosshair
                     symbol={LargerCircle}
-                    symbolStyle={{ strokeWidth: 1.5, stroke: '#000000' }}
+                    symbolStyle={{ strokeWidth: 1.5, stroke: '#000000', opacity: 1 }}
                     style={{ strokeWidth: 0 }}
                 />
                 <Legend
