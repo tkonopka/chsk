@@ -100,12 +100,12 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={[0, 50, 100]} labelRotate={45} />
+                        <AxisTicks variant="top" ticks={[0, 50, 100]} labelAngle={45} />
                     </Axis>
                 </View>
             </Chart>
         )
         const ticks = screen.getByRole('axis-top').querySelectorAll('text')
-        expect(ticks[0].closest('g')?.getAttribute('style')).toContain('rotate(')
+        expect(ticks[0].closest('g')?.getAttribute('style')).toContain('rotate(45')
     })
 })
