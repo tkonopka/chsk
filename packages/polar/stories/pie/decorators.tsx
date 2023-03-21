@@ -20,6 +20,14 @@ export const ChartPieDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
+export const ChartDoughnutDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
+        <Pie {...commonPieProps} rInner={0.6}>
+            <Origin>{Story()}</Origin>
+        </Pie>
+    </Chart>
+)
+
 export const ChartPieSlicesDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Pie {...commonPieProps}>
@@ -33,9 +41,9 @@ export const ChartPieSlicesDecorator = (Story: () => ReactNode) => (
 
 export const ChartDoughnutSlicesDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Pie {...commonPieProps}>
+        <Pie {...commonPieProps} rInner={0.6}>
             <Origin>
-                <Slices rInner={0.6} />
+                <Slices />
                 {Story()}
             </Origin>
         </Pie>

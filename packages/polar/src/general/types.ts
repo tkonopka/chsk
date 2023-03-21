@@ -1,20 +1,19 @@
 import { ReactNode } from 'react'
-import { NumericPositionSpec, SvgElementVariantProps, TypographyProps } from '@chsk/core'
-
-export type R = 0
-export type THETA = 1
+import { AngleUnit, NumericPositionSpec, SvgElementVariantProps } from '@chsk/core'
 
 export interface OriginProps extends SvgElementVariantProps {
     children?: ReactNode
 }
 
-export interface PolarTypographyProps extends Omit<TypographyProps, 'variant' | 'position'> {
-    /** variant */
-    variant?: 'default' | 'polar-label' | string
-    /** position in polar coordinates [r, theta (degrees)] */
+export interface PolarItemProps extends Omit<SvgElementVariantProps, 'className' | 'style'> {
+    /** position in polar coordinates [radius, angle] */
     position?: NumericPositionSpec
+    /** angle units */
+    angleUnit?: AngleUnit
     /** flag, orient text radially */
     radial?: boolean
     /** flag, orient text tangentially */
     tangential?: boolean
+    /** children */
+    children?: ReactNode
 }

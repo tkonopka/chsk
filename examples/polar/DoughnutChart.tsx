@@ -29,8 +29,8 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             data={chartData}
             fref={fref}
             id="doughnut-oranges"
-            size={[400, 300]}
-            padding={[60, 60, 40, 60]}
+            size={[480, 360]}
+            padding={[80, 60, 30, 60]}
             theme={customTheme}
         >
             <Pie

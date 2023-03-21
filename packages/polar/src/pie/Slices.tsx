@@ -13,9 +13,7 @@ import { isPieProcessedData } from './predicates'
 
 export const Slices = ({
     ids,
-    rOuter = 1,
-    rInner = 0,
-    rCorner = 0,
+    r = 0,
     padAngle = 0,
     //
     component,
@@ -50,12 +48,12 @@ export const Slices = ({
             component: component ?? Slice,
             data: item,
             props: {
-                innerRadius: xScale(rInner) - x0,
-                outerRadius: xScale(rOuter) - x0,
+                innerRadius: xScale(item.rInner) - x0,
+                outerRadius: xScale(item.rOuter) - x0,
                 startAngle: item.startAngle,
                 endAngle: item.endAngle,
                 padAngle,
-                r: rCorner,
+                r,
                 className,
                 style: styles[i],
                 setRole,

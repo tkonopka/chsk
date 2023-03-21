@@ -2,26 +2,26 @@ import { createElement, ReactNode, useMemo } from 'react'
 import {
     ContinuousAxisScale,
     deg2rad,
-    getClassName,
     getIdKeySets,
-    rad2deg,
+    SimpleDataComponent,
     useProcessedData,
     useScales,
 } from '@chsk/core'
-import { PolarTypography } from '../general'
 import { isPieProcessedData } from './predicates'
-import { SlicesLabelsProps } from './types'
+import { SliceLabel } from './SliceLabel'
+import { SliceLabelsProps } from './types'
 
-export const SlicesLabels = ({
+export const SliceLabels = ({
     ids,
-    r = 0.5,
+    align = [0.5, 0.5],
     minAngle = 10,
     format = (v: string | number) => String(v),
     className,
     setRole = false,
     style,
-    component = PolarTypography,
-}: SlicesLabelsProps) => {
+    dataComponent = SimpleDataComponent,
+    component = SliceLabel,
+}: SliceLabelsProps) => {
     const processedData = useProcessedData()
     const rScale = useScales().x as ContinuousAxisScale
     const data = processedData.data
@@ -31,27 +31,28 @@ export const SlicesLabels = ({
         () => getIdKeySets(ids, undefined, processedData),
         [ids, processedData]
     )
-    const innerClassName = getClassName('sliceLabel', className)
     const minAngleRad = deg2rad(minAngle)
     const r0 = rScale(0)
 
     const result: Array<ReactNode> = data.map((seriesData, i) => {
         if (!idSet.has(seriesData.id)) return null
-        const compositeClassName = innerClassName
-        const labelStyle = style
-        const angle = (seriesData.endAngle + seriesData.startAngle) / 2
         if (seriesData.endAngle - seriesData.startAngle < minAngleRad) return null
-        return createElement(
+        return createElement(dataComponent, {
+            key: 'slice-label-' + i,
             component,
-            {
-                key: 'slices-label-' + i,
-                position: [rScale(r) - r0, rad2deg(angle)],
-                className: compositeClassName,
-                style: labelStyle,
+            data: seriesData,
+            props: {
+                startAngle: seriesData.startAngle,
+                endAngle: seriesData.endAngle,
+                innerRadius: rScale(seriesData.rInner) - r0,
+                outerRadius: rScale(seriesData.rOuter) - r0,
+                align,
+                className,
+                style: style,
                 setRole: setRole,
+                children: format(seriesData.data),
             },
-            format(seriesData.data)
-        )
+        })
     })
 
     return <>{result.filter(Boolean)}</>

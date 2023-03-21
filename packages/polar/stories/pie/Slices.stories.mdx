@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Slices } from '../../src'
-import { ChartPieDecorator } from './decorators'
+import { ChartPieDecorator, ChartDoughnutDecorator } from './decorators'
 
 # Slices
 
@@ -21,54 +21,7 @@ By default, `Slices` draws an entire dataset. To draw subsets, set props `ids`.
         name="selected ids"
         args={{ ids: ['alpha', 'gamma'] }}
         component={Slices}
-        decorators={[ChartPieDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-## Radii
-
-Props `rInner` and `rOuter` determine the radii of slices.
-Default values are `rInner=0` and `rOuter=1`, which create slices for a pie chart.
-To create a doughnut, set `rInner` to a non-zero value.
-
-<Canvas>
-    <Story
-        name="pie"
-        args={{
-            rInner: 0,
-            rOuter: 1,
-        }}
-        component={Slices}
-        decorators={[ChartPieDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-    <Story
-        name="doughnut"
-        args={{
-            rInner: 0.6,
-            rOuter: 1,
-        }}
-        component={Slices}
-        decorators={[ChartPieDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
-Prop `rOuter` determines the overall scale.
-
-<Canvas>
-    <Story
-        name="scaled"
-        args={{
-            rInner: 0.4,
-            rOuter: 0.6,
-        }}
-        component={Slices}
-        decorators={[ChartPieDecorator]}
+        decorators={[ChartDoughnutDecorator]}
     >
         {Template.bind({})}
     </Story>
@@ -83,13 +36,11 @@ Prop `padAngle` creates empty space between adjacent slices.
     <Story
         name="rounded corners"
         args={{
-            rCorner: 5,
-            rInner: 0.8,
-            rOuter: 1,
+            r: 6,
             padAngle: 0.05,
         }}
         component={Slices}
-        decorators={[ChartPieDecorator]}
+        decorators={[ChartDoughnutDecorator]}
     >
         {Template.bind({})}
     </Story>

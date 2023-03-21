@@ -1,37 +1,38 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { Pie, SlicesLabels } from '../../src'
+import { Pie, SliceLabels } from '../../src'
 import { pieProps } from './props'
 
-describe('SlicesLabels', () => {
+describe('SliceLabels', () => {
     it('creates labels', () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
-                    <SlicesLabels r={0.5} />
+                    <SliceLabels />
                 </Pie>
             </Chart>
         )
-        const n = pieProps.data.length
-        expect(screen.getByRole('view-pie').querySelectorAll('text')).toHaveLength(n)
+        const labels = screen.getByRole('view-pie').querySelectorAll('text')
+        expect(labels).toHaveLength(pieProps.data.length)
+        expect(labels[0].getAttribute('class')).toContain('sliceLabel')
     })
 
     it('avoids work when data is empty', () => {
         render(
             <Chart>
                 <Pie data={[]}>
-                    <SlicesLabels r={0.5} />
+                    <SliceLabels />
                 </Pie>
             </Chart>
         )
         expect(screen.getByRole('view-pie').querySelectorAll('text')).toHaveLength(0)
     })
 
-    it('creates subset of slices', () => {
+    it('creates subset of labels', () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
-                    <SlicesLabels ids={['alpha']} r={0.5} />
+                    <SliceLabels ids={['alpha']} />
                 </Pie>
             </Chart>
         )
@@ -42,7 +43,7 @@ describe('SlicesLabels', () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
-                    <SlicesLabels r={0.5} setRole={false} />
+                    <SliceLabels setRole={false} />
                 </Pie>
             </Chart>
         )
@@ -54,7 +55,7 @@ describe('SlicesLabels', () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
-                    <SlicesLabels r={0.5} minAngle={90} />
+                    <SliceLabels minAngle={90} />
                 </Pie>
             </Chart>
         )

@@ -45,16 +45,60 @@ Many components specific to the `Pie` view, however, assume a different conventi
 Indeed, they assume that the point [0, 0] in svg coordinates coincides with [0, 0] defined by the
 x- and y- scales within the view. To meet this assumption, use `Origin` as a child component.
 
-## Orientation
+## Radii
 
-By default `Pie` processed data so that the first data slice aligns with the vertical axis.
-Prop `angle` rotates the whole chart around its center.
+Props `rInner` and `rOuter` determine the radii of slices.
+Default values are `rInner=0` and `rOuter=1`, which create slices for a pie chart.
+To create a doughnut, set `rInner` to a non-zero value.
 
 <Canvas>
     <Story
-        name="default"
+        name="pie"
+        args={{
+        ...commonPieProps,
+            rInner: 0,
+            rOuter: 1,
+             children: (
+                            <Origin>
+                                <Slices />
+                            </Origin>
+                        ),
+        }}
+
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="doughnut"
+        args={{
+        ...commonPieProps,
+            rInner: 0.6,
+            rOuter: 1,
+             children: (
+                            <Origin>
+                                <Slices />
+                            </Origin>
+                        ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+
+</Canvas>
+
+Prop `rOuter` determines the overall scale.
+
+<Canvas>
+    <Story
+        name="scaled"
         args={{
             ...commonPieProps,
+            rInner: 0.4,
+            rOuter: 0.6,
             children: (
                 <Origin>
                     <Slices />
@@ -66,6 +110,16 @@ Prop `angle` rotates the whole chart around its center.
     >
         {Template.bind({})}
     </Story>
+</Canvas>
+
+(An alternative way to scale the pie is with the view scale prop `scaleR`).
+
+## Orientation
+
+By default `Pie` processed data so that the first data slice aligns with the vertical axis.
+Prop `angle` rotates the whole chart around its center.
+
+<Canvas>
     <Story
         name="rotated"
         args={{
@@ -135,6 +189,7 @@ The center of a pie or doughnut is always at `[0, 0]`.
         name="center label"
         args={{
             ...commonPieProps,
+            rInner: 0.8,
             children: (
                 <Origin>
                     <Slices rInner={0.6} />

@@ -1,31 +1,33 @@
+import { useState } from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, ContinuousScaleProps, View } from '@chsk/core'
-import { PolarTypography } from '../../src'
+import { PolarItem } from '../../src'
 import { getTransform } from '../../../core/tests/utils'
-import { useState } from 'react'
 
-describe('PolarTypography', () => {
+describe('PolarItem', () => {
     const scaleLinear11: Omit<ContinuousScaleProps, 'size'> = { variant: 'linear', domain: [-1, 1] }
 
     it('create a text element', () => {
         render(
             <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <PolarTypography>abc</PolarTypography>
+                    <PolarItem>
+                        <text>abc</text>
+                    </PolarItem>
                 </View>
             </Chart>
         )
         const result = screen.getByRole('view-content').querySelectorAll('text')
         expect(result).toHaveLength(1)
-        expect(result[0].getAttribute('class')).toContain('label ')
-        expect(result[0].getAttribute('class')).toContain('polarLabel')
     })
 
     it('create a text element without role', () => {
         render(
             <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <PolarTypography setRole={false}>abc</PolarTypography>
+                    <PolarItem setRole={false}>
+                        <text>abc</text>
+                    </PolarItem>
                 </View>
             </Chart>
         )
@@ -37,7 +39,7 @@ describe('PolarTypography', () => {
         render(
             <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <PolarTypography></PolarTypography>
+                    <PolarItem></PolarItem>
                 </View>
             </Chart>
         )
@@ -56,9 +58,9 @@ describe('PolarTypography', () => {
                             setAngle(value => value + 170)
                         }}
                     />
-                    <PolarTypography variant={'custom'} position={[100, angle]}>
-                        abc
-                    </PolarTypography>
+                    <PolarItem variant={'custom'} position={[100, angle]} angleUnit={'degree'}>
+                        <text>abc</text>
+                    </PolarItem>
                 </>
             )
         }
@@ -91,12 +93,12 @@ describe('PolarTypography', () => {
         render(
             <Chart size={[400, 300]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <PolarTypography key={0} radial position={[100, 10]}>
-                        right
-                    </PolarTypography>
-                    <PolarTypography key={1} radial position={[100, -10]}>
-                        left
-                    </PolarTypography>
+                    <PolarItem key={0} radial position={[100, 10]} angleUnit={'degree'}>
+                        <text>right</text>
+                    </PolarItem>
+                    <PolarItem key={1} radial position={[100, -10]} angleUnit={'degree'}>
+                        <text>left</text>
+                    </PolarItem>
                 </View>
             </Chart>
         )
@@ -104,24 +106,20 @@ describe('PolarTypography', () => {
         const left = screen.queryByText('left')
         // radial label on the right should be nearly vertical
         expect(right?.closest('g')?.getAttribute('style')).toContain('(-80deg)')
-        expect(right?.getAttribute('class')).not.toContain('Hemisphere')
-        expect(right?.getAttribute('class')).not.toContain('undefined')
         // radial label on the left should be nearly vertical, but in opposite direction
         expect(left?.closest('g')?.getAttribute('style')).toContain('(80deg)')
-        expect(left?.getAttribute('class')).toContain('leftHemisphere')
-        expect(left?.getAttribute('class')).not.toContain('undefined')
     })
 
     it('rotates tangential labels in the bottom hemisphere', () => {
         render(
             <Chart size={[400, 300]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <PolarTypography key={0} tangential position={[100, 80]}>
-                        top
-                    </PolarTypography>
-                    <PolarTypography key={1} tangential position={[100, 100]}>
-                        bottom
-                    </PolarTypography>
+                    <PolarItem key={0} tangential position={[100, 80]} angleUnit={'degree'}>
+                        <text>top</text>
+                    </PolarItem>
+                    <PolarItem key={1} tangential position={[100, 100]} angleUnit={'degree'}>
+                        <text>bottom</text>
+                    </PolarItem>
                 </View>
             </Chart>
         )
@@ -129,9 +127,7 @@ describe('PolarTypography', () => {
         const bottom = screen.queryByText('bottom')
         // tangential label in top hemisphere should be nearly vertical
         expect(top?.closest('g')?.getAttribute('style')).toContain('(80deg)')
-        expect(top?.getAttribute('class')).not.toContain('Hemisphere')
         // tangential label in bottom hemisphere be nearly vertical, but in opposite direction
         expect(bottom?.closest('g')?.getAttribute('style')).toContain('(280deg)')
-        expect(bottom?.getAttribute('class')).toContain('bottomHemisphere')
     })
 })

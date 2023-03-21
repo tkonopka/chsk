@@ -1,31 +1,32 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Surface } from '@chsk/core'
-import { PolarTypography } from '../../src'
+import { PolarItem } from '../../src'
 import { ChartOriginDecorator } from './decorators'
 
-# PolarTypography
+# PolarItem
 
-<Meta title="Addons/Polar/Polar/PolarTypography" />
+<Meta title="Addons/Polar/Polar/PolarItem" />
 
-export const Template = args => <PolarTypography {...args} />
+export const Template = args => <PolarItem {...args} />
 
-`PolarTypography` draws text on a polar chart.
+`PolarItem` positions and animates an arbitrary component on a polar chart.
 
-<ArgsTable of={PolarTypography} />
+<ArgsTable of={PolarItem} />
 
 ## Position
 
-By default, `PolarTypography` creates text at the origin.
-Prop `position` specifies an alternate position in the form of a radius (in pixels) and an angle (in degrees).
+By default, `PolarItem` places its content at the local origin.
+Prop `position` specifies an alternate position in the form of a radius (in pixels) and an angle.
+Angles can be specified in radians or degrees, with the unit declared using prop `angleUnit`.
 
 <Canvas>
     <Story
         name="origin"
         args={{
             position: [0, 0],
-            children: 'label',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
@@ -34,9 +35,10 @@ Prop `position` specifies an alternate position in the form of a radius (in pixe
         name="two o clock"
         args={{
             position: [100, 60],
-            children: 'label',
+            angleUnit: 'degrees',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
@@ -45,7 +47,7 @@ Prop `position` specifies an alternate position in the form of a radius (in pixe
 
 ## Orientation
 
-`PolarTypography` orient text horizontally by default.
+`PolarItem` orient text horizontally by default.
 Flags `radial` and `tangential` rotate the labels based on their position along the circle.
 
 <Canvas>
@@ -54,9 +56,10 @@ Flags `radial` and `tangential` rotate the labels based on their position along 
         args={{
             radial: true,
             position: [100, 60],
-            children: 'label',
+            angleUnit: 'degrees',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
@@ -66,19 +69,17 @@ Flags `radial` and `tangential` rotate the labels based on their position along 
         args={{
             tangential: true,
             position: [100, 60],
-            children: 'label',
+            angleUnit: 'degrees',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-## Variants
-
-The default variant for `PolarTypography` is `polar-label`.
-The characteristic of this variant is that it automatically rotates some labels:
+Note that `PolarItem` automatically adjust rotations for radial and tangential content:
 radial labels are rotated differently in the left and right hemispheres;
 tangential labels are rotated different in the top and bottom hemisphere.
 
@@ -88,9 +89,10 @@ tangential labels are rotated different in the top and bottom hemisphere.
         args={{
             radial: true,
             position: [100, -60],
-            children: 'label',
+            angleUnit: 'degrees',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
@@ -100,14 +102,14 @@ tangential labels are rotated different in the top and bottom hemisphere.
         args={{
             tangential: true,
             position: [100, 120],
-            children: 'label',
+            angleUnit: 'degrees',
+            children: <text>label</text>,
         }}
-        component={PolarTypography}
+        component={PolarItem}
         decorators={[ChartOriginDecorator]}
     >
         {Template.bind({})}
     </Story>
 </Canvas>
 
-Note that labels in the right and left hemispheres may require different alignments.
-That can be achieved through themes.
+Note that labels in the right and left hemispheres may require different alignments (css style `textAnchor`).

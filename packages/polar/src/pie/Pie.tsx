@@ -15,7 +15,9 @@ import { PieDataItem, PieProps, PieProcessedDataItem } from './types'
 const processData = (
     data: Array<PieDataItem>,
     offset: number,
-    align: number
+    align: number,
+    rInner: number,
+    rOuter: number
 ): Array<PieProcessedDataItem> => {
     const values = data.map(seriesData => Math.max(0, seriesData.data))
     const total = values.reduce((acc, v) => acc + v, 0)
@@ -37,6 +39,8 @@ const processData = (
             proportion,
             startAngle,
             endAngle,
+            rInner,
+            rOuter,
         }
     })
 }
@@ -53,6 +57,8 @@ export const Pie = ({
     data,
     angle = 0,
     angleAlign = 0,
+    rOuter = 1,
+    rInner = 0,
     scaleR = defaultLinearScaleSpec,
     scaleColor,
     //
@@ -72,8 +78,8 @@ export const Pie = ({
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
 
     const processedData = useMemo(
-        () => processData(data, angle, angleAlign),
-        [data, angle, angleAlign]
+        () => processData(data, angle, angleAlign, rInner, rOuter),
+        [data, angle, angleAlign, rInner, rOuter]
     )
     const { scalePropsX, scalePropsY } = useMemo(
         () => getPieXYScaleProps(scaleR, innerSize),

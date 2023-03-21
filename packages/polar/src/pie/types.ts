@@ -1,13 +1,16 @@
 import { FC } from 'react'
 import {
+    AlignSpec,
     CategoricalScaleSpec,
     DataInteractivityProps,
+    LabelProps,
     LinearScaleSpec,
     SvgElementProps,
+    SvgElementVariantProps,
     ViewProps,
     WithId,
 } from '@chsk/core'
-import { PolarTypographyProps } from '../general'
+import { PolarItemProps } from '../general'
 
 export type PieDataItem = WithId & {
     data: number
@@ -15,6 +18,8 @@ export type PieDataItem = WithId & {
 
 export type PieProcessedDataItem = WithId & {
     index: number
+    rInner: number
+    rOuter: number
     startAngle: number
     endAngle: number
     data: number
@@ -32,6 +37,10 @@ export interface PieProps
     angle?: number
     /** angle alignment for first slice */
     angleAlign?: number
+    /** outer radius */
+    rOuter?: number
+    /** inner radius */
+    rInner?: number
     /** scale for radial axis */
     scaleR?: LinearScaleSpec
     /** scale for colors */
@@ -45,13 +54,13 @@ export interface SliceProps extends SvgElementProps {
     innerRadius: number
     /** outer radius in absolute coordinates */
     outerRadius: number
-    /** start angle for slice */
+    /** start angle for slice (radians) */
     startAngle: number
-    /** end angle for slice */
+    /** end angle for slice (radians) */
     endAngle: number
     /** corner radius */
     r?: number
-    /** adjustment for angles to create space between slices */
+    /** angle padding to create space between slices */
     padAngle?: number
 }
 
@@ -62,25 +71,31 @@ export interface SlicesProps
     ids?: string[]
     /** component used to draw individual bars */
     component?: FC<SliceProps>
-    /** outer radius */
-    rOuter?: number
-    /** inner radius */
-    rInner?: number
     /** radius for slices */
-    rCorner?: number
+    r?: number
     /** angle padding */
     padAngle?: number
 }
 
-export interface SlicesLabelsProps
-    extends Omit<PolarTypographyProps, 'variant'>,
-        Pick<SlicesProps, 'ids'> {
-    /** radial position */
-    r: number
+export interface SliceLabelProps
+    extends SliceProps,
+        Omit<LabelProps, 'position' | 'size'>,
+        Pick<PolarItemProps, 'radial' | 'tangential'> {
+    /** content */
+    format?: (x: string | number) => string
+}
+
+export interface SliceLabelsProps
+    extends SvgElementVariantProps,
+        Omit<PolarItemProps, 'variant' | 'children'>,
+        Pick<SlicesProps, 'ids'>,
+        Pick<DataInteractivityProps<PieInteractiveDataItem, SliceLabelProps>, 'dataComponent'> {
+    /** alignment [r, theta] */
+    align?: AlignSpec
     /** minimum angle (degrees) */
     minAngle?: number
     /** format for text */
     format?: (v: string | number) => string
     /** components used to render text */
-    component?: FC<PolarTypographyProps>
+    component?: FC<SliceLabelProps>
 }
