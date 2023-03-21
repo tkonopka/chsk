@@ -24,7 +24,7 @@ By default, line edges coincide with the centers of the designated bands, but th
         args={{
             start: ['A', 104],
             end: ['D', 104],
-            rotate: 0,
+            angle: 0,
             textStyle: { textAnchor: 'middle' },
             children: 'A - D',
         }}
@@ -39,7 +39,7 @@ By default, line edges coincide with the centers of the designated bands, but th
             start: ['A', 104],
             end: ['D', 104],
             expansion: [0.5, 0.5],
-            rotate: 0,
+            angle: 0,
             textStyle: { textAnchor: 'middle' },
             children: 'A - D (extended)',
         }}
@@ -90,7 +90,7 @@ By default, the text label is placed at the center of the interval. The label ca
 
 ## Text rotation
 
-Use prop `rotate` to adjust the orientation of the text, for example for vertical lines.
+Use prop `angle` to adjust the orientation of the text, for example for vertical lines.
 
 <Canvas>
     <Story
@@ -114,7 +114,7 @@ Use prop `rotate` to adjust the orientation of the text, for example for vertica
             start: [104, 100],
             end: [104, 60],
             translate: [10, 0],
-            rotate: 90,
+            angle: 90,
             align: 0.5,
             textStyle: { textAnchor: 'middle' },
             children: 'rotated',

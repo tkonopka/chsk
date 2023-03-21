@@ -34,7 +34,7 @@ export const BoxedTitle = ({
     if (variant === 'bottom') y += height + size / 2 + offset
     if (vertical) y += 0.5 * height
     if (horizontal) x += 0.5 * width
-    const rotate = variant === 'left' ? -90 : variant === 'right' ? 90 : 0
+    const angle = variant === 'left' ? -90 : variant === 'right' ? 90 : 0
 
     return (
         <g role={setRole ? 'boxed-title-' + variant : undefined}>
@@ -43,7 +43,7 @@ export const BoxedTitle = ({
                 position={[x, y]}
                 size={boxSize}
                 expansion={expansion}
-                rotate={rotate}
+                angle={angle}
                 className={className}
                 rx={rx}
                 ry={ry}

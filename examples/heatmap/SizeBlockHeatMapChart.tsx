@@ -55,7 +55,7 @@ const customTheme = mergeTheme(downloadTheme, {
     },
     AxisTicks: {
         top: {
-            labelRotate: -45,
+            labelAngle: -45,
         },
     },
 })

@@ -38,16 +38,16 @@ export interface AxisLabelProps extends SvgElementVariantProps {
     /** position of label along the axis */
     anchor?: 'start' | 'middle' | 'end' | number
     /** rotation angle (degrees) */
-    rotate?: number
+    angle?: number
     /** string label */
     children?: string
 }
 
 export interface AxisLabelThemedProps
-    extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'rotate' | 'style'> {
+    extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'angle' | 'style'> {
     anchor: 'start' | 'middle' | 'end' | number
     offset: number
-    rotate: number
+    angle: number
 }
 
 export interface AxisTicksProps extends SvgElementVariantProps {
@@ -64,7 +64,7 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     /** additional translation for label position */
     labelTranslate?: NumericPositionSpec
     /** rotation angle (degrees) */
-    labelRotate?: number
+    labelAngle?: number
     /** format */
     labelFormat?: (value: unknown, index: number) => string
     /** style for tick labels (text) */
@@ -78,7 +78,7 @@ export interface AxisTicksThemedProps
         | 'tickSize'
         | 'labelOffset'
         | 'labelTranslate'
-        | 'labelRotate'
+        | 'labelAngle'
         | 'labelStyle'
         | 'tickStyle'
     > {
@@ -86,7 +86,7 @@ export interface AxisTicksThemedProps
     tickSize: number
     labelOffset: number
     labelTranslate: NumericPositionSpec
-    labelRotate: number
+    labelAngle: number
 }
 
 export interface GridLinesProps extends SvgElementVariantProps {

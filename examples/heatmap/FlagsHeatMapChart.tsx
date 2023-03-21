@@ -110,7 +110,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         <AxisTicks
                             variant={'top'}
                             labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
-                            labelRotate={-60}
+                            labelAngle={-60}
                             ticks={flags}
                         />
                     </Axis>

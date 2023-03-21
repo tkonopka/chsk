@@ -9,6 +9,7 @@ import {
     SizeSpec,
     TranslateSpec,
     TypographyProps,
+    AngleUnit,
 } from '@chsk/core'
 import { ReactNode } from 'react'
 
@@ -38,8 +39,10 @@ export interface BoxedLabelProps extends SvgElementVariantProps, ContainerProps,
     translate?: TranslateSpec
     /** position of anchor point relative to box size */
     anchor?: AlignSpec
-    /** rotation */
-    rotate?: number
+    /** angle */
+    angle?: number
+    /** angle unit */
+    angleUnit?: AngleUnit
 }
 
 export interface BoxedTitleProps extends SvgElementVariantProps, BoxedTextProps {

@@ -31,7 +31,7 @@ export interface DataInteractivityModifiers {
     onMouseLeave?: CssProps
     /** style modifier upon mouse move event */
     onMouseMove?: CssProps
-    /** style modifier upon clik */
+    /** style modifier upon click */
     onClick?: CssProps
 }
 

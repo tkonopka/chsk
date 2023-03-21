@@ -15,7 +15,7 @@ export const BraceLabel = ({
     // position of text
     translate = [0, -12],
     align = 0.5,
-    rotate = 0,
+    angle = 0,
     textStyle,
     //
     className,
@@ -91,7 +91,7 @@ export const BraceLabel = ({
             <Typography
                 variant={'label'}
                 position={textPos}
-                rotate={rotate}
+                angle={angle}
                 className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}

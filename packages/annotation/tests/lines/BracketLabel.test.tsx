@@ -48,7 +48,7 @@ describe('BracketLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[1, 0]} rotate={45}>
+                    <BracketLabel start={[0, 0]} end={[1, 0]} angle={45}>
                         Label
                     </BracketLabel>
                 </View>

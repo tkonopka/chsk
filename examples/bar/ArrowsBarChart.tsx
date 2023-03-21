@@ -104,7 +104,7 @@ export const ArrowsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 <Axis variant={'left'} label={'Score (%)'} />
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
-                    <AxisTicks variant={'bottom'} labelRotate={45} labelOffset={11} />
+                    <AxisTicks variant={'bottom'} labelAngle={45} labelOffset={11} />
                 </Axis>
             </MilestoneMotion>
             <Tooltip />

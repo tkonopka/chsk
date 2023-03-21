@@ -53,7 +53,7 @@ describe('BraceLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BraceLabel start={[0, 0]} end={[1, 0]} rotate={45}>
+                    <BraceLabel start={[0, 0]} end={[1, 0]} angle={45}>
                         Label
                     </BraceLabel>
                 </View>

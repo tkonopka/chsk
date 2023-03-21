@@ -9,7 +9,7 @@ export const Paragraph = ({
     position = [0, 0],
     size = [100, 22],
     align = 0.5,
-    rotate,
+    angle,
     separator,
     letterBaseWidths = 'sans',
     letterWidths,
@@ -26,7 +26,7 @@ export const Paragraph = ({
     const maxOffset = offsets[offsets.length - 1]
     const [x, y] = [position[X], position[Y] - align * maxOffset]
     const compositeClassName = getClassName('paragraph', className)
-    const config = { x, y, rotate, originX: '0px', originY: '0px' }
+    const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     const content = lines.map((line, index) => (
         <text
             key={'paragraph-' + index}

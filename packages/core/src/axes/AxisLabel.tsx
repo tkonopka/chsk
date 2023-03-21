@@ -14,7 +14,7 @@ const UnthemedAxisLabel = ({
     variant,
     offset = defaultAxisLabelProps.offset,
     anchor = defaultAxisLabelProps.anchor,
-    rotate = defaultAxisLabelProps.rotate,
+    angle = defaultAxisLabelProps.angle,
     className,
     style,
     setRole,
@@ -37,7 +37,7 @@ const UnthemedAxisLabel = ({
         <Typography
             variant={'axis-label'}
             position={[x, y]}
-            rotate={rotate}
+            angle={angle}
             style={style}
             className={className ?? variant}
             setRole={setRole}

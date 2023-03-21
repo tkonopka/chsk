@@ -57,7 +57,7 @@ const customTheme = {
     },
     AxisTicks: {
         bottom: {
-            labelRotate: -45,
+            labelAngle: -45,
         },
     },
 }

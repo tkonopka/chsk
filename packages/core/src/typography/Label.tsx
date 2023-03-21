@@ -14,7 +14,7 @@ import { getClassName } from '../themes'
 export const Label = ({
     position = zeroPosition,
     variant = 'label',
-    rotate,
+    angle,
     size = [20, 20],
     padding = zeroPadding,
     anchor = centerAlign,
@@ -28,7 +28,7 @@ export const Label = ({
     const corner = getAnchoredOrigin(position, size, anchor)
     const pos = getAlignPosition(corner, size, align, padding)
     const compositeClassName = getClassName(variant, className)
-    const config = { x: pos[X], y: pos[Y], rotate, originX: '0px', originY: '0px' }
+    const config = { x: pos[X], y: pos[Y], rotate: angle, originX: '0px', originY: '0px' }
     return (
         <m.g role={setRole ? variant : undefined} initial={config} animate={config}>
             <text style={style} className={compositeClassName}>

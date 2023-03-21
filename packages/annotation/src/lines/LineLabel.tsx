@@ -12,7 +12,7 @@ export const LineLabel = ({
     // position of text
     translate = [0, -8],
     align = 0.5,
-    rotate = 0,
+    angle = 0,
     markerStart,
     markerEnd,
     textStyle,
@@ -56,7 +56,7 @@ export const LineLabel = ({
             <Typography
                 variant={'label'}
                 position={textPos}
-                rotate={rotate}
+                angle={angle}
                 className={compositeClassName}
                 style={textStyle}
                 setRole={setRole}

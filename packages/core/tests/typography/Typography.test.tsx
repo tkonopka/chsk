@@ -169,4 +169,17 @@ describe('Typography', () => {
         expect(textContent).toContain('four')
         expect(result.querySelectorAll('tspan')).toHaveLength(3)
     })
+
+    it('rotates text', () => {
+        render(
+            <Chart {...chartProps}>
+                <Typography variant={'custom'} angle={90}>
+                    content
+                </Typography>
+            </Chart>
+        )
+        const result = screen.getByRole('custom')
+        expect(result.getAttribute('style')).toContain('deg')
+        expect(getTransform(result, 'rotate')).toEqual(90)
+    })
 })

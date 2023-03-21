@@ -1,5 +1,5 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip, roundDecimalPlaces } from '@chsk/core'
-import { isPieData, Origin, Pie, Slices, SlicesLabels } from '@chsk/polar'
+import { isPieData, Origin, Pie, Slices, SliceLabels } from '@chsk/polar'
 import { downloadTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
@@ -40,10 +40,11 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     variant: 'categorical',
                     colors: 'Oranges',
                 }}
+                rInner={0.6}
             >
                 <Origin>
-                    <Slices rInner={0.6} style={{ stroke: '#000000', strokeWidth: 1 }} />
-                    <SlicesLabels r={0.8} minAngle={12} format={v => Math.round(Number(v)) + '%'} />
+                    <Slices style={{ stroke: '#000000', strokeWidth: 1 }} />
+                    <SliceLabels minAngle={12} format={v => Math.round(Number(v)) + '%'} />
                 </Origin>
                 <DownloadButtons position={[240, -40]} data image />
                 <Tooltip

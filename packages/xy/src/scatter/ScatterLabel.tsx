@@ -30,7 +30,7 @@ export const ScatterLabel = ({
     x,
     units = 'relative',
     translate = [0, 0],
-    rotate = 0,
+    angle = 0,
     autoRotate = false,
     style,
     className,
@@ -60,8 +60,8 @@ export const ScatterLabel = ({
             const secondPointIndex = getClosestPointToX(value, data, pointIndex)
             const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
             const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
-            rotate = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
-            rotate = Number.isNaN(rotate) ? 0 : rotate
+            angle = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
+            angle = Number.isNaN(angle) ? 0 : angle
             point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
         }
         const translation: [number, number] = [point[0] + translate[0], point[1] + translate[1]]
@@ -76,7 +76,7 @@ export const ScatterLabel = ({
                 <Typography
                     variant={'scatterLabel'}
                     position={translation}
-                    rotate={rotate}
+                    angle={angle}
                     className={className}
                     style={style}
                     setRole={false}

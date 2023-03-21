@@ -33,6 +33,9 @@ export type SizeUnit = 'absolute' | 'relative'
 export type SizeUnits = SizeUnit | [SizeUnit, SizeUnit]
 export type SizeSpec = [number, number]
 
+// angles
+export type AngleUnit = 'degree' | 'radian'
+
 // padding and extensions in all four directions [top, right, bottom, left]
 export type FourSideSizeSpec = [number, number, number, number]
 // some expansions are only before/after, i.e. two directions

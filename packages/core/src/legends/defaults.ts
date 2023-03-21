@@ -44,7 +44,7 @@ export const defaultLegendColorScaleProps: LegendColorScaleThemedProps = {
     ticks: 4,
     tickSize: 5,
     labelOffset: 9,
-    labelRotate: 0,
+    labelAngle: 0,
 }
 
 export const defaultLegendSizeScaleProps: LegendSizeScaleThemedProps = {

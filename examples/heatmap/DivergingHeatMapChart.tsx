@@ -50,7 +50,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     <AxisTicks
                         variant={'bottom'}
                         tickSize={0}
-                        labelRotate={-90}
+                        labelAngle={-90}
                         labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                 </Axis>

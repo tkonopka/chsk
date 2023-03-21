@@ -70,7 +70,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
-                            labelRotate={-90}
+                            labelAngle={-90}
                             labelStyle={{
                                 textAnchor: 'start',
                                 dominantBaseline: 'middle',

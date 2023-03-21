@@ -20,7 +20,7 @@ export const getScaleTicks = ({
     tickSize,
     labelOffset,
     labelTranslate = zeroPosition,
-    labelRotate,
+    labelAngle,
     labelFormat,
     labelStyle,
     tickStyle,
@@ -38,7 +38,6 @@ export const getScaleTicks = ({
     const horizontal = variant === 'top' || variant === 'bottom'
     const size = tickSize ?? 0
     const offset = labelOffset ?? 0
-    const rotate = labelRotate ?? 0
     const tickTranslations = horizontal
         ? tickCoordinates.map(v => [v, 0])
         : tickCoordinates.map(v => [0, v])
@@ -68,7 +67,7 @@ export const getScaleTicks = ({
                 <Typography
                     variant={'tick-label'}
                     position={[x + labelX, y + labelY]}
-                    rotate={rotate}
+                    angle={labelAngle}
                     style={labelStyle}
                     className={compositeClassName}
                     setRole={false}
@@ -86,7 +85,7 @@ const UnthemedAxisTicks = ({
     tickSize = defaultAxisTicksProps.tickSize,
     labelOffset = defaultAxisTicksProps.labelOffset,
     labelTranslate = defaultAxisTicksProps.labelTranslate,
-    labelRotate = defaultAxisTicksProps.labelRotate,
+    labelAngle = defaultAxisTicksProps.labelAngle,
     labelFormat,
     labelStyle,
     tickStyle,
@@ -106,7 +105,7 @@ const UnthemedAxisTicks = ({
         labelFormat,
         labelOffset,
         labelTranslate,
-        labelRotate,
+        labelAngle,
         setRole,
         className,
         style,

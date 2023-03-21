@@ -8,12 +8,12 @@ import {
 } from '../general'
 
 export interface TypographyProps extends SvgElementVariantProps {
-    /** position */
+    /** position (absolute coordinates) */
     position?: NumericPositionSpec
     /** variant */
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
     /** rotation (degrees) */
-    rotate?: number
+    angle?: number
     /** content */
     children?: ReactNode
 }

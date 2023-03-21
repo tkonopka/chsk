@@ -26,6 +26,7 @@
 
 ### Changed
 
+-   [core] renamed prop `rotate` to `angle` in typography components
 -   [core] upgrade d3-shape to v3.2.0
 -   [annotation] removed redundant 'px' suffixes in svg exports to reduce size
     of output

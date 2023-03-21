@@ -6,7 +6,7 @@ import { TypographyProps } from './types'
 export const Typography = ({
     position = zeroPosition,
     variant = 'default',
-    rotate,
+    angle,
     style,
     className,
     setRole = true,
@@ -14,7 +14,7 @@ export const Typography = ({
 }: TypographyProps) => {
     if (!children) return null
     const compositeClassName = getClassName(variant, className)
-    const config = { x: position[X], y: position[Y], rotate, originX: '0px', originY: '0px' }
+    const config = { x: position[X], y: position[Y], rotate: angle, originX: '0px', originY: '0px' }
     return (
         <m.g
             role={setRole && variant !== 'default' ? variant : undefined}

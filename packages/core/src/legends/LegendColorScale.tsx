@@ -18,7 +18,7 @@ const UnthemedLegendColorScale = ({
     horizontal = false,
     ticks = defaultLegendColorScaleProps.ticks,
     tickSize = defaultLegendColorScaleProps.tickSize,
-    labelRotate = defaultLegendColorScaleProps.labelRotate,
+    labelAngle = defaultLegendColorScaleProps.labelAngle,
     labelOffset = defaultLegendColorScaleProps.labelOffset,
     className,
     style,
@@ -73,7 +73,7 @@ const UnthemedLegendColorScale = ({
                     ticks,
                     tickSize,
                     labelOffset,
-                    labelRotate,
+                    labelAngle,
                     className,
                     setRole,
                 })}

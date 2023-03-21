@@ -22,12 +22,8 @@ export const getMoments = (data: number[]): [number, number] => {
 }
 
 /** convert radians to degrees, degrees to radians */
-export const rad2deg = (x: number) => {
-    return (180 * x) / Math.PI
-}
-export const deg2rad = (x: number) => {
-    return (x * Math.PI) / 180
-}
+export const rad2deg = (x: number) => (180 * x) / Math.PI
+export const deg2rad = (x: number) => (Math.PI * x) / 180
 
 /** get inner size given a padding vector */
 export const getInnerSize = (size: SizeSpec, padding: FourSideSizeSpec): SizeSpec => {

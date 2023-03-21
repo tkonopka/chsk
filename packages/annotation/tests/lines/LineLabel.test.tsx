@@ -54,7 +54,7 @@ describe('LineLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <LineLabel start={[0, 0]} end={[1, 0]} rotate={45}>
+                    <LineLabel start={[0, 0]} end={[1, 0]} angle={45}>
                         Label
                     </LineLabel>
                 </View>

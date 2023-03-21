@@ -12,6 +12,7 @@ import {
     TOP,
     useDimensions,
     useScales,
+    rad2deg,
 } from '@chsk/core'
 
 export const BoxedLabel = ({
@@ -22,7 +23,8 @@ export const BoxedLabel = ({
     sizeUnits = 'absolute',
     translate = [0, 0],
     anchor = [0.5, 0.5],
-    rotate = 0,
+    angle = 0,
+    angleUnit = 'degree',
     expansion = [0, 0, 0, 0],
     rx,
     ry,
@@ -59,7 +61,8 @@ export const BoxedLabel = ({
             children
         )
 
-    const config = { x, y, rotate, originX: '0px', originY: '0px' }
+    const degrees = angle && angleUnit === 'radian' ? rad2deg(angle) : angle
+    const config = { x, y, rotate: degrees, originX: '0px', originY: '0px' }
     return (
         <m.g
             role={setRole ? variant : undefined}

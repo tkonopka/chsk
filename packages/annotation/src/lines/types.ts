@@ -26,7 +26,7 @@ export interface LineLabelProps
     /** translation for text label */
     translate?: TranslateSpec
     /** rotation of text label */
-    rotate?: number
+    angle?: number
     /** padding for text label */
     padding?: SizeSpec
     /** styles for line */

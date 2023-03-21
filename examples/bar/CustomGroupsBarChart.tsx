@@ -60,6 +60,13 @@ const customTheme: ThemeSpec = {
             fill: '#444444',
         },
     },
+    AxisTicks: {
+        bottom: {
+            labelAngle: -45,
+            labelOffset: 8,
+            labelStyle: { textAnchor: 'end' },
+        },
+    },
 }
 
 const customGroupsBarProps = {
@@ -125,13 +132,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </LineLabel>
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
-                    <AxisTicks
-                        variant={'bottom'}
-                        ticks={idsA}
-                        labelRotate={-45}
-                        labelOffset={8}
-                        labelStyle={{ textAnchor: 'end' }}
-                    />
+                    <AxisTicks variant={'bottom'} ticks={idsA} />
                 </Axis>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'B'}>
@@ -145,13 +146,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </LineLabel>
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
-                    <AxisTicks
-                        variant={'bottom'}
-                        ticks={idsB}
-                        labelRotate={-45}
-                        labelOffset={8}
-                        labelStyle={{ textAnchor: 'end' }}
-                    />
+                    <AxisTicks variant={'bottom'} ticks={idsB} />
                 </Axis>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'C'}>
@@ -165,13 +160,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </LineLabel>
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
-                    <AxisTicks
-                        variant={'bottom'}
-                        ticks={idsC}
-                        labelRotate={-45}
-                        labelOffset={8}
-                        labelStyle={{ textAnchor: 'end' }}
-                    />
+                    <AxisTicks variant={'bottom'} ticks={idsC} />
                 </Axis>
             </MilestoneMotion>
             <Tooltip
