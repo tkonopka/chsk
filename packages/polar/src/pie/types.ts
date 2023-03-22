@@ -1,6 +1,7 @@
 import { FC } from 'react'
 import {
     AlignSpec,
+    AngleUnit,
     CategoricalScaleSpec,
     DataInteractivityProps,
     LabelProps,
@@ -35,21 +36,25 @@ export interface PieProps
     data: Array<PieDataItem>
     /** global rotation */
     angle?: number
+    /** angle unit */
+    angleUnit?: AngleUnit
     /** angle alignment for first slice */
     angleAlign?: number
     /** outer radius */
     rOuter?: number
     /** inner radius */
     rInner?: number
-    /** scale for radial axis */
-    scaleR?: LinearScaleSpec
+    /** scale for horizontal axis */
+    scaleX?: LinearScaleSpec
+    /** scale for vertical axis */
+    scaleY?: LinearScaleSpec
     /** scale for colors */
     scaleColor?: CategoricalScaleSpec
 }
 
 export type PieInteractiveDataItem = PieProcessedDataItem
 
-export interface SliceProps extends SvgElementProps {
+export interface SliceProps extends SvgElementProps, Pick<PolarItemProps, 'angleUnit'> {
     /** inner radius in absolute coordinates */
     innerRadius: number
     /** outer radius in absolute coordinates */
@@ -78,8 +83,9 @@ export interface SlicesProps
 }
 
 export interface SliceLabelProps
-    extends SliceProps,
-        Omit<LabelProps, 'position' | 'size'>,
+    extends SvgElementVariantProps,
+        Omit<SliceProps, 'r' | 'padAngle'>,
+        Pick<LabelProps, 'align' | 'children'>,
         Pick<PolarItemProps, 'radial' | 'tangential'> {
     /** content */
     format?: (x: string | number) => string
@@ -87,15 +93,17 @@ export interface SliceLabelProps
 
 export interface SliceLabelsProps
     extends SvgElementVariantProps,
-        Omit<PolarItemProps, 'variant' | 'children'>,
+        Pick<PolarItemProps, 'radial' | 'tangential'>,
         Pick<SlicesProps, 'ids'>,
         Pick<DataInteractivityProps<PieInteractiveDataItem, SliceLabelProps>, 'dataComponent'> {
     /** alignment [r, theta] */
     align?: AlignSpec
     /** minimum angle (degrees) */
     minAngle?: number
+    /** angle unit */
+    angleUnit?: AngleUnit
     /** format for text */
-    format?: (v: string | number) => string
+    format?: (v: PieProcessedDataItem) => string
     /** components used to render text */
     component?: FC<SliceLabelProps>
 }

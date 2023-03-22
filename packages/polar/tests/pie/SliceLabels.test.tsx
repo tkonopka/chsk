@@ -51,15 +51,41 @@ describe('SliceLabels', () => {
         expect(screen.getByRole('view-pie').querySelectorAll('text')).toHaveLength(n)
     })
 
-    it('omits labels for small slices', () => {
+    it('omits labels for small slices (degrees)', () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
-                    <SliceLabels minAngle={90} />
+                    <SliceLabels minAngle={90} angleUnit={'degree'} />
                 </Pie>
             </Chart>
         )
         const n = pieProps.data.length
         expect(screen.getByRole('view-pie').querySelectorAll('text')).toHaveLength(n - 1)
+    })
+
+    it('omits labels for small slices (radian)', () => {
+        render(
+            <Chart>
+                <Pie {...pieProps}>
+                    <SliceLabels minAngle={Math.PI / 2} angleUnit={'radian'} />
+                </Pie>
+            </Chart>
+        )
+        const n = pieProps.data.length
+        expect(screen.getByRole('view-pie').querySelectorAll('text')).toHaveLength(n - 1)
+    })
+
+    it('creates labels with slice ids', () => {
+        render(
+            <Chart>
+                <Pie {...pieProps}>
+                    <SliceLabels format={x => x.id} />
+                </Pie>
+            </Chart>
+        )
+        const labels = screen.getByRole('view-pie').querySelectorAll('text')
+        expect(labels[0].textContent).toBe('alpha')
+        expect(labels[1].textContent).toBe('beta')
+        expect(labels[2].textContent).toBe('gamma')
     })
 })

@@ -2,9 +2,10 @@ import { Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Controller } from '../Controller'
 import { generatePieData, PieChart } from './PieChart'
 import { generateDoughnutData, DoughnutChart } from './DoughnutChart'
+import { generateSemicircleDoughnutData, SemicircleDoughnutChart } from './SemicircleDoughnutChart'
 import { generateGaugesData, PolarGaugesChart } from './PolarGaugesChart'
 
-<Meta title="Gallery/Polar" />
+<Meta title="Gallery/Polar charts" />
 
 # Examples of polar charts
 
@@ -21,6 +22,12 @@ import { generateGaugesData, PolarGaugesChart } from './PolarGaugesChart'
 <Canvas>
     <Story name="doughnut">
         <Controller generator={generateDoughnutData} chart={DoughnutChart} />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="semicircle">
+        <Controller generator={generateSemicircleDoughnutData} chart={SemicircleDoughnutChart} />
     </Story>
 </Canvas>
 

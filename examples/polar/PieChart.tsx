@@ -61,6 +61,13 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
     },
 })
 
+/**
+Motion: {
+    mass: 0.2,
+        stiffness: 50,
+}
+ */
+
 // a circle with unit radius in view scale
 export const BgCircle = () => {
     const rScale = useScales().x as ContinuousAxisScale
@@ -130,7 +137,8 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     variant: 'categorical',
                     colors: 'Blues',
                 }}
-                scaleR={{ variant: 'linear', domain: [-1.2, 1.2] }}
+                scaleX={{ variant: 'linear', domain: [-1.2, 1.2] }}
+                scaleY={{ variant: 'linear', domain: [-1.2, 1.2] }}
             >
                 <Typography variant={'title'} position={[-30, -60]}>
                     Breakdown into five groups
@@ -138,7 +146,12 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Origin>
                     <BgCircle />
                     {ids.map(id => (
-                        <MilestoneMotion initialOn={id} key={'milestone-' + id}>
+                        <MilestoneMotion
+                            initial={'invisible'}
+                            exit={'invisible'}
+                            initialOn={id}
+                            key={'milestone-' + id}
+                        >
                             <Slices
                                 key={'slice-' + id}
                                 ids={[id]}

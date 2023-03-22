@@ -8,7 +8,7 @@ import { ChartPieSlicesDecorator, ChartDoughnutSlicesDecorator } from './decorat
 
 export const Template = args => <SliceLabels {...args} />
 
-`SlicesLabels` draws pieces for a pie / doughnut chart.
+`SliceLabels` draws pieces for a pie / doughnut chart.
 
 <ArgsTable of={SliceLabels} />
 
@@ -60,7 +60,10 @@ Prop `minAngle` specifies an angle threshold. Labels for slices smaller than the
 <Canvas>
     <Story
         name="minimum angle"
-        args={{ minAngle: 45 }}
+        args={{
+            minAngle: 80,
+            angleUnit: 'degree',
+        }}
         component={SliceLabels}
         decorators={[ChartDoughnutSlicesDecorator]}
     >

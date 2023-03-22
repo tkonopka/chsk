@@ -9,18 +9,19 @@ import {
 } from '@chsk/core'
 import { isPieProcessedData } from './predicates'
 import { SliceLabel } from './SliceLabel'
-import { SliceLabelsProps } from './types'
+import { PieProcessedDataItem, SliceLabelsProps } from './types'
 
 export const SliceLabels = ({
     ids,
     align = [0.5, 0.5],
     minAngle = 10,
-    format = (v: string | number) => String(v),
+    angleUnit = 'degree',
+    format = (v: PieProcessedDataItem) => String(v.data),
     className,
     setRole = false,
     style,
     dataComponent = SimpleDataComponent,
-    component = SliceLabel,
+    component,
 }: SliceLabelsProps) => {
     const processedData = useProcessedData()
     const rScale = useScales().x as ContinuousAxisScale
@@ -31,7 +32,7 @@ export const SliceLabels = ({
         () => getIdKeySets(ids, undefined, processedData),
         [ids, processedData]
     )
-    const minAngleRad = deg2rad(minAngle)
+    const minAngleRad = angleUnit === 'degree' ? deg2rad(minAngle) : minAngle
     const r0 = rScale(0)
 
     const result: Array<ReactNode> = data.map((seriesData, i) => {
@@ -39,18 +40,19 @@ export const SliceLabels = ({
         if (seriesData.endAngle - seriesData.startAngle < minAngleRad) return null
         return createElement(dataComponent, {
             key: 'slice-label-' + i,
-            component,
+            component: component ?? SliceLabel,
             data: seriesData,
             props: {
                 startAngle: seriesData.startAngle,
                 endAngle: seriesData.endAngle,
                 innerRadius: rScale(seriesData.rInner) - r0,
                 outerRadius: rScale(seriesData.rOuter) - r0,
+                angleUnit: 'radian',
                 align,
                 className,
                 style: style,
                 setRole: setRole,
-                children: format(seriesData.data),
+                children: format(seriesData),
             },
         })
     })

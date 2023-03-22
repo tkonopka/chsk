@@ -44,7 +44,7 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             >
                 <Origin>
                     <Slices style={{ stroke: '#000000', strokeWidth: 1 }} />
-                    <SliceLabels minAngle={12} format={v => Math.round(Number(v)) + '%'} />
+                    <SliceLabels minAngle={12} format={v => Math.round(v.proportion * 100) + '%'} />
                 </Origin>
                 <DownloadButtons position={[240, -40]} data image />
                 <Tooltip

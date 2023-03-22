@@ -93,7 +93,7 @@ describe('Pie', () => {
         const processed: PieProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
         render(
             <Chart>
-                <Pie {...pieProps} angle={Math.PI / 2}>
+                <Pie {...pieProps} angle={Math.PI / 2} angleUnit={'radian'}>
                     <GetProcessedData target={processed} />
                 </Pie>
             </Chart>
@@ -110,7 +110,7 @@ describe('Pie', () => {
         ]
         render(
             <Chart>
-                <Pie data={data} angle={Math.PI / 2} angleAlign={0.5}>
+                <Pie data={data} angle={90} angleUnit={'degree'} angleAlign={0.5}>
                     <GetProcessedData target={processed} />
                 </Pie>
             </Chart>
@@ -118,5 +118,30 @@ describe('Pie', () => {
         const startAngle = processed.data[0].startAngle
         expect(startAngle).toBeGreaterThan(0)
         expect(startAngle).toBeLessThan(Math.PI)
+    })
+
+    it('sets default scales', () => {
+        let scales: ScalesContextProps = {} as ScalesContextProps
+        const GetScales = () => {
+            scales = useScales()
+            return null
+        }
+        render(
+            <Chart>
+                <Pie
+                    {...pieProps}
+                    scaleX={{ variant: 'linear', domain: 'auto' }}
+                    scaleY={{ variant: 'linear', domain: 'auto' }}
+                >
+                    <GetScales />
+                </Pie>
+            </Chart>
+        )
+        const xDomain = scales.x.domain()
+        const yDomain = scales.y.domain()
+        expect(xDomain[0]).toBeLessThan(0)
+        expect(xDomain[1]).toBeGreaterThan(0)
+        expect(yDomain[0]).toBeLessThan(0)
+        expect(yDomain[1]).toBeGreaterThan(0)
     })
 })

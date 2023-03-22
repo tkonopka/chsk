@@ -4,8 +4,8 @@ import { Origin, Pie, Slices } from '../../src'
 
 export const pieData = [
     { id: 'alpha', data: 55 },
-    { id: 'beta', data: 35 },
-    { id: 'gamma', data: 10 },
+    { id: 'beta', data: 20 },
+    { id: 'gamma', data: 25 },
 ]
 
 export const commonPieProps = {

@@ -10,13 +10,12 @@ import {
     isContinuousAxisScale,
     isLinearAxisScale,
     isLogAxisScale,
-    isScaleWithDomain,
     isSqrtAxisScale,
     LinearAxisScale,
     expandScalePropsToSquare,
+    LinearScaleProps,
 } from '../../src/scales'
 import { isNumericAxisScale, isTimeAxisScale } from '../../src/scales/predicates'
-import { ContinuousScaleProps, LinearScaleProps, SizeSpec } from '../../dist/types'
 
 describe('createContinuousScaleProps', () => {
     it('creates props for a scale with custom domain', () => {

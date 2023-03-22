@@ -17,6 +17,9 @@ export const Template = args => <Slices {...args} />
 By default, `Slices` draws an entire dataset. To draw subsets, set props `ids`.
 
 <Canvas>
+    <Story name="default" args={{}} component={Slices} decorators={[ChartDoughnutDecorator]}>
+        {Template.bind({})}
+    </Story>
     <Story
         name="selected ids"
         args={{ ids: ['alpha', 'gamma'] }}

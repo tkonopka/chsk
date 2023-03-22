@@ -1,10 +1,11 @@
 import { animate, m, useMotionValue } from 'framer-motion'
 import { arc } from 'd3-shape'
 import { interpolateObject } from 'd3-interpolate'
-import { getClassName, useTheme } from '@chsk/core'
+import { deg2rad, getClassName, useTheme } from '@chsk/core'
 import { SliceProps } from './types'
 import { useState } from 'react'
 
+// uses radians
 const getSliceD = ({
     innerRadius,
     outerRadius,
@@ -26,6 +27,7 @@ export const Slice = ({
     r = 0,
     startAngle,
     endAngle,
+    angleUnit = 'radian',
     padAngle = 0,
     //
     className,
@@ -33,7 +35,15 @@ export const Slice = ({
     ...props
 }: SliceProps) => {
     const theme = useTheme()
-    const sliceProps = { innerRadius, outerRadius, r, startAngle, endAngle, padAngle }
+    const isRadian = angleUnit === 'radian'
+    const sliceProps = {
+        innerRadius,
+        outerRadius,
+        r,
+        startAngle: isRadian ? startAngle : deg2rad(startAngle),
+        endAngle: isRadian ? endAngle : deg2rad(endAngle),
+        padAngle,
+    }
     const d = useMotionValue(getSliceD(sliceProps))
     const [values, setValues] = useState(sliceProps)
     const [working, setWorking] = useState(false)

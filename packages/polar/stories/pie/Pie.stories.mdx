@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Label } from '@chsk/core'
+import { Surface, Label } from '@chsk/core'
 import { Pie, Origin, Slices } from '../../src'
 import { ChartDecorator } from '../decorators'
 import { commonPieProps } from './decorators'
@@ -32,18 +32,6 @@ The pseudocode below shows one data item with an identifier and one numeric valu
 ]
 `}
 />
-
-## Coordinate system
-
-Consistently with the `View` component in `@chsk/core` (and other view components in add-on packages such as
-`Scatter` in `@chsk/xy`), the `Pie` component creates a view in which the svg/absolute position [0, 0]
-corresponds to the top-left corner of the view. This convention enables charts to place
-elements on the chart in the same way as in other views. For example, a default `Typography` component should appear
-in the top-left corner, and a `Surface` component should create a background rectangle that fills the view.
-
-Many components specific to the `Pie` view, however, assume a different convention.
-Indeed, they assume that the point [0, 0] in svg coordinates coincides with [0, 0] defined by the
-x- and y- scales within the view. To meet this assumption, use `Origin` as a child component.
 
 ## Radii
 
@@ -90,7 +78,7 @@ To create a doughnut, set `rInner` to a non-zero value.
 
 </Canvas>
 
-Prop `rOuter` determines the overall scale.
+Prop `rOuter` determines the outer radius of the pie, and thus sets an overall scale.
 
 <Canvas>
     <Story
@@ -112,12 +100,69 @@ Prop `rOuter` determines the overall scale.
     </Story>
 </Canvas>
 
-(An alternative way to scale the pie is with the view scale prop `scaleR`).
+An alternative way to adjust the overall scale is via props `scaleX` and `scaleY` (see below).
+
+## Scales
+
+Although `Pie` manages data meant for a polar layout, the `Pie` view actually uses linear x- and y- scales
+to map cartesian coordinates to svg coordinates. (The `useScales` hook returns linear scales.)
+
+Props `scaleX` and `scaleY` specify cartesian linear scale.
+In contrast to other views, however, `Pie` adjusts the specified domains in order to ensure that
+the chart coordinate system appears with a 1:1 aspect ratio in svg coordinates.
+
+<Canvas>
+    <Story
+        name="wide x domain"
+        args={{
+            ...commonPieProps,
+            scaleX: {
+                variant: 'linear',
+                domain: [-3, 3],
+            },
+            children: (
+                <>
+                    <Surface />
+                    <Origin>
+                        <Slices />
+                    </Origin>
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="non-central origin"
+        args={{
+            ...commonPieProps,
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 2],
+            },
+            children: (
+                <>
+                    <Surface />
+                    <Origin>
+                        <Slices />
+                    </Origin>
+                </>
+            ),
+        }}
+        component={Pie}
+        decorators={[ChartDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
 
 ## Orientation
 
 By default `Pie` processed data so that the first data slice aligns with the vertical axis.
 Prop `angle` rotates the whole chart around its center.
+The value can be specified in degrees or radians, with the unit specified in prop `angleUnit`.
 
 <Canvas>
     <Story
@@ -125,6 +170,7 @@ Prop `angle` rotates the whole chart around its center.
         args={{
             ...commonPieProps,
             angle: Math.PI / 2,
+            angleUnit: 'radian',
             children: (
                 <Origin>
                     <Slices />
@@ -182,7 +228,7 @@ Intermediate values are possible as well.
 
 ## Center
 
-The center of a pie or doughnut is always at `[0, 0]`.
+The center of a pie or doughnut is always at `[0, 0]` in the view's cartesian coordinate system.
 
 <Canvas>
     <Story

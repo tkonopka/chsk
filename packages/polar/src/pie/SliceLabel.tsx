@@ -1,4 +1,4 @@
-import { getClassName, NumericPositionSpec } from '@chsk/core'
+import { deg2rad, getClassName, NumericPositionSpec } from '@chsk/core'
 import { R, THETA, PolarItem } from '../general'
 import { SliceLabelProps } from './types'
 
@@ -8,6 +8,7 @@ export const SliceLabel = ({
     outerRadius,
     startAngle,
     endAngle,
+    angleUnit = 'radian',
     // label/text props
     align = [0.5, 0.5],
     radial,
@@ -20,7 +21,8 @@ export const SliceLabel = ({
 }: SliceLabelProps) => {
     const sizeR = outerRadius - innerRadius
     const sizeAngle = endAngle - startAngle
-    const theta = startAngle + align[THETA] * sizeAngle
+    let theta = startAngle + align[THETA] * sizeAngle
+    if (angleUnit === 'degree') theta = deg2rad(theta)
     const position: NumericPositionSpec = [innerRadius + align[R] * sizeR, theta]
 
     let classPrefix = ''
@@ -35,6 +37,7 @@ export const SliceLabel = ({
         <PolarItem
             variant="polar-label"
             position={position}
+            angleUnit={'radian'}
             radial={radial}
             tangential={tangential}
             setRole={setRole}
