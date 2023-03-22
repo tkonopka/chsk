@@ -1,11 +1,14 @@
 import {
     AxisScale,
     BandAxisScale,
+    BandScaleProps,
     ContinuousAxisScale,
+    ContinuousScaleProps,
     LinearAxisScale,
     LogAxisScale,
     NumericAxisScale,
     Scale,
+    ScaleSpec,
     SqrtAxisScale,
     TimeAxisScale,
 } from './types'
@@ -46,4 +49,13 @@ export const isNumericAxisScale = (scale: Scale): scale is NumericAxisScale => {
 
 export const isContinuousAxisScale = (scale: Scale): scale is ContinuousAxisScale => {
     return isTimeAxisScale(scale) || isNumericAxisScale(scale)
+}
+
+export const isScaleWithDomain = (
+    scaleSpec: ScaleSpec
+): scaleSpec is ContinuousScaleProps | BandScaleProps => {
+    const domain = scaleSpec.domain
+    if (domain === undefined || typeof domain === 'string') return false
+    if (scaleSpec.variant === 'band') return true
+    return domain.map(v => Number(typeof v === 'number')).reduce((acc, v) => acc + v, 0) === 2
 }

@@ -1,6 +1,5 @@
 import { cloneDeep } from 'lodash'
 import {
-    ScaleSpec,
     ContinuousAxisScale,
     BandAxisScale,
     ContinuousScaleSpec,
@@ -10,19 +9,11 @@ import {
     GenericScale,
     TimeAxisScale,
     TimeScaleProps,
+    LinearScaleProps,
 } from './types'
 import { scaleLinear, scaleLog, scaleSqrt, scaleTime } from 'd3-scale'
 
-export const isScaleWithDomain = (
-    scaleSpec: ScaleSpec
-): scaleSpec is ContinuousScaleProps | BandScaleProps => {
-    const domain = scaleSpec.domain
-    if (domain === undefined || typeof domain === 'string') return false
-    if (scaleSpec.variant === 'band') return true
-    return domain.map(v => Number(typeof v === 'number')).reduce((acc, v) => acc + v, 0) === 2
-}
-
-// complete domain information in a scale spec to create a scale props
+/** complete domain information in a scale spec to create a scale props */
 export const createContinuousScaleProps = (
     scaleSpec: ContinuousScaleSpec,
     domain: [number, number],
@@ -37,6 +28,27 @@ export const createContinuousScaleProps = (
     }
     result.size = size
     return result
+}
+
+/** change domains for x and y scale props to achieve a square (1-1) aspect ratio */
+export const expandScalePropsToSquare = (
+    scalePropsX: LinearScaleProps,
+    scalePropsY: LinearScaleProps
+) => {
+    const domainRatio = (scaleProps: LinearScaleProps) =>
+        (scaleProps.domain[1] - scaleProps.domain[0]) / scaleProps.size
+    const adjustDomain = (domain: [number, number], ratio: number) => {
+        if (ratio > 1) return
+        const domainSize = domain[1] - domain[0]
+        const extension = domainSize / ratio - domainSize
+        domain[0] -= extension / 2
+        domain[1] += extension / 2
+    }
+    const xRatio = domainRatio(scalePropsX)
+    const yRatio = domainRatio(scalePropsY)
+    adjustDomain(scalePropsX.domain, xRatio / yRatio)
+    adjustDomain(scalePropsY.domain, yRatio / xRatio)
+    return { scalePropsX, scalePropsY }
 }
 
 // creates a scale function similar to D3's scaleBand

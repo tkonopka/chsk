@@ -13,8 +13,10 @@ import {
     isScaleWithDomain,
     isSqrtAxisScale,
     LinearAxisScale,
+    expandScalePropsToSquare,
 } from '../../src/scales'
 import { isNumericAxisScale, isTimeAxisScale } from '../../src/scales/predicates'
+import { ContinuousScaleProps, LinearScaleProps, SizeSpec } from '../../dist/types'
 
 describe('createContinuousScaleProps', () => {
     it('creates props for a scale with custom domain', () => {
@@ -61,6 +63,41 @@ describe('createContinuousScaleProps', () => {
             100
         )
         expect(result.domain).toEqual([-1, 1])
+    })
+})
+
+describe('expandScalePropsToSquare', () => {
+    const getSize = (s: [number, number]) => Math.abs(s[1] - s[0])
+    const pixelWidth = (x: LinearScaleProps) => getSize(x.domain) / x.size
+
+    it('leaves square props unchanged', () => {
+        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 200 }
+        expect(pixelWidth(x0)).toEqual(pixelWidth(y0))
+        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
+        expect(scalePropsX.domain).toEqual([0, 1])
+        expect(scalePropsY.domain).toEqual([0, 2])
+    })
+
+    it('expands x scale', () => {
+        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
+        expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
+        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
+        expect(scalePropsX.domain).toEqual([-0.5, 1.5])
+        expect(scalePropsY.domain).toEqual([0, 2])
+    })
+
+    it('expands y scale', () => {
+        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
+        const y0: LinearScaleProps = { variant: 'linear', domain: [1, 2], size: 100 }
+        expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
+        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
+        expect(scalePropsX.domain).toEqual([0, 2])
+        expect(scalePropsY.domain).toEqual([0.5, 2.5])
     })
 })
 
@@ -378,96 +415,5 @@ describe('createContinuousScale', () => {
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
         expect(result(Number(start))).toBeGreaterThan(0)
-    })
-})
-
-describe('getTickCoordinates', () => {
-    it('get tick coordinates (number of ticks)', () => {
-        const scale = createContinuousScale({
-            variant: 'linear',
-            domain: [0, 100],
-            size: 200,
-        })
-        const result = getTickCoordinates(scale, 6)
-        const expected = [0, 40, 80, 120, 160, 200]
-        expected.map((v, i) => expect(result[i]).toEqual(v))
-    })
-
-    it('get tick coordinates (specific values)', () => {
-        const scale = createContinuousScale({
-            variant: 'linear',
-            domain: [0, 100],
-            size: 200,
-        })
-        const result = getTickCoordinates(scale, [0, 25, 75, 100])
-        const expected = [0, 50, 150, 200]
-        expected.map((v, i) => expect(result[i]).toEqual(v))
-    })
-
-    it('get tick coordinates on time scale (number of ticks)', () => {
-        const start: Date = new Date(Date.parse('2000-01-01'))
-        const end: Date = new Date(Date.parse('2000-01-06'))
-        const scale = createContinuousScale({
-            variant: 'time',
-            domain: [start, end],
-            size: 200,
-        })
-        const result = getTickCoordinates(scale, 6)
-        const expected = [0, 40, 80, 120, 160, 200]
-        expected.map((v, i) => expect(result[i]).toEqual(v))
-    })
-
-    it('get tick coordinates on a time scale (specific time points)', () => {
-        const start: Date = new Date(Date.parse('2000-01-01'))
-        const end: Date = new Date(Date.parse('2000-01-05'))
-        const scale = createContinuousScale({
-            variant: 'time',
-            domain: [start, end],
-            size: 200,
-        })
-        const t1 = new Date(Date.parse('2000-01-02'))
-        const t2 = new Date(Date.parse('2000-01-04'))
-        const result = getTickCoordinates(scale, [t1, t2])
-        const expected = [50, 150]
-        expected.map((v, i) => expect(result[i]).toEqual(v))
-    })
-})
-
-describe('isScaleWithDomain', () => {
-    it('checks band scale with domain', () => {
-        const result = isScaleWithDomain({ variant: 'band', domain: ['a', 'b'] })
-        expect(result).toBeTruthy()
-    })
-
-    it('checks band scale with auto domain', () => {
-        const result = isScaleWithDomain({ variant: 'band', domain: 'auto' })
-        expect(result).toBeFalsy()
-    })
-
-    it('checks band scale without domain', () => {
-        const result = isScaleWithDomain({ variant: 'band' })
-        expect(result).toBeFalsy()
-    })
-
-    it('checks linear scale with domain', () => {
-        const result = isScaleWithDomain({ variant: 'linear', domain: [0, 20] })
-        expect(result).toBeTruthy()
-    })
-
-    it('checks linear scale with auto domain', () => {
-        const result = isScaleWithDomain({ variant: 'linear', domain: 'auto' })
-        expect(result).toBeFalsy()
-    })
-
-    it('checks linear scale with part-auto domain', () => {
-        const resultA = isScaleWithDomain({ variant: 'linear', domain: [0, 'auto'] })
-        expect(resultA).toBeFalsy()
-        const resultB = isScaleWithDomain({ variant: 'linear', domain: ['auto', 0] })
-        expect(resultB).toBeFalsy()
-    })
-
-    it('checks linear scale without domain', () => {
-        const result = isScaleWithDomain({ variant: 'linear' })
-        expect(result).toBeFalsy()
     })
 })

@@ -5,12 +5,13 @@ import {
     SizeSpec,
     X,
     Y,
-    ContinuousScaleProps,
     isScaleWithDomain,
     createContinuousScaleProps,
     CategoricalScaleSpec,
     LinearScaleSpec,
+    LinearScaleProps,
     NumericPositionSpec,
+    expandScalePropsToSquare,
 } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 import { VennProcessedDataItem } from './types'
@@ -22,9 +23,9 @@ export const getXYScaleProps = (
     scaleSpecY: LinearScaleSpec,
     size: SizeSpec
 ) => {
-    const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+    const scales = {
+        scalePropsX: cloneDeep(scaleSpecX) as LinearScaleProps,
+        scalePropsY: cloneDeep(scaleSpecY) as LinearScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data
@@ -33,7 +34,10 @@ export const getXYScaleProps = (
                 seriesData.center[X] + seriesData.r,
             ])
             .flat()
-        result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
+        scales.scalePropsX = createContinuousScaleProps(
+            scaleSpecX,
+            getMinMax(x)
+        ) as LinearScaleProps
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
@@ -42,29 +46,16 @@ export const getXYScaleProps = (
                 seriesData.center[Y] + seriesData.r,
             ])
             .flat()
-        result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
+        scales.scalePropsY = createContinuousScaleProps(
+            scaleSpecY,
+            getMinMax(y)
+        ) as LinearScaleProps
     }
-
-    // extend domains to force a 1:1 aspect ratio
-    const getDomainRatio = (scaleProps: ContinuousScaleProps) =>
-        (Number(scaleProps.domain[1]) - Number(scaleProps.domain[0])) / scaleProps.size
-    const adjustDomain = (domain: [number, number], ratio: number) => {
-        if (ratio > 1) return
-        const domainSize = domain[1] - domain[0]
-        const extension = domainSize / ratio - domainSize
-        domain[0] -= extension / 2
-        domain[1] += extension / 2
-    }
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.size = size[Y]
-    result.scalePropsX.nice = false
-    result.scalePropsY.nice = false
-    const xRatio = getDomainRatio(result.scalePropsX)
-    const yRatio = getDomainRatio(result.scalePropsY)
-    adjustDomain(result.scalePropsX.domain as [number, number], xRatio / yRatio)
-    adjustDomain(result.scalePropsY.domain as [number, number], yRatio / xRatio)
-
-    return result
+    scales.scalePropsX.size = size[X]
+    scales.scalePropsY.size = size[Y]
+    scales.scalePropsX.nice = false
+    scales.scalePropsY.nice = false
+    return expandScalePropsToSquare(scales.scalePropsX, scales.scalePropsY)
 }
 
 export const getColorScaleProps = (
