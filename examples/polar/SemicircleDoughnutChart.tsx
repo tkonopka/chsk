@@ -45,7 +45,7 @@ const customTooltipLabelFormat = (x: TooltipDataItem) => {
 export const SemicircleDoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isPieData(rawData)) return null
     const ids = rawData.map(item => item.id).filter(id => id !== '_')
-    const total = rawData.reduce((acc, item) => acc + item.data, 0)
+    const total = rawData.reduce((acc, item) => acc + item.data, 0) / 2
     return (
         <Chart
             data={chartData}
