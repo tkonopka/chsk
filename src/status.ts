@@ -9,8 +9,9 @@ const packages: string[] = fs.readdirSync(packagesDir).filter((x: string) => {
 })
 
 const dashLine = '--------------------------------------------'
+const shortDashLine = '----------------------------'
 
-const packageLinePrefix = (pkg: string) => (pkg.length > 8 ? pkg : pkg + '\t')
+const packageLinePrefix = (pkg: string) => (pkg.length >= 8 ? pkg : pkg + '\t')
 
 // Summarize number of tests and successes
 const testSummaryFile = (pkg: string) => path.join(packagesDir, pkg, 'tests', 'jest.json')
@@ -58,4 +59,34 @@ const totalStatements = coverage.reduce((total, x) => total + x['statements'], 0
 const totalHits = coverage.reduce((total, x) => total + x['hits'], 0)
 const overallCoverage = Math.round((10000 * totalHits) / totalStatements) / 100
 console.log('total\t\t' + totalStatements + '\t\t' + overallCoverage)
+console.log('')
+
+// Summarize examples
+const examplesDir = path.join(process.cwd(), 'examples')
+const examplesSubDirs: string[] = fs.readdirSync(examplesDir).filter((x: string) => {
+    const fullPath = path.join(examplesDir, x)
+    return fs.statSync(fullPath).isDirectory()
+})
+const findExampleMdx = (dirname: string) => {
+    const fullPath = path.join(examplesDir, dirname)
+    const content = fs
+        .readdirSync(path.join(examplesDir, dirname))
+        .filter((x: string) => x.endsWith('.mdx'))
+    return path.join(fullPath, content[0])
+}
+const countStories = (dirname: string) => {
+    const mdx = findExampleMdx(dirname)
+    const content = fs.readFileSync(mdx, 'utf8')
+    const n: number = content
+        .split('\n')
+        .filter((line: string) => line.trim().startsWith('<Story')).length
+    console.log(packageLinePrefix(dirname) + '\t' + n)
+    return { gallery: dirname, n }
+}
+console.log('Gallery\t\tExamples')
+console.log(shortDashLine)
+const examples = examplesSubDirs.map(countStories)
+const totalExamples = examples.reduce((total, x) => total + x['n'], 0)
+console.log(shortDashLine)
+console.log('total\t\t' + totalExamples)
 console.log('')
