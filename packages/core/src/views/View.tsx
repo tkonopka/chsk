@@ -1,21 +1,16 @@
 import { LazyMotion, domAnimation } from 'framer-motion'
 import { createScales, createColorScale, createContinuousScale } from '../scales'
 import { ViewProps } from './types'
-import { useView } from './hooks'
+import { useContainer } from './hooks'
 import { BaseView } from './BaseView'
 import { useThemedProps } from '../themes'
-import { defaultViewProps } from './defaults'
+import { defaultContainerProps, defaultViewProps } from './defaults'
 import { cloneDeep } from 'lodash'
 import { fillScaleSize } from './utils'
 
 const UnthemedView = ({
     variant = 'default',
-    position = defaultViewProps.position,
-    positionUnits = defaultViewProps.positionUnits,
-    size = defaultViewProps.size,
-    sizeUnits = defaultViewProps.sizeUnits,
-    anchor = defaultViewProps.anchor,
-    padding = defaultViewProps.padding,
+    container = defaultContainerProps,
     data = [],
     scaleX = defaultViewProps.scaleX,
     scaleY = defaultViewProps.scaleY,
@@ -26,14 +21,7 @@ const UnthemedView = ({
     style,
     children,
 }: ViewProps) => {
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
 
     const { x: scalePropsX, y: scalePropsY } = fillScaleSize(innerSize, scaleX, scaleY)
     const scales = createScales(scalePropsX, scalePropsY)

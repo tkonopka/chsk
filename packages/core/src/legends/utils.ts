@@ -20,7 +20,7 @@ export const getSizeEstimate = (
     itemSize: SizeSpec,
     nItems: number,
     firstOffset: NumericPositionSpec,
-    title: string | undefined,
+    title: boolean | undefined,
     horizontal: boolean
 ): SizeSpec => {
     const sizeMultiplier = horizontal

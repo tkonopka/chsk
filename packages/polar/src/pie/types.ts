@@ -28,10 +28,8 @@ export type PieProcessedDataItem = WithId & {
 }
 
 export interface PieProps
-    extends Omit<
-        ViewProps,
-        'variant' | 'scaleX' | 'scaleY' | 'scaleColor' | 'scaleSize' | 'autoRescale'
-    > {
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'children' | 'data'> {
     /** primary data (used for color scale) */
     data: Array<PieDataItem>
     /** global rotation */

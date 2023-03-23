@@ -7,8 +7,8 @@ import {
     MilestoneMotion,
     Surface,
     ThemeSpec,
-    SizeSpec,
     Typography,
+    ContainerProps,
 } from '@chsk/core'
 import { BoxedLabel } from '@chsk/annotation'
 import { Histogram, HistogramCurve, isHistogramData } from '@chsk/xy'
@@ -70,7 +70,6 @@ const multiviewTheme: ThemeSpec = {
 
 // props for Histograms
 const multiviewHistogramProps = {
-    size: [0.333, 1] as SizeSpec,
     units: 'relative' as const,
     breaks: stepSequence([-3, 4], 0.4),
     density: true,
@@ -96,6 +95,9 @@ const boxedLabelTransition = {
 
 export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isHistogramData(rawData)) return null
+    const containerA: ContainerProps = { size: [0.333, 1], position: [0, 0] }
+    const containerB: ContainerProps = { size: [0.333, 1], position: [0.35, 0] }
+    const containerC: ContainerProps = { size: [0.333, 1], position: [0.7, 0] }
     return (
         <Chart
             data={chartData}
@@ -106,7 +108,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             theme={multiviewTheme}
         >
             <MilestoneMotion initial={'invisible'} initialOn={'small'}>
-                <Histogram position={[0, 0]} {...multiviewHistogramProps} data={rawData}>
+                <Histogram container={containerA} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
                     <Axis variant={'bottom'} />
@@ -133,7 +135,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                 </Histogram>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'medium'}>
-                <Histogram position={[0.35, 0]} {...multiviewHistogramProps} data={rawData}>
+                <Histogram container={containerB} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
                     <Axis variant={'bottom'} label={'values (a.u.)'} />
@@ -159,7 +161,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                 </Histogram>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'large'}>
-                <Histogram position={[0.7, 0]} {...multiviewHistogramProps} data={rawData}>
+                <Histogram container={containerC} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
                     <Axis variant={'bottom'} />

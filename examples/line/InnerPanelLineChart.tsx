@@ -10,6 +10,7 @@ import {
     useScales,
     ContinuousAxisScale,
     SizeSpec,
+    ContainerProps,
 } from '@chsk/core'
 import { Scatter, ScatterCurve, isScatterData } from '@chsk/xy'
 import { FlowPath } from '@chsk/annotation'
@@ -72,13 +73,13 @@ const customTheme = {
 const ZoomBox = ({
     fromX,
     fromY,
-    toCorner,
-    toSize,
+    toCorner = [0, 0],
+    toSize = [100, 100],
 }: {
     fromX: [number, number]
     fromY: number
-    toCorner: NumericPositionSpec
-    toSize: SizeSpec
+    toCorner?: NumericPositionSpec
+    toSize?: SizeSpec
 }) => {
     const scales = useScales()
     const xScale = scales.x as ContinuousAxisScale
@@ -131,9 +132,12 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
         [bounds[0], 0],
         [bounds[0], detailMax],
     ]
-    const insetCorner: NumericPositionSpec = [230, 30]
-    const insetSize: SizeSpec = [200, 160]
-
+    const insetContainer: ContainerProps = {
+        position: [230, 30],
+        positionUnits: 'absolute',
+        size: [200, 160],
+        sizeUnits: 'absolute',
+    }
     return (
         <Chart
             data={chartData}
@@ -178,8 +182,8 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                     <ZoomBox
                         fromX={bounds}
                         fromY={detailMax}
-                        toCorner={insetCorner}
-                        toSize={insetSize}
+                        toCorner={insetContainer.position as NumericPositionSpec}
+                        toSize={insetContainer.size}
                     />
                 </MilestoneMotion>
                 <MilestoneMotion
@@ -188,13 +192,10 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                     transition={{ delay: 0.7 }}
                 >
                     <Scatter
+                        container={insetContainer}
                         x={'x'}
                         y={'y'}
                         data={detailData}
-                        position={insetCorner}
-                        positionUnits={'absolute'}
-                        size={insetSize}
-                        sizeUnits={'absolute'}
                         valueSize={3}
                     >
                         <Surface style={{ strokeWidth: 1.5, fill: '#f8f8f8' }} />

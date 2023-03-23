@@ -47,7 +47,8 @@ export type ScatterDataContextProps = ProcessedDataContextProps & {
 }
 
 export interface ScatterProps
-    extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor' | 'scaleSize'> {
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'data' | 'autoRescale' | 'children'> {
     /** key or function to extract x-axis values from raw data */
     x: string | AccessorFunction<number>
     /** key or function to extract y-axis values from raw data */

@@ -26,6 +26,10 @@
 
 ### Changed
 
+-   [core] renamed `useView` hook to `useContainer`
+-   [all] changed view props so that `position`, `positionUnits`, `size`,
+    `sizeUnits`, `padding`, and `anchor` are now nested in a single
+    `container` prop. This simplifies internal code and docs for add-on views.
 -   [core] renamed prop `rotate` to `angle` in typography components
 -   [core] upgrade d3-shape to v3.2.0
 -   [annotation] removed redundant 'px' suffixes in svg exports to reduce size

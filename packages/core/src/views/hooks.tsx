@@ -1,38 +1,18 @@
-import {
-    getAnchoredOrigin,
-    PositionSpec,
-    FourSideSizeSpec,
-    SizeSpec,
-    AnchorSpec,
-    PositionUnits,
-    SizeUnits,
-    useDimensions,
-    X,
-    Y,
-    LEFT,
-    TOP,
-    zeroPadding,
-    getInnerSize,
-} from '../general'
+import { getAnchoredOrigin, useDimensions, X, Y, LEFT, TOP, getInnerSize } from '../general'
 import { getDimensionsProps } from '../general/dimensions'
 import { getAbsolutePosition, useScales } from '../scales'
 import { useMemo } from 'react'
+import { ContainerProps } from './types'
+import { defaultContainerProps } from './defaults'
 
-export const useView = ({
-    position,
-    positionUnits = 'absolute',
-    size,
-    sizeUnits = 'absolute',
-    padding = zeroPadding,
-    anchor,
-}: {
-    position: PositionSpec
-    positionUnits?: PositionUnits
-    size: SizeSpec
-    sizeUnits?: SizeUnits
-    padding?: FourSideSizeSpec
-    anchor: AnchorSpec
-}) => {
+export const useContainer = ({
+    position = defaultContainerProps.position,
+    positionUnits = defaultContainerProps.positionUnits,
+    size = defaultContainerProps.size,
+    sizeUnits = defaultContainerProps.sizeUnits,
+    padding = defaultContainerProps.padding,
+    anchor = defaultContainerProps.anchor,
+}: ContainerProps) => {
     const dimensions = useDimensions()
     const scales = useScales()
     const { dimsProps, origin, innerSize } = useMemo(() => {

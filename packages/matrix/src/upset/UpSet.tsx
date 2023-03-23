@@ -4,7 +4,7 @@ import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
     createScales,
-    useView,
+    useContainer,
     getIndexes,
     BandScaleSpec,
     useTheme,
@@ -13,6 +13,7 @@ import {
     BandScaleProps,
     X,
     Y,
+    defaultContainerProps,
 } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 
@@ -86,33 +87,17 @@ const getXYScaleProps = (
 }
 
 export const UpSet = ({
-    // layout
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     data,
     horizontal = true,
     scaleIndex = defaultUpSetScaleSpec,
     scaleMembership = defaultUpSetScaleSpec,
     scaleColor,
-    //
     children,
-    // svg
     ...props
 }: UpSetProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 

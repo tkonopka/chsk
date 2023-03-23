@@ -93,7 +93,7 @@ export const ArrowsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
         padding={[40, 40, 60, 75]}
         theme={customTheme}
     >
-        <Bar position={[0, 0]} {...customProps} data={rawData}>
+        <Bar {...customProps} data={rawData}>
             <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
                 <GridLines variant={'y'} />
             </MilestoneMotion>

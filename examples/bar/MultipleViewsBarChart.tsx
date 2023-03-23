@@ -1,12 +1,12 @@
 import {
     Chart,
+    ContainerProps,
     Axis,
     AxisLabel,
     AxisLine,
     AxisTicks,
     GridLines,
     ThemeSpec,
-    SizeSpec,
     Tooltip,
     WithId,
     SvgElementVariantProps,
@@ -106,8 +106,6 @@ const multiviewTheme: ThemeSpec = {
 }
 
 const multiviewBarProps = {
-    size: [0.333, 1] as SizeSpec,
-    units: 'relative' as const,
     variant: 'stacked' as const,
     horizontal: true,
     scaleIndex: {
@@ -230,89 +228,106 @@ const customTooltipLabel = (x: TooltipDataItem) => {
     return x?.key + ', ' + x?.id + ': ' + x?.data
 }
 
-export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => (
-    <Chart
-        fref={fref}
-        data={chartData}
-        id="multiview"
-        size={[600, 280]}
-        padding={[40, 40, 40, 60]}
-        theme={multiviewTheme}
-    >
-        <FilterInsetColor id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
-        <Bar position={[0, 0]} {...multiviewBarProps} data={rawData} keys={['alpha']}>
-            <ActiveIdTooltipProvider>
-                <BandSurface
-                    tooltip={true}
-                    interactive={true}
-                    expansion={[0, 8]}
+export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
+    const containerA: ContainerProps = {
+        size: [0.333, 1],
+        position: [0, 0],
+        positionUnits: 'relative',
+    }
+    const containerB: ContainerProps = {
+        size: [0.333, 1],
+        position: [0.35, 0],
+        positionUnits: 'relative',
+    }
+    const containerC: ContainerProps = {
+        size: [0.333, 1],
+        position: [0.7, 0],
+        positionUnits: 'relative',
+    }
+    return (
+        <Chart
+            fref={fref}
+            data={chartData}
+            id="multiview"
+            size={[600, 280]}
+            padding={[40, 40, 40, 60]}
+            theme={multiviewTheme}
+        >
+            <FilterInsetColor id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
+            <Bar container={containerA} {...multiviewBarProps} data={rawData} keys={['alpha']}>
+                <ActiveIdTooltipProvider>
+                    <BandSurface
+                        tooltip={true}
+                        interactive={true}
+                        expansion={[0, 8]}
+                        dataComponent={GlobalHoverDataComponent}
+                    />
+                </ActiveIdTooltipProvider>
+                <GridLines variant={'y'} shift={[-0.6]} />
+                <Axis variant={'top'}>
+                    <AxisLine variant={'top'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10}>
+                        Alpha
+                    </AxisLabel>
+                </Axis>
+                <Axis variant={'bottom'} ticks={[]} />
+                <Bars
                     dataComponent={GlobalHoverDataComponent}
+                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
                 />
-            </ActiveIdTooltipProvider>
-            <GridLines variant={'y'} shift={[-0.6]} />
-            <Axis variant={'top'}>
-                <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10}>
-                    Alpha
-                </AxisLabel>
-            </Axis>
-            <Axis variant={'bottom'} ticks={[]} />
-            <Bars
-                dataComponent={GlobalHoverDataComponent}
-                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-            />
-            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            <Axis variant={'left'}>
-                <AxisTicks variant={'left'} tickSize={0} />
-            </Axis>
-            <Tooltip labelFormat={customTooltipLabel} />
-        </Bar>
-        <Bar position={[0.35, 0]} {...multiviewBarProps} data={rawData} keys={['beta']}>
-            <ActiveIdTooltipProvider>
-                <BandSurface
-                    tooltip={true}
-                    interactive={true}
-                    expansion={[0, 8]}
+                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                <Axis variant={'left'}>
+                    <AxisTicks variant={'left'} tickSize={0} />
+                </Axis>
+                <Tooltip labelFormat={customTooltipLabel} />
+            </Bar>
+            <Bar container={containerB} {...multiviewBarProps} data={rawData} keys={['beta']}>
+                <ActiveIdTooltipProvider>
+                    <BandSurface
+                        tooltip={true}
+                        interactive={true}
+                        expansion={[0, 8]}
+                        dataComponent={GlobalHoverDataComponent}
+                    />
+                </ActiveIdTooltipProvider>
+                <GridLines variant={'y'} shift={[-0.6]} />
+                <Axis variant={'top'}>
+                    <AxisLine variant={'top'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10}>
+                        Beta
+                    </AxisLabel>
+                </Axis>
+                <Axis variant={'bottom'} ticks={[]} />
+                <Bars
                     dataComponent={GlobalHoverDataComponent}
+                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
                 />
-            </ActiveIdTooltipProvider>
-            <GridLines variant={'y'} shift={[-0.6]} />
-            <Axis variant={'top'}>
-                <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10}>
-                    Beta
-                </AxisLabel>
-            </Axis>
-            <Axis variant={'bottom'} ticks={[]} />
-            <Bars
-                dataComponent={GlobalHoverDataComponent}
-                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-            />
-            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            <Tooltip labelFormat={customTooltipLabel} />
-        </Bar>
-        <Bar position={[0.7, 0]} {...multiviewBarProps} data={rawData} keys={['gamma']}>
-            <ActiveIdTooltipProvider>
-                <BandSurface
-                    tooltip={true}
-                    interactive={true}
+                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                <Tooltip labelFormat={customTooltipLabel} />
+            </Bar>
+            <Bar container={containerC} {...multiviewBarProps} data={rawData} keys={['gamma']}>
+                <ActiveIdTooltipProvider>
+                    <BandSurface
+                        tooltip={true}
+                        interactive={true}
+                        dataComponent={GlobalHoverDataComponent}
+                    />
+                </ActiveIdTooltipProvider>
+                <GridLines variant={'y'} shift={[-0.6]} />
+                <Axis variant={'top'}>
+                    <AxisLine variant={'top'} />
+                    <AxisLabel variant={'top'} anchor={0} offset={10}>
+                        Gamma
+                    </AxisLabel>
+                </Axis>
+                <Axis variant={'bottom'} ticks={[]} />
+                <Bars
                     dataComponent={GlobalHoverDataComponent}
+                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
                 />
-            </ActiveIdTooltipProvider>
-            <GridLines variant={'y'} shift={[-0.6]} />
-            <Axis variant={'top'}>
-                <AxisLine variant={'top'} />
-                <AxisLabel variant={'top'} anchor={0} offset={10}>
-                    Gamma
-                </AxisLabel>
-            </Axis>
-            <Axis variant={'bottom'} ticks={[]} />
-            <Bars
-                dataComponent={GlobalHoverDataComponent}
-                modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-            />
-            <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-            <Tooltip labelFormat={customTooltipLabel} />
-        </Bar>
-    </Chart>
-)
+                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                <Tooltip labelFormat={customTooltipLabel} />
+            </Bar>
+        </Chart>
+    )
+}

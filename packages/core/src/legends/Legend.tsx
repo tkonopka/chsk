@@ -1,6 +1,6 @@
-import { ReactNode } from 'react'
+import { ReactNode, useMemo } from 'react'
 import { LegendProps } from './types'
-import { useView } from '../views'
+import { useContainer } from '../views'
 import { getClassName, useThemedProps } from '../themes'
 import {
     DimensionsProvider,
@@ -71,11 +71,15 @@ const UnthemedLegend = ({
         horizontal
     )
     // size and position of entire legend
-    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, horizontal)
-    const { x, y, dimsProps } = useView({
+    const hasTitle = title !== '' && title !== undefined
+    const tooltipSize = useMemo(
+        () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, horizontal),
+        [size, padding, itemSize, n, firstOffset, hasTitle, horizontal]
+    )
+    const { x, y, dimsProps } = useContainer({
         position,
         positionUnits,
-        size,
+        size: tooltipSize,
         sizeUnits,
         anchor,
     })
@@ -144,8 +148,8 @@ const UnthemedLegend = ({
                             role={setRole ? 'legend-surface' : undefined}
                             x={0}
                             y={0}
-                            width={size[X]}
-                            height={size[Y]}
+                            width={tooltipSize[X]}
+                            height={tooltipSize[Y]}
                             rx={rx}
                             ry={ry}
                             className={getClassName('legend surface', className)}

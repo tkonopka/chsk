@@ -5,7 +5,7 @@ import {
     AccessorFunction,
     BandAxisScale,
     getAccessor,
-    useView,
+    useContainer,
     getIndexes,
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
@@ -13,10 +13,10 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
-    defaultViewProps,
     ContinuousAxisScale,
     SizeSpec,
     NumericPositionSpec,
+    defaultContainerProps,
 } from '@chsk/core'
 import {
     ScheduleDataItem,
@@ -91,14 +91,7 @@ const prepareData = (
 }
 
 export const Schedule = ({
-    // layout
-    position = defaultViewProps.position,
-    positionUnits = defaultViewProps.positionUnits,
-    size = defaultViewProps.size,
-    sizeUnits = defaultViewProps.sizeUnits,
-    anchor = defaultViewProps.anchor,
-    padding = defaultViewProps.padding,
-    // content
+    container = defaultContainerProps,
     data,
     keys,
     intervalStart = 'start',
@@ -109,20 +102,11 @@ export const Schedule = ({
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
     scaleColor,
-    //
     children,
-    // svg
     ...props
 }: ScheduleProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 

@@ -49,10 +49,8 @@ export type VennDataContextProps = ProcessedDataContextProps & {
 export type VennInterpolation = (c1: string, c2: string, c3?: string) => string
 
 export interface VennProps
-    extends Omit<
-        ViewProps,
-        'variant' | 'scaleX' | 'scaleY' | 'scaleColor' | 'scaleSize' | 'autoRescale'
-    > {
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'data' | 'children'> {
     /** primary data (used for color scale) */
     data: Array<VennDataItem>
     /** global rotation */

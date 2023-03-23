@@ -85,7 +85,7 @@ export interface BoxAndWhiskersProps extends SvgElementProps, InteractivityProps
     whiskerCapWidth?: number
 }
 
-export interface DistributionProps extends Omit<BandProps, 'scaleSize'> {
+export interface DistributionProps extends BandProps {
     /** variant */
     variant?: 'grouped' | 'layered'
     /** data */

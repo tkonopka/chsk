@@ -57,7 +57,9 @@ export interface BandHighlightProps extends SvgElementProps {
 }
 
 // base interface for BarProps, StripProps, QuantileProps
-export interface BandProps extends Omit<ViewProps, 'variant' | 'scaleX' | 'scaleY' | 'scaleColor'> {
+export interface BandProps
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'children' | 'data' | 'autoRescale'> {
     /** list of all keys associated with a band */
     keys: string[]
     /** display bands horizontally */

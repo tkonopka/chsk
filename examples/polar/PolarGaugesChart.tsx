@@ -7,6 +7,7 @@ import {
     Typography,
     NumericPositionSpec,
     SizeSpec,
+    ContainerProps,
 } from '@chsk/core'
 import { Origin, Pie, PieDataItem, Slices } from '@chsk/polar'
 import { darkTheme, downloadTheme } from '@chsk/themes'
@@ -77,18 +78,15 @@ export const CustomPolarGauge = ({
     data: Array<PieDataItem>
 }) => {
     const value = data[0].data
+    const container: ContainerProps = {
+        position,
+        positionUnits: 'relative',
+        size,
+        sizeUnits: 'relative',
+        padding: [0, 5, 0, 5],
+    }
     return (
-        <Pie
-            position={position}
-            positionUnits={'relative'}
-            size={size}
-            sizeUnits={'relative'}
-            padding={[0, 5, 0, 5]}
-            data={data}
-            angleAlign={0}
-            rInner={0.9}
-            rOuter={0.98}
-        >
+        <Pie container={container} data={data} angleAlign={0} rInner={0.9} rOuter={0.98}>
             <Origin>
                 <Slices style={{ strokeWidth: 0 }} />
                 <Typography variant={'gauge-name'} position={[0, -16]}>

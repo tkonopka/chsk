@@ -99,7 +99,11 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 </Typography>
             </MilestoneMotion>
             <MilestoneMotion initial={'invisible'} initialOn={'sizes'}>
-                <Bar data={rawData} keys={['size']} size={[0.4, 1]} padding={[10, 40, 0, 20]}>
+                <Bar
+                    data={rawData}
+                    keys={['size']}
+                    container={{ size: [0.4, 1], padding: [10, 40, 0, 20] }}
+                >
                     <Axis variant={'bottom'}>
                         <AxisLine variant={'bottom'} />
                         <AxisTicks variant={'bottom'} labelFormat={labelFormat} />
@@ -127,9 +131,11 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         colors: 'Accent',
                         size: 5,
                     }}
-                    position={[0.5, 0.2]}
-                    size={[0.6, 0.75]}
-                    padding={[20, 80, -10, 20]}
+                    container={{
+                        position: [0.5, 0.2],
+                        size: [0.6, 0.75],
+                        padding: [20, 80, -10, 20],
+                    }}
                 >
                     <VennSets />
                     <VennSets style={{ fillOpacity: 0, stroke: '#000', strokeWidth: 1 }} />

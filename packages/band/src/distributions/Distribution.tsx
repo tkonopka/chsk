@@ -6,7 +6,7 @@ import {
     BandAxisScale,
     getAccessor,
     LinearAxisScale,
-    useView,
+    useContainer,
     getIndexes,
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
@@ -15,8 +15,8 @@ import {
     createColorScaleProps,
     BaseView,
     getMinMax,
-    defaultViewProps,
     getMoments,
+    defaultContainerProps,
 } from '@chsk/core'
 import {
     FiveNumbers,
@@ -106,14 +106,7 @@ const prepareData = (
 }
 
 export const Distribution = ({
-    // layout
-    position = defaultViewProps.position,
-    positionUnits = defaultViewProps.positionUnits,
-    size = defaultViewProps.size,
-    sizeUnits = defaultViewProps.sizeUnits,
-    anchor = defaultViewProps.anchor,
-    padding = defaultViewProps.padding,
-    // content
+    container = defaultContainerProps,
     variant = 'grouped',
     data,
     keys,
@@ -124,20 +117,11 @@ export const Distribution = ({
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
     scaleColor,
-    //
     children,
-    // svg
     ...props
 }: DistributionProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 

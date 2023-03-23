@@ -8,7 +8,7 @@ import {
     SvgElementProps,
     TranslateSpec,
 } from '../general'
-import { ContainerProps } from '../views'
+import { ContainerProps, ViewProps } from '../views'
 import { SymbolProps } from '../shapes'
 import { AxisTicksProps } from '../axes'
 
@@ -101,6 +101,7 @@ export interface LegendColorScaleThemedProps
 export interface LegendProps
     extends SvgElementProps,
         ContainerProps,
+        Pick<ViewProps, 'children'>,
         Pick<
             LegendItemProps,
             'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelOffset' | 'interactive'

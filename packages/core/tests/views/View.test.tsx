@@ -19,7 +19,7 @@ describe('View', () => {
     it('creates view with shifted position', () => {
         render(
             <Chart {...chartProps}>
-                <View position={[10, 0]} positionUnits={'absolute'} {...viewProps}></View>
+                <View container={{ position: [10, 0], positionUnits: 'absolute' }} {...viewProps} />
             </Chart>
         )
         const result = screen.getByRole('view-default')
@@ -29,7 +29,7 @@ describe('View', () => {
     it('creates view with padding', () => {
         render(
             <Chart {...chartProps}>
-                <View padding={[10, 10, 10, 10]} {...viewProps}></View>
+                <View container={{ padding: [10, 10, 10, 10] }} {...viewProps} />
             </Chart>
         )
         const result = screen.getByRole('view-content')
@@ -42,7 +42,7 @@ describe('View', () => {
     it('creates view with complete props', () => {
         render(
             <Chart {...chartProps}>
-                <View {...viewProps}></View>
+                <View {...viewProps} />
             </Chart>
         )
         const result = screen.getByRole('view-content')

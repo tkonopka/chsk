@@ -4,10 +4,11 @@ import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
     createScales,
-    useView,
+    useContainer,
     getIndexes,
     useTheme,
     defaultLinearScaleSpec,
+    defaultContainerProps,
 } from '@chsk/core'
 import { getColorScaleProps, getXYScaleProps } from './utils'
 import { VennPreparedDataProvider } from './contexts'
@@ -22,14 +23,7 @@ const defaultInterpolation = (c1: string, c2: string, c3?: string) => {
 }
 
 export const Venn = ({
-    // layout
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     data,
     angle = 0,
     separation = 0.7,
@@ -38,19 +32,11 @@ export const Venn = ({
     scaleY = defaultLinearScaleSpec,
     scaleColor,
     interpolation = defaultInterpolation,
-    //
     children,
     ...props
 }: VennProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
@@ -58,7 +44,6 @@ export const Venn = ({
         () => processData(data, angle, separation, proportional),
         [data, separation, proportional]
     )
-
     const { scalePropsX, scalePropsY } = useMemo(
         () => getXYScaleProps(processedData, seriesIds, scaleX, scaleY, innerSize),
         [processedData, seriesIds, scaleX, scaleY, innerSize]
@@ -71,8 +56,6 @@ export const Venn = ({
         () => createScales(scalePropsX, scalePropsY, colorScaleProps),
         [scalePropsX, scalePropsY, colorScaleProps]
     )
-
-    // compute coordinates
     const preparedData = useMemo(
         () => prepareData(processedData, scales, interpolation),
         [processedData, scales, interpolation]

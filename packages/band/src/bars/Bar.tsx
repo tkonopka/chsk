@@ -7,7 +7,7 @@ import {
     getAccessor,
     LinearAxisScale,
     SizeSpec,
-    useView,
+    useContainer,
     getIndexes,
     NumericPositionSpec,
     defaultBandScaleSpec,
@@ -16,7 +16,7 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
-    defaultViewProps,
+    defaultContainerProps,
 } from '@chsk/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -108,14 +108,7 @@ const prepareData = (
 }
 
 export const Bar = ({
-    // layout
-    position = defaultViewProps.position,
-    positionUnits = defaultViewProps.positionUnits,
-    size = defaultViewProps.size,
-    sizeUnits = defaultViewProps.sizeUnits,
-    anchor = defaultViewProps.anchor,
-    padding = defaultViewProps.padding,
-    // content
+    container = defaultContainerProps,
     variant = 'grouped',
     data,
     keys,
@@ -125,20 +118,11 @@ export const Bar = ({
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
     scaleColor,
-    //
     children,
-    // svg
     ...props
 }: BarProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 

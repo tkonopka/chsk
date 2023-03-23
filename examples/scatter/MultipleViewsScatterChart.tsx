@@ -5,9 +5,9 @@ import {
     Legend,
     MilestoneMotion,
     Surface,
-    SizeSpec,
     getMinMax,
     ThemeSpec,
+    ContainerProps,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, isScatterData } from '@chsk/xy'
 import { BoxedTitle } from '@chsk/annotation'
@@ -45,7 +45,6 @@ export const generateMultiViewsScatterData = () => [
 type RecordABC = { x: number; A: number; B: number; C: number }
 
 const commonProps = {
-    size: [0.3333, 1] as SizeSpec,
     units: 'relative' as const,
     x: 'x',
     y: 'A',
@@ -109,6 +108,9 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
         domain: yDomain as [number, number],
         nice: true,
     }
+    const containerA: ContainerProps = { size: [0.3333, 1], position: [0, 0] }
+    const containerB: ContainerProps = { size: [0.3333, 1], position: [0.35, 0] }
+    const containerC: ContainerProps = { size: [0.3333, 1], position: [0.7, 0] }
     return (
         <Chart
             fref={fref}
@@ -118,7 +120,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
             padding={[40, 120, 60, 60]}
             theme={multiviewTheme}
         >
-            <Scatter position={[0, 0]} {...commonProps} y={'A'} data={rawData} scaleY={scaleY}>
+            <Scatter container={containerA} {...commonProps} y={'A'} data={rawData} scaleY={scaleY}>
                 <MilestoneMotion
                     initial={enterAnimation}
                     initialOn={'A'}
@@ -151,7 +153,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
             </Scatter>
             <MilestoneMotion initial={enterAnimation} initialOn={'B'} transition={enterTransition}>
                 <Scatter
-                    position={[0.35, 0]}
+                    container={containerB}
                     {...commonProps}
                     y={'B'}
                     data={rawData}
@@ -169,7 +171,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
             </MilestoneMotion>
             <MilestoneMotion initial={enterAnimation} initialOn={'C'} transition={enterTransition}>
                 <Scatter
-                    position={[0.7, 0]}
+                    container={containerC}
                     {...commonProps}
                     y={'C'}
                     data={rawData}

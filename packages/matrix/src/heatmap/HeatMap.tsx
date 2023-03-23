@@ -6,11 +6,12 @@ import {
     BaseView,
     getAccessor,
     createScales,
-    useView,
+    useContainer,
     getIndexes,
     BandScaleSpec,
     useTheme,
     defaultSizeScaleSpec,
+    defaultContainerProps,
 } from '@chsk/core'
 import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
@@ -41,14 +42,7 @@ const defaultHeatMapScaleSpec: BandScaleSpec = {
 }
 
 export const HeatMap = ({
-    // layout
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     keys,
     data,
     dataSize,
@@ -56,20 +50,11 @@ export const HeatMap = ({
     scaleY = defaultHeatMapScaleSpec,
     scaleColor,
     scaleSize = defaultSizeScaleSpec,
-    //
     children,
-    // svg
     ...props
 }: HeatMapProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 

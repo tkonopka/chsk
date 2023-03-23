@@ -1,5 +1,6 @@
 import { UpSetBarProps, UpSetProcessedDataItem } from './types'
 import {
+    ContainerProps,
     defaultBandScaleSpec,
     defaultLinearScaleWithZeroSpec,
     NumericPositionSpec,
@@ -40,15 +41,12 @@ const getBarViewLayout = (
 }
 
 export const UpSetBar = ({
-    // layout
     size,
     padding = [0, 0, 0, 0],
     scaleIndex = defaultBandScaleSpec,
     scaleValue = defaultLinearScaleWithZeroSpec,
     scaleColor,
-    //
     children,
-    //
     ...props
 }: UpSetBarProps) => {
     const processedData = useProcessedData()
@@ -63,13 +61,16 @@ export const UpSetBar = ({
         [horizontal, dimensions]
     )
 
+    const container: ContainerProps = {
+        position: barLayout.position,
+        positionUnits: 'absolute',
+        size: barLayout.size,
+        sizeUnits: 'absolute',
+        padding,
+    }
     return (
         <Bar
-            position={barLayout.position}
-            positionUnits={'absolute'}
-            size={barLayout.size}
-            padding={padding}
-            sizeUnits={'absolute'}
+            container={container}
             data={barData}
             keys={['value']}
             horizontal={!horizontal}

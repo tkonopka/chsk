@@ -11,7 +11,7 @@ import {
     ContinuousAxisScale,
     getAccessor,
     createScales,
-    useView,
+    useContainer,
     getIndexes,
     defaultLinearScaleSpec,
     useDisabledKeys,
@@ -22,6 +22,7 @@ import {
     ColorScale,
     defaultSizeScaleSpec,
     NumericAxisScale,
+    defaultContainerProps,
 } from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
@@ -85,14 +86,7 @@ const prepareData = (
 }
 
 export const Scatter = ({
-    // layout
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     data,
     x,
     y,
@@ -103,20 +97,11 @@ export const Scatter = ({
     scaleColor,
     scaleSize = defaultSizeScaleSpec,
     autoRescale = true,
-    //
     children,
-    // svg
     ...props
 }: ScatterProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const { disabled } = useDisabledKeys(seriesIds)

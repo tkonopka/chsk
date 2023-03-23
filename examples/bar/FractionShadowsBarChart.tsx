@@ -128,7 +128,7 @@ export const FractionShadowsBarChart = ({ fref, chartData, rawData }: MilestoneS
             />
         </defs>
         <Surface variant={'outer'} style={{ fill: 'url(#shadows-bg)' }} />
-        <View position={[-365, 0]} positionUnits={'absolute'}>
+        <View container={{ position: [-365, 0], positionUnits: 'absolute' }}>
             <MilestoneMotion initial={'invisible'} initialOn={'title'}>
                 <Typography variant={'title'} position={[0, -10]}>
                     Chart with shadows

@@ -1,4 +1,4 @@
-import { useView } from '../views'
+import { useContainer } from '../views'
 import { useThemedProps } from '../themes'
 import { NumericPositionSpec, useDimensions, X, Y } from '../general'
 import { getSizeEstimate } from '../legends/utils'
@@ -7,6 +7,7 @@ import { useTooltip } from './contexts'
 import { guessLabel } from './utils'
 import { BaseTooltip } from './BaseTooltip'
 import { AxisTooltipProps } from './types'
+import { useMemo } from 'react'
 
 const UnthemedAxisTooltip = ({
     variant = 'right',
@@ -43,8 +44,17 @@ const UnthemedAxisTooltip = ({
     const data = tooltip.data ?? []
     const n = labelFormat === null ? 0 : data.length
     title = title ?? (titleFormat ? titleFormat(tooltip) : tooltip.title)
-    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, false)
-    const { x, y } = useView({ position: translate, size, anchor })
+    const hasTitle = title !== '' && tooltip !== undefined
+    const tooltipSize = useMemo(
+        () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, false),
+        [size, padding, itemSize, n, firstOffset, hasTitle]
+    )
+    const { x, y } = useContainer({
+        position: translate,
+        size: tooltipSize,
+        sizeUnits: 'absolute',
+        anchor,
+    })
 
     const tooltipPosition: NumericPositionSpec = [x + (tooltip.x ?? 0), y + (tooltip.y ?? 0)]
     if (variant === 'top') {
@@ -61,7 +71,7 @@ const UnthemedAxisTooltip = ({
         <BaseTooltip
             variant={variant}
             position={[tooltipPosition[X], tooltipPosition[Y]]}
-            size={size}
+            size={tooltipSize}
             padding={padding}
             data={data}
             title={title}

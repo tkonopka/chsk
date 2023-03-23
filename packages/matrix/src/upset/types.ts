@@ -3,6 +3,7 @@ import {
     BandScaleSpec,
     CategoricalScaleSpec,
     CssProps,
+    FourSideSizeSpec,
     LineProps,
     NumericPositionSpec,
     ProcessedDataContextProps,
@@ -30,7 +31,8 @@ export type UpSetDataContextProps = ProcessedDataContextProps & {
 }
 
 export interface UpSetProps
-    extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor' | 'scaleSize'> {
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'data' | 'children'> {
     /** primary data (used for color scale) */
     data: Array<UpSetDataItem>
     /** display set pairs horizontally */
@@ -67,7 +69,9 @@ export interface UpSetMembershipsProps extends Omit<UpSetMembershipProps, 'posit
 }
 
 export interface UpSetBarProps
-    extends Pick<BandProps, 'padding' | 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {
+    extends Pick<BandProps, 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {
+    /** padding */
+    padding?: FourSideSizeSpec
     /** size of view along the value axis */
     size: number
 }

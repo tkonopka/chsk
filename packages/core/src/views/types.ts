@@ -48,8 +48,14 @@ export interface ContainerProps {
     anchor?: AnchorSpec
     /** padding (absolute values) **/
     padding?: FourSideSizeSpec
-    /** children components */
-    children?: ReactNode
+}
+export interface ContainerThemedProps extends ContainerProps {
+    position: PositionSpec
+    positionUnits: PositionUnits
+    size: SizeSpec
+    sizeUnits: SizeUnits
+    anchor: AnchorSpec
+    padding: FourSideSizeSpec
 }
 
 export type ViewSeriesKeys = {
@@ -59,7 +65,9 @@ export type ViewSeriesKeys = {
     keys: string[]
 }
 
-export interface ViewProps extends SvgElementProps, ContainerProps {
+export interface ViewProps extends SvgElementProps {
+    /** position and size for bounding container */
+    container?: ContainerProps
     /** variant of view */
     variant?: 'default' | string
     /** data array **/
@@ -74,32 +82,17 @@ export interface ViewProps extends SvgElementProps, ContainerProps {
     scaleColor?: ColorScaleProps
     /** scale for size */
     scaleSize?: ContinuousScaleProps
+    /** children components */
+    children?: ReactNode
 }
 
 export interface ViewThemedProps
-    extends Pick<
-        ViewProps,
-        | 'scaleX'
-        | 'scaleY'
-        | 'scaleSize'
-        | 'position'
-        | 'positionUnits'
-        | 'anchor'
-        | 'size'
-        | 'sizeUnits'
-        | 'padding'
-        | 'setRole'
-    > {
+    extends Pick<ViewProps, 'scaleX' | 'scaleY' | 'scaleSize' | 'container' | 'setRole'> {
     scaleX: ScaleProps
     scaleY: ScaleProps
     scaleColor: ColorScaleProps
     scaleSize: ContinuousScaleProps
-    sizeUnits: SizeUnits
-    position: NumericPositionSpec
-    positionUnits: PositionUnits
-    anchor: NumericPositionSpec
-    size: SizeSpec
-    padding: FourSideSizeSpec
+    container: ContainerProps
     setRole: boolean
 }
 

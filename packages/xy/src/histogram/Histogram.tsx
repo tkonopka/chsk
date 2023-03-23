@@ -6,7 +6,7 @@ import {
     ContinuousAxisScale,
     createScales,
     createContinuousScaleProps,
-    useView,
+    useContainer,
     ContinuousScaleProps,
     ContinuousScaleSpec,
     isScaleWithDomain,
@@ -21,6 +21,7 @@ import {
     Y,
     SizeSpec,
     getMoments,
+    defaultContainerProps,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
@@ -92,14 +93,7 @@ const getScaleProps = (
 }
 
 export const Histogram = ({
-    // layout
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     data,
     breaks,
     density = false,
@@ -107,20 +101,11 @@ export const Histogram = ({
     scaleY = defaultLinearScaleSpec,
     scaleColor,
     autoRescale = true,
-    //
     children,
-    // svg
     ...props
 }: HistogramProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const { disabled } = useDisabledKeys(seriesIds)

@@ -1,4 +1,4 @@
-import { useView } from '../views'
+import { useContainer } from '../views'
 import { useThemedProps } from '../themes'
 import { addPositions, getAnchoredOrigin, NumericPositionSpec } from '../general'
 import { defaultTooltipProps } from './defaults'
@@ -7,6 +7,7 @@ import { exitsParent, flipPositionAnchor, guessLabel } from './utils'
 import { TooltipProps } from './types'
 import { BaseTooltip } from './BaseTooltip'
 import { getSizeEstimate } from '../legends/utils'
+import { useMemo } from 'react'
 
 const UnthemedTooltip = ({
     // layout of container
@@ -43,25 +44,34 @@ const UnthemedTooltip = ({
     const n = labelFormat === null ? 0 : data.length
     title =
         title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
-    size = size ?? getSizeEstimate(padding, itemSize, n, firstOffset, title, false)
-    const { x, y, dimensions } = useView({ position: translate, size, anchor })
-
+    const hasTitle = title !== '' && title !== undefined
+    const tooltipSize = useMemo(
+        () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, false),
+        [size, padding, itemSize, n, firstOffset, hasTitle]
+    )
+    const { x, y, dimensions } = useContainer({
+        position: translate,
+        positionUnits: 'absolute',
+        size: tooltipSize,
+        sizeUnits: 'absolute',
+        anchor,
+    })
     // in cases when the tooltip would exit the parent container, adjust position and anchor
     const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
     const flip = exitsParent(
         addPositions([x, y], tooltipPosition),
-        size,
+        tooltipSize,
         dimensions.size,
         maxOverhang
     )
     const { flippedPosition, flippedAnchor } = flipPositionAnchor(translate, anchor, flip)
-    const originPosition = getAnchoredOrigin(flippedPosition, size, flippedAnchor)
+    const originPosition = getAnchoredOrigin(flippedPosition, tooltipSize, flippedAnchor)
 
     return (
         <BaseTooltip
             variant={horizontal ? 'bottom' : 'right'}
             position={addPositions(originPosition, tooltipPosition)}
-            size={size}
+            size={tooltipSize}
             padding={padding}
             data={data}
             title={title}

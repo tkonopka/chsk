@@ -11,6 +11,7 @@ import {
     ViewProps,
     WithId,
     XY,
+    SvgElementProps,
 } from '@chsk/core'
 import { FC } from 'react'
 
@@ -34,7 +35,9 @@ export type HistogramDataContextProps = ProcessedDataContextProps & {
 
 export type HistogramInteractiveDataItem = HistogramProcessedDataItem & { bin?: number }
 
-export interface HistogramProps extends Omit<ViewProps, 'scaleX' | 'scaleY' | 'scaleColor'> {
+export interface HistogramProps
+    extends SvgElementProps,
+        Pick<ViewProps, 'container' | 'data' | 'autoRescale' | 'children'> {
     /** data */
     data: Array<HistogramDataItem>
     /** breakpoints for bins */

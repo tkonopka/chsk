@@ -3,13 +3,14 @@ import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
     createScales,
-    useView,
+    useContainer,
     useTheme,
     createColorScaleProps,
     getIndexes,
     LinearScaleSpec,
     AngleUnit,
     deg2rad,
+    defaultContainerProps,
 } from '@chsk/core'
 import { getPieXYScaleProps } from './utils'
 import { PieDataItem, PieProps, PieProcessedDataItem } from './types'
@@ -56,14 +57,7 @@ const processData = (
 }
 
 export const Pie = ({
-    // view
-    position = [0, 0],
-    positionUnits = 'relative',
-    size = [1, 1],
-    sizeUnits = 'relative',
-    anchor = [0, 0],
-    padding = [0, 0, 0, 0],
-    // content
+    container = defaultContainerProps,
     data,
     angle = 0,
     angleUnit = 'degree',
@@ -73,19 +67,11 @@ export const Pie = ({
     scaleX = defaultPolarScaleSpec,
     scaleY = defaultPolarScaleSpec,
     scaleColor,
-    //
     children,
     ...props
 }: PieProps) => {
     const theme = useTheme()
-    const { dimsProps, origin, innerSize } = useView({
-        position,
-        positionUnits,
-        size,
-        sizeUnits,
-        anchor,
-        padding,
-    })
+    const { dimsProps, origin, innerSize } = useContainer(container)
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
 

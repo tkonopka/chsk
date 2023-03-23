@@ -27,7 +27,9 @@ export interface ChartRef {
     toggleMilestone: (milestone: string) => void
 }
 
-export interface ChartProps extends SvgElementProps, Omit<ContainerProps, 'x' | 'y'> {
+export interface ChartProps
+    extends SvgElementProps,
+        Omit<ContainerProps, 'position' | 'positionUnits'> {
     /** identifier for the chart */
     id?: string
     /** adjust size to fill parent container */
@@ -42,6 +44,8 @@ export interface ChartProps extends SvgElementProps, Omit<ContainerProps, 'x' | 
     styles?: Array<SvgBaseComponent>
     /** forwarded ref */
     fref?: Ref<ChartRef>
+    /** children components */
+    children?: ReactNode
 }
 
 /** Milestones */
