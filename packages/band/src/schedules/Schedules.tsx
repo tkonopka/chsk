@@ -93,6 +93,5 @@ export const Schedules = ({
         })
         .filter(Boolean)
 
-    console.log('rendering schedules')
     return <>{result}</>
 }
