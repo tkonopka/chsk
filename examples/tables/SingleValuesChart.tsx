@@ -41,6 +41,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
             fill: '#bbb',
         },
         percent: {
+            dominantBaseline: 'auto',
             fill: '#bbb',
         },
         warning: {
