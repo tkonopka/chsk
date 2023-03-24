@@ -25,7 +25,7 @@ import { generateKeyValues } from './generators'
 import { MilestoneStory } from '../types'
 import { createElement, MouseEvent, ReactNode, useCallback, useState } from 'react'
 import { clone, merge } from 'lodash'
-import { FilterInsetColor } from '@chsk/annotation'
+import { InsetColorFilter } from '@chsk/annotation'
 
 const multiviewIds = ['A', 'B', 'C', 'D', 'E', 'F']
 
@@ -253,7 +253,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             padding={[40, 40, 40, 60]}
             theme={multiviewTheme}
         >
-            <FilterInsetColor id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
+            <InsetColorFilter id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
             <Bar container={containerA} {...multiviewBarProps} data={rawData} keys={['alpha']}>
                 <ActiveIdTooltipProvider>
                     <BandSurface

@@ -1,14 +1,14 @@
-import { FilterInsetShadowProps } from './types'
+import { InsetShadowFilterProps } from './types'
 
 // Svg filter to create an inset shadow
 // modified based on:
 // https://css-tricks.com/adding-shadows-to-svg-icons-with-css-and-svg-filters/
-export const FilterInsetShadow = ({
+export const InsetShadowFilter = ({
     id,
     blurStdDeviation = 5,
     floodColor = '#000000',
     floodOpacity = 0.9,
-}: FilterInsetShadowProps) => {
+}: InsetShadowFilterProps) => {
     return (
         <filter id={id}>
             <feGaussianBlur stdDeviation={blurStdDeviation} result={id + '-blur'} />

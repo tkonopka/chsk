@@ -1,6 +1,6 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip, TooltipDataItem } from '@chsk/core'
 import { Venn, VennSets, VennSetLabels, VennIntersectionLabels, isVennData } from '@chsk/set'
-import { FilterInsetShadow } from '@chsk/annotation'
+import { InsetShadowFilter } from '@chsk/annotation'
 import { downloadTheme } from '@chsk/themes'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -57,7 +57,7 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             padding={[60, 60, 60, 60]}
             theme={customTheme}
         >
-            <FilterInsetShadow id={'inset-shadow'} blurStdDeviation={6} floodOpacity={0.6} />
+            <InsetShadowFilter id={'inset-shadow'} blurStdDeviation={6} floodOpacity={0.6} />
             <Venn
                 data={rawData}
                 proportional={true}

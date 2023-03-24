@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [annotation] filter `BackgroundColorFilter`
 -   [core] prop `component` in `Counter` to support bespoke displays, for
     example, as a combination of svg `text` and `tspan` elements
 -   [polar] examples with pie and doughnut chart
@@ -28,6 +29,9 @@
 
 ### Changed
 
+-   [annotation] changed filter component names so that `Filter` is the suffix
+    rather than prefix, for consistency with other naming convensions e.g. for
+    boxed labels
 -   [core] changed `Counter` animations to spring for consistency with other
     components
 -   [core] renamed `useView` hook to `useContainer`

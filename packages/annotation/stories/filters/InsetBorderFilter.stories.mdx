@@ -1,27 +1,27 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, Surface, Rectangle } from '@chsk/core'
-import { FilterInsetShadow } from '../../src/filters'
+import { InsetBorderFilter } from '../../src/filters'
 
-<Meta title="Addons/Annotation/Filters/FilterInsetShadow" />
+<Meta title="Addons/Annotation/Filters/InsetBorderFilter" />
 
-# FilterInsetShadow
+# InsetBorderFilter
 
-export const Template = args => <FilterInsetShadow {...args} />
+export const Template = args => <InsetBorderFilter {...args} />
 
-`FilterInsetShadow` creates an svg filter that creates a lighter-color mask.
+`InsetBorderFilter` creates an svg filter that applies a solid color mask to the boundary of a target.
 
-<ArgsTable of={FilterInsetShadow} />
+<ArgsTable of={InsetBorderFilter} />
 
-## Blur
+## Color and opacity
 
-Prop `blurStdDeviation` determines the amount of blur for the shadow.
-Larger values makes the shadow spread further into the target object.
+Prop `floodColor` determines the color of the mask.
+Prop `floodOpacity` determines the intensity of the filter.
 
 <Canvas>
-    <Story name="narrow">
+    <Story name="lighter">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetShadow id={'narrow-shadow'} blurStdDeviation={6} />
+            <InsetBorderFilter id={'lighter-border'} floodColor={'#ffffff'} r={8} />
             <Rectangle
                 x={40}
                 y={40}
@@ -29,7 +29,7 @@ Larger values makes the shadow spread further into the target object.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
                 }}
             />
@@ -40,17 +40,17 @@ Larger values makes the shadow spread further into the target object.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#narrow-shadow)',
+                    filter: 'url(#lighter-border)',
                 }}
             />
         </Chart>
     </Story>
-    <Story name="wide">
+    <Story name="darker">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetShadow id={'wide-shadow'} blurStdDeviation={18} />
+            <InsetBorderFilter id={'darker-border'} floodColor={'#222222'} r={8} />
             <Rectangle
                 x={40}
                 y={40}
@@ -58,7 +58,7 @@ Larger values makes the shadow spread further into the target object.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
                 }}
             />
@@ -69,28 +69,29 @@ Larger values makes the shadow spread further into the target object.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#wide-shadow)',
+                    filter: 'url(#darker-border)',
                 }}
             />
         </Chart>
     </Story>
 </Canvas>
 
-## Flood color
+## Inset
 
-Props 'floodColor' and 'floodOpacity' control the coloring of the shadow.
+By default, `InsetBorderFilter` affects the entire shape, including any existing boundary.
+To exclude the boundary from the filter, set prop `erodeR` with the width of the boundary stroke.
 
 <Canvas>
-    <Story name="light">
+    <Story name="inset">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetShadow
-                id={'light-shadow'}
-                blurStdDeviation={6}
+            <InsetBorderFilter
+                id={'inset-lighter-border'}
+                erodeR={3}
+                r={8}
                 floodColor={'#ffffff'}
-                floodOpacity={0.8}
             />
             <Rectangle
                 x={40}
@@ -99,7 +100,7 @@ Props 'floodColor' and 'floodOpacity' control the coloring of the shadow.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
                 }}
             />
@@ -110,9 +111,9 @@ Props 'floodColor' and 'floodOpacity' control the coloring of the shadow.
                 height={60}
                 style={{
                     stroke: '#000000',
-                    strokeWidth: 1,
+                    strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#light-shadow)',
+                    filter: 'url(#inset-lighter-border)',
                 }}
             />
         </Chart>

@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, Surface, LinearGradient } from '@chsk/core'
-import { BlockArrow, FilterInsetShadow } from '../../src'
+import { BlockArrow, InsetShadowFilter } from '../../src'
 import { ChartDecorator } from '../decorators'
 
 <Meta title="Addons/Annotation/Flowchart/BlockArrow" />
@@ -113,7 +113,7 @@ Arrows can be styled using css, including with gradients and filters.
     </Story>
     <Story name="filter">
         <Chart size={[400, 300]} padding={[40, 40, 40, 40]} style={{ display: 'inline-block' }}>
-            <FilterInsetShadow id={'arrow-shadow'} blurStdDeviation={6} floodOpacity={0.95} />
+            <InsetShadowFilter id={'arrow-shadow'} blurStdDeviation={6} floodOpacity={0.95} />
             <Surface variant={'inner'} />
             <BlockArrow
                 stemWidth={32}

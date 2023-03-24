@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { FilterInsetShadow } from '../../src'
+import { BackgroundColorFilter } from '../../src'
 import { chartProps } from '../props'
 
-describe('FilterInsetShadow', () => {
+describe('BackgroundColorFilter', () => {
     it('creates a filter', () => {
         render(
             <Chart {...chartProps}>
-                <FilterInsetShadow id={'custom'} />
+                <BackgroundColorFilter id={'custom'} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelectorAll('filter')

@@ -1,19 +1,23 @@
-import { WithId } from '@chsk/core'
+import { FourSideSizeSpec, WithId } from '@chsk/core'
 
 export type FloodProps = {
     floodColor?: string
     floodOpacity?: number
 }
 
-export interface FilterInsetColorProps extends WithId, FloodProps {
+export interface InsetColorFilterProps extends WithId, FloodProps {
     erodeR?: number
 }
 
-export interface FilterInsetBorderProps extends FilterInsetColorProps {
+export interface InsetBorderFilterProps extends InsetColorFilterProps {
     erodeR?: number
     r?: number
 }
 
-export interface FilterInsetShadowProps extends WithId, FloodProps {
+export interface InsetShadowFilterProps extends WithId, FloodProps {
     blurStdDeviation?: number
+}
+
+export interface BackgroundColorFilterProps extends WithId, FloodProps {
+    expansion?: FourSideSizeSpec
 }

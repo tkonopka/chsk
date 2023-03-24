@@ -19,7 +19,7 @@ import {
     SliceLabels,
     PolarItem,
 } from '@chsk/polar'
-import { FilterInsetColor } from '@chsk/annotation'
+import { InsetColorFilter } from '@chsk/annotation'
 import { downloadTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
@@ -118,7 +118,7 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             padding={[80, 60, 30, 60]}
             theme={customTheme}
         >
-            <FilterInsetColor
+            <InsetColorFilter
                 id={'darker-slice'}
                 floodColor={'#222222'}
                 floodOpacity={0.3}

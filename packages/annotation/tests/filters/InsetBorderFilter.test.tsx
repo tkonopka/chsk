@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { FilterInsetBorder } from '../../src'
+import { InsetBorderFilter } from '../../src'
 import { chartProps } from '../props'
 
-describe('FilterInsetBorder', () => {
+describe('InsetBorderFilter', () => {
     it('creates a filter', () => {
         render(
             <Chart {...chartProps}>
-                <FilterInsetBorder id={'custom'} />
+                <InsetBorderFilter id={'custom'} />
             </Chart>
         )
         const result = screen.getByRole('chart-content').querySelectorAll('filter')

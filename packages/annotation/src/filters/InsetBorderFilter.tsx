@@ -1,12 +1,12 @@
-import { FilterInsetBorderProps } from './types'
+import { InsetBorderFilterProps } from './types'
 
-export const FilterInsetBorder = ({
+export const InsetBorderFilter = ({
     id,
     r = 1,
     erodeR = 0,
     floodColor = '#000000',
     floodOpacity = 0.5,
-}: FilterInsetBorderProps) => {
+}: InsetBorderFilterProps) => {
     return (
         <filter id={id}>
             <feMorphology in="SourceGraphic" operator="erode" radius={r} result={id + '-in'} />

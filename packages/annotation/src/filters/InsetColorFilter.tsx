@@ -1,11 +1,11 @@
-import { FilterInsetColorProps } from './types'
+import { InsetColorFilterProps } from './types'
 
-export const FilterInsetColor = ({
+export const InsetColorFilter = ({
     id,
     erodeR = 0,
     floodColor = '#000000',
     floodOpacity = 0.5,
-}: FilterInsetColorProps) => {
+}: InsetColorFilterProps) => {
     return (
         <filter id={id}>
             <feMorphology operator="erode" radius={erodeR} result={id + '-erode'} />

@@ -1,27 +1,29 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Chart, Surface, Rectangle } from '@chsk/core'
-import { FilterInsetBorder } from '../../src/filters'
+import { InsetColorFilter } from '../../src/filters'
 
-<Meta title="Addons/Annotation/Filters/FilterInsetBorder" />
+<Meta title="Addons/Annotation/Filters/InsetColorFilter" />
 
-# FilterInsetBorder
+# InsetColorFilter
 
-export const Template = args => <FilterInsetBorder {...args} />
+export const Template = args => <InsetColorFilter {...args} />
 
-`FilterInsetBorder` creates an svg filter that applies a solid color mask to the boundary of a target.
+`InsetColorFilter` creates an svg filter that applies a solid color mask.
 
-<ArgsTable of={FilterInsetBorder} />
+<ArgsTable of={InsetColorFilter} />
 
 ## Color and opacity
 
 Prop `floodColor` determines the color of the mask.
 Prop `floodOpacity` determines the intensity of the filter.
 
+Each of the examples below shows a shape with a regular fill and the same shape with a filter.
+
 <Canvas>
     <Story name="lighter">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetBorder id={'lighter-border'} floodColor={'#ffffff'} r={8} />
+            <InsetColorFilter id={'lighter'} floodColor={'#ffffff'} />
             <Rectangle
                 x={40}
                 y={40}
@@ -42,7 +44,7 @@ Prop `floodOpacity` determines the intensity of the filter.
                     stroke: '#000000',
                     strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#lighter-border)',
+                    filter: 'url(#lighter)',
                 }}
             />
         </Chart>
@@ -50,7 +52,7 @@ Prop `floodOpacity` determines the intensity of the filter.
     <Story name="darker">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetBorder id={'darker-border'} floodColor={'#222222'} r={8} />
+            <InsetColorFilter id={'darker'} floodColor={'#222222'} floodOpacity={0.6} />
             <Rectangle
                 x={40}
                 y={40}
@@ -71,7 +73,7 @@ Prop `floodOpacity` determines the intensity of the filter.
                     stroke: '#000000',
                     strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#darker-border)',
+                    filter: 'url(#darker)',
                 }}
             />
         </Chart>
@@ -80,19 +82,14 @@ Prop `floodOpacity` determines the intensity of the filter.
 
 ## Inset
 
-By default, `FilterInsetBorder` affects the entire shape, including any existing boundary.
+By default, `InsetColorFilter` affects the entire shape, including the boundary.
 To exclude the boundary from the filter, set prop `erodeR` with the width of the boundary stroke.
 
 <Canvas>
     <Story name="inset">
         <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
             <Surface />
-            <FilterInsetBorder
-                id={'inset-lighter-border'}
-                erodeR={3}
-                r={8}
-                floodColor={'#ffffff'}
-            />
+            <InsetColorFilter id={'inset-lighter'} erodeR={3} floodColor={'#ffffff'} />
             <Rectangle
                 x={40}
                 y={40}
@@ -113,7 +110,42 @@ To exclude the boundary from the filter, set prop `erodeR` with the width of the
                     stroke: '#000000',
                     strokeWidth: 3,
                     fill: '#dd9999',
-                    filter: 'url(#inset-lighter-border)',
+                    filter: 'url(#inset-lighter)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that the filter appears to affect only the inside of the shape because `erodeR` is matched with the boundary stroke width.
+The matching must be done manually. Otherwise, the filter can affect only a part of the object.
+
+<Canvas>
+    <Story name="mismatched radius">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <InsetColorFilter id={'inset-mismatched'} erodeR={12} floodColor={'#ffffff'} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 3,
+                    fill: '#dd9999',
+                    filter: 'url(#inset-mismatched)',
                 }}
             />
         </Chart>
