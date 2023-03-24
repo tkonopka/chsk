@@ -8,6 +8,7 @@ import {
     NumericPositionSpec,
     SizeSpec,
     ContainerProps,
+    TextContentProps,
 } from '@chsk/core'
 import { Origin, Pie, PieDataItem, Slices } from '@chsk/polar'
 import { darkTheme, downloadTheme } from '@chsk/themes'
@@ -46,10 +47,17 @@ const customTheme: ThemeSpec = mergeThemes([
             counter: {
                 fontSize: '24px',
                 fontWeight: 300,
+                dominantBaseline: 'auto',
             },
             gaugeName: {
                 fontSize: '12px',
                 fill: '#aaaaaa',
+            },
+        },
+        tspan: {
+            percent: {
+                fontSize: '20px',
+                dominantBaseline: 'auto',
             },
         },
         path: {
@@ -65,6 +73,15 @@ const customTheme: ThemeSpec = mergeThemes([
         },
     },
 ])
+
+export const CustomPolarGaugeValue = ({ className, style, children }: TextContentProps) => {
+    return (
+        <text style={style} className={className}>
+            {children}
+            <tspan className={'percent'}>%</tspan>
+        </text>
+    )
+}
 
 export const CustomPolarGauge = ({
     id,
@@ -92,7 +109,7 @@ export const CustomPolarGauge = ({
                 <Typography variant={'gauge-name'} position={[0, -16]}>
                     {id}
                 </Typography>
-                <Counter position={[0, 6]} format={v => v + '%'}>
+                <Counter position={[2, 14]} component={CustomPolarGaugeValue}>
                     {value}
                 </Counter>
             </Origin>

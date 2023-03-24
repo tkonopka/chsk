@@ -1,21 +1,25 @@
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     NumericPositionSpec,
     FourSideSizeSpec,
     SizeSpec,
     SvgElementVariantProps,
     AlignSpec,
+    SvgElementProps,
 } from '../general'
 
-export interface TypographyProps extends SvgElementVariantProps {
+export interface TextContentProps extends Pick<SvgElementProps, 'style' | 'className'> {
+    /** content */
+    children?: ReactNode
+}
+
+export interface TypographyProps extends SvgElementVariantProps, TextContentProps {
     /** position (absolute coordinates) */
     position?: NumericPositionSpec
     /** variant */
     variant?: 'default' | 'title' | 'subtitle' | 'axisLabel' | 'tickLabel' | string
     /** rotation (degrees) */
     angle?: number
-    /** content */
-    children?: ReactNode
 }
 
 export type LabelLocationSpec = {
@@ -36,4 +40,6 @@ export interface CounterProps extends LabelProps {
     nDecimalPlaces?: number
     /** format */
     format?: (v: number) => string
+    /** component to replace default text */
+    component?: FC<TextContentProps>
 }

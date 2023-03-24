@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { animate } from 'framer-motion'
+import { animate, m } from 'framer-motion'
+import { createElement, useState } from 'react'
 import {
     centerAlign,
     getAlignPosition,
@@ -10,9 +10,19 @@ import {
     zeroPadding,
     zeroPosition,
 } from '../general'
-import { CounterProps } from './types'
-import { Typography } from './Typography'
-import { useTheme } from '../themes'
+import { CounterProps, TextContentProps } from './types'
+import { getClassName, useTheme } from '../themes'
+
+const TextElement = ({
+    component,
+    children,
+    ...props
+}: Pick<CounterProps, 'component'> & TextContentProps) => {
+    if (component === undefined) {
+        return <text {...props}>{children}</text>
+    }
+    return createElement(component, props, children)
+}
 
 export const Counter = ({
     variant = 'counter',
@@ -23,18 +33,18 @@ export const Counter = ({
     align = centerAlign,
     nDecimalPlaces = 0,
     format = (v: number) => String(v),
+    component,
     style,
     className,
     setRole = true,
     children,
 }: CounterProps) => {
     const theme = useTheme()
-    const [value, setValue] = useState(Number(children))
+    const [value, setValue] = useState(roundDecimalPlaces(Number(children), nDecimalPlaces))
     const [working, setWorking] = useState(false)
 
-    const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
-    const pos = getAlignPosition(corner, size, align, padding)
-
+    //type: 'spring',
+    //...theme.Motion,
     if (value !== Number(children) && !working) {
         animate(value, Number(children), {
             duration: theme.Motion.duration,
@@ -50,16 +60,19 @@ export const Counter = ({
         })
     }
 
+    const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
+    const pos = getAlignPosition(corner, size, align, padding)
+    const compositeClassName = getClassName(variant, className)
+    const config = { x: pos[X], y: pos[Y], rotate: angle, originX: '0px', originY: '0px' }
     return (
-        <Typography
-            variant={variant}
-            position={pos}
-            angle={angle}
-            style={style}
-            className={className}
-            setRole={setRole}
+        <m.g
+            role={setRole && variant !== 'default' ? variant : undefined}
+            initial={config}
+            animate={config}
         >
-            {format(value)}
-        </Typography>
+            <TextElement style={style} className={compositeClassName} component={component}>
+                {format(value)}
+            </TextElement>
+        </m.g>
     )
 }

@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [core] prop `component` in `Counter` to support bespoke displays, for
+    example, as a combination of svg `text` and `tspan` elements
 -   [polar] examples with pie and doughnut chart
 -   [polar] package for charts with polar coordinate systems
 -   [band] components `BarAndWhisker` and `LineAndWhiskers` to summarize

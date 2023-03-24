@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 import { Counter } from '../../../src'
-import { CounterController } from './CounterController'
+import { CounterController, CustomCounterValue } from './CounterController'
 
 # Counter
 
@@ -17,16 +17,30 @@ export const Template = args => <Label {...args} />
 
 <Canvas>
     <Story name="counter">
-        <CounterController position={[40, 40]} />
+        <CounterController position={[80, 40]} />
     </Story>
 </Canvas>
 
 ## Content format
 
-`Counter` always displays a number, but the format can be adjusted using prop `format`, for example, to display percentages.
+By default, `Counter` displays a number 'as-is'.
+Prop `nDecimalPlaces` introduces number-rounding to a fixed number of decimal places.
+Alternatively, prop `format` accepts a function to perform custom number-to-string conversion.
+This can be used, for example, to display values as percentages.
 
 <Canvas>
-    <Story name="percentages">
-        <CounterController position={[40, 40]} format={v => String(v) + '%'} />
+    <Story name="custom format">
+        <CounterController position={[80, 40]} format={v => String(v) + '%'} nDecimalPlaces={1} />
+    </Story>
+</Canvas>
+
+## Custom components
+
+For even more control over how the counter is displayed, prop `component` accepts a custom React component.
+Custom components can be used to, for example, display text with nested `tspan` tags.
+
+<Canvas>
+    <Story name="custom component">
+        <CounterController position={[80, 40]} nDecimalPlaces={0} component={CustomCounterValue} />
     </Story>
 </Canvas>

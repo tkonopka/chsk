@@ -13,6 +13,7 @@ import {
     FourSideSizeSpec,
     BOTTOM,
     LEFT,
+    TextContentProps,
 } from '@chsk/core'
 import { downloadTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
@@ -51,6 +52,19 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
             fill: '#222',
         },
     },
+    tspan: {
+        percent: {
+            dominantBaseline: 'auto',
+            fontSize: '14px',
+            fill: '#bbb',
+        },
+        warning: {
+            fill: '#555',
+        },
+        error: {
+            fill: '#222',
+        },
+    },
     rect: {
         widget: {
             stroke: '#000',
@@ -61,6 +75,16 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
         duration: 0.6,
     },
 })
+
+// a display for a counter number and a small percentage sign
+export const DashboardCounterValue = ({ style, className, children }: TextContentProps) => {
+    return (
+        <text style={style} className={className}>
+            {children}
+            <tspan className={'percent ' + className}> %</tspan>
+        </text>
+    )
+}
 
 // a widget to display a label and a percentage
 const DashboardValue = ({
@@ -80,8 +104,6 @@ const DashboardValue = ({
 }) => {
     const scales = useScales()
     const color = scales.color(value)
-    // hand-coded offsets for percentage sign after the numeric value
-    const percentOffset = 8 + (value < 10 ? 20 : value > 99 ? 60 : 40)
     const activeClassName =
         value < thresholds[1] ? ' error' : value < thresholds[0] ? ' warning' : ''
     return (
@@ -105,18 +127,10 @@ const DashboardValue = ({
                 position={[position[X] + padding[LEFT], position[Y] + size[Y] - padding[BOTTOM]]}
                 align={[0.5, 0.5]}
                 className={activeClassName}
+                component={DashboardCounterValue}
             >
                 {value}
             </Counter>
-            <Typography
-                position={[
-                    position[X] + padding[LEFT] + percentOffset,
-                    position[Y] + size[Y] - padding[BOTTOM],
-                ]}
-                className={'percent' + activeClassName}
-            >
-                %
-            </Typography>
         </>
     )
 }
