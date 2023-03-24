@@ -43,11 +43,10 @@ export const Counter = ({
     const [value, setValue] = useState(roundDecimalPlaces(Number(children), nDecimalPlaces))
     const [working, setWorking] = useState(false)
 
-    //type: 'spring',
-    //...theme.Motion,
     if (value !== Number(children) && !working) {
         animate(value, Number(children), {
-            duration: theme.Motion.duration,
+            type: 'spring',
+            ...theme.Motion,
             onPlay: () => {
                 setWorking(true)
             },

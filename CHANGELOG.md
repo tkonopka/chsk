@@ -28,6 +28,8 @@
 
 ### Changed
 
+-   [core] changed `Counter` animations to spring for consistency with other
+    components
 -   [core] renamed `useView` hook to `useContainer`
 -   [all] changed view props so that `position`, `positionUnits`, `size`,
     `sizeUnits`, `padding`, and `anchor` are now nested in a single

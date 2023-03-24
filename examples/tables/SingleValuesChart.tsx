@@ -72,7 +72,9 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
         },
     },
     Motion: {
-        duration: 0.6,
+        mass: 0.5,
+        stiffness: 200,
+        damping: 25,
     },
 })
 
