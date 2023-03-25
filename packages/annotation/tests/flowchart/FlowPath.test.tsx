@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
 import { chartProps, viewProps } from '../props'
 import { FlowPath } from '../../src'
@@ -98,7 +98,7 @@ describe('FlowPath', () => {
         expect(result.getAttribute('class')).toBe('flow abc')
     })
 
-    it('sets marker urls', () => {
+    it('sets marker urls', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -113,8 +113,10 @@ describe('FlowPath', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('flow')
-        expect(result.getAttribute('marker-start')).toBe('url(#abc)')
-        expect(result.getAttribute('marker-end')).toBe('url(#xyz)')
+        await waitFor(() => {
+            const result = screen.getByRole('flow')
+            expect(result.getAttribute('marker-start')).toBe('url(#abc)')
+            expect(result.getAttribute('marker-end')).toBe('url(#xyz)')
+        })
     })
 })

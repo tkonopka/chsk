@@ -1,0 +1,51 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface } from '@chsk/core'
+import { FlowTypography, BoxedLabel } from '../../src'
+import { FlowTypographyDemo } from './FlowTypographyDemo'
+
+<Meta title="Addons/Annotation/Typography/FlowTypography" />
+
+# FlowTypography
+
+export const Template = args => <FlowTypography {...args} />
+
+`FlowTypography` animates text so that it reveals one character at a time.
+
+<ArgsTable of={FlowTypography} />
+
+## Reveal rate
+
+The speed of text reveal is determined by props `rate` and `duration`.
+Prop `rate` sets the number of characters that appear per second.
+Prop `duration`, which overrides `rate`, sets the total length of time for the animation.
+
+The two examples below display 'This is an example' using default settings (left)
+and with custom `rate` to slow down the effect (right).
+Click on the button to start the animation.
+
+<Canvas>
+    <Story name="default">
+        <FlowTypographyDemo style={{ textAnchor: 'start', fontSize: '18px' }}>
+            This is an example.
+        </FlowTypographyDemo>
+    </Story>
+    <Story name="slow text">
+        <FlowTypographyDemo rate={2} style={{ textAnchor: 'start', fontSize: '18px' }}>
+            This is an example.
+        </FlowTypographyDemo>
+    </Story>
+</Canvas>
+
+## Styling
+
+Text can be styled using css, including with filters.
+
+<Canvas>
+    <Story name="styled">
+        <FlowTypographyDemo
+            style={{ textAnchor: 'start', fontSize: '18px', fill: '#ffffff', filter: 'url(#bg)' }}
+        >
+            This is an example.
+        </FlowTypographyDemo>
+    </Story>
+</Canvas>

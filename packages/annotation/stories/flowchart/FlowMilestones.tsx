@@ -5,8 +5,9 @@ import { FlowPath, FlowPathProps, ArrowMarker } from '../../src'
 export const FlowMilestones = ({
     points,
     curve = 'Linear',
+    style,
     transition,
-}: Pick<FlowPathProps, 'points' | 'curve' | 'transition'>) => {
+}: Pick<FlowPathProps, 'points' | 'curve' | 'style' | 'transition'>) => {
     const ref = useRef<ChartRef>(null)
     const toggleMilestone = (m: string) => {
         ref.current?.toggleMilestone(m)
@@ -22,14 +23,16 @@ export const FlowMilestones = ({
                 size={[400, 300]}
                 padding={[40, 40, 40, 40]}
                 style={{ margin: '0.5em', border: 'solid 1px #aa3333' }}
+                theme={{ path: { default: { fillOpacity: 0 } } }}
             >
                 <defs>
                     <ArrowMarker
                         id="triangle"
                         variant="Triangle"
-                        size={12}
+                        size={20}
                         style={{
                             fill: '#222222',
+                            fillOpacity: 1,
                         }}
                     />
                 </defs>
@@ -48,7 +51,13 @@ export const FlowMilestones = ({
                     <Axis variant={'bottom'} />
                     <Axis variant={'left'} />
                     <MilestoneMotion initial={'invisible'} initialOn={'A'}>
-                        <FlowPath points={points} curve={curve} transition={transition} />
+                        <FlowPath
+                            points={points}
+                            curve={curve}
+                            transition={transition}
+                            style={style}
+                            markerEnd={'triangle'}
+                        />
                     </MilestoneMotion>
                 </View>
             </Chart>

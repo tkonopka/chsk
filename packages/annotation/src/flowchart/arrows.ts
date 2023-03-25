@@ -1,5 +1,5 @@
 import { NumericPositionSpec, X, Y } from '@chsk/core'
-import { getStartToEndAxis } from '../lines/utils'
+import { getStartToEndAxis } from '../typography/lines'
 
 // transformations on arrays of points
 const translatePoints = (points: NumericPositionSpec[], translate: NumericPositionSpec) => {

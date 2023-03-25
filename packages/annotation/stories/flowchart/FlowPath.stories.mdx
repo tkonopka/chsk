@@ -36,9 +36,13 @@ Click the milestone buttons in the examples below to see the animation.
                 ['B', 20],
                 ['B', 70],
             ]}
+            style={{ fillOpacity: 0 }}
         />
     </Story>
 </Canvas>
+
+Note that for the animation to show-up correctly, the `fill-opacity` css attribute should be set to 0 for the path.
+This can be achieved via themes, or by providing a `style` prop.
 
 ## Curves
 

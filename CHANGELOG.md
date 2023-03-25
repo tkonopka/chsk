@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [annotation] component `FlowTypography` to reveal text character-by-character
 -   [annotation] filter `BackgroundColorFilter`
 -   [core] prop `component` in `Counter` to support bespoke displays, for
     example, as a combination of svg `text` and `tspan` elements
@@ -29,6 +30,7 @@
 
 ### Changed
 
+-   [annotation] fixed bug in `FlowPath` causing end markers to appear too soon
 -   [annotation] changed filter component names so that `Filter` is the suffix
     rather than prefix, for consistency with other naming convensions e.g. for
     boxed labels

@@ -1,6 +1,6 @@
-import { BraceLabelProps } from './types'
 import { useDimensions, useScales, Typography, Path, getClassName } from '@chsk/core'
-import { getBracePositions, getLineAbsolutePositions } from './utils'
+import { getBracePositions, getLineAbsolutePositions } from './lines'
+import { BraceLabelProps } from './types'
 
 export const BraceLabel = ({
     // settings for line

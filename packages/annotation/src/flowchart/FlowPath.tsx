@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useRef } from 'react'
 import { LazyMotion, domAnimation, m } from 'framer-motion'
 import {
     getClassName,
@@ -23,6 +23,7 @@ export const FlowPath = ({
     // interactivity
     ...props
 }: FlowPathProps) => {
+    const ref = useRef<SVGPathElement>(null)
     const scales = useScales()
     const { size } = useDimensions()
     const viewPoints = useMemo(
@@ -35,18 +36,26 @@ export const FlowPath = ({
     return (
         <LazyMotion features={domAnimation}>
             <m.path
+                ref={ref}
                 initial={{ d: path ?? undefined, pathLength: 0 }}
                 animate={{ d: path ?? undefined, pathLength: 1 }}
+                onAnimationStart={() => {
+                    if (markerStart) {
+                        ref.current?.setAttribute('marker-start', 'url(#' + markerStart + ')')
+                    }
+                }}
+                onAnimationComplete={() => {
+                    if (markerEnd) {
+                        ref.current?.setAttribute('marker-end', 'url(#' + markerEnd + ')')
+                    }
+                    ref.current?.removeAttribute('stroke-dasharray')
+                    ref.current?.removeAttribute('stroke-dashoffset')
+                }}
                 transition={transition}
                 role={setRole ? variant : undefined}
-                markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
-                markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
                 style={style}
                 className={compositeClassName}
-                onMouseLeave={props.onMouseLeave}
-                onMouseEnter={props.onMouseEnter}
-                onMouseMove={props.onMouseMove}
-                onClick={props.onClick}
+                {...props}
             />
         </LazyMotion>
     )

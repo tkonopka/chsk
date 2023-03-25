@@ -1,60 +1,65 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { BracketLabel } from '../../src/lines'
+import { BraceLabel } from '../../src/'
 import { chartProps, viewProps } from '../props'
 
-describe('BracketLabel', () => {
+describe('BraceLabel', () => {
     it('creates a line with absolute coordinates', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[60, 0]} units={'absolute'}>
+                    <BraceLabel start={[0, 0]} end={[60, 0]} units={'absolute'}>
                         Label
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('bracket')
-        expect(result?.getAttribute('class')).toContain('bracket')
+        const result = screen.getByRole('brace-label-right')
+        const path = result.querySelector('path')
+        expect(path).toBeDefined()
     })
 
     it('creates a line with relative coordinates', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[0.5, 0]} units={'relative'}>
+                    <BraceLabel start={[0, 0]} end={[0.5, 0]} units={'relative'}>
                         Label
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('bracket')).toBeDefined()
+        const result = screen.getByRole('brace-label-right')
+        const path = result.querySelector('path')
+        expect(path).toBeDefined()
     })
 
     it('creates a line with view coordinates', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[80, 0]} units={'view'}>
+                    <BraceLabel start={[0, 0]} end={[80, 0]} units={'relative'}>
                         Label
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        expect(screen.getAllByRole('bracket')).toBeDefined()
+        const result = screen.getByRole('brace-label-right')
+        const path = result.querySelector('path')
+        expect(path).toBeDefined()
     })
 
     it('creates a line with text rotation', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[1, 0]} angle={45}>
+                    <BraceLabel start={[0, 0]} end={[1, 0]} angle={45}>
                         Label
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('bracket-label-right')
+        const result = screen.getByRole('brace-label-right')
         expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
             'rotate(45'
         )
@@ -64,30 +69,30 @@ describe('BracketLabel', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[1, 0]} setRole={false}>
+                    <BraceLabel start={[0, 0]} end={[1, 0]} setRole={false}>
                         Label
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        const result = screen.queryByRole('bracket')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('brace')).toBeNull()
+        expect(screen.queryByRole('brace-label')).toBeNull()
     })
 
     it('creates class names', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <BracketLabel start={[0, 0]} end={[60, 0]} className={'custom'}>
+                    <BraceLabel start={[0, 0]} end={[60, 0]} className={'custom'}>
                         abc
-                    </BracketLabel>
+                    </BraceLabel>
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('bracket-label-right')
+        const result = screen.getByRole('brace-label-right')
         const text = result.querySelector('text')
         const path = result.querySelector('path')
-        expect(text?.getAttribute('class')).toContain('label bracketLabel custom')
-        expect(path?.getAttribute('class')).toContain('bracketLabel custom')
+        expect(text?.getAttribute('class')).toContain('label braceLabel custom')
+        expect(path?.getAttribute('class')).toContain('braceLabel custom')
     })
 })

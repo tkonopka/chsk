@@ -120,18 +120,14 @@ const MilestoneArrow = ({
                     points={points}
                     units={['relative', 'absolute']}
                     transition={{ pathLength: { duration } }}
+                    markerEnd={'treeArrow'}
                 />
             </MilestoneMotion>
             <MilestoneMotion
                 initial={'hidden'}
                 initialOn={initialOn}
-                transition={{ delay: duration - 0.05 }}
+                transition={{ delay: duration }}
             >
-                <FlowPath
-                    points={points}
-                    units={['relative', 'absolute']}
-                    markerEnd={'treeArrow'}
-                />
                 {children}
             </MilestoneMotion>
         </>

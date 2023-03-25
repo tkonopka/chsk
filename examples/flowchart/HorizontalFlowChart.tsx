@@ -71,21 +71,10 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         ]}
                         units={'absolute'}
                         transition={{ pathLength: { duration: 1 } }}
-                    />
-                </MilestoneMotion>
-                <MilestoneMotion
-                    initial={'hidden'}
-                    initialOn={'branch1'}
-                    transition={{ delay: 0.95 }}
-                >
-                    <FlowPath
-                        points={[
-                            [x[1], y - branchHeight],
-                            [x[4], y - branchHeight],
-                        ]}
-                        units={'absolute'}
                         markerEnd={'arrowH'}
                     />
+                </MilestoneMotion>
+                <MilestoneMotion initial={'hidden'} initialOn={'branch1'} transition={{ delay: 1 }}>
                     <CheckIcon x={x[4] + 20} y={y - branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y - branchHeight]}
@@ -105,6 +94,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         ]}
                         units={'absolute'}
                         transition={{ pathLength: { duration: 0.7 } }}
+                        markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
                 <MilestoneMotion
@@ -129,6 +119,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         ]}
                         units={'absolute'}
                         transition={{ pathLength: { duration: 0.3 } }}
+                        markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
                 <MilestoneMotion
@@ -136,14 +127,6 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                     initialOn={'branch2b'}
                     transition={{ delay: 0.25 }}
                 >
-                    <FlowPath
-                        points={[
-                            [x[3], y + branchHeight],
-                            [x[4], y + branchHeight],
-                        ]}
-                        units={'absolute'}
-                        markerEnd={'arrowH'}
-                    />
                     <CheckIcon x={x[4] + 20} y={y + branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y + branchHeight]}
