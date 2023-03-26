@@ -217,12 +217,12 @@ export const SequenceLogoBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 <Typography variant={'title'} position={[0, -40]}>
                     Binding profile
                 </Typography>
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} />
                     <Axis variant={'bottom'} label={'Position'} />
                     <Axis variant={'left'} label={'Bits'} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <LazyMotion features={domAnimation}>
                         <Bars dataComponent={LogoDataComponent} />
                         <Bars style={{ fillOpacity: 0 }} />

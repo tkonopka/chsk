@@ -3,8 +3,10 @@ import { useState } from 'react'
 import { useMilestones } from './index'
 import { getMotionValue, getTransitionValue } from './utils'
 import { MilestoneMotionProps } from './types'
+import { useTheme, useThemedProps } from '../themes'
 
-export const MilestoneMotion = ({
+const UnthemedMilestoneMotion = ({
+    variant,
     initial,
     initialOn,
     exit,
@@ -15,6 +17,7 @@ export const MilestoneMotion = ({
     setRole = true,
     children,
 }: MilestoneMotionProps) => {
+    const theme = useTheme()
     const [active, setActive] = useState(visible ?? initialOn === undefined)
     const milestones = useMilestones()
 
@@ -29,25 +32,28 @@ export const MilestoneMotion = ({
             }
         }
         if (active) {
-            if (!turnOn && !defaultOn) {
-                setActive(false)
-            }
-            if (turnOff) {
+            if ((!turnOn && !defaultOn) || turnOff) {
                 setActive(false)
             }
         }
     }
 
-    const role = 'milestone-' + initialOn + (exitOn ? '-' + exitOn : '')
+    const role =
+        'milestone' +
+        (variant && variant !== 'default' ? '-' + variant : '') +
+        +'--' +
+        (initialOn ? initialOn : '') +
+        '-' +
+        (exitOn ? exitOn : '')
     return (
         <AnimatePresence>
             {active && (
                 <m.g
                     role={setRole ? role : undefined}
-                    initial={getMotionValue(initial)}
-                    animate={getMotionValue(animate)}
-                    exit={getMotionValue(exit)}
-                    transition={getTransitionValue(transition)}
+                    initial={getMotionValue(initial, theme)}
+                    animate={getMotionValue(animate, theme)}
+                    exit={getMotionValue(exit, theme)}
+                    transition={getTransitionValue(transition, theme)}
                 >
                     {children}
                 </m.g>
@@ -55,3 +61,7 @@ export const MilestoneMotion = ({
         </AnimatePresence>
     )
 }
+
+export const MilestoneMotion = (props: MilestoneMotionProps) => (
+    <UnthemedMilestoneMotion {...useThemedProps(props, 'MilestoneMotion')} />
+)

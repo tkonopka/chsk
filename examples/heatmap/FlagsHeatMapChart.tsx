@@ -94,7 +94,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     extraPadding: { A: 0.75 },
                 }}
             >
-                <MilestoneMotion initialOn={'samples'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'samples'}>
                     <Axis variant={'left'}>
                         <AxisLabel variant={'left'}>Samples</AxisLabel>
                         <AxisTicks
@@ -105,7 +105,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'flags'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'flags'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
@@ -144,7 +144,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         ]}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'heatmap'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'heatmap'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}

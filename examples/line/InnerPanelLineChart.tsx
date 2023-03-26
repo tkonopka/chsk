@@ -151,7 +151,7 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                 <Typography position={[0, -20]} variant={'title'}>
                     Line chart with inset
                 </Typography>
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <Surface />
@@ -172,13 +172,13 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                         firstOffset={[0, 4]}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'box'}>
+                <MilestoneMotion initialOn={'box'}>
                     <FlowPath points={zoomRect} units={'view'} style={{ fill: '#f8f8f8' }} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <ScatterCurve />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'inner'}>
+                <MilestoneMotion initialOn={'inner'}>
                     <ZoomBox
                         fromX={bounds}
                         fromY={detailMax}
@@ -186,11 +186,7 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                         toSize={insetContainer.size}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    initial={'invisible'}
-                    initialOn={'inner'}
-                    transition={{ delay: 0.7 }}
-                >
+                <MilestoneMotion initialOn={'inner'} transition={{ delay: 0.7 }}>
                     <Scatter
                         container={insetContainer}
                         x={'x'}

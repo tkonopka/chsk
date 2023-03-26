@@ -20,7 +20,9 @@ Note: examples on this page involve multiple components, including external butt
 
 Prop `initialOn` specifies the milestone at which a component should appear into view. Prop `initial` specifies the initial state of the entry animation.
 
-The example below uses a fade-in animation. Click on the buttons to toggle a milestone and observe the animation. The two milestones can be toggled independently of each other.
+The example below uses a fade-in animation.
+Click on the buttons to toggle a milestone and observe the animation.
+(The axes should appear with a fade-in effect and disappear abruptly.)
 
 <Canvas>
     <Story name="entry milestones">
@@ -33,6 +35,7 @@ The example below uses a fade-in animation. Click on the buttons to toggle a mil
 Props `exitOn` and `exit` are analogous to `initialOn` and `initial`, respectively, except that they determine how components disappear.
 
 In the example below, the axes are present by default. Click on the buttons to toggle the milestones and observe the axes fade out.
+(The axes should appear abruptly and disappear with a fade-out effect.)
 
 <Canvas>
     <Story name="exit milestones">
@@ -46,7 +49,7 @@ The entry and exit settings can be used together. In the example below, the left
 
 <Canvas>
     <Story name="entry and exit milestones">
-        <EntryExitMilestones initial={'hidden'} exit={'hidden'} />
+        <EntryExitMilestones />
     </Story>
 </Canvas>
 
@@ -58,10 +61,28 @@ As another example, after setting milestones 'A' and then 'B', the left axis wil
 
 ## Custom animations
 
-Props `initial` and `exit` can be set with custom objects that create complex animations. In the example below, the entry animations include a slide from the left side. The exit animations include a zoom-out effect.
+Props `initial` and `exit` can be set with custom objects that create complex animations. In the example below, the entry animations include a slide from the left side. The exit animations include a zoom/scale effect.
 
 <Canvas>
-    <Story name="custom milestones">
+    <Story name="custom states">
         <EntryExitMilestones initial={{ opacity: 0, x: -80 }} exit={{ opacity: 0, scale: 3 }} />
     </Story>
 </Canvas>
+
+## Transition
+
+Prop `transition` accepts an object that specifies the speed properties of the animation.
+The example below uses a spring-based transition with low 'mass' and low 'stiffness',
+resulting in slow/gradual effect.
+
+<Canvas>
+    <Story name="custom transitions">
+        <EntryExitMilestones
+            initial={{ opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: 'spring', mass: 0.5, stiffness: 20 }}
+        />
+    </Story>
+</Canvas>
+
+Beside prop `transition`, it is also possible to adjust transitions via themes.

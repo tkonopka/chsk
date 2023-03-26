@@ -107,7 +107,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                 <MilestoneMotion initialOn={'measurements'} initial={'invisible'}>
                     <Axis variant={'left'} label={'Measurements'} ticks={alphabetUppercase} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'top'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'top'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
@@ -116,7 +116,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         <AxisLabel variant={'top'}>Samples</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'categorical'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'categorical'}>
                     <Axis variant={'left'} label={''} ticks={['group']} />
                     <HeatMapCells
                         ids={['group']}
@@ -164,7 +164,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         </Legend>
                     </HeatMapCells>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'consonants'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'consonants'}>
                     <HeatMapCells ids={alphabetUppercaseConsonants} scaleColor={scalePurples}>
                         <Legend
                             variant={'color'}

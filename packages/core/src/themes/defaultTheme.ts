@@ -23,6 +23,7 @@ import { CompleteThemeSpec } from './types'
 import { cloneDeep } from 'lodash'
 
 export const defaultTheme: CompleteThemeSpec = {
+    // svg components
     circle: {
         default: {
             stroke: '#333333',
@@ -170,6 +171,7 @@ export const defaultTheme: CompleteThemeSpec = {
         },
     },
     tspan: {},
+    // chsk components
     Axis: {
         default: cloneDeep(defaultAxisProps),
     },
@@ -203,6 +205,14 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     LegendSizeScale: {
         default: cloneDeep(defaultLegendSizeScaleProps),
+    },
+    MilestoneMotion: {
+        default: {
+            initial: 'hidden',
+            animate: 'default',
+            exit: 'hidden',
+            transition: 'default',
+        },
     },
     Surface: {
         default: cloneDeep(defaultSurfaceProps),
@@ -244,6 +254,7 @@ export const defaultTheme: CompleteThemeSpec = {
     View: {
         default: cloneDeep(defaultViewProps),
     },
+    // other settings
     Colors: {
         categorical: {
             variant: 'categorical',
@@ -265,5 +276,25 @@ export const defaultTheme: CompleteThemeSpec = {
         mass: 0.5,
         stiffness: 250,
         damping: 25,
+    },
+    Animation: {
+        default: {
+            opacity: 1,
+            x: 0,
+            y: 0,
+            scale: 1,
+        },
+        // include 'hidden' and 'invisible' as synonyms
+        hidden: {
+            opacity: 0,
+        },
+        invisible: {
+            opacity: 0,
+        },
+    },
+    Transition: {
+        default: {
+            delay: 0,
+        },
     },
 }

@@ -104,7 +104,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     domain: [0, 50, 80, 100],
                 }}
             >
-                <MilestoneMotion initialOn={'map'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'map'}>
                     <HeatMapCells />
                 </MilestoneMotion>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
@@ -135,12 +135,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         gradientId={'grad-blocks'}
                     />
                 </Legend>
-                <MilestoneMotion
-                    initialOn={'blockA'}
-                    initial={'invisible'}
-                    exitOn={'blockB'}
-                    exit={'invisible'}
-                >
+                <MilestoneMotion initialOn={'blockA'} exitOn={'blockB'}>
                     <HeatMapHighlight
                         style={{ fill: '#222222', opacity: 0.8 }}
                         ids={idsA}
@@ -148,12 +143,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         interactive={false}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    initialOn={'blockB'}
-                    initial={'invisible'}
-                    exitOn={'blockC'}
-                    exit={'invisible'}
-                >
+                <MilestoneMotion initialOn={'blockB'} exitOn={'blockC'}>
                     <HeatMapHighlight
                         style={{ fill: '#222222', opacity: 0.8 }}
                         ids={idsB}
@@ -161,12 +151,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         interactive={false}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    initialOn={'blockC'}
-                    initial={'invisible'}
-                    exitOn={'final'}
-                    exit={'invisible'}
-                >
+                <MilestoneMotion initialOn={'blockC'} exitOn={'final'}>
                     <HeatMapHighlight
                         style={{ fill: '#222222', opacity: 0.8 }}
                         ids={idsC}
@@ -174,7 +159,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         interactive={false}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'final'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'final'}>
                     <HeatMapHighlight
                         cornerAnimation={true}
                         style={{ fill: '#222222', opacity: 0.6 }}

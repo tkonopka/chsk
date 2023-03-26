@@ -106,7 +106,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     colors: ['#666666', '#aaaaaa'],
                 }}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <Typography variant={'title'} position={[-50, -50]}>
                         Empirical measurements of A and B
                     </Typography>
@@ -121,7 +121,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         <AxisTicks variant={'left'} ticks={6} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'points'}>
+                <MilestoneMotion initialOn={'points'}>
                     <Typography variant={'subtitle'} position={[-50, -30]}>
                         Points represent summaries of multiple independent measurements
                     </Typography>
@@ -129,7 +129,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <ScatterErrors variant={'y'} lower={'ymin'} upper={'ymax'} capWidth={6} />
                     <ScatterPoints />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'curve'}>
+                <MilestoneMotion initialOn={'curve'}>
                     <ScatterCurve
                         curve={'MonotoneX'}
                         convolutionMask={[0.5, 1, 0.5]}
@@ -141,7 +141,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         symbolStyle={{ fill: '#dd0000' }}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                <MilestoneMotion initialOn={'legend'}>
                     <Legend
                         position={[0.96, 0.96]}
                         positionUnits={'relative'}

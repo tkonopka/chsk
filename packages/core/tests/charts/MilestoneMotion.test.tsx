@@ -6,7 +6,7 @@ describe('MilestoneMotion', () => {
     it('hides content before a milestone is reached', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                <MilestoneMotion initial={'hidden'} initialOn={'A'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -17,7 +17,7 @@ describe('MilestoneMotion', () => {
     it('displays content in first render', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion initial={'invisible'} initialOn={'A'} visible={true}>
+                <MilestoneMotion initial={'hidden'} initialOn={'A'} visible={true}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -26,15 +26,22 @@ describe('MilestoneMotion', () => {
         expect(screen.queryByRole('milestone-A')).toBeDefined()
     })
 
+    it('handles null initial and exit states', () => {
+        const milestones = new Set<string>(['A'])
+        render(
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion initial={null} exit={null} transition={null} initialOn={'A'}>
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
+    })
+
     it('displays content without role', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion
-                    initial={'invisible'}
-                    initialOn={'A'}
-                    visible={true}
-                    setRole={false}
-                >
+                <MilestoneMotion initialOn={'A'} visible={true} setRole={false}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>

@@ -139,12 +139,7 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Origin>
                     <BgCircle />
                     {ids.map(id => (
-                        <MilestoneMotion
-                            initial={'invisible'}
-                            exit={'invisible'}
-                            initialOn={id}
-                            key={'milestone-' + id}
-                        >
+                        <MilestoneMotion key={'milestone-' + id} initialOn={id}>
                             <Slices
                                 key={'slice-' + id}
                                 ids={[id]}

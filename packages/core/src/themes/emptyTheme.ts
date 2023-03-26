@@ -22,6 +22,7 @@ export const emptyTheme: CompleteThemeSpec = {
     LegendTitle: {},
     LegendColorScale: {},
     LegendSizeScale: {},
+    MilestoneMotion: {},
     Surface: {},
     Tooltip: {},
     TooltipItemList: {},
@@ -32,4 +33,6 @@ export const emptyTheme: CompleteThemeSpec = {
     // other settings
     Colors: defaultTheme.Colors,
     Motion: {},
+    Animation: {},
+    Transition: {},
 }

@@ -65,14 +65,14 @@ export const HorizontalUpSetChart = ({ fref, chartData, rawData }: MilestoneStor
                     colors: 'Dark2',
                 }}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <Axis variant={'left'} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'grid'}>
+                <MilestoneMotion initialOn={'grid'}>
                     <UpSetGrid />
                     <UpSetMemberships />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'bars'}>
+                <MilestoneMotion initialOn={'bars'}>
                     <UpSetBar
                         size={200}
                         padding={[0, 0, 10, 0]}

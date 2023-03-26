@@ -136,7 +136,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                         Device A
                     </BoxedTitle>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                <MilestoneMotion initialOn={'legend'}>
                     <Legend
                         position={[440, 80]}
                         positionUnits={'absolute'}

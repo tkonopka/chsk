@@ -107,7 +107,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                     Scatter plot with clusters
                 </Typography>
                 <DownloadButtons position={[480, -20]} data image />
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <Surface style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: 1 }} />
@@ -120,7 +120,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <AxisTicks variant={'right'} labelFormat={() => ''} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                <MilestoneMotion initialOn={'legend'}>
                     <Legend
                         position={[1, 0.2]}
                         positionUnits={'relative'}
@@ -134,7 +134,7 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         title={'Populations'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <TooltipProvider>
                         <ScatterPoints symbolClassName={'custom'} />
                         <ScatterCrosshair

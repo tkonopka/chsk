@@ -111,7 +111,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
         theme={customTheme}
     >
         <Bar {...customGroupsBarProps} data={rawData}>
-            <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+            <MilestoneMotion initialOn={'axes'}>
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />
@@ -121,7 +121,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </Typography>
                 <Axis variant={'left'} label={'Score (%)'} />
             </MilestoneMotion>
-            <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+            <MilestoneMotion initialOn={'A'}>
                 <Bars keys={['A']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsA[0], 105]}
@@ -135,7 +135,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                     <AxisTicks variant={'bottom'} ticks={idsA} />
                 </Axis>
             </MilestoneMotion>
-            <MilestoneMotion initial={'invisible'} initialOn={'B'}>
+            <MilestoneMotion initialOn={'B'}>
                 <Bars keys={['B']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsB[0], 105]}
@@ -149,7 +149,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                     <AxisTicks variant={'bottom'} ticks={idsB} />
                 </Axis>
             </MilestoneMotion>
-            <MilestoneMotion initial={'invisible'} initialOn={'C'}>
+            <MilestoneMotion initialOn={'C'}>
                 <Bars keys={['C']} modifiers={customModifiers} />
                 <LineLabel
                     start={[idsC[0], 105]}

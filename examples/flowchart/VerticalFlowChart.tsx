@@ -60,22 +60,22 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                 <ArrowMarker variant={'Winged'} id={'arrowV'} size={24} style={{ fill: '#222' }} />
             </defs>
             <View>
-                <MilestoneMotion initial={'hidden'} initialOn={'title'}>
+                <MilestoneMotion initialOn={'title'}>
                     <Typography variant={'title'} position={[0, -30]}>
                         A typical project has three stages
                     </Typography>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'A'}>
+                <MilestoneMotion initialOn={'A'}>
                     <BoxedLabel position={[60, y1]} size={[120, 28]} className={'A'}>
                         1. Beginning
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'A'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'A'} transition={{ delay: 0.5 }}>
                     <Label position={[145, y1]} size={[200, 20]} className={'explanation'}>
                         Usually, we start at the beginning.
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'B'}>
+                <MilestoneMotion initialOn={'B'}>
                     <FlowPath
                         points={[
                             [60, y1 + 14],
@@ -85,22 +85,22 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowV'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'B'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 0.5 }}>
                     <BoxedLabel position={[60, y2]} size={[120, 28]} className={'B'}>
                         2. Middle
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'B'} transition={{ delay: 1 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 1 }}>
                     <Label position={[145, y2 - 10]} size={[200, 20]} className={'explanation'}>
                         The middle stage is often the longest.
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'B'} transition={{ delay: 1.5 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 1.5 }}>
                     <Label position={[145, y2 + 10]} size={[200, 20]} className={'explanation'}>
                         It may contain many sub-stages.
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'C'}>
+                <MilestoneMotion initialOn={'C'}>
                     <FlowPath
                         points={[
                             [60, y2 + 14],
@@ -110,17 +110,17 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowV'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'C'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'C'} transition={{ delay: 0.5 }}>
                     <BoxedLabel position={[60, y3]} size={[120, 28]} className={'C'}>
                         3. End
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'C'} transition={{ delay: 1 }}>
+                <MilestoneMotion initialOn={'C'} transition={{ delay: 1 }}>
                     <Label position={[145, y3]} size={[200, 20]} className={'explanation'}>
                         Finally, we reach a conclusion.
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'hidden'} initialOn={'buttons'}>
+                <MilestoneMotion initialOn={'buttons'}>
                     <DownloadButtons position={[330, 210]} image />
                 </MilestoneMotion>
             </View>

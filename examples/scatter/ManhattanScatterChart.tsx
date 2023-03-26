@@ -169,7 +169,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     This chart has {nPoints} data points
                 </Typography>
                 <DownloadButtons position={[610, -30]} data image />
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} />
                     <GridLines variant={'x'} values={chromBoundaries} />
                     <Axis variant={'bottom'}>
@@ -183,7 +183,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     </Axis>
                     <Axis variant={'left'} label={'- log10 (p-value)'} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
                     <TooltipProvider>
                         <ScatterCrosshair minDistance={30} tooltipFormat={customTooltipFormat} />

@@ -101,7 +101,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                     Distributions where variance decreases with mean
                 </Typography>
                 <DownloadButtons position={[310, -50]} data image />
-                <MilestoneMotion initialOn={'axes'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <Axis variant={'left'} label={'density'} />
                     <Axis variant={'bottom'}>
                         <AxisLine
@@ -114,7 +114,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                         </AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'legend'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'legend'}>
                     <Legend
                         translate={[8, 0]}
                         position={[0, 0]}
@@ -127,7 +127,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                         symbol={Segment}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'} initial={'invisible'}>
+                <MilestoneMotion initialOn={'data'}>
                     <HistogramCurve curve={'Step'} dataComponent={TooltipDataComponent} />
                     <Tooltip itemSize={[200, 24]} labelFormat={customTooltipLabel} />
                 </MilestoneMotion>

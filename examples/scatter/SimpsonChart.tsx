@@ -76,38 +76,28 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     domain: 'auto',
                 }}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <Axis variant={'bottom'} label={'Covariate (a.u.)'} />
                     <Axis variant={'left'}>
                         <AxisLabel variant={'left'}>Measurement (a.u.)</AxisLabel>
                         <AxisTicks variant={'left'} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                <MilestoneMotion initialOn={'A'}>
                     <ScatterPoints ids={['A']} />
                     <Regression ids={['A']} variant={'series'} />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    initial={'invisible'}
-                    initialOn={'A'}
-                    exit={'invisible'}
-                    exitOn={'B'}
-                >
+                <MilestoneMotion initialOn={'A'} exitOn={'B'}>
                     <Regression ids={['A']} variant={'pooled'} style={regressionStyle} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'B'}>
+                <MilestoneMotion initialOn={'B'}>
                     <ScatterPoints ids={['B']} />
                     <Regression ids={['B']} variant={'series'} />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    initial={'invisible'}
-                    initialOn={'B'}
-                    exit={'invisible'}
-                    exitOn={'C'}
-                >
+                <MilestoneMotion initialOn={'B'} exitOn={'C'}>
                     <Regression ids={['A', 'B']} variant={'pooled'} style={regressionStyle} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'C'}>
+                <MilestoneMotion initialOn={'C'}>
                     <ScatterPoints ids={['C']} />
                     <Regression ids={['C']} variant={'series'} />
                     <Regression ids={['A', 'B', 'C']} variant={'pooled'} style={regressionStyle} />

@@ -191,7 +191,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     size: 'auto',
                 }}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'grid'}>
+                <MilestoneMotion initialOn={'grid'}>
                     <GridLines variant={'x'} />
                     <Axis variant={'bottom'}>
                         <AxisTicks variant={'bottom'} labelOffset={10} />
@@ -204,37 +204,37 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                <MilestoneMotion initialOn={'A'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['A']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'B'}>
+                <MilestoneMotion initialOn={'B'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['B']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'C'}>
+                <MilestoneMotion initialOn={'C'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['C']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'D'}>
+                <MilestoneMotion initialOn={'D'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['D']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'E'}>
+                <MilestoneMotion initialOn={'E'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['E']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'F'}>
+                <MilestoneMotion initialOn={'F'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['F']} />
                     <HeatMapHighlight style={{ opacity: 0 }} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'title'}>
+                <MilestoneMotion initialOn={'title'}>
                     <Typography variant={'title'} position={[-80, -60]}>
                         What is the main reason for &lsquo;X&rsquo;?
                     </Typography>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'subtitle'}>
+                <MilestoneMotion initialOn={'subtitle'}>
                     <Typography variant={'subtitle'} position={[-80, -32]}>
                         Responders from six domains were asked to pick one answer from among six
                         options.
                     </Typography>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'download'}>
+                <MilestoneMotion initialOn={'download'}>
                     <Typography variant={'source'} position={[-80, 420]}>
                         Source: synthetic data.
                     </Typography>

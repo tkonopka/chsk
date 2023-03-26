@@ -62,24 +62,24 @@ export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStor
                 <Typography position={[-50, -70]} variant={'title'}>
                     The project plan consists of 4 stages
                 </Typography>
-                <MilestoneMotion initial={'invisible'} initialOn={'axis'}>
+                <MilestoneMotion initialOn={'axis'}>
                     <Axis variant={'top'} label={'days'} />
                     <GridLines variant={'x'} />
                     <GridLines variant={'y'} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                <MilestoneMotion initialOn={'A'}>
                     <Axis variant={'left'} ticks={['Phase 1']} />
                     <Schedules keys={['A']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'B'}>
+                <MilestoneMotion initialOn={'B'}>
                     <Axis variant={'left'} ticks={['Phase 2']} />
                     <Schedules keys={['B']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'C'}>
+                <MilestoneMotion initialOn={'C'}>
                     <Axis variant={'left'} ticks={['Phase 3']} />
                     <Schedules keys={['C']} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'D'}>
+                <MilestoneMotion initialOn={'D'}>
                     <Axis variant={'left'} ticks={['Phase 4']} />
                     <Schedules keys={['D']} />
                 </MilestoneMotion>

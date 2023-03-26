@@ -115,7 +115,7 @@ const MilestoneArrow = ({
 }) => {
     return (
         <>
-            <MilestoneMotion initial={'hidden'} initialOn={initialOn}>
+            <MilestoneMotion initialOn={initialOn}>
                 <FlowPath
                     points={points}
                     units={['relative', 'absolute']}
@@ -123,11 +123,7 @@ const MilestoneArrow = ({
                     markerEnd={'treeArrow'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion
-                initial={'hidden'}
-                initialOn={initialOn}
-                transition={{ delay: duration }}
-            >
+            <MilestoneMotion initialOn={initialOn} transition={{ delay: duration }}>
                 {children}
             </MilestoneMotion>
         </>
@@ -188,7 +184,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Typography variant={'title'} position={[-10, -20]}>
                     A / B study plan
                 </Typography>
-                <MilestoneMotion initial={'hidden'} initialOn={'start'}>
+                <MilestoneMotion initialOn={'start'}>
                     <DoubleLabel
                         position={boxStart}
                         className={'start'}

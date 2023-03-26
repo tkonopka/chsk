@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] default animation states and theming support for `MilestoneMotion`
 -   [annotation] component `FlowTypography` to reveal text character-by-character
 -   [annotation] filter `BackgroundColorFilter`
 -   [core] prop `component` in `Counter` to support bespoke displays, for
@@ -30,6 +31,8 @@
 
 ### Changed
 
+-   [core] removed exports of some milestone utilities
+-   [core] moved milestone presets into themes
 -   [annotation] fixed bug in `FlowPath` causing end markers to appear too soon
 -   [annotation] changed filter component names so that `Filter` is the suffix
     rather than prefix, for consistency with other naming convensions e.g. for

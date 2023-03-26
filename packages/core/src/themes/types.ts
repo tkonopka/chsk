@@ -20,6 +20,7 @@ import {
 } from '../legends'
 import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
 import { SurfaceThemedProps, ViewThemedProps } from '../views'
+import { MilestoneMotionThemedProps } from '../charts'
 
 export type WithVariant = {
     variant?: 'default' | string
@@ -47,7 +48,26 @@ export interface MotionProps {
     damping?: number
 }
 
+/** settings for framer's 'transition' */
+export type GTransitionProps = {
+    duration?: number
+    delay?: number
+    stiffness?: number
+    mass?: number
+    damping?: number
+}
+
+/** selected settings for animating 'g' elements */
+export type GAnimationProps = {
+    opacity?: number
+    x?: number
+    y?: number
+    fill?: string
+    scale?: number
+}
+
 export interface ThemeSpec {
+    // svg components
     circle?: Record<string, Partial<CSSProperties>>
     g?: Record<string, Partial<CSSProperties>>
     line?: Record<string, Partial<CSSProperties>>
@@ -56,6 +76,7 @@ export interface ThemeSpec {
     rect?: Record<string, Partial<CSSProperties>>
     text?: Record<string, Partial<CSSProperties>>
     tspan?: Record<string, Partial<CSSProperties>>
+    // chsk components
     Axis?: SideRecords<Partial<AxisThemedProps>>
     AxisLabel?: SideRecords<Partial<AxisLabelThemedProps>>
     AxisTicks?: SideRecords<Partial<AxisTicksThemedProps>>
@@ -66,6 +87,7 @@ export interface ThemeSpec {
     LegendTitle?: Record<string, Partial<LegendItemThemedProps>>
     LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps>>
     LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps>>
+    MilestoneMotion?: Record<string, Partial<MilestoneMotionThemedProps>>
     Surface?: Record<string, Partial<SurfaceThemedProps>>
     Tooltip?: Record<string, Partial<TooltipThemedProps>>
     TooltipItemList?: Record<string, TooltipItemListThemedProps>
@@ -73,11 +95,15 @@ export interface ThemeSpec {
     TooltipTitle?: Record<string, TooltipItemThemedProps>
     AxisTooltip?: Record<string, TooltipThemedProps>
     View?: Record<string, Partial<ViewThemedProps>>
+    // non-component settings
     Colors?: Record<string, ColorScaleSpec>
     Motion?: MotionProps
+    Animation?: Record<string, GAnimationProps>
+    Transition?: Record<string, GTransitionProps>
 }
 
 export interface CompleteThemeSpec {
+    // svg components
     circle: Record<string, Partial<CSSProperties>>
     g: Record<string, Partial<CSSProperties>>
     line: Record<string, Partial<CSSProperties>>
@@ -86,6 +112,7 @@ export interface CompleteThemeSpec {
     rect: Record<string, Partial<CSSProperties>>
     text: Record<string, Partial<CSSProperties>>
     tspan: Record<string, Partial<CSSProperties>>
+    // chsk components
     Axis: SideRecords<Partial<AxisThemedProps>>
     AxisLabel: SideRecords<Partial<AxisLabelThemedProps>>
     AxisTicks: SideRecords<Partial<AxisTicksThemedProps>>
@@ -96,6 +123,7 @@ export interface CompleteThemeSpec {
     LegendTitle: Record<string, LegendItemThemedProps>
     LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps>>
     LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps>>
+    MilestoneMotion: Record<string, Partial<MilestoneMotionThemedProps>>
     Surface: Record<string, Partial<SurfaceThemedProps>>
     Tooltip: Record<string, Partial<TooltipThemedProps>>
     TooltipItemList: Record<string, TooltipItemListThemedProps>
@@ -103,8 +131,11 @@ export interface CompleteThemeSpec {
     TooltipTitle: Record<string, TooltipItemThemedProps>
     AxisTooltip: Record<string, TooltipThemedProps>
     View: Record<string, ViewThemedProps>
+    // non-components
     Colors: ColorsRecords
     Motion: MotionProps
+    Animation: Record<string, GAnimationProps>
+    Transition: Record<string, GTransitionProps>
 }
 
 export const svgBaseComponents = [
@@ -130,6 +161,7 @@ export type ThemedComponent =
     | 'LegendTitle'
     | 'LegendColorScale'
     | 'LegendSizeScale'
+    | 'MilestoneMotion'
     | 'Surface'
     | 'Tooltip'
     | 'TooltipTitle'

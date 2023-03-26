@@ -13,6 +13,7 @@ import {
     X,
     Y,
     AnimationSpec,
+    AnimationTransitionSpec,
 } from '../../../src'
 
 // helper component that displays an array of milestones at the bottom of a view
@@ -54,10 +55,10 @@ export const EntryMilestones = () => {
             >
                 <Surface variant={'inner'} />
                 <View>
-                    <MilestoneMotion initial={'invisible'} initialOn={'left'}>
+                    <MilestoneMotion initial={'invisible'} initialOn={'left'} exit={null}>
                         <Axis variant={'left'} />
                     </MilestoneMotion>
-                    <MilestoneMotion initial={'invisible'} initialOn={'right'}>
+                    <MilestoneMotion initial={'invisible'} initialOn={'right'} exit={null}>
                         <Axis variant={'right'} />
                     </MilestoneMotion>
                 </View>
@@ -91,10 +92,10 @@ export const ExitMilestones = () => {
             >
                 <Surface variant={'inner'} />
                 <View>
-                    <MilestoneMotion exit={'invisible'} exitOn={'left'}>
+                    <MilestoneMotion initial={null} exit={'invisible'} exitOn={'left'}>
                         <Axis variant={'left'} />
                     </MilestoneMotion>
-                    <MilestoneMotion exit={'invisible'} exitOn={'right'}>
+                    <MilestoneMotion initial={null} exit={'invisible'} exitOn={'right'}>
                         <Axis variant={'right'} />
                     </MilestoneMotion>
                 </View>
@@ -107,9 +108,11 @@ export const ExitMilestones = () => {
 export const EntryExitMilestones = ({
     initial,
     exit,
+    transition,
 }: {
     initial: AnimationSpec
     exit: AnimationSpec
+    transition?: AnimationTransitionSpec
 }) => {
     const ref = useRef<ChartRef>(null)
     const toggleMilestone = (m: string) => {
@@ -132,7 +135,13 @@ export const EntryExitMilestones = ({
             >
                 <Surface variant={'inner'} />
                 <View>
-                    <MilestoneMotion initial={initial} initialOn={'A'} exit={exit} exitOn={'B'}>
+                    <MilestoneMotion
+                        initial={initial}
+                        initialOn={'A'}
+                        exit={exit}
+                        exitOn={'B'}
+                        transition={transition}
+                    >
                         <Axis variant={'left'} />
                     </MilestoneMotion>
                     <MilestoneMotion
@@ -141,6 +150,7 @@ export const EntryExitMilestones = ({
                         exit={exit}
                         exitOn={'D'}
                         visible={true}
+                        transition={transition}
                     >
                         <Axis variant={'right'} />
                     </MilestoneMotion>

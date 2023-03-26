@@ -1,8 +1,13 @@
 import { ReactNode, Ref } from 'react'
-import { SvgElementProps, WithId } from '../general'
-import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from '../themes'
+import { SvgElementProps, SvgElementVariantProps, WithId } from '../general'
+import {
+    CompleteThemeSpec,
+    GAnimationProps,
+    GTransitionProps,
+    SvgBaseComponent,
+    ThemeSpec,
+} from '../themes'
 import { ContainerProps } from '../views'
-import { motionPresets, transitionPresets } from './presets'
 
 /** Chart */
 
@@ -61,29 +66,10 @@ export interface OpacityMotionProps {
     children: ReactNode
 }
 
-/** settings for framer's 'transition' */
-export type GTransitionProp = {
-    duration?: number
-    delay?: number
-    stiffness?: number
-}
+export type AnimationSpec = undefined | null | string | GAnimationProps
+export type AnimationTransitionSpec = undefined | null | string | GTransitionProps
 
-/** selected settings for animating 'g' elements */
-export type GAnimationProp = {
-    opacity?: number
-    x?: number
-    y?: number
-    fill?: string
-    scale?: number
-}
-export type AnimationSpec = undefined | null | keyof typeof motionPresets | GAnimationProp
-export type AnimationTransitionSpec =
-    | undefined
-    | null
-    | keyof typeof transitionPresets
-    | GTransitionProp
-
-export interface MilestoneMotionProps extends Pick<SvgElementProps, 'setRole'> {
+export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'variant' | 'setRole'> {
     /** initial animation settings */
     initial?: AnimationSpec
     /** milestone on which to initialize animation */
@@ -100,4 +86,12 @@ export interface MilestoneMotionProps extends Pick<SvgElementProps, 'setRole'> {
     transition?: AnimationTransitionSpec
     /** default visibility setting */
     visible?: boolean
+}
+
+export interface MilestoneMotionThemedProps
+    extends Pick<MilestoneMotionProps, 'initial' | 'exit' | 'animate' | 'transition'> {
+    initial: AnimationSpec
+    exit: AnimationSpec
+    animate: AnimationSpec
+    transition: AnimationTransitionSpec
 }

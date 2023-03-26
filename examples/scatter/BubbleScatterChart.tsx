@@ -118,13 +118,13 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     colors: 'Dark2',
                 }}
             >
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} />
                     <GridLines variant={'x'} />
                     <Axis variant={'bottom'} label={'x values (a.u.)'} />
                     <Axis variant={'left'} label={'y values (a.u.)'} />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <ScatterPoints symbolClassName="custom" />
                     <ScatterCrosshair
                         symbolStyle={{ stroke: '#ssssss', strokeWidth: 1, fillOpacity: 1 }}
@@ -139,7 +139,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         symbol={Circle}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'legend'}>
+                <MilestoneMotion initialOn={'legend'}>
                     <Legend
                         position={[635, 480]}
                         positionUnits={'absolute'}

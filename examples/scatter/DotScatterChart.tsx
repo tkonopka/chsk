@@ -114,7 +114,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     symbol={Circle}
                     symbolStyle={customSymbolStyle}
                 />
-                <MilestoneMotion initial={'invisible'} initialOn={'axes'}>
+                <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} />
                     <Axis variant={'top'} label={''} />
                     <Axis variant={'left'} label={''}>
@@ -125,7 +125,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initial={'invisible'} initialOn={'data'}>
+                <MilestoneMotion initialOn={'data'}>
                     <ScatterPoints symbolStyle={customSymbolStyle} />
                     <ScatterCrosshair
                         variant={'vertical'}

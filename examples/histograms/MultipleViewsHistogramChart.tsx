@@ -107,7 +107,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             padding={[60, 40, 40, 60]}
             theme={multiviewTheme}
         >
-            <MilestoneMotion initial={'invisible'} initialOn={'small'}>
+            <MilestoneMotion initialOn={'small'}>
                 <Histogram container={containerA} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
@@ -134,7 +134,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     </MilestoneMotion>
                 </Histogram>
             </MilestoneMotion>
-            <MilestoneMotion initial={'invisible'} initialOn={'medium'}>
+            <MilestoneMotion initialOn={'medium'}>
                 <Histogram container={containerB} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
@@ -160,7 +160,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     </MilestoneMotion>
                 </Histogram>
             </MilestoneMotion>
-            <MilestoneMotion initial={'invisible'} initialOn={'large'}>
+            <MilestoneMotion initialOn={'large'}>
                 <Histogram container={containerC} {...multiviewHistogramProps} data={rawData}>
                     <GridLines variant={'y'} shift={[-0.6]} />
                     <Surface />
@@ -189,7 +189,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             <Typography variant={'title'} position={[0, -40]}>
                 Three measurements of the same distribution
             </Typography>
-            <MilestoneMotion initialOn={'subtitle'} initial={'invisible'}>
+            <MilestoneMotion initialOn={'subtitle'}>
                 <Typography variant={'subtitle'} position={[0, -20]}>
                     Measurements involve sampling n points from a distribution
                 </Typography>

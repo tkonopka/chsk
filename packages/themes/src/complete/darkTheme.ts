@@ -3,6 +3,7 @@ import { defaultTheme } from './defaultTheme'
 import { cloneDeep } from 'lodash'
 
 export const darkTheme: CompleteThemeSpec = {
+    // svg components
     circle: {
         default: {
             stroke: '#bbbbbb',
@@ -149,6 +150,7 @@ export const darkTheme: CompleteThemeSpec = {
         },
     },
     tspan: {},
+    // chsk components
     Axis: cloneDeep(defaultTheme.Axis),
     AxisLabel: cloneDeep(defaultTheme.AxisLabel),
     AxisTicks: cloneDeep(defaultTheme.AxisTicks),
@@ -159,6 +161,7 @@ export const darkTheme: CompleteThemeSpec = {
     LegendTitle: cloneDeep(defaultTheme.LegendTitle),
     LegendColorScale: cloneDeep(defaultTheme.LegendColorScale),
     LegendSizeScale: cloneDeep(defaultTheme.LegendSizeScale),
+    MilestoneMotion: cloneDeep(defaultTheme.MilestoneMotion),
     Surface: cloneDeep(defaultTheme.Surface),
     Tooltip: cloneDeep(defaultTheme.Tooltip),
     TooltipItemList: cloneDeep(defaultTheme.TooltipItemList),
@@ -166,6 +169,7 @@ export const darkTheme: CompleteThemeSpec = {
     TooltipTitle: cloneDeep(defaultTheme.TooltipTitle),
     AxisTooltip: cloneDeep(defaultTheme.AxisTooltip),
     View: cloneDeep(defaultTheme.View),
+    // other settings
     Colors: {
         categorical: {
             variant: 'categorical',
@@ -184,4 +188,6 @@ export const darkTheme: CompleteThemeSpec = {
         },
     },
     Motion: cloneDeep(defaultTheme.Motion),
+    Animation: cloneDeep(defaultTheme.Animation),
+    Transition: cloneDeep(defaultTheme.Transition),
 }
