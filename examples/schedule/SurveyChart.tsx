@@ -29,7 +29,7 @@ const generateQuestionData = (id: string) => {
             .fill(0)
             .map(() => round1dp(randomUniformValue(5, 35)))
         const sum = values[0] + values[1] + values[2] + values[3]
-        const neutral = (100 - sum) / 2
+        const neutral = 100 - sum
         done = neutral > 5
         if (done) {
             let start = -values[0] - values[1] - neutral / 2
