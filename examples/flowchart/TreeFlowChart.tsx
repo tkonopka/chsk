@@ -123,7 +123,7 @@ const MilestoneArrow = ({
                     markerEnd={'treeArrow'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={initialOn} transition={{ delay: duration }}>
+            <MilestoneMotion initialOn={initialOn} transition={{ delay: duration }} exit={null}>
                 {children}
             </MilestoneMotion>
         </>

@@ -70,7 +70,7 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         1. Beginning
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'A'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'A'} transition={{ delay: 0.5 }} exit={null}>
                     <Label position={[145, y1]} size={[200, 20]} className={'explanation'}>
                         Usually, we start at the beginning.
                     </Label>
@@ -85,17 +85,17 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowV'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 0.5 }} exit={null}>
                     <BoxedLabel position={[60, y2]} size={[120, 28]} className={'B'}>
                         2. Middle
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'} transition={{ delay: 1 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 1 }} exit={null}>
                     <Label position={[145, y2 - 10]} size={[200, 20]} className={'explanation'}>
                         The middle stage is often the longest.
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'} transition={{ delay: 1.5 }}>
+                <MilestoneMotion initialOn={'B'} transition={{ delay: 1.5 }} exit={null}>
                     <Label position={[145, y2 + 10]} size={[200, 20]} className={'explanation'}>
                         It may contain many sub-stages.
                     </Label>
@@ -110,12 +110,12 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowV'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'C'} transition={{ delay: 0.5 }}>
+                <MilestoneMotion initialOn={'C'} transition={{ delay: 0.5 }} exit={null}>
                     <BoxedLabel position={[60, y3]} size={[120, 28]} className={'C'}>
                         3. End
                     </BoxedLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'C'} transition={{ delay: 1 }}>
+                <MilestoneMotion initialOn={'C'} transition={{ delay: 1 }} exit={null}>
                     <Label position={[145, y3]} size={[200, 20]} className={'explanation'}>
                         Finally, we reach a conclusion.
                     </Label>
