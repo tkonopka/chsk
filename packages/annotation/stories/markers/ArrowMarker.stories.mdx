@@ -44,7 +44,11 @@ Prop `variant` determines the shape of the arrowhead.
     <Story name="chevron">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <ArrowMarker id="chevron" variant="Chevron" style={{ stroke: '#222222' }} />
+                <ArrowMarker
+                    id="chevron"
+                    variant="Chevron"
+                    style={{ stroke: '#222222', strokeWidth: 2, fillOpacity: 0 }}
+                />
             </defs>
             <Line
                 x1={0}
@@ -57,6 +61,9 @@ Prop `variant` determines the shape of the arrowhead.
         </Chart>
     </Story>
 </Canvas>
+
+Note that for the arrow shapes to appear correctly, it may be necessary to set styles in the `ArrowMarker` component.
+In particular, the `chevron` arrowhead requires `fillOpacity: 0`.
 
 ## Arrow size and width
 
@@ -87,7 +94,13 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
     <Story name="double sided">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <ArrowMarker id="color" variant="Chevron" style={{ stroke: '#2222dd' }} />
+                <ArrowMarker
+                    id="color"
+                    variant="Chevron"
+                    size={14}
+                    width={1}
+                    style={{ stroke: '#2222dd', strokeWidth: 2, fillOpacity: 0 }}
+                />
             </defs>
             <Line
                 x1={0}
