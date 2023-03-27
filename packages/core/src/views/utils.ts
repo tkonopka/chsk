@@ -43,10 +43,10 @@ export const fillScaleSize = (
     scaleY: Omit<ScaleProps, 'size'>
 ) => {
     const result = {
-        x: cloneDeep(scaleX) as ScaleProps,
-        y: cloneDeep(scaleY) as ScaleProps,
+        scalePropsX: cloneDeep(scaleX) as ScaleProps,
+        scalePropsY: cloneDeep(scaleY) as ScaleProps,
     }
-    result.x.size = innerSize[X]
-    result.y.size = innerSize[Y]
+    result.scalePropsX.size = innerSize[X]
+    result.scalePropsY.size = innerSize[Y]
     return result
 }

@@ -1,5 +1,5 @@
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { createScales, createColorScale, createContinuousScale } from '../scales'
+import { createScales, createContinuousScale } from '../scales'
 import { ViewProps } from './types'
 import { useContainer } from './hooks'
 import { BaseView } from './BaseView'
@@ -23,9 +23,6 @@ const UnthemedView = ({
 }: ViewProps) => {
     const { dimsProps, origin, innerSize } = useContainer(container)
 
-    const { x: scalePropsX, y: scalePropsY } = fillScaleSize(innerSize, scaleX, scaleY)
-    const scales = createScales(scalePropsX, scalePropsY)
-
     const isArray = Array.isArray(data)
     const dataArray = isArray ? data : []
     const keys = isArray ? [] : data.keys
@@ -37,7 +34,8 @@ const UnthemedView = ({
             scaleColor.domain = data.keys
         }
     }
-    scales.color = createColorScale(scaleColor)
+    const { scalePropsX, scalePropsY } = fillScaleSize(innerSize, scaleX, scaleY)
+    const scales = createScales(scalePropsX, scalePropsY, scaleColor)
     scales.size = createContinuousScale(scaleSize)
 
     return (
