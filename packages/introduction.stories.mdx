@@ -4,40 +4,30 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 # chsk
 
-chsk is a charting library for React. It aims to provide a stable toolkit for creating graphs for static publications, dynamic components for dashboards, and animated stories for presentations.
-
-The library provides infrastructure for building visualizations from the ground up. It includes components for common chart elements such as axes and labels. It also includes hooks and data-processing functions. These elements can be combined to create commonly-used charts such as line or bar charts, or entirely original and complex visualizations.
+Chsk is a data visualization library for React. It provides a toolkit for
+creating static charts for offline publications, dynamic components for
+dashboards, and animated stories for presentations.
 
 ## Features
 
-### Base charts
+The library provides React components for data visualization:
 
-The core library together with its addons provide infrastructure for several commonly-used charts such as bar charts, scatter charts, and heat maps.
+-   **Core components** include geometric shapes, text labels, axes,
+    legends, and tooltips.
+-   **Data-specific components** include bar charts, line charts,
+    scatter plots, pie/doughnut charts, strip charts, quantile/box plots,
+    histograms, heat maps, set/Venn diagrams, upset diagrams, and schedule/Gant charts.
 
-### Reusable components
+Some features worth highlighting:
 
-Library components can be applied and used in many chart types. For example, axes and legends can be used in both bar charts and scatter charts.
+-   **Milestone animations** enable step-by-step story-telling.
+-   **Low-level components** combine in arbitrary ways to compose truly
+    original visualizations.
+-   **Annotation components** add bespoke decorations to base charts.
+-   **Hooks** provide access to chart state and enable the implementation of
+    arbitrary custom components.
+-   **Svg utilities** save charts into small, optimised svg files.
 
-### Styles and themes
+## Examples
 
-Components can be customized using inline styles and global themes. It is thus possible to quickly change the look-and-feel of a chart by applying a different theme, and to create multiple charts with a consistent appearance.
-
-### Interactivity
-
-Chart components animate changes in underlying data. Certain components can also respond to mouse events.
-
-### Hooks
-
-The library exports React hooks that can be used in custom components. This enables custom components to access information about a chart beyond what is provided via props. For example, a custom component can access the chart dimensions, current dataset in raw format, current dataset in a processed format, scales used for axes, or theme.
-
-### Calculation
-
-Some components perform a limited amount of calculation on data. For example, `Histogram` in package `@chsk/xy` performs data binning to summarize a data distribution. `Quantile` in package `@chsk/band` computes quantiles to display box plots. `Regression` in package `@chsk/xy` performs linear modeling to display a best-fit line.
-
-### Multiple views
-
-The library provides infrastructure for creating charts with multiple 'views'. For example, it is possible to create side-by-side bar graphs or side-by-side scatter graphs within a single graphic.
-
-### Milestone animation
-
-The library provides a scheme to animate the content of a chart based on user interactions. This can be used, for example, to make chart elements appear in stages, as if in a chart 'walk-through'.
+A [gallery](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page) holds many examples of complete charts built with library components.

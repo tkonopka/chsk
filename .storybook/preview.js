@@ -21,6 +21,7 @@ export const parameters = {
                 ['Overview', 'Components', 'Hooks', 'Props'],
                 'Addons',
                 [
+                    'Overview',
                     'Annotation',
                     ['Overview', 'Labels', 'Filters', 'Symbols'],
                     'Band',

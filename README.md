@@ -11,8 +11,7 @@ dashboards, and animated stories for presentations.
 
 ## Features
 
-The library provides React components for many elements relevant to data
-visualization:
+The library provides React components for data visualization:
 
 -   **Core components** include geometric shapes, text labels, axes,
     legends, and tooltips.
