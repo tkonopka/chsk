@@ -2,8 +2,8 @@ import { ReactNode, Ref } from 'react'
 import { SvgElementProps, SvgElementVariantProps, WithId } from '../general'
 import {
     CompleteThemeSpec,
-    GAnimationProps,
-    GTransitionProps,
+    AnimationProps,
+    TransitionProps,
     SvgBaseComponent,
     ThemeSpec,
 } from '../themes'
@@ -66,8 +66,8 @@ export interface OpacityMotionProps {
     children: ReactNode
 }
 
-export type AnimationSpec = undefined | null | string | GAnimationProps
-export type AnimationTransitionSpec = undefined | null | string | GTransitionProps
+export type AnimationSpec = undefined | null | string | AnimationProps
+export type TransitionSpec = undefined | null | string | TransitionProps
 
 export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'variant' | 'setRole'> {
     /** initial animation settings */
@@ -83,7 +83,7 @@ export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'vari
     /** base animation setting */
     animate?: AnimationSpec
     /** transition settings */
-    transition?: AnimationTransitionSpec
+    transition?: TransitionSpec
     /** default visibility setting */
     visible?: boolean
 }
@@ -93,5 +93,5 @@ export interface MilestoneMotionThemedProps
     initial: AnimationSpec
     exit: AnimationSpec
     animate: AnimationSpec
-    transition: AnimationTransitionSpec
+    transition: TransitionSpec
 }

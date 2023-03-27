@@ -22,6 +22,7 @@ const getSliceD = ({
 }
 
 export const Slice = ({
+    variant = 'slice',
     innerRadius,
     outerRadius,
     r = 0,
@@ -49,10 +50,10 @@ export const Slice = ({
     const [working, setWorking] = useState(false)
 
     if (d.get() !== getSliceD(sliceProps) && !working) {
+        const animateConfig = theme.Motion[variant] ?? theme.Motion.default
         const interpolator = interpolateObject(values, sliceProps)
         animate(0, 1, {
-            type: 'spring',
-            ...theme.Motion,
+            ...animateConfig,
             onPlay: () => {
                 setWorking(true)
             },
@@ -66,11 +67,11 @@ export const Slice = ({
         })
     }
 
-    const compositeClassName = getClassName('slice', className)
+    const compositeClassName = getClassName(variant, className)
     return (
         <m.path
             d={d}
-            role={setRole ? 'slice' : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             className={compositeClassName}
             {...props}
         />

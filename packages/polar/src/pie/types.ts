@@ -52,7 +52,7 @@ export interface PieProps
 
 export type PieInteractiveDataItem = PieProcessedDataItem
 
-export interface SliceProps extends SvgElementProps, Pick<PolarItemProps, 'angleUnit'> {
+export interface SliceProps extends SvgElementVariantProps, Pick<PolarItemProps, 'angleUnit'> {
     /** inner radius in absolute coordinates */
     innerRadius: number
     /** outer radius in absolute coordinates */
@@ -68,7 +68,7 @@ export interface SliceProps extends SvgElementProps, Pick<PolarItemProps, 'angle
 }
 
 export interface SlicesProps
-    extends SvgElementProps,
+    extends SvgElementVariantProps,
         DataInteractivityProps<PieInteractiveDataItem, SliceProps> {
     /** /** ids to display (defaults to all ids) */
     ids?: string[]

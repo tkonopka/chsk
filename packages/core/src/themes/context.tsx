@@ -1,3 +1,4 @@
+import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion'
 import { createContext, ReactNode, useContext, useMemo } from 'react'
 import { CompleteThemeSpec, ThemeSpec } from './types'
 import { defaultTheme } from './defaultTheme'
@@ -18,7 +19,13 @@ export const ThemeProvider = ({
         () => mergeTheme(baseTheme, theme) as CompleteThemeSpec,
         [baseTheme, theme]
     )
-    return <ThemeContext.Provider value={mergedTheme}>{children}</ThemeContext.Provider>
+    return (
+        <ThemeContext.Provider value={mergedTheme}>
+            <MotionConfig transition={mergedTheme.Motion}>
+                <LazyMotion features={domAnimation}>{children}</LazyMotion>
+            </MotionConfig>
+        </ThemeContext.Provider>
+    )
 }
 
 export const useTheme = () => useContext(ThemeContext)

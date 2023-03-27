@@ -58,6 +58,7 @@ describe('Slice', () => {
                 </Pie>
             </Chart>
         )
+        // initial slice should have an angle of 90deg, i.e. quarter circle
         expect(screen.getByRole('slice').getAttribute('d')).toContain('50,0')
         // click, slice should expand to a semi-circle
         fireEvent.click(screen.getByRole('button'))

@@ -89,6 +89,7 @@ const enterAnimation = {
     y: -20,
 }
 const enterTransition = {
+    type: 'spring' as const,
     duration: 0.8,
     stiffness: 50,
 }

@@ -273,9 +273,12 @@ export const defaultTheme: CompleteThemeSpec = {
         },
     },
     Motion: {
-        mass: 0.5,
-        stiffness: 250,
-        damping: 25,
+        default: {
+            type: 'spring',
+            mass: 0.5,
+            stiffness: 250,
+            damping: 25,
+        },
     },
     Animation: {
         default: {
@@ -290,11 +293,6 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         invisible: {
             opacity: 0,
-        },
-    },
-    Transition: {
-        default: {
-            delay: 0,
         },
     },
 }

@@ -13,7 +13,7 @@ import {
     X,
     Y,
     AnimationSpec,
-    AnimationTransitionSpec,
+    TransitionSpec,
 } from '../../../src'
 
 // helper component that displays an array of milestones at the bottom of a view
@@ -112,7 +112,7 @@ export const EntryExitMilestones = ({
 }: {
     initial: AnimationSpec
     exit: AnimationSpec
-    transition?: AnimationTransitionSpec
+    transition?: TransitionSpec
 }) => {
     const ref = useRef<ChartRef>(null)
     const toggleMilestone = (m: string) => {
@@ -149,7 +149,6 @@ export const EntryExitMilestones = ({
                         initialOn={'C'}
                         exit={exit}
                         exitOn={'D'}
-                        visible={true}
                         transition={transition}
                     >
                         <Axis variant={'right'} />

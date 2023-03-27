@@ -34,5 +34,4 @@ export const emptyTheme: CompleteThemeSpec = {
     Colors: defaultTheme.Colors,
     Motion: {},
     Animation: {},
-    Transition: {},
 }

@@ -47,10 +47,10 @@ export const PolarItem = ({
     const [working, setWorking] = useState(false)
     const transform = useMotionValue(getTransform(x, y, angle))
     if (transform.get() !== getTransform(x, y, angle) && !working) {
+        const animateConfig = theme.Motion[variant] ?? theme.Motion.default
         const interpolator = interpolate(values, [r, theta, angle])
         animate(0, 1, {
-            type: 'spring',
-            ...theme.Motion,
+            ...animateConfig,
             onPlay: () => {
                 setWorking(true)
             },

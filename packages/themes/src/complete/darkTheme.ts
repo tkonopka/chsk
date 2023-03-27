@@ -189,5 +189,4 @@ export const darkTheme: CompleteThemeSpec = {
     },
     Motion: cloneDeep(defaultTheme.Motion),
     Animation: cloneDeep(defaultTheme.Animation),
-    Transition: cloneDeep(defaultTheme.Transition),
 }

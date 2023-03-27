@@ -31,6 +31,9 @@
 
 ### Changed
 
+-   [core] changed motion configuration format in themes to support multiple
+    transition variants. The default motion configuration now should be
+    specified under a 'default' key.
 -   [core] removed exports of some milestone utilities
 -   [core] moved milestone presets into themes
 -   [annotation] fixed bug in `FlowPath` causing end markers to appear too soon

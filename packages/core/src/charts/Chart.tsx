@@ -1,11 +1,9 @@
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { domAnimation, LazyMotion, MotionConfig } from 'framer-motion'
 import { debounce } from 'lodash'
 import { ChartDataContextProps, ChartProps } from './types'
 import { DimensionsProvider, SizeSpec, X, Y } from '../general'
 import { defaultTheme, Styles, ThemeProvider } from '../themes'
 import { ChartDataProvider } from './contexts'
-import { mergeMotionConfig } from '../themes/helpers'
 
 /**
  * Tried implementing this component with forwardRef so that usage could be <Chart ref={myRef} />.
@@ -73,32 +71,26 @@ export const Chart = ({
     return (
         <ThemeProvider baseTheme={baseTheme} theme={theme}>
             <ChartDataProvider value={{ data: state, setData: setState }}>
-                <MotionConfig
-                    transition={{ type: 'spring', ...mergeMotionConfig(baseTheme, theme) }}
+                <svg
+                    id={id}
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={chartSize[X]}
+                    height={chartSize[Y]}
+                    role={setRole ? 'chart' : undefined}
+                    style={style}
+                    className={className}
+                    ref={ref}
                 >
-                    <LazyMotion features={domAnimation}>
-                        <svg
-                            id={id}
-                            xmlns="http://www.w3.org/2000/svg"
-                            width={chartSize[X]}
-                            height={chartSize[Y]}
-                            role={setRole ? 'chart' : undefined}
-                            style={style}
-                            className={className}
-                            ref={ref}
-                        >
-                            <Styles key={'styles'} chartId={id} styles={styles} />
-                            <DimensionsProvider
-                                key={'content'}
-                                size={chartSize}
-                                padding={padding}
-                                role={setRole ? 'chart-content' : undefined}
-                            >
-                                {children}
-                            </DimensionsProvider>
-                        </svg>
-                    </LazyMotion>
-                </MotionConfig>
+                    <Styles key={'styles'} chartId={id} styles={styles} />
+                    <DimensionsProvider
+                        key={'content'}
+                        size={chartSize}
+                        padding={padding}
+                        role={setRole ? 'chart-content' : undefined}
+                    >
+                        {children}
+                    </DimensionsProvider>
+                </svg>
             </ChartDataProvider>
         </ThemeProvider>
     )

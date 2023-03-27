@@ -1,7 +1,5 @@
 import { CSSProperties } from 'react'
-import { CompleteThemeSpec, SvgBaseComponent, ThemeSpec } from './types'
-import { cloneDeep, merge } from 'lodash'
-import { emptyTheme } from './emptyTheme'
+import { CompleteThemeSpec, SvgBaseComponent } from './types'
 
 // turn js styles into a string of inline-css styles
 export const cssStyleString = (style: CSSProperties) => {
@@ -49,8 +47,4 @@ export const componentStyles = (
         })
         .filter(entry => entry.length > 0)
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)
-}
-
-export const mergeMotionConfig = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
-    return merge(cloneDeep(baseTheme.Motion), customTheme?.Motion ?? emptyTheme.Motion)
 }

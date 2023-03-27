@@ -89,6 +89,7 @@ const boxedLabelInitial = {
     scale: 1.5,
 }
 const boxedLabelTransition = {
+    type: 'spring' as const,
     delay: 0.5,
     duration: 1.0,
 }
@@ -120,6 +121,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     <MilestoneMotion
                         initial={boxedLabelInitial}
                         initialOn={'small'}
+                        exit={null}
                         transition={boxedLabelTransition}
                     >
                         <BoxedLabel
@@ -146,6 +148,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     <MilestoneMotion
                         initial={boxedLabelInitial}
                         initialOn={'small'}
+                        exit={null}
                         transition={boxedLabelTransition}
                     >
                         <BoxedLabel
@@ -172,6 +175,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     <MilestoneMotion
                         initial={boxedLabelInitial}
                         initialOn={'small'}
+                        exit={null}
                         transition={boxedLabelTransition}
                     >
                         <BoxedLabel

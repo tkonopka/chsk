@@ -44,9 +44,9 @@ export const Counter = ({
     const [working, setWorking] = useState(false)
 
     if (value !== Number(children) && !working) {
+        const animateConfig = theme.Motion[variant] ?? theme.Motion.default
         animate(value, Number(children), {
-            type: 'spring',
-            ...theme.Motion,
+            ...animateConfig,
             onPlay: () => {
                 setWorking(true)
             },

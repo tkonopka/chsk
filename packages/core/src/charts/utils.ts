@@ -1,18 +1,21 @@
-import { AnimationSpec, AnimationTransitionSpec } from './types'
+import { AnimationSpec, TransitionSpec } from './types'
 import { isNull, isUndefined } from 'lodash'
-import { GAnimationProps, GTransitionProps, ThemeSpec } from '../themes'
+import { ThemeSpec, TransitionProps, AnimationProps } from '../themes'
 
-export const getMotionValue = (a: AnimationSpec, theme: ThemeSpec): undefined | GAnimationProps => {
+export const getAnimationValue = (
+    a: AnimationSpec,
+    theme: ThemeSpec
+): undefined | AnimationProps => {
     if (isUndefined(a) || isNull(a)) return undefined
     if (typeof a === 'string') return theme.Animation?.[a]
-    return a as GAnimationProps
+    return a as AnimationProps
 }
 
 export const getTransitionValue = (
-    a: AnimationTransitionSpec,
+    a: TransitionSpec,
     theme: ThemeSpec
-): undefined | GTransitionProps => {
+): undefined | TransitionProps => {
     if (isUndefined(a) || isNull(a)) return undefined
-    if (typeof a === 'string') return theme.Transition?.[a]
-    return a as GTransitionProps
+    if (typeof a === 'string') return theme.Motion?.[a]
+    return a as TransitionProps
 }

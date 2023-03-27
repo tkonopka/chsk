@@ -40,25 +40,20 @@ export interface ColorsRecords extends Record<string, ColorScaleSpec> {
     sequential: SequentialScaleSpec
 }
 
-export interface MotionProps {
+export interface TransitionProps {
+    type?: 'spring' | 'tween'
+    // tween settings
     duration?: number
+    delay?: number
+    // spring settings
     bounce?: number
     mass?: number
     stiffness?: number
     damping?: number
 }
 
-/** settings for framer's 'transition' */
-export type GTransitionProps = {
-    duration?: number
-    delay?: number
-    stiffness?: number
-    mass?: number
-    damping?: number
-}
-
 /** selected settings for animating 'g' elements */
-export type GAnimationProps = {
+export type AnimationProps = {
     opacity?: number
     x?: number
     y?: number
@@ -97,9 +92,8 @@ export interface ThemeSpec {
     View?: Record<string, Partial<ViewThemedProps>>
     // non-component settings
     Colors?: Record<string, ColorScaleSpec>
-    Motion?: MotionProps
-    Animation?: Record<string, GAnimationProps>
-    Transition?: Record<string, GTransitionProps>
+    Motion?: Record<string, TransitionProps>
+    Animation?: Record<string, AnimationProps>
 }
 
 export interface CompleteThemeSpec {
@@ -133,9 +127,8 @@ export interface CompleteThemeSpec {
     View: Record<string, ViewThemedProps>
     // non-components
     Colors: ColorsRecords
-    Motion: MotionProps
-    Animation: Record<string, GAnimationProps>
-    Transition: Record<string, GTransitionProps>
+    Motion: Record<string, TransitionProps>
+    Animation: Record<string, AnimationProps>
 }
 
 export const svgBaseComponents = [

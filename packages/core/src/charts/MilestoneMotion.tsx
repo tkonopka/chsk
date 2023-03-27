@@ -1,7 +1,7 @@
 import { AnimatePresence, m } from 'framer-motion'
 import { useState } from 'react'
 import { useMilestones } from './index'
-import { getMotionValue, getTransitionValue } from './utils'
+import { getAnimationValue, getTransitionValue } from './utils'
 import { MilestoneMotionProps } from './types'
 import { useTheme, useThemedProps } from '../themes'
 
@@ -50,9 +50,9 @@ const UnthemedMilestoneMotion = ({
             {active && (
                 <m.g
                     role={setRole ? role : undefined}
-                    initial={getMotionValue(initial, theme)}
-                    animate={getMotionValue(animate, theme)}
-                    exit={getMotionValue(exit, theme)}
+                    initial={getAnimationValue(initial, theme)}
+                    animate={getAnimationValue(animate, theme)}
+                    exit={getAnimationValue(exit, theme)}
                     transition={getTransitionValue(transition, theme)}
                 >
                     {children}

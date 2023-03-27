@@ -12,6 +12,7 @@ import { SlicesProps } from './types'
 import { isPieProcessedData } from './predicates'
 
 export const Slices = ({
+    variant,
     ids,
     r = 0,
     padAngle = 0,
@@ -48,6 +49,7 @@ export const Slices = ({
             component: component ?? Slice,
             data: item,
             props: {
+                variant,
                 innerRadius: xScale(item.rInner) - x0,
                 outerRadius: xScale(item.rOuter) - x0,
                 startAngle: item.startAngle,

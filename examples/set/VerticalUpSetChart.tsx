@@ -48,9 +48,12 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
         },
     },
     Motion: {
-        mass: 0.5,
-        stiffness: 100,
-        damping: 20,
+        default: {
+            type: 'spring',
+            mass: 0.5,
+            stiffness: 100,
+            damping: 20,
+        },
     },
 })
 
