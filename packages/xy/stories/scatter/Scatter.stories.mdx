@@ -45,15 +45,15 @@ The pseudocode below demonstrates the required format.
 `}
 />
 
-The above dataset has a series identifier `alpha` - points associated with this identifier will be drawn in the same color.
-
-The nested data array consists of two records with three keys each (`a`, `b`, and `c`). Two of these keys can be selected to display on the x- and y-axes of a scatter chart.
+The above dataset has a series identifier `alpha`. Points associated with this id will be drawn in the same color.
+The nested data array consists of two records with three keys each (`a`, `b`, and `c`).
+These keys can be used to extract values for x- and y-axes.
 
 ## Axis scaling
 
 `Scatter` can set up x- and y-axes according to manual specifications, or determine relevant settings based on data. To demonstrate this, the examples below use `Scatter` (which doesn't create any visual elements) together with components that visualize axes and an example dataset.
 
-When the scales on the axes are determined automatically, `Scatter` will automatically adjust the scales when the data changes, for example when certain data series are toggled via a legend (example below, left). The automatic rescaling can be disabled via prop `autoRescale` (example below, right).
+When the scales on the axes are determined automatically, `Scatter` automatically adjusts the scales when the data changes, for example when certain data series are toggled via a legend (below, left). The automatic rescaling can be disabled via prop `autoRescale` (below, right).
 
 export const PointsAndLegend = ({ title = 'Polynomials', legend = true }) => {
     return (
@@ -62,7 +62,12 @@ export const PointsAndLegend = ({ title = 'Polynomials', legend = true }) => {
             <Axis variant={'left'} label={'y (a.u.)'} />
             <ScatterPoints />
             {legend ? (
-                <Legend position={[220, 60]} anchor={[0, 0.5]} units={'absolute'} title={title} />
+                <Legend
+                    position={[220, 60]}
+                    anchor={[0, 0.5]}
+                    positionUnits={'absolute'}
+                    title={title}
+                />
             ) : null}
         </>
     )
@@ -128,7 +133,7 @@ By default, `Scatter` assumes all data points should have equal size. The base s
             data: dataPolynomials,
             x: 'x',
             y: 'y',
-            valueSize: 10,
+            valueSize: 9,
             scaleX: {
                 variant: 'linear',
                 domain: [0, 'auto'],

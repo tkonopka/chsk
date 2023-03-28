@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Axis, AxisTicks, Chart, GridLines } from '@chsk/core'
+import { Axis, AxisTicks, Chart, GridLines, Surface } from '@chsk/core'
 import { Bar, BarInteractiveDataItem, BarProps, Bars } from '../../src'
 import dataGroups from '../dataGroups.json'
 
@@ -24,6 +24,13 @@ export const barsLabelsData = [
     { id: 'delta', value: 25 },
     { id: 'epsilon', value: 5 },
 ]
+
+export const ChartWithLegendDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 40, 80, 60]} style={{ display: 'inline-block' }}>
+        <Surface variant={'inner'} />
+        {Story()}
+    </Chart>
+)
 
 export const ChartBarH0S1Decorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>

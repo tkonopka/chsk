@@ -1,10 +1,10 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Axis, Legend } from '@chsk/core'
 import { Bar, Bars } from '../../src'
-import { ChartDecorator, ChartWithLegendDecorator } from '../decorators'
-import { commonBarProps } from './decorators'
+import { ChartDecorator } from '../decorators'
 import dataSingles from '../dataSingles'
 import dataMissing from '../dataMissing'
+import { commonBarProps, ChartWithLegendDecorator } from './decorators'
 
 # Bar
 
@@ -279,9 +279,10 @@ Datasets may have missing/omitted values. For example, the dataset below has thr
 `}
 />
 
-Bars that would correspond to id-key combinations with missing values are omitted. This behavior can be used to draw a 'stacked' chart that appears like a regular bar chart, but where bars appear with different colors (below, first example).
-
-Another way to achieve the same result is to use the grouped variant, and set the prop `paddingInternal` to null. This will also draw multiple elements on top of each other (below, second example).
+Bars that would correspond to id-key combinations with missing values are omitted.
+This behavior can be used to draw a 'stacked' chart that appears like a regular bar chart, but where bars appear with different colors (below, left).
+Another way to achieve the same result is to set prop `variant` to 'layered'.
+This variant arranges all elements associated with one id on top of each other (below, right).
 
 <Canvas>
     <Story
@@ -306,10 +307,9 @@ Another way to achieve the same result is to use the grouped variant, and set th
         name="null internal padding"
         args={{
             ...commonBarProps,
-            variant: 'grouped',
+            variant: 'layered',
             data: dataMissing,
             horizontal: false,
-            paddingInternal: null,
             scaleIndex: {
                 variant: 'band',
                 padding: 0.2,
@@ -327,7 +327,7 @@ Another way to achieve the same result is to use the grouped variant, and set th
 
 Scales on the axes can be set manually, or determined automatically based on the data.
 
-When the scale on the value axis is set to automatic, it will automatically rescale/adjust when the data changes or when certain keys are toggled on or off using the legend (example below, left). The automatic rescaling can be disabled using prop `autoRescale` (example below, right).
+When the scale on the value axis is set to automatic, it will automatically rescale/adjust when the data changes or when certain keys are toggled using a legend (below, left). The automatic rescaling can be disabled using prop `autoRescale` (below, right).
 
 export const BarsAndLegend = () => {
     return (
@@ -337,7 +337,7 @@ export const BarsAndLegend = () => {
             <Legend
                 position={[160, 200]}
                 size={[150, 20]}
-                units="absolute"
+                positionUnits="absolute"
                 anchor={[0.5, 0]}
                 horizontal
                 itemPadding={[2, 2, 2, 2]}
