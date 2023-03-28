@@ -84,18 +84,17 @@ Then, `HeatmapHighlight` can be used as a static tool to highlight a subset of i
     </Story>
 </Canvas>
 
-## Corner animation
+## Edge animation
 
-By default, when the mouse enters the heatmap, `HeatMapHighlight` displays masks using a fade-in effect
-(cf. previous examples).
-Prop `cornerAnimation` is a flag that instead triggers an animation that initially places masks at the corners
-of the matrix and then spreads these masks to zoom onto a cell.
+By default, `HeatMapHighlight` displays masks using a fade-in effect (cf. previous examples).
+Flag `edgeAnimation` instead activates an animation that initially places masks at the corners
+of the matrix and then spreads these masks to zoom onto a target.
 
 <Canvas>
     <Story
-        name="corner animation"
+        name="edge animation"
         args={{
-            cornerAnimation: true,
+            edgeAnimation: true,
             style: { fill: '#222222', opacity: 0.9 },
         }}
         component={HeatMapHighlight}
@@ -105,7 +104,7 @@ of the matrix and then spreads these masks to zoom onto a cell.
     </Story>
 </Canvas>
 
-(The distinction between `cornerAnimation` values is more pronounced in larger heatmaps.)
+Note that the animation is only relevant when the mouse pointer first enters the heatmap.
 
 ## Tooltip
 

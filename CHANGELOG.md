@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [band] support for fade-in and edge animations in `BandHighlight`
 -   [core] default animation states and theming support for `MilestoneMotion`
 -   [annotation] component `FlowTypography` to reveal text character-by-character
 -   [annotation] filter `BackgroundColorFilter`
@@ -25,8 +26,7 @@
 -   [themes] object `darkTheme` for charts on a dark background
 -   [core] component `BluntMarker`
 -   [annotation] component `ArcArrow`
--   [matrix] prop `cornerAnimation` in `HeatMapHighlight` to toggle between
-    fade-in and corner animations
+-   [matrix] support for fade-in and edge animations in `HeatMapHighlight`
 -   [annotation] component `GridStripes`
 
 ### Changed

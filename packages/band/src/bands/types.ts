@@ -52,6 +52,10 @@ export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
 export interface BandHighlightProps extends SvgElementProps {
     /** target ids (defaults to all ids) */
     ids?: string[]
+    /** toggle response to mouse motion */
+    interactive?: boolean
+    /** animate appearance from edges */
+    edgeAnimation?: boolean
     /** alignment of tooltip within a highlighted zone */
     tooltipAlign?: AlignSpec
 }

@@ -38,8 +38,6 @@ const createDetectorIntervals = (
     ]
 }
 
-const wh0 = { width: 0, height: 0 }
-
 const HeatMapHighlightMask = (
     zone: DetectorZone,
     size: SizeSpec,
@@ -49,7 +47,7 @@ const HeatMapHighlightMask = (
 ) => {
     const [width, height] = size
     const commonProps = {
-        initial: animation ? wh0 : undefined,
+        initial: animation ? { width: 0, height: 0 } : undefined,
         style,
         className,
     }
@@ -57,37 +55,25 @@ const HeatMapHighlightMask = (
         <>
             <m.rect
                 key={'top-left'}
-                animate={{
-                    width: zone[X][0],
-                    height: zone[Y][0],
-                }}
+                animate={{ width: zone[X][0], height: zone[Y][0] }}
                 {...commonProps}
             />
             <m.rect
                 key={'top-right'}
                 transform={'translate(' + width + ',0)rotate(90)'}
-                animate={{
-                    height: width - zone[X][1],
-                    width: zone[Y][0],
-                }}
+                animate={{ height: width - zone[X][1], width: zone[Y][0] }}
                 {...commonProps}
             />
             <m.rect
                 key={'bottom-left'}
                 transform={'translate(0,' + height + ')rotate(-90)'}
-                animate={{
-                    width: height - zone[Y][1],
-                    height: zone[X][0],
-                }}
+                animate={{ width: height - zone[Y][1], height: zone[X][0] }}
                 {...commonProps}
             />
             <m.rect
                 key={'bottom-right'}
                 transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                animate={{
-                    width: width - zone[X][1],
-                    height: height - zone[Y][1],
-                }}
+                animate={{ width: width - zone[X][1], height: height - zone[Y][1] }}
                 {...commonProps}
             />
         </>
@@ -98,7 +84,7 @@ export const HeatMapHighlight = ({
     ids,
     keys,
     interactive = true,
-    cornerAnimation = false,
+    edgeAnimation = false,
     tooltipAlign = [0.5, 0.5],
     className,
     setRole = true,
@@ -132,7 +118,7 @@ export const HeatMapHighlight = ({
             const yInterval = getMinMax(detectorIntervals[1])
             setZone([xInterval, yInterval])
         }
-    })
+    }, [detectorIntervals, setZone])
 
     const handleMouseLeave = useCallback(() => {
         setZone(null)
@@ -209,7 +195,7 @@ export const HeatMapHighlight = ({
             >
                 {zone === null
                     ? null
-                    : HeatMapHighlightMask(zone, size, style, maskClassName, cornerAnimation)}
+                    : HeatMapHighlightMask(zone, size, style, maskClassName, edgeAnimation)}
             </OpacityMotion>
             {interactive ? detector : null}
         </g>

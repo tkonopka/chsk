@@ -69,11 +69,13 @@ describe('HeatMapHighlight', () => {
         render(
             <Chart>
                 <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
-                    <HeatMapHighlight interactive={false} />
+                    <HeatMapHighlight ids={['alpha']} keys={['y']} interactive={false} />
                 </HeatMap>
             </Chart>
         )
         expect(screen.queryByRole('heatmap-detector')).toBeNull()
+        // non-interactive, but should display rectangle masks
+        expect(screen.getByRole('heatmap-highlight').querySelectorAll('rect')).toHaveLength(4)
     })
 
     it('skips work in non-heatmap context', () => {
@@ -119,11 +121,11 @@ describe('HeatMapHighlight', () => {
         })
     })
 
-    it('creates masks with corner animation', async () => {
+    it('creates masks with edge animation', async () => {
         render(
             <Chart size={[340, 440]} padding={[20, 20, 20, 20]}>
                 <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
-                    <HeatMapHighlight cornerAnimation={true} />
+                    <HeatMapHighlight edgeAnimation={true} />
                 </HeatMap>
             </Chart>
         )

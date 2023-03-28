@@ -60,6 +60,10 @@ const customTheme = {
             stroke: '#222222',
             strokeWidth: 1,
         },
+        heatmapHighlight: {
+            opacity: 0.8,
+            fill: '#222222',
+        },
     },
     AxisLabel: {
         top: {
@@ -136,34 +140,16 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     />
                 </Legend>
                 <MilestoneMotion initialOn={'blockA'} exitOn={'blockB'}>
-                    <HeatMapHighlight
-                        style={{ fill: '#222222', opacity: 0.8 }}
-                        ids={idsA}
-                        keys={idsA}
-                        interactive={false}
-                    />
+                    <HeatMapHighlight ids={idsA} keys={idsA} interactive={false} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'blockB'} exitOn={'blockC'}>
-                    <HeatMapHighlight
-                        style={{ fill: '#222222', opacity: 0.8 }}
-                        ids={idsB}
-                        keys={idsB}
-                        interactive={false}
-                    />
+                    <HeatMapHighlight ids={idsB} keys={idsB} interactive={false} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'blockC'} exitOn={'final'}>
-                    <HeatMapHighlight
-                        style={{ fill: '#222222', opacity: 0.8 }}
-                        ids={idsC}
-                        keys={idsC}
-                        interactive={false}
-                    />
+                    <HeatMapHighlight ids={idsC} keys={idsC} interactive={false} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'final'}>
-                    <HeatMapHighlight
-                        cornerAnimation={true}
-                        style={{ fill: '#222222', opacity: 0.6 }}
-                    />
+                    <HeatMapHighlight edgeAnimation={true} style={{ opacity: 0.6 }} />
                     <Tooltip
                         translate={[0, 18]}
                         anchor={[0.5, 0]}

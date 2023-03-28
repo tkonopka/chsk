@@ -12,7 +12,7 @@ export const Template = args => <BandHighlight {...args} />
 
 <ArgsTable of={BandHighlight} />
 
-## Interactivity
+## Mouse motion
 
 `BandHighlight` detect mouse movements and draws masks to highlight one band. Hover the mouse on the charts below.
 
@@ -48,3 +48,56 @@ export const Template = args => <BandHighlight {...args} />
         </Chart>
     </Story>
 </Canvas>
+
+## Interactivity
+
+Prop `interactive` toggles interactivity.
+Setting the prop to 'false' turns `BandHighlight` into a static decoration for selected ids.
+
+<Canvas>
+    <Story name="static">
+        <Chart
+            id={'static'}
+            size={[400, 240]}
+            padding={[40, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps}>
+                <Bars />
+                <Axis variant={'left'} />
+                <Axis variant={'bottom'} label={'Values (a.u.)'} />
+                <BandHighlight
+                    ids={['alpha']}
+                    interactive={false}
+                    style={{ fill: '#777777', opacity: 0.3 }}
+                />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Edge animation
+
+By default, `BandHighlight` displays masks using a fade-in effect (cf. previous examples).
+Flag `edgeAnimation` instead activates an animation that initially places masks at the edges of the band scale
+and then spreads these masks to zoom onto a target.
+
+<Canvas>
+    <Story name="edge animation">
+        <Chart
+            id={'edge'}
+            size={[400, 240]}
+            padding={[40, 60, 60, 60]}
+            style={{ display: 'inline-block' }}
+        >
+            <Bar {...commonBarProps}>
+                <Bars />
+                <Axis variant={'left'} />
+                <Axis variant={'bottom'} label={'Values (a.u.)'} />
+                <BandHighlight edgeAnimation={true} style={{ fill: '#222222', opacity: 0.3 }} />
+            </Bar>
+        </Chart>
+    </Story>
+</Canvas>
+
+Note that the animation is only relevant when the mouse pointer first enters the chart.

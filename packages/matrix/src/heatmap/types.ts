@@ -1,6 +1,5 @@
 import { FC, ReactNode } from 'react'
 import {
-    AlignSpec,
     BandScaleSpec,
     ColorScaleProps,
     ColorScaleSpec,
@@ -13,6 +12,7 @@ import {
     WithId,
     WithInteractive,
 } from '@chsk/core'
+import { BandHighlightProps } from '@chsk/band'
 
 export type HeatMapDataItem = WithId & Record<string, unknown>
 
@@ -44,17 +44,9 @@ export interface HeatMapProps extends SvgElementProps, Pick<ViewProps, 'containe
     scaleSize?: SizeScaleSpec
 }
 
-export interface HeatMapHighlightProps extends SvgElementProps {
-    /** target ids (defaults to all ids) */
-    ids?: string[]
+export interface HeatMapHighlightProps extends SvgElementProps, BandHighlightProps {
     /** keys to display (default to all keys) */
     keys?: string[]
-    /** toggle response to mouse motion */
-    interactive?: boolean
-    /** animate initial appearance from corners */
-    cornerAnimation?: boolean
-    /** alignment of tooltip within a highlighted zone */
-    tooltipAlign?: AlignSpec
 }
 
 export interface HeatMapCellProps extends RectangleProps {

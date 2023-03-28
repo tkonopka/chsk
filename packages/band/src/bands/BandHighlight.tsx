@@ -1,4 +1,4 @@
-import { MouseEvent, useCallback, useMemo, useRef, useState } from 'react'
+import { MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { m } from 'framer-motion'
 import {
     BandAxisScale,
@@ -23,6 +23,7 @@ import {
     getZoneSize,
     getClassName,
     useDisabledKeys,
+    getMinMax,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -41,55 +42,42 @@ const BandHighlightMask = (
     size: SizeSpec,
     horizontal: boolean,
     style?: CssProps,
-    className?: string
+    className?: string,
+    animation?: boolean
 ) => {
     const [width, height] = size
+    const initial = horizontal ? { height: 0 } : { width: 0 }
+    const commonProps = {
+        initial: animation ? initial : undefined,
+        style,
+        className,
+    }
     return horizontal ? (
         <>
             <m.rect
                 key={'mask-top'}
-                initial={{ height: 0 }}
-                animate={{
-                    width: zone[X][1],
-                    height: zone[Y][0],
-                }}
-                style={style}
-                className={className}
+                animate={{ width: zone[X][1], height: zone[Y][0] }}
+                {...commonProps}
             />
             <m.rect
                 key={'mask-bottom'}
-                initial={{ height: 0 }}
                 transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                animate={{
-                    width: zone[X][1],
-                    height: height - zone[Y][1],
-                }}
-                style={style}
-                className={className}
+                animate={{ width: zone[X][1], height: height - zone[Y][1] }}
+                {...commonProps}
             />
         </>
     ) : (
         <>
             <m.rect
                 key={'mask-left'}
-                initial={{ width: 0 }}
-                animate={{
-                    width: zone[X][0],
-                    height: zone[Y][1],
-                }}
-                style={style}
-                className={className}
+                animate={{ width: zone[X][0], height: zone[Y][1] }}
+                {...commonProps}
             />
             <m.rect
                 key={'mask-right'}
-                initial={{ width: 0 }}
                 transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                animate={{
-                    width: width - zone[X][1],
-                    height: zone[Y][1],
-                }}
-                style={style}
-                className={className}
+                animate={{ width: width - zone[X][1], height: zone[Y][1] }}
+                {...commonProps}
             />
         </>
     )
@@ -97,6 +85,8 @@ const BandHighlightMask = (
 
 export const BandHighlight = ({
     ids,
+    interactive = true,
+    edgeAnimation = false,
     tooltipAlign = [0.5, 0.5],
     className,
     setRole = true,
@@ -118,6 +108,14 @@ export const BandHighlight = ({
         () => createDetectorIntervals(indexScale, idSet, valueSize, horizontal),
         [indexScale, idSet, valueSize, horizontal]
     )
+
+    useEffect(() => {
+        if (!interactive && zone === null) {
+            const xInterval = getMinMax(detectorIntervals[0])
+            const yInterval = getMinMax(detectorIntervals[1])
+            setZone([xInterval, yInterval])
+        }
+    }, [detectorIntervals, setZone])
 
     // handlers are similar as in HeatMapHighlight
     const handleMouseLeave = useCallback(() => {
@@ -188,9 +186,16 @@ export const BandHighlight = ({
             >
                 {zone === null
                     ? null
-                    : BandHighlightMask(zone, size, horizontal, style, maskClassName)}
+                    : BandHighlightMask(
+                          zone,
+                          size,
+                          horizontal,
+                          style,
+                          maskClassName,
+                          edgeAnimation
+                      )}
             </OpacityMotion>
-            {detector}
+            {interactive ? detector : null}
         </g>
     )
 }
