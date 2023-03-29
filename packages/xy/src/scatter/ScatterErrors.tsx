@@ -67,7 +67,7 @@ export const ScatterErrors = ({
 }: ScatterErrorsProps) => {
     const preparedData = useScatterPreparedData()
     const rawData = useRawData()
-    const { x: scaleX, y: scaleY, color: scaleColor } = useScales()
+    const { x: scaleX, y: scaleY, color: scaleColor } = useScales().scales
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     if (!isContinuousAxisScale(scaleX) || !isContinuousAxisScale(scaleY)) return null

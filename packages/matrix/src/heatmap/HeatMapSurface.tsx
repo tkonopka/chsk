@@ -28,7 +28,7 @@ export const HeatMapSurface = ({
     style,
 }: HeatMapSurfaceProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const { scales } = useScales()
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, processedData),

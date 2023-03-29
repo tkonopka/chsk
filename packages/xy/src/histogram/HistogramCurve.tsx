@@ -24,7 +24,7 @@ export const HistogramCurve = ({
 }: HistogramCurveProps) => {
     const processedData = useProcessedData().data
     const preparedData = useHistogramPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isHistogramProcessedData(processedData)) return null
 

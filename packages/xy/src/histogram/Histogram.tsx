@@ -4,7 +4,6 @@ import { cloneDeep } from 'lodash'
 import { HistogramDataItem, HistogramProcessedDataItem, HistogramProps } from './types'
 import {
     ContinuousAxisScale,
-    createScales,
     createContinuousScaleProps,
     useContainer,
     ContinuousScaleProps,
@@ -22,6 +21,7 @@ import {
     SizeSpec,
     getMoments,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { binValues, getBreaksArray } from './utils'
@@ -61,7 +61,7 @@ const prepareData = (
     }
 }
 
-const getScaleProps = (
+const getHistogramScaleProps = (
     data: Array<HistogramProcessedDataItem>,
     scaleSpecX: ContinuousScaleSpec,
     scaleSpecY: ContinuousScaleSpec,
@@ -69,8 +69,8 @@ const getScaleProps = (
     disabled: boolean[]
 ) => {
     const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+        x: cloneDeep(scaleSpecX) as ContinuousScaleProps,
+        y: cloneDeep(scaleSpecY) as ContinuousScaleProps,
     }
     const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {
@@ -78,17 +78,17 @@ const getScaleProps = (
             .filter(filterDisabled)
             .map(seriesData => seriesData.points.map(point => point[X]))
             .flat()
-        result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
+        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
             .filter(filterDisabled)
             .map(seriesData => seriesData.points.map(point => point[Y]))
             .flat()
-        result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
+        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y))
     }
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.size = size[Y]
+    result.x.size = size[X]
+    result.y.size = size[Y]
     return result
 }
 
@@ -121,15 +121,16 @@ export const Histogram = ({
     )
 
     // set up scales
-    const { scalePropsX, scalePropsY } = getScaleProps(
+    const { x: xProps, y: yProps } = getHistogramScaleProps(
         processedData,
         scaleX,
         scaleY,
         innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
-    const scales = createScales(scalePropsX, scalePropsY, scaleColorProps)
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
+    const scales = scalesContextValue.scales
 
     // compute coordinates
     const preparedData = processedData.map(seriesData =>
@@ -146,7 +147,7 @@ export const Histogram = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={seriesIds}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <HistogramPreparedDataProvider

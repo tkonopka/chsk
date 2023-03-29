@@ -31,7 +31,7 @@ export const BandSurface = ({
 }: BandSurfaceProps) => {
     const processedData = useProcessedData()
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const { data: tooltipData } = useTooltip()
     const [active, setActive] = useState<string | undefined>(undefined)
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0

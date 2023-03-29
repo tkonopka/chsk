@@ -1,11 +1,11 @@
 import {
     createBandScale,
     createContinuousScale,
-    ScalesContextProps,
     defaultCategoricalScale,
     defaultSizeScale,
     getAbsolutePosition,
 } from '../../src/scales'
+import { Scales } from '../../src/scales/types'
 
 describe('getAbsolutePosition', () => {
     const customBandScale = createBandScale({
@@ -19,7 +19,7 @@ describe('getAbsolutePosition', () => {
         domain: [0, 10],
         size: 100,
     })
-    const customScales: ScalesContextProps = {
+    const customScales: Scales = {
         x: customBandScale,
         y: customLinearScale,
         color: defaultCategoricalScale,

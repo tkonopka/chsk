@@ -98,7 +98,7 @@ export const DistributionTooltipItem = ({
     style,
     setRole = true,
 }: DistributionTooltipItemProps) => {
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     if (!isDistributionProcessedSummary(data)) return null
     if (!data) return null
 

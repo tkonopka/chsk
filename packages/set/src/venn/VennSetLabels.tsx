@@ -27,7 +27,7 @@ export const VennSetLabels = ({
     component = Label,
 }: VennSetLabelsProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const data = processedData.data
     if (!isVennProcessedData(data)) return null
 

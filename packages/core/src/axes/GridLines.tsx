@@ -15,7 +15,7 @@ const UnthemedGridLines = ({
     style,
     setRole = true,
 }: GridLinesProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y

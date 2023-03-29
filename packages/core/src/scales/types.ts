@@ -266,7 +266,7 @@ export type Scale = ColorScale | AxisScale
 
 /** Context */
 
-export type ScalesContextProps = {
+export type Scales = {
     /** scale for X axis*/
     x: AxisScale
     /** scale for Y axis */
@@ -275,6 +275,20 @@ export type ScalesContextProps = {
     size: AxisScale
     /** scale for color */
     color: ColorScale
+}
+export type ScalesProps = {
+    x: ContinuousScaleProps | BandScaleProps
+    y: ContinuousScaleProps | BandScaleProps
+    color?: ColorScaleProps
+    size?: SizeScaleProps
+}
+export type ScalesPropsDispatchProp = ((prevState: ScalesProps) => ScalesProps) | ScalesProps | null
+export type ScalesPropsDispatch = (value: ScalesPropsDispatchProp) => void
+
+export type ScalesContextValue = {
+    scales: Scales
+    scaleProps: ScalesProps
+    setScaleProps: ScalesPropsDispatch
 }
 
 /** Cartesian detector zones */

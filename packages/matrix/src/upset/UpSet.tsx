@@ -3,7 +3,6 @@ import { UpSetDataItem, UpSetProcessedDataItem, UpSetProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
-    createScales,
     useContainer,
     getIndexes,
     BandScaleSpec,
@@ -14,6 +13,7 @@ import {
     X,
     Y,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 
@@ -78,11 +78,11 @@ const getXYScaleProps = (
     const scalePropsMembership = cloneDeep(scaleSpecMembership) as BandScaleProps
     scalePropsMembership.domain = keys
     const result = {
-        scalePropsX: horizontal ? scalePropsMembership : scalePropsIndex,
-        scalePropsY: horizontal ? scalePropsIndex : scalePropsMembership,
+        x: horizontal ? scalePropsMembership : scalePropsIndex,
+        y: horizontal ? scalePropsIndex : scalePropsMembership,
     }
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.size = size[Y]
+    result.x.size = size[X]
+    result.y.size = size[Y]
     return result
 }
 
@@ -106,12 +106,12 @@ export const UpSet = ({
         [data, seriesIds, horizontal]
     )
 
-    const { scalePropsX, scalePropsY } = useMemo(
+    const { x: xProps, y: yProps } = useMemo(
         () => getXYScaleProps(seriesIds, keys, horizontal, scaleIndex, scaleMembership, innerSize),
         [seriesIds, keys, horizontal, scaleIndex, scaleMembership, dimsProps]
     )
-    const colorScaleProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, [''])
-    const scales = createScales(scalePropsX, scalePropsY, colorScaleProps)
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, [''])
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
 
     return (
         <BaseView
@@ -123,7 +123,7 @@ export const UpSet = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={keys}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>

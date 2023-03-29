@@ -14,7 +14,7 @@ export const useContainer = ({
     anchor = defaultContainerProps.anchor,
 }: ContainerProps) => {
     const dimensions = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const { dimsProps, origin, innerSize } = useMemo(() => {
         const dimsProps = getDimensionsProps(size, sizeUnits, dimensions.size, padding)
         const innerSize = getInnerSize(dimsProps.size, padding)

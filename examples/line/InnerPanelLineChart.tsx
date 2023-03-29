@@ -81,7 +81,7 @@ const ZoomBox = ({
     toCorner?: NumericPositionSpec
     toSize?: SizeSpec
 }) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const xScale = scales.x as ContinuousAxisScale
     const yScale = scales.y as ContinuousAxisScale
     // convert from view coordinates into absolute coordinates

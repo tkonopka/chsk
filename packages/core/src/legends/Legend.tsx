@@ -57,7 +57,7 @@ const UnthemedLegend = ({
     setRole = true,
     children,
 }: LegendProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const colorDomain = scales.color.domain().map(String)
     const n = colorDomain.length
 

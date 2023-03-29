@@ -89,7 +89,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
 })
 
 const HeatMapCounter = ({ x, y, width, height, className, style, cellValue }: HeatMapCellProps) => {
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const color = colorScale(Number(cellValue))
     return (
         <>

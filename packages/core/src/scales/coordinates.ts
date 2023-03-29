@@ -1,4 +1,4 @@
-import { AxisScale, ScalesContextProps } from './types'
+import { AxisScale, Scales } from './types'
 import { PositionSpec, PositionUnit, PositionUnits, SizeSpec } from '../general'
 import { isContinuousAxisScale } from './predicates'
 
@@ -8,7 +8,7 @@ export const getAbsolutePosition = (
     position: PositionSpec,
     unit: PositionUnits,
     dimensions: SizeSpec,
-    scales: ScalesContextProps
+    scales: Scales
 ): [number, number] => {
     const unitPair = Array.isArray(unit) ? unit : [unit, unit]
     return [

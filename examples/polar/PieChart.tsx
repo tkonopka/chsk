@@ -63,7 +63,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
 
 // a circle with unit radius in view scale
 export const BgCircle = () => {
-    const rScale = useScales().x as ContinuousAxisScale
+    const rScale = useScales().scales.x as ContinuousAxisScale
     const r = rScale(1) - rScale(0)
     return <Circle r={r} className={'bg'} />
 }

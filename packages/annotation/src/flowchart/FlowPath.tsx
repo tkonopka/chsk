@@ -24,7 +24,7 @@ export const FlowPath = ({
     ...props
 }: FlowPathProps) => {
     const ref = useRef<SVGPathElement>(null)
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const viewPoints = useMemo(
         () => points.map(point => getAbsolutePosition(point, units, size, scales)),

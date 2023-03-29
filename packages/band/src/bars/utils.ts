@@ -25,11 +25,11 @@ export const getScaleProps = (
     stacked = false
 ) => {
     const result = {
-        scalePropsIndex: cloneDeep(scaleSpecIndex) as BandScaleProps,
-        scalePropsValue: cloneDeep(scaleSpecValue) as LinearScaleProps,
+        index: cloneDeep(scaleSpecIndex) as BandScaleProps,
+        value: cloneDeep(scaleSpecValue) as LinearScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecIndex)) {
-        result.scalePropsIndex.domain = ids
+        result.index.domain = ids
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
         const filterDisabled = (v: unknown, i: number) => !disabled[i]
@@ -40,13 +40,10 @@ export const getScaleProps = (
             return [negative, positive]
         }
         const domain = stacked ? getMinMax(values.map(sumValues).flat()) : getMinMax(values.flat())
-        result.scalePropsValue = createContinuousScaleProps(
-            scaleSpecValue,
-            domain
-        ) as LinearScaleProps
+        result.value = createContinuousScaleProps(scaleSpecValue, domain) as LinearScaleProps
     }
-    result.scalePropsIndex.size = horizontal ? size[Y] : size[X]
-    result.scalePropsValue.size = horizontal ? size[X] : size[Y]
+    result.index.size = horizontal ? size[Y] : size[X]
+    result.value.size = horizontal ? size[X] : size[Y]
     return result
 }
 

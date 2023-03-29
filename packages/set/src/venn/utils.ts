@@ -24,8 +24,8 @@ export const getXYScaleProps = (
     size: SizeSpec
 ) => {
     const scales = {
-        scalePropsX: cloneDeep(scaleSpecX) as LinearScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as LinearScaleProps,
+        x: cloneDeep(scaleSpecX) as LinearScaleProps,
+        y: cloneDeep(scaleSpecY) as LinearScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data
@@ -34,10 +34,7 @@ export const getXYScaleProps = (
                 seriesData.center[X] + seriesData.r,
             ])
             .flat()
-        scales.scalePropsX = createContinuousScaleProps(
-            scaleSpecX,
-            getMinMax(x)
-        ) as LinearScaleProps
+        scales.x = createContinuousScaleProps(scaleSpecX, getMinMax(x)) as LinearScaleProps
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
@@ -46,16 +43,13 @@ export const getXYScaleProps = (
                 seriesData.center[Y] + seriesData.r,
             ])
             .flat()
-        scales.scalePropsY = createContinuousScaleProps(
-            scaleSpecY,
-            getMinMax(y)
-        ) as LinearScaleProps
+        scales.y = createContinuousScaleProps(scaleSpecY, getMinMax(y)) as LinearScaleProps
     }
-    scales.scalePropsX.size = size[X]
-    scales.scalePropsY.size = size[Y]
-    scales.scalePropsX.nice = false
-    scales.scalePropsY.nice = false
-    return expandScalePropsToSquare(scales.scalePropsX, scales.scalePropsY)
+    scales.x.size = size[X]
+    scales.y.size = size[Y]
+    scales.x.nice = false
+    scales.y.nice = false
+    return expandScalePropsToSquare(scales.x, scales.y)
 }
 
 export const getColorScaleProps = (

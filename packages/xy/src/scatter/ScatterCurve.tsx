@@ -28,7 +28,7 @@ export const ScatterCurve = ({
     ...pathProps
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     const result = (ids ?? preparedData.keys).map(id => {

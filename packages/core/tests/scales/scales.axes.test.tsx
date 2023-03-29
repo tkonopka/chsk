@@ -73,44 +73,44 @@ describe('expandScalePropsToSquare', () => {
         const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
         const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 200 }
         expect(pixelWidth(x0)).toEqual(pixelWidth(y0))
-        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
-        expect(scalePropsX.domain).toEqual([0, 1])
-        expect(scalePropsY.domain).toEqual([0, 2])
+        const { x, y } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(x)).toEqual(pixelWidth(y))
+        expect(x.domain).toEqual([0, 1])
+        expect(y.domain).toEqual([0, 2])
     })
 
     it('expands x scale', () => {
         const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
         const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
         expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
-        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
-        expect(scalePropsX.domain).toEqual([-0.5, 1.5])
-        expect(scalePropsY.domain).toEqual([0, 2])
+        const { x, y } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(x)).toEqual(pixelWidth(y))
+        expect(x.domain).toEqual([-0.5, 1.5])
+        expect(y.domain).toEqual([0, 2])
     })
 
     it('expands y scale', () => {
         const x0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
         const y0: LinearScaleProps = { variant: 'linear', domain: [1, 2], size: 100 }
         expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
-        const { scalePropsX, scalePropsY } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(scalePropsX)).toEqual(pixelWidth(scalePropsY))
-        expect(scalePropsX.domain).toEqual([0, 2])
-        expect(scalePropsY.domain).toEqual([0.5, 2.5])
+        const { x, y } = expandScalePropsToSquare(x0, y0)
+        expect(pixelWidth(x)).toEqual(pixelWidth(y))
+        expect(x.domain).toEqual([0, 2])
+        expect(y.domain).toEqual([0.5, 2.5])
     })
 })
 
 describe('createAxisScale', () => {
     it('creates a band scale', () => {
-        const result = createAxisScale({
-            axis: 'x',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'band',
                 domain: ['a', 'b'],
                 padding: 0,
                 size: 100,
             },
-        })
+            'x'
+        )
         expect(isAxisScale(result)).toBeTruthy()
         expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeTruthy()
@@ -118,14 +118,14 @@ describe('createAxisScale', () => {
     })
 
     it('creates a linear scale', () => {
-        const result = createAxisScale({
-            axis: 'x',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'linear',
                 domain: [0, 10],
                 size: 100,
             },
-        })
+            'x'
+        )
         expect(isAxisScale(result)).toBeTruthy()
         expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeFalsy()
@@ -135,14 +135,14 @@ describe('createAxisScale', () => {
     })
 
     it('creates a log scale', () => {
-        const result = createAxisScale({
-            axis: 'x',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'log',
                 domain: [1, 10],
                 size: 100,
             },
-        })
+            'x'
+        )
         expect(isAxisScale(result)).toBeTruthy()
         expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeFalsy()
@@ -152,14 +152,14 @@ describe('createAxisScale', () => {
     })
 
     it('creates a sqrt scale', () => {
-        const result = createAxisScale({
-            axis: 'x',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'sqrt',
                 domain: [0, 100],
                 size: 100,
             },
-        })
+            'x'
+        )
         expect(isAxisScale(result)).toBeTruthy()
         expect(isColorScale(result)).toBeFalsy()
         expect(isBandAxisScale(result)).toBeFalsy()
@@ -168,43 +168,43 @@ describe('createAxisScale', () => {
     })
 
     it('creates a y-axis scale oriented in canonical direction', () => {
-        const result = createAxisScale({
-            axis: 'y',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'linear',
                 domain: [0, 10],
                 size: 100,
                 reverse: false,
             },
-        }) as LinearAxisScale
+            'y'
+        ) as LinearAxisScale
         expect(result(0)).toEqual(100)
         expect(result(10)).toEqual(0)
     })
 
     it('creates a y-axis scale oriented in reverse direction', () => {
-        const result = createAxisScale({
-            axis: 'y',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'linear',
                 domain: [0, 10],
                 size: 100,
                 reverse: true,
             },
-        }) as LinearAxisScale
+            'y'
+        ) as LinearAxisScale
         expect(result(0)).toEqual(0)
         expect(result(10)).toEqual(100)
     })
 
     it('creates a x-axis scale oriented in reverse direction', () => {
-        const result = createAxisScale({
-            axis: 'x',
-            scaleProps: {
+        const result = createAxisScale(
+            {
                 variant: 'linear',
                 domain: [0, 10],
                 size: 100,
                 reverse: true,
             },
-        }) as LinearAxisScale
+            'x'
+        ) as LinearAxisScale
         expect(result(0)).toEqual(100)
         expect(result(10)).toEqual(0)
     })

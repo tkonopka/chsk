@@ -59,7 +59,7 @@ const CustomTicks = ({
     labelFormat,
     translate = [0, 0],
 }: Pick<AxisTicksProps, 'labelStyle' | 'labelFormat'> & { translate?: NumericPositionSpec }) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const scaleX = scales.x as ContinuousAxisScale
     const scaleY = scales.y as BandAxisScale
     const tickValues: string[] = scaleY.domain()

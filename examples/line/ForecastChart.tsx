@@ -79,7 +79,7 @@ const getYear = (v: unknown) => {
 
 export const ForecastRectangle = () => {
     const now = new Date(Date.now())
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const scaleX = scales.x as TimeAxisScale
     const xCoordinate = scaleX(Number(now))
@@ -107,7 +107,7 @@ export const ForecastRectangle = () => {
 }
 
 export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const scaleX = scales.x as TimeAxisScale
     const timeDomain = scaleX.domain()
     const minYear = new Date(timeDomain[0]).getFullYear()

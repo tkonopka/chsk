@@ -37,7 +37,7 @@ export const ScatterLabel = ({
     children,
 }: ScatterLabelProps) => {
     const preparedData = useScatterPreparedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const { disabledKeys, firstRender } = useDisabledKeys()
 

@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
-    createScales,
     useContainer,
     useTheme,
     createColorScaleProps,
@@ -11,6 +10,7 @@ import {
     AngleUnit,
     deg2rad,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { getPieXYScaleProps } from './utils'
 import { PieDataItem, PieProps, PieProcessedDataItem } from './types'
@@ -79,18 +79,15 @@ export const Pie = ({
         () => processData(data, angle, angleUnit, angleAlign, rInner, rOuter),
         [data, angle, angleUnit, angleAlign, rInner, rOuter]
     )
-    const { scalePropsX, scalePropsY } = useMemo(
+    const { x: xProps, y: yProps } = useMemo(
         () => getPieXYScaleProps(scaleX, scaleY, innerSize),
         [scaleX, scaleY, innerSize]
     )
-    const colorScaleProps = useMemo(
+    const colorProps = useMemo(
         () => createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds),
         [scaleColor, theme, seriesIds]
     )
-    const scales = useMemo(
-        () => createScales(scalePropsX, scalePropsY, colorScaleProps),
-        [scalePropsX, scalePropsY, colorScaleProps]
-    )
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
 
     return (
         <BaseView
@@ -102,7 +99,7 @@ export const Pie = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={seriesIds}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>

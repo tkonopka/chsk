@@ -98,7 +98,7 @@ const IndividualRegression = ({
     ...props
 }: RegressionProps) => {
     const preparedData = useScatterPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
     const coefficients: Record<string, [number, number]> = useMemo(() => {

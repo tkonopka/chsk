@@ -10,7 +10,6 @@ import {
     AccessorFunction,
     ContinuousAxisScale,
     getAccessor,
-    createScales,
     useContainer,
     getIndexes,
     defaultLinearScaleSpec,
@@ -18,11 +17,12 @@ import {
     useTheme,
     BaseView,
     getNumberAccessor,
-    ScalesContextProps,
     ColorScale,
     defaultSizeScaleSpec,
     NumericAxisScale,
     defaultContainerProps,
+    useCreateScales,
+    Scales,
 } from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
@@ -30,11 +30,9 @@ import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helper
 const getAccessors = ({
     x,
     y,
-    valueSize,
-    valueColor,
-}: Pick<ScatterProps, 'x' | 'y' | 'valueColor'> & {
-    valueSize: number | string | AccessorFunction<number>
-}) => {
+    valueSize = 5,
+    valueColor = null,
+}: Pick<ScatterProps, 'x' | 'y' | 'valueColor' | 'valueSize'>) => {
     const getX = getAccessor(x)
     const getY = getAccessor(y)
     const getSize = getNumberAccessor(valueSize)
@@ -69,7 +67,7 @@ const processData = (
 // turn processed data into view-specific coordinates
 const prepareData = (
     data: Array<ScatterProcessedDataItem>,
-    scales: ScalesContextProps
+    scales: Scales
 ): Array<ScatterPreparedDataItem> => {
     const scaleX = scales.x as ContinuousAxisScale
     const scaleY = scales.y as ContinuousAxisScale
@@ -114,7 +112,7 @@ export const Scatter = ({
     const processedData = useMemo(() => processData(data, accessors), [data, accessors])
 
     // set up scales
-    const { scalePropsX, scalePropsY } = useMemo(() => {
+    const { x: xProps, y: yProps } = useMemo(() => {
         return getXYScaleProps(
             processedData,
             scaleX,
@@ -123,22 +121,27 @@ export const Scatter = ({
             autoRescale ? disabled : Array(seriesIds.length).fill(false)
         )
     }, [processedData, scaleX, scaleY, disabled, autoRescale, disabled, seriesIds])
-    const { scaleColorProps, scaleSizeProps } = useMemo(() => {
-        const scaleColorProps = getColorScaleProps(
+    const { colorProps, sizeProps } = useMemo(() => {
+        const colorProps = getColorScaleProps(
             processedData,
             scaleColor ?? theme.Colors.categorical,
             seriesIds
         )
-        const scaleSizeProps = getSizeScaleProps(processedData, scaleSize, valueSize)
-        return { scaleColorProps, scaleSizeProps }
+        const sizeProps = getSizeScaleProps(processedData, scaleSize, valueSize)
+        return { colorProps, sizeProps }
     }, [processedData, scaleColor, scaleSize, theme, valueSize, seriesIds])
-    const scales = useMemo(
-        () => createScales(scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps),
-        [scalePropsX, scalePropsY, scaleColorProps, scaleSizeProps]
-    )
+    const scalesContextValue = useCreateScales({
+        x: xProps,
+        y: yProps,
+        color: colorProps,
+        size: sizeProps,
+    })
 
     // compute coordinates
-    const preparedData = useMemo(() => prepareData(processedData, scales), [processedData, scales])
+    const preparedData = useMemo(
+        () => prepareData(processedData, scalesContextValue.scales),
+        [processedData, scalesContextValue]
+    )
 
     return (
         <BaseView
@@ -150,7 +153,7 @@ export const Scatter = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={seriesIds}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <ScatterPreparedDataProvider

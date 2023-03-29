@@ -21,10 +21,10 @@ import {
     FourSideSizeSpec,
     SizeSpec,
     CssProps,
-    ScalesContextProps,
     useRawData,
     useTooltip,
     NumericAxisScale,
+    Scales,
 } from '@chsk/core'
 import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
@@ -96,7 +96,7 @@ const createActiveSymbol = ({
 > & {
     activeData?: ScatterInteractiveDataItem
     coordinates: NumericPositionSpec
-    scales: ScalesContextProps
+    scales: Scales
     seriesIndex: number
 }) => {
     if (activeData === undefined || activeData.point === undefined) return null
@@ -134,7 +134,7 @@ export const ScatterCrosshair = ({
     const processedData = useProcessedData().data
     const preparedData = useScatterPreparedData()
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const { disabledKeys } = useDisabledKeys()
     const detectorRef = useRef<SVGRectElement>(null)
     const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)

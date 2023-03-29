@@ -70,7 +70,7 @@ const BetweenBandsLabel = ({
     label: string
     size: SizeSpec
 }) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const scaleIndex = scales.x as BandAxisScale
     const scaleValue = scales.y as LinearAxisScale
     const center: [number, number] = [(scaleIndex(x1) + scaleIndex(x2)) / 2, scaleValue(y)]

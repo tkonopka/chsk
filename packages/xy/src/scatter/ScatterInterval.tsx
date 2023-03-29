@@ -27,7 +27,7 @@ const getScatterIntervalD = ({
     seriesIndex,
     rawData,
     preparedData,
-    scaleY,
+    yScale,
     lower,
     upper,
     curve,
@@ -39,7 +39,7 @@ const getScatterIntervalD = ({
     seriesIndex: number
     rawData: RawDataContextProps
     preparedData: ScatterDataContextProps
-    scaleY: ContinuousAxisScale
+    yScale: ContinuousAxisScale
     lower: string | AccessorFunction<number>
     upper: string | AccessorFunction<number>
     curve: CurveSpec
@@ -47,8 +47,8 @@ const getScatterIntervalD = ({
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
     const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
-    const lowerValues = originalSeriesData.map(item => scaleY(getLower(item)))
-    const upperValues = originalSeriesData.map(item => scaleY(getUpper(item)))
+    const lowerValues = originalSeriesData.map(item => yScale(getLower(item)))
+    const upperValues = originalSeriesData.map(item => yScale(getUpper(item)))
     const x = preparedData.data[seriesIndex].x
     const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
     const lowerPoints = curvePoints({ x, y: lowerValues, ...signalProps })
@@ -80,12 +80,12 @@ export const ScatterInterval = ({
 }: ScatterIntervalProps) => {
     const preparedData = useScatterPreparedData()
     const rawData = useRawData()
-    const scales = useScales()
-    const scaleY = scales.y
+    const { scales } = useScales()
+    const yScale = scales.y
     const colorScale = scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
-    if (!isContinuousAxisScale(scaleY)) return null
+    if (!isContinuousAxisScale(yScale)) return null
     const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
 
     const result = (ids ?? preparedData.keys).map(id => {
@@ -99,13 +99,13 @@ export const ScatterInterval = ({
                     seriesIndex,
                     rawData,
                     preparedData,
-                    scaleY,
+                    yScale,
                     lower,
                     upper,
                     curve,
                     ...signalProps,
                 }),
-            [seriesIndex, rawData, preparedData, scaleY, lower, upper, curve]
+            [seriesIndex, rawData, preparedData, yScale, lower, upper, curve]
         )
         const element = createElement(dataComponent, {
             data: { id },

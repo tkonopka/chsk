@@ -5,7 +5,7 @@ import {
     defaultSequentialScale,
     defaultSizeScale,
     Legend,
-    ScalesContextProps,
+    Scales,
     useProcessedData,
     useScales,
 } from '@chsk/core'
@@ -72,14 +72,14 @@ describe('Distribution', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultSequentialScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(
@@ -100,14 +100,14 @@ describe('Distribution', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(

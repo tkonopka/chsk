@@ -52,7 +52,7 @@ export const ScatterArea = ({
     ...pathProps
 }: ScatterAreaProps) => {
     const preparedData = useScatterPreparedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const scaleY = scales.y
     const colorScale = scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()

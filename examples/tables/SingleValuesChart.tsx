@@ -107,7 +107,7 @@ const DashboardValue = ({
     value: number
     thresholds?: [number, number]
 }) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const color = scales.color(value)
     const activeClassName =
         value < thresholds[1] ? ' error' : value < thresholds[0] ? ' warning' : ''

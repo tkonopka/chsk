@@ -23,7 +23,7 @@ export const BracketLabel = ({
     children,
 }: BracketLabelProps) => {
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
 
     // toggle left-handed and right-handed symbol via tickSize
     tickSize = variant === 'left' ? -tickSize : tickSize

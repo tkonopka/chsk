@@ -50,7 +50,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
 })
 
 const CustomChangeArrow = ({ x, y, width, height, style, ...props }: RectangleProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     let start: NumericPositionSpec = [x, y + height / 2]
     let end: NumericPositionSpec = [x + width, y + height / 2]
     const arrowStyle = cloneDeep(style) ?? {}

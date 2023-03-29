@@ -3,13 +3,13 @@ import {
     getClassName,
     getIdKeySets,
     getAbsolutePosition,
-    ScalesContextProps,
     SizeSpec,
     SizeUnit,
     Label,
     useDimensions,
     useRawData,
     useScales,
+    Scales,
     X,
     Y,
     useProcessedData,
@@ -23,7 +23,7 @@ const getAbsoluteValuePos = (
     position: number,
     unit: SizeUnit,
     dimensions: SizeSpec,
-    scales: ScalesContextProps,
+    scales: Scales,
     horizontal: boolean
 ) => {
     const absPosition = getAbsolutePosition([position, position], unit, dimensions, scales)
@@ -49,7 +49,7 @@ export const BandLabels = ({
     const rawData = useRawData().data
     const processedData = useProcessedData()
     const dimensions = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const bandwidth = indexScale.bandwidth()

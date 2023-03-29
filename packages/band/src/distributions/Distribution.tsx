@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    createScales,
     AccessorFunction,
     BandAxisScale,
     getAccessor,
@@ -17,6 +16,7 @@ import {
     getMinMax,
     getMoments,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import {
     FiveNumbers,
@@ -131,7 +131,7 @@ export const Distribution = ({
         () => processData(data, keyAccessors, quantiles),
         [data, keyAccessors, quantiles]
     )
-    const { scalePropsIndex, scalePropsValue } = getScaleProps(
+    const { index: indexProps, value: valueProps } = getScaleProps(
         processedData.map(d => d.id),
         processedData.map(d => d.domain),
         scaleIndex,
@@ -140,10 +140,11 @@ export const Distribution = ({
         horizontal,
         autoRescale ? disabled : Array(keys.length).fill(false)
     )
-    const scaleX = horizontal ? scalePropsValue : scalePropsIndex
-    const scaleY = horizontal ? scalePropsIndex : scalePropsValue
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
-    const scales = createScales(scaleX, scaleY, scaleColorProps)
+    const xProps = horizontal ? valueProps : indexProps
+    const yProps = horizontal ? indexProps : valueProps
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
+    const scales = scalesContextValue.scales
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
@@ -178,7 +179,7 @@ export const Distribution = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={keys}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <DistributionPreparedDataProvider

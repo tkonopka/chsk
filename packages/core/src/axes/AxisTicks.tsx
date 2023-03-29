@@ -93,7 +93,7 @@ const UnthemedAxisTicks = ({
     className,
     style,
 }: AxisTicksProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
 
     const tickMarks = getScaleTicks({
         scale: variant === 'top' || variant === 'bottom' ? scales.x : scales.y,

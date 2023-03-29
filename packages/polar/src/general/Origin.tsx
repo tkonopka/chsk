@@ -9,7 +9,7 @@ export const Origin = ({
     style,
     children,
 }: OriginProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const xScale = scales.x as ContinuousAxisScale
     const yScale = scales.y as ContinuousAxisScale
     const config = { x: xScale(0), y: yScale(0), originX: '0px', originY: '0px' }

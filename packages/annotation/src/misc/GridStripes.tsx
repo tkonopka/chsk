@@ -19,7 +19,7 @@ const UnthemedGridStripes = ({
     setRole = true,
     ...props
 }: GridStripesProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y

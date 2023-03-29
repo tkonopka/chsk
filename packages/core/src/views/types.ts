@@ -15,7 +15,8 @@ import {
     ColorScaleProps,
     ContinuousScaleProps,
     ScaleProps,
-    ScalesContextProps,
+    ScalesContextValue,
+    SizeScaleProps,
 } from '../scales'
 import { ReactNode } from 'react'
 
@@ -81,7 +82,7 @@ export interface ViewProps extends SvgElementProps {
     /** scale for color */
     scaleColor?: ColorScaleProps
     /** scale for size */
-    scaleSize?: ContinuousScaleProps
+    scaleSize?: SizeScaleProps
     /** children components */
     children?: ReactNode
 }
@@ -91,7 +92,7 @@ export interface ViewThemedProps
     scaleX: ScaleProps
     scaleY: ScaleProps
     scaleColor: ColorScaleProps
-    scaleSize: ContinuousScaleProps
+    scaleSize: SizeScaleProps
     container: ContainerProps
     setRole: boolean
 }
@@ -109,8 +110,8 @@ export interface BaseViewProps
     originalData: Array<RecordWithId>
     /** processed dataset */
     processedData: Array<RecordWithId>
-    /** scales */
-    scales: ScalesContextProps
+    /** scales, scale props, and scale prop update function */
+    scalesContextValue: ScalesContextValue
     /** children components */
     children?: ReactNode
 }

@@ -31,10 +31,7 @@ export const createContinuousScaleProps = (
 }
 
 /** change domains for x and y scale props to achieve a square (1-1) aspect ratio */
-export const expandScalePropsToSquare = (
-    scalePropsX: LinearScaleProps,
-    scalePropsY: LinearScaleProps
-) => {
+export const expandScalePropsToSquare = (x: LinearScaleProps, y: LinearScaleProps) => {
     const domainRatio = (scaleProps: LinearScaleProps) =>
         (scaleProps.domain[1] - scaleProps.domain[0]) / scaleProps.size
     const adjustDomain = (domain: [number, number], ratio: number) => {
@@ -44,11 +41,11 @@ export const expandScalePropsToSquare = (
         domain[0] -= extension / 2
         domain[1] += extension / 2
     }
-    const xRatio = domainRatio(scalePropsX)
-    const yRatio = domainRatio(scalePropsY)
-    adjustDomain(scalePropsX.domain, xRatio / yRatio)
-    adjustDomain(scalePropsY.domain, yRatio / xRatio)
-    return { scalePropsX, scalePropsY }
+    const xRatio = domainRatio(x)
+    const yRatio = domainRatio(y)
+    adjustDomain(x.domain, xRatio / yRatio)
+    adjustDomain(y.domain, yRatio / xRatio)
+    return { x, y }
 }
 
 // creates a scale function similar to D3's scaleBand
@@ -147,19 +144,12 @@ export const createContinuousScale = ({
     return result as ContinuousAxisScale
 }
 
-export const createAxisScale = ({
-    axis = 'x',
-    scaleProps,
-}: {
-    /** axis for scale */
-    axis?: 'x' | 'y'
-    /** complete information about a scale, including domain */
-    scaleProps: ContinuousScaleProps | BandScaleProps
-}) => {
-    if (scaleProps.variant === 'band') {
-        return createBandScale(scaleProps)
-    }
+export const createAxisScale = (
+    props: ContinuousScaleProps | BandScaleProps,
+    axis: 'x' | 'y' = 'x'
+) => {
+    if (props.variant === 'band') return createBandScale(props)
     let reverse = axis === 'y'
-    if (scaleProps.reverse) reverse = !reverse
-    return createContinuousScale({ reverseRange: reverse, ...scaleProps })
+    if (props.reverse) reverse = !reverse
+    return createContinuousScale({ reverseRange: reverse, ...props })
 }

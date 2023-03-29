@@ -25,7 +25,7 @@ const UnthemedLegendColorScale = ({
     setRole = true,
     gradientId,
 }: LegendColorScaleProps) => {
-    const scale = useScales().color
+    const scale = useScales().scales.color
     if (!isContinuousColorScale(scale)) return null
 
     // create a list of colors

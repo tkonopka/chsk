@@ -25,7 +25,7 @@ export const Slices = ({
     ...props
 }: SlicesProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const xScale = scales.x as ContinuousAxisScale
     const colorScale = scales.color
     const data = processedData.data

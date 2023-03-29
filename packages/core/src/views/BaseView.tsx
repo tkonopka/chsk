@@ -13,7 +13,7 @@ export const BaseView = ({
     processedData,
     seriesIndexes,
     keys,
-    scales,
+    scalesContextValue,
     className,
     setRole = true,
     style,
@@ -32,7 +32,7 @@ export const BaseView = ({
                 role={setRole ? 'view-content' : undefined}
             >
                 <OriginalDataProvider data={originalData}>
-                    <ScalesProvider scales={scales}>
+                    <ScalesProvider value={scalesContextValue}>
                         <ProcessedDataProvider
                             data={processedData}
                             seriesIndexes={seriesIndexes}

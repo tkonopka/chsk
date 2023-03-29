@@ -29,7 +29,7 @@ const UnthemedLegendItem = ({
     style,
     setRole = true,
 }: LegendItemProps) => {
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { data: chartData, setData: setChartData } = useChartData()
 
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)

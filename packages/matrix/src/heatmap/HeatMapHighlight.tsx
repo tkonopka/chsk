@@ -91,7 +91,7 @@ export const HeatMapHighlight = ({
     style,
 }: HeatMapHighlightProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)

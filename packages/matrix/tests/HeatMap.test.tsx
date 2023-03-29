@@ -44,7 +44,7 @@ describe('HeatMap', () => {
     it('determines domain for colors (auto)', () => {
         let scale: ColorScale = defaultCategoricalScale
         const GetColorScale = () => {
-            scale = useScales().color
+            scale = useScales().scales.color
             return null
         }
         render(
@@ -69,7 +69,7 @@ describe('HeatMap', () => {
     it('determines domain for colors (semi-automatic)', () => {
         let scale: ColorScale = defaultCategoricalScale
         const GetColorScale = () => {
-            scale = useScales().color
+            scale = useScales().scales.color
             return null
         }
         render(
@@ -95,7 +95,7 @@ describe('HeatMap', () => {
     it('determines middle of diverging color scale', () => {
         let scale: ColorScale = defaultCategoricalScale
         const GetColorScale = () => {
-            scale = useScales().color
+            scale = useScales().scales.color
             return null
         }
         render(
@@ -121,7 +121,7 @@ describe('HeatMap', () => {
     it('accepts custom color domain', () => {
         let scale: ColorScale = defaultCategoricalScale
         const GetColorScale = () => {
-            scale = useScales().color
+            scale = useScales().scales.color
             return null
         }
         render(

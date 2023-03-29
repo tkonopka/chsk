@@ -56,7 +56,7 @@ const FirstPoint = ({
     style,
     setRole,
 }: Omit<SymbolProps, 'cx' | 'cy'> & { id?: string }) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const preparedData = useScatterPreparedData()
     const index = id ? preparedData.seriesIndexes[id] ?? 0 : 0
     const cx = preparedData.data[index].x[0]

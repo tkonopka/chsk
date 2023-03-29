@@ -75,7 +75,7 @@ const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
 
 // custom rectangle change color based on data value
 const CustomRectangle = ({ width, height, style, ...props }: RectangleProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     const colorScale = scales.color
     const color = height > 0 ? colorScale(1) : colorScale(0)
     const adjustedStyle = cloneDeep(style) ?? {}

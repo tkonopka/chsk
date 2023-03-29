@@ -6,9 +6,9 @@ import {
     defaultSizeScale,
     Legend,
     NumericPositionSpec,
-    ScalesContextProps,
     useProcessedData,
     useScales,
+    Scales,
     X,
     Y,
 } from '@chsk/core'
@@ -221,14 +221,14 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultSequentialScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(
@@ -250,14 +250,14 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(
@@ -306,14 +306,14 @@ describe('Bar', () => {
     ]
 
     it('auto-detects scales with negative numbers (horizontal)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(
@@ -334,14 +334,14 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales with negative numbers (vertical)', () => {
-        let scales: ScalesContextProps = {
+        let scales: Scales = {
             x: dummyXBandScale,
             y: dummyYLinearScale,
             size: defaultSizeScale,
             color: defaultDivergingScale,
         }
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(

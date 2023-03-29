@@ -5,6 +5,7 @@ import {
     defaultCategoricalScaleSpec,
     defaultLinearScaleSpec,
     defaultSizeScaleSpec,
+    SizeScaleProps,
 } from '../scales'
 import { cloneDeep } from 'lodash'
 
@@ -22,7 +23,7 @@ export const defaultViewProps: ViewThemedProps = {
     scaleX: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleY: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, []),
-    scaleSize: createContinuousScaleProps(defaultSizeScaleSpec, [0, 100], 25),
+    scaleSize: createContinuousScaleProps(defaultSizeScaleSpec, [0, 100], 25) as SizeScaleProps,
     setRole: true,
 }
 

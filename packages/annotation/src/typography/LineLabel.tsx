@@ -23,7 +23,7 @@ export const LineLabel = ({
     children,
 }: LineLabelProps) => {
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
 
     const { lineStart, lineEnd } = getLineAbsolutePositions({
         start,

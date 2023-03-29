@@ -5,9 +5,9 @@ import {
     defaultScaleY,
     ProcessedDataContextProps,
     roundDecimalPlaces,
-    ScalesContextProps,
     useProcessedData,
     useScales,
+    Scales,
     X,
     Y,
 } from '@chsk/core'
@@ -69,9 +69,9 @@ describe('Venn', () => {
     })
 
     it('defines scales with 1:1 aspect ratio', () => {
-        let scales = { x: defaultScaleX, y: defaultScaleY } as ScalesContextProps
+        let scales = { x: defaultScaleX, y: defaultScaleY } as Scales
         const GetScales = () => {
-            const temp = useScales()
+            const { scales: temp } = useScales()
             scales = temp
             return null
         }

@@ -24,7 +24,7 @@ export const Bars = ({
 }: BarsProps) => {
     const processedData = useProcessedData().data
     const preparedData = useBarPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isBarProcessedData(processedData)) return null

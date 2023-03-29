@@ -51,7 +51,7 @@ export const UpSetBar = ({
 }: UpSetBarProps) => {
     const processedData = useProcessedData()
     const dimensions = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const data = processedData.data
     if (!isUpSetProcessedData(data) || data.length == 0) return null
     const horizontal = data[0].horizontal

@@ -5,13 +5,13 @@ import {
     AccessorFunction,
     BaseView,
     getAccessor,
-    createScales,
     useContainer,
     getIndexes,
     BandScaleSpec,
     useTheme,
     defaultSizeScaleSpec,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
@@ -64,10 +64,15 @@ export const HeatMap = ({
         [keyAccessors, data, dataSize]
     )
 
-    const { scalePropsX, scalePropsY } = getXYScaleProps(seriesIds, keys, scaleX, scaleY, innerSize)
-    const colorScaleProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
-    const sizeScaleProps = getSizeScaleProps(processedData, scaleSize, innerSize, seriesIds, keys)
-    const scales = createScales(scalePropsX, scalePropsY, colorScaleProps, sizeScaleProps)
+    const { x: xProps, y: yProps } = getXYScaleProps(seriesIds, keys, scaleX, scaleY, innerSize)
+    const colorProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
+    const sizeProps = getSizeScaleProps(processedData, scaleSize, innerSize, seriesIds, keys)
+    const scalesContextValue = useCreateScales({
+        x: xProps,
+        y: yProps,
+        color: colorProps,
+        size: sizeProps,
+    })
 
     return (
         <BaseView
@@ -79,7 +84,7 @@ export const HeatMap = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={keys}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <LazyMotion features={domAnimation}>{children}</LazyMotion>

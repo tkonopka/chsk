@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    createScales,
     AccessorFunction,
     BandAxisScale,
     getAccessor,
@@ -17,6 +16,7 @@ import {
     createColorScaleProps,
     BaseView,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from './types'
 import { BarPreparedDataProvider } from './context'
@@ -131,20 +131,35 @@ export const Bar = ({
     const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
 
     const stacked = variant === 'stacked'
-    const { scalePropsIndex, scalePropsValue } = getScaleProps(
-        processedData.map(d => d.id),
-        processedData.map(d => d.domain),
-        scaleIndex,
-        scaleValue,
-        innerSize,
-        horizontal,
-        autoRescale ? disabled : Array(keys.length).fill(false),
-        stacked
+    const { index: indexProps, value: valueProps } = useMemo(
+        () =>
+            getScaleProps(
+                processedData.map(d => d.id),
+                processedData.map(d => d.domain),
+                scaleIndex,
+                scaleValue,
+                innerSize,
+                horizontal,
+                autoRescale ? disabled : Array(keys.length).fill(false),
+                stacked
+            ),
+        [
+            processedData,
+            scaleIndex,
+            scaleValue,
+            innerSize,
+            horizontal,
+            autoRescale,
+            disabled,
+            keys,
+            stacked,
+        ]
     )
-    const scaleX = horizontal ? scalePropsValue : scalePropsIndex
-    const scaleY = horizontal ? scalePropsIndex : scalePropsValue
-    const scaleColorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
-    const scales = createScales(scaleX, scaleY, scaleColorProps)
+    const xProps = horizontal ? valueProps : indexProps
+    const yProps = horizontal ? indexProps : valueProps
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
+    const scales = scalesContextValue.scales
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
@@ -191,7 +206,7 @@ export const Bar = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={keys}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <BarPreparedDataProvider data={preparedData} seriesIndexes={seriesIndexes} keys={keys}>

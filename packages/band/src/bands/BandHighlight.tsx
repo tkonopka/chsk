@@ -94,7 +94,7 @@ export const BandHighlight = ({
 }: BandHighlightProps) => {
     const processedData = useProcessedData()
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
     const { disabledKeys } = useDisabledKeys()
     const { setData: setTooltipData } = useTooltip()
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0

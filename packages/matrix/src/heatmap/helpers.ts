@@ -24,13 +24,13 @@ export const getXYScaleProps = (
     size: SizeSpec
 ) => {
     const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as BandScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as BandScaleProps,
+        x: cloneDeep(scaleSpecX) as BandScaleProps,
+        y: cloneDeep(scaleSpecY) as BandScaleProps,
     }
-    result.scalePropsX.domain = keys
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.domain = ids
-    result.scalePropsY.size = size[Y]
+    result.x.domain = keys
+    result.x.size = size[X]
+    result.y.domain = ids
+    result.y.size = size[Y]
     return result
 }
 

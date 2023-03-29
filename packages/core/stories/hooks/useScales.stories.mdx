@@ -4,12 +4,14 @@ import { Meta, Source } from '@storybook/addon-docs'
 
 # `useScales`
 
-The `useScales` hook returns an object with scales for the x-axis, y-axis, color, and symbols size.
+The `useScales` hook returns object related to mapping view-specific values into coordinates for drawing.
 
 <Source
     language="javascript"
     code={`
 import { useScales } from '@chsk/core'
 
-const scales = useScales()
+const { scales, scaleProps, setScaleProps } = useScales()
 `} />
+
+Object `scales` contains four functions with scales for the x-axis, y-axis, color scale, and size scale.

@@ -15,7 +15,7 @@ export const ArcArrow = ({
     ...props
 }: ArcArrowProps) => {
     const { size } = useDimensions()
-    const scales = useScales()
+    const { scales } = useScales()
 
     const lineStart = getAbsolutePosition(start, units, size, scales)
     const lineEnd = getAbsolutePosition(end, units, size, scales)

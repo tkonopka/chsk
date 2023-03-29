@@ -13,7 +13,7 @@ export const BarAndWhisker = ({
     setRole,
     ...props
 }: BoxAndWhiskersProps) => {
-    const scales = useScales()
+    const { scales } = useScales()
     if (!data) return null
     if (data.moments === undefined || data.interval === undefined) return null
 

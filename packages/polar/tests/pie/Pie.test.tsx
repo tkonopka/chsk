@@ -6,9 +6,9 @@ import {
     defaultScaleY,
     ProcessedDataContextProps,
     roundDecimalPlaces,
-    ScalesContextProps,
     useProcessedData,
     useScales,
+    Scales,
 } from '@chsk/core'
 import { Pie, isPieProcessedData, PieProcessedDataItem } from '../../src'
 import { pieProps } from './props'
@@ -69,9 +69,9 @@ describe('Pie', () => {
     })
 
     it('defines scales with 1:1 aspect ratio', () => {
-        let scales = { x: defaultScaleX, y: defaultScaleY } as ScalesContextProps
+        let scales = { x: defaultScaleX, y: defaultScaleY } as Scales
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(
@@ -121,9 +121,9 @@ describe('Pie', () => {
     })
 
     it('sets default scales', () => {
-        let scales: ScalesContextProps = {} as ScalesContextProps
+        let scales = {} as Scales
         const GetScales = () => {
-            scales = useScales()
+            scales = useScales().scales
             return null
         }
         render(

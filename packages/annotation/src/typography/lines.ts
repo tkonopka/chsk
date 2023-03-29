@@ -1,4 +1,4 @@
-import { getAbsolutePosition, NumericPositionSpec, ScalesContextProps, SizeSpec } from '@chsk/core'
+import { getAbsolutePosition, NumericPositionSpec, Scales, SizeSpec } from '@chsk/core'
 import { LineLabelProps } from './types'
 
 export const getLineAbsolutePositions = ({
@@ -9,7 +9,7 @@ export const getLineAbsolutePositions = ({
     scales,
     size,
 }: Pick<LineLabelProps, 'start' | 'end' | 'units' | 'expansion'> & {
-    scales: ScalesContextProps
+    scales: Scales
     size: SizeSpec
 }) => {
     const xExpansion = scales.x.bandwidth() * expansion[0]

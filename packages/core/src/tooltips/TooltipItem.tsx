@@ -27,7 +27,7 @@ const UnthemedTooltipItem = ({
     style,
     setRole = true,
 }: TooltipItemProps) => {
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
     labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset, r)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)

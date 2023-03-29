@@ -3,12 +3,12 @@ import { VennProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
     BaseView,
-    createScales,
     useContainer,
     getIndexes,
     useTheme,
     defaultLinearScaleSpec,
     defaultContainerProps,
+    useCreateScales,
 } from '@chsk/core'
 import { getColorScaleProps, getXYScaleProps } from './utils'
 import { VennPreparedDataProvider } from './contexts'
@@ -44,21 +44,18 @@ export const Venn = ({
         () => processData(data, angle, separation, proportional),
         [data, separation, proportional]
     )
-    const { scalePropsX, scalePropsY } = useMemo(
+    const { x: xProps, y: yProps } = useMemo(
         () => getXYScaleProps(processedData, seriesIds, scaleX, scaleY, innerSize),
         [processedData, seriesIds, scaleX, scaleY, innerSize]
     )
-    const colorScaleProps = useMemo(
+    const colorProps = useMemo(
         () => getColorScaleProps(processedData, scaleColor ?? theme.Colors.categorical),
         [processedData, scaleColor, theme]
     )
-    const scales = useMemo(
-        () => createScales(scalePropsX, scalePropsY, colorScaleProps),
-        [scalePropsX, scalePropsY, colorScaleProps]
-    )
+    const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
     const preparedData = useMemo(
-        () => prepareData(processedData, scales, interpolation),
-        [processedData, scales, interpolation]
+        () => prepareData(processedData, scalesContextValue.scales, interpolation),
+        [processedData, scalesContextValue, interpolation]
     )
 
     return (
@@ -71,7 +68,7 @@ export const Venn = ({
             processedData={processedData}
             seriesIndexes={seriesIndexes}
             keys={[]}
-            scales={scales}
+            scalesContextValue={scalesContextValue}
             {...props}
         >
             <VennPreparedDataProvider

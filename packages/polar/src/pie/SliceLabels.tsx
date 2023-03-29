@@ -24,7 +24,7 @@ export const SliceLabels = ({
     component,
 }: SliceLabelsProps) => {
     const processedData = useProcessedData()
-    const rScale = useScales().x as ContinuousAxisScale
+    const rScale = useScales().scales.x as ContinuousAxisScale
     const data = processedData.data
     if (!isPieProcessedData(data)) return null
 

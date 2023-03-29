@@ -10,7 +10,7 @@ export const UpSetGrid = ({
     setRole = false,
 }: UpSetGridProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const { scales } = useScales()
     const data = processedData.data
     if (!isUpSetProcessedData(data) || data.length == 0) return null
     const horizontal = data[0].horizontal

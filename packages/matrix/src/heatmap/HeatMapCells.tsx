@@ -29,7 +29,8 @@ export const HeatMapCells = ({
     children,
 }: HeatMapCellsProps) => {
     const processedData = useProcessedData()
-    const scales = useScales()
+    const scalesContextValue = useScales()
+    const scales = scalesContextValue.scales
     const data = processedData.data
     if (!isHeatMapSetting(data, scales)) return null
 
@@ -90,13 +91,13 @@ export const HeatMapCells = ({
 
     if (elements.length === 0 && !children) return null
 
-    const customScales = cloneDeep(scales)
-    customScales.color = colorScale
+    const customScalesContextValue = cloneDeep(scalesContextValue)
+    customScalesContextValue.scales.color = colorScale
 
     return (
         <g role={'heatmap-cells'} key={'heatmap-cells'}>
             {elements}
-            <ScalesProvider key={'scale-provider'} scales={customScales}>
+            <ScalesProvider key={'scale-provider'} value={customScalesContextValue}>
                 {children}
             </ScalesProvider>
         </g>

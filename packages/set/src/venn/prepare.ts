@@ -1,5 +1,5 @@
 import { VennInterpolation, VennPreparedDataItem, VennProcessedDataItem } from './types'
-import { ContinuousAxisScale, NumericPositionSpec, ScalesContextProps, X, Y } from '@chsk/core'
+import { ContinuousAxisScale, NumericPositionSpec, Scales, X, Y } from '@chsk/core'
 import { pathVenn1, pathVenn2, pathVenn3 } from './paths'
 import { svgAngle, distance, midpoint, svgTranslatedPosition } from './utils'
 
@@ -8,7 +8,7 @@ import { svgAngle, distance, midpoint, svgTranslatedPosition } from './utils'
 // output is a piece-oriented array, i.e. piece with A-only elements, piece with A-B intersection, etc.
 export const prepareData = (
     data: Array<VennProcessedDataItem>,
-    scales: ScalesContextProps,
+    scales: Scales,
     interpolation: VennInterpolation
 ): Array<VennPreparedDataItem> => {
     // convert into view-specific coordinates
@@ -25,7 +25,7 @@ export const prepareData = (
     // this is brute-force handling of cases with 1 set, 2 sets, 3 sets
     let prepare: (
         data: VennProcessedDataItem[],
-        scales: ScalesContextProps,
+        scales: Scales,
         interpolation: VennInterpolation
     ) => VennPreparedDataItem[] = prepareData1
     if (data.length === 2) prepare = prepareData2
@@ -35,10 +35,7 @@ export const prepareData = (
     return prepare(scaledData, scales, interpolation)
 }
 
-const prepareData1 = (
-    data: VennProcessedDataItem[],
-    scales: ScalesContextProps
-): VennPreparedDataItem[] => {
+const prepareData1 = (data: VennProcessedDataItem[], scales: Scales): VennPreparedDataItem[] => {
     const A = data[0]
     return [
         {
@@ -55,7 +52,7 @@ const prepareData1 = (
 
 const prepareData2 = (
     data: VennProcessedDataItem[],
-    scales: ScalesContextProps,
+    scales: Scales,
     interpolation: VennInterpolation
 ): VennPreparedDataItem[] => {
     const A = data[0]
@@ -126,7 +123,7 @@ const prepareData2 = (
 
 const prepareData3 = (
     data: VennProcessedDataItem[],
-    scales: ScalesContextProps,
+    scales: Scales,
     interpolation: VennInterpolation
 ): VennPreparedDataItem[] => {
     const scaleX = scales.x as ContinuousAxisScale

@@ -33,8 +33,8 @@ export const getXYScaleProps = (
     disabled: boolean[]
 ) => {
     const result = {
-        scalePropsX: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        scalePropsY: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+        x: cloneDeep(scaleSpecX) as ContinuousScaleProps,
+        y: cloneDeep(scaleSpecY) as ContinuousScaleProps,
     }
     const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {
@@ -42,17 +42,17 @@ export const getXYScaleProps = (
             .filter(filterDisabled)
             .map(seriesData => seriesData.x)
             .flat()
-        result.scalePropsX = createContinuousScaleProps(scaleSpecX, getMinMax(x))
+        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
             .filter(filterDisabled)
             .map(seriesData => seriesData.y)
             .flat()
-        result.scalePropsY = createContinuousScaleProps(scaleSpecY, getMinMax(y))
+        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y))
     }
-    result.scalePropsX.size = size[X]
-    result.scalePropsY.size = size[Y]
+    result.x.size = size[X]
+    result.y.size = size[Y]
     return result
 }
 

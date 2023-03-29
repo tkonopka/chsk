@@ -102,7 +102,7 @@ const LogoDataComponent = ({
 }: DataComponentProps<BarInteractiveDataItem, RectangleProps>) => {
     const rawData = useRawData()
     const preparedData = useBarPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
 
     // use the "data" for the component to find the base (A, C, G, T) that it represents
     const { base, baseIndex } = getBaseLetter(rawData, preparedData, data)

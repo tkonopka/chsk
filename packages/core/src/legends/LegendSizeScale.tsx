@@ -24,7 +24,7 @@ const UnthemedLegendSizeScale = ({
     style,
     setRole = true,
 }: LegendSizeScaleProps) => {
-    const scale = useScales().size
+    const scale = useScales().scales.size
     const allTicks = sizes ?? getTicks(scale, ticks)
     const allValues = getTickCoordinates(scale, ticks)
     // avoid creating symbols for size zero

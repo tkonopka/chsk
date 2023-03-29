@@ -23,7 +23,7 @@ export const ScatterPoints = ({
 }: ScatterPointsProps) => {
     const processedData = useProcessedData().data
     const preparedData = useScatterPreparedData()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isScatterProcessedData(processedData)) return null
 
