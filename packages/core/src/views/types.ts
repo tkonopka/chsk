@@ -20,6 +20,8 @@ import {
 } from '../scales'
 import { ReactNode } from 'react'
 
+/** datasets associated with views */
+
 export type RawData = Array<RecordWithId>
 
 export type RawDataContextProps = {
@@ -35,6 +37,8 @@ export type ProcessedDataContextProps = {
     /** list of keys */
     keys: string[]
 }
+
+/** View components */
 
 export interface ContainerProps {
     /** container position as an array [x, y] */
@@ -118,7 +122,7 @@ export interface BaseViewProps
 
 export interface SurfaceProps extends SvgElementVariantProps {
     /** variant */
-    variant?: 'inner' | 'outer' | 'view' | string
+    variant?: 'inner' | 'outer' | string
     /** expansion of background surface */
     expansion?: FourSideSizeSpec
 }

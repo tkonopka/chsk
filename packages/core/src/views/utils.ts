@@ -10,13 +10,12 @@ export const getIndexes = (data?: Array<WithId>): Record<string, number> => {
     return result
 }
 
-// helper to getIdKeySets
-const getSet = (values: string[] | undefined, allowed: Set<string>) => {
-    if (!values) return allowed
+// get intersection of values and allowed values, or all allowed values
+const getSet = (values: string[] | undefined, allowed: string[]) => {
+    const allowedSet = new Set<string>(allowed)
+    if (!values) return allowedSet
     const result = new Set<string>(values)
-    values.map(v => {
-        if (!allowed.has(v)) result.delete(v)
-    })
+    values.filter(v => !allowedSet.has(v)).forEach(v => result.delete(v))
     return result
 }
 
@@ -26,10 +25,8 @@ export const getIdKeySets = (
     keys: string[] | undefined,
     processedData: ProcessedDataContextProps
 ) => {
-    const allIds = new Set(Object.keys(processedData.seriesIndexes))
-    const allKeys = new Set(processedData.keys)
-    const idSet = getSet(ids, allIds)
-    const keySet = getSet(keys, allKeys)
+    const idSet = getSet(ids, Object.keys(processedData.seriesIndexes))
+    const keySet = getSet(keys, processedData.keys)
     const keyArray = processedData.keys.filter(x => keySet.has(x))
     const idArray = Object.keys(processedData.seriesIndexes).filter(x => idSet.has(x))
     return { idSet, keySet, idArray, keyArray }
