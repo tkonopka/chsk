@@ -7,6 +7,7 @@ import {
     SideVariant,
     SvgElementProps,
     TranslateSpec,
+    ItemListProps,
 } from '../general'
 import { ContainerProps, ViewProps } from '../views'
 import { SymbolProps } from '../shapes'
@@ -101,6 +102,7 @@ export interface LegendColorScaleThemedProps
 export interface LegendProps
     extends SvgElementProps,
         ContainerProps,
+        ItemListProps,
         Pick<ViewProps, 'children'>,
         Pick<
             LegendItemProps,
@@ -114,18 +116,6 @@ export interface LegendProps
     rx?: number
     /** vertical corner radius */
     ry?: number
-    /** size of a single legend item */
-    itemSize?: SizeSpec
-    /** padding for a single legend item */
-    itemPadding?: FourSideSizeSpec
-    /** legend title */
-    title?: string
-    /** style for legend title */
-    titleStyle?: CssProps
-    /** arrange the legend items horizontally */
-    horizontal?: boolean
-    /** offset/translate first non-title item relative to default position */
-    firstOffset?: NumericPositionSpec
     /** size for color gradient scale */
     scaleSize?: SizeSpec
     /** settings for size scale */
@@ -133,10 +123,8 @@ export interface LegendProps
 }
 
 export interface LegendThemedProps
-    extends Pick<
-        LegendProps,
-        'padding' | 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset' | 'scaleSize'
-    > {
+    extends Pick<LegendProps, 'padding' | 'scaleSize'>,
+        Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset'> {
     translate: NumericPositionSpec
     padding: FourSideSizeSpec
     rx: number
@@ -186,6 +174,7 @@ export interface LegendSizeScaleProps
             LegendItemListProps,
             | 'itemSize'
             | 'itemPadding'
+            | 'itemStyle'
             | 'horizontal'
             | 'interactive'
             | 'labelStyle'
@@ -203,7 +192,10 @@ export interface LegendSizeScaleProps
 }
 
 export interface LegendSizeScaleThemedProps
-    extends Pick<LegendSizeScaleProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'interactive'> {
+    extends Pick<
+        LegendSizeScaleProps,
+        'itemSize' | 'itemPadding' | 'itemStyle' | 'horizontal' | 'interactive'
+    > {
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec
     horizontal: boolean

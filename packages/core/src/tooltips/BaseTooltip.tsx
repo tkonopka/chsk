@@ -59,6 +59,7 @@ export const BaseTooltip = ({
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
+    itemStyle,
     horizontal = defaultTooltipProps.horizontal,
     firstOffset = defaultTooltipProps.firstOffset,
     // title and items
@@ -115,6 +116,7 @@ export const BaseTooltip = ({
                     colors={data.map(item => item.color)}
                     itemSize={itemSize}
                     itemPadding={itemPadding}
+                    itemStyle={itemStyle}
                     r={Array(data.length).fill(r)}
                     symbol={symbol}
                     symbolStyle={symbolStyle}

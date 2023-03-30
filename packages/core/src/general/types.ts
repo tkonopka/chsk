@@ -71,3 +71,20 @@ export type WithId = {
     id: string
 }
 export type RecordWithId = WithId & Record<string, unknown>
+
+export interface ItemListProps {
+    /** size of a single item */
+    itemSize?: SizeSpec
+    /** padding for a single item */
+    itemPadding?: FourSideSizeSpec
+    /** style for list items */
+    itemStyle?: CssProps
+    /** list title */
+    title?: string
+    /** style for list title */
+    titleStyle?: CssProps
+    /** arrange the items horizontally */
+    horizontal?: boolean
+    /** offset/translate first non-title item relative to default position */
+    firstOffset?: NumericPositionSpec
+}

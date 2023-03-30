@@ -21,6 +21,7 @@ const UnthemedTooltip = ({
     // organization of items within the container
     itemSize = defaultTooltipProps.itemSize,
     itemPadding = defaultTooltipProps.itemPadding,
+    itemStyle,
     horizontal = defaultTooltipProps.horizontal,
     firstOffset = defaultTooltipProps.firstOffset,
     // title and items
@@ -81,6 +82,7 @@ const UnthemedTooltip = ({
             firstOffset={firstOffset}
             itemSize={itemSize}
             itemPadding={itemPadding}
+            itemStyle={itemStyle}
             titleStyle={titleStyle}
             labelFormat={labelFormat}
             r={r}

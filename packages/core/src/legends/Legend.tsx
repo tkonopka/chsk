@@ -32,12 +32,12 @@ const UnthemedLegend = ({
     translate = defaultLegendProps.translate,
     rx = defaultLegendProps.rx,
     ry = defaultLegendProps.ry,
-    // organization of items within the container
+    // organization of item list within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
+    itemStyle,
     horizontal = defaultLegendProps.horizontal,
     firstOffset = defaultLegendProps.firstOffset,
-    // title
     title,
     titleStyle,
     // only for discrete items
@@ -107,6 +107,7 @@ const UnthemedLegend = ({
                 interactive={interactive}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
+                itemStyle={itemStyle}
                 r={Array(colorDomain.length).fill(r)}
                 symbol={symbol}
                 symbolStyle={symbolStyle}
@@ -123,6 +124,7 @@ const UnthemedLegend = ({
                 {...commonProps}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
+                itemStyle={itemStyle}
                 ticks={sizeTicks}
                 symbol={symbol}
                 symbolStyle={symbolStyle}

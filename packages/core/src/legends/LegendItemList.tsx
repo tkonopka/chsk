@@ -13,6 +13,7 @@ const UnthemedLegendItemList = ({
     // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
+    itemStyle,
     horizontal = defaultLegendProps.horizontal,
     r = defaultLegendProps.r,
     symbol,
@@ -22,7 +23,6 @@ const UnthemedLegendItemList = ({
     //
     interactive = defaultLegendProps.interactive,
     className,
-    style,
     setRole = true,
 }: LegendItemListProps) => {
     const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
@@ -52,7 +52,7 @@ const UnthemedLegendItemList = ({
                 labelOffset={labelOffset}
                 interactive={interactive}
                 className={className}
-                style={style}
+                style={itemStyle}
                 setRole={setRole}
             />
         )

@@ -11,6 +11,7 @@ const UnthemedLegendSizeScale = ({
     horizontal = defaultLegendProps.horizontal,
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
+    itemStyle,
     //
     symbol,
     symbolStyle,
@@ -40,6 +41,7 @@ const UnthemedLegendSizeScale = ({
                 position={position}
                 itemSize={itemSize}
                 itemPadding={itemPadding}
+                itemStyle={itemStyle}
                 horizontal={horizontal}
                 r={pairs.map(ab => Number(ab[1]))}
                 symbol={symbol}
