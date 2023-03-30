@@ -31,7 +31,7 @@ export const DetectorWithTooltip = () => {
 
 export const ShapesWithTooltip = () => {
     const { setData: setTooltipData } = useTooltip()
-    const colorScale = useScales().color
+    const colorScale = useScales().scales.color
     const { ref } = useDimensions()
 
     const keys = ['alpha', 'beta', 'gamma']
