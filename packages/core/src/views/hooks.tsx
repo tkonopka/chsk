@@ -24,6 +24,5 @@ export const useContainer = ({
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
     const x = origin[X] + padding[LEFT]
     const y = origin[Y] + padding[TOP]
-    const translate = 'translate(' + x + ',' + y + ')'
-    return { dimensions, dimsProps, origin, translate, x, y, innerSize }
+    return { dimensions, dimsProps, origin, x, y, innerSize }
 }
