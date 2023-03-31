@@ -5,8 +5,8 @@ import { BaseView } from './BaseView'
 import { useThemedProps } from '../themes'
 import { defaultContainerProps, defaultViewProps } from './defaults'
 import { cloneDeep } from 'lodash'
-import { fillScaleSize } from './helpers'
-import { useCreateScales } from '../scales'
+import { fillSize, useCreateScales } from '../scales'
+import { X, Y } from '../general'
 
 const UnthemedView = ({
     variant = 'default',
@@ -34,10 +34,9 @@ const UnthemedView = ({
             scaleColor.domain = data.keys
         }
     }
-    const { x, y } = fillScaleSize(innerSize, scaleX, scaleY)
     const scalesContextValue = useCreateScales({
-        x,
-        y,
+        x: fillSize(scaleX, innerSize[X]),
+        y: fillSize(scaleY, innerSize[Y]),
         color: scaleColor,
         size: scaleSize,
     })

@@ -1,0 +1,74 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, View, Button, Surface } from '../../../src'
+import { ChartForButtonDecorator } from './decorators'
+
+# Button
+
+<Meta title="Core/Components/Interactivity/Button" />
+export const Template = args => <Button {...args} />
+
+`Button` is a minimal click-able button component.
+
+`Button` is not really intended to be used in practice.
+Rather, it is a demonstration of an implementation of the `ButtonProps` interface.
+
+<ArgsTable of={Button} />
+
+## Variants
+
+Prop `variant`, like in most library components, is used to annotated a component via a `role` attribute and
+a css class. When a `Button` is created without any content, it is also used as a text label.
+
+<Canvas>
+    <Story
+        name="text button"
+        args={{
+            variant: 'button',
+            position: [40, 40],
+            size: [100, 40],
+            onClick: () => {
+                console.log('clicked')
+            },
+        }}
+        component={Button}
+        decorators={[ChartForButtonDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that the text element is click-able; here, click events generate output in the console.
+(Click on the text, then check the console `Ctrl Shift J`.)
+
+## Custom content
+
+`Button` components can contain arbitrary content.
+
+<Canvas>
+    <Story
+        name="custom content"
+        args={{
+            variant: 'button',
+            position: [40, 40],
+            size: [100, 40],
+            onClick: () => {
+                console.log('clicked')
+            },
+            children: <rect x={0} y={0} width={40} height={40} style={{ fill: '#777777 ' }} />,
+        }}
+        component={Button}
+        decorators={[ChartForButtonDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+The content of the button is clickable. (Click on the rectangle, then check the console `Ctrl Shift J`.)
+
+## Styling
+
+Styles supplied to `Button` are used to style the wrapping `g` element, not the button content.
+
+## Other props
+
+`Button` shares props with `Label`. See `Label` for further details.

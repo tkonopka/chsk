@@ -4,8 +4,8 @@ import {
     BandScaleSpec,
     CategoricalScaleSpec,
     DataInteractivityProps,
-    LabelLocationSpec,
     LabelProps,
+    LocationProps,
     LinearScaleSpec,
     RectangleProps,
     SizeSpec,
@@ -32,7 +32,7 @@ export interface BandSurfaceProps
     tooltip?: boolean
 }
 
-export interface BandLabelsProps extends SvgElementProps, LabelLocationSpec {
+export interface BandLabelsProps extends SvgElementProps, Omit<LocationProps, 'position'> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** position of label along the value axis */

@@ -160,4 +160,21 @@ describe('cleanSvg', () => {
         expect(clean.querySelector('text')).not.toBeNull()
         expect(clean.querySelectorAll('rect')).toHaveLength(0)
     })
+
+    it('removes g with view-controller', () => {
+        const transform = 'none'
+        render(
+            <svg role={'svg'}>
+                <g role={'view-controller'}>
+                    <rect x={0} y={0} width={100} height={100} />
+                </g>
+            </svg>
+        )
+        const svg = screen.getByRole('svg')
+        expect(svg.querySelector('g')).not.toBeNull()
+        expect(svg.querySelector('rect')).not.toBeNull()
+        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        expect(clean.querySelector('g')).toBeNull()
+        expect(clean.querySelector('rect')).toBeNull()
+    })
 })

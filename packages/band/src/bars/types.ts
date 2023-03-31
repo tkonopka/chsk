@@ -2,8 +2,8 @@ import { FC } from 'react'
 import {
     CssProps,
     DataInteractivityProps,
-    LabelLocationSpec,
     LabelProps,
+    LocationProps,
     NumericPositionSpec,
     ProcessedDataContextProps,
     RectangleProps,
@@ -61,7 +61,7 @@ export interface BarsProps
     component?: FC<RectangleProps>
 }
 
-export interface BarsLabelsProps extends BandsProps, LabelLocationSpec {
+export interface BarsLabelsProps extends BandsProps, LocationProps {
     /** additional translation (in absolute units) */
     translate?: TranslateSpec
     /** format for text */

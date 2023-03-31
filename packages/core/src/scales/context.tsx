@@ -7,7 +7,12 @@ import {
     useMemo,
     useState,
 } from 'react'
-import { ScalesProps, ScalesContextValue, LinearScaleProps, ScalesPropsDispatchProp } from './types'
+import {
+    ScalesProps,
+    ScalesContextValue,
+    ScalesPropsDispatchProp,
+    ContinuousScaleProps,
+} from './types'
 import {
     defaultCategoricalScale,
     defaultCategoricalScaleSpec,
@@ -19,6 +24,7 @@ import {
 } from './defaults'
 import { createAxisScale } from './axes'
 import { createColorScale } from './colors'
+import { useChartData } from '../charts/contexts'
 
 export const ScalesContext = createContext({
     scales: {
@@ -28,8 +34,8 @@ export const ScalesContext = createContext({
         size: defaultScaleX,
     },
     scaleProps: {
-        x: defaultLinearScaleSpec as LinearScaleProps,
-        y: defaultLinearScaleSpec as LinearScaleProps,
+        x: defaultLinearScaleSpec as ContinuousScaleProps,
+        y: defaultLinearScaleSpec as ContinuousScaleProps,
         color: defaultCategoricalScaleSpec,
         size: defaultSizeScaleSpec,
     },
@@ -54,6 +60,8 @@ export const useCreateScales = (props: ScalesProps): ScalesContextValue => {
     const [inProps, setInProps] = useState(props)
     // scaleProps are the effective props, either from function arguments or from subsequent updates
     const [scaleProps, setScaleProps] = useState(props)
+    // chart state triggers global updates
+    const { data: chartData, setData: setChartData } = useChartData()
 
     // use string-based representation for props to check equality and avoid re-computes
     // this is string-based to allow some flexibility for outside users
@@ -74,15 +82,16 @@ export const useCreateScales = (props: ScalesProps): ScalesContextValue => {
             color: scaleProps.color ? createColorScale(scaleProps.color) : defaultCategoricalScale,
             size: scaleProps.size ? createAxisScale(scaleProps.size) : defaultSizeScale,
         }),
-        [scaleProps]
+        [scaleProps.x, scaleProps.y, scaleProps.color, scaleProps.size]
     )
 
     // wrapper for setScaleProps allows passing null to reset props
     const updateScaleProps = useCallback(
         (value: ScalesPropsDispatchProp) => {
             setScaleProps(value === null ? inProps : value)
+            setChartData?.({ ...chartData })
         },
-        [setScaleProps, inProps]
+        [setScaleProps, inProps, chartData, setChartData]
     )
 
     return { scales, scaleProps, setScaleProps: updateScaleProps }

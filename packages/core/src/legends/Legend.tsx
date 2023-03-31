@@ -141,9 +141,7 @@ const UnthemedLegend = ({
             className={className}
         >
             <DimensionsProvider {...dimsProps} role={setRole ? 'legend-content' : undefined}>
-                {children ? (
-                    children
-                ) : (
+                {children ?? (
                     <>
                         <rect
                             key={'legend-surface'}

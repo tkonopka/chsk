@@ -1,11 +1,9 @@
 import { FC, ReactNode } from 'react'
 import {
     NumericPositionSpec,
-    FourSideSizeSpec,
-    SizeSpec,
     SvgElementVariantProps,
-    AlignSpec,
     SvgElementProps,
+    LocationProps,
 } from '../general'
 
 export interface TextContentProps extends Pick<SvgElementProps, 'style' | 'className'> {
@@ -22,18 +20,7 @@ export interface TypographyProps extends SvgElementVariantProps, TextContentProp
     angle?: number
 }
 
-export type LabelLocationSpec = {
-    /** size of bounding container */
-    size?: SizeSpec
-    /** space between container and label */
-    padding?: FourSideSizeSpec
-    /** position of anchor point relative to box size */
-    anchor?: AlignSpec
-    /** alignment of label within its bounding container */
-    align?: AlignSpec
-}
-
-export type LabelProps = TypographyProps & LabelLocationSpec
+export type LabelProps = TypographyProps & LocationProps
 
 export interface CounterProps extends LabelProps {
     /** number of decimal places */

@@ -31,6 +31,7 @@
 
 ### Changed
 
+-   [core] removed type `LinearScaleProps`
 -   [core] changed API for the `useScales` hook to prepare support for
     user-driven adjustments to chart scales, e.g. brush
 -   [core] changed motion configuration format in themes to support multiple

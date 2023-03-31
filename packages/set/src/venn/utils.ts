@@ -9,9 +9,9 @@ import {
     createContinuousScaleProps,
     CategoricalScaleSpec,
     LinearScaleSpec,
-    LinearScaleProps,
     NumericPositionSpec,
-    expandScalePropsToSquare,
+    expandToSquare,
+    NumericScaleProps,
 } from '@chsk/core'
 import { cloneDeep } from 'lodash'
 import { VennProcessedDataItem } from './types'
@@ -23,9 +23,9 @@ export const getXYScaleProps = (
     scaleSpecY: LinearScaleSpec,
     size: SizeSpec
 ) => {
-    const scales = {
-        x: cloneDeep(scaleSpecX) as LinearScaleProps,
-        y: cloneDeep(scaleSpecY) as LinearScaleProps,
+    const result = {
+        x: cloneDeep(scaleSpecX) as NumericScaleProps,
+        y: cloneDeep(scaleSpecY) as NumericScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data
@@ -34,7 +34,7 @@ export const getXYScaleProps = (
                 seriesData.center[X] + seriesData.r,
             ])
             .flat()
-        scales.x = createContinuousScaleProps(scaleSpecX, getMinMax(x)) as LinearScaleProps
+        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x)) as NumericScaleProps
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
@@ -43,13 +43,11 @@ export const getXYScaleProps = (
                 seriesData.center[Y] + seriesData.r,
             ])
             .flat()
-        scales.y = createContinuousScaleProps(scaleSpecY, getMinMax(y)) as LinearScaleProps
+        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y)) as NumericScaleProps
     }
-    scales.x.size = size[X]
-    scales.y.size = size[Y]
-    scales.x.nice = false
-    scales.y.nice = false
-    return expandScalePropsToSquare(scales.x, scales.y)
+    result.x.size = size[X]
+    result.y.size = size[Y]
+    return expandToSquare(result.x, result.y)
 }
 
 export const getColorScaleProps = (

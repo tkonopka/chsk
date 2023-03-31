@@ -4,12 +4,11 @@ import {
     BandAxisScale,
     ContinuousScaleSpec,
     ContinuousScaleProps,
-    BandScaleProps,
-    BandScaleSpec,
     GenericScale,
     TimeAxisScale,
     TimeScaleProps,
-    LinearScaleProps,
+    AxisScaleProps,
+    BandScaleProps,
 } from './types'
 import { scaleLinear, scaleLog, scaleSqrt, scaleTime } from 'd3-scale'
 
@@ -30,44 +29,22 @@ export const createContinuousScaleProps = (
     return result
 }
 
-/** change domains for x and y scale props to achieve a square (1-1) aspect ratio */
-export const expandScalePropsToSquare = (x: LinearScaleProps, y: LinearScaleProps) => {
-    const domainRatio = (scaleProps: LinearScaleProps) =>
-        (scaleProps.domain[1] - scaleProps.domain[0]) / scaleProps.size
-    const adjustDomain = (domain: [number, number], ratio: number) => {
-        if (ratio > 1) return
-        const domainSize = domain[1] - domain[0]
-        const extension = domainSize / ratio - domainSize
-        domain[0] -= extension / 2
-        domain[1] += extension / 2
-    }
-    const xRatio = domainRatio(x)
-    const yRatio = domainRatio(y)
-    adjustDomain(x.domain, xRatio / yRatio)
-    adjustDomain(y.domain, yRatio / xRatio)
-    return { x, y }
-}
-
 // creates a scale function similar to D3's scaleBand
 // but this object will have more custom features, including extraPadding for specified bands
 export const createBandScale = ({
     domain,
+    viewDomain,
     size,
     padding = 0.1,
     paddingInner,
     paddingOuter,
     extraPadding = {},
-}: Omit<BandScaleSpec, 'variant' | 'domain'> & {
-    domain: string[]
-    size: number
-}): BandAxisScale => {
+}: BandScaleProps): BandAxisScale => {
     const n = domain.length
     const innerPadding = Number(n > 1) * Math.max(0, Math.min(1, paddingInner ?? padding))
     const outerPadding = Math.max(0, paddingOuter ?? padding)
-    const totalExtraPadding = Object.keys(extraPadding).reduce(
-        (acc: number, k: string) => acc + extraPadding[k],
-        0
-    )
+    const extraKeys = Object.keys(extraPadding)
+    const totalExtraPadding = extraKeys.reduce((acc: number, k: string) => acc + extraPadding[k], 0)
     const step = size / (2 * outerPadding + n - innerPadding + totalExtraPadding)
     const bandwidth = (1 - innerPadding) * step
     let position = outerPadding * step
@@ -77,12 +54,21 @@ export const createBandScale = ({
         positions[item] = position + extra * step
         position += step + extra * step
     })
+    const range: [number, number] = [0, size]
+    const fullDomain: [number, number] = [0, position + outerPadding * step - step + bandwidth]
 
     // build output object
+    const scale = scaleLinear()
+        .range(range)
+        .domain(viewDomain ?? fullDomain)
+        .nice(0)
     // default function returns centers of the band
-    const result = (x: string) => (positions[x] ?? 0) + bandwidth / 2
+    const result = (x: string) => scale((positions[x] ?? 0) + bandwidth / 2)
     // properties that mimic d3 functionality
     result.domain = () => domain
+    result.viewDomain = () => viewDomain ?? fullDomain
+    result.range = () => range
+    result.invert = (x: number) => x // TO DO
     result.bandwidth = () => bandwidth
     result.step = () => step
     result.ticks = () => domain
@@ -98,20 +84,28 @@ export const createTimeScale = ({
     reverseRange = false,
     size,
     domain,
+    viewDomain,
     clamp = false,
     nice = false,
-}: Omit<TimeScaleProps, 'variant'> & {
+}: TimeScaleProps & {
     reverseRange?: boolean
 }): TimeAxisScale => {
-    const range = reverseRange ? [size, 0] : [0, size]
+    const range: [number, number] = reverseRange ? [size, 0] : [0, size]
     // use d3 to construct a base scale
     const scale = scaleTime()
-    scale.range(range).domain(domain).clamp(clamp)
+    const view: [Date, Date] = viewDomain
+        ? [new Date(viewDomain[0]), new Date(viewDomain[1])]
+        : domain
+    scale.range(range).domain(view).clamp(clamp)
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
+
     // construct output object to mimic d3 functionality
     const result = (x: number) => scale(new Date(x))
     result.domain = () => domain.map(Number)
+    result.viewDomain = () => viewDomain ?? (domain.map(Number) as [number, number])
+    result.range = () => range
+    result.invert = (x: number) => x // TO DO
     result.bandwidth = () => 0
     result.step = () => 0
     result.ticks = (count?: number) => scale.ticks(count).map(Number)
@@ -124,30 +118,32 @@ export const createContinuousScale = ({
     reverseRange = false,
     size,
     domain,
+    viewDomain,
     clamp = false,
     nice = false,
 }: ContinuousScaleProps & {
     reverseRange?: boolean
 }): ContinuousAxisScale => {
     if (variant === 'time') {
-        return createTimeScale({ reverseRange, size, domain, clamp, nice })
+        return createTimeScale({ variant, reverseRange, size, domain, viewDomain, clamp, nice })
     }
-    const range = reverseRange ? [size, 0] : [0, size]
+    const range: [number, number] = reverseRange ? [size, 0] : [0, size]
     const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
-    scale.range(range).domain(domain).clamp(clamp)
+    scale
+        .range(range)
+        .domain(viewDomain ?? domain)
+        .clamp(clamp)
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
     const result = scale as unknown as GenericScale<number, number>
+    result.viewDomain = () => domain
     result.variant = variant
     result.bandwidth = () => 0
     result.step = () => 0
     return result as ContinuousAxisScale
 }
 
-export const createAxisScale = (
-    props: ContinuousScaleProps | BandScaleProps,
-    axis: 'x' | 'y' = 'x'
-) => {
+export const createAxisScale = (props: AxisScaleProps, axis: 'x' | 'y' = 'x') => {
     if (props.variant === 'band') return createBandScale(props)
     let reverse = axis === 'y'
     if (props.reverse) reverse = !reverse

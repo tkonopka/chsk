@@ -20,6 +20,12 @@ export interface GenericScale<Domain, Range> {
         | 'categorical'
     /** scale domain */
     domain: () => Domain[]
+    /** view domain */
+    viewDomain: () => [number, number]
+    /** scale range */
+    range: () => [Range, Range]
+    /** inverse transformation */
+    invert: (v: Range) => number
     /** bandwidth - only provides useful information for band scales */
     bandwidth: () => number
     /** width/size of one band, including padding */
@@ -77,30 +83,29 @@ export type TimeScaleSpec = Pick<NumericScaleSpec, 'clamp' | 'nice' | 'reverse'>
 
 export type ContinuousScaleSpec = NumericScaleSpec | TimeScaleSpec
 
-export type NumericScaleProps = NumericScaleSpec & {
-    /** domain min and max */
-    domain: MinMaxSpec
+// book-keeping for scales, for zooming and chart sizing
+type ScaleInternalProps = {
+    /** domain that is currently in view */
+    viewDomain?: MinMaxSpec
     /** extent of the range (number of pixels) */
     size: number
 }
-export type TimeScaleProps = TimeScaleSpec & {
-    /** domain min and max */
-    domain: [Date, Date]
-    /** extent of the range (number of pixels) */
-    size: number
-}
+
+export type NumericScaleProps = NumericScaleSpec &
+    ScaleInternalProps & {
+        /** domain min and max */
+        domain: MinMaxSpec
+    }
+export type TimeScaleProps = TimeScaleSpec &
+    ScaleInternalProps & {
+        /** domain min and max */
+        domain: [Date, Date]
+    }
 export type ContinuousScaleProps = NumericScaleProps | TimeScaleProps
 
 export type LinearScaleSpec = NumericScaleSpec & {
     /** type of scale */
     variant: 'linear'
-}
-
-export type LinearScaleProps = LinearScaleSpec & {
-    /** domain min and max */
-    domain: [number, number]
-    /** extent of the range, e.g. [0, size] */
-    size: number
 }
 
 export type LogScaleSpec = NumericScaleSpec & {
@@ -123,16 +128,15 @@ export type BandScaleSpec = {
     extraPadding?: Record<string, number>
 }
 
-export type BandScaleProps = BandScaleSpec & {
-    /** all keys in the domain */
-    domain: string[]
-    /** extent of the range (number of pixels) */
-    size: number
-}
+export type BandScaleProps = BandScaleSpec &
+    ScaleInternalProps & {
+        /** all keys in the domain */
+        domain: string[]
+    }
 
 export type ScaleSpec = ContinuousScaleSpec | BandScaleSpec
 
-export type ScaleProps = ContinuousScaleProps | BandScaleProps
+export type AxisScaleProps = ContinuousScaleProps | BandScaleProps
 
 /** Size */
 
@@ -142,12 +146,13 @@ export type SizeScaleSpec = NumericScaleSpec & {
     /** extent of maximum symbol radius */
     size: number | 'auto'
 }
-export type SizeScaleProps = SizeScaleSpec & {
-    /** domain min and max */
-    domain: MinMaxSpec
-    /** extent of maximum symbol radius */
-    size: number
-}
+export type SizeScaleProps = SizeScaleSpec &
+    ScaleInternalProps & {
+        /** domain min and max */
+        domain: MinMaxSpec
+        /** extent of maximum symbol radius */
+        size: number
+    }
 
 /** Color */
 
@@ -277,8 +282,8 @@ export type Scales = {
     color: ColorScale
 }
 export type ScalesProps = {
-    x: ContinuousScaleProps | BandScaleProps
-    y: ContinuousScaleProps | BandScaleProps
+    x: AxisScaleProps
+    y: AxisScaleProps
     color?: ColorScaleProps
     size?: SizeScaleProps
 }
@@ -293,6 +298,6 @@ export type ScalesContextValue = {
 
 /** Cartesian detector zones */
 
-// coordinates for one detector zone: [[xmin, xmax], [ymin, ymax]]
+// coordinates for one detector zone: [[x-min, x-max], [y-min, y-max]]
 export type DetectorZone = [[number, number], [number, number]]
 export type DetectorIntervals = [number[], number[]]

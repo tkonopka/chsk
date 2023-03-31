@@ -1,5 +1,5 @@
 import { ReactNode, Ref } from 'react'
-import { SvgElementProps, SvgElementVariantProps, WithId } from '../general'
+import { SvgElementProps, SvgElementVariantProps, WithId, ContainerProps } from '../general'
 import {
     CompleteThemeSpec,
     AnimationProps,
@@ -7,7 +7,6 @@ import {
     SvgBaseComponent,
     ThemeSpec,
 } from '../themes'
-import { ContainerProps } from '../views'
 
 /** Chart */
 

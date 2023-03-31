@@ -1,4 +1,5 @@
-import { ContainerThemedProps, SurfaceProps, ViewThemedProps } from './types'
+import { ContainerThemedProps } from '../general'
+import { SurfaceProps, ViewThemedProps } from './types'
 import {
     createColorScaleProps,
     createContinuousScaleProps,
@@ -29,4 +30,13 @@ export const defaultViewProps: ViewThemedProps = {
 
 export const defaultSurfaceProps: SurfaceProps = {
     expansion: [0, 0, 0, 0],
+}
+
+export const defaultControllerContainerProps: ContainerThemedProps = {
+    position: [1, 0],
+    positionUnits: 'relative',
+    size: [50, 50],
+    sizeUnits: 'absolute',
+    anchor: [0, 0],
+    padding: [0, 0, 0, 0],
 }

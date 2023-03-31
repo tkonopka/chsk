@@ -12,10 +12,9 @@ import {
     isLogAxisScale,
     isSqrtAxisScale,
     LinearAxisScale,
-    expandScalePropsToSquare,
-    LinearScaleProps,
+    isNumericAxisScale,
+    isTimeAxisScale,
 } from '../../src/scales'
-import { isNumericAxisScale, isTimeAxisScale } from '../../src/scales/predicates'
 
 describe('createContinuousScaleProps', () => {
     it('creates props for a scale with custom domain', () => {
@@ -62,41 +61,6 @@ describe('createContinuousScaleProps', () => {
             100
         )
         expect(result.domain).toEqual([-1, 1])
-    })
-})
-
-describe('expandScalePropsToSquare', () => {
-    const getSize = (s: [number, number]) => Math.abs(s[1] - s[0])
-    const pixelWidth = (x: LinearScaleProps) => getSize(x.domain) / x.size
-
-    it('leaves square props unchanged', () => {
-        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
-        const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 200 }
-        expect(pixelWidth(x0)).toEqual(pixelWidth(y0))
-        const { x, y } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(x)).toEqual(pixelWidth(y))
-        expect(x.domain).toEqual([0, 1])
-        expect(y.domain).toEqual([0, 2])
-    })
-
-    it('expands x scale', () => {
-        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
-        const y0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
-        expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
-        const { x, y } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(x)).toEqual(pixelWidth(y))
-        expect(x.domain).toEqual([-0.5, 1.5])
-        expect(y.domain).toEqual([0, 2])
-    })
-
-    it('expands y scale', () => {
-        const x0: LinearScaleProps = { variant: 'linear', domain: [0, 2], size: 100 }
-        const y0: LinearScaleProps = { variant: 'linear', domain: [1, 2], size: 100 }
-        expect(pixelWidth(x0)).not.toEqual(pixelWidth(y0))
-        const { x, y } = expandScalePropsToSquare(x0, y0)
-        expect(pixelWidth(x)).toEqual(pixelWidth(y))
-        expect(x.domain).toEqual([0, 2])
-        expect(y.domain).toEqual([0.5, 2.5])
     })
 })
 
@@ -213,6 +177,7 @@ describe('createAxisScale', () => {
 describe('createBandScale', () => {
     it('creates a scale without padding', () => {
         const result = createBandScale({
+            variant: 'band',
             domain: ['a', 'b'],
             size: 100,
             padding: 0,
@@ -225,6 +190,7 @@ describe('createBandScale', () => {
 
     it('creates a scale with outer padding', () => {
         const result = createBandScale({
+            variant: 'band',
             domain: ['a', 'b'],
             size: 100,
             paddingOuter: 1,
@@ -241,6 +207,7 @@ describe('createBandScale', () => {
 
     it('creates a scale with inner padding', () => {
         const result = createBandScale({
+            variant: 'band',
             domain: ['a', 'b'],
             size: 100,
             paddingOuter: 0,
@@ -255,6 +222,7 @@ describe('createBandScale', () => {
 
     it('creates a scale with extra padding', () => {
         const result = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c', 'd'],
             size: 100,
             extraPadding: { d: 1 },
@@ -270,6 +238,7 @@ describe('createBandScale', () => {
 
     it('extract tick coordinates for center of bands', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c', 'd'],
             size: 120,
             padding: 0,
@@ -284,6 +253,7 @@ describe('createBandScale', () => {
 
     it('extract tick coordinates for band start positions', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c', 'd'],
             size: 120,
             padding: 0,
@@ -297,6 +267,7 @@ describe('createBandScale', () => {
 
     it('extract tick coordinates for band end positions', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c', 'd'],
             size: 120,
             padding: 0,
@@ -306,6 +277,18 @@ describe('createBandScale', () => {
         expect(result).toHaveLength(4)
         const expected = [30, 60, 90, 120]
         expected.map((v, i) => expect(result[i]).toEqual(v))
+    })
+
+    it('creates scale giving priority to viewDomain prop', () => {
+        const scale = createBandScale({
+            variant: 'band',
+            domain: ['a', 'b', 'c', 'd'],
+            viewDomain: [60, 120],
+            size: 120,
+            padding: 0,
+        })
+        expect(scale('a')).toBeLessThan(0)
+        expect(scale('b')).toBeLessThan(0)
     })
 })
 
@@ -414,5 +397,36 @@ describe('createContinuousScale', () => {
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
         expect(result(Number(start))).toBeGreaterThan(0)
+    })
+
+    it('creates numeric scale giving priority to viewDomain props', () => {
+        const result = createContinuousScale({
+            variant: 'linear',
+            domain: [0, 10],
+            viewDomain: [2, 8],
+            size: 100,
+        })
+        expect(isNumericAxisScale(result)).toBeTruthy()
+        if (!isNumericAxisScale(result)) return
+        expect(result(2)).toEqual(0)
+        expect(result(8)).toEqual(100)
+        expect(result(0)).toBeLessThan(0)
+    })
+
+    it('creates time scale giving priority to viewDomain props', () => {
+        const start: Date = new Date(Date.now() - 60 * 1000)
+        const end: Date = new Date(Date.now())
+        const future: Date = new Date(Date.now() + 60 * 1000)
+        const result = createContinuousScale({
+            variant: 'time',
+            domain: [start, end],
+            viewDomain: [Number(start), Number(future)],
+            size: 100,
+        })
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        if (!isTimeAxisScale(result)) return
+        expect(result(Number(start))).toEqual(0)
+        expect(result(Number(end))).toEqual(50)
+        expect(result(Number(future))).toEqual(100)
     })
 })

@@ -1,9 +1,9 @@
 import {
     createContinuousScaleProps,
-    expandScalePropsToSquare,
+    expandToSquare,
     isScaleWithDomain,
-    LinearScaleProps,
     LinearScaleSpec,
+    NumericScaleProps,
     SizeSpec,
     X,
     Y,
@@ -15,19 +15,17 @@ export const getPieXYScaleProps = (
     scaleSpecY: LinearScaleSpec,
     size: SizeSpec
 ) => {
-    const scales = {
-        x: cloneDeep(scaleSpecX) as LinearScaleProps,
-        y: cloneDeep(scaleSpecY) as LinearScaleProps,
+    const result = {
+        x: cloneDeep(scaleSpecX) as NumericScaleProps,
+        y: cloneDeep(scaleSpecY) as NumericScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
-        scales.x = createContinuousScaleProps(scaleSpecX, [-1, 1]) as LinearScaleProps
+        result.x = createContinuousScaleProps(scaleSpecX, [-1, 1]) as NumericScaleProps
     }
     if (!isScaleWithDomain(scaleSpecY)) {
-        scales.y = createContinuousScaleProps(scaleSpecY, [-1, 1]) as LinearScaleProps
+        result.y = createContinuousScaleProps(scaleSpecY, [-1, 1]) as NumericScaleProps
     }
-    scales.x.size = size[X]
-    scales.y.size = size[Y]
-    scales.x.nice = false
-    scales.y.nice = false
-    return expandScalePropsToSquare(scales.x, scales.y)
+    result.x.size = size[X]
+    result.y.size = size[Y]
+    return expandToSquare(result.x, result.y)
 }

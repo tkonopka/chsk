@@ -2,11 +2,11 @@ import {
     BandAxisScale,
     BandScaleProps,
     BandScaleSpec,
+    ContinuousScaleProps,
     ContinuousScaleSpec,
     createContinuousScaleProps,
     getMinMax,
     isScaleWithDomain,
-    LinearScaleProps,
     SizeSpec,
     X,
     Y,
@@ -26,7 +26,7 @@ export const getScaleProps = (
 ) => {
     const result = {
         index: cloneDeep(scaleSpecIndex) as BandScaleProps,
-        value: cloneDeep(scaleSpecValue) as LinearScaleProps,
+        value: cloneDeep(scaleSpecValue) as ContinuousScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecIndex)) {
         result.index.domain = ids
@@ -40,7 +40,7 @@ export const getScaleProps = (
             return [negative, positive]
         }
         const domain = stacked ? getMinMax(values.map(sumValues).flat()) : getMinMax(values.flat())
-        result.value = createContinuousScaleProps(scaleSpecValue, domain) as LinearScaleProps
+        result.value = createContinuousScaleProps(scaleSpecValue, domain) as ContinuousScaleProps
     }
     result.index.size = horizontal ? size[Y] : size[X]
     result.value.size = horizontal ? size[X] : size[Y]

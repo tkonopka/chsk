@@ -3,7 +3,7 @@ import { CleanSvgConfig } from './types'
 
 export const defaultCleanSvgConfig: CleanSvgConfig = {
     skipAttributeNames: ['transform-origin'],
-    skipRoles: ['dimensions-reference'],
+    skipRoles: ['dimensions-reference', 'view-controller'],
     roundAttributeNames: [
         'x',
         'x1',

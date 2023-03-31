@@ -1,8 +1,16 @@
-import { getAnchoredOrigin, useDimensions, X, Y, LEFT, TOP, getInnerSize } from '../general'
-import { getDimensionsProps } from '../general/dimensions'
-import { getAbsolutePosition, useScales } from '../scales'
 import { useMemo } from 'react'
-import { ContainerProps } from './types'
+import {
+    ContainerProps,
+    getAnchoredOrigin,
+    useDimensions,
+    X,
+    Y,
+    LEFT,
+    TOP,
+    getInnerSize,
+    getDimensionsProps,
+} from '../general'
+import { getAbsolutePosition, useScales } from '../scales'
 import { defaultContainerProps } from './defaults'
 
 export const useContainer = ({

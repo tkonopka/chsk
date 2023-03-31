@@ -72,6 +72,7 @@ export type WithId = {
 }
 export type RecordWithId = WithId & Record<string, unknown>
 
+// lists, e.g. for legends, tooltips
 export interface ItemListProps {
     /** size of a single item */
     itemSize?: SizeSpec
@@ -87,4 +88,42 @@ export interface ItemListProps {
     horizontal?: boolean
     /** offset/translate first non-title item relative to default position */
     firstOffset?: NumericPositionSpec
+}
+
+// containers: e.g. for views, legends, tooltips
+export interface ContainerProps {
+    /** container position as an array [x, y] */
+    position?: PositionSpec
+    /** absolute or relative units for position */
+    positionUnits?: PositionUnits
+    /** container size as an array [width, height] */
+    size?: SizeSpec
+    /** absolute or relative units for position and size measurements */
+    sizeUnits?: SizeUnits
+    /** container anchor point */
+    anchor?: AnchorSpec
+    /** padding (absolute values) **/
+    padding?: FourSideSizeSpec
+}
+export interface ContainerThemedProps extends ContainerProps {
+    position: PositionSpec
+    positionUnits: PositionUnits
+    size: SizeSpec
+    sizeUnits: SizeUnits
+    anchor: AnchorSpec
+    padding: FourSideSizeSpec
+}
+
+// fine-tuning location within a container, e.g. for labels, buttons
+export type LocationProps = {
+    /** position as an array [x, y] */
+    position?: NumericPositionSpec
+    /** size of bounding container */
+    size?: SizeSpec
+    /** space between container and label */
+    padding?: FourSideSizeSpec
+    /** position of anchor point relative to box size */
+    anchor?: AlignSpec
+    /** alignment of label within its bounding container */
+    align?: AlignSpec
 }

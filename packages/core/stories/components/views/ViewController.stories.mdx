@@ -1,0 +1,51 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { ViewController } from '../../../src'
+import { ChartForControllerDecorator } from './decorators'
+
+# ViewController
+
+<Meta title="Core/Components/Views/ViewController" />
+export const Template = args => <ViewController {...args} />
+
+`ViewController` is an organizational component that manages view state. It provides some invisible elements that can detect user interactions and a toolbar to toggle between interaction modes.
+
+<ArgsTable of={ViewController} />
+
+## Layout
+
+A `ViewController` creates a toolbar with buttons.
+Prop `horizontal` toggles its orientation.
+
+<Canvas>
+    <Story
+        name="vertical"
+        args={{
+            key: 'controller',
+            horizontal: false,
+            itemSize: [55, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="horizontal"
+        args={{
+            key: 'controller',
+            container: { position: [1, 0], positionUnits: 'relative', anchor: [1, 1] },
+            horizontal: true,
+            itemSize: [55, 26],
+            itemAlign: [1, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'end' },
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

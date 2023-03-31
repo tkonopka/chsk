@@ -1,24 +1,24 @@
 import {
-    PositionSpec,
     FourSideSizeSpec,
     SizeSpec,
     NumericPositionSpec,
-    AnchorSpec,
     SvgElementProps,
     SvgElementVariantProps,
-    PositionUnits,
-    SizeUnits,
     RecordWithId,
+    ItemListProps,
+    AlignSpec,
+    ContainerProps,
 } from '../general'
 import {
+    AxisScaleProps,
     BandScaleProps,
     ColorScaleProps,
     ContinuousScaleProps,
-    ScaleProps,
     ScalesContextValue,
     SizeScaleProps,
 } from '../scales'
-import { ReactNode } from 'react'
+import { FC, ReactNode } from 'react'
+import { ButtonProps, DataInteractivityModifiers } from '../interactivity'
 
 /** datasets associated with views */
 
@@ -39,29 +39,6 @@ export type ProcessedDataContextProps = {
 }
 
 /** View components */
-
-export interface ContainerProps {
-    /** container position as an array [x, y] */
-    position?: PositionSpec
-    /** absolute or relative units for position */
-    positionUnits?: PositionUnits
-    /** container size as an array [width, height] */
-    size?: SizeSpec
-    /** absolute or relative units for position and size measurements */
-    sizeUnits?: SizeUnits
-    /** container anchor point */
-    anchor?: AnchorSpec
-    /** padding (absolute values) **/
-    padding?: FourSideSizeSpec
-}
-export interface ContainerThemedProps extends ContainerProps {
-    position: PositionSpec
-    positionUnits: PositionUnits
-    size: SizeSpec
-    sizeUnits: SizeUnits
-    anchor: AnchorSpec
-    padding: FourSideSizeSpec
-}
 
 export type ViewSeriesKeys = {
     /** prepared map from series ids to integers */
@@ -93,8 +70,8 @@ export interface ViewProps extends SvgElementProps {
 
 export interface ViewThemedProps
     extends Pick<ViewProps, 'scaleX' | 'scaleY' | 'scaleSize' | 'container' | 'setRole'> {
-    scaleX: ScaleProps
-    scaleY: ScaleProps
+    scaleX: AxisScaleProps
+    scaleY: AxisScaleProps
     scaleColor: ColorScaleProps
     scaleSize: SizeScaleProps
     container: ContainerProps
@@ -129,4 +106,29 @@ export interface SurfaceProps extends SvgElementVariantProps {
 
 export interface SurfaceThemedProps extends Pick<SurfaceProps, 'expansion'> {
     expansion: FourSideSizeSpec
+}
+
+/** View interactions */
+
+export type ViewControllerMode = 'none' | 'drag' | 'zoom' | 'zoom in' | 'zoom out' | 'reset'
+
+export interface ViewControllerProps
+    extends SvgElementProps,
+        Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'itemStyle' | 'horizontal'> {
+    /** variant of view */
+    variant?: 'x' | 'y' | 'xy'
+    /** buttons to display in toolbar */
+    buttons?: ViewControllerMode[]
+    /** zoomFactor */
+    zoomFactor?: number
+    /** initial state */
+    mode?: ViewControllerMode
+    /** position and size for toolbar */
+    container?: ContainerProps
+    /** alignment of content within the toolbar */
+    itemAlign?: AlignSpec
+    /** component displaying a button */
+    component?: FC<ButtonProps>
+    /** style modifiers */
+    modifiers?: DataInteractivityModifiers
 }

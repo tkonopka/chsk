@@ -1,5 +1,5 @@
-import { FC, MouseEvent } from 'react'
-import { CssProps, SvgElementVariantProps, WithId } from '../general'
+import { FC, MouseEvent, ReactNode } from 'react'
+import { CssProps, LocationProps, SvgElementVariantProps, WithId } from '../general'
 
 // handling events on svg elements
 export interface InteractivityProps {
@@ -66,4 +66,9 @@ export interface DataComponentProps<
         Omit<DataInteractivityProps<DataSpec, ComponentProps>, 'dataComponent'> {
     /** data object */
     data?: DataSpec
+}
+
+export interface ButtonProps extends SvgElementVariantProps, LocationProps, InteractivityProps {
+    /** content */
+    children?: ReactNode
 }

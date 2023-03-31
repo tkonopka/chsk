@@ -39,6 +39,7 @@ describe('getMax', () => {
 describe('zones', () => {
     it('creates intervals', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c'],
             padding: 0,
             size: 100,
@@ -50,6 +51,7 @@ describe('zones', () => {
 
     it('maps positions to zones', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c'],
             padding: 0,
             size: 300,
@@ -68,6 +70,7 @@ describe('zones', () => {
 
     it('determines a position is already in a zone (Y)', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c'],
             padding: 0,
             size: 300,
@@ -88,6 +91,7 @@ describe('zones', () => {
 
     it('determines a position is already in a zone (X)', () => {
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b', 'c'],
             padding: 0,
             size: 300,
@@ -109,6 +113,7 @@ describe('zones', () => {
     it('handles extra padding on band scales', () => {
         // scale with extra padding in the middle between 'a' and 'b'
         const scale = createBandScale({
+            variant: 'band',
             domain: ['a', 'b'],
             padding: 0,
             size: 200,

@@ -4,11 +4,12 @@ import {
     defaultCategoricalScale,
     defaultSizeScale,
     getAbsolutePosition,
+    Scales,
 } from '../../src/scales'
-import { Scales } from '../../src/scales/types'
 
 describe('getAbsolutePosition', () => {
     const customBandScale = createBandScale({
+        variant: 'band',
         domain: ['a', 'b'],
         size: 100,
         padding: 0,

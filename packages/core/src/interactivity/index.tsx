@@ -1,3 +1,4 @@
+export * from './Button'
 export * from './DataComponent'
 export * from './SimpleDataComponent'
 export * from './TooltipDataComponent'

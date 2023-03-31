@@ -8,8 +8,9 @@ import {
     SvgElementProps,
     TranslateSpec,
     ItemListProps,
+    ContainerProps,
 } from '../general'
-import { ContainerProps, ViewProps } from '../views'
+import { ViewProps } from '../views'
 import { SymbolProps } from '../shapes'
 import { AxisTicksProps } from '../axes'
 

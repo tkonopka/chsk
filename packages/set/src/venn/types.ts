@@ -1,8 +1,8 @@
 import {
     CategoricalScaleSpec,
     DataInteractivityProps,
-    LabelLocationSpec,
     LabelProps,
+    LocationProps,
     LinearScaleSpec,
     NumericPositionSpec,
     PathProps,
@@ -78,7 +78,7 @@ export interface VennSetsProps
     component?: FC<PathProps>
 }
 
-export interface VennSetLabelsProps extends SvgElementProps, LabelLocationSpec {
+export interface VennSetLabelsProps extends SvgElementProps, LocationProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** relative radius for label labelPosition */

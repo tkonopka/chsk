@@ -1,4 +1,4 @@
-import { isScaleWithDomain } from '../../src'
+import { isScaleWithDomain } from '../../src/scales'
 
 describe('isScaleWithDomain', () => {
     it('validates band scale with domain', () => {
