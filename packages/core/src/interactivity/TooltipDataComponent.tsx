@@ -3,6 +3,7 @@ import { DataComponentProps, InteractivityProps } from './types'
 import { CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
 import { useTooltip } from '../tooltips'
 import { clone, merge } from 'lodash'
+import { getEventXY } from './utils'
 
 export const TooltipDataComponent = <
     DataSpec extends WithId,
@@ -22,10 +23,8 @@ export const TooltipDataComponent = <
 
     const handleTooltip = useCallback(
         (event: MouseEvent) => {
-            const clientRect = ref?.current?.getBoundingClientRect()
-            if (clientRect === undefined || data === undefined || data === null) return
-            const x = Math.round(event.clientX - clientRect?.x)
-            const y = Math.round(event.clientY - clientRect?.y)
+            const { x, y } = getEventXY(event, ref)
+            if (x === undefined || y === undefined || data === undefined || data === null) return
             setTooltipData({ x, y, data: [data] })
         },
         [data, ref, setTooltipData]

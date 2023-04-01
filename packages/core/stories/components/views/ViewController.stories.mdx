@@ -7,21 +7,41 @@ import { ChartForControllerDecorator } from './decorators'
 <Meta title="Core/Components/Views/ViewController" />
 export const Template = args => <ViewController {...args} />
 
-`ViewController` is an organizational component that manages view state. It provides some invisible elements that can detect user interactions and a toolbar to toggle between interaction modes.
+`ViewController` is component for managing user interactions and view state. It provides some invisible elements that can detect mouse motions, and a toolbar to toggle between interaction modes.
 
 <ArgsTable of={ViewController} />
 
-## Layout
+## Variants
 
-A `ViewController` creates a toolbar with buttons.
-Prop `horizontal` toggles its orientation.
+Prop `variant` determines the type of interactions for the view.
+The default value `xy` allows pan and zoom operations along both the x- an y- axes.
+
+(In the examples below, use the toolbar to select an action, the click/drag on the view surface.)
 
 <Canvas>
     <Story
-        name="vertical"
+        name="default"
         args={{
-            key: 'controller',
-            horizontal: false,
+            variant: 'xy',
+            itemSize: [55, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Variants `x` and `y` restrict view changes to the corresponding axes.
+
+<Canvas>
+    <Story
+        name="x"
+        args={{
+            variant: 'x',
             itemSize: [55, 26],
             itemAlign: [0, 0.5],
             itemPadding: [4, 4, 4, 4],
@@ -33,12 +53,55 @@ Prop `horizontal` toggles its orientation.
         {Template.bind({})}
     </Story>
     <Story
+        name="y"
+        args={{
+            variant: 'y',
+            itemSize: [55, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Toolbar buttons
+
+The toolbar can be restricted with prop `buttons`, accepting an array of button codes.
+
+<Canvas>
+    <Story
+        name="short toolbar"
+        args={{
+            variant: 'xy',
+            buttons: ['none', 'zoom-in', 'zoom-out'],
+            itemSize: [55, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Toolbar layout
+
+Prop `horizontal` toggles the orientation of the toolbar.
+
+<Canvas>
+    <Story
         name="horizontal"
         args={{
-            key: 'controller',
+            buttons: ['none', 'zoom-in', 'zoom-out'],
             container: { position: [1, 0], positionUnits: 'relative', anchor: [1, 1] },
             horizontal: true,
-            itemSize: [55, 26],
+            itemSize: [65, 26],
             itemAlign: [1, 0.5],
             itemPadding: [4, 4, 4, 4],
             itemStyle: { textAnchor: 'end' },
@@ -49,3 +112,9 @@ Prop `horizontal` toggles its orientation.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Custom buttons
+
+By default, the buttons in the toolbar are created using a plain `Button` component.
+This can be replaced by setting prop `component`.
+Prop `modifiers` sets style modifiers for the buttons upon mouse events.

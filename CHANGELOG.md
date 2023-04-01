@@ -4,6 +4,9 @@
 
 ### Added
 
+-   [core] component `ViewController` to manage axes in arbitrary views
+-   [core] component `Button` implementing a generic click-able button
+-   [core] support for element-specific transitions, notably for `Rectangle`
 -   [band] support for fade-in and edge animations in `BandHighlight`
 -   [core] default animation states and theming support for `MilestoneMotion`
 -   [annotation] component `FlowTypography` to reveal text character-by-character
@@ -31,6 +34,7 @@
 
 ### Changed
 
+-   [core] changed implementation of some scales, notably to support `invert`
 -   [core] removed type `LinearScaleProps`
 -   [core] changed API for the `useScales` hook to prepare support for
     user-driven adjustments to chart scales, e.g. brush

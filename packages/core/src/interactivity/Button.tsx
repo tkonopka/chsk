@@ -27,6 +27,7 @@ export const Button = ({
     padding = zeroPadding,
     anchor = centerAlign,
     align = centerAlign,
+    selected = false,
     style,
     className,
     setRole = true,
@@ -35,10 +36,12 @@ export const Button = ({
 }: ButtonProps) => {
     const corner = getAnchoredOrigin(position, size, anchor)
     const [x, y] = getAlignPosition(corner, size, align, padding)
-    const compositeClassName = getClassName('button ' + variant, className)
+    const buttonVariant =
+        'button' + (selected ? ' selected' : '') + (variant === 'default' ? '' : ' ' + variant)
+    const compositeClassName = getClassName(buttonVariant, className)
     return (
         <g
-            role={setRole ? 'button-' + variant.replace(' ', '-') : undefined}
+            role={setRole ? 'button-' + variant : undefined}
             transform={getTranslate(x, y)}
             className={compositeClassName}
             {...props}

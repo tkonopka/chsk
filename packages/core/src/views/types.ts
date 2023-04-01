@@ -8,6 +8,7 @@ import {
     ItemListProps,
     AlignSpec,
     ContainerProps,
+    CssProps,
 } from '../general'
 import {
     AxisScaleProps,
@@ -110,7 +111,7 @@ export interface SurfaceThemedProps extends Pick<SurfaceProps, 'expansion'> {
 
 /** View interactions */
 
-export type ViewControllerMode = 'none' | 'drag' | 'zoom' | 'zoom in' | 'zoom out' | 'reset'
+export type ViewControllerMode = 'none' | 'pan' | 'zoom' | 'zoom-in' | 'zoom-out' | 'reset'
 
 export interface ViewControllerProps
     extends SvgElementProps,
@@ -131,4 +132,6 @@ export interface ViewControllerProps
     component?: FC<ButtonProps>
     /** style modifiers */
     modifiers?: DataInteractivityModifiers
+    /** style for selection rectangle */
+    selectionStyle?: CssProps
 }

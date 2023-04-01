@@ -122,33 +122,27 @@ describe('mergeThemes', () => {
 
 describe('getClassName', () => {
     it('concatenates class names', () => {
-        const result = getClassName('a', 'b')
-        expect(result).toEqual('a b')
+        expect(getClassName('a', 'b')).toEqual('a b')
     })
 
     it('handles undefined class name', () => {
-        const result = getClassName('a', undefined)
-        expect(result).toEqual('a')
+        expect(getClassName('a', undefined)).toEqual('a')
     })
 
     it('converts hyphens to camel case', () => {
-        const result = getClassName('long-name', 'very-long-name')
-        expect(result).toEqual('longName veryLongName')
+        expect(getClassName('long-name', 'very-long-name')).toEqual('longName veryLongName')
     })
 
     it('converts multiple hyphens to camel case', () => {
-        const result = getClassName('long-name', 'very-long-name a-b')
-        expect(result).toEqual('longName veryLongName aB')
+        expect(getClassName('long-name', 'very-long-name a-b')).toEqual('longName veryLongName aB')
     })
 
     it('removes default variant', () => {
-        const result = getClassName('default', 'a')
-        expect(result).toEqual('a')
+        expect(getClassName('default', 'a')).toEqual('a')
     })
 
     it('preserves default variant with optional flat', () => {
-        const result = getClassName('default', 'a', false)
-        expect(result).toEqual('default a')
+        expect(getClassName('default', 'a', false)).toEqual('default a')
     })
 })
 

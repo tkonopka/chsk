@@ -16,7 +16,7 @@ import { Button, ButtonProps, DataComponent, DataInteractivityProps } from '../i
 import { defaultControllerContainerProps, defaultViewProps } from './defaults'
 import { ViewControllerMode, ViewControllerProps } from './types'
 import { useContainer } from './hooks'
-import { DragController, ZoomController } from './controllers'
+import { PanController, ZoomController } from './controllers'
 
 type ControllerButtonData = WithId & { mode: ViewControllerMode }
 
@@ -24,6 +24,7 @@ type ControllerToolbarProps = SvgElementProps &
     Pick<
         ViewControllerProps,
         | 'buttons'
+        | 'mode'
         | 'itemSize'
         | 'itemPadding'
         | 'itemAlign'
@@ -35,7 +36,8 @@ type ControllerToolbarProps = SvgElementProps &
     } & DataInteractivityProps<ControllerButtonData, ButtonProps>
 
 const ControllerToolbar = ({
-    buttons = ['none', 'drag', 'zoom', 'zoom in', 'zoom out', 'reset'],
+    buttons = ['none', 'pan', 'zoom', 'zoom-in', 'zoom-out', 'reset'],
+    mode = 'none',
     //
     position = zeroPosition,
     itemSize = [32, 32],
@@ -67,6 +69,8 @@ const ControllerToolbar = ({
                 mode: button,
             },
             props: {
+                variant: button,
+                selected: button === mode,
                 position: itemPosition,
                 size: itemSize,
                 padding: itemPadding,
@@ -74,7 +78,6 @@ const ControllerToolbar = ({
                 align: itemAlign,
                 className: className,
                 style: itemStyle,
-                variant: button,
                 setRole,
             },
             handlers,
@@ -96,10 +99,11 @@ const ControllerToolbar = ({
 
 export const ViewController = ({
     variant = 'xy',
-    buttons = ['none', 'drag', 'zoom', 'zoom in', 'zoom out', 'reset'],
+    buttons = ['none', 'pan', 'zoom', 'zoom-in', 'zoom-out', 'reset'],
     zoomFactor = 2,
     // initial state
     mode = 'none',
+    selectionStyle,
     // toolbar
     container = defaultControllerContainerProps,
     itemSize = [32, 32],
@@ -124,8 +128,12 @@ export const ViewController = ({
     const onClick = useCallback(
         (data: ControllerButtonData | undefined) => {
             if (!data) return
-            if (data.mode === 'reset') setScaleProps(null)
-            setMode(data.mode)
+            if (data.mode === 'reset') {
+                setScaleProps(null)
+                setMode('none')
+            } else {
+                setMode(data.mode)
+            }
         },
         [setScaleProps, setMode]
     )
@@ -137,14 +145,16 @@ export const ViewController = ({
         height: viewSize[Y],
         style: { opacity: 0 },
         setRole,
+        className,
     }
-    const dragController = <DragController key={'drag'} {...rectProps} />
+    const panController = <PanController key={'pan'} {...rectProps} />
     const zoomController = (
         <ZoomController
             key={'zoom'}
             variant={variant}
             mode={currentMode}
             zoomFactor={zoomFactor}
+            selectionStyle={selectionStyle}
             {...rectProps}
         />
     )
@@ -158,9 +168,11 @@ export const ViewController = ({
             itemStyle={itemStyle}
             horizontal={horizontal}
             buttons={buttons}
+            mode={currentMode}
             component={component}
             modifiers={modifiers}
             handlers={{ onClick }}
+            className={className}
         />
     )
 
@@ -171,7 +183,7 @@ export const ViewController = ({
             style={style}
             className={compositeClassName}
         >
-            {currentMode === 'drag' ? dragController : null}
+            {currentMode === 'pan' ? panController : null}
             {currentMode?.includes('zoom') ? zoomController : null}
             {toolbar}
         </g>

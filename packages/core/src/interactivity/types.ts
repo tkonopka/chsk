@@ -69,6 +69,8 @@ export interface DataComponentProps<
 }
 
 export interface ButtonProps extends SvgElementVariantProps, LocationProps, InteractivityProps {
+    /** state of button */
+    selected?: boolean
     /** content */
     children?: ReactNode
 }

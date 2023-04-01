@@ -82,7 +82,7 @@ export const useCreateScales = (props: ScalesProps): ScalesContextValue => {
             color: scaleProps.color ? createColorScale(scaleProps.color) : defaultCategoricalScale,
             size: scaleProps.size ? createAxisScale(scaleProps.size) : defaultSizeScale,
         }),
-        [scaleProps.x, scaleProps.y, scaleProps.color, scaleProps.size]
+        [scaleProps]
     )
 
     // wrapper for setScaleProps allows passing null to reset props

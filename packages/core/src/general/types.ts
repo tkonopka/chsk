@@ -127,3 +127,15 @@ export type LocationProps = {
     /** alignment of label within its bounding container */
     align?: AlignSpec
 }
+
+// rectangular region
+export type RegionProps = {
+    /** x coordinate */
+    x: number
+    /** y coordinate */
+    y: number
+    /** width */
+    width: number
+    /** height */
+    height: number
+}

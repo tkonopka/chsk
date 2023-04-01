@@ -1,5 +1,12 @@
-import { AxisScaleProps, createAxisScale, fillSize, zoomDomain } from '../../src/scales'
+import {
+    AxisScaleProps,
+    changeDomain,
+    createAxisScale,
+    fillSize,
+    zoomDomain,
+} from '../../src/scales'
 import { ContinuousScaleProps, NumericScaleProps, expandToSquare } from '../../src/scales'
+import { roundDecimalPlaces } from '../../src/general'
 
 describe('fillScaleSize', () => {
     it('adds size to a ScaleProps object', () => {
@@ -83,6 +90,36 @@ describe('zoomDomain', () => {
         const result = zoomDomain(props, scale, 2, 50)
         expect(result.size).toEqual(100)
         expect(result.viewDomain?.[0]).toBeGreaterThan(1)
+        expect(result.viewDomain?.[1]).toBeLessThan(10)
+    })
+})
+
+describe('changeDomain', () => {
+    it('adjust domain on a linear scale', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = changeDomain(props, scale, [50, 90])
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([0.5, 0.9])
+    })
+
+    it('adjust domain on a linear scale, y axis', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props, 'y')
+        const result = changeDomain(props, scale, [50, 90])
+        expect(result.size).toEqual(100)
+        expect(roundDecimalPlaces(result.viewDomain?.[0] ?? 0, 3)).toEqual(0.1)
+        expect(roundDecimalPlaces(result.viewDomain?.[1] ?? 0, 3)).toEqual(0.5)
+    })
+
+    it('adjust domain on a log scale', () => {
+        const props: ContinuousScaleProps = { variant: 'log', domain: [1, 100], size: 100 }
+        const scale = createAxisScale(props)
+        const result = changeDomain(props, scale, [20, 40])
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain?.[0]).toBeGreaterThan(1)
+        expect(result.viewDomain?.[0]).toBeLessThan(10)
+        expect(result.viewDomain?.[1]).toBeGreaterThan(1)
         expect(result.viewDomain?.[1]).toBeLessThan(10)
     })
 })
