@@ -100,9 +100,8 @@ const ControllerToolbar = ({
 export const ViewController = ({
     variant = 'xy',
     buttons = ['none', 'pan', 'zoom', 'zoom-in', 'zoom-out', 'reset'],
-    zoomFactor = 2,
-    // initial state
     mode = 'none',
+    zoomFactor = 2,
     selectionStyle,
     // toolbar
     container = defaultControllerContainerProps,
@@ -126,13 +125,12 @@ export const ViewController = ({
     const [currentMode, setMode] = useState(mode)
 
     const onClick = useCallback(
-        (data: ControllerButtonData | undefined) => {
-            if (!data) return
-            if (data.mode === 'reset') {
+        (data?: ControllerButtonData) => {
+            if (data?.mode === 'reset') {
                 setScaleProps(null)
                 setMode('none')
             } else {
-                setMode(data.mode)
+                setMode(data?.mode ?? 'none')
             }
         },
         [setScaleProps, setMode]
@@ -173,6 +171,7 @@ export const ViewController = ({
             modifiers={modifiers}
             handlers={{ onClick }}
             className={className}
+            setRole={setRole}
         />
     )
 

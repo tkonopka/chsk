@@ -3,18 +3,37 @@ import { Chart, View, ViewController, ContinuousAxisScale, Scales, useScales } f
 import { chartProps } from '../props'
 
 describe('ViewController', () => {
-    it('creates controller with toolbar', () => {
+    it('creates controller with vertical toolbar', () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController />
+                    <ViewController itemSize={[20, 20]} />
                 </View>
             </Chart>
         )
         expect(screen.getByRole('view-controller')).toBeDefined()
         expect(screen.queryByRole('controller-pan')).toBeNull()
         expect(screen.queryByRole('controller-zoom')).toBeNull()
-        expect(screen.getByRole('toolbar').querySelectorAll('g')).toHaveLength(6)
+        const buttons = screen.getByRole('toolbar').querySelectorAll('g')
+        expect(buttons).toHaveLength(6)
+        // buttons arranged vertical, i.e. all with the same x coordinate
+        expect(buttons[0].getAttribute('transform')).toContain('translate(0,10)')
+        expect(buttons[1].getAttribute('transform')).toContain('translate(0,30)')
+    })
+
+    it('creates controller with horizontal toolbar', () => {
+        render(
+            <Chart {...chartProps}>
+                <View>
+                    <ViewController itemSize={[20, 20]} horizontal={true} />
+                </View>
+            </Chart>
+        )
+        const buttons = screen.getByRole('toolbar').querySelectorAll('g')
+        expect(buttons).toHaveLength(6)
+        // buttons arranged horizontal, i.e. all with the same y coordinate
+        expect(buttons[0].getAttribute('transform')).toContain('translate(0,10)')
+        expect(buttons[1].getAttribute('transform')).toContain('translate(20,10)')
     })
 
     it('creates controller without role', () => {

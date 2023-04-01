@@ -8,11 +8,15 @@ import {
     DistributionDataItem,
 } from '../src'
 
-export const dummyXBandScale = createBandScale({ domain: ['a'], size: 100 })
+export const dummyXBandScale = createBandScale({
+    variant: 'band',
+    domain: ['a'],
+    size: 100,
+})
 export const dummyYLinearScale = createContinuousScale({
+    variant: 'linear',
     domain: [0, 10],
     size: 100,
-    variant: 'linear',
     reverseRange: true,
 })
 
