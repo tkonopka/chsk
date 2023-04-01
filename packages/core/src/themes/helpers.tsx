@@ -20,7 +20,7 @@ export const cssStyleString = (style: CSSProperties) => {
 
 // turn hyphen-separated strings into camel case
 export const camelCase = (s: string | undefined) => {
-    if (!s) return s
+    if (!s) return ''
     return s
         .split('-')
         .map((part, i) => {

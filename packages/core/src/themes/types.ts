@@ -51,6 +51,10 @@ export interface TransitionProps {
     stiffness?: number
     damping?: number
 }
+export interface SvgElementTransitionProps {
+    /** transition for animation */
+    transition?: TransitionProps
+}
 
 /** selected settings for animating 'g' elements */
 export type AnimationProps = {

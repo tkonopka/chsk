@@ -1,10 +1,11 @@
+import { CSSProperties } from 'react'
 import {
     NumericPositionIntervalSpec,
     NumericPositionSpec,
     SvgElementVariantProps,
 } from '../general'
 import { InteractivityProps } from '../interactivity'
-import { CSSProperties } from 'react'
+import { SvgElementTransitionProps } from '../themes'
 
 type FillStrokeProps = Pick<
     CSSProperties,
@@ -22,6 +23,7 @@ export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, In
 
 export interface RectangleProps
     extends SvgElementVariantProps,
+        SvgElementTransitionProps,
         FillStrokeProps,
         InteractivityProps {
     /** x coordinate */

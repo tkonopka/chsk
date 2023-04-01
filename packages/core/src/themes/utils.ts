@@ -11,13 +11,8 @@ export const getClassName = function (
     className: string | undefined,
     skipDefault = true
 ) {
-    if (skipDefault && variant === 'default') {
-        return camelCase(className)
-    }
-    if (className === undefined) {
-        return camelCase(variant)
-    }
-    return camelCase(variant) + ' ' + camelCase(className)
+    const prefix = skipDefault && variant === 'default' ? '' : camelCase(variant)
+    return prefix + (className && prefix.length ? ' ' : '') + camelCase(className)
 }
 
 export const addColor = (style: CssProps | undefined, color: string | undefined) => {

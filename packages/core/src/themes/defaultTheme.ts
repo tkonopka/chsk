@@ -97,6 +97,12 @@ export const defaultTheme: CompleteThemeSpec = {
         legendTitle: {
             fill: '#ffffff',
         },
+        selection: {
+            fill: '#aaaaaa',
+            opacity: 0.2,
+            strokeWidth: 0.5,
+            stroke: '#000000',
+        },
     },
     text: {
         default: {
@@ -147,6 +153,9 @@ export const defaultTheme: CompleteThemeSpec = {
         legendItem: {
             textAnchor: 'start',
             dominantBaseline: 'central',
+        },
+        selected: {
+            fontWeight: 600,
         },
         tooltipTitle: {
             dominantBaseline: 'central',
