@@ -1,6 +1,6 @@
+import { FC } from 'react'
 import {
     FourSideSizeSpec,
-    SizeSpec,
     NumericPositionSpec,
     SvgElementProps,
     SvgElementVariantProps,
@@ -9,6 +9,7 @@ import {
     AlignSpec,
     ContainerProps,
     CssProps,
+    DimensionsProviderProps,
 } from '../general'
 import {
     AxisScaleProps,
@@ -18,7 +19,6 @@ import {
     ScalesContextValue,
     SizeScaleProps,
 } from '../scales'
-import { FC, ReactNode } from 'react'
 import { ButtonProps, DataInteractivityModifiers } from '../interactivity'
 
 /** datasets associated with views */
@@ -48,7 +48,7 @@ export type ViewSeriesKeys = {
     keys: string[]
 }
 
-export interface ViewProps extends SvgElementProps {
+export interface ViewProps extends SvgElementProps, Pick<DimensionsProviderProps, 'children'> {
     /** position and size for bounding container */
     container?: ContainerProps
     /** variant of view */
@@ -65,8 +65,6 @@ export interface ViewProps extends SvgElementProps {
     scaleColor?: ColorScaleProps
     /** scale for size */
     scaleSize?: SizeScaleProps
-    /** children components */
-    children?: ReactNode
 }
 
 export interface ViewThemedProps
@@ -81,21 +79,16 @@ export interface ViewThemedProps
 
 export interface BaseViewProps
     extends SvgElementVariantProps,
+        Omit<DimensionsProviderProps, 'role'>,
         Pick<ProcessedDataContextProps, 'seriesIndexes' | 'keys'> {
     /** view position as an array [x, y] */
     position: NumericPositionSpec
-    /** view size as an array [width, height] */
-    size: SizeSpec
-    /** view padding [top, right, bottom, left] **/
-    padding: FourSideSizeSpec
     /** original dataset */
     originalData: Array<RecordWithId>
     /** processed dataset */
     processedData: Array<RecordWithId>
     /** scales, scale props, and scale prop update function */
     scalesContextValue: ScalesContextValue
-    /** children components */
-    children?: ReactNode
 }
 
 export interface SurfaceProps extends SvgElementVariantProps {
@@ -106,6 +99,18 @@ export interface SurfaceProps extends SvgElementVariantProps {
 }
 
 export interface SurfaceThemedProps extends Pick<SurfaceProps, 'expansion'> {
+    expansion: FourSideSizeSpec
+}
+
+export interface ViewClipProps
+    extends Pick<DimensionsProviderProps, 'children'>,
+        Pick<SurfaceProps, 'expansion' | 'variant'> {
+    /** variant */
+    variant?: 'default' | string
+    /** id for clip path */
+    id: string
+}
+export interface ViewClipThemedProps extends Pick<ViewClipProps, 'expansion'> {
     expansion: FourSideSizeSpec
 }
 

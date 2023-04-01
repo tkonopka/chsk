@@ -263,6 +263,9 @@ export const defaultTheme: CompleteThemeSpec = {
     View: {
         default: cloneDeep(defaultViewProps),
     },
+    ViewClip: {
+        default: cloneDeep(defaultSurfaceProps),
+    },
     // other settings
     Colors: {
         categorical: {

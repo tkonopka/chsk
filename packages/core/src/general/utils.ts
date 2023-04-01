@@ -58,3 +58,6 @@ export const addPositions = (
     a: NumericPositionSpec,
     b: NumericPositionSpec
 ): NumericPositionSpec => [a[X] + b[X], a[Y] + b[Y]]
+
+/** construct a url string for css, e.g. clipPath */
+export const url = (id: string | undefined) => (id ? 'url(#' + id + ')' : undefined)

@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] component `ViewClip` to restrict content to the bounding box of a view
 -   [core] component `ViewController` to manage axes in arbitrary views
 -   [core] component `Button` implementing a generic click-able button
 -   [core] support for element-specific transitions, notably for `Rectangle`

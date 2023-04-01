@@ -40,7 +40,7 @@ const ControllerToolbar = ({
     mode = 'none',
     //
     position = zeroPosition,
-    itemSize = [32, 32],
+    itemSize = [24, 24],
     itemPadding = zeroPadding,
     itemAlign = zeroPosition,
     itemStyle,
@@ -105,7 +105,7 @@ export const ViewController = ({
     selectionStyle,
     // toolbar
     container = defaultControllerContainerProps,
-    itemSize = [32, 32],
+    itemSize = [24, 24],
     itemPadding = [0, 0, 0, 0],
     itemAlign = [0, 0.5],
     itemStyle,

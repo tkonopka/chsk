@@ -1,0 +1,17 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { ViewClip } from '../../../src'
+
+# ViewClip
+
+<Meta title="Core/Components/Views/ViewClip" />
+export const Template = args => <ViewClip {...args} />
+
+`ViewClip` is an organizational component that restrict content to the bounds of a single view.
+
+<ArgsTable of={ViewClip} />
+
+`ViewClip` does not generate visible content.
+However, it creates a clip mask and restricts all child elements to create content within that mask.
+This can be useful for drawing views with bespoke scales, for example when using zoom operations.
+
+For usage example, see the `Scatter` view in package `@chsk/xy`.

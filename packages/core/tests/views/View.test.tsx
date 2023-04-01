@@ -39,7 +39,7 @@ describe('View', () => {
         expect(getNumberAttr(viewRect, 'height')).toEqual(240)
     })
 
-    it('creates view with complete props', () => {
+    it('creates view with custom scales', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps} />

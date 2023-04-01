@@ -1,5 +1,5 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { Axis, Legend } from '@chsk/core'
+import { Axis, Legend, ViewController, ViewClip } from '@chsk/core'
 import { Scatter, ScatterPoints } from '../../src'
 import { ChartWithLegendSpaceDecorator, dataBubbles } from './decorators'
 import dataPolynomials from './dataPolynomials.json'
@@ -55,12 +55,24 @@ These keys can be used to extract values for x- and y-axes.
 
 When the scales on the axes are determined automatically, `Scatter` automatically adjusts the scales when the data changes, for example when certain data series are toggled via a legend (below, left). The automatic rescaling can be disabled via prop `autoRescale` (below, right).
 
-export const PointsAndLegend = ({ title = 'Polynomials', legend = true }) => {
+export const PointsAndLegend = ({
+    title = 'Polynomials',
+    legend = true,
+    controller = false,
+    id = 'id',
+    clip = false,
+}) => {
     return (
         <>
             <Axis variant={'bottom'} label={'x (a.u.)'} />
             <Axis variant={'left'} label={'y (a.u.)'} />
-            <ScatterPoints />
+            {clip ? (
+                <ViewClip id={id}>
+                    <ScatterPoints />
+                </ViewClip>
+            ) : (
+                <ScatterPoints />
+            )}
             {legend ? (
                 <Legend
                     position={[220, 60]}
@@ -69,6 +81,7 @@ export const PointsAndLegend = ({ title = 'Polynomials', legend = true }) => {
                     title={title}
                 />
             ) : null}
+            {controller ? <ViewController itemStyle={{ textAnchor: 'start' }} /> : null}
         </>
     )
 }
@@ -226,3 +239,87 @@ It is possible to apply colors to individual points by setting prop `valueColor`
 </Canvas>
 
 The data in the example above are the same as in the bubble size example. Thus, large bubbles in the earlier examples appear as dark dots above. To visualize the color scale, see `LegendColorScale`.
+
+## Clipping
+
+To restrict view content to the intended dimensions, use a `ViewClip` component.
+
+The two examples below demonstrate the effects of clipping.
+(Use the toolbar to zoom in and out.)
+The first example does not use clipping, and the data points can appear beyond the axes upon zoom.
+The second example uses clipping, and the data are always constrained.
+
+<Canvas>
+    <Story
+        name="without clipping"
+        args={{
+            data: dataBubbles,
+            x: 'x',
+            y: 'y',
+            valueSize: 8,
+            valueColor: 'value',
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleColor: {
+                variant: 'sequential',
+                colors: 'Reds',
+                domain: 'auto',
+            },
+            children: (
+                <PointsAndLegend
+                    title={'Series'}
+                    legend={false}
+                    id="clip0"
+                    clip={false}
+                    controller={true}
+                />
+            ),
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendSpaceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="with clipping"
+        args={{
+            data: dataBubbles,
+            x: 'x',
+            y: 'y',
+            valueSize: 8,
+            valueColor: 'value',
+            scaleX: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleY: {
+                variant: 'linear',
+                domain: [0, 'auto'],
+            },
+            scaleColor: {
+                variant: 'sequential',
+                colors: 'Reds',
+                domain: 'auto',
+            },
+            children: (
+                <PointsAndLegend
+                    title={'Series'}
+                    legend={false}
+                    id="clip1"
+                    clip={true}
+                    controller={true}
+                />
+            ),
+        }}
+        component={Scatter}
+        decorators={[ChartWithLegendSpaceDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

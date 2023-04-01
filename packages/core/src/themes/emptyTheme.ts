@@ -30,6 +30,7 @@ export const emptyTheme: CompleteThemeSpec = {
     TooltipTitle: {},
     AxisTooltip: {},
     View: {},
+    ViewClip: {},
     // other settings
     Colors: defaultTheme.Colors,
     Motion: {},

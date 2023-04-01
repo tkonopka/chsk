@@ -169,6 +169,7 @@ export const darkTheme: CompleteThemeSpec = {
     TooltipTitle: cloneDeep(defaultTheme.TooltipTitle),
     AxisTooltip: cloneDeep(defaultTheme.AxisTooltip),
     View: cloneDeep(defaultTheme.View),
+    ViewClip: cloneDeep(defaultTheme.ViewClip),
     // other settings
     Colors: {
         categorical: {

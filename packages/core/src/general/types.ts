@@ -1,4 +1,4 @@
-import { CSSProperties, RefObject } from 'react'
+import { CSSProperties, ReactNode, RefObject } from 'react'
 
 export type CssProps = Partial<CSSProperties>
 
@@ -54,6 +54,8 @@ export type DimensionsProviderProps = {
     padding: FourSideSizeSpec
     /** role */
     role?: string
+    /** children */
+    children?: ReactNode
 }
 
 export type DimensionsContextProps = Pick<DimensionsProviderProps, 'size'> & {

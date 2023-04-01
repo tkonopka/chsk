@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo, useRef } from 'react'
+import { createContext, useContext, useMemo, useRef } from 'react'
 import { DimensionsContextProps, DimensionsProviderProps } from './types'
 import { getInnerSize } from './utils'
 import { TOP, LEFT, X, Y } from './constants'
@@ -9,12 +9,7 @@ export const DimensionsContext = createContext({
     margin: [0, 0, 0, 0],
 } as DimensionsContextProps)
 
-export const DimensionsProvider = ({
-    size,
-    padding,
-    role,
-    children,
-}: DimensionsProviderProps & { children: ReactNode }) => {
+export const DimensionsProvider = ({ size, padding, role, children }: DimensionsProviderProps) => {
     const ref = useRef<SVGSVGElement>(null)
     const value: DimensionsContextProps = useMemo(
         () => ({ size: getInnerSize(size, padding), margin: padding, ref }),

@@ -19,7 +19,7 @@ import {
     LegendThemedProps,
 } from '../legends'
 import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
-import { SurfaceThemedProps, ViewThemedProps } from '../views'
+import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views'
 import { MilestoneMotionThemedProps } from '../charts'
 
 export type WithVariant = {
@@ -94,6 +94,7 @@ export interface ThemeSpec {
     TooltipTitle?: Record<string, TooltipItemThemedProps>
     AxisTooltip?: Record<string, TooltipThemedProps>
     View?: Record<string, Partial<ViewThemedProps>>
+    ViewClip?: Record<string, ViewClipThemedProps>
     // non-component settings
     Colors?: Record<string, ColorScaleSpec>
     Motion?: Record<string, TransitionProps>
@@ -129,6 +130,7 @@ export interface CompleteThemeSpec {
     TooltipTitle: Record<string, TooltipItemThemedProps>
     AxisTooltip: Record<string, TooltipThemedProps>
     View: Record<string, ViewThemedProps>
+    ViewClip: Record<string, ViewClipThemedProps>
     // non-components
     Colors: ColorsRecords
     Motion: Record<string, TransitionProps>
@@ -166,3 +168,4 @@ export type ThemedComponent =
     | 'TooltipItemList'
     | 'AxisTooltip'
     | 'View'
+    | 'ViewClip'
