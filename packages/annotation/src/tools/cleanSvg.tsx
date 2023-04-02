@@ -97,14 +97,17 @@ export const cleanSvg = (
 
     // remove some child nodes
     if (element.hasChildNodes() && config.skipRoles.length > 0) {
+        // element.childNodes does not support .map or .filter, so iteration must be with .forEach
+        const skipChildren: ChildNode[] = []
         element.childNodes.forEach(child => {
             const childElement = child as HTMLElement
             if (!childElement.attributes) return
             const role = childElement.getAttribute('role')
             if (role !== null && config.skipRoles.indexOf(role) >= 0) {
-                child.remove()
+                skipChildren.push(child)
             }
         })
+        skipChildren.forEach(child => child.remove())
     }
 
     // apply the same transformations to all child elements
