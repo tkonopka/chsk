@@ -41,7 +41,6 @@ export const defaultTheme: CompleteThemeSpec = {
     line: {
         default: {
             stroke: '#222222',
-            strokeWidth: 1,
         },
         grid: {
             stroke: '#cccccc',
@@ -60,13 +59,12 @@ export const defaultTheme: CompleteThemeSpec = {
     path: {
         default: {
             stroke: '#222222',
-            strokeWidth: 1,
+            fill: 'none',
         },
     },
     polygon: {
         default: {
             stroke: '#222222',
-            strokeWidth: 1,
         },
     },
     rect: {

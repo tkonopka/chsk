@@ -71,7 +71,7 @@ For noisy data, the position of the label can appear in odd places. If `ScatterL
 
 ## Rotation
 
-The label can be rotated with prop `rotate`. Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
+The label can be rotated with prop `angle`. Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
 
 <Canvas>
     <Story
@@ -81,7 +81,7 @@ The label can be rotated with prop `rotate`. Alternatively, a prop `autoRotate` 
             x: 6,
             units: 'view',
             translate: [0, -10],
-            rotate: -15,
+            angle: -15,
             style: { textAnchor: 'end', fontWeight: 600 },
             children: 'manual rotation',
         }}
