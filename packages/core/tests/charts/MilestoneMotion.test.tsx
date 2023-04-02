@@ -22,8 +22,8 @@ describe('MilestoneMotion', () => {
                 </MilestoneMotion>
             </Chart>
         )
-        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
-        expect(screen.queryByRole('milestone-A')).toBeDefined()
+        expect(screen.getByRole('chart-content').querySelector('rect')).not.toBeNull()
+        expect(screen.queryByRole('milestone-A')).not.toBeNull()
     })
 
     it('handles null initial and exit states', () => {
@@ -46,7 +46,7 @@ describe('MilestoneMotion', () => {
                 </MilestoneMotion>
             </Chart>
         )
-        expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
+        expect(screen.getByRole('chart-content').querySelector('rect')).not.toBeNull()
         expect(screen.queryByRole('milestone-A')).toBeNull()
     })
 
@@ -60,7 +60,7 @@ describe('MilestoneMotion', () => {
             </Chart>
         )
         expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
-        expect(screen.queryByRole('milestone-entry-exit')).toBeDefined()
+        expect(screen.queryByRole('milestone-entry-exit')).not.toBeNull()
     })
 
     it('hides content after an exit milestone', () => {

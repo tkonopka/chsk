@@ -6,7 +6,6 @@ import { MilestoneMotionProps } from './types'
 import { useTheme, useThemedProps } from '../themes'
 
 const UnthemedMilestoneMotion = ({
-    variant,
     initial,
     initialOn,
     exit,
@@ -37,14 +36,7 @@ const UnthemedMilestoneMotion = ({
             }
         }
     }
-
-    const role =
-        'milestone' +
-        (variant && variant !== 'default' ? '-' + variant : '') +
-        +'--' +
-        (initialOn ? initialOn : '') +
-        '-' +
-        (exitOn ? exitOn : '')
+    const role = 'milestone-' + (initialOn ? initialOn : '') + (exitOn ? '-' + exitOn : '')
     return (
         <AnimatePresence>
             {active && (
