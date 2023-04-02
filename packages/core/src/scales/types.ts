@@ -126,6 +126,8 @@ export type BandScaleSpec = {
     paddingInner?: number
     /** dictionary with additional padding before certain bands (multiples of scale step size) */
     extraPadding?: Record<string, number>
+    /** nice (does not work on band scales) */
+    nice?: boolean | number
 }
 
 export type BandScaleProps = BandScaleSpec &

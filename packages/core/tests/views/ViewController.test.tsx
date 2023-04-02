@@ -386,4 +386,118 @@ describe('ViewController', () => {
             expect(screen.queryByRole('selection')).toBeNull()
         })
     })
+
+    it('pan shifts axes left and right', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...unitScales}>
+                    <ViewController key={0} variant={'x'} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        // initially, scales have domain [0, 1] and size 100
+        checkUnitScales(scales, [0, 100], [100, 0])
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        // move to the right, the origin should move to the right
+        fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
+        fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
+        await waitFor(() => {
+            checkUnitScales(scales, [50, 150], [100, 0])
+        })
+        // move back to original position
+        fireEvent.mouseMove(detectorRect, { clientX: 25, clientY: 50 })
+        await waitFor(() => {
+            checkUnitScales(scales, [0, 100], [100, 0])
+        })
+        // mouse up to end mouse listing
+        fireEvent.mouseUp(detectorRect)
+        fireEvent.mouseMove(detectorRect, { clientX: 50, clientY: 50 })
+        checkUnitScales(scales, [0, 100], [100, 0])
+    })
+
+    it('pan shifts axes up and down', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...unitScales}>
+                    <ViewController key={0} variant={'y'} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        checkUnitScales(scales, [0, 100], [100, 0])
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        // move mouse down, i.e. origin should move down, i.e. to high coordinates
+        fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
+        fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
+        await waitFor(() => {
+            checkUnitScales(scales, [0, 100], [150, 50])
+        })
+        // move back to original position
+        fireEvent.mouseMove(detectorRect, { clientX: 10, clientY: 25 })
+        await waitFor(() => {
+            checkUnitScales(scales, [0, 100], [100, 0])
+        })
+        fireEvent.mouseUp(detectorRect)
+        fireEvent.mouseMove(detectorRect, { clientX: 50, clientY: 50 })
+        checkUnitScales(scales, [0, 100], [100, 0])
+    })
+
+    it('pan ignores shifts smaller than one pixel', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...unitScales}>
+                    <ViewController key={0} variant={'xy'} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        checkUnitScales(scales, [0, 100], [100, 0])
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        // move mouse down, i.e. reveal high y values
+        fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
+        fireEvent.mouseMove(detectorRect, { clientX: 25.1, clientY: 25.1 })
+        checkUnitScales(scales, [0, 100], [100, 0])
+    })
+
+    it('pan allows mouse leave', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...unitScales}>
+                    <ViewController key={0} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        checkUnitScales(scales, [0, 100], [100, 0])
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        fireEvent.mouseDown(detectorRect, { clientX: 50, clientY: 50 })
+        fireEvent.mouseUp(detectorRect)
+        fireEvent.mouseLeave(detectorRect)
+        checkUnitScales(scales, [0, 100], [100, 0])
+    })
 })

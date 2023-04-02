@@ -1,15 +1,62 @@
 import { useCallback, useRef, MouseEvent, useState } from 'react'
 import { Rectangle, RectangleProps } from '../shapes'
-import { changeDomain, useScales } from '../scales'
+import { changeDomain, shiftDomain, useScales } from '../scales'
 import { ViewControllerProps } from './types'
 import { RegionProps } from '../general'
 import { getEventXY } from '../interactivity/utils'
 
+// remembers view state at the beginning of a pan operation
+type PanProps = { x: number; y: number }
+
 export const PanController = ({
+    variant = 'xy',
+    width,
+    height,
     setRole,
     ...props
 }: RectangleProps & Pick<ViewControllerProps, 'variant'>) => {
-    return <rect role={setRole ? 'controller-pan' : undefined} {...props} />
+    const ref = useRef<SVGSVGElement>(null)
+    const { scales, scaleProps, setScaleProps } = useScales()
+    const [anchor, setAnchor] = useState<PanProps | null>(null)
+
+    // handling box drawing for custom zoom
+    const onMouseDown = (event: MouseEvent) => {
+        const { x, y } = getEventXY(event, ref)
+        if (x === undefined || y === undefined) return
+        setAnchor({ x, y })
+    }
+    const onMouseMove = (event: MouseEvent) => {
+        const { x, y } = getEventXY(event, ref)
+        if (!anchor || x === undefined || y === undefined) return
+        const newProps = { ...scaleProps }
+        const xShift = x - anchor.x
+        const yShift = y - anchor.y
+        if (variant.includes('x') && Math.abs(xShift) > 0) {
+            newProps.x = shiftDomain(newProps.x, scales.x, xShift)
+            newProps.x.nice = false
+        }
+        if (variant.includes('y') && Math.abs(yShift) > 0) {
+            newProps.y = shiftDomain(newProps.y, scales.y, yShift)
+            newProps.y.nice = false
+        }
+        if (Math.abs(xShift) + Math.abs(yShift) > 0) {
+            setScaleProps(newProps)
+            setAnchor({ x, y })
+        }
+    }
+    const onMouseUp = () => {
+        setAnchor(null)
+    }
+    const onMouseLeave = () => {
+        setAnchor(null)
+    }
+
+    const onProps = { onMouseDown, onMouseUp, onMouseMove, onMouseLeave }
+    return (
+        <g role={setRole ? 'controller-pan' : undefined} ref={ref}>
+            <rect width={width} height={height} {...props} {...onProps} />
+        </g>
+    )
 }
 
 export const ZoomController = ({

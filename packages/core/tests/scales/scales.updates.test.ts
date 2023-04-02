@@ -3,6 +3,7 @@ import {
     changeDomain,
     createAxisScale,
     fillSize,
+    shiftDomain,
     zoomDomain,
 } from '../../src/scales'
 import { ContinuousScaleProps, NumericScaleProps, expandToSquare } from '../../src/scales'
@@ -172,5 +173,70 @@ describe('expandToSquare', () => {
         expect(pixelWidth(x)).toEqual(pixelWidth(y))
         expect(x.domain).toEqual([0, 2])
         expect(y.domain).toEqual([0.5, 2.5])
+    })
+})
+
+describe('shiftDomain', () => {
+    it('preserves scale props for zero shift', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = shiftDomain(props, scale, 0)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([0, 1])
+    })
+
+    it('shift to the right', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = shiftDomain(props, scale, 10)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([-0.1, 0.9])
+    })
+
+    it('shift to the right on reversed scale', () => {
+        const props: ContinuousScaleProps = {
+            variant: 'linear',
+            domain: [0, 1],
+            size: 100,
+            reverse: true,
+        }
+        const scale = createAxisScale(props)
+        const result = shiftDomain(props, scale, 10)
+        expect(result.size).toEqual(100)
+        expect(roundDecimalPlaces(result.viewDomain?.[0] ?? 0, 2)).toEqual(0.1)
+        expect(roundDecimalPlaces(result.viewDomain?.[1] ?? 0, 2)).toEqual(1.1)
+    })
+
+    it('shift to the left', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = shiftDomain(props, scale, -50)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([0.5, 1.5])
+    })
+
+    it('shift with logarithmic scale', () => {
+        const props: ContinuousScaleProps = { variant: 'log', domain: [1, 100], size: 100 }
+        const scale = createAxisScale(props)
+        const result = shiftDomain(props, scale, -50)
+        expect(result.size).toEqual(100)
+        expect(Math.round(result.viewDomain?.[0] ?? 0)).toEqual(10)
+        expect(Math.round(result.viewDomain?.[1] ?? 0)).toEqual(1000)
+    })
+
+    it('shift up on y axis', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props, 'y')
+        const result = shiftDomain(props, scale, -50)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([-0.5, 0.5])
+    })
+
+    it('shift down on y axis', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props, 'y')
+        const result = shiftDomain(props, scale, 50)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([0.5, 1.5])
     })
 })

@@ -52,8 +52,13 @@ export const getScaleTicks = ({
     return tickTranslations.map((translations, i) => {
         const x = translations[X]
         const y = translations[Y]
+        const tickLabel = tickFormat(tickValues[i] as string, i)
         return (
-            <g key={'tick-' + variant + '-' + i} role={setRole ? 'tick' : undefined} style={style}>
+            <g
+                key={'tick-' + tickLabel}
+                role={setRole ? 'tick' : undefined}
+                style={style}
+            >
                 <Line
                     variant={'tick'}
                     x1={x}
@@ -72,7 +77,7 @@ export const getScaleTicks = ({
                     className={compositeClassName}
                     setRole={false}
                 >
-                    {tickFormat(tickValues[i] as string, i)}
+                    {tickLabel}
                 </Typography>
             </g>
         )

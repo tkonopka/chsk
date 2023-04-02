@@ -80,6 +80,7 @@ export const ViewController = ({
 
     // detector surfaces
     const rectProps = {
+        variant,
         x: origin[X],
         y: origin[Y],
         width: innerSize[X],
@@ -89,14 +90,7 @@ export const ViewController = ({
         className,
     }
     const panController = <PanController key={'pan'} {...rectProps} />
-    const zoom = (
-        <ZoomController
-            key={'zoom'}
-            variant={variant}
-            selectionStyle={selectionStyle}
-            {...rectProps}
-        />
-    )
+    const zoom = <ZoomController key={'zoom'} selectionStyle={selectionStyle} {...rectProps} />
 
     const compositeClassName = getClassName('view-controller ' + variant, className)
     return (

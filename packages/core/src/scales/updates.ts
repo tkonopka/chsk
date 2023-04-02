@@ -26,6 +26,14 @@ export const zoomDomain = (
     return result
 }
 
+/** create scale props with a shifted domain */
+export const shiftDomain = (props: AxisScaleProps, scale: AxisScale, shift: number) => {
+    const result = cloneDeep(props)
+    const range = scale.range()
+    result.viewDomain = [scale.invert(range[0] - shift), scale.invert(range[1] - shift)]
+    return result
+}
+
 /** create scale props with a changed domain (target are coordinates to be converted into a new domain) */
 export const changeDomain = (props: AxisScaleProps, scale: AxisScale, target: [number, number]) => {
     const result = cloneDeep(props)
