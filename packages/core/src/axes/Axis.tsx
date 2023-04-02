@@ -21,7 +21,7 @@ const UnthemedAxis = ({
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}
-            transform={getAxisTranslate({ variant, offset, size })}
+            transform={getAxisTranslate(variant, size, offset)}
             className={className}
             style={style}
         >

@@ -2,7 +2,8 @@ import { cloneDeep } from 'lodash'
 import { LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
-import { getAxisTranslate, getScaleTicks } from '../axes'
+import { getScaleTicks } from '../axes'
+import { getAxisTranslate } from '../axes/utils'
 import { useThemedProps } from '../themes'
 import { LinearGradient } from './LinearGradient'
 import { defaultLegendColorScaleProps } from './defaults'
@@ -65,7 +66,7 @@ const UnthemedLegendColorScale = ({
                 style={gradientStyle}
                 setRole={false}
             />
-            <g transform={getAxisTranslate({ variant, offset, size })}>
+            <g transform={getAxisTranslate(variant, size, offset)}>
                 {getScaleTicks({
                     variant,
                     scale,

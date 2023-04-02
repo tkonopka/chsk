@@ -54,7 +54,11 @@ export const getScaleTicks = ({
         const y = translations[Y]
         const tickLabel = tickFormat(tickValues[i] as string, i)
         return (
-            <g key={'tick-' + tickLabel} role={setRole ? 'tick' : undefined} style={style}>
+            <g
+                key={'tick-' + (tickLabel ? tickLabel : i)}
+                role={setRole ? 'tick' : undefined}
+                style={style}
+            >
                 <Line
                     variant={'tick'}
                     x1={x}
