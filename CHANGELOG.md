@@ -4,6 +4,8 @@
 
 ### Added
 
+-   [themes] theme piece `buttonTheme` with styles for buttons
+-   [core] component `Toolbar` to create generic toolbars with buttons
 -   [core] component `ViewClip` to restrict content to the bounding box of a view
 -   [core] component `ViewController` to manage axes in arbitrary views
 -   [core] component `Button` implementing a generic click-able button
@@ -35,6 +37,7 @@
 
 ### Changed
 
+-   [examples] added some icons for view controllers
 -   [core] changed implementation of some scales, notably to support `invert`
 -   [core] removed type `LinearScaleProps`
 -   [core] changed API for the `useScales` hook to prepare support for

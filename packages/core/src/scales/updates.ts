@@ -15,13 +15,14 @@ export const zoomDomain = (
     props: AxisScaleProps,
     scale: AxisScale,
     zoomFactor: number,
-    center: number
+    center?: number
 ) => {
     const result = cloneDeep(props)
     const range = scale.range()
     const rangeSize = range[1] - range[0]
     const margin = (rangeSize * 0.5) / zoomFactor
-    result.viewDomain = [scale.invert(center - margin), scale.invert(center + margin)]
+    const middle = center ? center : (range[0] + range[1]) * 0.5
+    result.viewDomain = [scale.invert(middle - margin), scale.invert(middle + margin)]
     return result
 }
 

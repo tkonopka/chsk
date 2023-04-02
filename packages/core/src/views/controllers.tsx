@@ -1,6 +1,6 @@
 import { useCallback, useRef, MouseEvent, useState } from 'react'
 import { Rectangle, RectangleProps } from '../shapes'
-import { changeDomain, useScales, zoomDomain } from '../scales'
+import { changeDomain, useScales } from '../scales'
 import { ViewControllerProps } from './types'
 import { RegionProps } from '../general'
 import { getEventXY } from '../interactivity/utils'
@@ -14,37 +14,16 @@ export const PanController = ({
 
 export const ZoomController = ({
     variant = 'xy',
-    mode = 'zoom',
-    zoomFactor = 1,
     className,
     setRole,
     width,
     height,
     selectionStyle,
     ...props
-}: RectangleProps &
-    Pick<ViewControllerProps, 'variant' | 'mode' | 'zoomFactor' | 'selectionStyle'>) => {
+}: RectangleProps & Pick<ViewControllerProps, 'variant' | 'selectionStyle'>) => {
     const ref = useRef<SVGSVGElement>(null)
     const { scales, scaleProps, setScaleProps } = useScales()
     const [selection, setSelection] = useState<RegionProps | null>(null)
-
-    // handling click interactions to zoom in and out
-    const zoom = mode === 'zoom-out' ? 1 / zoomFactor : zoomFactor
-    const onClick = useCallback(
-        (event: MouseEvent) => {
-            const { x, y } = getEventXY(event, ref)
-            if (x === undefined || y === undefined) return
-            const newProps = { ...scaleProps }
-            if (variant.includes('x')) {
-                newProps.x = zoomDomain(scaleProps.x, scales.x, zoom, x)
-            }
-            if (variant.includes('y')) {
-                newProps.y = zoomDomain(scaleProps.y, scales.y, zoom, y)
-            }
-            setScaleProps(newProps)
-        },
-        [ref, scales, scaleProps, setScaleProps, zoom]
-    )
 
     // handling box drawing for custom zoom
     const onMouseDown = useCallback(
@@ -105,7 +84,7 @@ export const ZoomController = ({
         setSelection(null)
     }
 
-    const onProps = mode === 'zoom' ? { onMouseDown, onMouseUp, onMouseMove } : { onClick }
+    const onProps = { onMouseDown, onMouseUp, onMouseMove }
     const selectionClassName = 'selection viewController' + (className ? ' ' + className : '')
     return (
         <g role={setRole ? 'controller-zoom' : undefined} ref={ref}>
@@ -116,7 +95,7 @@ export const ZoomController = ({
                 {...onProps}
                 onMouseLeave={onMouseLeave}
             />
-            {mode === 'zoom' && selection && selection.width && selection.height ? (
+            {selection && selection.width && selection.height ? (
                 // this uses <Rectangle> and not <rect> to handle negative widths and heights
                 <Rectangle
                     variant={'selection'}

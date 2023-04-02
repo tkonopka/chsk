@@ -68,16 +68,21 @@ Variants `x` and `y` restrict view changes to the corresponding axes.
     </Story>
 </Canvas>
 
+Note that in these examples, the x- and y- axes both initially have a [0, 100] domain.
+However, they rescale slightly differently upon zoom-in and zoom-out.
+This is because the specifications for the x- and y- axes (props `scaleX` and `scaleY` in the view component)
+have the attribute `nice` set to `false` and `true`, respectively.
+
 ## Toolbar buttons
 
-The toolbar can be restricted with prop `buttons`, accepting an array of button codes.
+The toolbar can be restricted with prop `values`, accepting an array of button codes.
 
 <Canvas>
     <Story
         name="short toolbar"
         args={{
             variant: 'xy',
-            buttons: ['none', 'zoom-in', 'zoom-out'],
+            values: ['zoom-in', 'zoom-out', 'reset'],
             itemSize: [55, 26],
             itemAlign: [0, 0.5],
             itemPadding: [4, 4, 4, 4],
@@ -98,7 +103,7 @@ Prop `horizontal` toggles the orientation of the toolbar.
     <Story
         name="horizontal"
         args={{
-            buttons: ['none', 'zoom-in', 'zoom-out'],
+            values: ['zoom-in', 'zoom-out', 'reset'],
             container: { position: [1, 0], positionUnits: 'relative', anchor: [1, 1] },
             horizontal: true,
             itemSize: [65, 26],

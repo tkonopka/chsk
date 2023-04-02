@@ -1,5 +1,13 @@
 import { FC, MouseEvent, ReactNode } from 'react'
-import { CssProps, LocationProps, SvgElementVariantProps, WithId } from '../general'
+import {
+    CssProps,
+    ItemListProps,
+    LocationProps,
+    NumericPositionSpec,
+    SvgElementProps,
+    SvgElementVariantProps,
+    WithId,
+} from '../general'
 
 // handling events on svg elements
 export interface InteractivityProps {
@@ -73,4 +81,20 @@ export interface ButtonProps extends SvgElementVariantProps, LocationProps, Inte
     selected?: boolean
     /** content */
     children?: ReactNode
+}
+
+export type ToolbarData<Value> = WithId & { value: Value }
+
+export interface ToolbarProps<Value>
+    extends SvgElementProps,
+        Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'itemAlign' | 'itemStyle' | 'horizontal'>,
+        DataInteractivityProps<ToolbarData<Value>, ButtonProps> {
+    /** position of top-left corner */
+    position?: NumericPositionSpec
+    /** items to appear in the toolbar */
+    values: Value[]
+    /** current selected item */
+    value?: Value
+    /** component to draw items */
+    component: FC<ButtonProps>
 }

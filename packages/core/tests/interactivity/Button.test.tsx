@@ -9,7 +9,7 @@ describe('Button', () => {
                 <Button variant={'abc'} position={[20, 20]} />
             </Chart>
         )
-        const button = screen.getByRole('button-abc')
+        const button = screen.getByRole('button')
         expect(button.getAttribute('class')).toContain('button abc')
         expect(button.textContent).toEqual('abc')
         expect(button.querySelector('text')?.getAttribute('class')).toContain('button abc')
@@ -23,7 +23,7 @@ describe('Button', () => {
                 </Button>
             </Chart>
         )
-        const button = screen.getByRole('button-abc')
+        const button = screen.getByRole('button')
         expect(button.getAttribute('class')).toContain('button abc')
         expect(button.querySelector('rect')).toBeDefined()
     })
@@ -35,9 +35,8 @@ describe('Button', () => {
                 <Button variant={'B'} position={[20, 20]} selected className={'custom'} />
             </Chart>
         )
-        const buttonA = screen.getByRole('button-A')
-        expect(buttonA.getAttribute('class')).toContain('button selected A')
-        const buttonB = screen.getByRole('button-B')
-        expect(buttonB.getAttribute('class')).toContain('button selected B')
+        const buttons = screen.queryAllByRole('button')
+        expect(buttons[0].getAttribute('class')).toContain('button selected A')
+        expect(buttons[1].getAttribute('class')).toContain('button selected B')
     })
 })

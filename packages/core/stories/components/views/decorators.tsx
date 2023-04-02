@@ -12,7 +12,10 @@ export const ChartForControllerDecorator = (Story: () => ReactNode) => (
             },
         }}
     >
-        <View>
+        <View
+            scaleX={{ variant: 'linear', domain: [0, 100], nice: false }}
+            scaleY={{ variant: 'linear', domain: [0, 100], nice: true }}
+        >
             <Surface key={0} variant={'inner'} />
             <Axis key={1} variant={'left'} />
             <Axis key={2} variant={'bottom'} />

@@ -25,6 +25,22 @@ describe('zoomDomain', () => {
         expect(result.viewDomain).toEqual([0, 1])
     })
 
+    it('zooms out by default center', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = zoomDomain(props, scale, 0.5)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([-0.5, 1.5])
+    })
+
+    it('zooms in using default center', () => {
+        const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const scale = createAxisScale(props)
+        const result = zoomDomain(props, scale, 2)
+        expect(result.size).toEqual(100)
+        expect(result.viewDomain).toEqual([0.25, 0.75])
+    })
+
     it('zooms out', () => {
         const props: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
         const scale = createAxisScale(props)

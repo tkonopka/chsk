@@ -17,8 +17,8 @@ describe('ViewController', () => {
         const buttons = screen.getByRole('toolbar').querySelectorAll('g')
         expect(buttons).toHaveLength(6)
         // buttons arranged vertical, i.e. all with the same x coordinate
-        expect(buttons[0].getAttribute('transform')).toContain('translate(0,10)')
-        expect(buttons[1].getAttribute('transform')).toContain('translate(0,30)')
+        expect(buttons[0].getAttribute('transform')).toBeNull()
+        expect(buttons[1].getAttribute('transform')).toContain('translate(0,20)')
     })
 
     it('creates controller with horizontal toolbar', () => {
@@ -32,8 +32,8 @@ describe('ViewController', () => {
         const buttons = screen.getByRole('toolbar').querySelectorAll('g')
         expect(buttons).toHaveLength(6)
         // buttons arranged horizontal, i.e. all with the same y coordinate
-        expect(buttons[0].getAttribute('transform')).toContain('translate(0,10)')
-        expect(buttons[1].getAttribute('transform')).toContain('translate(20,10)')
+        expect(buttons[0].getAttribute('transform')).toBeNull()
+        expect(buttons[1].getAttribute('transform')).toContain('translate(20,0)')
     })
 
     it('creates controller without role', () => {
@@ -54,7 +54,7 @@ describe('ViewController', () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController buttons={['none', 'zoom']} />
+                    <ViewController values={['none', 'zoom']} />
                 </View>
             </Chart>
         )
@@ -68,42 +68,44 @@ describe('ViewController', () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController mode={'zoom'} />
+                    <ViewController value={'zoom'} values={['none', 'zoom', 'pan']} />
                 </View>
             </Chart>
         )
         expect(screen.queryByRole('controller-pan')).toBeNull()
         expect(screen.queryByRole('controller-zoom')).not.toBeNull()
-        // toolbar should have six buttons, zoom button should be selected
-        expect(screen.getByRole('toolbar').querySelectorAll('g')).toHaveLength(6)
-        expect(screen.getByRole('button-none').getAttribute('class')).toBe('button none')
-        expect(screen.getByRole('button-zoom').getAttribute('class')).toBe('button selected zoom')
-        expect(screen.getByRole('button-pan').getAttribute('class')).toBe('button pan')
+        // toolbar should have three buttons, zoom button should be selected
+        expect(screen.getByRole('toolbar').querySelectorAll('g')).toHaveLength(3)
+        const buttons = screen.getAllByRole('button')
+        expect(buttons).toHaveLength(3)
+        expect(buttons[0].getAttribute('class')).toBe('button none')
+        expect(buttons[1].getAttribute('class')).toBe('button selected zoom')
+        expect(buttons[2].getAttribute('class')).toBe('button pan')
     })
 
     it('creates pan-detection surface', () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController mode={'pan'} />
+                    <ViewController value={'pan'} values={['none', 'zoom', 'pan']} />
                 </View>
             </Chart>
         )
         expect(screen.getByRole('view-controller')).toBeDefined()
         expect(screen.queryByRole('controller-pan')).toBeDefined()
         expect(screen.queryByRole('controller-zoom')).toBeNull()
-        // toolbar should have six buttons, pan button should be selected
-        expect(screen.getByRole('toolbar').querySelectorAll('g')).toHaveLength(6)
-        expect(screen.getByRole('button-none').getAttribute('class')).toBe('button none')
-        expect(screen.getByRole('button-zoom').getAttribute('class')).toBe('button zoom')
-        expect(screen.getByRole('button-pan').getAttribute('class')).toBe('button selected pan')
+        // pan button should be selected
+        const buttons = screen.getAllByRole('button')
+        expect(buttons[0].getAttribute('class')).toBe('button none')
+        expect(buttons[1].getAttribute('class')).toBe('button zoom')
+        expect(buttons[2].getAttribute('class')).toBe('button selected pan')
     })
 
     it('buttons toggle controllers', async () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController mode={'pan'} />
+                    <ViewController value={'pan'} values={['pan', 'zoom']} />
                 </View>
             </Chart>
         )
@@ -111,37 +113,36 @@ describe('ViewController', () => {
         // initially, mode is set to pan
         expect(screen.queryByRole('controller-pan')).not.toBeNull()
         expect(screen.queryByRole('controller-zoom')).toBeNull()
-        expect(screen.getByRole('button-pan').getAttribute('class')).toBe('button selected pan')
-        expect(screen.getByRole('button-zoom').getAttribute('class')).toBe('button zoom')
-        const selectButton = screen.getByRole('button-zoom')
-        fireEvent.click(selectButton)
+        const buttons = screen.getAllByRole('button')
+        expect(buttons[0].getAttribute('class')).toBe('button selected pan')
+        expect(buttons[1].getAttribute('class')).toBe('button zoom')
+        // click on the zoom button
+        fireEvent.click(buttons[1])
         await waitFor(() => {
             expect(screen.queryByRole('controller-pan')).toBeNull()
             expect(screen.queryByRole('controller-zoom')).not.toBeNull()
-            expect(screen.getByRole('button-pan').getAttribute('class')).toBe('button pan')
-            expect(screen.getByRole('button-zoom').getAttribute('class')).toBe(
-                'button selected zoom'
-            )
+            const buttons = screen.getAllByRole('button')
+            expect(buttons[0].getAttribute('class')).toBe('button pan')
+            expect(buttons[1].getAttribute('class')).toBe('button selected zoom')
         })
     })
 
-    it('sets selection to none after reset', async () => {
+    it('keep current selection after reset', async () => {
         render(
             <Chart {...chartProps}>
                 <View>
-                    <ViewController mode={'pan'} />
+                    <ViewController value={'pan'} values={['pan', 'zoom', 'reset', 'none']} />
                 </View>
             </Chart>
         )
         // click the reset button
-        fireEvent.click(screen.getByRole('button-reset'))
+        fireEvent.click(screen.getAllByRole('button')[2])
         await waitFor(() => {
-            expect(screen.getByRole('button-pan').getAttribute('class')).toBe('button pan')
-            expect(screen.getByRole('button-zoom').getAttribute('class')).toBe('button zoom')
-            expect(screen.getByRole('button-reset').getAttribute('class')).toBe('button reset')
-            expect(screen.getByRole('button-none').getAttribute('class')).toBe(
-                'button selected none'
-            )
+            const buttons = screen.getAllByRole('button')
+            expect(buttons[0].getAttribute('class')).toBe('button selected pan')
+            expect(buttons[1].getAttribute('class')).toBe('button zoom')
+            expect(buttons[2].getAttribute('class')).toBe('button reset')
+            expect(buttons[3].getAttribute('class')).toBe('button none')
         })
     })
 
@@ -171,23 +172,25 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'x'} mode={'zoom-in'} />
+                    <ViewController
+                        key={0}
+                        variant={'x'}
+                        value={'none'}
+                        values={['none', 'zoom-in', 'zoom-out']}
+                    />
                     <GetScales key={1} />
                 </View>
             </Chart>
         )
         // initially, scales have domain [0, 1] and size 100
         checkUnitScales(scales, [0, 100], [100, 0])
-        // click on detector to zoom-in, scales should change
-        const detector = screen.getByRole('controller-zoom')
-        const detectorRect = detector.querySelector('rect') ?? detector
-        fireEvent.click(detectorRect, { clientX: 50, clientY: 50 })
+        // click to zoom-in, scales should change
+        fireEvent.click(screen.getAllByRole('button')[1])
         await waitFor(() => {
             checkUnitScales(scales, [-50, 150], [100, 0])
         })
         // convert to zoom-out, click, should revert to former x scale
-        fireEvent.click(screen.getByRole('button-zoom-out'))
-        fireEvent.click(detectorRect, { clientX: 50, clientY: 50 })
+        fireEvent.click(screen.getAllByRole('button')[2])
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])
         })
@@ -202,7 +205,12 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'y'} mode={'zoom-in'} />
+                    <ViewController
+                        key={0}
+                        variant={'y'}
+                        value={'none'}
+                        values={['none', 'zoom-in', 'zoom-out']}
+                    />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -210,14 +218,12 @@ describe('ViewController', () => {
         // initially, scales have domain [0, 1] and size 100
         checkUnitScales(scales, [0, 100], [100, 0])
         // click on detector to zoom-in, scales should change
-        const detector = screen.getByRole('controller-zoom')
-        fireEvent.click(detector.querySelector('rect') ?? detector, { clientX: 50, clientY: 50 })
+        fireEvent.click(screen.getAllByRole('button')[1])
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [150, -50])
         })
         // convert to zoom-out, click, should revert to former x scale
-        fireEvent.click(screen.getByRole('button-zoom-out'))
-        fireEvent.click(detector.querySelector('rect') ?? detector, { clientX: 50, clientY: 50 })
+        fireEvent.click(screen.getAllByRole('button')[2])
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])
         })
@@ -232,7 +238,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'xy'} mode={'zoom'} className={'abc'} />
+                    <ViewController key={0} variant={'xy'} value={'zoom'} className={'abc'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -267,7 +273,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'xy'} mode={'zoom'} />
+                    <ViewController key={0} variant={'xy'} value={'zoom'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -295,7 +301,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'x'} mode={'zoom'} />
+                    <ViewController key={0} variant={'x'} value={'zoom'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -328,7 +334,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'y'} mode={'zoom'} />
+                    <ViewController key={0} variant={'y'} value={'zoom'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -361,7 +367,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'x'} mode={'zoom'} />
+                    <ViewController key={0} variant={'x'} value={'zoom'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -370,8 +376,10 @@ describe('ViewController', () => {
         checkUnitScales(scales, [0, 100], [100, 0])
         const detector = screen.getByRole('controller-zoom')
         const detectorRect = detector.querySelector('rect') ?? detector
+        // some arbitrary mouse movements
         fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
         fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
+        // mouse leaves the view area
         fireEvent.mouseLeave(detectorRect)
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])

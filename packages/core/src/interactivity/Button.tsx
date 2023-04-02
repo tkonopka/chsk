@@ -41,7 +41,7 @@ export const Button = ({
     const compositeClassName = getClassName(buttonVariant, className)
     return (
         <g
-            role={setRole ? 'button-' + variant : undefined}
+            role={setRole ? 'button' : undefined}
             transform={getTranslate(x, y)}
             className={compositeClassName}
             {...props}

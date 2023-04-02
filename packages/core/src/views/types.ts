@@ -116,7 +116,7 @@ export interface ViewClipThemedProps extends Pick<ViewClipProps, 'expansion'> {
 
 /** View interactions */
 
-export type ViewControllerMode = 'none' | 'pan' | 'zoom' | 'zoom-in' | 'zoom-out' | 'reset'
+export type ViewControllerValue = 'none' | 'pan' | 'zoom' | 'zoom-in' | 'zoom-out' | 'reset'
 
 export interface ViewControllerProps
     extends SvgElementProps,
@@ -124,11 +124,11 @@ export interface ViewControllerProps
     /** variant of view */
     variant?: 'x' | 'y' | 'xy'
     /** buttons to display in toolbar */
-    buttons?: ViewControllerMode[]
+    values?: ViewControllerValue[]
     /** zoomFactor */
     zoomFactor?: number
-    /** initial state */
-    mode?: ViewControllerMode
+    /** initial selected state */
+    value?: ViewControllerValue
     /** position and size for toolbar */
     container?: ContainerProps
     /** alignment of content within the toolbar */

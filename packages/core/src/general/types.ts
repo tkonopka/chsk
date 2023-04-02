@@ -80,6 +80,8 @@ export interface ItemListProps {
     itemSize?: SizeSpec
     /** padding for a single item */
     itemPadding?: FourSideSizeSpec
+    /** alignment within the item bounding box */
+    itemAlign?: AlignSpec
     /** style for list items */
     itemStyle?: CssProps
     /** list title */
