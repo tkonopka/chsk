@@ -12,7 +12,7 @@ import {
     NumericPositionSpec,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCrosshair, ScatterPoints } from '@chsk/xy'
-import { downloadTheme, faintTicksTheme } from '@chsk/themes'
+import { buttonTheme, faintTicksTheme } from '@chsk/themes'
 
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue, round3dp } from '../utils'
@@ -40,7 +40,7 @@ export const generateAxisTooltipScatterData = () => {
 }
 
 const customTheme = mergeThemes([
-    downloadTheme,
+    buttonTheme,
     faintTicksTheme,
     {
         circle: {

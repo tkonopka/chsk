@@ -14,7 +14,7 @@ import {
     useTooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chsk/matrix'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { merge } from 'lodash'
 import { generateHeatMapMatrixNormal, generateHeatMapRowCategorical } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
@@ -36,7 +36,7 @@ export const generateFlagsHeatMapData = () => {
     })
 }
 
-const customTheme = mergeTheme(downloadTheme, {
+const customTheme = mergeTheme(buttonTheme, {
     rect: {
         legendColorScale: {
             stroke: '#222222',

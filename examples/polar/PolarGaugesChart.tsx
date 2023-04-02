@@ -11,7 +11,7 @@ import {
     TextContentProps,
 } from '@chsk/core'
 import { Origin, Pie, PieDataItem, Slices } from '@chsk/polar'
-import { darkTheme, downloadTheme } from '@chsk/themes'
+import { darkTheme, buttonTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -34,7 +34,7 @@ export const generateGaugesData = () => {
 
 const customTheme: ThemeSpec = mergeThemes([
     darkTheme,
-    downloadTheme,
+    buttonTheme,
     {
         text: {
             sliceLabel: {

@@ -1,7 +1,7 @@
-import { Chart, Surface, View, Rectangle, Typography } from '@chsk/core'
+import { Chart, Surface, View, Rectangle, Typography, Path } from '@chsk/core'
 import { ThemeStory, themeStoryChartProps } from '../ThemeController'
 
-export const DownloadExample = ({ chartId, theme }: ThemeStory) => {
+export const ButtonExample = ({ chartId, theme }: ThemeStory) => {
     return (
         <Chart id={chartId} {...themeStoryChartProps} theme={theme ?? undefined}>
             <Surface variant={'inner'} />
@@ -12,11 +12,30 @@ export const DownloadExample = ({ chartId, theme }: ThemeStory) => {
                     width={40}
                     height={40}
                     style={{ fill: '#dd4444' }}
-                    className={'download'}
+                    className={'button'}
                 />
-                <Typography position={[110, 80]} className={'download'}>
-                    styled text
+                <Typography position={[110, 80]} className={'button'}>
+                    button
                 </Typography>
+                <Rectangle
+                    x={60}
+                    y={120}
+                    width={40}
+                    height={40}
+                    style={{ fill: '#dd4444', stroke: '#000000', strokeWidth: 1 }}
+                    className={'button bg'}
+                />
+                <Typography position={[110, 140]} className={'button'}>
+                    button bg
+                </Typography>
+                <Path
+                    points={[
+                        [20, 20],
+                        [40, 60],
+                        [70, 30],
+                    ]}
+                    className={'button'}
+                />
             </View>
         </Chart>
     )

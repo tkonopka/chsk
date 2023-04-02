@@ -13,7 +13,7 @@ import {
 } from '@chsk/core'
 import { isScheduleData, Schedule, Schedules } from '@chsk/band'
 import { BlockArrow } from '@chsk/annotation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, randomUniformValue, round2dp } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -33,7 +33,7 @@ export const generateChangesData = () => {
     })
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     path: {
         default: {
             fillOpacity: 1,

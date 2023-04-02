@@ -15,7 +15,7 @@ import {
     LEFT,
     TextContentProps,
 } from '@chsk/core'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 
@@ -24,7 +24,7 @@ export const generateSingleValuesData = () =>
         .fill(0)
         .map(() => Math.round(randomUniformValue(0, 100)))
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         default: {
             fill: undefined,

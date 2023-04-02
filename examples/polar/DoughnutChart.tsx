@@ -1,6 +1,6 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip, roundDecimalPlaces } from '@chsk/core'
 import { isPieData, Origin, Pie, Slices, SliceLabels } from '@chsk/polar'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -13,7 +13,7 @@ export const generateDoughnutData = () => {
     return ids.map((id, i) => ({ id, data: roundDecimalPlaces((100 * sizes[i]) / total, 2) }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         sliceLabel: {
             pointerEvents: 'none',

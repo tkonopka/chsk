@@ -12,7 +12,7 @@ import {
     AxisTicks,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, ScatterCrosshair, ScatterDataItem, isScatterData } from '@chsk/xy'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -36,7 +36,7 @@ export const generateDotScatterData = () => {
     return result
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     circle: {
         default: {
             strokeWidth: 3,

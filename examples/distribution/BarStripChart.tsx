@@ -7,7 +7,7 @@ import {
     MilestoneMotion,
     mergeThemes,
 } from '@chsk/core'
-import { tooltipItemLabelValueTheme, downloadTheme } from '@chsk/themes'
+import { tooltipItemLabelValueTheme, buttonTheme } from '@chsk/themes'
 import {
     BarAndWhisker,
     isStripData,
@@ -34,7 +34,7 @@ export const generateBarStripData = () => {
 }
 
 export const customTheme: ThemeSpec = mergeThemes([
-    downloadTheme,
+    buttonTheme,
     tooltipItemLabelValueTheme,
     {
         line: {

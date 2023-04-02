@@ -1,12 +1,12 @@
 import { Chart, ThemeSpec, mergeTheme, View, Typography, Label, MilestoneMotion } from '@chsk/core'
 import { BoxedLabel, FlowPath, ArrowMarker } from '@chsk/annotation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
 export const generateVerticalFlowData = () => []
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     rect: {
         boxedLabel: {
             stroke: '#222222',

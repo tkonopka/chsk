@@ -20,7 +20,7 @@ import {
     ScatterCrosshair,
     useScatterPreparedData,
 } from '@chsk/xy'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -82,7 +82,7 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             id="time-series"
             size={[640, 400]}
             padding={[80, 80, 60, 80]}
-            theme={downloadTheme}
+            theme={buttonTheme}
         >
             <Scatter
                 data={rawData}

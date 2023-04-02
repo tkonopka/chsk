@@ -1,13 +1,13 @@
 import { Chart, ThemeSpec, mergeTheme, View, Label, MilestoneMotion } from '@chsk/core'
 import { FlowPath, ArrowMarker } from '@chsk/annotation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { FilterIcon, DatasetIcon, CheckIcon } from '../icons'
 
 export const generateHorizontalFlowData = () => []
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     path: {
         flow: {
             strokeWidth: '1px',

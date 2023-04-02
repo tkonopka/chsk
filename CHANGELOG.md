@@ -37,6 +37,7 @@
 
 ### Changed
 
+-   [themes] removed theme piece download in favor of piece for buttons
 -   [examples] added some icons for view controllers
 -   [core] changed implementation of some scales, notably to support `invert`
 -   [core] removed type `LinearScaleProps`

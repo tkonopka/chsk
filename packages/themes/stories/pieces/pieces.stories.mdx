@@ -1,7 +1,7 @@
 import { Canvas, Meta, Source, Story } from '@storybook/addon-docs'
-import { defaultTheme, downloadTheme, tooltipItemLabelValueTheme } from '../../src'
+import { defaultTheme, buttonTheme, tooltipItemLabelValueTheme } from '../../src'
 import { ThemeController } from '../ThemeController'
-import { DownloadExample, TooltipItemLabelValueExample } from './examples'
+import { ButtonExample, TooltipItemLabelValueExample } from './examples'
 import { ThemeScatterChart } from '../complete/ThemeScatterChart'
 
 <Meta title="Addons/Themes/Theme pieces" />
@@ -12,18 +12,18 @@ Theme pieces, like partial themes, are objects that satisfy typescript type `The
 Unlike partial themes, theme pieces have more targeted effects and only modify the appearance of a small number of
 elements.
 
-## `downloadTheme`
+## `buttonTheme`
 
-`downloadTheme` holds definitions for `text`, `rect`, and `path` associated with css class `'download'`.
+`buttonTheme` holds definitions for `text`, `rect`, and `path` associated with css class 'button'.
 
-This theme piece is used in some of the examples in the gallery to style buttons that trigger downloads of chart svg files and dataset json files.
+This theme piece is used in many of the examples in the gallery to style buttons that trigger downloads.
 
 <Canvas>
-    <Story name="download">
+    <Story name="button">
         <ThemeController
-            chart={DownloadExample}
-            chartId={'pieceDownload'}
-            themes={{ downloadTheme, defaultTheme }}
+            chart={ButtonExample}
+            chartId={'button'}
+            themes={{ buttonTheme, defaultTheme }}
         />
     </Story>
 </Canvas>

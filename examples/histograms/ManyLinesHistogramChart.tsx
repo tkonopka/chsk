@@ -24,7 +24,7 @@ import {
 } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 
 const ids = alphabetGreek.slice(0, 4)
 export const generateManyLinesHistogramData = () => {
@@ -37,7 +37,7 @@ export const generateManyLinesHistogramData = () => {
     }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     line: {
         axis: {
             strokeWidth: 1,

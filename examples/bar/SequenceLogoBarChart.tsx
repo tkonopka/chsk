@@ -25,7 +25,7 @@ import {
     Bars,
     useBarPreparedData,
 } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { randomUniformValue, round4dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -153,7 +153,7 @@ const LogoTooltipItem = () => {
     )
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         axisLabel: {
             textAnchor: 'middle',

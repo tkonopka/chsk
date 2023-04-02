@@ -21,7 +21,7 @@ import {
     HeatMapHighlight,
     isHeatMapData,
 } from '@chsk/matrix'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
@@ -38,7 +38,7 @@ export const generateSizeBlockHeatMapData = () => {
     return resultA.concat(resultB).concat(resultC)
 }
 
-const customTheme = mergeTheme(downloadTheme, {
+const customTheme = mergeTheme(buttonTheme, {
     rect: {
         legendColorScale: {
             stroke: '#222222',

@@ -15,7 +15,7 @@ import {
     Distributions,
     DistributionTooltip,
 } from '@chsk/band'
-import { downloadTheme, tooltipItemLabelValueTheme } from '@chsk/themes'
+import { buttonTheme, tooltipItemLabelValueTheme } from '@chsk/themes'
 import { alphabetGreek, randomNormalValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -43,7 +43,7 @@ export const generateQuantileGroupsData = () => {
 }
 
 const customTheme: ThemeSpec = mergeThemes([
-    downloadTheme,
+    buttonTheme,
     tooltipItemLabelValueTheme,
     {
         line: {

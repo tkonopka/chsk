@@ -13,7 +13,7 @@ import {
     Typography,
 } from '@chsk/core'
 import { Bar, Bars, BandHighlight } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { HorizontalGoldenRectangle } from '@chsk/annotation'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
@@ -28,7 +28,7 @@ export const generateGroupedTooltipData = () =>
         interval: [15, 95],
     })
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         title: {
             fontSize: '16px',

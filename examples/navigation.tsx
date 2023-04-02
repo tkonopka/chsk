@@ -17,7 +17,7 @@ import { iconPaths } from './iconPaths'
 // - does not export transparent rectangles used for calculating tooltip coordinates
 // - does not export icons/buttons used to download data/images
 const customCleanSvgConfig = JSON.parse(JSON.stringify(defaultCleanSvgConfig))
-customCleanSvgConfig.skipRoles = ['dimensions-reference', 'downloads']
+customCleanSvgConfig.skipRoles = ['dimensions-reference', 'view-controller', 'downloads']
 
 // displays two text links - a data download and an image download
 export const DownloadButtons = ({
@@ -56,28 +56,6 @@ export const DownloadButtons = ({
         </g>
     )
 }
-/**
- <g transform={translateData} className={'download'}>
- <rect
- x={0}
- y={0}
- width={20}
- height={20}
- style={{ fillOpacity: 0, cursor: 'pointer' }}
- />
- <path d={pathDataset} className={'download'} />
- </g>
-<g transform={translateImage} className={'download'}>
-    <rect
-        x={0}
-        y={0}
-        width={20}
-        height={20}
-        style={{ fillOpacity: 0, cursor: 'pointer' }}
-    />
-    <path d={pathImage} className={'download'} />
-</g>
-*/
 
 export const IconButton = ({
     variant = 'default',

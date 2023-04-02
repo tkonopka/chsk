@@ -16,7 +16,7 @@ import { createConcentricSymbol } from '@chsk/annotation'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
-import { downloadTheme, faintTicksTheme } from '@chsk/themes'
+import { buttonTheme, faintTicksTheme } from '@chsk/themes'
 import { DownloadButtons } from '../navigation'
 
 export const generateClusterScatterData = () => {
@@ -49,7 +49,7 @@ export const generateClusterScatterData = () => {
 }
 
 const customTheme = mergeThemes([
-    downloadTheme,
+    buttonTheme,
     faintTicksTheme,
     {
         circle: {

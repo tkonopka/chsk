@@ -10,7 +10,7 @@ import {
 } from '@chsk/core'
 import { UpSet, UpSetGrid, UpSetMemberships, UpSetBar, isUpSetData } from '@chsk/matrix'
 import { Bars, BandSurface } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -30,7 +30,7 @@ export const generateHorizontalUpSetData = () => {
     return ids.map(id => ({ id, data: generateSet(50) }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     line: {
         upSetMembership: {
             strokeWidth: 4,

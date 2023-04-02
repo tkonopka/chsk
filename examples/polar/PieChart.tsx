@@ -20,7 +20,7 @@ import {
     PolarItem,
 } from '@chsk/polar'
 import { InsetColorFilter } from '@chsk/annotation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -34,7 +34,7 @@ export const generatePieData = () => {
     return ids.map((id, i) => ({ id, data: sizes[i] }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     circle: {
         bg: {
             fill: '#eeeeee',

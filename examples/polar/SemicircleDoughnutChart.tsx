@@ -1,10 +1,9 @@
-import { Chart, ThemeSpec, mergeTheme, Tooltip, TooltipDataItem } from '@chsk/core'
+import { Chart, ThemeSpec, mergeTheme, Tooltip, TooltipDataItem, Typography } from '@chsk/core'
 import { isPieData, Origin, Pie, Slices, SliceLabels } from '@chsk/polar'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { Typography } from '../../packages/core/src'
 
 const ids = alphabetGreek.slice(0, 4)
 
@@ -15,7 +14,7 @@ export const generateSemicircleDoughnutData = () => {
     return result
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         centerTitle: {
             textAnchor: 'middle',

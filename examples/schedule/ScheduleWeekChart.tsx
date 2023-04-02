@@ -13,7 +13,7 @@ import {
     TooltipData,
 } from '@chsk/core'
 import { isScheduleData, ScheduleDataItem, Schedule, Schedules } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -57,7 +57,7 @@ export const generateScheduleWeekData = () => {
     return result
 }
 
-const weekTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const weekTheme: ThemeSpec = mergeTheme(buttonTheme, {
     g: {
         'legendItem:hover': {
             cursor: 'pointer',

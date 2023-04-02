@@ -13,7 +13,7 @@ import {
     TooltipDataItem,
 } from '@chsk/core'
 import { isScheduleData, Schedule, Schedules } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
 import { randomUniformValue, round1dp } from '../utils'
@@ -53,7 +53,7 @@ const generateQuestionData = (id: string) => {
 }
 export const generateSurveyData = () => surveyIds.map(id => generateQuestionData(id))
 
-const surveyTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const surveyTheme: ThemeSpec = mergeTheme(buttonTheme, {
     g: {
         'legendItem:hover': {
             cursor: 'auto',

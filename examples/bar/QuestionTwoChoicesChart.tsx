@@ -9,7 +9,7 @@ import {
     CounterProps,
 } from '@chsk/core'
 import { Bar, Bars, BarsLabels } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -26,7 +26,7 @@ export const generateQuestionTwoChoicesData = () => {
     ]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     AxisTicks: {
         top: {
             tickSize: 0,

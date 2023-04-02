@@ -15,7 +15,7 @@ import {
     CounterProps,
 } from '@chsk/core'
 import { BandLabels, Bar, Bars } from '@chsk/band'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -39,7 +39,7 @@ const customLabels: Record<string, string> = {
     response4: 'Epsilon',
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
         'tickLabel.left': {
             fontSize: '14px',

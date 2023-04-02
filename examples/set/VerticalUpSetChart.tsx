@@ -13,7 +13,7 @@ import { Bars } from '@chsk/band'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 
 export const generateVerticalUpSetData = () => {
     const elements = generateIdentifiers(200, 10000, 'el')
@@ -29,7 +29,7 @@ export const generateVerticalUpSetData = () => {
     return ids.map(id => ({ id, data: generateSet(50) }))
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     line: {
         axis: {
             visibility: 'visible',

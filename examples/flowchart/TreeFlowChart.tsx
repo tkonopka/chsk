@@ -11,7 +11,7 @@ import {
     Y,
 } from '@chsk/core'
 import { BoxedLabel, FlowPath, ArrowMarker } from '@chsk/annotation'
-import { downloadTheme } from '@chsk/themes'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 import { randomUniformValue } from '../utils'
@@ -30,7 +30,7 @@ export const generateTreeFlowData = () => {
     return [nTotal, nLoss, nA, nB, nA1, nA2, nB1, nB2]
 }
 
-const customTheme: ThemeSpec = mergeTheme(downloadTheme, {
+const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     rect: {
         boxedLabel: {
             stroke: '#423e37',
