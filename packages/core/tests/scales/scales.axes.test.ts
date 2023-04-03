@@ -348,19 +348,20 @@ describe('createContinuousScale', () => {
         expect(result.step ? result.step() : null).toEqual(0)
     })
 
+    const startDate: Date = new Date(Date.now() - 60 * 1000)
+    const endDate: Date = new Date(Date.now())
+
     it('creates time scale', () => {
-        const start: Date = new Date(Date.now() - 60 * 1000)
-        const end: Date = new Date(Date.now())
         const result = createContinuousScale({
             variant: 'time',
             reverseRange: false,
-            domain: [start, end],
+            domain: [startDate, endDate],
             size: 100,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
-        expect(result(Number(start))).toEqual(0)
-        expect(result(Number(end))).toEqual(100)
+        expect(result(Number(startDate))).toEqual(0)
+        expect(result(Number(endDate))).toEqual(100)
         expect(result.step()).toEqual(0)
         expect(result.bandwidth()).toEqual(0)
         expect(result.domain()).toHaveLength(2)
@@ -369,34 +370,44 @@ describe('createContinuousScale', () => {
         expect(result(Number(future))).toBeGreaterThan(100)
     })
 
+    it('time scale support invert function', () => {
+        const result = createContinuousScale({
+            variant: 'time',
+            reverseRange: false,
+            domain: [startDate, endDate],
+            size: 100,
+        })
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        if (!isTimeAxisScale(result)) return
+        // invert converts coordinates to time-numbers
+        expect(result.invert(100)).toBeGreaterThan(Number(endDate) - 10)
+        expect(result.invert(0)).toBeLessThan(Number(startDate) + 10)
+    })
+
     it('creates time scale with boolean nice', () => {
-        const start: Date = new Date(Date.now() - 60 * 1000)
-        const end: Date = new Date(Date.now())
         const result = createContinuousScale({
             variant: 'time',
             reverseRange: true,
-            domain: [start, end],
+            domain: [startDate, endDate],
             size: 100,
             nice: true,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
-        expect(result(Number(start))).toBeGreaterThan(0)
+        expect(result(Number(startDate))).toBeGreaterThan(0)
     })
 
     it('creates time scale with numeric nice', () => {
-        const start: Date = new Date(Date.now() - 60 * 1000)
-        const end: Date = new Date(Date.now())
         const result = createContinuousScale({
             variant: 'time',
             reverseRange: true,
-            domain: [start, end],
+            domain: [startDate, endDate],
             size: 100,
             nice: 1,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
-        expect(result(Number(start))).toBeGreaterThan(0)
+        expect(result(Number(startDate))).toBeGreaterThan(0)
     })
 
     it('creates numeric scale giving priority to viewDomain props', () => {
@@ -414,19 +425,17 @@ describe('createContinuousScale', () => {
     })
 
     it('creates time scale giving priority to viewDomain props', () => {
-        const start: Date = new Date(Date.now() - 60 * 1000)
-        const end: Date = new Date(Date.now())
-        const future: Date = new Date(Date.now() + 60 * 1000)
+        const futureDate: Date = new Date(Date.now() + 60 * 1000)
         const result = createContinuousScale({
             variant: 'time',
-            domain: [start, end],
-            viewDomain: [Number(start), Number(future)],
+            domain: [startDate, endDate],
+            viewDomain: [Number(startDate), Number(futureDate)],
             size: 100,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
         if (!isTimeAxisScale(result)) return
-        expect(result(Number(start))).toEqual(0)
-        expect(result(Number(end))).toEqual(50)
-        expect(result(Number(future))).toEqual(100)
+        expect(Math.round(result(Number(startDate)))).toEqual(0)
+        expect(Math.round(result(Number(endDate)))).toEqual(50)
+        expect(Math.round(result(Number(futureDate)))).toEqual(100)
     })
 })

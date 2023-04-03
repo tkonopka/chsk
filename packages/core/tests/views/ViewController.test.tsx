@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { Chart, View, ViewController, ContinuousAxisScale, Scales, useScales } from '../../src'
+import { Scales, ContinuousAxisScale, useScales, BandAxisScale } from '../../src/scales'
+import { roundDecimalPlaces } from '../../src/general'
+import { Chart, View, ViewController } from '../../src'
 import { chartProps } from '../props'
 
 describe('ViewController', () => {
@@ -499,5 +501,130 @@ describe('ViewController', () => {
         fireEvent.mouseUp(detectorRect)
         fireEvent.mouseLeave(detectorRect)
         checkUnitScales(scales, [0, 100], [100, 0])
+    })
+
+    /** time scales */
+
+    const now = Date.now()
+    const fiveDays = 1000 * 3600 * 24 * 5
+    const timeScales = {
+        scaleX: {
+            variant: 'time' as const,
+            domain: [new Date(now - fiveDays), new Date(now)] as [Date, Date],
+            nice: false,
+        },
+        scaleY: {
+            variant: 'linear' as const,
+            domain: [0, 100] as [number, number],
+            nice: false,
+        },
+    }
+
+    it('pan with time scales', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...timeScales}>
+                    <ViewController key={0} variant={'xy'} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 50 })
+        fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 50 })
+        fireEvent.mouseUp(detectorRect)
+        await waitFor(() => {
+            const xScale = scales.x as ContinuousAxisScale
+            expect(roundDecimalPlaces(xScale(Number(now)), 1)).toEqual(150)
+        })
+    })
+
+    /** band scales */
+
+    const bandScales = {
+        scaleX: {
+            variant: 'band' as const,
+            domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'] as string[],
+            nice: false,
+        },
+        scaleY: {
+            variant: 'band' as const,
+            domain: ['a', 'b', 'c', 'd'] as string[],
+            nice: false,
+        },
+    }
+
+    it('pan with band scales', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...bandScales}>
+                    <ViewController key={0} value={'pan'} values={['pan']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        // initially, x and y axes should yield [8, 4] tick marks
+        await waitFor(() => {
+            const xScale = scales.x as BandAxisScale
+            const yScale = scales.y as BandAxisScale
+            expect(xScale.ticks()).toHaveLength(8)
+            expect(yScale.ticks()).toHaveLength(4)
+        })
+        const detector = screen.getByRole('controller-pan')
+        const detectorRect = detector.querySelector('rect') ?? detector
+        fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
+        fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
+        fireEvent.mouseUp(detectorRect)
+        // half the ticks should move out of view
+        await waitFor(() => {
+            const xScale = scales.x as BandAxisScale
+            const yScale = scales.y as BandAxisScale
+            expect(xScale.ticks()).toHaveLength(4)
+            expect(yScale.ticks()).toHaveLength(2)
+        })
+    })
+
+    it('zoom with band scales', async () => {
+        let scales = {} as Scales
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        render(
+            <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                <View {...bandScales}>
+                    <ViewController key={0} value={'none'} values={['none', 'zoom-in']} />
+                    <GetScales key={1} />
+                </View>
+            </Chart>
+        )
+        // set up scales and fetch initial bandwidth and step
+        await waitFor(() => {
+            expect((scales.x as BandAxisScale).ticks()).toHaveLength(8)
+        })
+        const bandwidth = (scales.x as BandAxisScale).bandwidth()
+        const step = (scales.x as BandAxisScale).step()
+        // click to zoom-in by 2x
+        fireEvent.click(screen.getAllByRole('button')[1])
+        await waitFor(() => {
+            const xScale = scales.x as BandAxisScale
+            expect(xScale.ticks().length).toEqual(4)
+        })
+        // new bandwidth and step should be 2x the original
+        expect(Math.round((scales.x as BandAxisScale).bandwidth())).toEqual(
+            Math.round(2 * bandwidth)
+        )
+        expect(Math.round((scales.x as BandAxisScale).step())).toEqual(Math.round(2 * step))
     })
 })

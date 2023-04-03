@@ -33,11 +33,11 @@ export const PanController = ({
         const yShift = y - anchor.y
         if (variant.includes('x') && Math.abs(xShift) > 0) {
             newProps.x = shiftDomain(newProps.x, scales.x, xShift)
-            newProps.x.nice = false
+            newProps.x.nice = 0
         }
         if (variant.includes('y') && Math.abs(yShift) > 0) {
             newProps.y = shiftDomain(newProps.y, scales.y, yShift)
-            newProps.y.nice = false
+            newProps.y.nice = 0
         }
         if (Math.abs(xShift) + Math.abs(yShift) > 0) {
             setScaleProps(newProps)

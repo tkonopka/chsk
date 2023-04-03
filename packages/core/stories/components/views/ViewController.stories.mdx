@@ -1,6 +1,10 @@
 import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { ViewController } from '../../../src'
-import { ChartForControllerDecorator } from './decorators'
+import {
+    ChartForControllerDecorator,
+    ChartWithBandsForControllerDecorator,
+    ChartWithTimeForControllerDecorator,
+} from './decorators'
 
 # ViewController
 
@@ -113,6 +117,39 @@ Prop `horizontal` toggles the orientation of the toolbar.
         }}
         component={ViewController}
         decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Scales
+
+Zoom and pan operations should work on all scale types, including logarithmic scales, time scales, and band scales.
+
+<Canvas>
+    <Story
+        name="band scales"
+        args={{
+            itemSize: [65, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartWithBandsForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="time and log scales"
+        args={{
+            itemSize: [65, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+        }}
+        component={ViewController}
+        decorators={[ChartWithTimeForControllerDecorator]}
     >
         {Template.bind({})}
     </Story>

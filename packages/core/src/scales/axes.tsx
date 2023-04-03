@@ -56,6 +56,7 @@ export const createBandScale = ({
     })
     const range: [number, number] = [0, size]
     const fullDomain: [number, number] = [0, position + outerPadding * step - step + bandwidth]
+    const zoom = viewDomain ? fullDomain[1] / (viewDomain[1] - viewDomain[0]) : 1
 
     // build output object
     const scale = scaleLinear()
@@ -64,15 +65,26 @@ export const createBandScale = ({
         .nice(0)
     // default function returns centers of the band
     const result = (x: string) => scale((positions[x] ?? 0) + bandwidth / 2)
-    // properties that mimic d3 functionality
+    // properties that mimic d3 functionality, plus additional functions
     result.domain = () => domain
     result.viewDomain = () => viewDomain ?? fullDomain
     result.range = () => range
-    result.invert = (x: number) => x // TO DO
-    result.bandwidth = () => bandwidth
-    result.step = () => step
-    result.ticks = () => domain
-    // additional properties
+    result.invert = (x: number) => {
+        const viewDomain = result.viewDomain()
+        const domainSize = viewDomain[1] - viewDomain[0]
+        const m = size / domainSize
+        const c = -m * viewDomain[0]
+        return (x - c) / m
+    }
+    result.bandwidth = () => bandwidth * zoom
+    result.step = () => step * zoom
+    result.ticks = () => {
+        if (!viewDomain) return domain
+        return domain.filter(x => {
+            const coordinate = positions[x] + bandwidth / 2
+            return coordinate >= viewDomain[0] && coordinate <= viewDomain[1]
+        })
+    }
     result.variant = 'band' as const
 
     return result
@@ -91,6 +103,7 @@ export const createTimeScale = ({
     reverseRange?: boolean
 }): TimeAxisScale => {
     const range: [number, number] = reverseRange ? [size, 0] : [0, size]
+
     // use d3 to construct a base scale
     const scale = scaleTime()
     const view: [Date, Date] = viewDomain
@@ -100,16 +113,24 @@ export const createTimeScale = ({
     if (nice === true) scale.nice()
     if (typeof nice === 'number') scale.nice(nice)
 
-    // construct output object to mimic d3 functionality
+    // construct output object to mimic d3 functionality, plus additional functions
     const result = (x: number) => scale(new Date(x))
     result.domain = () => domain.map(Number)
     result.viewDomain = () => viewDomain ?? (domain.map(Number) as [number, number])
     result.range = () => range
-    result.invert = (x: number) => x // TO DO
+    result.invert = (x: number) => {
+        const viewDomain = result.viewDomain()
+        const rangeSize = range[1] - range[0]
+        const domainSize = viewDomain[1] - viewDomain[0]
+        const m = rangeSize / domainSize
+        const c = range[0] - m * viewDomain[0]
+        return (x - c) / m
+    }
     result.bandwidth = () => 0
     result.step = () => 0
     result.ticks = (count?: number) => scale.ticks(count).map(Number)
     result.variant = 'time' as const
+
     return result
 }
 

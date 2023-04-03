@@ -20,7 +20,7 @@ export const getTicks = (scale: Scale, ticks?: number[] | string[] | number | Da
     if (isCategoricalColorScale(scale)) {
         return scale.domain().map((v, i) => i) as Array<number>
     }
-    return scale.domain()
+    return scale.ticks(ticks)
 }
 
 /** get an array of ticks in the scale range */
