@@ -49,29 +49,31 @@ const UnthemedAxisTooltip = ({
         () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, false),
         [size, padding, itemSize, n, firstOffset, hasTitle]
     )
-    const { x, y } = useContainer({
+    const { origin } = useContainer({
         position: offset,
         positionUnits: 'absolute',
         size: tooltipSize,
         sizeUnits: 'absolute',
         anchor,
     })
-
-    const tooltipPosition: NumericPositionSpec = [x + (tooltip.x ?? 0), y + (tooltip.y ?? 0)]
+    const tooltipPosition: NumericPositionSpec = [
+        origin[X] + (tooltip.x ?? 0),
+        origin[Y] + (tooltip.y ?? 0),
+    ]
     if (variant === 'top') {
-        tooltipPosition[Y] = y
+        tooltipPosition[Y] = origin[Y]
     } else if (variant === 'right') {
-        tooltipPosition[X] = x + container.size[X]
+        tooltipPosition[X] = origin[X] + container.size[X]
     } else if (variant === 'bottom') {
-        tooltipPosition[Y] = y + container.size[Y]
+        tooltipPosition[Y] = origin[Y] + container.size[Y]
     } else if (variant === 'left') {
-        tooltipPosition[X] = x
+        tooltipPosition[X] = origin[X]
     }
 
     return (
         <BaseTooltip
             variant={variant}
-            position={[tooltipPosition[X], tooltipPosition[Y]]}
+            position={tooltipPosition}
             size={tooltipSize}
             padding={padding}
             data={data}

@@ -3,10 +3,6 @@ import {
     ContainerProps,
     getAnchoredOrigin,
     useDimensions,
-    X,
-    Y,
-    LEFT,
-    TOP,
     getInnerSize,
     getDimensionsProps,
     addPositions,
@@ -32,7 +28,5 @@ export const useContainer = ({
         const origin = addPositions(getAnchoredOrigin(pos, dimsProps.size, anchor), offset)
         return { dimsProps, origin, innerSize }
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales, offset])
-    const x = origin[X] + padding[LEFT]
-    const y = origin[Y] + padding[TOP]
-    return { dimensions, dimsProps, origin, x, y, innerSize }
+    return { dimensions, dimsProps, origin, innerSize }
 }

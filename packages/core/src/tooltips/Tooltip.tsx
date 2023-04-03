@@ -50,7 +50,7 @@ const UnthemedTooltip = ({
         () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, false),
         [size, padding, itemSize, n, firstOffset, hasTitle]
     )
-    const { x, y, dimensions } = useContainer({
+    const { origin, dimensions } = useContainer({
         position: offset,
         positionUnits: 'absolute',
         size: tooltipSize,
@@ -60,7 +60,7 @@ const UnthemedTooltip = ({
     // in cases when the tooltip would exit the parent container, adjust position and anchor
     const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
     const flip = exitsParent(
-        addPositions([x, y], tooltipPosition),
+        addPositions(origin, tooltipPosition),
         tooltipSize,
         dimensions.size,
         maxOverhang
