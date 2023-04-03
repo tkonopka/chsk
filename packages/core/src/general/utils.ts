@@ -61,3 +61,6 @@ export const addPositions = (
 
 /** construct a url string for css, e.g. clipPath */
 export const url = (id: string | undefined) => (id ? 'url(#' + id + ')' : undefined)
+
+/** ensure a number x is >= 0, useful to avoid negative widths and heights */
+export const relu = (x: number) => Math.max(0, x)

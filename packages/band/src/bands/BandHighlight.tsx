@@ -24,6 +24,7 @@ import {
     getClassName,
     useDisabledKeys,
     getMinMax,
+    relu,
 } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
@@ -56,13 +57,13 @@ const BandHighlightMask = (
         <>
             <m.rect
                 key={'mask-top'}
-                animate={{ width: zone[X][1], height: zone[Y][0] }}
+                animate={{ width: relu(zone[X][1]), height: relu(zone[Y][0]) }}
                 {...commonProps}
             />
             <m.rect
                 key={'mask-bottom'}
                 transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                animate={{ width: zone[X][1], height: height - zone[Y][1] }}
+                animate={{ width: relu(zone[X][1]), height: relu(height - zone[Y][1]) }}
                 {...commonProps}
             />
         </>

@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, rad2deg, getMoments, deg2rad, getTranslate } from '../../src/general'
+import { roundDecimalPlaces, rad2deg, getMoments, deg2rad, relu } from '../../src/general/utils'
 import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {
@@ -80,17 +80,9 @@ describe('getMoments', () => {
     })
 })
 
-describe('getTranslate', () => {
-    it('creates transform string from x and y', () => {
-        expect(getTranslate(10, 20)).toEqual('translate(10,20)')
-    })
-
-    it('creates transform string from position array', () => {
-        expect(getTranslate([10, 20])).toEqual('translate(10,20)')
-    })
-
-    it('skips zero coordinates', () => {
-        expect(getTranslate(0, 0)).toBeUndefined()
-        expect(getTranslate([0, 0])).toBeUndefined()
+describe('relu', () => {
+    it('relu transformation', () => {
+        expect(relu(-1)).toEqual(0)
+        expect(relu(1)).toEqual(1)
     })
 })

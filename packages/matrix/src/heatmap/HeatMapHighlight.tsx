@@ -22,6 +22,7 @@ import {
     getAlignPosition,
     getZoneSize,
     getClassName,
+    relu,
 } from '@chsk/core'
 import { HeatMapHighlightProps } from './types'
 import { isHeatMapSetting } from './predicates'
@@ -55,25 +56,25 @@ const HeatMapHighlightMask = (
         <>
             <m.rect
                 key={'top-left'}
-                animate={{ width: zone[X][0], height: zone[Y][0] }}
+                animate={{ width: relu(zone[X][0]), height: relu(zone[Y][0]) }}
                 {...commonProps}
             />
             <m.rect
                 key={'top-right'}
                 transform={'translate(' + width + ',0)rotate(90)'}
-                animate={{ height: width - zone[X][1], width: zone[Y][0] }}
+                animate={{ height: relu(width - zone[X][1]), width: relu(zone[Y][0]) }}
                 {...commonProps}
             />
             <m.rect
                 key={'bottom-left'}
                 transform={'translate(0,' + height + ')rotate(-90)'}
-                animate={{ width: height - zone[Y][1], height: zone[X][0] }}
+                animate={{ width: relu(height - zone[Y][1]), height: relu(zone[X][0]) }}
                 {...commonProps}
             />
             <m.rect
                 key={'bottom-right'}
                 transform={'translate(' + width + ',' + height + ')rotate(180)'}
-                animate={{ width: width - zone[X][1], height: height - zone[Y][1] }}
+                animate={{ width: relu(width - zone[X][1]), height: relu(height - zone[Y][1]) }}
                 {...commonProps}
             />
         </>
