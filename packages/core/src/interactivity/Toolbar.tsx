@@ -58,7 +58,7 @@ export const Toolbar = <Value,>({
     return (
         <g
             role={setRole ? 'toolbar' : undefined}
-            transform={getTranslate(position[X], position[Y])}
+            transform={getTranslate(position)}
             className={getClassName('toolbar', className)}
             style={style}
         >

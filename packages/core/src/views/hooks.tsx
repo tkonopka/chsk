@@ -9,6 +9,7 @@ import {
     TOP,
     getInnerSize,
     getDimensionsProps,
+    addPositions,
 } from '../general'
 import { getAbsolutePosition, useScales } from '../scales'
 import { defaultContainerProps } from './defaults'
@@ -28,10 +29,10 @@ export const useContainer = ({
         const dimsProps = getDimensionsProps(size, sizeUnits, dimensions.size, padding)
         const innerSize = getInnerSize(dimsProps.size, padding)
         const pos = getAbsolutePosition(position, positionUnits, dimensions.size, scales)
-        const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
+        const origin = addPositions(getAnchoredOrigin(pos, dimsProps.size, anchor), offset)
         return { dimsProps, origin, innerSize }
-    }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
-    const x = origin[X] + padding[LEFT] + offset[X]
-    const y = origin[Y] + padding[TOP] + offset[Y]
+    }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales, offset])
+    const x = origin[X] + padding[LEFT]
+    const y = origin[Y] + padding[TOP]
     return { dimensions, dimsProps, origin, x, y, innerSize }
 }

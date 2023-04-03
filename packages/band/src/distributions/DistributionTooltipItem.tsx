@@ -149,7 +149,7 @@ export const DistributionTooltipItem = ({
         <g
             key={'tooltip-item-' + item}
             role={setRole ? 'tooltip-item' : undefined}
-            transform={getTranslate(position[X], position[Y])}
+            transform={getTranslate(position)}
             style={style}
             className={'tooltipItem'}
         >

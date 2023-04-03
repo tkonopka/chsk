@@ -33,7 +33,9 @@ export const ViewController = ({
 
     // toolbar
     const n = values.length
-    const size: SizeSpec = horizontal ? [itemSize[X] * n, itemSize[Y]] : [itemSize[X], itemSize[Y]]
+    const size: SizeSpec = horizontal
+        ? [itemSize[X] * n, itemSize[Y]]
+        : [itemSize[X], itemSize[Y] * n]
     const { origin: position } = useContainer({
         ...defaultControllerContainerProps,
         ...container,

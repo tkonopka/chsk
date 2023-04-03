@@ -12,12 +12,14 @@ import {
     Tooltip,
     TooltipItem,
     useTooltip,
+    ViewClip,
+    ViewController,
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { buttonTheme } from '@chsk/themes'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
-import { DownloadButtons } from '../navigation'
+import { DownloadButtons, IconButton } from '../navigation'
 import { cloneDeep } from 'lodash'
 
 export const generateValueColorsBarData = () => {
@@ -168,7 +170,9 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <Bars component={CustomRectangle} modifiers={customModifiers} />
+                <ViewClip id={'bar-clip'}>
+                    <Bars component={CustomRectangle} modifiers={customModifiers} />
+                </ViewClip>
                 <GridLines
                     variant={'y'}
                     values={[0]}
@@ -178,6 +182,15 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                 <Tooltip offset={[16, 0]} anchor={[0, 0.5]} itemSize={[130, 24]}>
                     <CustomTooltipItem key={'tooltip-item'} />
                 </Tooltip>
+                <ViewController
+                    variant={'x'}
+                    container={{
+                        position: [1, 0.5],
+                        anchor: [0, 0.5],
+                        offset: [42, 0],
+                    }}
+                    component={IconButton}
+                />
                 <DownloadButtons position={[450, -50]} data image />
             </Bar>
         </Chart>

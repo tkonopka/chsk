@@ -76,7 +76,7 @@ const UnthemedLegend = ({
         () => size ?? getSizeEstimate(padding, itemSize, n, firstOffset, hasTitle, horizontal),
         [size, padding, itemSize, n, firstOffset, hasTitle, horizontal]
     )
-    const { x, y, dimsProps } = useContainer({
+    const { origin, dimsProps } = useContainer({
         position,
         positionUnits,
         size: tooltipSize,
@@ -135,7 +135,7 @@ const UnthemedLegend = ({
     return (
         <g
             role={setRole ? 'legend' : undefined}
-            transform={getTranslate(x, y)}
+            transform={getTranslate(origin)}
             className={className}
         >
             <DimensionsProvider {...dimsProps} role={setRole ? 'legend-content' : undefined}>

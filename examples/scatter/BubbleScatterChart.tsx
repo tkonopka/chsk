@@ -12,6 +12,7 @@ import {
     TooltipData,
     TooltipDataItem,
     ViewController,
+    ViewClip,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
 import { buttonTheme } from '@chsk/themes'
@@ -126,11 +127,13 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <Axis variant={'left'} label={'y values (a.u.)'} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'data'}>
-                    <ScatterPoints symbolClassName="custom" />
-                    <ScatterCrosshair
-                        symbolStyle={{ stroke: '#ssssss', strokeWidth: 1, fillOpacity: 1 }}
-                        style={{ stroke: '#000000' }}
-                    />
+                    <ViewClip id={'points'}>
+                        <ScatterPoints symbolClassName="custom" />
+                        <ScatterCrosshair
+                            symbolStyle={{ stroke: '#ssssss', strokeWidth: 1, fillOpacity: 1 }}
+                            style={{ stroke: '#000000' }}
+                        />
+                    </ViewClip>
                     <Tooltip
                         offset={[16, -16]}
                         anchor={[0, 1]}
@@ -142,7 +145,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'legend'}>
                     <Legend
-                        position={[635, 480]}
+                        position={[635, 470]}
                         positionUnits={'absolute'}
                         size={[110, 60]}
                         sizeUnits={'absolute'}
@@ -156,7 +159,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         firstOffset={[0, 4]}
                     />
                     <Legend
-                        position={[635, 350]}
+                        position={[635, 340]}
                         positionUnits={'absolute'}
                         size={[110, 100]}
                         sizeUnits={'absolute'}
@@ -176,8 +179,8 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 <Typography position={[-45, -30]} variant={'title'}>
                     Large scatter plot
                 </Typography>
-                <ViewController container={{ offset: [10, 0] }} component={IconButton} />
-                <DownloadButtons position={[630, -30]} data image />
+                <ViewController container={{ offset: [8, 0] }} component={IconButton} />
+                <DownloadButtons position={[640, 520]} data image />
             </Scatter>
         </Chart>
     )

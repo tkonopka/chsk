@@ -12,6 +12,8 @@ import {
     SimpleDataComponent,
     Tooltip,
     TooltipProvider,
+    ViewClip,
+    ViewController,
 } from '@chsk/core'
 import {
     Scatter,
@@ -22,7 +24,7 @@ import {
 } from '@chsk/xy'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
-import { DownloadButtons } from '../navigation'
+import { DownloadButtons, IconButton } from '../navigation'
 import { buttonTheme } from '@chsk/themes'
 
 const round3 = (x: unknown | number): number => Math.round(Number(x) * 1000) / 1000
@@ -168,7 +170,6 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                 <Typography position={[-45, -20]} variant={'subtitle'}>
                     This chart has {nPoints} data points
                 </Typography>
-                <DownloadButtons position={[610, -30]} data image />
                 <MilestoneMotion initialOn={'axes'}>
                     <GridLines variant={'y'} />
                     <GridLines variant={'x'} values={chromBoundaries} />
@@ -184,7 +185,9 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     <Axis variant={'left'} label={'- log10 (p-value)'} />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'data'}>
-                    <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
+                    <ViewClip id={'manhattan-pointer'} expansion={[4, 4, 4, 4]}>
+                        <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
+                    </ViewClip>
                     <TooltipProvider>
                         <ScatterCrosshair minDistance={30} tooltipFormat={customTooltipFormat} />
                         <Tooltip
@@ -196,6 +199,12 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                         />
                     </TooltipProvider>
                 </MilestoneMotion>
+                <ViewController
+                    variant={'x'}
+                    container={{ offset: [10, 0] }}
+                    component={IconButton}
+                />
+                <DownloadButtons position={[610, -30]} data image />
             </Scatter>
         </Chart>
     )

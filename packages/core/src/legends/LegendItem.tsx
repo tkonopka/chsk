@@ -55,7 +55,7 @@ const UnthemedLegendItem = ({
     return (
         <g
             role={setRole ? 'legend-item' : undefined}
-            transform={getTranslate(position[X], position[Y])}
+            transform={getTranslate(position)}
             style={gStyle}
             className={'legendItem'}
             onClick={handleClick}

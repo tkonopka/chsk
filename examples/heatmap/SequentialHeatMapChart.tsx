@@ -8,17 +8,22 @@ import {
     LegendColorScale,
     Surface,
     Tooltip,
+    ViewClip,
+    ViewController,
+    mergeTheme,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { buttonTheme } from '@chsk/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
+import { IconButton } from '../navigation'
 
 const ids = alphabetGreek
 const keys = alphabetGreek
 export const generateSequentialHeatMapData = () => generateHeatMapMatrixUniform(ids, keys)
 
-const customTheme = {
+const customTheme = mergeTheme(buttonTheme, {
     rect: {
         legendColorScale: {
             stroke: '#222222',
@@ -38,7 +43,7 @@ const customTheme = {
             labelAngle: -45,
         },
     },
-}
+})
 
 export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
@@ -59,7 +64,9 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     domain: [0, 100],
                 }}
             >
-                <HeatMapCells />
+                <ViewClip id={'seq-clip'}>
+                    <HeatMapCells />
+                </ViewClip>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Samples'} />
                 <Axis variant={'top'}>
@@ -98,6 +105,16 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     />
                 </Legend>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
+                <ViewController
+                    container={{
+                        position: [1, 1],
+                        positionUnits: 'relative',
+                        anchor: [1, 0],
+                        offset: [0, 6],
+                    }}
+                    horizontal={true}
+                    component={IconButton}
+                />
                 <Tooltip
                     offset={[16, -16]}
                     padding={[0, 0, 6, 0]}

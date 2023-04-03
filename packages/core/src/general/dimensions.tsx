@@ -1,4 +1,10 @@
-import { DimensionsProviderProps, FourSideSizeSpec, SizeSpec, SizeUnits } from './types'
+import {
+    DimensionsProviderProps,
+    FourSideSizeSpec,
+    NumericPositionSpec,
+    SizeSpec,
+    SizeUnits,
+} from './types'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
@@ -22,6 +28,9 @@ export const getDimensionsProps = (
     return { size: absoluteSize, padding }
 }
 
-export const getTranslate = (x: number, y: number) => {
+export const getTranslate = (x: number | NumericPositionSpec, y = 0): undefined | string => {
+    if (Array.isArray(x)) {
+        return getTranslate(x[0], x[1])
+    }
     return x === 0 && y === 0 ? undefined : 'translate(' + x + ',' + y + ')'
 }

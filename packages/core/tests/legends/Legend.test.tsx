@@ -21,6 +21,27 @@ export const scaleSequential: ColorScaleProps = {
 }
 
 describe('Legend (list)', () => {
+    it('creates a legend in top-right corner', () => {
+        render(
+            <Chart size={[400, 400]} padding={[50, 50, 50, 50]}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend
+                        size={[100, 100]}
+                        sizeUnits={'absolute'}
+                        position={[1, 0]}
+                        positionUnits={'relative'}
+                        anchor={[1, 0]}
+                        offset={[-10, 20]} // slightly displaced from the corner
+                    />
+                </View>
+            </Chart>
+        )
+        // the view dimensions will be 300x300
+        // legend box should be located 110 from the left edge:  300-110 = 190
+        // legend box should be 20 down from top edge
+        expect(screen.getByRole('legend').getAttribute('transform')).toEqual('translate(190,20)')
+    })
+
     it('creates a legend with categorical colors', () => {
         render(
             <Chart {...chartProps}>
@@ -31,10 +52,8 @@ describe('Legend (list)', () => {
         )
         const legend = screen.getByRole('legend')
         expect(legend).toBeDefined()
-        const items = screen.getAllByRole('legend-item')
-        expect(items).toHaveLength(3)
-        const labels = legend.querySelectorAll('text')
-        expect(labels).toHaveLength(3)
+        expect(screen.getAllByRole('legend-item')).toHaveLength(3)
+        expect(legend.querySelectorAll('text')).toHaveLength(3)
     })
 
     it('creates legend items with role and class', () => {
