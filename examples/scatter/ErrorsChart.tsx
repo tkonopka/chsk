@@ -189,7 +189,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     </Legend>
                 </MilestoneMotion>
                 <Tooltip
-                    translate={[16, -16]}
+                    offset={[16, -16]}
                     anchor={[0, 1]}
                     size={[130, 30]}
                     title={''}

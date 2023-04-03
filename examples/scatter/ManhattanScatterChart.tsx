@@ -188,7 +188,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     <TooltipProvider>
                         <ScatterCrosshair minDistance={30} tooltipFormat={customTooltipFormat} />
                         <Tooltip
-                            translate={[0, -10]}
+                            offset={[0, -10]}
                             anchor={[0.5, 1]}
                             itemSize={[170, 30]}
                             itemPadding={[6, 6, 6, 6]}

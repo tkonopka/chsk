@@ -156,7 +156,7 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                 <DownloadButtons position={[620, 270]} data image />
                 <DistributionTooltip
                     anchor={[0, 0.5]}
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     maxOverhang={[40, 40, 40, 40]}
                     padding={[8, 8, 8, 8]}
                     itemSize={[160, 26]}

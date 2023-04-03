@@ -17,11 +17,11 @@ import {
 
 export const BoxedLabel = ({
     variant = 'boxed-label',
-    position,
+    position = [0, 0],
     positionUnits = 'absolute',
     size = [100, 32],
     sizeUnits = 'absolute',
-    translate = [0, 0],
+    offset = [0, 0],
     anchor = [0.5, 0.5],
     angle = 0,
     angleUnit = 'degree',
@@ -43,8 +43,8 @@ export const BoxedLabel = ({
     const absSize = getAbsoluteSize(size, sizeUnits, dimensions.size)
     let [x, y] = getAnchoredOrigin(absPos, absSize, anchor)
     // adjust to get the box center
-    x += size[0] / 2 + translate[0]
-    y += size[1] / 2 + translate[1]
+    x += size[0] / 2 + offset[0]
+    y += size[1] / 2 + offset[1]
 
     // adjust (enlarge/shrink) the effective size
     absSize[0] += expansion[LEFT] + expansion[RIGHT]

@@ -13,7 +13,7 @@ export const BraceLabel = ({
     braceR = 8,
     lineStyle,
     // position of text
-    translate = [0, -12],
+    offset = [0, -12],
     align = 0.5,
     angle = 0,
     textStyle,
@@ -54,8 +54,8 @@ export const BraceLabel = ({
         r: braceR,
     })
     const textPos: [number, number] = [
-        lineStart[0] + translate[0] + (lineEnd[0] - lineStart[0]) * align,
-        lineStart[1] + translate[1] + (lineEnd[1] - lineStart[1]) * align,
+        lineStart[0] + offset[0] + (lineEnd[0] - lineStart[0]) * align,
+        lineStart[1] + offset[1] + (lineEnd[1] - lineStart[1]) * align,
     ]
     const compositeClassName = getClassName('brace-label', className)
 

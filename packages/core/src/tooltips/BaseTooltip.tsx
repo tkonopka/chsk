@@ -99,7 +99,7 @@ export const BaseTooltip = ({
                 position={titlePosition}
                 size={itemSize}
                 padding={itemPadding}
-                translate={[0, r]}
+                offset={[0, r]}
                 style={titleStyle}
             >
                 {title}

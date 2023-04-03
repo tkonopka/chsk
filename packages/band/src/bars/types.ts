@@ -8,7 +8,6 @@ import {
     ProcessedDataContextProps,
     RectangleProps,
     SizeSpec,
-    TranslateSpec,
     WithId,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
@@ -61,9 +60,7 @@ export interface BarsProps
     component?: FC<RectangleProps>
 }
 
-export interface BarsLabelsProps extends BandsProps, LocationProps {
-    /** additional translation (in absolute units) */
-    translate?: TranslateSpec
+export interface BarsLabelsProps extends BandsProps, Omit<LocationProps, 'position'> {
     /** format for text */
     format?: (v: string | number) => string
     /** minimum size for displaying a label */

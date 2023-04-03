@@ -121,7 +121,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                 <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
                 <DistributionTooltip
                     anchor={[0, 0.5]}
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     maxOverhang={[40, 40, 40, 40]}
                     padding={[8, 8, 8, 8]}
                     itemSize={[160, 26]}

@@ -1,7 +1,7 @@
 import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from './types'
 
 export const defaultTooltipProps: TooltipThemedProps = {
-    translate: [0, -16],
+    offset: [0, -16],
     padding: [4, 0, 4, 0],
     anchor: [0.5, 1],
     rx: 2,
@@ -26,7 +26,7 @@ export const defaultTooltipItemListProps: TooltipItemListThemedProps = {
 export const defaultTooltipItemProps: TooltipItemThemedProps = {
     size: [100, 24],
     padding: [4, 8, 4, 8],
-    translate: [0, 0],
+    offset: [0, 0],
     r: 8,
     labelOffset: 4,
 }

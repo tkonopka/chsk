@@ -11,7 +11,6 @@ import {
     SizeSpec,
     SizeUnit,
     SvgElementProps,
-    TranslateSpec,
     TwoSideSizeSpec,
     ViewProps,
     WithId,
@@ -41,8 +40,6 @@ export interface BandLabelsProps extends SvgElementProps, Omit<LocationProps, 'p
     size?: SizeSpec
     /** units */
     unit?: SizeUnit
-    /** additional translation (in absolute units) */
-    translate?: TranslateSpec
     /** format for text */
     format?: (v: Record<string, unknown>) => string
     /** component used to render label */

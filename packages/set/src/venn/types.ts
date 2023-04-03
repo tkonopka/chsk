@@ -9,7 +9,6 @@ import {
     ProcessedDataContextProps,
     SizeSpec,
     SvgElementProps,
-    TranslateSpec,
     ViewProps,
     WithId,
 } from '@chsk/core'
@@ -78,15 +77,13 @@ export interface VennSetsProps
     component?: FC<PathProps>
 }
 
-export interface VennSetLabelsProps extends SvgElementProps, LocationProps {
+export interface VennSetLabelsProps extends SvgElementProps, Omit<LocationProps, 'position'> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** relative radius for label labelPosition */
     rs?: number[]
     /** angles */
     angles?: number[]
-    /** additional translation (in absolute units) */
-    translate?: TranslateSpec
     /** format for text */
     format?: (v: string | number) => string
     /** size for label box */

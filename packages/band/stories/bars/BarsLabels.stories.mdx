@@ -85,7 +85,7 @@ For such small bars, labels can be placed outside of bars with prop `showOuter`
 
 To display all labels outside bars, set `minSize` to a zero size to display all the labels,
 set `align` to position the labels on the edge,
-and further use prop `translate` to move the labels beyond the bar boundaries.
+and further use prop `offset` to move the labels beyond the bar boundaries.
 
 <Canvas>
     <Story
@@ -94,7 +94,7 @@ and further use prop `translate` to move the labels beyond the bar boundaries.
             padding: [2, 0, 2, 0],
             align: [1, 0.5],
             minSize: [0, 0],
-            translate: [8, 0],
+            offset: [8, 0],
             style: { fill: '#222222', textAnchor: 'start' },
         }}
         component={BarsLabels}

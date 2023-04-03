@@ -111,7 +111,7 @@ export const QuestionMultipleChoicesChart = ({ fref, chartData, rawData }: Miles
                 <Bars />
                 <CustomTicks translate={[0, -15]} />
                 <BandLabels
-                    translate={[50, 0]}
+                    offset={[50, 0]}
                     size={[0.95, 0.95]}
                     component={CustomCounter}
                     format={item => String(item.value)}

@@ -85,7 +85,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
                 <DownloadButtons position={[160, 350]} data image />
                 <Legend
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     position={[1, 1]}
                     positionUnits={'relative'}
                     sizeUnits={'absolute'}
@@ -128,7 +128,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     maxOverhang={[40, 40, 40, 40]}
                     size={[200, 140]}
                     anchor={[0.5, 0]}
-                    translate={[0, 15]}
+                    offset={[0, 15]}
                     cellSize={[40, 20]}
                     cellPadding={20}
                     padding={[8, 8, 8, 8]}

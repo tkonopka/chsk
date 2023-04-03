@@ -2,18 +2,17 @@ import {
     SvgElementVariantProps,
     CssProps,
     ContainerProps,
-    AlignSpec,
     SideVariant,
     FourSideSizeSpec,
     PositionSpec,
     SizeSpec,
-    TranslateSpec,
     TypographyProps,
     AngleUnit,
     SvgElementProps,
     LineProps,
     PositionUnits,
     TwoSideSizeSpec,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { ReactNode } from 'react'
 
@@ -37,14 +36,8 @@ interface BoxedTextProps {
 export interface BoxedLabelProps extends SvgElementVariantProps, ContainerProps, BoxedTextProps {
     /** variant */
     variant?: 'boxed-label' | string
-    /** position of label anchor point */
-    position: PositionSpec
     /** size of box in absolute units */
     size: SizeSpec
-    /** additional translation */
-    translate?: TranslateSpec
-    /** position of anchor point relative to box size */
-    anchor?: AlignSpec
     /** angle */
     angle?: number
     /** angle unit */
@@ -76,7 +69,7 @@ export interface LineLabelProps
     /** alignment for text label in [0, 1] */
     align?: number
     /** translation for text label */
-    translate?: TranslateSpec
+    offset?: NumericPositionSpec
     /** rotation of text label */
     angle?: number
     /** padding for text label */

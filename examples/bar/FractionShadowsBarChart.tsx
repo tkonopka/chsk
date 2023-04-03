@@ -103,7 +103,7 @@ const TwoBarsLabels = ({ ids, keys, label }: { ids: string[]; keys: string[]; la
                 padding={[2, 0, 2, 0]}
                 align={[1, 1]}
                 minSize={[0, 0]}
-                translate={[10, 4]}
+                offset={[10, 4]}
                 format={v => v + '%'}
             />
         </>

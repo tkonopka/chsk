@@ -241,7 +241,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     <DownloadButtons position={[450, 420]} data image />
                 </MilestoneMotion>
                 <Tooltip
-                    translate={[0, -15]}
+                    offset={[0, -15]}
                     padding={[4, 0, 4, 0]}
                     itemSize={[80, 26]}
                     itemPadding={[4, 8, 4, 8]}

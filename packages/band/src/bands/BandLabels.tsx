@@ -36,7 +36,7 @@ export const BandLabels = ({
     position = 1,
     size = [1, 1],
     unit = 'relative',
-    translate = [0, 0],
+    offset = [0, 0],
     /** settings for inside labels */
     align,
     padding,
@@ -74,7 +74,7 @@ export const BandLabels = ({
                 component,
                 {
                     key: keyPrefix + j,
-                    position: [pos[X] + translate[X], pos[Y] + translate[Y]],
+                    position: [pos[X] + offset[X], pos[Y] + offset[Y]],
                     size: labelSize,
                     align,
                     padding,

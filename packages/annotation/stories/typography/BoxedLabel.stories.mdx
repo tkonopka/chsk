@@ -85,17 +85,17 @@ The prop `anchor` determines what part of the label is aligned with the point on
     </Story>
 </Canvas>
 
-## Translations
+## Offset
 
-The prop `translate` accepts an array `[x, y]`, which shifts the position of the label. The translation works together with other props, in particular `position`, and it can be used to place a label off-center or adjacent to a corner.
+The prop `offset` accepts an array `[x, y]`, which shifts the position of the label. The translation works together with other props, in particular `position`, and it can be used to place a label off-center or adjacent to a corner.
 
 <Canvas>
     <Story
-        name="translate above center"
+        name="offset above center"
         args={{
             position: [0.5, 0.5],
             positionUnits: 'relative',
-            translate: [0, -40],
+            offset: [0, -40],
             size: [120, 26],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
             children: 'above-center',
@@ -106,10 +106,10 @@ The prop `translate` accepts an array `[x, y]`, which shifts the position of the
         {Template.bind({})}
     </Story>
     <Story
-        name="translate away from corner"
+        name="offset away from corner"
         args={{
             position: [0, 0],
-            translate: [-10, -10],
+            offset: [-10, -10],
             anchor: [1, 1],
             size: [22, 22],
             boxStyle: { fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' },
@@ -155,7 +155,7 @@ It is possible to style the box as well as the text.
             position: [1, 0],
             positionUnits: 'relative',
             anchor: [1, 0],
-            translate: [-10, 10],
+            offset: [-10, 10],
             size: [22, 22],
             boxStyle: { fill: '#994444', strokeWidth: '0px' },
             textStyle: { fill: '#ffffff', fontWeight: 600 },

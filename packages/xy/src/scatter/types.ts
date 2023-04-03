@@ -17,7 +17,6 @@ import {
     SvgElementProps,
     SvgElementVariantProps,
     SymbolProps,
-    TranslateSpec,
     ViewProps,
     WithId,
 } from '@chsk/core'
@@ -119,8 +118,8 @@ export interface ScatterLabelProps extends SvgElementVariantProps {
     x: number
     /** units for position x */
     units?: PositionUnits
-    /** translation with respect to data point */
-    translate?: TranslateSpec
+    /** offset with respect to data point */
+    offset?: NumericPositionSpec
     /** rotation angle */
     angle?: number
     /** set rotation automatically */

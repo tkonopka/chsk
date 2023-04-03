@@ -1,5 +1,5 @@
 import { cloneDeep } from 'lodash'
-import { LEFT, TOP, X, Y, zeroPosition } from '../general'
+import { getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { getScaleTicks } from '../axes'
@@ -11,11 +11,11 @@ import { LegendColorScaleProps } from './types'
 
 const UnthemedLegendColorScale = ({
     variant = 'bottom',
-    position,
+    position = zeroPosition,
     size = [10, 10],
     padding = defaultLegendColorScaleProps.padding,
-    translate = zeroPosition,
-    offset = 0,
+    offset = zeroPosition,
+    axisOffset = 0,
     horizontal = false,
     ticks = defaultLegendColorScaleProps.ticks,
     tickSize = defaultLegendColorScaleProps.tickSize,
@@ -43,14 +43,14 @@ const UnthemedLegendColorScale = ({
     const gradientStyle = style ? cloneDeep(style) : {}
     gradientStyle.fill = 'url(#' + gradId + ')'
 
-    const transform =
-        'translate(' +
-        (position[X] + padding[LEFT] + translate[X]) +
-        ',' +
-        (position[Y] + padding[TOP] + translate[Y]) +
-        ')'
     return (
-        <g role={setRole ? 'legend-color-scale' : undefined} transform={transform}>
+        <g
+            role={setRole ? 'legend-color-scale' : undefined}
+            transform={getTranslate(
+                position[X] + padding[LEFT] + offset[X],
+                position[Y] + padding[TOP] + offset[Y]
+            )}
+        >
             <LinearGradient
                 id={gradId}
                 start={horizontal ? [0, 0] : [0, 1]}
@@ -66,7 +66,7 @@ const UnthemedLegendColorScale = ({
                 style={gradientStyle}
                 setRole={false}
             />
-            <g transform={getAxisTranslate(variant, size, offset)}>
+            <g transform={getAxisTranslate(variant, size, axisOffset)}>
                 {getScaleTicks({
                     variant,
                     scale,

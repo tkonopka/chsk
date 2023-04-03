@@ -95,8 +95,8 @@ export const SemicircleDoughnutChart = ({ fref, chartData, rawData }: MilestoneS
                 </Origin>
                 <DownloadButtons position={[320, -20]} data image />
                 <Tooltip
+                    offset={[0, -20]}
                     itemSize={[100, 24]}
-                    translate={[0, -20]}
                     titleFormat={x => x.data?.[0].id}
                     labelFormat={customTooltipLabelFormat}
                 />

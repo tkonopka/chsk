@@ -163,7 +163,7 @@ export const ChartWithTooltipDecorator = () => (
             <ScatterPoints />
             <ScatterCrosshair style={{ stroke: '#444', strokeWidth: 1, strokeDasharray: 6 }} />
             <Tooltip
-                translate={[0, -10]}
+                offset={[0, -10]}
                 anchor={[0.5, 1]}
                 itemSize={[160, 32]}
                 itemPadding={[8, 8, 8, 8]}

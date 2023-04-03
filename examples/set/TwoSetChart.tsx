@@ -74,23 +74,19 @@ export const TwoSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     ids={['alpha']}
                     rs={[1]}
                     angles={[-Math.PI / 3]}
-                    translate={[-12, -12]}
+                    offset={[-12, -12]}
                     format={labelFormat}
                 />
                 <VennSetLabels
                     ids={['beta']}
                     rs={[1]}
                     angles={[Math.PI / 3]}
-                    translate={[12, -12]}
+                    offset={[12, -12]}
                     format={labelFormat}
                 />
                 <VennIntersectionLabels />
                 <DownloadButtons position={[240, -40]} data image />
-                <Tooltip
-                    translate={[0, -20]}
-                    itemSize={[150, 26]}
-                    labelFormat={tooltipLabelFormat}
-                />
+                <Tooltip offset={[0, -20]} itemSize={[150, 26]} labelFormat={tooltipLabelFormat} />
             </Venn>
         </Chart>
     )

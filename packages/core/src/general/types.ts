@@ -43,7 +43,6 @@ export type TwoSideSizeSpec = [number, number]
 
 // other spec types
 export type AlignSpec = [number, number]
-export type TranslateSpec = [number, number]
 export type AnchorSpec = [number, number]
 export type SideVariant = 'top' | 'right' | 'left' | 'bottom'
 
@@ -96,7 +95,7 @@ export interface ItemListProps {
 
 // containers: e.g. for views, legends, tooltips
 export interface ContainerProps {
-    /** container position as an array [x, y] */
+    /** container position */
     position?: PositionSpec
     /** absolute or relative units for position */
     positionUnits?: PositionUnits
@@ -108,6 +107,8 @@ export interface ContainerProps {
     anchor?: AnchorSpec
     /** padding (absolute values) **/
     padding?: FourSideSizeSpec
+    /** offset/translation applied after anchoring, absolute units */
+    offset?: NumericPositionSpec
 }
 export interface ContainerThemedProps extends ContainerProps {
     position: PositionSpec
@@ -116,11 +117,12 @@ export interface ContainerThemedProps extends ContainerProps {
     sizeUnits: SizeUnits
     anchor: AnchorSpec
     padding: FourSideSizeSpec
+    offset: NumericPositionSpec
 }
 
 // fine-tuning location within a container, e.g. for labels, buttons
 export type LocationProps = {
-    /** position as an array [x, y] */
+    /** position */
     position?: NumericPositionSpec
     /** size of bounding container */
     size?: SizeSpec
@@ -130,6 +132,8 @@ export type LocationProps = {
     anchor?: AlignSpec
     /** alignment of label within its bounding container */
     align?: AlignSpec
+    /** position offset added after anchoring and alignment */
+    offset?: NumericPositionSpec
 }
 
 // rectangular region

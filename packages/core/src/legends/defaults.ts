@@ -7,7 +7,7 @@ import {
 } from './types'
 
 export const defaultLegendProps: LegendThemedProps = {
-    translate: [0, 0],
+    offset: [0, 0],
     padding: [0, 0, 0, 0],
     rx: 0,
     ry: 0,
@@ -33,7 +33,7 @@ export const defaultLegendItemListProps: LegendItemListThemedProps = {
 export const defaultLegendItemProps: LegendItemThemedProps = {
     size: [60, 20],
     padding: [4, 4, 4, 4],
-    translate: [0, 0],
+    offset: [0, 0],
     r: 8,
     labelOffset: 4,
     interactive: true,
@@ -43,6 +43,7 @@ export const defaultLegendColorScaleProps: LegendColorScaleThemedProps = {
     padding: [4, 4, 4, 4],
     ticks: 4,
     tickSize: 5,
+    axisOffset: 0,
     labelOffset: 9,
     labelAngle: 0,
 }

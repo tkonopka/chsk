@@ -130,7 +130,7 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 <FirstPoint style={{ fill: '#222222' }} />
                 <DownloadButtons position={[390, -48]} data image />
                 <Tooltip
-                    translate={[0, -20]}
+                    offset={[0, -20]}
                     itemSize={[150, 26]}
                     itemPadding={[4, 8, 4, -4]}
                     labelFormat={customLabelFormat}

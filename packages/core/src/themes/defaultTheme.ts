@@ -239,22 +239,22 @@ export const defaultTheme: CompleteThemeSpec = {
     AxisTooltip: {
         top: {
             ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
+            offset: [0, 0],
             anchor: [0.5, 1],
         },
         right: {
             ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
+            offset: [0, 0],
             anchor: [0, 0.5],
         },
         bottom: {
             ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
+            offset: [0, 0],
             anchor: [0.5, 0],
         },
         left: {
             ...cloneDeep(defaultTooltipProps),
-            translate: [0, 0],
+            offset: [0, 0],
             anchor: [1, 0.5],
         },
     },

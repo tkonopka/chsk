@@ -145,8 +145,8 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                         sizeUnits={'absolute'}
                         anchor={[0, 0.5]}
                         padding={[0, 12, 0, 12]}
-                        r={10.5}
-                        itemSize={[80, 20]}
+                        r={10}
+                        itemSize={[80, 22]}
                         itemPadding={[2, 2, 2, 2]}
                         title={'Populations'}
                     />

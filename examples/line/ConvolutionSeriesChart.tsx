@@ -122,7 +122,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Legend
                     position={[1, 1]}
                     positionUnits={'relative'}
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     size={[100, 100]}
                     sizeUnits={'absolute'}
                     horizontal={false}
@@ -135,12 +135,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
                     title={'Series'}
                     firstOffset={[0, 6]}
                 />
-                <Tooltip
-                    translate={[16, -20]}
-                    itemSize={[140, 28]}
-                    anchor={[0, 1]}
-                    symbol={Circle}
-                />
+                <Tooltip offset={[16, -20]} itemSize={[140, 28]} anchor={[0, 1]} symbol={Circle} />
                 <DownloadButtons position={[480, -50]} data image />
             </Scatter>
         </Chart>

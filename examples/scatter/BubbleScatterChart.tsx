@@ -132,7 +132,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         style={{ stroke: '#000000' }}
                     />
                     <Tooltip
-                        translate={[16, -16]}
+                        offset={[16, -16]}
                         anchor={[0, 1]}
                         itemSize={[180, 26]}
                         titleFormat={customTooltipTitle}
@@ -176,7 +176,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 <Typography position={[-45, -30]} variant={'title'}>
                     Large scatter plot
                 </Typography>
-                <ViewController component={IconButton} />
+                <ViewController container={{ offset: [10, 0] }} component={IconButton} />
                 <DownloadButtons position={[630, -30]} data image />
             </Scatter>
         </Chart>

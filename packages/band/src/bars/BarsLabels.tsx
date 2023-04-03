@@ -20,7 +20,7 @@ export const BarsLabels = ({
     padding = [4, 4, 4, 4],
     minSize = [40, 10],
     align = [0.5, 0.5],
-    translate = [0, 0],
+    offset = [0, 0],
     className,
     setRole = false,
     style,
@@ -64,7 +64,7 @@ export const BarsLabels = ({
                     component,
                     {
                         key: 'bar-label-' + j + '-' + i,
-                        position: [center[X] + translate[X], center[Y] + translate[Y]],
+                        position: [center[X] + offset[X], center[Y] + offset[Y]],
                         size,
                         align,
                         padding,

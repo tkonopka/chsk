@@ -126,7 +126,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                         end={[outlierX[0] - 0.2, outlierY[1] + 1]}
                         units={'view'}
                         className={'outliers'}
-                        translate={[-12, 24]}
+                        offset={[-12, 24]}
                     >
                         Outliers
                     </BracketLabel>

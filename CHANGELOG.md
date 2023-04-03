@@ -37,6 +37,9 @@
 
 ### Changed
 
+-   [core] replaced prop `translate` with `offset` to improve naming
+    consistency (using nouns more than verbs); moved the `offset` prop into
+    `ContainerProps`
 -   [themes] removed theme piece download in favor of piece for buttons
 -   [examples] added some icons for view controllers
 -   [core] changed implementation of some scales, notably to support `invert`

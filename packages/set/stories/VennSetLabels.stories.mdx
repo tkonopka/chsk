@@ -33,12 +33,12 @@ By default, `VennSetLabels` draws labels for all the sets in the dataset. To dra
 
 ## Label position
 
-By default, labels appear at the centers of the sets. The positions can be adjusted with props `rs`, `angles`, and `translate`. The first two props displace the labels in a radial and angular direction. The radial distance is relative to the size of the sets, so labels with unit radii are placed on / near the circumference. Translations are absolute shifts.
+By default, labels appear at the centers of the sets. The positions can be adjusted with props `rs`, `angles`, and `offset`. The first two props displace the labels in a radial and angular direction. The radial distance is relative to the size of the sets, so labels with unit radii are placed on / near the circumference. Translations are absolute shifts.
 
 <Canvas>
     <Story
         name="labels under sets"
-        args={{ rs: [1, 1], angles: [-Math.PI / 3, Math.PI / 3], translate: [0, -28] }}
+        args={{ rs: [1, 1], angles: [-Math.PI / 3, Math.PI / 3], offset: [0, -28] }}
         component={VennSetLabels}
         decorators={[ChartVennSets2Decorator]}
     >
@@ -53,17 +53,12 @@ For labels that require different translations, use separate `VennSetLabels` com
         <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
             <Venn {...commonVenn2Props}>
                 <VennSets style={{ fillOpacity: 0.7 }} />
-                <VennSetLabels
-                    ids={['alpha']}
-                    rs={[1]}
-                    angles={[-Math.PI / 3]}
-                    translate={[0, -28]}
-                />
+                <VennSetLabels ids={['alpha']} rs={[1]} angles={[-Math.PI / 3]} offset={[0, -28]} />
                 <VennSetLabels
                     ids={['beta']}
                     rs={[1]}
                     angles={[(+2 * Math.PI) / 3]}
-                    translate={[0, 28]}
+                    offset={[0, 28]}
                 />
             </Venn>
         </Chart>
@@ -95,7 +90,7 @@ Text labels can be styled with css.
     <Story
         name="styled"
         args={{
-            style: { fontWeight: 600, fontSize: 24, fill: '#777' },
+            style: { fontWeight: 600, fontSize: 24, fill: '#555555' },
             rs: [1.2, 1.2],
             angles: [0, 0],
         }}

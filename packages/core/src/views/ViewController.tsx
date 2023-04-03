@@ -34,7 +34,12 @@ export const ViewController = ({
     // toolbar
     const n = values.length
     const size: SizeSpec = horizontal ? [itemSize[X] * n, itemSize[Y]] : [itemSize[X], itemSize[Y]]
-    const { origin: position } = useContainer({ ...container, size, sizeUnits: 'absolute' })
+    const { origin: position } = useContainer({
+        ...defaultControllerContainerProps,
+        ...container,
+        size,
+        sizeUnits: 'absolute',
+    })
     const [selected, setSelected] = useState(value)
 
     // handle clicks on buttons: toggling pointer/pan/drag mode and adjusting scales

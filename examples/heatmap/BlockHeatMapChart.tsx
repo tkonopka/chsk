@@ -151,7 +151,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <MilestoneMotion initialOn={'final'}>
                     <HeatMapHighlight edgeAnimation={true} style={{ opacity: 0.6 }} />
                     <Tooltip
-                        translate={[0, 18]}
+                        offset={[0, 18]}
                         anchor={[0.5, 0]}
                         padding={[4, 0, 4, 0]}
                         itemSize={[140, 26]}

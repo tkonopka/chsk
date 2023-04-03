@@ -20,6 +20,7 @@ export const useContainer = ({
     sizeUnits = defaultContainerProps.sizeUnits,
     padding = defaultContainerProps.padding,
     anchor = defaultContainerProps.anchor,
+    offset = defaultContainerProps.offset,
 }: ContainerProps) => {
     const dimensions = useDimensions()
     const { scales } = useScales()
@@ -30,7 +31,7 @@ export const useContainer = ({
         const origin = getAnchoredOrigin(pos, dimsProps.size, anchor)
         return { dimsProps, origin, innerSize }
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales])
-    const x = origin[X] + padding[LEFT]
-    const y = origin[Y] + padding[TOP]
+    const x = origin[X] + padding[LEFT] + offset[X]
+    const y = origin[Y] + padding[TOP] + offset[Y]
     return { dimensions, dimsProps, origin, x, y, innerSize }
 }

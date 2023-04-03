@@ -2,14 +2,14 @@ import { getClassName, useThemedProps } from '../themes'
 import { LegendTitleProps } from './types'
 import { defaultLegendItemProps } from './defaults'
 import { getTitlePosition } from './utils'
-import { X, Y } from '../general'
+import { X, Y, zeroPosition } from '../general'
 
 const UnthemedLegendTitle = ({
     variant = 'right',
-    position,
+    position = zeroPosition,
     size = defaultLegendItemProps.size,
     padding = defaultLegendItemProps.padding,
-    translate = defaultLegendItemProps.translate,
+    offset = defaultLegendItemProps.offset,
     className,
     style,
     setRole = true,
@@ -30,8 +30,8 @@ const UnthemedLegendTitle = ({
             />
             <text
                 role={setRole ? 'legend-title' : undefined}
-                x={x + translate[X]}
-                y={y + translate[Y]}
+                x={x + offset[X]}
+                y={y + offset[Y]}
                 className={compositeClassName}
                 style={style}
             >

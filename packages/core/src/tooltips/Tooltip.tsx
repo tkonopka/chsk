@@ -11,7 +11,7 @@ import { useMemo } from 'react'
 
 const UnthemedTooltip = ({
     // layout of container
-    translate = defaultTooltipProps.translate,
+    offset = defaultTooltipProps.offset,
     size,
     anchor = defaultTooltipProps.anchor,
     padding = defaultTooltipProps.padding,
@@ -51,7 +51,7 @@ const UnthemedTooltip = ({
         [size, padding, itemSize, n, firstOffset, hasTitle]
     )
     const { x, y, dimensions } = useContainer({
-        position: translate,
+        position: offset,
         positionUnits: 'absolute',
         size: tooltipSize,
         sizeUnits: 'absolute',
@@ -65,7 +65,7 @@ const UnthemedTooltip = ({
         dimensions.size,
         maxOverhang
     )
-    const { flippedPosition, flippedAnchor } = flipPositionAnchor(translate, anchor, flip)
+    const { flippedPosition, flippedAnchor } = flipPositionAnchor(offset, anchor, flip)
     const originPosition = getAnchoredOrigin(flippedPosition, tooltipSize, flippedAnchor)
 
     return (

@@ -52,7 +52,7 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             <Axis variant={'left'} />
             <Bars />
             <BandLabels
-                translate={[40, 0]}
+                offset={[40, 0]}
                 size={[0.95, 0.95]}
                 component={StyledBoxedLabel}
                 format={v => String(v.gamma)}

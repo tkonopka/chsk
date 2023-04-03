@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import { getTranslate, X, Y } from '../general'
+import { getTranslate, X, Y, zeroPosition } from '../general'
 import { Square } from '../shapes'
 import { addOpacity, getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
@@ -11,10 +11,10 @@ import { getLabelPosition, getSymbolPosition, getSymbolStyle } from './utils'
 const UnthemedLegendItem = ({
     variant = 'right',
     item,
-    position,
+    position = zeroPosition,
     size = defaultLegendItemProps.size,
     padding = defaultLegendItemProps.padding,
-    translate = defaultLegendItemProps.translate,
+    offset = defaultLegendItemProps.offset,
     r = defaultLegendItemProps.r,
     symbol = Square,
     symbolPosition,
@@ -50,9 +50,8 @@ const UnthemedLegendItem = ({
     const isDisabled = chartData.disabledKeys ? chartData.disabledKeys.has(item) : false
     const gStyle = addOpacity(style, isDisabled ? 0.5 : 1)
     const symbolClassName = getClassName('legendSymbol', className)
-    const textClassName = getClassName('legendItem', className)
+    const itemClassName = getClassName('legendItem', className)
 
-    // the <rect> is needed to provide a surface that can be clicked on
     return (
         <g
             role={setRole ? 'legend-item' : undefined}
@@ -61,20 +60,20 @@ const UnthemedLegendItem = ({
             className={'legendItem'}
             onClick={handleClick}
         >
-            <rect x={0} y={0} width={size[X]} height={size[Y]} className={textClassName} />
+            <rect x={0} y={0} width={size[X]} height={size[Y]} className={itemClassName} />
             {createElement(symbol, {
-                cx: symbolPosition[X] + translate[X],
-                cy: symbolPosition[Y] + translate[Y],
+                cx: symbolPosition[X] + offset[X],
+                cy: symbolPosition[Y] + offset[Y],
                 r: r,
                 className: symbolClassName,
                 style: itemStyle,
                 setRole: false,
             })}
             <text
-                x={labelPosition[X] + translate[X]}
-                y={labelPosition[Y] + translate[Y]}
+                x={labelPosition[X] + offset[X]}
+                y={labelPosition[Y] + offset[Y]}
                 style={labelStyle}
-                className={textClassName}
+                className={itemClassName}
             >
                 {label ?? item}
             </text>

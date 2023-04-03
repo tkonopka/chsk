@@ -2,14 +2,14 @@ import { getClassName, useThemedProps } from '../themes'
 import { TooltipTitleProps } from './types'
 import { defaultTooltipItemProps } from './defaults'
 import { getTitlePosition } from '../legends/utils'
-import { X, Y } from '../general'
+import { X, Y, zeroPosition } from '../general'
 
 const UnthemedTooltipTitle = ({
     variant = 'right',
-    position,
+    position = zeroPosition,
     size = defaultTooltipItemProps.size,
     padding = defaultTooltipItemProps.padding,
-    translate = defaultTooltipItemProps.translate,
+    offset = defaultTooltipItemProps.offset,
     className,
     style,
     setRole = true,
@@ -21,8 +21,8 @@ const UnthemedTooltipTitle = ({
     return (
         <text
             role={setRole ? 'tooltip-title' : undefined}
-            x={x + translate[X]}
-            y={y + translate[Y]}
+            x={x + offset[X]}
+            y={y + offset[Y]}
             className={compositeClassName}
             style={style}
         >

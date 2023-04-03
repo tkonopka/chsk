@@ -52,7 +52,7 @@ By default, line edges coincide with the centers of the designated bands, but th
 
 ## Text positioning
 
-By default, the text label is placed at the center of the interval. The label can be aligned along the line using prop `align` and displaced from the line using prop `translate`.
+By default, the text label is placed at the center of the interval. The label can be aligned along the line using prop `align` and displaced from the line using prop `offset`.
 
 <Canvas>
     <Story
@@ -75,7 +75,7 @@ By default, the text label is placed at the center of the interval. The label ca
         args={{
             start: ['D', -16],
             end: ['F', -16],
-            translate: [0, 18],
+            offset: [0, 18],
             align: 0.5,
             expansion: [0.5, 0.5],
             textStyle: { textAnchor: 'middle' },
@@ -99,7 +99,7 @@ Use prop `angle` to adjust the orientation of the text, for example for vertical
             start: [104, 100],
             end: [104, 60],
             align: 0.5,
-            translate: [10, 0],
+            offset: [10, 0],
             textStyle: { textAnchor: 'start' },
             children: 'label',
         }}
@@ -113,7 +113,7 @@ Use prop `angle` to adjust the orientation of the text, for example for vertical
         args={{
             start: [104, 100],
             end: [104, 60],
-            translate: [10, 0],
+            offset: [10, 0],
             angle: 90,
             align: 0.5,
             textStyle: { textAnchor: 'middle' },
@@ -137,7 +137,7 @@ Both the line and the text can be styled using css. The line accepts arrow marke
             start: ['D', 104],
             end: ['F', 104],
             align: 0.5,
-            translate: [0, -9],
+            offset: [0, -9],
             textStyle: { textAnchor: 'middle', fontWeight: 600, fill: '#dd2222', fontSize: 11 },
             lineStyle: { stroke: '#dd2222', strokeWidth: 2 },
             children: '★★★',
@@ -169,7 +169,7 @@ Both the line and the text can be styled using css. The line accepts arrow marke
                 <LineLabel
                     start={['D', 104]}
                     end={['F', 104]}
-                    translate={[0, -10]}
+                    offset={[0, -10]}
                     textStyle={{ textAnchor: 'middle', fontWeight: 600 }}
                     lineStyle={{ strokeWidth: 2 }}
                     markerEnd={'arrow'}

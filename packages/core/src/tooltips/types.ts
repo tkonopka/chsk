@@ -39,7 +39,7 @@ export interface TooltipProps
 }
 
 export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
-    translate: NumericPositionSpec
+    offset: NumericPositionSpec
     padding: FourSideSizeSpec
     anchor: AnchorSpec
     rx: number

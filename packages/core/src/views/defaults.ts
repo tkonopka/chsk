@@ -17,6 +17,7 @@ export const defaultContainerProps: ContainerThemedProps = {
     sizeUnits: 'relative',
     anchor: [0, 0],
     padding: [0, 0, 0, 0],
+    offset: [0, 0],
 }
 
 export const defaultViewProps: ViewThemedProps = {
@@ -39,4 +40,5 @@ export const defaultControllerContainerProps: ContainerThemedProps = {
     sizeUnits: 'absolute',
     anchor: [0, 0],
     padding: [0, 0, 0, 0],
+    offset: [0, 0],
 }

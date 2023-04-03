@@ -3,6 +3,8 @@ import {
     getAlignPosition,
     getAnchoredOrigin,
     getTranslate,
+    X,
+    Y,
     zeroPadding,
     zeroPosition,
 } from '../general'
@@ -27,6 +29,7 @@ export const Button = ({
     padding = zeroPadding,
     anchor = centerAlign,
     align = centerAlign,
+    offset = zeroPosition,
     selected = false,
     style,
     className,
@@ -42,7 +45,7 @@ export const Button = ({
     return (
         <g
             role={setRole ? 'button' : undefined}
-            transform={getTranslate(x, y)}
+            transform={getTranslate(x + offset[X], y + offset[Y])}
             className={compositeClassName}
             {...props}
         >

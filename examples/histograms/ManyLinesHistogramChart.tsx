@@ -116,7 +116,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'legend'}>
                     <Legend
-                        translate={[8, 0]}
+                        offset={[8, 0]}
                         position={[0, 0]}
                         positionUnits={'relative'}
                         horizontal={false}

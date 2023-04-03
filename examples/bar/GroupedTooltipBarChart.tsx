@@ -93,7 +93,7 @@ export const GroupedTooltipBarChart = ({ fref, chartData, rawData }: MilestoneSt
                 <Bars />
                 <BandHighlight />
                 <Legend
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     position={[1, 1]}
                     positionUnits={'relative'}
                     anchor={[0, 1]}
@@ -105,7 +105,7 @@ export const GroupedTooltipBarChart = ({ fref, chartData, rawData }: MilestoneSt
                     horizontal={false}
                 />
                 <Tooltip
-                    translate={[32, 0]}
+                    offset={[32, 0]}
                     anchor={[0, 1]}
                     itemSize={[110, 26]}
                     labelFormat={customLabelFormat}

@@ -68,7 +68,7 @@ const PercentageChangeLabels = ({
                 expansion={[0.5, 0.5]}
                 units={['relative', 'view']}
                 textStyle={{ fill: color }}
-                translate={[10, 0]}
+                offset={[10, 0]}
             >
                 {label}
             </BracketLabel>

@@ -20,7 +20,7 @@ export const VennSetLabels = ({
     padding = [4, 4, 4, 4],
     size = [40, 10],
     align = [0.5, 0.5],
-    translate = [0, 0],
+    offset = [0, 0],
     className,
     setRole = false,
     style,
@@ -50,7 +50,7 @@ export const VennSetLabels = ({
                 component,
                 {
                     key: 'venn-label-' + id,
-                    position: [scaleX(pos[X]) + translate[X], scaleY(pos[Y]) + translate[Y]],
+                    position: [scaleX(pos[X]) + offset[X], scaleY(pos[Y]) + offset[Y]],
                     size,
                     align,
                     padding,

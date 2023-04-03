@@ -124,7 +124,7 @@ export const AxisTooltipScatterChart = ({ fref, chartData, rawData }: MilestoneS
                 <Legend
                     position={[1, 1]}
                     positionUnits={'relative'}
-                    translate={[-8, -8]}
+                    offset={[-8, -8]}
                     padding={[1, 1, 1, 1]}
                     size={[110, 86]}
                     sizeUnits={'absolute'}
@@ -136,7 +136,7 @@ export const AxisTooltipScatterChart = ({ fref, chartData, rawData }: MilestoneS
                     style={{ strokeWidth: 1, stroke: '#222222', fill: '#ffffff', fillOpacity: 1 }}
                 />
                 <Tooltip
-                    translate={[15, -15]}
+                    offset={[15, -15]}
                     anchor={[0, 1]}
                     padding={[4, 0, 4, 0]}
                     itemSize={[80, 26]}

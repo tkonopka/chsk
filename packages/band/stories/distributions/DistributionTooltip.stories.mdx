@@ -15,13 +15,13 @@ export const Template = args => <DistributionTooltip {...args} />
 
 `DistributionTooltip` creates a tooltip with information about a data distribution.
 The component shares many props with the `Tooltip` component from `@chsk/core`.
-For example, the position of the tooltip is configured with props `translate` and `anchor`.
+For example, the position of the tooltip is configured with props `offset` and `anchor`.
 
 <Canvas>
     <Story
         name="tooltip"
         args={{
-            translate: [8, 0],
+            offset: [8, 0],
             padding: [8, 8, 8, 8],
             anchor: [0, 0.5],
             labelFormat: d => d.id + ' - ' + d.key,
@@ -51,7 +51,7 @@ in the table, and the spacing between the two columns.
     <Story
         name="table format"
         args={{
-            translate: [8, 0],
+            offset: [8, 0],
             padding: [8, 8, 8, 8],
             anchor: [0.5, 1],
             cellSize: [60, 20],

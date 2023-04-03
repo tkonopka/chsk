@@ -134,7 +134,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     />
                 </Legend>
                 <Tooltip
-                    translate={[15, -15]}
+                    offset={[15, -15]}
                     anchor={[0, 1]}
                     padding={[4, 0, 4, 0]}
                     itemSize={[115, 26]}

@@ -12,7 +12,7 @@ import { useMemo } from 'react'
 const UnthemedAxisTooltip = ({
     variant = 'right',
     // layout of container
-    translate = defaultTooltipProps.translate,
+    offset = defaultTooltipProps.offset,
     size,
     anchor = defaultTooltipProps.anchor,
     padding = defaultTooltipProps.padding,
@@ -50,7 +50,8 @@ const UnthemedAxisTooltip = ({
         [size, padding, itemSize, n, firstOffset, hasTitle]
     )
     const { x, y } = useContainer({
-        position: translate,
+        position: offset,
+        positionUnits: 'absolute',
         size: tooltipSize,
         sizeUnits: 'absolute',
         anchor,

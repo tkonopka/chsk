@@ -28,7 +28,7 @@ export const dataWithNoise = [
 
 The base position of the label is controlled with prop `x`. This prop specifies a position along the x-axis, from which `ScatterLabel` retrieves a relevant data point nearby. That data point determines the vertical position of the label.
 
-From the base position computed from the `x` and from the series data, the label can be shifted using prop `translate`.
+From the base position computed from the `x` and from the series data, the label can be shifted using prop `offset`.
 
 <Canvas>
     <Story name="points">
@@ -58,7 +58,7 @@ From the base position computed from the `x` and from the series data, the label
                     ids={['A']}
                     x={0.5}
                     units={'relative'}
-                    translate={[0, -60]}
+                    offset={[0, -60]}
                     style={{ textAnchor: 'end', fontWeight: 600 }}
                     children="Label"
                 />
@@ -80,7 +80,7 @@ The label can be rotated with prop `angle`. Alternatively, a prop `autoRotate` c
             ids: ['quadratic'],
             x: 6,
             units: 'view',
-            translate: [0, -10],
+            offset: [0, -10],
             angle: -15,
             style: { textAnchor: 'end', fontWeight: 600 },
             children: 'manual rotation',
@@ -96,7 +96,7 @@ The label can be rotated with prop `angle`. Alternatively, a prop `autoRotate` c
             ids: ['quadratic'],
             x: 6,
             units: 'view',
-            translate: [0, -10],
+            offset: [0, -10],
             autoRotate: true,
             style: { textAnchor: 'start', fontWeight: 600 },
             children: 'auto',

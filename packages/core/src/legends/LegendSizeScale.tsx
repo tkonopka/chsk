@@ -3,10 +3,11 @@ import { useThemedProps } from '../themes'
 import { LegendSizeScaleProps } from './types'
 import { getTickCoordinates, getTicks, useScales } from '../scales'
 import { LegendItemList } from './LegendItemList'
+import { zeroPosition } from '../general'
 
 const UnthemedLegendSizeScale = ({
     variant = 'right',
-    position,
+    position = zeroPosition,
     // organization of items within the container
     horizontal = defaultLegendProps.horizontal,
     itemSize = defaultLegendProps.itemSize,

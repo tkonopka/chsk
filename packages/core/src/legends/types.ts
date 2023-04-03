@@ -6,7 +6,6 @@ import {
     SizeSpec,
     SideVariant,
     SvgElementProps,
-    TranslateSpec,
     ItemListProps,
     ContainerProps,
 } from '../general'
@@ -27,17 +26,13 @@ export interface LinearGradientProps {
     offsets?: number[]
 }
 
-export interface LegendTitleProps extends SvgElementProps {
+export interface LegendTitleProps
+    extends SvgElementProps,
+        Pick<ContainerProps, 'position' | 'size' | 'padding' | 'offset'> {
     /** variant */
     variant?: SideVariant
-    /** position of symbol */
-    position: NumericPositionSpec
-    /** size of a single legend item */
-    size?: SizeSpec
-    /** padding for a single legend item */
-    padding?: FourSideSizeSpec
-    /** additional translation */
-    translate?: TranslateSpec
+    /** position */
+    position?: NumericPositionSpec
     /** children components */
     children?: ReactNode
 }
@@ -71,10 +66,10 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
 }
 
 export interface LegendItemThemedProps
-    extends Pick<LegendItemProps, 'size' | 'padding' | 'translate' | 'r' | 'labelOffset'> {
+    extends Pick<LegendItemProps, 'size' | 'padding' | 'offset' | 'r' | 'labelOffset'> {
     size: SizeSpec
     padding: FourSideSizeSpec
-    translate: NumericPositionSpec
+    offset: NumericPositionSpec
     r: number
     labelOffset: number
     interactive: boolean
@@ -83,8 +78,8 @@ export interface LegendItemThemedProps
 export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {
     /** number, or location, of ticks */
     ticks?: number[] | number
-    /** offset of color axis from default position */
-    offset?: number
+    /** offset of axis from gradient */
+    axisOffset?: number
     /** identifier for gradient */
     gradientId?: string
     /** horizontal orientation */
@@ -98,6 +93,7 @@ export interface LegendColorScaleThemedProps
     > {
     padding: FourSideSizeSpec
     ticks: number | number[]
+    axisOffset: number
 }
 
 export interface LegendProps
@@ -111,8 +107,6 @@ export interface LegendProps
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
-    /** offset position (absolute values) */
-    translate?: NumericPositionSpec
     /** horizontal corner radius */
     rx?: number
     /** vertical corner radius */
@@ -126,7 +120,7 @@ export interface LegendProps
 export interface LegendThemedProps
     extends Pick<LegendProps, 'padding' | 'scaleSize'>,
         Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset'> {
-    translate: NumericPositionSpec
+    offset: NumericPositionSpec
     padding: FourSideSizeSpec
     rx: number
     ry: number

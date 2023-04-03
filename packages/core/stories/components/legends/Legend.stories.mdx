@@ -91,9 +91,9 @@ In the examples below, the gray area is the current view, and the blue rectangle
     </Story>
 </Canvas>
 
-## Translation
+## Offset
 
-A prop `translate` introduces an additional shift (in absolute coordinates)
+A prop `offset` introduces an additional shift (in absolute coordinates)
 with respect to the position determined by `position`, `size`, and `anchor`.
 
 <Canvas>
@@ -105,7 +105,7 @@ with respect to the position determined by `position`, `size`, and `anchor`.
             size: [60, 80],
             sizeUnits: 'absolute',
             anchor: [0, 0.5],
-            translate: [10, 0],
+            offset: [10, 0],
             children: <Surface style={{ fill: '#aabbee' }} />,
         }}
         component={Legend}

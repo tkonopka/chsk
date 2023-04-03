@@ -164,7 +164,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 </Axis>
             </MilestoneMotion>
             <Tooltip
-                translate={[16, 0]}
+                offset={[16, 0]}
                 anchor={[0, 0.5]}
                 itemSize={[70, 24]}
                 itemPadding={[4, 8, 4, 8]}

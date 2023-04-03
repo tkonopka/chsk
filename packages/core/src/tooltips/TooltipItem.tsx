@@ -1,5 +1,5 @@
 import { createElement } from 'react'
-import { getTranslate, X, Y } from '../general'
+import { getTranslate, X, Y, zeroPosition } from '../general'
 import { Square } from '../shapes'
 import { getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
@@ -10,10 +10,10 @@ import { getLabelPosition, getSymbolPosition, getSymbolStyle } from '../legends/
 const UnthemedTooltipItem = ({
     variant = 'right',
     item,
-    position,
+    position = zeroPosition,
     size = defaultTooltipItemProps.size,
     padding = defaultTooltipItemProps.padding,
-    translate = defaultTooltipItemProps.translate,
+    offset = defaultTooltipItemProps.offset,
     r = defaultTooltipItemProps.r,
     symbol = Square,
     symbolPosition,
@@ -43,16 +43,16 @@ const UnthemedTooltipItem = ({
             className={textClassName}
         >
             {createElement(symbol, {
-                cx: symbolPosition[X] + translate[X],
-                cy: symbolPosition[Y] + translate[Y],
+                cx: symbolPosition[X] + offset[X],
+                cy: symbolPosition[Y] + offset[Y],
                 r: r,
                 className: symbolClassName,
                 style: itemStyle,
                 setRole: false,
             })}
             <text
-                x={labelPosition[X] + translate[X]}
-                y={labelPosition[Y] + translate[Y]}
+                x={labelPosition[X] + offset[X]}
+                y={labelPosition[Y] + offset[Y]}
                 className={textClassName}
                 style={labelStyle}
             >

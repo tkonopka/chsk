@@ -29,7 +29,7 @@ const UnthemedLegend = ({
     sizeUnits = 'absolute',
     anchor = [0, 0],
     padding = defaultLegendProps.padding,
-    translate = defaultLegendProps.translate,
+    offset = defaultLegendProps.offset,
     rx = defaultLegendProps.rx,
     ry = defaultLegendProps.ry,
     // organization of item list within the container
@@ -82,6 +82,7 @@ const UnthemedLegend = ({
         size: tooltipSize,
         sizeUnits,
         anchor,
+        offset,
     })
 
     const sideVariant: SideVariant = horizontal ? 'bottom' : 'right'
@@ -137,7 +138,7 @@ const UnthemedLegend = ({
     return (
         <g
             role={setRole ? 'legend' : undefined}
-            transform={getTranslate(x + translate[X], y + translate[Y])}
+            transform={getTranslate(x, y)}
             className={className}
         >
             <DimensionsProvider {...dimsProps} role={setRole ? 'legend-content' : undefined}>
@@ -161,7 +162,7 @@ const UnthemedLegend = ({
                             position={titlePosition}
                             size={itemSize}
                             padding={itemPadding}
-                            translate={[0, r]}
+                            offset={[0, r]}
                             className={className}
                             style={titleStyle}
                             setRole={setRole}

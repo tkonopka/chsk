@@ -129,7 +129,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             positionUnits={'relative'}
                             size={[60, 24]}
                             sizeUnits={'absolute'}
-                            translate={[-30, 12]}
+                            offset={[-30, 12]}
                         >
                             {'n = ' + rawData[0].data.length}
                         </BoxedLabel>
@@ -156,7 +156,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             positionUnits={'relative'}
                             size={[60, 24]}
                             sizeUnits={'absolute'}
-                            translate={[-30, 12]}
+                            offset={[-30, 12]}
                         >
                             {'n = ' + rawData[1].data.length}
                         </BoxedLabel>
@@ -183,7 +183,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             positionUnits={'relative'}
                             size={[60, 24]}
                             sizeUnits={'absolute'}
-                            translate={[-30, 12]}
+                            offset={[-30, 12]}
                         >
                             {'n = ' + rawData[2].data.length}
                         </BoxedLabel>

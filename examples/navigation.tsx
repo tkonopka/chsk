@@ -64,6 +64,7 @@ export const IconButton = ({
     padding = zeroPadding,
     anchor = centerAlign,
     align = centerAlign,
+    offset = zeroPosition,
     selected = false,
     style,
     className,
@@ -80,7 +81,7 @@ export const IconButton = ({
         <g
             key={'button-' + JSON.stringify(position) + '-' + selected}
             role={setRole ? 'button-' + variant : undefined}
-            transform={getTranslate(x, y)}
+            transform={getTranslate(x + offset[0], y + offset[1])}
             className={compositeClassName}
             {...props}
         >

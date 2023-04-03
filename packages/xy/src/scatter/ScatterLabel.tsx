@@ -29,7 +29,7 @@ export const ScatterLabel = ({
     ids,
     x,
     units = 'relative',
-    translate = [0, 0],
+    offset = [0, 0],
     angle = 0,
     autoRotate = false,
     style,
@@ -64,7 +64,6 @@ export const ScatterLabel = ({
             angle = Number.isNaN(angle) ? 0 : angle
             point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
         }
-        const translation: [number, number] = [point[0] + translate[0], point[1] + translate[1]]
 
         return (
             <OpacityMotion
@@ -75,7 +74,7 @@ export const ScatterLabel = ({
             >
                 <Typography
                     variant={'scatterLabel'}
-                    position={translation}
+                    position={[point[0] + offset[0], point[1] + offset[1]]}
                     angle={angle}
                     className={className}
                     style={style}

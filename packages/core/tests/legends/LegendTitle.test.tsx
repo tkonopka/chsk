@@ -82,4 +82,22 @@ describe('LegendTitle', () => {
         expect(getNumberAttr(title, 'x')).toEqual(100)
         expect(getNumberAttr(title, 'y')).toEqual(4)
     })
+
+    it('creates a legend title with offset', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend variant={'list'}>
+                        <LegendTitle variant={'right'} {...legendTitleProps} offset={[10, 0]}>
+                            title
+                        </LegendTitle>
+                    </Legend>
+                </View>
+            </Chart>
+        )
+        // position of text should be shifted from [4,4] by [10, 0]
+        const title = screen.getByRole('legend').querySelector('text')
+        expect(getNumberAttr(title, 'x')).toEqual(14)
+        expect(getNumberAttr(title, 'y')).toEqual(4)
+    })
 })

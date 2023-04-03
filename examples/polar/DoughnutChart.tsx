@@ -48,8 +48,8 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 </Origin>
                 <DownloadButtons position={[240, -40]} data image />
                 <Tooltip
+                    offset={[0, -20]}
                     itemSize={[80, 24]}
-                    translate={[0, -20]}
                     titleFormat={x => x.data?.[0].id}
                     labelFormat={x => x.data + '%'}
                 />

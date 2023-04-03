@@ -19,7 +19,7 @@ import { DistributionTooltipItem } from './DistributionTooltipItem'
 
 export const DistributionTooltip = ({
     // layout of container
-    translate = defaultTooltipProps.translate,
+    offset = defaultTooltipProps.offset,
     size,
     anchor = defaultTooltipProps.anchor,
     padding = defaultTooltipProps.padding,
@@ -100,7 +100,7 @@ export const DistributionTooltip = ({
     })
     return (
         <Tooltip
-            translate={translate}
+            offset={offset}
             size={size}
             padding={padding}
             anchor={anchor}
@@ -116,7 +116,7 @@ export const DistributionTooltip = ({
                 position={titlePosition}
                 size={itemSize}
                 padding={itemPadding}
-                translate={[0, r]}
+                offset={[0, r]}
                 style={titleStyle}
                 className={className}
             >

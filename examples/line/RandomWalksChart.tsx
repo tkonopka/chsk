@@ -92,7 +92,7 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
                 />
                 <Tooltip
-                    translate={[20, 0]}
+                    offset={[20, 0]}
                     itemSize={[140, 24]}
                     anchor={[0, 0.5]}
                     labelFormat={customLabelFormat}
