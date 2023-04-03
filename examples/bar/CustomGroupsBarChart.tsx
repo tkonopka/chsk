@@ -63,7 +63,7 @@ const customTheme: ThemeSpec = {
     AxisTicks: {
         bottom: {
             labelAngle: -45,
-            labelOffset: 8,
+            labelDistance: 8,
             labelStyle: { textAnchor: 'end' },
         },
     },

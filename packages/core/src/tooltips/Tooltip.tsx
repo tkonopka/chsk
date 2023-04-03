@@ -32,7 +32,7 @@ const UnthemedTooltip = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultTooltipProps.labelOffset,
+    labelDistance = defaultTooltipProps.labelDistance,
     labelFormat = guessLabel,
     //
     className,
@@ -89,7 +89,7 @@ const UnthemedTooltip = ({
             symbol={symbol}
             symbolStyle={symbolStyle}
             labelStyle={labelStyle}
-            labelOffset={labelOffset}
+            labelDistance={labelDistance}
             className={className}
             style={style}
             setRole={setRole}

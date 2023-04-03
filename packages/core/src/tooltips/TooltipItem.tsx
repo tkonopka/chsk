@@ -21,7 +21,7 @@ const UnthemedTooltipItem = ({
     label,
     labelStyle,
     labelPosition,
-    labelOffset = defaultTooltipItemProps.labelOffset,
+    labelDistance = defaultTooltipItemProps.labelDistance,
     color,
     className,
     style,
@@ -29,7 +29,7 @@ const UnthemedTooltipItem = ({
 }: TooltipItemProps) => {
     const colorScale = useScales().scales.color
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
-    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset, r)
+    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelDistance + r)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
     const symbolClassName = getClassName('tooltipSymbol ' + variant, className)
     const textClassName = getClassName('tooltipItem ' + variant, className)

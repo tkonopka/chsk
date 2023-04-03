@@ -37,7 +37,7 @@ export const DistributionTooltip = ({
     symbol = Square,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultTooltipProps.labelOffset,
+    labelDistance = defaultTooltipProps.labelDistance,
     labelFormat,
     // organization of information table
     valueFormat = (x: number) => String(x),
@@ -84,7 +84,7 @@ export const DistributionTooltip = ({
                 position={infoPositions[i]}
                 data={data as DistributionProcessedSummary & TooltipDataItem} // already check at start
                 label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
-                labelOffset={labelOffset}
+                labelDistance={labelDistance}
                 item={data.key ?? ''}
                 padding={itemPadding}
                 symbol={symbol}

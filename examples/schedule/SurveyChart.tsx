@@ -62,7 +62,7 @@ const surveyTheme: ThemeSpec = mergeTheme(buttonTheme, {
     LegendItem: {
         default: {
             interactive: false,
-            labelOffset: 10,
+            labelDistance: 10,
         },
     },
 })

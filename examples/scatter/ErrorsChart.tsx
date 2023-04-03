@@ -170,7 +170,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                             r={5}
                             item={'A'}
                             label={'Measurements'}
-                            labelOffset={13}
+                            labelDistance={13}
                             interactive={false}
                         />
                         <LegendItem
@@ -182,7 +182,7 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                             r={6}
                             item={'A'}
                             label={'Moving average'}
-                            labelOffset={12}
+                            labelDistance={12}
                             symbolStyle={fitStyle}
                             interactive={false}
                         />

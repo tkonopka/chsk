@@ -177,7 +177,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                                 ...customTheme.line?.regression,
                                 ...customTheme.line?.pooled,
                             }}
-                            labelOffset={16}
+                            labelDistance={16}
                             interactive={false}
                         />
                     </MilestoneMotion>
@@ -189,7 +189,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                             symbol={Segment}
                             item={'pool'}
                             label={'Excluding outliers'}
-                            labelOffset={16}
+                            labelDistance={16}
                             symbolStyle={{
                                 ...customTheme.line?.regression,
                                 ...customTheme.line?.points,

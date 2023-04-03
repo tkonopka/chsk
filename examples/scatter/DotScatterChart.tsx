@@ -60,7 +60,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     },
     AxisTicks: {
         left: {
-            labelOffset: 60,
+            labelDistance: 60,
             labelStyle: { textAnchor: 'start' },
             tickSize: 0,
         },

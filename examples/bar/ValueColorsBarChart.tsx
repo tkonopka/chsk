@@ -109,7 +109,7 @@ const CustomTooltipItem = () => {
             item={item.id}
             label={date + ': ' + value + '%'}
             color={value > 0 ? 0 : 1}
-            labelOffset={14}
+            labelDistance={14}
         />
     )
 }
@@ -152,10 +152,10 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                     % change on previous month
                 </Typography>
                 <Axis variant={'bottom'}>
-                    <AxisTicks variant={'bottom'} labelOffset={8} labelFormat={monthTickFormat} />
+                    <AxisTicks variant={'bottom'} labelDistance={8} labelFormat={monthTickFormat} />
                     <AxisTicks
                         variant={'bottom'}
-                        labelOffset={26}
+                        labelDistance={26}
                         labelFormat={yearTickFormat}
                         labelStyle={{ fill: '#222222', fontWeight: 600, textAnchor: 'start' }}
                     />
@@ -164,7 +164,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                 <Axis variant={'right'} offset={4}>
                     <AxisTicks
                         variant={'right'}
-                        labelTranslate={[12, -7]}
+                        labelOffset={[12, -7]}
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>

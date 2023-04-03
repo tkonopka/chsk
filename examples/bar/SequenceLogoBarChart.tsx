@@ -148,7 +148,7 @@ const LogoTooltipItem = () => {
             item={item.id}
             label={base + ': ' + value + ' bits'}
             color={baseIndex}
-            labelOffset={14}
+            labelDistance={14}
         />
     )
 }

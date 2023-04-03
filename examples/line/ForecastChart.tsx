@@ -138,7 +138,7 @@ export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
                 variant={variant}
                 ticks={yearMids}
                 tickSize={0}
-                labelOffset={10}
+                labelDistance={10}
                 labelFormat={v => getYear(v)}
             />
         </>
@@ -148,12 +148,12 @@ export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
 export const customTheme: ThemeSpec = {
     AxisTicks: {
         bottom: {
-            labelOffset: 8,
+            labelDistance: 8,
             tickSize: 8,
         },
         right: {
-            labelOffset: 0,
-            labelTranslate: [0, -8],
+            labelDistance: 0,
+            labelOffset: [0, -8],
             tickSize: 0,
         },
     },

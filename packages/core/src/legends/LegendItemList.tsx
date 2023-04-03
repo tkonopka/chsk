@@ -19,7 +19,7 @@ const UnthemedLegendItemList = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultLegendProps.labelOffset,
+    labelDistance = defaultLegendProps.labelDistance,
     //
     interactive = defaultLegendProps.interactive,
     className,
@@ -31,7 +31,7 @@ const UnthemedLegendItemList = ({
         itemSize: itemSizes,
         symbolPosition,
         labelPosition,
-    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelOffset, rs)
+    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelDistance, rs)
 
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
@@ -49,7 +49,7 @@ const UnthemedLegendItemList = ({
                 label={labels ? labels[i] : ''}
                 labelPosition={labelPosition[i]}
                 labelStyle={labelStyle}
-                labelOffset={labelOffset}
+                labelDistance={labelDistance}
                 interactive={interactive}
                 className={className}
                 style={itemStyle}

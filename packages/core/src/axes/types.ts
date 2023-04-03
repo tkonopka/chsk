@@ -60,9 +60,9 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     /** style for tick marks (line) */
     tickStyle?: Partial<CSSProperties>
     /** distance between axis and tick labels */
-    labelOffset?: number
+    labelDistance?: number
     /** additional translation for label position */
-    labelTranslate?: NumericPositionSpec
+    labelOffset?: NumericPositionSpec
     /** rotation angle (degrees) */
     labelAngle?: number
     /** format */
@@ -76,16 +76,16 @@ export interface AxisTicksThemedProps
         AxisTicksProps,
         | 'ticks'
         | 'tickSize'
+        | 'labelDistance'
         | 'labelOffset'
-        | 'labelTranslate'
         | 'labelAngle'
         | 'labelStyle'
         | 'tickStyle'
     > {
     ticks: TickType
     tickSize: number
-    labelOffset: number
-    labelTranslate: NumericPositionSpec
+    labelDistance: number
+    labelOffset: NumericPositionSpec
     labelAngle: number
 }
 

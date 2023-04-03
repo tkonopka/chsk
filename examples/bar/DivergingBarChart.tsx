@@ -43,7 +43,7 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <Axis variant={'left'}>
                     <AxisTicks
                         variant={'left'}
-                        labelOffset={60}
+                        labelDistance={60}
                         labelStyle={{ textAnchor: 'start' }}
                     />
                 </Axis>

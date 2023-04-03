@@ -31,8 +31,8 @@ export const defaultAxisLabelRightProps: AxisLabelThemedProps = {
 export const defaultAxisTicksProps: AxisTicksThemedProps = {
     ticks: undefined,
     tickSize: 5,
-    labelOffset: 9,
-    labelTranslate: [0, 0],
+    labelDistance: 9,
+    labelOffset: [0, 0],
     labelAngle: 0,
 }
 

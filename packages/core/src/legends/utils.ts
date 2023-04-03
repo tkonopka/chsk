@@ -56,7 +56,7 @@ export const getItemPositions = (
     horizontal: boolean,
     size: SizeSpec,
     itemPadding: FourSideSizeSpec,
-    labelOffset: number,
+    labelDistance: number,
     symbolSizes: number[]
 ) => {
     const pad = itemPadding
@@ -79,20 +79,20 @@ export const getItemPositions = (
         pos[X] += step[X] + extraStep * stepMultiplier[X]
         pos[Y] += step[Y] + extraStep * stepMultiplier[Y]
         const symbolPos: [number, number] = [maxSize + pad[LEFT], r + pad[TOP]]
-        const labelPos: [number, number] = [2 * maxSize + pad[LEFT] + labelOffset, r + pad[TOP]]
+        const labelPos: [number, number] = [2 * maxSize + pad[LEFT] + labelDistance, r + pad[TOP]]
         if (variant === 'left') {
             symbolPos[X] = size[X] - maxSize - pad[RIGHT]
-            labelPos[X] = symbolPos[X] - maxSize - labelOffset
+            labelPos[X] = symbolPos[X] - maxSize - labelDistance
         } else if (variant === 'top') {
             symbolPos[X] = centerX
             symbolPos[Y] = maxSize + pad[TOP]
             labelPos[X] = centerX
-            labelPos[Y] = pad[TOP] - labelOffset
+            labelPos[Y] = pad[TOP] - labelDistance
         } else if (variant === 'bottom') {
             symbolPos[X] = centerX
             symbolPos[Y] = maxSize + pad[TOP]
             labelPos[X] = centerX
-            labelPos[Y] = 2 * maxSize + pad[TOP] + labelOffset
+            labelPos[Y] = 2 * maxSize + pad[TOP] + labelDistance
         }
         symbolPosition.push(symbolPos)
         labelPosition.push(labelPos)
@@ -142,18 +142,17 @@ export const getSymbolPosition = (
 export const getLabelPosition = (
     variant: SideVariant,
     symbolPosition: NumericPositionSpec,
-    labelOffset: number,
-    r: number
+    offset: number
 ): NumericPositionSpec => {
     const result: NumericPositionSpec = [symbolPosition[X], symbolPosition[Y]]
     if (variant === 'left') {
-        result[X] -= r + labelOffset
+        result[X] -= offset
     } else if (variant === 'right') {
-        result[X] += r + labelOffset
+        result[X] += offset
     } else if (variant === 'bottom') {
-        result[Y] += labelOffset
+        result[Y] += offset
     } else if (variant === 'top') {
-        result[Y] -= labelOffset
+        result[Y] -= offset
     }
     return result
 }

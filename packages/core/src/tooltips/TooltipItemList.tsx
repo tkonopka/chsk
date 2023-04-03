@@ -21,7 +21,7 @@ const UnthemedTooltipItemList = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultTooltipProps.labelOffset,
+    labelDistance = defaultTooltipProps.labelDistance,
     //
     className,
     setRole = true,
@@ -32,7 +32,7 @@ const UnthemedTooltipItemList = ({
         itemSize: itemSizes,
         symbolPosition,
         labelPosition,
-    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelOffset, rs)
+    } = getItemPositions(variant, position, horizontal, itemSize, itemPadding, labelDistance, rs)
 
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
@@ -51,7 +51,7 @@ const UnthemedTooltipItemList = ({
                 label={labels ? labels[i] : ''}
                 labelPosition={labelPosition[i]}
                 labelStyle={labelStyle}
-                labelOffset={labelOffset}
+                labelDistance={labelDistance}
                 className={className}
                 style={itemStyle}
                 setRole={setRole}

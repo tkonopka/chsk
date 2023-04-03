@@ -63,12 +63,6 @@ const weekTheme: ThemeSpec = mergeTheme(buttonTheme, {
             cursor: 'pointer',
         },
     },
-    LegendItem: {
-        default: {
-            interactive: true,
-            labelOffset: 10,
-        },
-    },
 })
 
 const keyLabels: Record<string, string> = {

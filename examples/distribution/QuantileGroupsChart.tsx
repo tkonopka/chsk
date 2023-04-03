@@ -84,7 +84,7 @@ const customTheme: ThemeSpec = mergeThemes([
         AxisTicks: {
             bottom: {
                 labelAngle: -45,
-                labelOffset: 10,
+                labelDistance: 10,
                 labelStyle: {
                     textAnchor: 'end',
                     dominantBaseline: 'middle',

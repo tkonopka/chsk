@@ -116,7 +116,7 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                     <Axis variant={'left'}>
                         <AxisTicks
                             variant={'left'}
-                            labelOffset={60}
+                            labelDistance={60}
                             labelStyle={{ textAnchor: 'start' }}
                         />
                     </Axis>

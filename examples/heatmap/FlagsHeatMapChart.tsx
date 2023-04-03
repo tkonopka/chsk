@@ -58,7 +58,7 @@ const customTheme = mergeTheme(buttonTheme, {
     },
     AxisTicks: {
         left: {
-            labelOffset: 60,
+            labelDistance: 60,
         },
     },
 })

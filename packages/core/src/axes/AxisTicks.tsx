@@ -17,9 +17,9 @@ export const getScaleTicks = ({
     scale,
     scaleSize,
     ticks,
-    tickSize,
-    labelOffset,
-    labelTranslate = zeroPosition,
+    tickSize = 0,
+    labelDistance = 0,
+    labelOffset = zeroPosition,
     labelAngle,
     labelFormat,
     labelStyle,
@@ -36,22 +36,20 @@ export const getScaleTicks = ({
     const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const size = tickSize ?? 0
-    const offset = labelOffset ?? 0
-    const tickTranslations = horizontal
+    const tickPositions = horizontal
         ? tickCoordinates.map(v => [v, 0])
         : tickCoordinates.map(v => [0, v])
     const xMultiplier = variant === 'right' ? 1 : -1
     const yMultiplier = variant === 'top' ? -1 : 1
 
-    const labelX = labelTranslate[X] + (horizontal ? 0 : offset * xMultiplier)
-    const labelY = labelTranslate[Y] + (horizontal ? offset * yMultiplier : 0)
+    const labelX = labelOffset[X] + (horizontal ? 0 : labelDistance * xMultiplier)
+    const labelY = labelOffset[Y] + (horizontal ? labelDistance * yMultiplier : 0)
     const tickFormat = labelFormat ?? stringFormat
     const compositeClassName = getClassName(variant, className)
 
-    return tickTranslations.map((translations, i) => {
-        const x = translations[X]
-        const y = translations[Y]
+    return tickPositions.map((position, i) => {
+        const x = position[X]
+        const y = position[Y]
         const tickLabel = tickFormat(tickValues[i] as string, i)
         return (
             <g
@@ -63,8 +61,8 @@ export const getScaleTicks = ({
                     variant={'tick'}
                     x1={x}
                     y1={y}
-                    x2={x + (horizontal ? 0 : size * xMultiplier)}
-                    y2={y + (horizontal ? size * yMultiplier : 0)}
+                    x2={x + (horizontal ? 0 : tickSize * xMultiplier)}
+                    y2={y + (horizontal ? tickSize * yMultiplier : 0)}
                     className={compositeClassName}
                     style={tickStyle}
                     setRole={false}
@@ -88,8 +86,8 @@ const UnthemedAxisTicks = ({
     variant,
     ticks = defaultAxisTicksProps.ticks,
     tickSize = defaultAxisTicksProps.tickSize,
+    labelDistance = defaultAxisTicksProps.labelDistance,
     labelOffset = defaultAxisTicksProps.labelOffset,
-    labelTranslate = defaultAxisTicksProps.labelTranslate,
     labelAngle = defaultAxisTicksProps.labelAngle,
     labelFormat,
     labelStyle,
@@ -108,8 +106,8 @@ const UnthemedAxisTicks = ({
         tickStyle,
         labelStyle,
         labelFormat,
+        labelDistance,
         labelOffset,
-        labelTranslate,
         labelAngle,
         setRole,
         className,

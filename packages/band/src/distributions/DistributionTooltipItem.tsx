@@ -87,7 +87,7 @@ export const DistributionTooltipItem = ({
     symbolStyle,
     label,
     labelStyle,
-    labelOffset = defaultTooltipProps.labelOffset,
+    labelDistance = defaultTooltipProps.labelDistance,
     // information table
     valueFormat = (x: number) => String(x),
     cellSize = [40, 20],
@@ -104,7 +104,7 @@ export const DistributionTooltipItem = ({
 
     const item = 'key' in data ? String(data.key) : ''
     const symbolPosition = [r + padding[LEFT], r + padding[TOP]]
-    const labelPosition = [symbolPosition[X] + r + labelOffset, symbolPosition[Y]]
+    const labelPosition = [symbolPosition[X] + r + labelDistance, symbolPosition[Y]]
 
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
     const symbolClassName = getClassName('tooltipSymbol right', className)

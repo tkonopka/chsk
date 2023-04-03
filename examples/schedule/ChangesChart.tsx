@@ -131,7 +131,7 @@ export const ChangesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     itemSize={[160, 24]}
                     labelFormat={customLabelFormat}
                     symbol={() => null}
-                    labelOffset={-15}
+                    labelDistance={-15}
                 />
             </Schedule>
             <Typography variant={'title'} position={[-55, -70]}>

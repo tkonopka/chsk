@@ -61,8 +61,8 @@ const customTheme = mergeThemes([
             },
         },
         AxisTicks: {
-            left: { tickSize: -6, labelOffset: 4 },
-            bottom: { tickSize: -6, labelOffset: 4 },
+            left: { tickSize: -6, labelDistance: 4 },
+            bottom: { tickSize: -6, labelDistance: 4 },
             top: { tickSize: -6 },
             right: { tickSize: -6 },
         },

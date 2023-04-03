@@ -61,17 +61,17 @@ Note that suggestions for the number of tick marks are approximate and the actua
 
 ## Label position
 
-The position of the text labels near tick marks is controlled with props `labelOffset` and `labelTranslate`.
+The position of the text labels near tick marks is controlled with props `labelDistance` and `labelOffset`.
 
-`labelOffset` determines a perpendicular distance from the axis to the text label.
-`labelTranslate` further adjusts the position in an arbitrary direction.
+`labelDistance` sets a perpendicular distance from the axis to the text label.
+`labelOffset` further translates the label in an arbitrary direction.
 
 <Canvas>
     <Story
-        name="label offset"
+        name="label distance"
         args={{
             variant: 'bottom',
-            labelOffset: 25,
+            labelDistance: 25,
         }}
         component={AxisTicks}
         decorators={[ChartBottomAxisDecorator]}
@@ -79,11 +79,11 @@ The position of the text labels near tick marks is controlled with props `labelO
         {Template.bind({})}
     </Story>
     <Story
-        name="label translate"
+        name="label offset"
         args={{
             variant: 'bottom',
-            labelOffset: 5,
-            labelTranslate: [10, 5],
+            labelDistance: 5,
+            labelOffset: [10, 5],
         }}
         component={AxisTicks}
         decorators={[ChartBottomAxisDecorator]}
@@ -102,7 +102,7 @@ Props `tickSize` controls the length of the tick lines.
         args={{
             variant: 'bottom',
             tickSize: 15,
-            labelOffset: 20,
+            labelDistance: 20,
         }}
         component={AxisTicks}
         decorators={[ChartBottomAxisDecorator]}
@@ -120,7 +120,7 @@ Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the
         name="rotation"
         args={{
             variant: 'bottom',
-            labelOffset: 10,
+            labelDistance: 10,
             labelRotate: -90,
             labelStyle: {
                 textAnchor: 'end',
@@ -144,7 +144,7 @@ signature `(value: unknown, index: number) => string`.
         name="format"
         args={{
             variant: 'bottom',
-            labelOffset: 10,
+            labelDistance: 10,
             labelFormat: v => v + '%',
         }}
         component={AxisTicks}

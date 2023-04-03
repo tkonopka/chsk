@@ -16,7 +16,7 @@ export const defaultLegendProps: LegendThemedProps = {
     itemPadding: [4, 4, 4, 4],
     firstOffset: [0, 0],
     r: 8,
-    labelOffset: 6,
+    labelDistance: 6,
     scaleSize: [8, 80],
     interactive: true,
 }
@@ -26,7 +26,7 @@ export const defaultLegendItemListProps: LegendItemListThemedProps = {
     itemSize: [60, 20],
     itemPadding: [4, 4, 4, 4],
     r: 8,
-    labelOffset: 6,
+    labelDistance: 6,
     interactive: true,
 }
 
@@ -35,7 +35,7 @@ export const defaultLegendItemProps: LegendItemThemedProps = {
     padding: [4, 4, 4, 4],
     offset: [0, 0],
     r: 8,
-    labelOffset: 4,
+    labelDistance: 4,
     interactive: true,
 }
 
@@ -44,7 +44,7 @@ export const defaultLegendColorScaleProps: LegendColorScaleThemedProps = {
     ticks: 4,
     tickSize: 5,
     axisOffset: 0,
-    labelOffset: 9,
+    labelDistance: 9,
     labelAngle: 0,
 }
 
@@ -53,5 +53,5 @@ export const defaultLegendSizeScaleProps: LegendSizeScaleThemedProps = {
     itemSize: [60, 20],
     itemPadding: [4, 4, 4, 4],
     ticks: 3,
-    labelOffset: 4,
+    labelDistance: 4,
 }

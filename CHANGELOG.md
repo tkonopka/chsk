@@ -37,6 +37,9 @@
 
 ### Changed
 
+-   [core] replaced prop `labelOffset` in tick components with `labelDistance`,
+    and `labelTranslate` with `labelOffset; now all 'offset' props should be
+    arrays with [x, y] coordinates
 -   [core] replaced prop `translate` with `offset` to improve naming
     consistency (using nouns more than verbs); moved the `offset` prop into
     `ContainerProps`

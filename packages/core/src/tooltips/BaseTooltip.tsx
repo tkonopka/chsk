@@ -69,7 +69,7 @@ export const BaseTooltip = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultTooltipProps.labelOffset,
+    labelDistance = defaultTooltipProps.labelDistance,
     labelFormat = guessLabel,
     //
     className,
@@ -121,7 +121,7 @@ export const BaseTooltip = ({
                     symbol={symbol}
                     symbolStyle={symbolStyle}
                     labelStyle={labelStyle}
-                    labelOffset={labelOffset}
+                    labelDistance={labelDistance}
                     setRole={setRole}
                 />
             ) : null}

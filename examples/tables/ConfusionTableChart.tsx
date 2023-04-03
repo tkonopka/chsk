@@ -71,11 +71,11 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     AxisTicks: {
         top: {
             tickSize: 0,
-            labelOffset: 10,
+            labelDistance: 10,
         },
         left: {
             tickSize: 0,
-            labelOffset: 11,
+            labelDistance: 11,
         },
     },
     Motion: {

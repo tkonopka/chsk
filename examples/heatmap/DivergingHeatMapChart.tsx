@@ -42,7 +42,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     <AxisTicks
                         variant={'left'}
                         tickSize={0}
-                        labelOffset={55}
+                        labelDistance={55}
                         labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                     />
                 </Axis>
@@ -80,7 +80,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                         padding={[0, 4, 0, 4]}
                         position={[0, 10]}
                         tickSize={3}
-                        labelOffset={6}
+                        labelDistance={6}
                         gradientId={'grad-diverging'}
                     />
                 </Legend>

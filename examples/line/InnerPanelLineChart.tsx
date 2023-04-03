@@ -61,11 +61,11 @@ const customTheme = {
     AxisTicks: {
         left: {
             tickSize: -6,
-            labelOffset: 6,
+            labelDistance: 6,
         },
         bottom: {
             tickSize: -6,
-            labelOffset: 6,
+            labelDistance: 6,
         },
     },
 }

@@ -46,7 +46,7 @@ const UnthemedLegend = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = defaultLegendProps.labelOffset,
+    labelDistance = defaultLegendProps.labelDistance,
     // only for color scale
     scaleSize = defaultLegendProps.scaleSize,
     // only for size legends
@@ -93,6 +93,15 @@ const UnthemedLegend = ({
         className,
         setRole,
     }
+    const listProps = {
+        itemSize,
+        itemPadding,
+        itemStyle,
+        symbol,
+        symbolStyle,
+        labelStyle,
+        labelDistance,
+    }
 
     // legend content
     let content: ReactNode | null | ReactNode[] = null
@@ -102,18 +111,12 @@ const UnthemedLegend = ({
             <LegendItemList
                 key={'legend-list'}
                 {...commonProps}
+                {...listProps}
                 variant={'right'}
                 keys={colorDomain}
                 labels={colorDomain}
                 interactive={interactive}
-                itemSize={itemSize}
-                itemPadding={itemPadding}
-                itemStyle={itemStyle}
                 r={Array(colorDomain.length).fill(r)}
-                symbol={symbol}
-                symbolStyle={symbolStyle}
-                labelStyle={labelStyle}
-                labelOffset={labelOffset}
             />
         )
     } else if (variant === 'color' && scales.color.variant !== 'categorical') {
@@ -123,14 +126,8 @@ const UnthemedLegend = ({
             <LegendSizeScale
                 key={'legend-size-scale'}
                 {...commonProps}
-                itemSize={itemSize}
-                itemPadding={itemPadding}
-                itemStyle={itemStyle}
+                {...listProps}
                 ticks={sizeTicks}
-                symbol={symbol}
-                symbolStyle={symbolStyle}
-                labelStyle={labelStyle}
-                labelOffset={labelOffset}
             />
         )
     }

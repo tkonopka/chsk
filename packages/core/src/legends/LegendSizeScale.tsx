@@ -17,7 +17,7 @@ const UnthemedLegendSizeScale = ({
     symbol,
     symbolStyle,
     labelStyle,
-    labelOffset = 4,
+    labelDistance = 4,
     //
     ticks = 3,
     sizes,
@@ -48,7 +48,7 @@ const UnthemedLegendSizeScale = ({
                 symbol={symbol}
                 symbolStyle={symbolStyle}
                 labelStyle={labelStyle}
-                labelOffset={labelOffset}
+                labelDistance={labelDistance}
                 interactive={false}
                 className={className}
                 setRole={setRole}

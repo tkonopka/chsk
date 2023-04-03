@@ -30,7 +30,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     AxisTicks: {
         top: {
             tickSize: 0,
-            labelOffset: 4,
+            labelDistance: 4,
         },
     },
     text: {

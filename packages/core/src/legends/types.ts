@@ -49,29 +49,29 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     r?: number
     /** symbol function */
     symbol?: FC<SymbolProps>
-    /** symbol position (overrides auto-calculation based on position and variant) */
+    /** symbol position (overrides auto-calculation based on item index and legend variant) */
     symbolPosition?: NumericPositionSpec
     /** style for symbol */
     symbolStyle?: CssProps
     /** text label */
     label: string
-    /** label position (overrides auto-calculation based on position and variant) */
+    /** label position (overrides auto-calculation based on item index and legend variant) */
     labelPosition?: NumericPositionSpec
     /** style for text label */
     labelStyle?: CssProps
-    /** offset of label from symbol */
-    labelOffset?: number
+    /** distance from symbol to label */
+    labelDistance?: number
     /** color */
     color?: string | number
 }
 
 export interface LegendItemThemedProps
-    extends Pick<LegendItemProps, 'size' | 'padding' | 'offset' | 'r' | 'labelOffset'> {
+    extends Pick<LegendItemProps, 'size' | 'padding' | 'offset' | 'r' | 'labelDistance'> {
     size: SizeSpec
     padding: FourSideSizeSpec
     offset: NumericPositionSpec
     r: number
-    labelOffset: number
+    labelDistance: number
     interactive: boolean
 }
 
@@ -89,7 +89,7 @@ export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>
 export interface LegendColorScaleThemedProps
     extends Pick<
         LegendColorScaleProps,
-        'ticks' | 'tickSize' | 'tickStyle' | 'labelAngle' | 'labelOffset'
+        'ticks' | 'tickSize' | 'tickStyle' | 'labelAngle' | 'labelDistance'
     > {
     padding: FourSideSizeSpec
     ticks: number | number[]
@@ -103,7 +103,7 @@ export interface LegendProps
         Pick<ViewProps, 'children'>,
         Pick<
             LegendItemProps,
-            'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelOffset' | 'interactive'
+            'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelDistance' | 'interactive'
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
@@ -130,7 +130,7 @@ export interface LegendThemedProps
     firstOffset: NumericPositionSpec
     scaleSize: SizeSpec
     r: number
-    labelOffset: number
+    labelDistance: number
     interactive: boolean
 }
 
@@ -159,7 +159,7 @@ export interface LegendItemListThemedProps
     itemPadding: FourSideSizeSpec
     horizontal: boolean
     r: number
-    labelOffset: number
+    labelDistance: number
 }
 
 export interface LegendSizeScaleProps
@@ -194,6 +194,6 @@ export interface LegendSizeScaleThemedProps
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec
     horizontal: boolean
-    labelOffset: number
+    labelDistance: number
     ticks: number | number[]
 }

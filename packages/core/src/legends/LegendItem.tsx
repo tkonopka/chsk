@@ -22,7 +22,7 @@ const UnthemedLegendItem = ({
     label,
     labelStyle,
     labelPosition,
-    labelOffset = defaultLegendItemProps.labelOffset,
+    labelDistance = defaultLegendItemProps.labelDistance,
     color,
     interactive = defaultLegendItemProps.interactive,
     className,
@@ -33,7 +33,7 @@ const UnthemedLegendItem = ({
     const { data: chartData, setData: setChartData } = useChartData()
 
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
-    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, labelOffset, r)
+    labelPosition = labelPosition ?? getLabelPosition(variant, symbolPosition, r + labelDistance)
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
 
     const handleClick = () => {

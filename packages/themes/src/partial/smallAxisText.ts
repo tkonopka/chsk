@@ -22,9 +22,9 @@ export const smallAxisTextTheme: ThemeSpec = {
         right: { offset: defaultAxisLabelRightProps.offset - 5 },
     },
     AxisTicks: {
-        top: { labelOffset: defaultAxisTicksProps.labelOffset - 1 },
-        bottom: { labelOffset: defaultAxisTicksProps.labelOffset - 1 },
-        left: { labelOffset: defaultAxisTicksProps.labelOffset - 1 },
-        right: { labelOffset: defaultAxisTicksProps.labelOffset - 1 },
+        top: { labelDistance: defaultAxisTicksProps.labelDistance - 1 },
+        bottom: { labelDistance: defaultAxisTicksProps.labelDistance - 1 },
+        left: { labelDistance: defaultAxisTicksProps.labelDistance - 1 },
+        right: { labelDistance: defaultAxisTicksProps.labelDistance - 1 },
     },
 }

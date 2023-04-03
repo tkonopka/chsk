@@ -9,6 +9,7 @@ import {
     Typography,
     Legend,
     LegendItem,
+    ThemeSpec,
 } from '@chsk/core'
 import { Segment } from '@chsk/annotation'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
@@ -36,10 +37,16 @@ export const generateSimpsonData = () => [
     },
 ]
 
-const customTheme = {
+const customTheme: ThemeSpec = {
     line: {
         regression: {
             strokeWidth: 3,
+        },
+    },
+    LegendItem: {
+        right: {
+            size: [100, 24],
+            labelDistance: 8,
         },
     },
 }
@@ -121,38 +128,30 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <LegendItem
                         variant={'right'}
                         position={[0, 0]}
-                        size={[100, 24]}
                         symbol={Circle}
                         item={'A'}
                         label={'Group A'}
-                        labelOffset={12}
                     />
                     <LegendItem
                         variant={'right'}
                         position={[100, 0]}
-                        size={[100, 24]}
                         symbol={Circle}
                         item={'B'}
                         label={'Group B'}
-                        labelOffset={12}
                     />
                     <LegendItem
                         variant={'right'}
                         position={[200, 0]}
-                        size={[100, 24]}
                         symbol={Circle}
                         item={'C'}
                         label={'Group C'}
-                        labelOffset={12}
                     />
                     <LegendItem
                         variant={'right'}
                         position={[300, 0]}
-                        size={[100, 24]}
                         symbol={Segment}
                         item={'pool'}
                         label={'Pool'}
-                        labelOffset={14}
                         symbolStyle={{ ...regressionStyle, strokeDasharray: '5 7' }}
                         interactive={false}
                     />

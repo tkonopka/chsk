@@ -95,7 +95,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                         variant={'bottom'}
                         tickSize={5}
                         labelAngle={-90}
-                        labelOffset={9}
+                        labelDistance={9}
                         labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
                 </Axis>
