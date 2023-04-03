@@ -6,7 +6,7 @@ import { getClassName, useThemedProps } from '../themes'
 import { Typography } from '../typography'
 import { defaultAxisTicksProps } from './defaults'
 
-// special formatting functions
+// pre-defined formatting functions
 const stringFormat = (v: unknown) => String(v)
 
 // create an array of tick marks (tick lines and tick labels)
@@ -48,16 +48,11 @@ export const getScaleTicks = ({
     const compositeClassName = getClassName(variant, className)
 
     return tickPositions.map((position, i) => {
-        const x = position[X]
-        const y = position[Y]
-        const tickLabel = tickFormat(tickValues[i] as string, i)
+        const [x, y] = position
         return (
-            <g
-                key={'tick-' + (tickLabel ? tickLabel : i)}
-                role={setRole ? 'tick' : undefined}
-                style={style}
-            >
+            <g key={'tick-' + tickValues[i]} role={setRole ? 'tick' : undefined} style={style}>
                 <Line
+                    key={0}
                     variant={'tick'}
                     x1={x}
                     y1={y}
@@ -68,6 +63,7 @@ export const getScaleTicks = ({
                     setRole={false}
                 />
                 <Typography
+                    key={1}
                     variant={'tick-label'}
                     position={[x + labelX, y + labelY]}
                     angle={labelAngle}
@@ -75,7 +71,7 @@ export const getScaleTicks = ({
                     className={compositeClassName}
                     setRole={false}
                 >
-                    {tickLabel}
+                    {tickFormat(tickValues[i], i)}
                 </Typography>
             </g>
         )
