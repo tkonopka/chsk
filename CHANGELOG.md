@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [annotation] conversion of rgba colors to hex in svg exports
 -   [themes] theme piece `buttonTheme` with styles for buttons
 -   [core] component `Toolbar` to create generic toolbars with buttons
 -   [core] component `ViewClip` to restrict content to the bounding box of a view

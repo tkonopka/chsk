@@ -1,4 +1,4 @@
-import { cleanStyle, roundPxDecimalPlaces, scanSvg, shakeStyles } from './helpers'
+import { cleanStyle, rgb2hex, roundPxDecimalPlaces, scanSvg, shakeStyles } from './helpers'
 import { CleanSvgConfig } from './types'
 
 export const defaultCleanSvgConfig: CleanSvgConfig = {
@@ -76,8 +76,7 @@ export const cleanSvg = (
     for (const attr of element.attributes) {
         if (roundSet.has(attr.name)) {
             element.setAttribute(attr.name, roundPxDecimalPlaces(attr.value, n))
-        }
-        if (attr.name === 'style') {
+        } else if (attr.name === 'style') {
             const { style, transform } = cleanStyle(attr.value, n)
             element.setAttribute('style', style)
             if (style === '') {
@@ -86,6 +85,8 @@ export const cleanSvg = (
             if (transform) {
                 element.setAttribute('transform', transform)
             }
+        } else if (attr.name === 'fill' || attr.name === 'stroke') {
+            element.setAttribute(attr.name, rgb2hex(attr.value))
         }
         if (attr.value === 'undefined') {
             skipAttributes.push(attr.name)

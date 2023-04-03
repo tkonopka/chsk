@@ -19,26 +19,32 @@ export const roundPxDecimalPlaces = (s: string, n: number, preservePx = false): 
 const rgbValue2hex = (x: string) => {
     let v: number
     if (x.includes('%')) {
-        v = Math.round((255 * Number(x.replace('%', ''))) / 100)
+        v = (255 * Number(x.replace('%', ''))) / 100
     } else if (x.includes('.')) {
-        v = Math.round(255 * Number(x))
+        v = 255 * Number(x)
     } else {
         v = Number(x)
     }
-    v = Math.max(0, Math.min(255, v))
-    return v < 16 ? '0' + v.toString(16) : v.toString(16)
+    v = Math.max(0, Math.min(255, Math.round(v)))
+    return (v < 16 ? '0' : '') + v.toString(16)
 }
 
-/** convert an rgb(r g b a) string into hex */
+/** convert an rgb(r g b) or rgb(r g b a) string into hex */
 export const rgb2hex = (rgb: string) => {
-    if (!rgb.startsWith('rgb(')) return rgb
+    const prefix = rgb.startsWith('rgb(') ? 'rgb' : rgb.startsWith('rgba(') ? 'rgba' : undefined
+    if (!prefix) return rgb
     const sep = rgb.includes(',') ? ',' : ' '
-    const parts = contentInParentheses(rgb, 'rgb')
+    const parts = contentInParentheses(rgb, prefix)
         .replace('/', sep)
         .split(sep)
         .filter(Boolean)
-        .map(s => rgbValue2hex(s.trim()))
-    return '#' + parts.join('')
+        .map(s => s.trim())
+    const n = prefix === 'rgba' && parts[3] === '1' ? 3 : parts.length
+    const result = parts
+        .slice(0, n)
+        .map(s => rgbValue2hex(s))
+        .join('')
+    return '#' + result
 }
 
 const contentInParentheses = (s: string, prefix: string): string => {

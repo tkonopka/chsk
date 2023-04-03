@@ -117,6 +117,42 @@ describe('cleanSvg', () => {
         })
     })
 
+    it('converts rgb colors to hex', () => {
+        render(
+            <svg>
+                <rect
+                    role={'target'}
+                    width={'10px'}
+                    height={'20px'}
+                    stroke={'rgb(0, 0, 0)'}
+                    fill={'rgb(0, 0, 0)'}
+                />
+            </svg>
+        )
+        const raw = screen.getByRole('target')
+        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        expect(clean.getAttribute('stroke')).toEqual('#000000')
+        expect(clean.getAttribute('fill')).toEqual('#000000')
+    })
+
+    it('converts rgba colors to hex', () => {
+        render(
+            <svg>
+                <rect
+                    role={'target'}
+                    width={'10px'}
+                    height={'20px'}
+                    stroke={'rgba(0 0 255 0.5)'}
+                    fill={'rgba(0 0 255 0.5)'}
+                />
+            </svg>
+        )
+        const raw = screen.getByRole('target')
+        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        expect(clean.getAttribute('stroke')).toEqual('#0000ff80')
+        expect(clean.getAttribute('fill')).toEqual('#0000ff80')
+    })
+
     it('removes g with role dimensions-reference', () => {
         render(
             <svg role={'svg'}>

@@ -43,10 +43,12 @@ describe('rgb2hex', () => {
 
     it('handles rgb string with spaces', () => {
         expect(rgb2hex('rgb(255 32 5)')).toBe('#ff2005')
+        expect(rgb2hex('rgb(255 0 255)')).toBe('#ff00ff')
     })
 
     it('handles rgb string with commas', () => {
         expect(rgb2hex('rgb(255,32,5)')).toBe('#ff2005')
+        expect(rgb2hex('rgb(255,0,255)')).toBe('#ff00ff')
     })
 
     it('preserves non-rgb string', () => {
@@ -70,6 +72,22 @@ describe('rgb2hex', () => {
 
     it('handles rgb string with decimals', () => {
         expect(rgb2hex('rgb(0.5 0.1 1.0 0.5)')).toBe(rgb2hex('rgb(128 26 255 128)'))
+    })
+
+    it('handles rgba with commas', () => {
+        expect(rgb2hex('rgba(255, 255, 255, 0.5)')).toBe('#ffffff80')
+    })
+
+    it('handles rgba with spaces', () => {
+        expect(rgb2hex('rgba(255 255 255 0.5)')).toBe('#ffffff80')
+    })
+
+    it('handles rgba with slash', () => {
+        expect(rgb2hex('rgba(255 255 255 / 0.5)')).toBe('#ffffff80')
+    })
+
+    it('simplifies rgba with alpha 1', () => {
+        expect(rgb2hex('rgba(255 255 255 1)')).toBe('#ffffff')
     })
 })
 
