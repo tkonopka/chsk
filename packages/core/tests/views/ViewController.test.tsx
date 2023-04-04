@@ -129,7 +129,7 @@ describe('ViewController', () => {
         })
     })
 
-    it('keep current selection after reset', async () => {
+    it('keep current button value after reset', async () => {
         render(
             <Chart {...chartProps}>
                 <View>
@@ -240,7 +240,7 @@ describe('ViewController', () => {
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
-                    <ViewController key={0} variant={'xy'} value={'zoom'} className={'abc'} />
+                    <ViewController key={0} variant={'xy'} value={'zoom'} className={'custom'} />
                     <GetScales key={1} />
                 </View>
             </Chart>
@@ -252,17 +252,17 @@ describe('ViewController', () => {
         fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
         fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
         await waitFor(() => {
-            const selection = screen.getByRole('selection')
-            expect(screen.getByRole('selection').getAttribute('width')).toBe('50px')
-            expect(screen.getByRole('selection').getAttribute('height')).toBe('50px')
-            expect(selection.getAttribute('class')).toContain('selection viewController abc')
+            const box = screen.getByRole('zoom-box')
+            expect(box.getAttribute('width')).toBe('50px')
+            expect(box.getAttribute('height')).toBe('50px')
+            expect(box.getAttribute('class')).toContain('zoomBox custom')
         })
         checkUnitScales(scales, [0, 100], [100, 0])
         // release mouse, hide selection rectangle, change scales
         fireEvent.mouseUp(detectorRect, { clientX: 75, clientY: 75 })
         await waitFor(() => {
             checkUnitScales(scales, [-50, 150], [150, -50])
-            expect(screen.queryByRole('selection')).toBeNull()
+            expect(screen.queryByRole('zoom-box')).toBeNull()
         })
     })
 
@@ -316,9 +316,9 @@ describe('ViewController', () => {
         fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
         // selection rectangle should span whole height
         await waitFor(() => {
-            const selection = screen.getByRole('selection')
-            expect(selection.getAttribute('width')).toBe('50px')
-            expect(selection.getAttribute('height')).toBe('100px')
+            const box = screen.getByRole('zoom-box')
+            expect(box.getAttribute('width')).toBe('50px')
+            expect(box.getAttribute('height')).toBe('100px')
         })
         // after mouse up, the scales should change
         fireEvent.mouseUp(detector.querySelector('rect') ?? detector, { clientX: 75, clientY: 75 })
@@ -349,9 +349,9 @@ describe('ViewController', () => {
         fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
         // selection rectangle should span whole height
         await waitFor(() => {
-            const selection = screen.getByRole('selection')
-            expect(selection.getAttribute('width')).toBe('100px')
-            expect(selection.getAttribute('height')).toBe('50px')
+            const box = screen.getByRole('zoom-box')
+            expect(box.getAttribute('width')).toBe('100px')
+            expect(box.getAttribute('height')).toBe('50px')
         })
         // after mouse up, the scales should change
         fireEvent.mouseUp(detector.querySelector('rect') ?? detector, { clientX: 75, clientY: 75 })
@@ -381,11 +381,14 @@ describe('ViewController', () => {
         // some arbitrary mouse movements
         fireEvent.mouseDown(detectorRect, { clientX: 25, clientY: 25 })
         fireEvent.mouseMove(detectorRect, { clientX: 75, clientY: 75 })
+        await waitFor(() => {
+            expect(screen.queryByRole('zoom-box')).not.toBeNull()
+        })
         // mouse leaves the view area
         fireEvent.mouseLeave(detectorRect)
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])
-            expect(screen.queryByRole('selection')).toBeNull()
+            expect(screen.queryByRole('zoom-box')).toBeNull()
         })
     })
 

@@ -13,7 +13,7 @@ export const ViewController = ({
     values = ['none', 'pan', 'zoom', 'zoom-in', 'zoom-out', 'reset'],
     value = 'none',
     zoomFactor = 2,
-    selectionStyle,
+    boxStyle,
     // toolbar
     container = defaultControllerContainerProps,
     itemSize = [24, 24],
@@ -97,7 +97,7 @@ export const ViewController = ({
         className,
     }
     const panController = <PanController key={'pan'} {...rectProps} />
-    const zoom = <ZoomController key={'zoom'} selectionStyle={selectionStyle} {...rectProps} />
+    const zoom = <ZoomController key={'zoom'} boxStyle={boxStyle} {...rectProps} />
 
     const compositeClassName = getClassName('view-controller ' + variant, className)
     return (

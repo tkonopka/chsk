@@ -82,12 +82,12 @@ export const defaultTheme: CompleteThemeSpec = {
             fill: '#ffffff',
         },
         'tooltip.surface': {
-            strokeWidth: 0.5,
-            stroke: '#aaaaaa',
+            strokeWidth: 1,
+            stroke: '#bbbbbb',
             filter: 'drop-shadow(2px 2px 4px #00000033)',
         },
         'legend.surface': {
-            fillOpacity: 0,
+            fill: 'transparent',
         },
         legendItem: {
             fill: '#ffffff',
@@ -95,11 +95,11 @@ export const defaultTheme: CompleteThemeSpec = {
         legendTitle: {
             fill: '#ffffff',
         },
-        selection: {
-            fill: '#aaaaaa',
-            opacity: 0.2,
-            strokeWidth: 0.5,
-            stroke: '#000000',
+        zoomBox: {
+            fill: '#777777',
+            fillOpacity: 0.2,
+            strokeWidth: 1,
+            strokeOpacity: 0.7,
         },
     },
     text: {

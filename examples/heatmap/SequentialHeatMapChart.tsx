@@ -29,6 +29,12 @@ const customTheme = mergeTheme(buttonTheme, {
             stroke: '#222222',
             strokeWidth: 1,
         },
+        zoomBox: {
+            fill: '#777777',
+            fillOpacity: 0.3,
+            stroke: '#000000',
+            strokeWidth: 2,
+        },
     },
     AxisLabel: {
         top: {

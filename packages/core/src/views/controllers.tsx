@@ -65,12 +65,12 @@ export const ZoomController = ({
     setRole,
     width,
     height,
-    selectionStyle,
+    boxStyle,
     ...props
-}: RectangleProps & Pick<ViewControllerProps, 'variant' | 'selectionStyle'>) => {
+}: RectangleProps & Pick<ViewControllerProps, 'variant' | 'boxStyle'>) => {
     const ref = useRef<SVGSVGElement>(null)
     const { scales, scaleProps, setScaleProps } = useScales()
-    const [selection, setSelection] = useState<RegionProps | null>(null)
+    const [region, setRegion] = useState<RegionProps | null>(null)
 
     // handling box drawing for custom zoom
     const onMouseDown = useCallback(
@@ -78,61 +78,48 @@ export const ZoomController = ({
             const { x, y } = getEventXY(event, ref)
             if (x === undefined || y === undefined) return
             if (variant === 'xy') {
-                setSelection({ x, y, width: 0, height: 0 })
+                setRegion({ x, y, width: 0, height: 0 })
             } else if (variant === 'x') {
-                setSelection({ x, y: 0, width: 0, height })
+                setRegion({ x, y: 0, width: 0, height })
             } else if (variant === 'y') {
-                setSelection({ x: 0, y, width, height: 0 })
+                setRegion({ x: 0, y, width, height: 0 })
             }
         },
-        [ref, setSelection]
+        [ref, setRegion]
     )
     const onMouseMove = (event: MouseEvent) => {
         const { x, y } = getEventXY(event, ref)
-        if (x === undefined || y === undefined || !selection) return
+        if (x === undefined || y === undefined || !region) return
         if (variant === 'x') {
-            setSelection(prevSelection =>
-                prevSelection ? { ...prevSelection, width: x - prevSelection.x } : null
-            )
+            setRegion(prev => (prev ? { ...prev, width: x - prev.x } : null))
         } else if (variant === 'y') {
-            setSelection(prevSelection =>
-                prevSelection ? { ...prevSelection, height: y - prevSelection.y } : null
-            )
+            setRegion(prev => (prev ? { ...prev, height: y - prev.y } : null))
         } else {
-            setSelection(prevSelection =>
-                prevSelection
-                    ? {
-                          ...prevSelection,
-                          width: x - prevSelection.x,
-                          height: y - prevSelection.y,
-                      }
-                    : null
-            )
+            setRegion(prev => (prev ? { ...prev, width: x - prev.x, height: y - prev.y } : null))
         }
     }
     const onMouseUp = (event: MouseEvent) => {
         const { x, y } = getEventXY(event, ref)
-        if (x === undefined || y === undefined || !selection) return
-        const width = x - selection.x
-        const height = y - selection.y
+        if (x === undefined || y === undefined || !region) return
+        const width = x - region.x
+        const height = y - region.y
         if (width === 0 || height === 0) return
         const newProps = { ...scaleProps }
         if (variant.includes('x')) {
-            newProps.x = changeDomain(scaleProps.x, scales.x, [selection.x, selection.x + width])
+            newProps.x = changeDomain(scaleProps.x, scales.x, [region.x, region.x + width])
         }
         if (variant.includes('y')) {
-            newProps.y = changeDomain(scaleProps.y, scales.y, [selection.y, selection.y + height])
+            newProps.y = changeDomain(scaleProps.y, scales.y, [region.y, region.y + height])
         }
-        setSelection(null)
+        setRegion(null)
         setScaleProps(newProps)
     }
     // needed when user leaves the detector zone without completing the zoom
     const onMouseLeave = () => {
-        setSelection(null)
+        setRegion(null)
     }
 
     const onProps = { onMouseDown, onMouseUp, onMouseMove }
-    const selectionClassName = 'selection viewController' + (className ? ' ' + className : '')
     return (
         <g role={setRole ? 'controller-zoom' : undefined} ref={ref}>
             <rect
@@ -142,14 +129,14 @@ export const ZoomController = ({
                 {...onProps}
                 onMouseLeave={onMouseLeave}
             />
-            {selection && selection.width && selection.height ? (
+            {region && region.width && region.height ? (
                 // this uses <Rectangle> and not <rect> to handle negative widths and heights
                 <Rectangle
-                    variant={'selection'}
-                    {...selection}
-                    className={selectionClassName}
-                    style={{ ...selectionStyle, pointerEvents: 'none' }}
-                    transition={{ type: 'tween', duration: 0 }}
+                    variant={'zoom-box'}
+                    {...region}
+                    className={className}
+                    style={{ ...boxStyle, pointerEvents: 'none' }}
+                    transition={{ type: 'tween', duration: 0 }} // for fast responsiveness
                     setRole={setRole}
                 />
             ) : null}

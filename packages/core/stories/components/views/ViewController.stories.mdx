@@ -77,37 +77,20 @@ However, they rescale slightly differently upon zoom-in and zoom-out.
 This is because the specifications for the x- and y- axes (props `scaleX` and `scaleY` in the view component)
 have the attribute `nice` set to `false` and `true`, respectively.
 
-## Toolbar buttons
-
-The toolbar can be restricted with prop `values`, accepting an array of button codes.
-
-<Canvas>
-    <Story
-        name="short toolbar"
-        args={{
-            variant: 'xy',
-            values: ['zoom-in', 'zoom-out', 'reset'],
-            itemSize: [55, 26],
-            itemAlign: [0, 0.5],
-            itemPadding: [4, 4, 4, 4],
-            itemStyle: { textAnchor: 'start' },
-        }}
-        component={ViewController}
-        decorators={[ChartForControllerDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
 ## Toolbar layout
 
-Prop `horizontal` toggles the orientation of the toolbar.
+The toolbar can be restricted or re-arranged with prop `values`, accepting an array of button codes.
+Prop `value` sets the default toolbar state.
+
+Prop `horizontal` toggles the orientation of the toolbar, and prop `container` determines its
+overall position within/beside the view.
 
 <Canvas>
     <Story
-        name="horizontal"
+        name="custom toolbar"
         args={{
-            values: ['zoom-in', 'zoom-out', 'reset'],
+            values: ['none', 'pan', 'zoom', 'reset'],
+            value: 'pan',
             container: { position: [1, 0], positionUnits: 'relative', anchor: [1, 1] },
             horizontal: true,
             itemSize: [65, 26],
@@ -124,12 +107,13 @@ Prop `horizontal` toggles the orientation of the toolbar.
 
 ## Scales
 
-Zoom and pan operations should work on all scale types, including logarithmic scales, time scales, and band scales.
+Zoom and pan operations work on all scale types, including logarithmic scales, time scales, and band scales.
 
 <Canvas>
     <Story
         name="band scales"
         args={{
+            value: 'pan',
             itemSize: [65, 26],
             itemAlign: [0, 0.5],
             itemPadding: [4, 4, 4, 4],
@@ -143,6 +127,7 @@ Zoom and pan operations should work on all scale types, including logarithmic sc
     <Story
         name="time and log scales"
         args={{
+            value: 'pan',
             itemSize: [65, 26],
             itemAlign: [0, 0.5],
             itemPadding: [4, 4, 4, 4],
@@ -155,8 +140,34 @@ Zoom and pan operations should work on all scale types, including logarithmic sc
     </Story>
 </Canvas>
 
+## Zoom box styling
+
+Prop `boxStyle` applies styles to the box that appears when selecting a custom zoom region.
+
+<Canvas>
+    <Story
+        name="zoom box"
+        args={{
+            variant: 'xy',
+            itemSize: [55, 26],
+            itemAlign: [0, 0.5],
+            itemPadding: [4, 4, 4, 4],
+            itemStyle: { textAnchor: 'start' },
+            boxStyle: { strokeWidth: 2, strokeDasharray: 6, fill: '#dd2222' },
+            value: 'zoom',
+            values: ['zoom', 'reset'],
+        }}
+        component={ViewController}
+        decorators={[ChartForControllerDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
 ## Custom buttons
 
 By default, the buttons in the toolbar are created using a plain `Button` component.
 This can be replaced by setting prop `component`.
+For examples of toolbars with icons, see the charts in the gallery.
+
 Prop `modifiers` sets style modifiers for the buttons upon mouse events.

@@ -138,5 +138,5 @@ export interface ViewControllerProps
     /** style modifiers */
     modifiers?: DataInteractivityModifiers
     /** style for selection rectangle */
-    selectionStyle?: CssProps
+    boxStyle?: CssProps
 }
