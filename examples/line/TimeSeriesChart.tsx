@@ -12,6 +12,8 @@ import {
     Tooltip,
     TooltipDataItem,
     NumericPositionSpec,
+    ViewClip,
+    ViewController,
 } from '@chsk/core'
 import {
     isScatterData,
@@ -23,7 +25,7 @@ import {
 import { buttonTheme } from '@chsk/themes'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
-import { DownloadButtons } from '../navigation'
+import { DownloadButtons, IconButton } from '../navigation'
 import { round2dp } from '../utils'
 
 const dayLength = 1000 * 60 * 60 * 24
@@ -122,13 +124,19 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     </AxisLabel>
                     <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
                 </Axis>
-                <ScatterCurve curve={'Linear'} style={{ strokeWidth: 2, fillOpacity: 0 }} />
-                <ScatterCrosshair
-                    variant={'vertical'}
-                    style={{ stroke: '#888888', strokeDasharray: 5 }}
+                <ViewClip id={'time-curve'} expansion={[5, 5, 5, 5]}>
+                    <ScatterCurve curve={'Linear'} style={{ strokeWidth: 2, fillOpacity: 0 }} />
+                    <ScatterCrosshair
+                        variant={'vertical'}
+                        style={{ stroke: '#888888', strokeDasharray: 5 }}
+                    />
+                    <FirstPoint style={{ fill: '#222222' }} />
+                </ViewClip>
+                <ViewController
+                    container={{ position: [1, 0], offset: [20, 0] }}
+                    component={IconButton}
                 />
-                <FirstPoint style={{ fill: '#222222' }} />
-                <DownloadButtons position={[390, -48]} data image />
+                <DownloadButtons position={[425, -48]} data image />
                 <Tooltip
                     offset={[0, -20]}
                     itemSize={[150, 26]}

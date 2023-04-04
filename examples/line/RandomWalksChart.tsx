@@ -7,11 +7,15 @@ import {
     Tooltip,
     TooltipDataItem,
     NumericPositionSpec,
+    ViewClip,
+    ViewController,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterCrosshair } from '@chsk/xy'
-import { generateRandomWalk } from './generators'
+import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
+import { IconButton } from '../navigation'
 import { round2dp } from '../utils'
+import { generateRandomWalk } from './generators'
 
 export const generateRandomWalksData = () => [
     {
@@ -38,6 +42,7 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
             id="random-walks"
             size={[640, 400]}
             padding={[80, 80, 70, 80]}
+            theme={buttonTheme}
         >
             <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />
             <Scatter
@@ -63,34 +68,40 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 />
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
-                />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4, fillOpacity: 0 }}
-                />
-                <ScatterCurve
-                    ids={['beta']}
-                    curve={'Natural'}
-                    style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
-                />
-                <ScatterCurve
-                    ids={['beta']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 4, fillOpacity: 0 }}
-                />
-                <Typography variant={'title'} position={[0, -40]}>
-                    Two random walks
-                </Typography>
+                <ViewClip id={'two-walks'}>
+                    <ScatterCurve
+                        ids={['alpha']}
+                        curve={'Natural'}
+                        style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
+                    />
+                    <ScatterCurve
+                        ids={['alpha']}
+                        curve={'Natural'}
+                        style={{ strokeWidth: 4, fillOpacity: 0 }}
+                    />
+                    <ScatterCurve
+                        ids={['beta']}
+                        curve={'Natural'}
+                        style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
+                    />
+                    <ScatterCurve
+                        ids={['beta']}
+                        curve={'Natural'}
+                        style={{ strokeWidth: 4, fillOpacity: 0 }}
+                    />
+                </ViewClip>
                 <ScatterCrosshair
                     variant={'vertical'}
                     style={{ strokeDasharray: 5, stroke: '#000000', strokeWidth: 0.5 }}
                     symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
                 />
+                <ViewController
+                    container={{ position: [1, 0], offset: [20, 0] }}
+                    component={IconButton}
+                />
+                <Typography variant={'title'} position={[0, -40]}>
+                    Two random walks
+                </Typography>
                 <Tooltip
                     offset={[20, 0]}
                     itemSize={[140, 24]}

@@ -1,7 +1,17 @@
-import { Chart, Axis, GridLines, Typography, LinearGradient } from '@chsk/core'
+import {
+    Chart,
+    Axis,
+    GridLines,
+    Typography,
+    LinearGradient,
+    ViewClip,
+    ViewController,
+} from '@chsk/core'
 import { isScatterData, Scatter, ScatterArea, ScatterCurve } from '@chsk/xy'
+import { buttonTheme } from '@chsk/themes'
 import { generateRandomWalk } from './generators'
 import { MilestoneStory } from '../types'
+import { IconButton } from '../navigation'
 
 export const generateRandomWalkData = () => [
     {
@@ -19,6 +29,7 @@ export const RandomWalkAreaChart = ({ fref, chartData, rawData }: MilestoneStory
             id="random-walk-area"
             size={[600, 400]}
             padding={[60, 60, 60, 60]}
+            theme={buttonTheme}
         >
             <Scatter
                 data={rawData}
@@ -49,20 +60,26 @@ export const RandomWalkAreaChart = ({ fref, chartData, rawData }: MilestoneStory
                     end={[0, 0.8]}
                     stops={['#3f9cde', '#ffffff']}
                 />
-                <ScatterArea
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{
-                        strokeWidth: 0,
-                        fill: 'url(#area-grad)',
-                        opacity: 0.25,
-                        fillOpacity: 1,
-                    }}
-                />
-                <ScatterCurve
-                    ids={['alpha']}
-                    curve={'Natural'}
-                    style={{ strokeWidth: 3, fillOpacity: 0 }}
+                <ViewClip id={'area-curve'}>
+                    <ScatterArea
+                        ids={['alpha']}
+                        curve={'Natural'}
+                        style={{
+                            strokeWidth: 0,
+                            fill: 'url(#area-grad)',
+                            opacity: 0.25,
+                            fillOpacity: 1,
+                        }}
+                    />
+                    <ScatterCurve
+                        ids={['alpha']}
+                        curve={'Natural'}
+                        style={{ strokeWidth: 3, fillOpacity: 0 }}
+                    />
+                </ViewClip>
+                <ViewController
+                    container={{ position: [1, 0], offset: [10, 0] }}
+                    component={IconButton}
                 />
                 <Typography variant={'title'} position={[0, -30]}>
                     Shifted random walk
