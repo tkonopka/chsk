@@ -42,14 +42,14 @@ All data in the animation are synthetic. A live version of the chart is availabl
 
 ## Install
 
-Install `@chsk/core` from npm to set up the library infrastructure.
+Package `@chsk/core` with library infrastructure is available from npm.
 
 ```
 npm install @chsk/core
 ```
 
-Then install any add-on packages to handle specific visualization types, e.g.
-bar charts.
+Add-on packages provide data-specific components. For example, package
+`@chsk/band` supports bar charts.
 
 ```
 npm install @chsk/band
