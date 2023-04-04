@@ -2,7 +2,7 @@
 
 [![documentation](https://github.com/tkonopka/chsk/actions/workflows/documentation.yaml/badge.svg)](https://tkonopka.github.io/chsk/) [![tests](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml/badge.svg)](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Chsk is a data visualization library for React. It provides a toolkit for
+Chsk is a library of React components for data visualization. It provides a toolkit for
 creating static charts for offline publications, dynamic components for
 dashboards, and animated stories for presentations.
 
@@ -11,23 +11,23 @@ dashboards, and animated stories for presentations.
 
 ## Features
 
-The library provides React components for data visualization:
+The library provides React components for data visualization.
 
--   **Core components** include geometric shapes, text labels, axes,
-    legends, and tooltips.
+-   **Core components** include axes, legends, tooltips, typography elements,
+    and geometric shapes.
 -   **Data-specific components** include bar charts, line charts,
     scatter plots, pie/doughnut charts, strip charts, quantile/box plots,
     histograms, heat maps, set/Venn diagrams, upset diagrams, and schedule/Gant charts.
 
-Some features worth highlighting:
+Advanced features enable creating dynamic and bespoke content.
 
--   **Milestone animations** enable step-by-step story-telling.
--   **Low-level components** combine in arbitrary ways to compose truly
-    original visualizations.
--   **Annotation components** add bespoke decorations to base charts.
--   **Hooks** provide access to chart state and enable the implementation of
-    arbitrary custom components.
--   **Svg utilities** save charts into small, optimised svg files.
+-   **Milestone animations** power step-by-step story-telling.
+-   **Zoom and pan interactions** allow in-depth data exploration.
+-   **Customizable components** combine in arbitrary ways to compose truly
+    original designs.
+-   **Annotation components** add decorations to base charts.
+-   **Hooks** provide access to chart state and enable the implementation of custom components.
+-   **Export utilities** save charts into optimised svg files.
 
 ## Example
 
