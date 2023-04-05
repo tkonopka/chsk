@@ -32,18 +32,18 @@ export const camelCase = (s: string | undefined) => {
 
 // get string with css-formatted styles for one component
 export const componentStyles = (
-    chartId: string,
+    ancestor: string,
     component: SvgBaseComponent,
     theme: CompleteThemeSpec
 ) => {
     const subTheme = theme[component]
+    const prefix = ancestor + (ancestor ? ' ' : '') + component
     return Object.keys(subTheme)
         .map(variant => {
             const cssString = cssStyleString(subTheme[variant])
             if (cssString.length === 0) return ''
-            const leading = '#' + chartId + ' ' + component
             const suffix = variant === 'default' ? '' : '.' + variant
-            return leading + suffix + ' { ' + cssString + ' }'
+            return prefix + suffix + ' { ' + cssString + ' }'
         })
         .filter(entry => entry.length > 0)
         .filter(entry => entry.indexOf('>') + entry.indexOf('<') === -2)

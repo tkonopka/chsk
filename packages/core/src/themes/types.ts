@@ -1,4 +1,4 @@
-import { CSSProperties } from 'react'
+import { CSSProperties, ReactNode } from 'react'
 import {
     CategoricalScaleSpec,
     ColorScaleSpec,
@@ -169,3 +169,16 @@ export type ThemedComponent =
     | 'AxisTooltip'
     | 'View'
     | 'ViewClip'
+
+export interface StyleProps {
+    /** scoping selector */
+    ancestor: string
+    /** default theme */
+    baseTheme?: CompleteThemeSpec
+    /** theme adjustment **/
+    theme?: ThemeSpec
+    /** svg components to include in output **/
+    selectors?: null | Array<SvgBaseComponent>
+    /** children components */
+    children?: ReactNode
+}

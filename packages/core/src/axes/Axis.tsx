@@ -4,7 +4,7 @@ import { AxisLine } from './AxisLine'
 import { AxisLabel } from './AxisLabel'
 import { AxisTicks } from './AxisTicks'
 import { getAxisTranslate } from './utils'
-import { useThemedProps } from '../themes/utils'
+import { useThemedProps } from '../themes'
 import { defaultAxisProps } from './defaults'
 
 const UnthemedAxis = ({

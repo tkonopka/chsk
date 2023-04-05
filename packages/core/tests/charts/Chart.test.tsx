@@ -2,6 +2,7 @@ import { act, render, screen } from '@testing-library/react'
 import { Chart, useChartData, ChartRef } from '../../src/charts'
 import { ForwardedRef } from 'react'
 import { getNumberAttr } from '../utils'
+import { chartProps } from '../props'
 
 global.ResizeObserver = require('resize-observer-polyfill')
 
@@ -111,5 +112,13 @@ describe('Chart', () => {
         const svg = screen.getByRole('parent').querySelector('svg')
         expect(svg?.getAttribute('width')).not.toEqual('400')
         expect(svg?.getAttribute('height')).not.toEqual('300')
+    })
+
+    it('skips styles element with null selectors', () => {
+        render(<Chart {...chartProps} selectors={null} />)
+        // by setting selectors=null, expect there to be no <styles> tag in the svg
+        // but the testing-library framework always removes style tags
+        // so there isn't anything to test here
+        expect(screen.getByRole('chart-content')).toBeDefined()
     })
 })

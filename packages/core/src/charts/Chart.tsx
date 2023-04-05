@@ -2,7 +2,7 @@ import { useEffect, useImperativeHandle, useRef, useState } from 'react'
 import { debounce } from 'lodash'
 import { ChartDataContextProps, ChartProps } from './types'
 import { DimensionsProvider, SizeSpec, X, Y } from '../general'
-import { defaultTheme, Styles, ThemeProvider } from '../themes'
+import { defaultTheme, Style } from '../themes'
 import { ChartDataProvider } from './contexts'
 
 /**
@@ -17,10 +17,10 @@ export const Chart = ({
     size = [500, 400],
     stretch = false,
     padding = [40, 40, 40, 40],
-    theme,
     baseTheme = defaultTheme,
+    theme,
     data = {},
-    styles,
+    selectors,
     className,
     style,
     setRole = true,
@@ -69,19 +69,18 @@ export const Chart = ({
     }, [])
 
     return (
-        <ThemeProvider baseTheme={baseTheme} theme={theme}>
-            <ChartDataProvider value={{ data: state, setData: setState }}>
-                <svg
-                    id={id}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width={chartSize[X]}
-                    height={chartSize[Y]}
-                    role={setRole ? 'chart' : undefined}
-                    style={style}
-                    className={className}
-                    ref={ref}
-                >
-                    <Styles key={'styles'} chartId={id} styles={styles} />
+        <svg
+            id={id}
+            xmlns="http://www.w3.org/2000/svg"
+            width={chartSize[X]}
+            height={chartSize[Y]}
+            role={setRole ? 'chart' : undefined}
+            style={style}
+            className={className}
+            ref={ref}
+        >
+            <Style ancestor={'#' + id} selectors={selectors} baseTheme={baseTheme} theme={theme}>
+                <ChartDataProvider value={{ data: state, setData: setState }}>
                     <DimensionsProvider
                         key={'content'}
                         size={chartSize}
@@ -90,8 +89,8 @@ export const Chart = ({
                     >
                         {children}
                     </DimensionsProvider>
-                </svg>
-            </ChartDataProvider>
-        </ThemeProvider>
+                </ChartDataProvider>
+            </Style>
+        </svg>
     )
 }

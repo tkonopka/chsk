@@ -4,6 +4,7 @@
 
 ### Added
 
+-   [core] component `Style` to create themed css for arbitrary ancestors
 -   [annotation] conversion of rgba colors to hex in svg exports
 -   [themes] theme piece `buttonTheme` with styles for buttons
 -   [core] component `Toolbar` to create generic toolbars with buttons

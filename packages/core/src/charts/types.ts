@@ -1,12 +1,6 @@
 import { ReactNode, Ref } from 'react'
 import { SvgElementProps, SvgElementVariantProps, WithId, ContainerProps } from '../general'
-import {
-    CompleteThemeSpec,
-    AnimationProps,
-    TransitionProps,
-    SvgBaseComponent,
-    ThemeSpec,
-} from '../themes'
+import { AnimationProps, TransitionProps, StyleProps } from '../themes'
 
 /** Chart */
 
@@ -33,23 +27,16 @@ export interface ChartRef {
 
 export interface ChartProps
     extends SvgElementProps,
+        Omit<StyleProps, 'ancestor'>,
         Omit<ContainerProps, 'position' | 'positionUnits'> {
     /** identifier for the chart */
     id?: string
     /** adjust size to fill parent container */
     stretch?: boolean
-    /** default theme */
-    baseTheme?: CompleteThemeSpec
-    /** theme adjustment **/
-    theme?: ThemeSpec
     /** chart settings, e.g. milestones */
     data?: Omit<ChartDataContextProps, 'id'>
-    /** svg components to include in <styles> tag **/
-    styles?: Array<SvgBaseComponent>
     /** forwarded ref */
     fref?: Ref<ChartRef>
-    /** children components */
-    children?: ReactNode
 }
 
 /** Milestones */
