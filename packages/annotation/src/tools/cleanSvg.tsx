@@ -1,3 +1,4 @@
+import { CompleteThemeSpec, getCss } from '@chsk/core'
 import {
     changeAncestor,
     cleanStyle,
@@ -33,8 +34,7 @@ export const defaultCleanSvgConfig: CleanSvgConfig = {
     ],
     roundAttributeDecimalPlaces: 3,
     newlineTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text', 'filter', 'defs'],
-    shakeStyles: true,
-    ancestor: null,
+    shake: true,
 }
 
 /**
@@ -57,34 +57,45 @@ export const defaultCleanSvgConfig: CleanSvgConfig = {
  *
  * @param element HTML element to clean
  * @param config object holding cleaning options
+ * @param theme object with theme, if available then css definitions will be recomputed
  * @param content object summarizing svg components and styles (for internal use)
  */
 export const cleanSvg = (
     element: HTMLElement,
     config: CleanSvgConfig = defaultCleanSvgConfig,
+    theme?: CompleteThemeSpec,
     content?: Record<string, Set<string>>
 ): HTMLElement => {
     const nodeName = element.nodeName
-    if (nodeName === 'svg' && config.shakeStyles) {
+
+    // on root svg, scan document to learn about selectors and class names
+    if (nodeName === 'svg') {
         content = scanSvg(element, config)
+        content['svg.id'] = new Set([String(element.getAttribute('id'))])
     }
+
+    // recompute css definitions using the theme (useful for charts that use outside/global css)
+    if (nodeName === 'style' && theme) {
+        const [chartId] = content ? Array.from(content['svg.id']) : ''
+        element.textContent = getCss(theme, undefined, '#' + chartId)
+    }
+
+    const skipSet = new Set<string>(config.skipAttributes)
 
     // elements without attributes are plain text
     if (!element.attributes) {
         // style definitions might require shaking
         if (element.parentNode?.nodeName === 'style') {
-            if (config.shakeStyles && content) {
+            if (config.shake && content) {
                 element.textContent = shakeStyles(element.textContent, content)
             }
-            const removeSvgId = config.skipAttributes.indexOf('svg.id') >= 0
-            element.textContent = changeAncestor(element.textContent, config.ancestor, removeSvgId)
+            element.textContent = changeAncestor(element.textContent, skipSet.has('svg.id'))
         }
         return element
     }
 
     // simplify attributes
     const roundSet = new Set<string>(config.roundAttributes)
-    const skipSet = new Set<string>(config.skipAttributes)
     const n = config.roundAttributeDecimalPlaces
     const skipAttributes: string[] = []
     for (const attr of element.attributes) {
@@ -132,7 +143,7 @@ export const cleanSvg = (
 
     // apply the same transformations to all child elements
     if (element.hasChildNodes())
-        element.childNodes.forEach(child => cleanSvg(child as HTMLElement, config, content))
+        element.childNodes.forEach(child => cleanSvg(child as HTMLElement, config, theme, content))
 
     return element
 }

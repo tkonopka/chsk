@@ -182,8 +182,8 @@ export const shakeStyles = (
  */
 export const changeAncestor = (
     styles: string | null,
-    addAncestor: string | null,
-    removeAncestor: boolean
+    removeAncestor: boolean,
+    addAncestor?: string | null
 ): string => {
     if (!styles) return ''
     if (!addAncestor && !removeAncestor) return styles

@@ -1,7 +1,7 @@
 import { cloneDeep, merge } from 'lodash'
 import { CssProps } from '../general'
-import { ThemeSpec } from './types'
-import { camelCase } from './helpers'
+import { CompleteThemeSpec, SvgBaseComponent, svgBaseComponents, ThemeSpec } from './types'
+import { camelCase, componentStyles } from './helpers'
 
 // construct a className string by composing a variant code and a className string
 export const getClassName = (
@@ -44,4 +44,27 @@ export const mergeThemes = (themes: ThemeSpec[]) => {
         result = merge(result, theme)
     })
     return result
+}
+
+/**
+ * generate css definitions from a theme object
+ *
+ * @param theme object with theme
+ * @param selectors specifications for what to include in output:
+ * null - skip calculation
+ * undefined - report all css definitions
+ * array - report css definitions for selected selectors
+ * @param ancestor string, prefix for css definitions
+ */
+export const getCss = (
+    theme: CompleteThemeSpec,
+    selectors: null | undefined | SvgBaseComponent[],
+    ancestor: string
+) => {
+    if (selectors === null || (selectors && selectors.length === 0)) return null
+    return (selectors ?? svgBaseComponents)
+        .map(selector => componentStyles(ancestor, selector, theme))
+        .flat()
+        .filter(Boolean)
+        .join('\n')
 }

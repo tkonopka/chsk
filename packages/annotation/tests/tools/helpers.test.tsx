@@ -358,34 +358,34 @@ describe('changeAncestor', () => {
     ].join('\n')
 
     it('accepts empty string', () => {
-        const result = changeAncestor('', 'ancestor', true)
+        const result = changeAncestor('', true, 'ancestor')
         expect(result).toEqual('')
     })
 
     it('accepts null input', () => {
-        const result = changeAncestor(null, 'ancestor', true)
+        const result = changeAncestor(null, true, 'ancestor')
         expect(result).toEqual('')
     })
 
     it('leaves unchanged with special settings', () => {
-        const result = changeAncestor(longStyles, null, false)
+        const result = changeAncestor(longStyles, false, null)
         expect(result).toBe(longStyles)
     })
 
     it('adds an ancestor string', () => {
-        const result = changeAncestor(longStyles, 'ancestor', false)
+        const result = changeAncestor(longStyles, false, 'ancestor')
         expect(result).toContain('ancestor #chart circle')
         expect(result).toContain('#dd0000')
     })
 
     it('removes the existing ancestor', () => {
-        const result = changeAncestor(longStyles, null, true)
+        const result = changeAncestor(longStyles, true, null)
         expect(result.slice(0, 6)).toContain('circle')
         expect(result).toContain('#dd0000')
     })
 
     it('replaces the existing ancestor', () => {
-        const result = changeAncestor(longStyles, 'ancestor', true)
+        const result = changeAncestor(longStyles, true, 'ancestor')
         expect(result).toContain('ancestor circle')
         expect(result).toContain('#dd0000')
     })

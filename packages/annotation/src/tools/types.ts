@@ -23,7 +23,5 @@ export interface CleanSvgConfig {
     /** include newline characters in output for readability */
     newlineTags: string[]
     /** remove redundant css definitions in styles tag */
-    shakeStyles: boolean
-    /** apply ancestor to all lines in styles tag */
-    ancestor: null | string
+    shake: boolean
 }

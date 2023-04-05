@@ -1,12 +1,15 @@
-import { ThemeProvider } from './context'
-import { useStyles } from './hooks'
+import { useMemo } from 'react'
+import { ThemeProvider, useTheme } from './context'
 import { defaultTheme } from './defaultTheme'
 import { StyleProps } from './types'
+import { getCss } from './utils'
 
-// InnerStyle is a separate component because it uses the useStyles hook
+// InnerStyle is a separate component because it call the useTheme hook
 // Placing the hook in a child component allows the ThemeProvider in Style to take effect
 const InnerStyle = ({ ancestor, selectors }: Pick<StyleProps, 'ancestor' | 'selectors'>) => {
-    return <style>{useStyles({ ancestor, selectors })}</style>
+    const theme = useTheme()
+    const css = useMemo(() => getCss(theme, selectors, ancestor), [ancestor, selectors, theme])
+    return <style>{css}</style>
 }
 
 export const Style = ({

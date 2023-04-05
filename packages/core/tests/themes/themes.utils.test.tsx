@@ -7,6 +7,7 @@ import {
     mergeTheme,
     ThemeSpec,
     mergeThemes,
+    getCss,
 } from '../../src/themes'
 
 describe('mergeTheme', () => {
@@ -180,5 +181,30 @@ describe('addOpacity', () => {
     it('add to an empty style', () => {
         const result = addOpacity(undefined, 0.5)
         expect(result.opacity).toEqual(0.5)
+    })
+})
+
+describe('getCss', () => {
+    it('creates css with custom ancestor', () => {
+        const result = getCss(defaultTheme, undefined, '#custom')
+        expect(result?.slice(0, 8)).toBe('#custom ')
+        expect(result).toContain('rect')
+        expect(result).toContain('text')
+    })
+
+    it('creates css without ancestor', () => {
+        const result = getCss(defaultTheme, undefined, '')
+        expect(result?.slice(0, 1)).not.toBe(' ')
+    })
+
+    it('creates css only for some selectors', () => {
+        const result = getCss(defaultTheme, ['circle'], '#custom')
+        expect(result).toContain('circle')
+        expect(result).not.toContain('text')
+    })
+
+    it('creates empty css', () => {
+        const result = getCss(defaultTheme, null, '#custom')
+        expect(result).toBeNull()
     })
 })

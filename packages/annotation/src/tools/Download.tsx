@@ -1,4 +1,4 @@
-import { useChartData, useRawData } from '@chsk/core'
+import { CompleteThemeSpec, useChartData, useRawData, useTheme } from '@chsk/core'
 import { CleanSvgConfig, DownloadProps } from './types'
 import { cleanSvg, defaultCleanSvgConfig } from './cleanSvg'
 
@@ -14,12 +14,16 @@ const downloadToFile = (data: string, filename: string) => {
     link.remove()
 }
 
-const downloadSvgToFile = (id: string, filename: string, config: CleanSvgConfig) => {
+const downloadSvgToFile = (
+    id: string,
+    filename: string,
+    config: CleanSvgConfig,
+    theme: CompleteThemeSpec
+) => {
     const svg = document.getElementById(id)
     if (!svg) return
-    const clean = cleanSvg(svg.cloneNode(true) as HTMLElement, config)
-    let result = clean?.outerHTML
-    if (!clean || !result.startsWith('<svg')) {
+    let result = cleanSvg(svg.cloneNode(true) as HTMLElement, config, theme)?.outerHTML
+    if (!result.startsWith('<svg')) {
         return
     }
     config.newlineTags.forEach(tag => {
@@ -60,11 +64,12 @@ const ImageDownload = ({
     children,
 }: Omit<DownloadProps, 'variant'>) => {
     const chartData = useChartData().data
+    const theme = useTheme()
     return (
         <g
             role={setRole ? 'download-image' : undefined}
             className={className}
-            onClick={() => downloadSvgToFile(chartData.id, filename, cleanSvgConfig)}
+            onClick={() => downloadSvgToFile(chartData.id, filename, cleanSvgConfig, theme)}
         >
             {children}
         </g>
