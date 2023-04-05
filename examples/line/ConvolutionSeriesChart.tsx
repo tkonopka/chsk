@@ -22,13 +22,13 @@ export const generateConvolutionSeriesData = () => {
     return [
         {
             id: 'alpha',
-            data: generateRandomWalk(Math.floor(60), 0, 0.25).map(item => {
+            data: generateRandomWalk(60, 0, 0.25).map(item => {
                 return { x: item.x, y: roundDecimalPlaces(item.y, 3) }
             }),
         },
         {
             id: 'beta',
-            data: generateRandomWalk(Math.floor(60), 0, 0.25).map(item => {
+            data: generateRandomWalk(60, 0, 0.25).map(item => {
                 return { x: item.x, y: roundDecimalPlaces(item.y, 3) }
             }),
         },

@@ -65,7 +65,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
 export const BgCircle = () => {
     const rScale = useScales().scales.x as ContinuousAxisScale
     const r = rScale(1) - rScale(0)
-    return <Circle r={r} className={'bg'} />
+    return <Circle cx={0} cy={0} r={r} className={'bg'} />
 }
 
 // replacement of DataComponent - draws two text boxes
