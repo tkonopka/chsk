@@ -7,6 +7,7 @@ import {
     cleanStyle,
     scanSvg,
     shakeStyles,
+    changeAncestor,
 } from '../../src/tools/helpers'
 import { cloneDeep } from 'lodash'
 
@@ -347,5 +348,45 @@ describe('shakeStyles', () => {
         expect(result).not.toContain('dd0000')
         // css definition for circle.A.B is not needed either
         expect(result).not.toContain('00dd00')
+    })
+})
+
+describe('changeAncestor', () => {
+    const longStyles = [
+        '#chart circle { fill: #000000 }',
+        '#chart circle.A { fill: #dd0000 }',
+    ].join('\n')
+
+    it('accepts empty string', () => {
+        const result = changeAncestor('', 'ancestor', true)
+        expect(result).toEqual('')
+    })
+
+    it('accepts null input', () => {
+        const result = changeAncestor(null, 'ancestor', true)
+        expect(result).toEqual('')
+    })
+
+    it('leaves unchanged with special settings', () => {
+        const result = changeAncestor(longStyles, null, false)
+        expect(result).toBe(longStyles)
+    })
+
+    it('adds an ancestor string', () => {
+        const result = changeAncestor(longStyles, 'ancestor', false)
+        expect(result).toContain('ancestor #chart circle')
+        expect(result).toContain('#dd0000')
+    })
+
+    it('removes the existing ancestor', () => {
+        const result = changeAncestor(longStyles, null, true)
+        expect(result.slice(0, 6)).toContain('circle')
+        expect(result).toContain('#dd0000')
+    })
+
+    it('replaces the existing ancestor', () => {
+        const result = changeAncestor(longStyles, 'ancestor', true)
+        expect(result).toContain('ancestor circle')
+        expect(result).toContain('#dd0000')
     })
 })

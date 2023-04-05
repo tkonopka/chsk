@@ -18,15 +18,20 @@ const downloadSvgToFile = (id: string, filename: string, config: CleanSvgConfig)
     const svg = document.getElementById(id)
     if (!svg) return
     const clean = cleanSvg(svg.cloneNode(true) as HTMLElement, config)
-    let cleanHTML = clean?.outerHTML
-    if (!clean || !cleanHTML.startsWith('<svg')) {
+    let result = clean?.outerHTML
+    if (!clean || !result.startsWith('<svg')) {
         return
     }
-    config.newlineAfterTags.forEach(tag => {
-        const pattern = new RegExp('</' + tag + '><', 'g')
-        cleanHTML = cleanHTML.replace(pattern, '</' + tag + '>\n<')
+    config.newlineTags.forEach(tag => {
+        const closePattern = new RegExp('</' + tag + '><', 'g')
+        const openPattern = new RegExp('><' + tag, 'g')
+        // the close pattern can overlap with itself (e.g. </g></g>, so apply it twice to get all matches
+        result = result
+            .replace(closePattern, '</' + tag + '>\n<')
+            .replace(closePattern, '</' + tag + '>\n<')
+            .replace(openPattern, '>\n<' + tag)
     })
-    downloadToFile(cleanHTML, filename)
+    downloadToFile(result, filename)
 }
 
 const DataDownload = ({

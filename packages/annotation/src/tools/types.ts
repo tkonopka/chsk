@@ -13,15 +13,17 @@ export interface DownloadProps extends SvgElementVariantProps {
 
 export interface CleanSvgConfig {
     /** attribute names to exclude from output */
-    skipAttributeNames: string[]
+    skipAttributes: string[]
     /** list of roles to exclude from output */
     skipRoles: string[]
     /** attributes to simplify using number rounding */
-    roundAttributeNames: string[]
+    roundAttributes: string[]
     /** number of decimal places in coordinates */
     roundAttributeDecimalPlaces: number
     /** include newline characters in output for readability */
-    newlineAfterTags: string[]
+    newlineTags: string[]
     /** remove redundant css definitions in styles tag */
     shakeStyles: boolean
+    /** apply ancestor to all lines in styles tag */
+    ancestor: null | string
 }

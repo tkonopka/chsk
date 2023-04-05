@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { cleanSvg } from '../../src/tools'
+import { cleanSvg, defaultCleanSvgConfig } from '../../src/tools'
+import { cloneDeep } from 'lodash'
 
 describe('cleanSvg', () => {
     it('rounds values in one element', () => {
@@ -224,10 +225,22 @@ describe('cleanSvg', () => {
             </svg>
         )
         const svg = screen.getByRole('svg')
-        expect(svg.querySelector('g')).not.toBeNull()
-        expect(svg.querySelector('rect')).not.toBeNull()
         const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
         expect(clean.querySelector('g')).toBeNull()
         expect(clean.querySelector('rect')).toBeNull()
+    })
+
+    it('removes id on root svg element', () => {
+        render(
+            <svg role={'svg'} id={'root'}>
+                <g id={'g'}>
+                    <circle />
+                </g>
+            </svg>
+        )
+        const svg = screen.getByRole('svg')
+        expect(svg.getAttribute('id')).toBe('root')
+        const clean = cleanSvg(screen.getByRole('svg'), defaultCleanSvgConfig)
+        expect(clean.getAttribute('id')).toBeNull()
     })
 })

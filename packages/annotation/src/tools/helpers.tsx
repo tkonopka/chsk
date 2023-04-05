@@ -176,3 +176,20 @@ export const shakeStyles = (
         .filter(Boolean)
         .join('\n')
 }
+
+/**
+ * process css lines to replace an existing ancestor with a new string
+ */
+export const changeAncestor = (
+    styles: string | null,
+    addAncestor: string | null,
+    removeAncestor: boolean
+): string => {
+    if (!styles) return ''
+    if (!addAncestor && !removeAncestor) return styles
+    return styles
+        .split('\n')
+        .map(line => (removeAncestor ? line.split(' ').splice(1).join(' ') : line))
+        .map(line => (addAncestor ? addAncestor + ' ' : '') + line)
+        .join('\n')
+}

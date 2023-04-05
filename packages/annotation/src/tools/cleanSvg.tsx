@@ -1,10 +1,17 @@
-import { cleanStyle, rgb2hex, roundPxDecimalPlaces, scanSvg, shakeStyles } from './helpers'
+import {
+    changeAncestor,
+    cleanStyle,
+    rgb2hex,
+    roundPxDecimalPlaces,
+    scanSvg,
+    shakeStyles,
+} from './helpers'
 import { CleanSvgConfig } from './types'
 
 export const defaultCleanSvgConfig: CleanSvgConfig = {
-    skipAttributeNames: ['transform-origin'],
+    skipAttributes: ['transform-origin', 'svg.id'],
     skipRoles: ['dimensions-reference', 'view-controller'],
-    roundAttributeNames: [
+    roundAttributes: [
         'x',
         'x1',
         'x2',
@@ -25,8 +32,9 @@ export const defaultCleanSvgConfig: CleanSvgConfig = {
         'stroke-dasharray',
     ],
     roundAttributeDecimalPlaces: 3,
-    newlineAfterTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text', 'filter', 'defs'],
+    newlineTags: ['style', 'g', 'rect', 'circle', 'line', 'path', 'text', 'filter', 'defs'],
     shakeStyles: true,
+    ancestor: null,
 }
 
 /**
@@ -56,21 +64,27 @@ export const cleanSvg = (
     config: CleanSvgConfig = defaultCleanSvgConfig,
     content?: Record<string, Set<string>>
 ): HTMLElement => {
-    if (element.nodeName === 'svg' && config.shakeStyles) {
+    const nodeName = element.nodeName
+    if (nodeName === 'svg' && config.shakeStyles) {
         content = scanSvg(element, config)
     }
 
     // elements without attributes are plain text
     if (!element.attributes) {
         // style definitions might require shaking
-        if (element.parentNode?.nodeName === 'style' && config.shakeStyles && content) {
-            element.textContent = shakeStyles(element.textContent, content)
+        if (element.parentNode?.nodeName === 'style') {
+            if (config.shakeStyles && content) {
+                element.textContent = shakeStyles(element.textContent, content)
+            }
+            const removeSvgId = config.skipAttributes.indexOf('svg.id') >= 0
+            element.textContent = changeAncestor(element.textContent, config.ancestor, removeSvgId)
         }
         return element
     }
 
     // simplify attributes
-    const roundSet = new Set<string>(config.roundAttributeNames)
+    const roundSet = new Set<string>(config.roundAttributes)
+    const skipSet = new Set<string>(config.skipAttributes)
     const n = config.roundAttributeDecimalPlaces
     const skipAttributes: string[] = []
     for (const attr of element.attributes) {
@@ -88,11 +102,16 @@ export const cleanSvg = (
         } else if (attr.name === 'fill' || attr.name === 'stroke') {
             element.setAttribute(attr.name, rgb2hex(attr.value))
         }
-        if (attr.value === 'undefined') {
+        // special cases
+        if (
+            attr.value === 'undefined' ||
+            (attr.name === 'opacity' && attr.value === '1') ||
+            skipSet.has(nodeName + '.' + attr.name)
+        ) {
             skipAttributes.push(attr.name)
         }
     }
-    skipAttributes.concat(config.skipAttributeNames).forEach(attrName => {
+    skipAttributes.concat(config.skipAttributes).forEach(attrName => {
         element.removeAttribute(attrName)
     })
 
