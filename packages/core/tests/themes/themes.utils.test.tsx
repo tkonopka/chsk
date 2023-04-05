@@ -144,6 +144,10 @@ describe('getClassName', () => {
     it('preserves default variant with optional flat', () => {
         expect(getClassName('default', 'a', false)).toEqual('default a')
     })
+
+    it('detects unnecessary class', () => {
+        expect(getClassName('default', undefined)).toEqual(undefined)
+    })
 })
 
 describe('addColor', () => {

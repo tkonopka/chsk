@@ -87,7 +87,7 @@ export const defaultTheme: CompleteThemeSpec = {
             filter: 'drop-shadow(2px 2px 4px #00000033)',
         },
         'legend.surface': {
-            fill: 'transparent',
+            fill: '#ffffff',
         },
         legendItem: {
             fill: '#ffffff',

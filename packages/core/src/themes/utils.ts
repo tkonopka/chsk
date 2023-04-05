@@ -6,12 +6,13 @@ import { camelCase } from './helpers'
 import { useMemo } from 'react'
 
 // construct a className string by composing a variant code and a className string
-export const getClassName = function (
+export const getClassName = (
     variant: string,
     className: string | undefined,
     skipDefault = true
-) {
+): string | undefined => {
     const prefix = skipDefault && variant === 'default' ? '' : camelCase(variant)
+    if (prefix.length === 0 && !className) return undefined
     return prefix + (className && prefix.length ? ' ' : '') + camelCase(className)
 }
 

@@ -93,7 +93,7 @@ export const IconButton = ({
                 height={20}
                 rx={3}
                 ry={3}
-                className={compositeClassName.replace('button ', 'button bg ')}
+                className={compositeClassName?.replace('button ', 'button bg ')}
             />
             <path key={'icon'} d={d} style={style} className={compositeClassName} />
         </g>
