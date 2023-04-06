@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { Chart, Legend, View, ColorScaleProps } from '../../src'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../utils'
+import { schemeCategory10 } from 'd3-scale-chromatic'
 
 export const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },
@@ -10,13 +11,13 @@ export const viewSeriesIndexesKeys = {
 
 export const scaleCategorical: ColorScaleProps = {
     variant: 'categorical',
-    colors: 'Category10',
+    colors: schemeCategory10,
     domain: [], // empty domain by default, will be filled in by View
 }
 
 export const scaleSequential: ColorScaleProps = {
     variant: 'sequential',
-    colors: 'Blues',
+    colors: ['#ffffff', '#0000ff'],
     domain: [0, 100],
 }
 
@@ -158,7 +159,7 @@ describe('Legend (size)', () => {
     it('creates a legend with a size scale', () => {
         render(
             <Chart {...chartProps}>
-                <View data={viewSeriesIndexesKeys} scaleColor={scaleSequential}>
+                <View data={viewSeriesIndexesKeys}>
                     <Legend variant={'size'} />
                 </View>
             </Chart>

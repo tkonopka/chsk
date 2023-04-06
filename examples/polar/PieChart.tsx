@@ -21,6 +21,7 @@ import {
 } from '@chsk/polar'
 import { InsetColorFilter } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
+import { schemeBlues } from 'd3-scale-chromatic'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -128,7 +129,7 @@ export const PieChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 data={rawData}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: 'Blues',
+                    colors: schemeBlues,
                 }}
                 scaleX={{ variant: 'linear', domain: [-1.2, 1.2] }}
                 scaleY={{ variant: 'linear', domain: [-1.2, 1.2] }}

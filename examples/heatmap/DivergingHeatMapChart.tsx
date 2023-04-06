@@ -7,12 +7,13 @@ import {
     LegendTitle,
     Typography,
     Tooltip,
+    TooltipProvider,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { interpolateBrBG } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetGreek } from '../utils'
 import { MilestoneStory } from '../types'
-import { TooltipProvider } from '../../packages/core/src'
 
 const ids = ['A a', 'BB bb', 'CC cc', 'DDD ddd', 'EEE eee']
 const keys = alphabetGreek
@@ -33,7 +34,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 keys={keys}
                 scaleColor={{
                     variant: 'diverging',
-                    colors: 'BrBG',
+                    colors: interpolateBrBG,
                     domain: [-2.6, 0, 2.6],
                 }}
             >

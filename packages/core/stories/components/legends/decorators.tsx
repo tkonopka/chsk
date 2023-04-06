@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { Chart, ColorScaleProps, Legend, LegendTitle, Surface, View } from '../../../src'
 import { viewSeriesIndexesKeys } from '../decorators'
+import { interpolateBlues } from 'd3-scale-chromatic'
 
 export const ChartForLegendDecorator = (Story: () => ReactNode) => (
     <Chart
@@ -75,7 +76,7 @@ export const ChartWithRightLegendTitleDecorator = (Story: () => ReactNode) => (
 
 const scaleBluesSpec: ColorScaleProps = {
     variant: 'sequential',
-    colors: 'Blues',
+    colors: interpolateBlues,
     domain: [0, 100],
 }
 

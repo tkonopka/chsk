@@ -13,6 +13,7 @@ import {
     Tooltip,
     TooltipData,
     TooltipDataItem,
+    defaultCategoricalScaleSpec,
 } from '@chsk/core'
 import {
     HeatMap,
@@ -181,8 +182,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 dataSize={rawData}
                 keys={keys}
                 scaleColor={{
-                    variant: 'categorical',
-                    colors: 'Category10',
+                    ...defaultCategoricalScaleSpec,
                     domain: keys,
                 }}
                 scaleSize={{

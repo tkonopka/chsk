@@ -16,6 +16,7 @@ import {
 } from '@chsk/core'
 import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
 import { buttonTheme } from '@chsk/themes'
+import { schemeDark2 } from 'd3-scale-chromatic'
 import { generateXYValues } from './generators'
 import { generateMixedPopulation, randomNormalValue, round1dp, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -117,7 +118,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 }}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: 'Dark2',
+                    colors: schemeDark2,
                 }}
             >
                 <MilestoneMotion initialOn={'axes'}>

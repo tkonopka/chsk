@@ -10,6 +10,7 @@ import {
     getMinMax,
     ThemeSpec,
     LegendTitle,
+    defaultCategoricalScaleSpec,
 } from '@chsk/core'
 import { BlockArrow, BracketLabel, Segment } from '@chsk/annotation'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
@@ -93,8 +94,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                     domain: 'auto',
                 }}
                 scaleColor={{
-                    variant: 'categorical',
-                    colors: 'Category10',
+                    ...defaultCategoricalScaleSpec,
                     domain: ['points', 'outliers'],
                     size: 1,
                 }}

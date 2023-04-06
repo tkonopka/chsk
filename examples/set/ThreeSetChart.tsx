@@ -14,6 +14,7 @@ import {
 import { Bar, Bars } from '@chsk/band'
 import { Venn, VennSets, isVennData, VennSetLabels, VennIntersectionLabels } from '@chsk/set'
 import { buttonTheme } from '@chsk/themes'
+import { schemeAccent } from 'd3-scale-chromatic'
 import { generateIdentifiers, randomSelection, randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -128,7 +129,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     separation={0.5}
                     scaleColor={{
                         variant: 'categorical',
-                        colors: 'Accent',
+                        colors: schemeAccent,
                         size: 5,
                     }}
                     container={{

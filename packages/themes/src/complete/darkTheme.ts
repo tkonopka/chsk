@@ -1,6 +1,7 @@
+import { cloneDeep } from 'lodash'
+import { interpolateYlOrBr, interpolateBrBG } from 'd3-scale-chromatic'
 import { CompleteThemeSpec } from '@chsk/core'
 import { defaultTheme } from './defaultTheme'
-import { cloneDeep } from 'lodash'
 
 export const darkTheme: CompleteThemeSpec = {
     // svg components
@@ -179,12 +180,12 @@ export const darkTheme: CompleteThemeSpec = {
         },
         sequential: {
             variant: 'sequential',
-            colors: 'YlOrBr',
+            colors: interpolateYlOrBr,
             domain: 'auto',
         },
         diverging: {
             variant: 'diverging',
-            colors: 'BrBG',
+            colors: interpolateBrBG,
             domain: 'auto',
         },
     },

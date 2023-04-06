@@ -1,6 +1,7 @@
 import { Chart, ThemeSpec, mergeTheme, Tooltip, roundDecimalPlaces } from '@chsk/core'
 import { isPieData, Origin, Pie, Slices, SliceLabels } from '@chsk/polar'
 import { buttonTheme } from '@chsk/themes'
+import { schemeOranges } from 'd3-scale-chromatic'
 import { alphabetGreek, generateUniformPopulation } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -38,7 +39,7 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 angleAlign={0.5}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: 'Oranges',
+                    colors: schemeOranges,
                 }}
                 rInner={0.6}
             >

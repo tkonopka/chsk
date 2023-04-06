@@ -13,6 +13,7 @@ import {
     createSequentialScale,
     createDivergingScale,
 } from './colors.helpers'
+import { schemeCategory10, interpolateBlues, interpolateRdBu } from 'd3-scale-chromatic'
 
 export const defaultBandScaleSpec: BandScaleSpec = {
     variant: 'band',
@@ -44,42 +45,39 @@ export const defaultLogScaleSpec: LogScaleSpec = {
 
 export const defaultCategoricalScaleSpec: CategoricalScaleSpec = {
     variant: 'categorical',
-    colors: 'Category10',
+    colors: schemeCategory10,
 }
 
 export const defaultSequentialScaleSpec: SequentialScaleSpec = {
     variant: 'sequential',
-    colors: 'Blues',
+    colors: interpolateBlues,
     domain: 'auto',
 }
 
 export const defaultDivergingScaleSpec: DivergingScaleSpec = {
     variant: 'diverging',
-    colors: 'PuOr',
+    colors: interpolateRdBu,
     domain: ['auto', 0, 'auto'],
 }
 
 export const defaultSizeScale = createContinuousScale({
-    variant: 'linear',
-    domain: [0, 0],
-    size: 0,
+    ...defaultSizeScaleSpec,
+    domain: [0, 1],
+    size: 10,
 })
 
 export const defaultCategoricalScale = createCategoricalScale({
-    variant: 'categorical',
-    colors: 'Category10',
+    ...defaultCategoricalScaleSpec,
     domain: [],
 })
 
 export const defaultSequentialScale = createSequentialScale({
-    variant: 'sequential',
-    colors: 'Blues',
+    ...defaultSequentialScaleSpec,
     domain: [0, 100],
 })
 
 export const defaultDivergingScale = createDivergingScale({
-    variant: 'diverging',
-    colors: 'BrBG',
+    ...defaultDivergingScaleSpec,
     domain: [-100, 0, 100],
 })
 

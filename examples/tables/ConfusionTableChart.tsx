@@ -11,6 +11,7 @@ import {
 import { HeatMap, HeatMapCellProps, HeatMapCells } from '@chsk/matrix'
 import { BoxedTitle } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
+import { interpolateBlues } from 'd3-scale-chromatic'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
@@ -130,7 +131,7 @@ export const ConfusionTableChart = ({ fref, chartData, rawData }: MilestoneStory
                 keys={keys}
                 scaleColor={{
                     variant: 'sequential',
-                    colors: 'Blues',
+                    colors: interpolateBlues,
                     domain: [0, 100],
                 }}
             >

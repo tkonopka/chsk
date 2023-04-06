@@ -15,6 +15,7 @@ import {
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, HeatMapSurface } from '@chsk/matrix'
 import { buttonTheme } from '@chsk/themes'
+import { interpolatePuOr } from 'd3-scale-chromatic'
 import { merge } from 'lodash'
 import { generateHeatMapMatrixNormal, generateHeatMapRowCategorical } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
@@ -85,7 +86,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 keys={allKeys}
                 scaleColor={{
                     variant: 'diverging',
-                    colors: 'PuOr',
+                    colors: interpolatePuOr,
                     domain: [-2.2, 0, 2.2],
                 }}
                 scaleX={{

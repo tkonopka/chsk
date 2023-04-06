@@ -8,27 +8,21 @@ import {
 import {
     CategoricalColorScale,
     CategoricalScaleProps,
+    ColorArray,
+    ColorInterpolator,
     ColorScale,
-    D3Scheme,
+    ColorScheme,
     DivergingScaleProps,
     SequentialScaleProps,
     ThresholdScaleProps,
 } from './types'
-import * as d3 from 'd3-scale-chromatic'
-
-type D3ScaleChromatic = keyof typeof d3
 
 const setInterpolatorOrRange = (
     scale: D3ScaleSequential<string> | D3ScaleDiverging<string>,
-    colors: D3Scheme | string[]
+    colors: ColorArray | ColorInterpolator
 ) => {
     if (!Array.isArray(colors)) {
-        const interpolateKey = 'interpolate' + colors
-        let interpolator: (t: number) => string = d3.interpolateBlues
-        if (interpolateKey in d3) {
-            interpolator = d3[interpolateKey as D3ScaleChromatic] as (t: number) => string
-        }
-        scale.interpolator(interpolator)
+        scale.interpolator(colors as ColorInterpolator)
     } else {
         scale.range(colors)
     }
@@ -58,26 +52,18 @@ export const createDivergingScale = ({
     return result
 }
 
-const getColorArray = (colors: D3Scheme | string[] | string[][], size: number) => {
-    let allColors: unknown = colors
-    if (!Array.isArray(colors)) {
-        const scheme = 'scheme' + colors
-        if (scheme in d3) {
-            allColors = d3[scheme as D3ScaleChromatic]
-        }
-    }
-    // handle case when d3 returns an array of arrays, e.g. [undefined, undefined, ["red", "blue"]]
-    const nColors = Math.min(size, (allColors as unknown[]).length)
-    const isNested = (x: Array<unknown>) => {
+/** produce an array of colors of a certain size */
+const getColorArray = (colors: ColorScheme, size: number) => {
+    const nColors = Math.min(size, colors.length)
+
+    // handle array of arrays, e.g. d3 schemes with format [undefined, undefined, ["red", "blue"]]
+    const isNested = (x: readonly unknown[]): x is readonly (readonly unknown[])[] => {
         return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)
     }
-    if (isNested(allColors as unknown[])) {
-        allColors = (allColors as unknown[])[nColors]
-        if (!Array.isArray(allColors)) {
-            allColors = ['#000']
-        }
-    }
-    return (allColors as string[]).slice(0, nColors)
+    const allColors = isNested(colors) ? colors[nColors] : colors
+
+    if (!Array.isArray(allColors)) return Array(nColors).fill('#000')
+    return allColors.map(v => String(v)).slice(0, nColors)
 }
 
 export const createThresholdScale = ({

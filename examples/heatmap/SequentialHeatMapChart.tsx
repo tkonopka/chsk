@@ -11,6 +11,7 @@ import {
     ViewClip,
     ViewController,
     mergeTheme,
+    defaultSequentialScaleSpec,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { buttonTheme } from '@chsk/themes'
@@ -65,8 +66,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 data={rawData}
                 keys={keys}
                 scaleColor={{
-                    variant: 'sequential',
-                    colors: 'Blues',
+                    ...defaultSequentialScaleSpec,
                     domain: [0, 100],
                 }}
             >

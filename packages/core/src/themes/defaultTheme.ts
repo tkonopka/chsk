@@ -21,6 +21,7 @@ import {
 } from '../axes/defaults'
 import { CompleteThemeSpec } from './types'
 import { cloneDeep } from 'lodash'
+import { interpolateBlues, interpolateRdBu } from 'd3-scale-chromatic'
 
 export const defaultTheme: CompleteThemeSpec = {
     // svg components
@@ -273,12 +274,12 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         sequential: {
             variant: 'sequential',
-            colors: 'YlOrBr',
+            colors: interpolateBlues,
             domain: 'auto',
         },
         diverging: {
             variant: 'diverging',
-            colors: 'BrBG',
+            colors: interpolateRdBu,
             domain: 'auto',
         },
     },

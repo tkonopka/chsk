@@ -39,6 +39,12 @@
 
 ### Changed
 
+-   [core] changed types and parsing for color schemes to reduce bundle size.
+    The new color scale specs do not accept strings with d3 color scale
+    names (e.g. 'Blues'), but rather accept color arrays, color nested
+    arrays, or interpolator functions. Charts still use d3-scale-chromatic
+    to manage colors, but it is no longer necessary to include the entire
+    d3-scale-chromatic in the dist bundle.
 -   [examples] merged example with line chart with area gradient into example
     with time series
 -   [core] replaced prop `labelOffset` in tick components with `labelDistance`,

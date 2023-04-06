@@ -13,6 +13,12 @@ import {
     getTickCoordinates,
     ThresholdScaleProps,
 } from '../../src/scales'
+import {
+    schemeCategory10,
+    schemeBlues,
+    interpolateBlues,
+    interpolateBrBG,
+} from 'd3-scale-chromatic'
 
 const rgb = (x: string): { red: number; green: number; blue: number } => ({
     red: parseInt(x.substring(1, 3), 16),
@@ -86,7 +92,7 @@ describe('createCategoricalScale', () => {
     it('using d3 categorical scheme', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: 'Category10',
+            colors: schemeCategory10,
             domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
         // a few colors to compare - they should be different from each other
@@ -99,7 +105,7 @@ describe('createCategoricalScale', () => {
     it('using d3 sequential scheme with long domain', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: 'Blues',
+            colors: schemeBlues,
             domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
         // a few colors to compare - they should be different from each other
@@ -114,7 +120,7 @@ describe('createCategoricalScale', () => {
     it('using d3 sequential scheme with short domain', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: 'Reds',
+            colors: schemeBlues,
             size: 6,
             domain: ['a', 'b'],
         })
@@ -127,7 +133,7 @@ describe('createCategoricalScale', () => {
     it('using d3 scheme with fixed size', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: 'Blues',
+            colors: schemeBlues,
             size: 5,
             domain: ['a', 'b', 'c', 'd', 'e', 'f', 'g'],
         })
@@ -140,7 +146,7 @@ describe('createCategoricalScale', () => {
     it('using d3 without domain falls back to black', () => {
         const result = createCategoricalScale({
             variant: 'categorical',
-            colors: 'Blues',
+            colors: schemeBlues,
             size: 2,
             domain: ['a', 'b'],
         })
@@ -175,7 +181,7 @@ describe('createSequentialScale', () => {
     it('with d3 sequential scheme', () => {
         const result = createSequentialScale({
             variant: 'sequential',
-            colors: 'Blues',
+            colors: interpolateBlues,
             domain: [0, 10],
         })
         const colors = [result(0), result(5), result(10)]
@@ -201,7 +207,7 @@ describe('createDivergingScale', () => {
     it('with d3 sequential scheme', () => {
         const result = createDivergingScale({
             variant: 'diverging',
-            colors: 'BrBG',
+            colors: interpolateBrBG,
             domain: [-10, 0, 10],
         })
         const colors = [result(-10), result(0), result(10)]
@@ -238,10 +244,10 @@ describe('createThresholdScale', () => {
         expect(colors[3]).toBe('#00f')
     })
 
-    it('with d3 sequential scheme', () => {
+    it('with d3 scheme', () => {
         const result = createThresholdScale({
             variant: 'threshold',
-            colors: 'BrBG',
+            colors: schemeCategory10,
             domain: [-1, 0, 1, 2],
         })
         const colors = [result(-2), result(-0.5), result(0.5), result(1.5)]
@@ -327,7 +333,7 @@ describe('createColorScaleProps', () => {
         const result = createColorScaleProps(
             {
                 variant: 'sequential',
-                colors: 'Blues',
+                colors: interpolateBlues,
                 domain: 'auto',
             },
             [0, 20]
@@ -340,7 +346,7 @@ describe('createColorScaleProps', () => {
         const result = createColorScaleProps(
             {
                 variant: 'sequential',
-                colors: 'Blues',
+                colors: interpolateBlues,
                 domain: [2, 4],
             },
             [0, 20]
@@ -352,7 +358,7 @@ describe('createColorScaleProps', () => {
         const result = createColorScaleProps(
             {
                 variant: 'sequential',
-                colors: 'Blues',
+                colors: interpolateBlues,
                 domain: 'auto',
             },
             []
@@ -439,7 +445,7 @@ describe('getTickCoordinates', () => {
     it('get tick coordinates for a categorical color scale', () => {
         const scale = createColorScale({
             variant: 'categorical',
-            colors: 'Category10',
+            colors: schemeCategory10,
             domain: ['a', 'b', 'c', 'd'],
         })
         const result = getTickCoordinates(scale, 3, 0, 100)
@@ -449,7 +455,7 @@ describe('getTickCoordinates', () => {
     it('get tick coordinates for a threshold color scale', () => {
         const scale = createColorScale({
             variant: 'threshold',
-            colors: 'Category10',
+            colors: schemeCategory10,
             domain: [0, 0.8, 1],
         })
         const result = getTickCoordinates(scale, 3, 0, 100)

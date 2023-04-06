@@ -11,6 +11,7 @@ import {
 } from '@chsk/core'
 import { Bar, Bars } from '@chsk/band'
 import { buttonTheme } from '@chsk/themes'
+import { schemePaired } from 'd3-scale-chromatic'
 import { generateBarData } from './generators'
 import { MilestoneStory } from '../types'
 
@@ -38,7 +39,7 @@ export const groupedTheme: ThemeSpec = mergeTheme(buttonTheme, {
     Colors: {
         categorical: {
             variant: 'categorical' as const,
-            colors: 'Paired' as const,
+            colors: schemePaired,
         },
     },
 })

@@ -18,7 +18,11 @@
         "build": "PACKAGE=themes rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
+        "d3-scale-chromatic": "^3.0.0",
         "@chsk/core": "^0.3.0-alpha.0"
+    },
+    "devDependencies": {
+        "@types/d3-scale-chromatic": "^3.0.0"
     },
     "peerDependencies": {
         "react": ">= 17.0.2 < 19.0.0",

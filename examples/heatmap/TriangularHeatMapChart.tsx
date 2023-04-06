@@ -9,6 +9,7 @@ import {
     Tooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
+import { interpolateReds } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -91,7 +92,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 keys={ids}
                 scaleColor={{
                     variant: 'sequential',
-                    colors: 'Reds',
+                    colors: interpolateReds,
                     domain: [0, 100],
                 }}
             >

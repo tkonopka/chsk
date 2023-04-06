@@ -60,7 +60,7 @@ export const heatmapCategoricalProps = {
     },
     scaleColor: {
         variant: 'categorical' as const,
-        colors: 'Blues' as const,
+        colors: ['#eff3ff', '#bdd7e7', '#6baed6', '#2171b5'],
     },
 }
 

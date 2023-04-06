@@ -13,6 +13,7 @@ import {
     useTooltip,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { interpolateYlGnBu, schemeSet1 } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixUniform, generateHeatMapRowCategorical } from './generators'
 import { alphabetGreek, alphabetUppercase } from '../utils'
 import { MilestoneStory } from '../types'
@@ -79,7 +80,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                 keys={keys}
                 scaleColor={{
                     variant: 'sequential',
-                    colors: 'YlGnBu',
+                    colors: interpolateYlGnBu,
                     domain: [0, 10],
                 }}
                 scaleY={{
@@ -107,7 +108,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         scaleColor={{
                             variant: 'categorical',
                             domain: groups,
-                            colors: 'Set1',
+                            colors: schemeSet1,
                         }}
                     >
                         <Legend

@@ -15,6 +15,7 @@ import {
     createColorScale,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { interpolatePurples, interpolateBlues, schemeAccent } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixUniform, generateHeatMapRowCategorical } from './generators'
 import {
     alphabetGreek,
@@ -62,12 +63,12 @@ const customTheme = {
 
 const scaleBlues: ColorScaleProps = {
     variant: 'sequential' as const,
-    colors: 'Blues' as const,
+    colors: interpolateBlues,
     domain: [0, 10],
 }
 const scalePurples: ColorScaleProps = {
     variant: 'sequential' as const,
-    colors: 'Purples' as const,
+    colors: interpolatePurples,
     domain: [0, 10],
 }
 const scaleSize: [number, number] = [13, 80]
@@ -123,7 +124,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         scaleColor={{
                             variant: 'categorical',
                             domain: groups,
-                            colors: 'Accent',
+                            colors: schemeAccent,
                         }}
                     >
                         <Legend

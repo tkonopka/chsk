@@ -11,6 +11,7 @@ import {
 import { UpSet, UpSetGrid, UpSetMemberships, UpSetBar, isUpSetData } from '@chsk/matrix'
 import { Bars, BandSurface } from '@chsk/band'
 import { buttonTheme } from '@chsk/themes'
+import { schemeDark2 } from 'd3-scale-chromatic'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
@@ -62,7 +63,7 @@ export const HorizontalUpSetChart = ({ fref, chartData, rawData }: MilestoneStor
                 data={rawData}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: 'Dark2',
+                    colors: schemeDark2,
                 }}
             >
                 <MilestoneMotion initialOn={'axes'}>

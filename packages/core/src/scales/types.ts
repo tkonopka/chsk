@@ -1,9 +1,11 @@
-// types for axis scales, color scales, and size scales
+/** Axes */
 
-/** Axis */
-
-// a general type for scales
-// this is designed to overlap with d3, but also includes optional fields
+/**
+ * A general type for scales.
+ * This is designed to overlap with d3, but also includes additional fields to:
+ * - help with consistency across numeric/time/band scales
+ * - support changes to scales upon zoom/pan
+ */
 export interface GenericScale<Domain, Range> {
     /** interface is a callable function */
     (v: Domain): Range
@@ -158,51 +160,13 @@ export type SizeScaleProps = SizeScaleSpec &
 
 /** Color */
 
-const d3schemes = [
-    'Accent',
-    'Blues',
-    'BrBG',
-    'BuGn',
-    'BuPu',
-    'Category10',
-    'Dark2',
-    'GnBu',
-    'Greens',
-    'Greys',
-    'OrRd',
-    'Oranges',
-    'PRGn',
-    'Paired',
-    'Pastel1',
-    'Pastel2',
-    'PiYG',
-    'PuBu',
-    'PuBuGn',
-    'PuOr',
-    'PuRd',
-    'Purples',
-    'RdBu',
-    'RdGy',
-    'RdPu',
-    'RdYlBu',
-    'RdYlGn',
-    'Reds',
-    'Set1',
-    'Set2',
-    'Set3',
-    'Spectral',
-    'Tableau10',
-    'YlGn',
-    'YlGnBu',
-    'YlOrBr',
-    'YlOrRd',
-] as const
-
-export type D3Scheme = (typeof d3schemes)[number]
+export type ColorArray = readonly string[]
+export type ColorScheme = readonly string[] | readonly (readonly string[])[]
+export type ColorInterpolator = (t: number) => string
 
 export type CategoricalScaleSpec = {
     variant: 'categorical'
-    colors: D3Scheme | string[] | string[][]
+    colors: ColorScheme
     size?: number
     domain?: string[] | 'auto'
 }
@@ -212,7 +176,7 @@ export type CategoricalScaleProps = CategoricalScaleSpec & {
 
 export type SequentialScaleSpec = {
     variant: 'sequential'
-    colors: D3Scheme | string[]
+    colors: ColorArray | ColorInterpolator
     domain: [number | 'auto', number | 'auto'] | 'auto'
 }
 export type SequentialScaleProps = SequentialScaleSpec & {
@@ -221,7 +185,7 @@ export type SequentialScaleProps = SequentialScaleSpec & {
 
 export type DivergingScaleSpec = {
     variant: 'diverging'
-    colors: D3Scheme | string[]
+    colors: ColorArray | ColorInterpolator
     domain: [number | 'auto', number | 'auto', number | 'auto'] | 'auto'
 }
 export type DivergingScaleProps = DivergingScaleSpec & {
@@ -230,7 +194,7 @@ export type DivergingScaleProps = DivergingScaleSpec & {
 
 export type ThresholdScaleSpec = {
     variant: 'threshold'
-    colors: D3Scheme | string[]
+    colors: ColorArray
     domain: number[]
 }
 export type ThresholdScaleProps = ThresholdScaleSpec & {

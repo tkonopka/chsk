@@ -7,8 +7,8 @@ import { Meta, Source } from '@storybook/addon-docs'
 While colors for individual components can be set via css styles with props such as `style`
 (sometimes `labelStyle`, `symbolStyle` or similar), color schemes are set via scales with prop `scaleColor`.
 
-Color scales are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic),
-with minor adjustments. All scales are specified with objects that define a scale variant, domain, and other properties.
+Color scales are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), with minor adjustments.
+They are specified with objects that define a scale variant, domain, and other properties.
 
 ## Categorical colors
 
@@ -25,29 +25,31 @@ The example below defines a custom scale by explicitly listing color codes.
 }`}
 />
 
-Instead of providing an array of colors, it is possible to use a color schemes from
-[d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), for example with pastel colors.
+Instead of providing an array of colors, it is possible to use a color scheme object in the format
+specified by [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+For example, the following object defines a series of color arrays for sizes from 0 to 5.
 
 <Source
-    language="javascript"
+    language="language"
     code={`
-{
-  variant: 'categorical',
-  colors: 'Pastel2'
-}`}
+[
+   ,,,
+  [ '#deebf7', '#9ecae1', '#3182bd' ],
+  [ '#eff3ff', '#bdd7e7', '#6baed6', '#2171b5' ],
+  [ '#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c' ]
+]`}
 />
 
-It is also possible to use d3's sequential color schemes (see below) to define categorical colors,
-for example to use a fixed number of shades of blue.
+The data format intentionally coincides with color schemes in
+[d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+Thus, ready color schemes can be readily imported.
 
 <Source
     language="javascript"
     code={`
-{
-  variant: 'categorical',
-  colors: 'Blues',
-  size: 4,
-}`}
+import { schemeCategory10 } from 'd3-scale-chromatic'
+import { schemeBlues } from 'd3-scale-chromatic'
+`}
 />
 
 ## Sequential colors
@@ -65,19 +67,31 @@ representing domain edges, and two colors representing edge colors.
 }`}
 />
 
-Several sequential color schemes are available through [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+The `color` attribute also accepts an interpolation function that converts a value in [0, 1],
+i.e. a fractional position in the domain interval, to a color.
+Several interpolation schemes are available through [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+For example, `interpolateBlues` uses shades of blue.
 
-When a sequential scale is used in a 'view' component (e.g. `View` from the core package, but also `Bar`, `Scatter`, `HeatMap` and others from addon packages), the domain of the scale can be determined automatically from data. The example below forces a scale to start at a value of 0, but leaves the upper domain bound to be determined from data.
+<Source
+    language="javascript"
+    code={`
+import { interpolateBlues } from 'd3-scale-chromatic'
+`}
+/>
+
+When a sequential scale is used in a 'view' component (e.g. `View` from the core package, but also `Bar`, `Scatter`, `HeatMap` and others), the domain of the scale can be determined automatically from data. The example below forces a scale to start at a value of 0, but leaves the upper bound to be determined from data.
 
 <Source
     language="javascript"
     code={`
 {
   variant: 'sequential',
-  colors: 'Blues',
+  colors: interpolateBlues,
   domain: [0, 'auto']
 }`}
 />
+
+Note this example also uses the imported interpolation function.
 
 ## Diverging colors
 
@@ -94,8 +108,8 @@ point. The example below defines a blue-white-red scheme centered at a value zer
 }`}
 />
 
-As with sequential schemes, colors can be set using [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) names.
-Domain values can be set to 'auto'.
+As with sequential schemes, an alternative to supplying a color array is to use an interpolation function.
+Several interpolators are readily available from [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
 
 ## Threshold colors
 
@@ -129,12 +143,12 @@ const customTheme = {
     },
     sequential: {
         variant: 'sequential',
-        colors: 'YlOrBr' as const,
+        colors: interpolateBlues,
         domain: 'auto',
     },
     diverging: {
         variant: 'diverging',
-        colors: 'BrBG' as const,
+        colors: interpolateRdBu,
         domain: 'auto',
     },
   }
