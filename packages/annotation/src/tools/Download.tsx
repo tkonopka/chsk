@@ -22,10 +22,7 @@ const downloadSvgToFile = (
 ) => {
     const svg = document.getElementById(id)
     if (!svg) return
-    let result = cleanSvg(svg.cloneNode(true) as HTMLElement, config, theme)?.outerHTML
-    if (!result.startsWith('<svg')) {
-        return
-    }
+    let result = cleanSvg(svg?.cloneNode(true) as HTMLElement, config, theme)?.outerHTML
     config.newlineTags.forEach(tag => {
         const closePattern = new RegExp('</' + tag + '><', 'g')
         const openPattern = new RegExp('><' + tag, 'g')

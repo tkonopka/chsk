@@ -42,15 +42,13 @@ export const StackedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
                 <Bars modifiers={{ onMouseEnter: { filter: 'url(#inset)' }, onMouseLeave: {} }} />
                 <Tooltip />
                 <Legend
-                    position={[310, 280]}
-                    positionUnits={'absolute'}
-                    size={[80, 120]}
-                    sizeUnits={'absolute'}
+                    position={[1, 1]}
+                    positionUnits={'relative'}
                     anchor={[0, 1]}
-                    padding={[0, 12, 0, 12]}
-                    r={10.5}
-                    itemSize={[80, 23]}
-                    itemPadding={[1, 2, 2, 1]}
+                    offset={[20, 0]}
+                    r={10}
+                    itemSize={[90, 22]}
+                    itemPadding={[1, 2, 1, 2]}
                     title={'Groups'}
                 />
                 <DownloadButtons position={[320, 350]} data image />

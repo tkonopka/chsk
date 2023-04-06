@@ -102,7 +102,11 @@ describe('Legend (list)', () => {
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('legend-surface')).toBeDefined()
+        const surface = screen.getByRole('legend-surface')
+        const n = 1 + screen.getAllByRole('legend-item').length
+        expect(surface.getAttribute('class')).toContain('legend surface')
+        expect(surface.getAttribute('width')).toBe('80')
+        expect(surface.getAttribute('height')).toBe(String(n * 20))
     })
 
     it('uses padding to shift title and items', () => {

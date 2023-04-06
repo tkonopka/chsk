@@ -1,9 +1,12 @@
-import { render, screen } from '@testing-library/react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import { Chart, View, Typography } from '@chsk/core'
 import { chartProps, viewProps } from '../props'
 import { Download } from '../../src'
 
 describe('Download', () => {
+    // mocks createObjectURL, makes download attempts run without creating any files
+    window.URL.createObjectURL = jest.fn()
+
     it('download a dataset', () => {
         render(
             <Chart {...chartProps}>
@@ -16,8 +19,8 @@ describe('Download', () => {
         )
         const result = screen.getByRole('download-data')
         expect(result).toBeDefined()
-        // fireEvent.click triggers the download action, but unsure how to use this in the test
-        // fireEvent.click(result)
+        // trigger the download action
+        fireEvent.click(result)
     })
 
     it('download an image', () => {
@@ -32,7 +35,7 @@ describe('Download', () => {
         )
         const result = screen.getByRole('download-image')
         expect(result).toBeDefined()
-        // fireEvent.click triggers the download action, but unsure how to use this in the test
-        //fireEvent.click(result)
+        // trigger the download action
+        fireEvent.click(result)
     })
 })
