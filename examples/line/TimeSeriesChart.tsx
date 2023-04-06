@@ -14,13 +14,18 @@ import {
     NumericPositionSpec,
     ViewClip,
     ViewController,
+    LinearGradient,
+    useProcessedData,
+    getMinMax,
+    url,
 } from '@chsk/core'
 import {
     isScatterData,
     Scatter,
-    ScatterCurve,
     ScatterCrosshair,
     useScatterPreparedData,
+    isScatterProcessedData,
+    ScatterSeries,
 } from '@chsk/xy'
 import { buttonTheme } from '@chsk/themes'
 import { generateRandomWalk } from './generators'
@@ -75,6 +80,65 @@ const customLabelFormat = (x: TooltipDataItem) => {
     return '(' + date + ', ' + point[1] + ')'
 }
 
+// wrapper around ScatterArea and ScatterCurve
+// It creates custom color gradients based on positive/negative values
+const SignCurve = ({ ids, prefix = 'sign-gradient' }: { ids?: string[]; prefix?: string }) => {
+    const processedData = useProcessedData()
+    const color = useScales().scales.color
+    const data = processedData.data
+    if (!isScatterProcessedData(data)) return null
+
+    const colorP = color(0)
+    const colorM = color(1)
+    const getStops = (range: [number, number]): string[] => {
+        if (range[0] > 0) return [colorP, colorP]
+        if (range[1] < 0) return [colorM, colorM]
+        return [colorP, colorP, colorM, colorM]
+    }
+    const getOffsets = (range: [number, number]): number[] => {
+        if (range[0] > 0 || range[1] < 0) return [0, 1]
+        const crossover = range[1] / (range[1] - range[0])
+        return [0, crossover, crossover, 1]
+    }
+
+    const result = (ids ?? processedData.keys).map((id: string) => {
+        const seriesIndex = processedData.seriesIndexes[id]
+        if (seriesIndex === undefined) return
+        const range = getMinMax(data[seriesIndex].y)
+        const stops = getStops(range)
+        const offsets = getOffsets(range)
+        const gradId = prefix + '-' + id
+        return (
+            <>
+                <LinearGradient
+                    id={gradId}
+                    start={[0, 0]}
+                    end={[0, 1]}
+                    stops={stops}
+                    offsets={offsets}
+                />
+                <ScatterSeries
+                    layers={['area', 'curve']}
+                    ids={[id]}
+                    curve={'Linear'}
+                    baseline={0}
+                    areaStyle={{
+                        fill: url(gradId),
+                        strokeWidth: 0,
+                        fillOpacity: 0.25,
+                    }}
+                    curveStyle={{
+                        stroke: url(gradId),
+                        strokeWidth: 2,
+                    }}
+                />
+            </>
+        )
+    })
+
+    return <>{result.filter(Boolean)}</>
+}
+
 export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
     return (
@@ -101,14 +165,15 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 }}
                 scaleColor={{
                     variant: 'categorical',
-                    colors: ['#dd0000', '#555555'],
+                    colors: ['#3f9cde', '#bbbbbb'],
+                    domain: ['positive', 'negative'],
                 }}
             >
                 <Typography variant={'title'} position={[-65, -50]}>
-                    Change over one year
+                    Performance metric
                 </Typography>
                 <Typography variant={'subtitle'} position={[-65, -28]}>
-                    Base values set to zero for {dateToString(aYearAgo)}
+                    Change from baseline value on {dateToString(aYearAgo)}
                 </Typography>
                 <GridLines variant={'y'} style={{ stroke: '#cccccc' }} />
                 <GridLines variant={'y'} values={[0]} style={{ stroke: '#222222' }} />
@@ -125,10 +190,11 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
                 </Axis>
                 <ViewClip id={'time-curve'} expansion={[5, 5, 5, 5]}>
-                    <ScatterCurve curve={'Linear'} style={{ strokeWidth: 2, fillOpacity: 0 }} />
+                    <SignCurve />
                     <ScatterCrosshair
                         variant={'vertical'}
                         style={{ stroke: '#888888', strokeDasharray: 5 }}
+                        symbolStyle={{ fill: '#555555' }}
                     />
                     <FirstPoint style={{ fill: '#222222' }} />
                 </ViewClip>
@@ -145,7 +211,7 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     symbol={() => null}
                     title={''}
                     labelStyle={{ fontWeight: 600 }}
-                    style={{ fill: '#faf4f4' }}
+                    style={{ fill: '#f4f4f4' }}
                 />
             </Scatter>
         </Chart>

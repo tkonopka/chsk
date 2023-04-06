@@ -39,6 +39,8 @@
 
 ### Changed
 
+-   [examples] merged example with line chart with area gradient into example
+    with time series
 -   [core] replaced prop `labelOffset` in tick components with `labelDistance`,
     and `labelTranslate` with `labelOffset; now all 'offset' props should be
     arrays with [x, y] coordinates
