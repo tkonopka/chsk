@@ -29,7 +29,7 @@ const overlayTheme: ThemeSpec = {
             fillOpacity: 0,
         },
         scatterArea: {
-            opacity: 0.8,
+            fillOpacity: 0.8,
         },
     },
 }

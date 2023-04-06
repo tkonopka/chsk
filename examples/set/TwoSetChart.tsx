@@ -22,6 +22,11 @@ export const generateTwoSetData = () => {
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
+    path: {
+        default: {
+            fillOpacity: 1,
+        },
+    },
     circle: {
         default: {
             fillOpacity: 0.7,

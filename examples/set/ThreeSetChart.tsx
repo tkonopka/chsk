@@ -47,6 +47,11 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
             strokeWidth: 0,
         },
     },
+    path: {
+        default: {
+            fillOpacity: 1,
+        },
+    },
     text: {
         title: {
             fontWeight: 400,

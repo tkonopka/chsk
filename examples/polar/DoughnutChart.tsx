@@ -15,6 +15,11 @@ export const generateDoughnutData = () => {
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
+    path: {
+        default: {
+            fillOpacity: 1,
+        },
+    },
     text: {
         sliceLabel: {
             pointerEvents: 'none',

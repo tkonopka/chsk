@@ -15,6 +15,11 @@ export const generateSemicircleDoughnutData = () => {
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
+    path: {
+        default: {
+            fillOpacity: 1,
+        },
+    },
     text: {
         centerTitle: {
             textAnchor: 'middle',

@@ -9,6 +9,9 @@ export const generateHorizontalFlowData = () => []
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     path: {
+        default: {
+            fillOpacity: 1,
+        },
         flow: {
             strokeWidth: '1px',
             fillOpacity: 0,

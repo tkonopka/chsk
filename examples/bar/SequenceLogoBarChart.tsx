@@ -166,6 +166,9 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
         },
     },
     path: {
+        default: {
+            fillOpacity: 1,
+        },
         logo: {
             strokeWidth: 0,
         },

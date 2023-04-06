@@ -60,7 +60,8 @@ export const defaultTheme: CompleteThemeSpec = {
     path: {
         default: {
             stroke: '#222222',
-            fill: 'none',
+            // prefer fillOpacity to fill: none in order to allow animation of fill in path components
+            fillOpacity: 0,
         },
     },
     polygon: {

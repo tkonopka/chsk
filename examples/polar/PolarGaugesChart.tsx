@@ -41,7 +41,7 @@ const customTheme: ThemeSpec = mergeThemes([
                 pointerEvents: 'none',
                 fill: '#bbbbbb',
             },
-            download: {
+            button: {
                 fill: '#bbbbbb',
             },
             counter: {
@@ -61,8 +61,16 @@ const customTheme: ThemeSpec = mergeThemes([
             },
         },
         path: {
-            download: {
+            default: {
+                fillOpacity: 1,
+            },
+            button: {
                 fill: '#bbbbbb',
+            },
+        },
+        rect: {
+            'button.bg:hover': {
+                fill: '#555555',
             },
         },
         Colors: {

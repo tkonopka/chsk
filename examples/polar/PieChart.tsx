@@ -44,7 +44,8 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
         },
     },
     path: {
-        slice: {
+        default: {
+            fillOpacity: 1,
             strokeWidth: 2,
         },
     },

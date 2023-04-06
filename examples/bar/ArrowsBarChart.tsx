@@ -33,6 +33,11 @@ const customTheme: ThemeSpec = {
             strokeWidth: 1,
         },
     },
+    path: {
+        bar: {
+            fillOpacity: 1,
+        },
+    },
     text: {
         axisLabel: {
             textAnchor: 'middle',
