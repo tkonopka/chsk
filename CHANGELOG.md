@@ -2,6 +2,21 @@
 
 ## [Unreleased]
 
+### Highlights
+
+-   Zoom and pan capabilities for all chart/scale types
+-   New package `@chsk/polar` for pie and doughnut charts
+-   New components in existing packages, including for animated text, bars with
+    whiskers, and curved arrows
+-   Reduced bundle sizes by omitting external modules
+-   Optimized svg exports by omitting redundant css
+-   Streamlined typings for increased prop consistency across components,
+    especially for container placement
+
+### Contributors
+
+@falsepopsky @tkonopka
+
 ### Added
 
 -   [core] component `Style` to create themed css for arbitrary ancestors
@@ -75,6 +90,7 @@
     `sizeUnits`, `padding`, and `anchor` are now nested in a single
     `container` prop. This simplifies internal code and docs for add-on views.
 -   [core] renamed prop `rotate` to `angle` in typography components
+-   [core] fixed ResizeObserver management (#3)
 -   [core] upgrade d3-shape to v3.2.0
 -   [annotation] removed redundant 'px' suffixes in svg exports to reduce size
     of output
@@ -114,6 +130,14 @@
 -   [documentation] edited miscellaneous documentation pages
 
 ## v0.2.0
+
+### Highlights
+
+-   Tooltips for all chart types
+-   New package `@chsk/set` for set membership diagrams
+-   New components in existing packages, including animated flowchart arrows,
+    cross-hairs for scatter charts, and error bars for scatter charts
+-   Style modifiers activated upon mouse interactions
 
 ### Added
 
@@ -207,6 +231,19 @@
 
 ## v0.1.0
 
+### Highlights
+
+-   Core infrastructure and add-on packages available on npm
+
 ### Added
 
--   packages: core, annotation, band, matrix, themes, xy
+-   New package `@chsk/core` with library infrastructure
+-   New package `@chsk/annotation` with miscellaneous components suitable for
+    many chart types
+-   New package `@chsk/band` for charts with one categorical axis and one
+    continuous axis, e.g. bar charts
+-   New package `@chsk/matrix` for charts with two categorical axes, e.g. heat
+    maps
+-   New package `@chsk/themes` with objects for adjusting chart styles
+-   New package `@chsk/xy` for charts with two continuous axes, e.g. scatter
+    charts
