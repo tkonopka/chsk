@@ -34,11 +34,10 @@ const pathVenn1of2 = ({ data, index }: pathVennProps) => {
     let p1effective = p1
     let p2effective = p2
     if (equalCoordinates(p1, p2)) {
-        const ysign = index === 0 ? 1 : -1
-        p1effective = addPositions(p1, [0, -ysign * 0.01])
-        p2effective = addPositions(p2, [0, ysign * 0.01])
+        const ySign = index === 0 ? 1 : -1
+        p1effective = addPositions(p1, [0, -ySign * 0.01])
+        p2effective = addPositions(p2, [0, ySign * 0.01])
     }
-    //const p2effective = equalCoordinates(p1, p2) ? addPoints(p2, [0, 1e-6]) : p2
     // sweep for arc of the boundary between item and other
     const s1 = other.largeArcs[0]
     // sweep for arc on the outside

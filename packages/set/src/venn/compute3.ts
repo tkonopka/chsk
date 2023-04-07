@@ -17,6 +17,12 @@ export const processData3 = (result: Array<VennProcessedDataItem>, separation: n
     const alpha = (2 * Math.PI) / 3
     const outerPoint: NumericPositionSpec = [separation, +Math.sin(theta)]
     const innerPoint: NumericPositionSpec = [separation, -Math.sin(theta)]
+    // Next, define points of intersection xy between circle x and circle y
+    // notation is such that each circle x 'owns' two points: a point on the outside and on the inside
+    // 'ownership' is assigned 'clockwise'.
+    // Take circle 0:
+    // - its intersection with circle 1 will be p01
+    // - following the circle perimeter clockwise, the next intersection point with circle 2 will be p02
     const p01 = add(result[0].center, outerPoint)
     const p10 = add(result[0].center, innerPoint)
     const p12 = add(result[1].center, rotatePoint(outerPoint, alpha))
@@ -26,7 +32,7 @@ export const processData3 = (result: Array<VennProcessedDataItem>, separation: n
     result[0].points = [p01, p02, p10, p20]
     result[1].points = [p12, p10, p21, p01]
     result[2].points = [p20, p21, p02, p12]
-    const largeArc = Number(2 * theta + Math.PI / 6 < Math.PI)
+    const largeArc = +(theta < Math.PI / 3)
     result[0].largeArcs = [0, 0, 0, largeArc]
     result[1].largeArcs = [0, 0, 0, largeArc]
     result[2].largeArcs = [0, 0, 0, largeArc]

@@ -111,7 +111,9 @@ describe('Venn', () => {
                 </Venn>
             </Chart>
         )
+        const factor = Math.sqrt(4 / 3)
         expect(processed.data[0].r).toBeGreaterThan(processed.data[1].r)
+        expect(round2dp(processed.data[0].r)).toEqual(round2dp(factor * processed.data[1].r))
     })
 
     it('computes positions for disjoint sets', () => {
@@ -195,5 +197,39 @@ describe('Venn', () => {
         expect(processed1.data[0].center[Y]).toBeLessThan(0)
         expect(Math.abs(round2dp(processed1.data[2].center[X]))).toEqual(0)
         expect(processed1.data[2].center[Y]).toBeGreaterThan(0)
+    })
+
+    it('computes arc sizes for three sets with large separation', () => {
+        const processed: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        render(
+            <Chart>
+                <Venn {...venn3Props} separation={0.6}>
+                    <GetProcessedData target={processed} />
+                </Venn>
+            </Chart>
+        )
+        // for large separation, arcs in the middle should be short (largeArc=0)
+        // and the outer arc should be a near complete circle (largeArc=1)
+        const indexes: number[] = [0, 1, 2]
+        indexes.forEach((i: number) => {
+            expect(processed.data[i].largeArcs).toEqual([0, 0, 0, 1])
+        })
+    })
+
+    it('computes arc sizes for three sets with moderate separation', () => {
+        const processed: VennProcessedContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        render(
+            <Chart>
+                <Venn {...venn3Props} separation={0.4}>
+                    <GetProcessedData target={processed} />
+                </Venn>
+            </Chart>
+        )
+        // for moderate separation, arcs in the middle should be short (largeArc=0)
+        // and the outer arc should also be less than a hemisphere (largeArc=0)
+        const indexes: number[] = [0, 1, 2]
+        indexes.forEach((i: number) => {
+            expect(processed.data[i].largeArcs).toEqual([0, 0, 0, 0])
+        })
     })
 })

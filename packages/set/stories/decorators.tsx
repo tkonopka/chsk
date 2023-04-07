@@ -48,20 +48,37 @@ export const commonVennBSubsetProps = {
 }
 
 export const ChartDecorator = (Story: () => ReactNode) => (
-    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+    <Chart
+        size={[400, 300]}
+        padding={[80, 60, 60, 80]}
+        style={{ display: 'inline-block' }}
+        theme={{ path: { set: { strokeWidth: 1, stroke: '#222', fillOpacity: 1 } } }}
+    >
         {Story()}
     </Chart>
 )
 
 export const ChartVenn2Decorator = (Story: () => ReactNode) => (
-    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
+    <Chart
+        size={[400, 300]}
+        padding={[80, 60, 60, 80]}
+        style={{ display: 'inline-block' }}
+        theme={{ path: { set: { strokeWidth: 1, stroke: '#222', fillOpacity: 1 } } }}
+    >
         <Venn {...commonVenn2Props}>{Story()}</Venn>
     </Chart>
 )
 
 export const ChartVenn3Decorator = (Story: () => ReactNode) => (
-    <Chart size={[400, 300]} padding={[80, 60, 60, 80]} style={{ display: 'inline-block' }}>
-        <Venn {...commonVenn3Props}>{Story()}</Venn>
+    <Chart
+        size={[400, 300]}
+        padding={[80, 60, 60, 80]}
+        style={{ display: 'inline-block' }}
+        theme={{ path: { set: { strokeWidth: 1, stroke: '#222', fillOpacity: 1 } } }}
+    >
+        <Venn {...commonVenn3Props} separation={0.3}>
+            {Story()}
+        </Venn>
     </Chart>
 )
 

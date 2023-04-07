@@ -54,6 +54,7 @@
 
 ### Changed
 
+-   [set] fixed bug in Venn diagram which flipped long/short arcs in some cases
 -   [core] changed types and parsing for color schemes to reduce bundle size.
     The new color scale specs do not accept strings with d3 color scale
     names (e.g. 'Blues'), but rather accept color arrays, color nested
