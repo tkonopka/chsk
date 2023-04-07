@@ -76,7 +76,7 @@ export const ChartVenn3Decorator = (Story: () => ReactNode) => (
         style={{ display: 'inline-block' }}
         theme={{ path: { set: { strokeWidth: 1, stroke: '#222', fillOpacity: 1 } } }}
     >
-        <Venn {...commonVenn3Props} separation={0.3}>
+        <Venn {...commonVenn3Props} separation={0.5}>
             {Story()}
         </Venn>
     </Chart>

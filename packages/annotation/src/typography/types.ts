@@ -13,6 +13,7 @@ import {
     PositionUnits,
     TwoSideSizeSpec,
     NumericPositionSpec,
+    LabelProps,
 } from '@chsk/core'
 import { ReactNode } from 'react'
 
@@ -96,7 +97,9 @@ export interface BraceLabelProps extends BracketLabelProps {
 
 /** Miscellaneous text */
 
-export interface ParagraphProps extends Omit<TypographyProps, 'variant'> {
+export interface ParagraphProps
+    extends Omit<TypographyProps, 'variant'>,
+        Pick<LabelProps, 'size' | 'offset'> {
     /** size of individual lines (width, height) */
     size: SizeSpec
     /** vertical alignment */

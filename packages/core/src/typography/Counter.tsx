@@ -3,10 +3,8 @@ import { createElement, useState } from 'react'
 import {
     centerAlign,
     getAlignPosition,
-    NumericPositionSpec,
+    getAnchoredOrigin,
     roundDecimalPlaces,
-    X,
-    Y,
     zeroPadding,
     zeroPosition,
 } from '../general'
@@ -31,6 +29,8 @@ export const Counter = ({
     size = [20, 20],
     padding = zeroPadding,
     align = centerAlign,
+    anchor = centerAlign,
+    offset = zeroPosition,
     nDecimalPlaces = 0,
     format = (v: number) => String(v),
     component,
@@ -59,10 +59,10 @@ export const Counter = ({
         })
     }
 
-    const corner: NumericPositionSpec = [position[X] - size[X] / 2, position[Y] - size[Y] / 2]
-    const pos = getAlignPosition(corner, size, align, padding)
+    const corner = getAnchoredOrigin(position, size, anchor)
+    const [x, y] = getAlignPosition(corner, size, align, padding, offset)
     const compositeClassName = getClassName(variant, className)
-    const config = { x: pos[X], y: pos[Y], rotate: angle, originX: '0px', originY: '0px' }
+    const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     return (
         <m.g
             role={setRole && variant !== 'default' ? variant : undefined}

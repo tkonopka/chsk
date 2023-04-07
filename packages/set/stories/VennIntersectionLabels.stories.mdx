@@ -75,8 +75,9 @@ By default, labels display the set id. The content can be adjusted via prop `for
         name="custom format"
         args={{
             format: (x, item) => {
-                if (item.label.substring(0, 2) == 'al' && item.label.indexOf('!') > 0) return 'cold'
-                if (item.label.substring(0, 2) == 'be') return 'hot'
+                if (item.label.substring(0, 2) === 'al' && item.label.indexOf('!') > 0)
+                    return 'cold'
+                if (item.label.substring(0, 4) === '! al') return 'hot'
                 return 'tepid'
             },
         }}
@@ -90,6 +91,29 @@ By default, labels display the set id. The content can be adjusted via prop `for
 (The custom format function may not appear correctly in the storybook doc.
 Please check the table at the top of the page for the function signature, or the sourcecode on github
 for source code.)
+
+## Data subsets
+
+To display only some of the labels, set prop `ids` with an array of strings based on the data item ids.
+Partitions that correspond to items in one set and not in any of the others are denoted with the id
+corresponding to the containing set, e.g. 'alpha' or 'beta'.
+Intersections are denoted with ids separated by spaces, e.g. 'alpha beta'.
+
+<Canvas>
+    <Story
+        name="subsets"
+        args={{
+            ids: ['gamma', 'alpha gamma', 'beta gamma', 'alpha beta gamma'],
+        }}
+        component={VennIntersectionLabels}
+        decorators={[ChartVennSets3Decorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Tip: even when it is desirable to draw all the labels, this feature can be useful
+for fine-tuning the position of certain labels with props `align`, `anchor`, and `offset`.
 
 ## Styling
 

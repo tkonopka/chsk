@@ -35,12 +35,13 @@ export const getAlignPosition = (
     pos: NumericPositionSpec, // top-left corner of a container
     size: SizeSpec, // size of container
     align: SizeSpec, // relative position inside container
-    padding?: FourSideSizeSpec // padding inside the container
+    padding?: FourSideSizeSpec, // padding inside the container
+    offset?: NumericPositionSpec
 ): NumericPositionSpec => {
     const innerSize = padding ? getInnerSize(size, padding) : size
     return [
-        pos[X] + (padding?.[LEFT] ?? 0) + innerSize[X] * align[X],
-        pos[Y] + (padding?.[TOP] ?? 0) + innerSize[Y] * align[Y],
+        pos[X] + (padding?.[LEFT] ?? 0) + innerSize[X] * align[X] + (offset?.[X] ?? 0),
+        pos[Y] + (padding?.[TOP] ?? 0) + innerSize[Y] * align[Y] + (offset?.[Y] ?? 0),
     ]
 }
 

@@ -12,14 +12,14 @@ import {
 } from '@chsk/core'
 import { getColorScaleProps, getXYScaleProps } from './utils'
 import { VennPreparedDataProvider } from './contexts'
-import { interpolateRgb } from 'd3-interpolate'
+import { interpolateLab } from 'd3-interpolate'
 import { processData } from './process'
 import { prepareData } from './prepare'
 
 const defaultInterpolation = (c1: string, c2: string, c3?: string) => {
-    if (c3 === undefined) return interpolateRgb(c1, c2)(0.5)
-    const intermediate = interpolateRgb(c1, c2)(0.5)
-    return interpolateRgb(intermediate, c3)(1.0 / 3)
+    if (c3 === undefined) return interpolateLab(c1, c2)(0.5)
+    const intermediate = interpolateLab(c1, c2)(0.5)
+    return interpolateLab(intermediate, c3)(1.0 / 3)
 }
 
 export const Venn = ({

@@ -50,6 +50,21 @@ describe('VennIntersectionLabels', () => {
         expect(result.querySelectorAll('text')).toHaveLength(7)
     })
 
+    it('creates a subset of labels', () => {
+        render(
+            <Chart>
+                <Venn {...venn3Props}>
+                    <VennIntersectionLabels
+                        ids={['alpha beta', 'alpha gamma', 'alpha beta gamma', 'abc']}
+                    />
+                </Venn>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        // the ids list has three correct ids, the incorrect ids should be skipped
+        expect(result.querySelectorAll('text')).toHaveLength(3)
+    })
+
     it('creates 0 labels for empty data', () => {
         render(
             <Chart>

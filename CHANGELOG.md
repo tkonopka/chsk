@@ -19,6 +19,8 @@
 
 ### Added
 
+-   [example] venn diagrams with custom text at intersections
+-   [set] support for data subsets when drawing set intersection labels
 -   [core] component `Style` to create themed css for arbitrary ancestors
 -   [annotation] conversion of rgba colors to hex in svg exports
 -   [themes] theme piece `buttonTheme` with styles for buttons
@@ -54,6 +56,8 @@
 
 ### Changed
 
+-   [set] changed default color interpolation in venn diagrams to lab space
+-   [core] fixed support for props `align`, `anchor`, and `offset` in labels
 -   [set] fixed bug in Venn diagram which flipped long/short arcs in some cases
 -   [core] changed types and parsing for color schemes to reduce bundle size.
     The new color scale specs do not accept strings with d3 color scale

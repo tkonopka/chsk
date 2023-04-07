@@ -1,8 +1,6 @@
 import { m } from 'framer-motion'
 import { LabelProps } from './types'
 import {
-    X,
-    Y,
     getAlignPosition,
     getAnchoredOrigin,
     zeroPadding,
@@ -17,8 +15,9 @@ export const Label = ({
     angle,
     size = [20, 20],
     padding = zeroPadding,
-    anchor = centerAlign,
     align = centerAlign,
+    anchor = centerAlign,
+    offset = zeroPosition,
     style,
     className,
     setRole = true,
@@ -26,9 +25,9 @@ export const Label = ({
 }: LabelProps) => {
     if (children === undefined || children === '') return null
     const corner = getAnchoredOrigin(position, size, anchor)
-    const pos = getAlignPosition(corner, size, align, padding)
+    const [x, y] = getAlignPosition(corner, size, align, padding, offset)
     const compositeClassName = getClassName(variant, className)
-    const config = { x: pos[X], y: pos[Y], rotate: angle, originX: '0px', originY: '0px' }
+    const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     return (
         <m.g role={setRole ? variant : undefined} initial={config} animate={config}>
             <text style={style} className={compositeClassName}>

@@ -33,6 +33,20 @@ describe('Label', () => {
         expect(result.getAttribute('class')).toContain('custom')
     })
 
+    it('creates a label with offset', () => {
+        render(
+            <Chart {...chartProps}>
+                <Label position={[10, 20]} offset={[4, 6]}>
+                    abcd
+                </Label>
+            </Chart>
+        )
+        const result = screen.getByText('abcd')
+        const g = result.closest('g')
+        expect(getTransform(g, 'X')).toEqual(14)
+        expect(getTransform(g, 'Y')).toEqual(26)
+    })
+
     it('skips creating component when content is empty', () => {
         render(
             <Chart {...chartProps}>

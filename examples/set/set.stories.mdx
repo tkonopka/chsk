@@ -4,6 +4,7 @@ import { generateHorizontalUpSetData, HorizontalUpSetChart } from './HorizontalU
 import { generateVerticalUpSetData, VerticalUpSetChart } from './VerticalUpSetChart'
 import { generateTwoSetData, TwoSetChart } from './TwoSetChart'
 import { generateThreeSetData, ThreeSetChart } from './ThreeSetChart'
+import { generateTextSetData, TextSetChart } from './TextSetChart'
 
 <Meta title="Gallery/Sets" />
 
@@ -22,6 +23,12 @@ import { generateThreeSetData, ThreeSetChart } from './ThreeSetChart'
             chart={ThreeSetChart}
             steps={['title', 'sizes', 'intersections']}
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="text labels">
+        <Controller generator={generateTextSetData} chart={TextSetChart} />
     </Story>
 </Canvas>
 

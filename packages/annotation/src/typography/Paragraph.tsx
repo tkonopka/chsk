@@ -9,6 +9,7 @@ export const Paragraph = ({
     position = [0, 0],
     size = [100, 22],
     align = 0.5,
+    offset = [0, 0],
     angle,
     separator,
     letterBaseWidths = 'sans',
@@ -24,7 +25,7 @@ export const Paragraph = ({
         .fill(0)
         .map((_, index) => index * size[Y])
     const maxOffset = offsets[offsets.length - 1]
-    const [x, y] = [position[X], position[Y] - align * maxOffset]
+    const [x, y] = [position[X] + offset[X], position[Y] - align * maxOffset + offset[Y]]
     const compositeClassName = getClassName('paragraph', className)
     const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     const content = lines.map((line, index) => (

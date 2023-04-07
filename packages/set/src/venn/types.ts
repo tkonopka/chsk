@@ -92,7 +92,6 @@ export interface VennSetLabelsProps extends SvgElementProps, Omit<LocationProps,
     component?: FC<LabelProps>
 }
 
-export interface VennIntersectionLabelsProps
-    extends Omit<VennSetLabelsProps, 'ids' | 'rs' | 'angles'> {
+export interface VennIntersectionLabelsProps extends Omit<VennSetLabelsProps, 'rs' | 'angles'> {
     format?: (v: string | number, item?: VennPreparedDataItem) => string
 }

@@ -4,6 +4,7 @@ import sans from '../../src/typography/arial.json'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { chartProps } from '../props'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('splitText', () => {
     it('handles empty text', () => {
@@ -108,5 +109,18 @@ describe('Paragraph', () => {
         )
         const result = screen.queryAllByRole('paragraph')
         expect(result[0].querySelectorAll('text')).toHaveLength(3)
+    })
+
+    it('uses an offset', () => {
+        render(
+            <Chart {...chartProps}>
+                <Paragraph position={[10, 20]} size={[120, 20]} offset={[4, 6]}>
+                    aaa
+                </Paragraph>
+            </Chart>
+        )
+        const result = screen.getByRole('paragraph')
+        expect(result.getAttribute('style')).toContain('translateX(14')
+        expect(result.getAttribute('style')).toContain('translateY(26')
     })
 })

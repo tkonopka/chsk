@@ -1,7 +1,8 @@
+import { useState } from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, Counter, TextContentProps } from '../../src'
 import { chartProps } from '../props'
-import { useState } from 'react'
+import { getTransform } from '../utils'
 
 describe('Counter', () => {
     it('creates a default counter', () => {
@@ -25,6 +26,19 @@ describe('Counter', () => {
         const result = screen.getByRole('chart-content').querySelector('text')
         expect(result?.getAttribute('role')).toBeNull()
         expect(result?.getAttribute('class')).toContain('counter')
+    })
+
+    it('creates a counter with offset position', () => {
+        render(
+            <Chart {...chartProps}>
+                <Counter position={[10, 20]} offset={[4, 6]}>
+                    50
+                </Counter>
+            </Chart>
+        )
+        const counter = screen.getByRole('counter')
+        expect(getTransform(counter, 'X')).toEqual(14)
+        expect(getTransform(counter, 'Y')).toEqual(26)
     })
 
     it('updates values', async () => {
