@@ -29,18 +29,18 @@ export const guessLabel = <DataSpec extends WithId & Record<string, unknown>>(
     return result.id
 }
 
-// returns boolean-like array, but using an existing typing
+// returns array intended as boolean 0/1 indicators, except in number form
 export const exitsParent = (
     position: NumericPositionSpec,
     size: SizeSpec,
     containerSize: SizeSpec,
     margin: FourSideSizeSpec
-): AnchorSpec => {
+): [boolean, boolean] => {
     const x = position[X]
     const y = position[Y]
     return [
-        Number(x < -margin[LEFT] || x + size[X] > containerSize[X] + margin[RIGHT]),
-        Number(y < -margin[TOP] || y + size[Y] > containerSize[Y] + margin[BOTTOM]),
+        x < -margin[LEFT] || x + size[X] > containerSize[X] + margin[RIGHT],
+        y < -margin[TOP] || y + size[Y] > containerSize[Y] + margin[BOTTOM],
     ]
 }
 
@@ -48,7 +48,7 @@ export const exitsParent = (
 export const flipPositionAnchor = (
     position: NumericPositionSpec,
     anchor: AnchorSpec,
-    flip: AnchorSpec
+    flip: [boolean, boolean]
 ) => {
     const flippedPosition: NumericPositionSpec = [...position]
     const flippedAnchor: AnchorSpec = [...anchor]

@@ -66,7 +66,7 @@ export const getColorScaleProps = (
 // count elements in common in two sets
 export const countOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
     let result = 0
-    setA.forEach(x => (result += Number(setB.has(x))))
+    setA.forEach(x => (result += +setB.has(x)))
     return result
 }
 

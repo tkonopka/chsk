@@ -19,7 +19,7 @@ export const getAbsolutePosition = (
 
 export const getAbsoluteCoordinate = (
     v: number | string | Date,
-    unit: PositionUnit, // accepts a single string
+    unit: PositionUnit,
     dimension: number,
     scale: AxisScale
 ) => {

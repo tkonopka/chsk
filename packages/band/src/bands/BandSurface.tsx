@@ -85,7 +85,7 @@ export const BandSurface = ({
                     height,
                     className: compositeClassName,
                     style,
-                    opacity: Number(fixedOpacity || interactiveOpacity || tooltipOpacity),
+                    opacity: +(fixedOpacity || interactiveOpacity || tooltipOpacity),
                 },
                 handlers: compositeHandlers,
                 modifiers,

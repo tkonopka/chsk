@@ -13,8 +13,8 @@ export const getNumberAccessor = (
     if (typeof k === 'string') {
         return (item: DataItem) => Number(item[k])
     }
-    if (typeof k === 'number') {
-        return () => Number(k)
+    if (typeof k === 'function') {
+        return (item: DataItem) => k(item)
     }
-    return (item: DataItem) => Number(k(item))
+    return () => k
 }

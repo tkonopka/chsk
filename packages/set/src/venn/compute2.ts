@@ -24,8 +24,8 @@ export const processData2 = (
         result[1].r = rB
         result[0].points = pointsA
         result[1].points = pointsB
-        const largeA = Number(thetaA > Math.PI / 2)
-        const largeB = Number(thetaB > Math.PI / 2)
+        const largeA = +(thetaA > Math.PI / 2)
+        const largeB = +(thetaB > Math.PI / 2)
         result[0].largeArcs = [largeA, (largeA + 1) % 2]
         result[1].largeArcs = [largeB, (largeB + 1) % 2]
     } else if (intersection > 0) {
@@ -38,7 +38,7 @@ export const processData2 = (
             [0, -Math.sin(theta)],
         ]
         result[1].points = [...result[0].points].reverse()
-        const large = Number(theta > Math.PI / 2)
+        const large = +(theta > Math.PI / 2)
         result[0].largeArcs = [large, (large + 1) % 2]
         result[1].largeArcs = [large, (large + 1) % 2]
     } else {

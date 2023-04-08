@@ -42,6 +42,6 @@ export const getTickCoordinates = (
     if (isContinuousAxisScale(scale)) {
         return tickValues.map(v => scale(Number(v)))
     }
-    const scaledShift = Number(shift) * scale.bandwidth()
+    const scaledShift = shift * scale.bandwidth()
     return tickValues.map(v => scale(String(v)) + scaledShift)
 }

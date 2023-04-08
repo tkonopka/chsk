@@ -29,8 +29,7 @@ const UnthemedLegendSizeScale = ({
     const scale = useScales().scales.size
     const allTicks = sizes ?? getTicks(scale, ticks)
     const allValues = getTickCoordinates(scale, ticks)
-    // avoid creating symbols for size zero
-    const pairs = allTicks.map((a, i) => [a, allValues[i]]).filter(ab => ab[1] > 0)
+    const pairs = allTicks.map((a, i) => [a, allValues[i]]).filter(ab => ab[1] > 0) // avoid symbols with size zero
 
     return (
         <g role={setRole ? 'legend-size-scale' : undefined} className={className} style={style}>
