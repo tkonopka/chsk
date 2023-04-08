@@ -28,7 +28,15 @@ import { generateTextSetData, TextSetChart } from './TextSetChart'
 
 <Canvas>
     <Story name="text labels">
-        <Controller generator={generateTextSetData} chart={TextSetChart} />
+        <Controller
+            generator={generateTextSetData}
+            chart={TextSetChart}
+            comment={
+                <div>
+                    This is a static chart; clicking the refresh button does not have any effect.
+                </div>
+            }
+        />
     </Story>
 </Canvas>
 

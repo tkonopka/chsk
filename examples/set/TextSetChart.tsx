@@ -21,7 +21,7 @@ export const generateTextSetData = () => {
     ]
 }
 
-const customColors: string[] = ['#e41a1c', '#4daf4a', '#377eb8']
+const customColors: string[] = ['#ff1f21', '#5cd158', '#4297dc']
 
 const customTheme: ThemeSpec = mergeThemes([
     buttonTheme,
