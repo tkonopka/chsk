@@ -15,13 +15,13 @@ export interface AxisProps extends SvgElementVariantProps {
     ticks?: TickType
     /** text label for axis */
     label?: string
-    /** offset from chart surface */
-    offset?: number
+    /** distance from view boundary */
+    distance?: number
     /** components rendered within the axis frame */
     children?: ReactNode
 }
-export interface AxisThemedProps extends Pick<AxisProps, 'offset' | 'ticks' | 'style'> {
-    offset: number
+export interface AxisThemedProps extends Pick<AxisProps, 'distance' | 'ticks' | 'style'> {
+    distance: number
     ticks: TickType
 }
 
@@ -34,9 +34,11 @@ export interface AxisLabelProps extends SvgElementVariantProps {
     /** type of axis */
     variant: SideVariant
     /** distance between axis line and label */
-    offset?: number
-    /** position of label along the axis */
-    anchor?: 'start' | 'middle' | 'end' | number
+    distance?: number
+    /** offset */
+    offset?: NumericPositionSpec
+    /** alignment of label along the axis */
+    align?: number
     /** rotation angle (degrees) */
     angle?: number
     /** string label */
@@ -44,9 +46,10 @@ export interface AxisLabelProps extends SvgElementVariantProps {
 }
 
 export interface AxisLabelThemedProps
-    extends Pick<AxisLabelProps, 'anchor' | 'offset' | 'angle' | 'style'> {
-    anchor: 'start' | 'middle' | 'end' | number
-    offset: number
+    extends Pick<AxisLabelProps, 'distance' | 'align' | 'offset' | 'angle' | 'style'> {
+    distance: number
+    align: number
+    offset: NumericPositionSpec
     angle: number
 }
 

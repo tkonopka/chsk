@@ -32,8 +32,8 @@ describe('small axis text', () => {
     it('decreases distance between axis and axis labels', () => {
         expect(smallAxisTextTheme).toHaveProperty('text')
         const refOffset =
-            defaultTheme.AxisLabel?.top?.offset ?? defaultTheme.AxisLabel?.default?.offset
-        const themeOffset = smallAxisTextTheme.AxisLabel?.top?.offset
+            defaultTheme.AxisLabel?.top?.distance ?? defaultTheme.AxisLabel?.default?.distance
+        const themeOffset = smallAxisTextTheme.AxisLabel?.top?.distance
         expect(pxValue(themeOffset)).toBeLessThan(pxValue(refOffset))
     })
 })

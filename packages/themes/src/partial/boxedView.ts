@@ -15,24 +15,24 @@ export const boxedViewTheme: ThemeSpec = {
     },
     Axis: {
         top: {
-            offset: 10,
+            distance: 10,
         },
         right: {
-            offset: 10,
+            distance: 10,
         },
         bottom: {
-            offset: 10,
+            distance: 10,
         },
         left: {
-            offset: 10,
+            distance: 10,
         },
     },
     AxisLabel: {
         bottom: {
-            offset: 36,
+            distance: 36,
         },
         left: {
-            offset: 46,
+            distance: 46,
         },
     },
     Surface: {

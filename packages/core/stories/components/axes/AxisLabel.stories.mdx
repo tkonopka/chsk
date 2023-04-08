@@ -2,16 +2,16 @@ import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { AxisLabel } from '../../../src'
 import { ChartBottomAxisDecorator, ChartLeftAxisDecorator } from './decorators'
 
-# Axis
+# AxisLabel
 
 <Meta title="Core/Components/Axes/AxisLabel" />
 export const Template = args => <AxisLabel {...args} />
 
 `AxisLabel` draws text intended as a label for an axis.
 
-`AxisLabel` should be used within an `Axis` component.
-
 <ArgsTable of={AxisLabel} />
+
+`AxisLabel` should be used within an `Axis` component.
 
 ## Variants
 
@@ -42,17 +42,18 @@ Predefined variants place a label near the top, right, bottom, or left axis. For
     </Story>
 </Canvas>
 
-## Offset
+## Distance from baseline
 
-The distance between the axis line and the axis label is controlled by prop `offset`. The value can be positive (further away from the chart surface) or negative (moved toward the chart surface).
+The distance between the axis line and the axis label is controlled by prop `distance`.
+The value can be positive or negative, moving the label away or toward the center, respectively.
 
 <Canvas>
     <Story
-        name="negative offset"
+        name="negative distance"
         args={{
             variant: 'bottom',
             children: 'axis label',
-            offset: -10,
+            distance: -10,
         }}
         component={AxisLabel}
         decorators={[ChartBottomAxisDecorator]}
@@ -61,18 +62,18 @@ The distance between the axis line and the axis label is controlled by prop `off
     </Story>
 </Canvas>
 
-## Anchor
+## Alignment
 
-The position of the label along the axis is controlled by prop `anchor`.
-The value of this prop is often adjusted together with the css style `textAnchor`.
+The position of the label along the axis is controlled by prop `align`, which
+here takes a single value from 0 (start) to 1 (end).
 
 <Canvas>
     <Story
-        name="anchor"
+        name="alignment"
         args={{
             variant: 'bottom',
             children: 'axis label',
-            anchor: 'end',
+            align: 1,
             style: {
                 textAnchor: 'end',
             },
@@ -83,3 +84,7 @@ The value of this prop is often adjusted together with the css style `textAnchor
         {Template.bind({})}
     </Story>
 </Canvas>
+
+Note that the value of this prop is often adjusted together with the css style `textAnchor`,
+as in the example above. Another prop to fine-tune the label position is `offset`, which
+translates the label in an arbitrary direction.

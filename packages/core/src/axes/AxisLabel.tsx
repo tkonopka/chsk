@@ -1,20 +1,16 @@
-import { useDimensions, X, Y } from '../general'
+import { addPositions, useDimensions, X, Y } from '../general'
 import { AxisLabelProps } from './types'
 import { Typography } from '../typography'
 import { useThemedProps } from '../themes'
-import { defaultAxisLabelProps } from './defaults'
-
-const anchorPresets: Record<string, number> = { start: 0, middle: 0.5, end: 1.0 }
-const getAnchorFraction = (anchor: string | number) => {
-    if (typeof anchor === 'string') return anchorPresets[anchor] ?? 0
-    return Number(anchor)
-}
+import { defaultAxisLabelTopProps } from './defaults'
+import { getAxisPosition } from './utils'
 
 const UnthemedAxisLabel = ({
     variant,
-    offset = defaultAxisLabelProps.offset,
-    anchor = defaultAxisLabelProps.anchor,
-    angle = defaultAxisLabelProps.angle,
+    distance = defaultAxisLabelTopProps.distance,
+    offset = defaultAxisLabelTopProps.offset,
+    align = defaultAxisLabelTopProps.align,
+    angle = defaultAxisLabelTopProps.angle,
     className,
     style,
     setRole,
@@ -23,20 +19,20 @@ const UnthemedAxisLabel = ({
     const { size } = useDimensions()
     if (children === undefined || children === '') return null
 
-    const anchorFraction = getAnchorFraction(anchor)
-    let x = 0,
-        y = 0
-    if (variant === 'left') x -= offset
-    if (variant === 'right') x += offset
-    if (variant === 'top') y -= offset
-    if (variant === 'bottom') y += offset
-    if (variant === 'left' || variant === 'right') y += (1 - anchorFraction) * size[Y]
-    if (variant === 'top' || variant === 'bottom') x += anchorFraction * size[X]
+    // use size=[0, 0] because AxisLabel will be called from within Axis.
+    let [x, y] = getAxisPosition(variant, [0, 0], distance)
+    if (variant === 'left' || variant === 'right') {
+        // vertical axes
+        y += (1 - align) * size[Y]
+    } else {
+        // horizontal axes
+        x += align * size[X]
+    }
 
     return (
         <Typography
             variant={'axis-label'}
-            position={[x, y]}
+            position={addPositions([x, y], offset)}
             angle={angle}
             style={style}
             className={className ?? variant}

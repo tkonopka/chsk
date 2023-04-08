@@ -3,11 +3,11 @@ import { getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { getScaleTicks } from '../axes'
-import { getAxisTranslate } from '../axes/utils'
 import { useThemedProps } from '../themes'
 import { LinearGradient } from './LinearGradient'
 import { defaultLegendColorScaleProps } from './defaults'
 import { LegendColorScaleProps } from './types'
+import { getAxisPosition } from '../axes/utils'
 
 const UnthemedLegendColorScale = ({
     variant = 'bottom',
@@ -15,7 +15,7 @@ const UnthemedLegendColorScale = ({
     size = [10, 10],
     padding = defaultLegendColorScaleProps.padding,
     offset = zeroPosition,
-    axisOffset = 0,
+    axisDistance = 0,
     horizontal = false,
     ticks = defaultLegendColorScaleProps.ticks,
     tickSize = defaultLegendColorScaleProps.tickSize,
@@ -66,7 +66,7 @@ const UnthemedLegendColorScale = ({
                 style={gradientStyle}
                 setRole={false}
             />
-            <g transform={getAxisTranslate(variant, size, axisOffset)}>
+            <g transform={getTranslate(getAxisPosition(variant, size, axisDistance))}>
                 {getScaleTicks({
                     variant,
                     scale,

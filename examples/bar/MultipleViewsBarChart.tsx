@@ -98,6 +98,12 @@ const multiviewTheme: ThemeSpec = {
             fill: '#000000',
         },
     },
+    AxisLabel: {
+        top: {
+            align: 0,
+            distance: 10,
+        },
+    },
     Tooltip: {
         default: {
             itemSize: [120, 26],
@@ -266,9 +272,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10}>
-                        Alpha
-                    </AxisLabel>
+                    <AxisLabel variant={'top'}>Alpha</AxisLabel>
                 </Axis>
                 <Axis variant={'bottom'} ticks={[]} />
                 <Bars
@@ -293,9 +297,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10}>
-                        Beta
-                    </AxisLabel>
+                    <AxisLabel variant={'top'}>Beta</AxisLabel>
                 </Axis>
                 <Axis variant={'bottom'} ticks={[]} />
                 <Bars
@@ -316,9 +318,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridLines variant={'y'} shift={[-0.6]} />
                 <Axis variant={'top'}>
                     <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'} anchor={0} offset={10}>
-                        Gamma
-                    </AxisLabel>
+                    <AxisLabel variant={'top'}>Gamma</AxisLabel>
                 </Axis>
                 <Axis variant={'bottom'} ticks={[]} />
                 <Bars

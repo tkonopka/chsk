@@ -1,6 +1,7 @@
 import {
     defaultAxisLabelLeftProps,
-    defaultAxisLabelProps,
+    defaultAxisLabelTopProps,
+    defaultAxisLabelBottomProps,
     defaultAxisLabelRightProps,
     defaultAxisTicksProps,
     ThemeSpec,
@@ -16,10 +17,10 @@ export const smallAxisTextTheme: ThemeSpec = {
         },
     },
     AxisLabel: {
-        top: { offset: defaultAxisLabelProps.offset - 5 },
-        bottom: { offset: defaultAxisLabelProps.offset - 5 },
-        left: { offset: defaultAxisLabelLeftProps.offset - 5 },
-        right: { offset: defaultAxisLabelRightProps.offset - 5 },
+        top: { distance: defaultAxisLabelTopProps.distance - 5 },
+        bottom: { distance: defaultAxisLabelBottomProps.distance - 5 },
+        left: { distance: defaultAxisLabelLeftProps.distance - 5 },
+        right: { distance: defaultAxisLabelRightProps.distance - 5 },
     },
     AxisTicks: {
         top: { labelDistance: defaultAxisTicksProps.labelDistance - 1 },

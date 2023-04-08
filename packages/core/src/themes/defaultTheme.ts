@@ -12,9 +12,10 @@ import {
 } from '../tooltips/defaults'
 import { defaultSurfaceProps, defaultViewProps } from '../views/defaults'
 import {
-    defaultAxisLabelLeftProps,
-    defaultAxisLabelProps,
+    defaultAxisLabelTopProps,
     defaultAxisLabelRightProps,
+    defaultAxisLabelBottomProps,
+    defaultAxisLabelLeftProps,
     defaultAxisProps,
     defaultAxisTicksProps,
     defaultGridLinesProps,
@@ -185,9 +186,10 @@ export const defaultTheme: CompleteThemeSpec = {
         default: cloneDeep(defaultAxisProps),
     },
     AxisLabel: {
-        default: cloneDeep(defaultAxisLabelProps),
-        left: cloneDeep(defaultAxisLabelLeftProps),
+        top: cloneDeep(defaultAxisLabelTopProps),
         right: cloneDeep(defaultAxisLabelRightProps),
+        bottom: cloneDeep(defaultAxisLabelBottomProps),
+        left: cloneDeep(defaultAxisLabelLeftProps),
     },
     AxisTicks: {
         default: cloneDeep(defaultAxisTicksProps),

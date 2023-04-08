@@ -163,7 +163,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                     />
                 </Axis>
                 <GridLines variant={'y'} expansion={[0, 26]} />
-                <Axis variant={'right'} offset={4}>
+                <Axis variant={'right'} distance={4}>
                     <AxisTicks
                         variant={'right'}
                         labelOffset={[12, -7]}

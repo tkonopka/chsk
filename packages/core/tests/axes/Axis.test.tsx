@@ -102,7 +102,7 @@ describe('Axis', () => {
         const customTheme = {
             AxisLabel: {
                 top: {
-                    anchor: 1,
+                    align: 1,
                 },
             },
         }

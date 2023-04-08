@@ -132,7 +132,7 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelDistance={9}
                         labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
-                    <AxisLabel variant={'bottom'} offset={55}>
+                    <AxisLabel variant={'bottom'} distance={55}>
                         Samples
                     </AxisLabel>
                 </Axis>

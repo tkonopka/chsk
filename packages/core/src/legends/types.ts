@@ -78,8 +78,8 @@ export interface LegendItemThemedProps
 export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {
     /** number, or location, of ticks */
     ticks?: number[] | number
-    /** offset of axis from gradient */
-    axisOffset?: number
+    /** distance of axis from gradient */
+    axisDistance?: number
     /** identifier for gradient */
     gradientId?: string
     /** horizontal orientation */

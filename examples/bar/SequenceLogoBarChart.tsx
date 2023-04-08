@@ -183,7 +183,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     },
     AxisLabel: {
         bottom: {
-            offset: 48,
+            distance: 48,
         },
     },
 })

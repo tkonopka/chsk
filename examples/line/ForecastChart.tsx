@@ -211,7 +211,7 @@ export const ForecastChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <AxisLine variant={'bottom'} />
                     <YearAxisTicks variant={'bottom'} />
                 </Axis>
-                <Axis variant={'right'} offset={30}>
+                <Axis variant={'right'} distance={30}>
                     <AxisTicks
                         variant={'right'}
                         labelFormat={v => Number(v).toFixed(1)}

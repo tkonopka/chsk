@@ -56,6 +56,9 @@
 
 ### Changed
 
+-   [core] renamed prop in `AxisLabel` from `anchor` to `align` for more
+    consistency with props in typography components
+-   [core] changed props in `Axis` and `AxisLabel`: prop `offset` is always an array, and prop `distance` is orthogonal distance from view boundary
 -   [set] changed default color interpolation in venn diagrams to lab space
 -   [core] fixed support for props `align`, `anchor`, and `offset` in labels
 -   [set] fixed bug in Venn diagram which flipped long/short arcs in some cases

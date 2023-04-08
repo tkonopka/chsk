@@ -79,7 +79,7 @@ export const LineOverlayChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'}>
                     <AxisLine variant={'left'} />
-                    <AxisLabel variant={'left'} offset={20}>
+                    <AxisLabel variant={'left'} distance={20}>
                         probability density
                     </AxisLabel>
                 </Axis>

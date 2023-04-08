@@ -7,13 +7,13 @@ describe('useThemedProps', () => {
         const customTheme: ThemeSpec = {
             Axis: {
                 top: {
-                    offset: 10,
+                    distance: 10,
                 },
                 bottom: {
-                    offset: 5,
+                    distance: 5,
                 },
                 left: {
-                    offset: 7,
+                    distance: 7,
                 },
             },
         }
@@ -29,6 +29,6 @@ describe('useThemedProps', () => {
             </Chart>
         )
         expect(result['variant']).toEqual('top')
-        expect(result['offset']).toEqual(10)
+        expect(result['distance']).toEqual(10)
     })
 })

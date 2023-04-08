@@ -184,7 +184,7 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     />
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisLabel variant={'left'} offset={60}>
+                    <AxisLabel variant={'left'} distance={60}>
                         Value (a.u.)
                     </AxisLabel>
                     <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />

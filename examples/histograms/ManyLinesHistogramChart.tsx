@@ -109,9 +109,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
                             style={{ strokeWidth: 1, visibility: 'visible' }}
                         />
                         <AxisTicks variant={'bottom'} ticks={8} />
-                        <AxisLabel variant={'bottom'} anchor={0.5}>
-                            values (a.u.)
-                        </AxisLabel>
+                        <AxisLabel variant={'bottom'}>values (a.u.)</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'legend'}>

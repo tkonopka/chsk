@@ -1,9 +1,9 @@
-import { useDimensions } from '../general'
+import { getTranslate, useDimensions } from '../general'
 import { AxisProps } from './types'
 import { AxisLine } from './AxisLine'
 import { AxisLabel } from './AxisLabel'
 import { AxisTicks } from './AxisTicks'
-import { getAxisTranslate } from './utils'
+import { getAxisPosition } from './utils'
 import { useThemedProps } from '../themes'
 import { defaultAxisProps } from './defaults'
 
@@ -11,7 +11,7 @@ const UnthemedAxis = ({
     variant,
     label,
     ticks = defaultAxisProps.ticks,
-    offset = defaultAxisProps.offset,
+    distance = defaultAxisProps.distance,
     className,
     style,
     setRole = true,
@@ -21,7 +21,7 @@ const UnthemedAxis = ({
     return (
         <g
             role={setRole ? 'axis-' + variant : undefined}
-            transform={getAxisTranslate(variant, size, offset)}
+            transform={getTranslate(getAxisPosition(variant, size, distance))}
             className={className}
             style={style}
         >

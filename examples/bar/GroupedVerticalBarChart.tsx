@@ -66,7 +66,7 @@ export const GroupedVerticalBarChart = ({ fref, chartData, rawData }: MilestoneS
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'} />
                 <Axis variant={'left'}>
-                    <AxisLabel variant={'left'} offset={55} anchor={0.5}>
+                    <AxisLabel variant={'left'} distance={55} align={0.5}>
                         Measurements
                     </AxisLabel>
                     <AxisTicks variant={'left'} labelFormat={v => v + '%'} />

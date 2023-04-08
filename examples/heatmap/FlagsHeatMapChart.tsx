@@ -51,10 +51,10 @@ const customTheme = mergeTheme(buttonTheme, {
     },
     AxisLabel: {
         top: {
-            offset: 70,
+            distance: 70,
         },
         left: {
-            offset: 80,
+            distance: 80,
         },
     },
     AxisTicks: {

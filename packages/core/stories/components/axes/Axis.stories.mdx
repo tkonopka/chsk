@@ -63,9 +63,9 @@ Predefined variants place these elements on the top, right, bottom, or left side
     </Story>
 </Canvas>
 
-## Offset
+## Distance from boundary
 
-By default, axes are positioned exactly on the border of the charting surface. They can be moved with the prop `offset`.
+By default, axes are positioned on the border of the charting surface. They can be moved with the prop `distance`.
 
 <Canvas>
     <Story
@@ -73,7 +73,7 @@ By default, axes are positioned exactly on the border of the charting surface. T
         args={{
             variant: 'bottom',
             label: 'axis label',
-            offset: 10,
+            distance: 10,
         }}
         component={Axis}
         decorators={[ChartViewDecorator]}
@@ -116,7 +116,7 @@ Below, the axis draws two sets of ticks of different lengths/sizes.
                         variant={'bottom'}
                         ticks={[0, 20, 40, 60, 80, 100]}
                         tickSize={6}
-                        labelOffset={10}
+                        labelDistance={10}
                     />
                     <AxisTicks
                         variant={'bottom'}

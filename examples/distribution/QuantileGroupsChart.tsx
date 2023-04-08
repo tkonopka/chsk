@@ -78,7 +78,7 @@ const customTheme: ThemeSpec = mergeThemes([
         },
         AxisLabel: {
             bottom: {
-                offset: 60,
+                distance: 60,
             },
         },
         AxisTicks: {

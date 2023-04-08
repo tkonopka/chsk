@@ -67,10 +67,10 @@ const customTheme = {
     },
     AxisLabel: {
         top: {
-            offset: 60,
+            distance: 60,
         },
         left: {
-            offset: 70,
+            distance: 70,
         },
     },
     AxisTicks: {

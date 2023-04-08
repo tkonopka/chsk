@@ -6,25 +6,35 @@ import {
 } from './types'
 
 export const defaultAxisProps: AxisThemedProps = {
-    offset: 0,
+    distance: 0,
     ticks: undefined,
 }
 
-export const defaultAxisLabelProps: AxisLabelThemedProps = {
-    anchor: 0.5,
-    offset: 40,
+export const defaultAxisLabelBottomProps: AxisLabelThemedProps = {
+    align: 0.5,
+    distance: 40,
+    offset: [0, 0],
+    angle: 0,
+}
+
+export const defaultAxisLabelTopProps: AxisLabelThemedProps = {
+    align: 0.5,
+    distance: 40,
+    offset: [0, 0],
     angle: 0,
 }
 
 export const defaultAxisLabelLeftProps: AxisLabelThemedProps = {
-    anchor: 0.5,
-    offset: 45,
+    align: 0.5,
+    distance: 45,
+    offset: [0, 0],
     angle: -90,
 }
 
 export const defaultAxisLabelRightProps: AxisLabelThemedProps = {
-    anchor: 0.5,
-    offset: 45,
+    align: 0.5,
+    distance: 45,
+    offset: [0, 0],
     angle: 90,
 }
 
