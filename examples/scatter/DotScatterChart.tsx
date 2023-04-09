@@ -1,27 +1,30 @@
 import {
     Chart,
     Axis,
-    GridLines,
     MilestoneMotion,
     mergeTheme,
     ThemeSpec,
     Typography,
-    Circle,
     Legend,
     Tooltip,
     AxisTicks,
+    ContinuousAxisScale,
+    useDimensions,
+    CssProps,
+    useScales,
 } from '@chsk/core'
+import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { Scatter, ScatterPoints, ScatterCrosshair, ScatterDataItem, isScatterData } from '@chsk/xy'
 import { buttonTheme } from '@chsk/themes'
 import { randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
 
-const ids = ['alpha', 'beta', 'gamma', 'delta']
+const ids = ['alpha', 'beta', 'gamma', 'delta', 'epsilon'].reverse()
 export const generateDotScatterData = () => {
     const result: ScatterDataItem[] = [
-        { id: 'last', data: [] },
-        { id: 'current', data: [] },
+        { id: 'X', data: [] },
+        { id: 'Y', data: [] },
     ]
     ids.forEach((id, index) => {
         const value1 = randomUniformValue(10, 90)
@@ -30,31 +33,20 @@ export const generateDotScatterData = () => {
         result[1].data.push({
             id,
             index: index + 1,
-            value: round2dp(Math.min(100, Math.max(0, value2))),
+            value: round2dp(Math.min(98, Math.max(2, value2))),
         })
     })
     return result
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
-    circle: {
-        default: {
-            strokeWidth: 3,
-        },
-        'bar:hover': {
-            cursor: 'pointer',
-        },
-    },
     line: {
         grid: {
             strokeWidth: 0.5,
             stroke: '#222222',
         },
-        'axis.top': {
-            strokeWidth: 1,
-        },
         crosshair: {
-            stroke: '#555555',
+            stroke: '#222222',
             strokeDasharray: 5,
         },
     },
@@ -67,12 +59,36 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     },
 })
 
-// style for scatter chart and legend symbols
-const customSymbolStyle = { fill: '#ffffff' }
-
 // formatting for tooltip content
 const customLabelFormat = (x: Record<string, unknown>) => {
     return ids[Number(x.index)] + ': ' + (x.point as number[])[0]
+}
+
+// create background bands, similar to BandSurface, but here adjusted for xy axes and golden rectangles
+const CustomBandSurface = ({ ids, r, style }: { ids: string[]; r: number; style: CssProps }) => {
+    const { size } = useDimensions()
+    const { scales } = useScales()
+
+    // golden rectangle specification copied from @chsk/annotation
+    const goldenRectVisualFactor = 0.96
+    const phi = (1 + Math.sqrt(5)) / 2
+    const goldenRectWidth = Math.sqrt(Math.PI * phi) * goldenRectVisualFactor
+
+    const indexScale = scales.y as ContinuousAxisScale
+    const height = r * goldenRectWidth
+    const result = ids.map((id, index) => {
+        return (
+            <rect
+                key={'bg-' + index}
+                x={0}
+                width={size[0]}
+                y={indexScale(index + 1) - height / 2}
+                height={height}
+                style={style}
+            />
+        )
+    })
+    return <>{result}</>
 }
 
 export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -82,7 +98,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             data={chartData}
             fref={fref}
             id="dots"
-            size={[600, 300]}
+            size={[600, 280]}
             padding={[110, 40, 10, 80]}
             theme={customTheme}
         >
@@ -95,10 +111,10 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     variant: 'linear',
                 }}
                 scaleY={{
-                    domain: [0.5, ids.length + 1],
+                    domain: [0.75, ids.length + 0.75],
                     variant: 'linear',
                 }}
-                valueSize={6}
+                valueSize={9}
             >
                 <Typography variant={'title'} position={[-60, -80]}>
                     Performance metrics
@@ -107,29 +123,29 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     position={[-64, -65]}
                     positionUnits={'absolute'}
                     horizontal={true}
-                    itemSize={[80, 28]}
-                    title={'Years:'}
-                    r={6.5}
-                    firstOffset={[-10, 0]}
-                    symbol={Circle}
-                    symbolStyle={customSymbolStyle}
+                    itemSize={[55, 28]}
+                    title={'Groups:'}
+                    r={9}
+                    firstOffset={[5, 0]}
+                    symbol={VerticalGoldenRectangle}
                 />
                 <MilestoneMotion initialOn={'axes'}>
-                    <GridLines variant={'y'} />
+                    <CustomBandSurface ids={ids} r={9} style={{ fill: '#f4f4f4 ' }} />
                     <Axis variant={'top'} label={''} />
                     <Axis variant={'left'} label={''}>
                         <AxisTicks
                             variant={'left'}
-                            ticks={[1, 2, 3, 4]}
+                            ticks={[1, 2, 3, 4, 5]}
                             labelFormat={(_, i) => ids[i]}
                         />
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'data'}>
-                    <ScatterPoints symbolStyle={customSymbolStyle} />
+                    <CustomBandSurface ids={ids} r={9} style={{ fill: '#f4f4f4 ' }} />
+                    <ScatterPoints symbol={VerticalGoldenRectangle} />
                     <ScatterCrosshair
                         variant={'vertical'}
-                        symbolStyle={customSymbolStyle}
+                        symbol={VerticalGoldenRectangle}
                         minDistance={20}
                     />
                     <Tooltip
@@ -146,7 +162,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                         }}
                         labelFormat={customLabelFormat}
                     />
-                    <DownloadButtons position={[390, -80]} data image />
+                    <DownloadButtons position={[390, -75]} data image />
                 </MilestoneMotion>
             </Scatter>
         </Chart>
