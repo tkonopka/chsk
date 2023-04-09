@@ -21,6 +21,8 @@ export interface BandSurfaceProps
     extends SvgElementProps,
         WithInteractive,
         DataInteractivityProps<WithId, RectangleProps> {
+    /** variant */
+    variant?: 'band' | 'step'
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** expansion along the value axis */

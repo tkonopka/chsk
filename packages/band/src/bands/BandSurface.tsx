@@ -17,6 +17,7 @@ import {
 import { BandSurfaceProps } from './types'
 
 export const BandSurface = ({
+    variant = 'step',
     ids,
     expansion = [0, 0],
     interactive = false,
@@ -34,16 +35,14 @@ export const BandSurface = ({
     const { scales } = useScales()
     const { data: tooltipData } = useTooltip()
     const [active, setActive] = useState<string | undefined>(undefined)
+
     const horizontal = scales.x.bandwidth() === 0 && scales.y.bandwidth() !== 0
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
-    const step = indexScale.step()
-    const keyPrefix = 'band-surface-'
-
+    const surfaceWidth = variant === 'step' ? indexScale.step() : indexScale.bandwidth()
     const valueSize = horizontal ? size[X] : size[Y]
     const expandedSize = valueSize + expansion[0] + expansion[1]
-    const height = horizontal ? step : expandedSize
-    const width = horizontal ? expandedSize : step
-
+    const height = horizontal ? surfaceWidth : expandedSize
+    const width = horizontal ? expandedSize : surfaceWidth
     const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
     const compositeClassName = getClassName('bandSurface', className)
 
@@ -64,12 +63,14 @@ export const BandSurface = ({
     )
     const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
 
+    const keyPrefix = 'band-'
+    const surfaceProps = { setRole, width, height, className: compositeClassName, style }
     const bands: Array<ReactNode> = processedData.data
         .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
             const indexPos = indexScale(seriesData.id)
-            const x = horizontal ? -expansion[0] : indexPos - step / 2
-            const y = horizontal ? indexPos - step / 2 : -expansion[0]
+            const x = horizontal ? -expansion[0] : indexPos - surfaceWidth / 2
+            const y = horizontal ? indexPos - surfaceWidth / 2 : -expansion[0]
             const tooltipOpacity = tooltip ? tooltipId === seriesData.id : false
             const interactiveOpacity = interactive ? seriesData.id === active : false
             const fixedOpacity = !tooltip && !interactive
@@ -78,13 +79,9 @@ export const BandSurface = ({
                 component,
                 data: { id: seriesData.id },
                 props: {
-                    setRole,
+                    ...surfaceProps,
                     x,
                     y,
-                    width,
-                    height,
-                    className: compositeClassName,
-                    style,
                     opacity: +(fixedOpacity || interactiveOpacity || tooltipOpacity),
                 },
                 handlers: compositeHandlers,

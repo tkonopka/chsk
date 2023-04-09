@@ -3,7 +3,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, TooltipDataItem, TooltipProvider } from '@chsk/core'
 import { Bar, BandSurface } from '../../src'
 import { barProps } from '../props'
-import { getNumberAttr } from '../../../core/tests/utils'
+import { getNumberAttr, getTransform } from '../../../core/tests/utils'
 
 export const MockTooltipSetter = ({
     x,
@@ -21,20 +21,54 @@ export const MockTooltipSetter = ({
     return <TooltipProvider data={{ x, y, title, data }}>{children}</TooltipProvider>
 }
 
-describe('BandHighlights', () => {
-    it('creates default band highlights', () => {
+describe('BandSurface', () => {
+    it('creates default band surfaces (variant step)', () => {
         render(
-            <Chart>
-                <Bar {...barProps} horizontal={true} keys={['x']}>
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <Bar
+                    {...barProps}
+                    scaleIndex={{ variant: 'band', padding: 0.5, paddingOuter: 0.25 }}
+                    horizontal={true}
+                    keys={['x']}
+                >
                     <BandSurface />
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('band-surface')
-        expect(result.querySelectorAll('rect')).toHaveLength(2)
+        // data set has two ids, so two surface rectangles
+        const surfaces = screen.getByRole('band-surface').querySelectorAll('rect')
+        expect(surfaces).toHaveLength(2)
+        expect(getNumberAttr(surfaces[0], 'width')).toEqual(400)
+        expect(getNumberAttr(surfaces[0], 'height')).toEqual(150)
+        // the second rectangle should be positioned exactly at [0, 150]
+        expect(getTransform(surfaces[1], 'X')).toBe(0)
+        expect(getTransform(surfaces[1], 'Y')).toBe(150)
     })
 
-    it('create highlight only on selected bands', () => {
+    it('creates band surfaces (variant band)', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <Bar
+                    {...barProps}
+                    scaleIndex={{ variant: 'band', padding: 0.5, paddingOuter: 0.25 }}
+                    horizontal={true}
+                    keys={['x']}
+                >
+                    <BandSurface variant={'band'} />
+                </Bar>
+            </Chart>
+        )
+        // data set has two ids, so two surface rectangles
+        const surfaces = screen.getByRole('band-surface').querySelectorAll('rect')
+        expect(surfaces).toHaveLength(2)
+        expect(getNumberAttr(surfaces[0], 'width')).toEqual(400)
+        expect(getNumberAttr(surfaces[0], 'height')).toBeLessThan(140)
+        // the second rectangle should be positioned a little below at [0, 150]
+        expect(getTransform(surfaces[1], 'X')).toBe(0)
+        expect(getTransform(surfaces[1], 'Y')).toBeGreaterThan(160)
+    })
+
+    it('create surface only on selected bands', () => {
         render(
             <Chart>
                 <Bar {...barProps}>
@@ -48,7 +82,7 @@ describe('BandHighlights', () => {
         expect(getNumberAttr(result.querySelector('rect'), 'opacity')).toEqual(1)
     })
 
-    it('skips highlights when ids are empty', () => {
+    it('skips surfaces when ids are empty', () => {
         render(
             <Chart>
                 <Bar {...barProps}>

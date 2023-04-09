@@ -8,7 +8,7 @@ export const commonBarProps: BarProps = {
     keys: ['x', 'y', 'z'],
     scaleIndex: {
         variant: 'band',
-        domain: ['alpha', 'beta'],
+        domain: ['alpha', 'beta', 'gamma'],
         padding: 0.2,
     },
     scaleValue: {

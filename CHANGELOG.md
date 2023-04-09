@@ -19,6 +19,8 @@
 
 ### Added
 
+-   [band] prop `variant` for `BandSurface` to fine-tune the size of
+    background rectangles
 -   [example] venn diagrams with custom text at intersections
 -   [set] support for data subsets when drawing set intersection labels
 -   [core] component `Style` to create themed css for arbitrary ancestors
