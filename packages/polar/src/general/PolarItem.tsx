@@ -42,12 +42,15 @@ export const PolarItem = ({
     }
     angle = rad2deg(angle % TWOPI)
 
-    // animations that move a label around a circle
+    // animations that move content around a circle
     const [values, setValues] = useState([r, theta, angle])
     const [working, setWorking] = useState(false)
     const transform = useMotionValue(getTransform(x, y, angle))
+
+    if (!children) return null
+
     if (transform.get() !== getTransform(x, y, angle) && !working) {
-        const animateConfig = theme.Motion[variant] ?? theme.Motion.default
+        const animateConfig = theme.Motion.default
         const interpolator = interpolate(values, [r, theta, angle])
         animate(0, 1, {
             ...animateConfig,
@@ -67,7 +70,6 @@ export const PolarItem = ({
         })
     }
 
-    if (!children) return null
     return (
         <m.g role={setRole && variant !== 'default' ? variant : undefined} style={{ transform }}>
             {children}

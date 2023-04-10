@@ -12,12 +12,11 @@ import { SlicesProps } from './types'
 import { isPieProcessedData } from './predicates'
 
 export const Slices = ({
-    variant,
     ids,
     r = 0,
     padAngle = 0,
     //
-    component,
+    component = Slice,
     className,
     style,
     dataComponent = TooltipDataComponent,
@@ -46,10 +45,9 @@ export const Slices = ({
         if (!idSet.has(item.id)) return null
         return createElement(dataComponent, {
             key: 'slice-' + item.id,
-            component: component ?? Slice,
+            component,
             data: item,
             props: {
-                variant,
                 innerRadius: xScale(item.rInner) - x0,
                 outerRadius: xScale(item.rOuter) - x0,
                 startAngle: item.startAngle,

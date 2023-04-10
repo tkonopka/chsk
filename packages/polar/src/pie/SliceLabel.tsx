@@ -35,7 +35,7 @@ export const SliceLabel = ({
     const compositeClassName = getClassName('label sliceLabel' + classPrefix, className)
     return (
         <PolarItem
-            variant="polar-label"
+            variant="label"
             position={position}
             angleUnit={'radian'}
             radial={radial}

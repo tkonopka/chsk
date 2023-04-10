@@ -58,6 +58,8 @@
 
 ### Changed
 
+-   [polar] removed unnecessary prop `variant` from components `Slice` and
+    `Slices`
 -   [core] renamed prop in `AxisLabel` from `anchor` to `align` for more
     consistency with props in typography components
 -   [core] changed props in `Axis` and `AxisLabel`: prop `offset` is always an array, and prop `distance` is orthogonal distance from view boundary

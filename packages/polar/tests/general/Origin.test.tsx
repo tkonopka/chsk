@@ -24,10 +24,10 @@ describe('Origin', () => {
         render(
             <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
-                    <Origin variant={'custom'} setRole={true} />
+                    <Origin setRole={true} />
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('custom')).toBeDefined()
+        expect(screen.getByRole('origin')).toBeDefined()
     })
 })
