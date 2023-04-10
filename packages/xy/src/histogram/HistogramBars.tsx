@@ -20,10 +20,9 @@ import { isHistogramProcessedData } from './predicates'
 export const HistogramBars = ({
     ids,
     component = Rectangle,
-    variant = 'histogram-bar',
     style,
-    className = 'histogramBars',
-    setRole = false,
+    className,
+    setRole = true,
     dataComponent = DataComponent,
     ...props
 }: HistogramBarsProps) => {
@@ -75,7 +74,7 @@ export const HistogramBars = ({
                         height: height,
                         className: className,
                         style: styles[seriesIndex],
-                        variant: variant,
+                        variant: 'histogram-bar',
                         setRole: setRole,
                     },
                     ...props,
@@ -85,7 +84,7 @@ export const HistogramBars = ({
         return (
             <OpacityMotion
                 key={'histogram-bars-' + seriesIndex}
-                role={'histogram-bars'}
+                role={setRole ? 'histogram-bars-presence' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

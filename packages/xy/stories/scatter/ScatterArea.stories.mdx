@@ -34,7 +34,7 @@ The prop `baseline` determines the vertical extent of the curve
         args={{
             ids: ['quadratic'],
             curve: 'Linear',
-            style: { strokeWidth: 0, opacity: 0.5 },
+            style: { strokeWidth: 0, fillOpacity: 0.5 },
         }}
         component={ScatterArea}
         decorators={[ChartScatterDecorator]}
@@ -47,7 +47,7 @@ The prop `baseline` determines the vertical extent of the curve
             ids: ['quadratic'],
             curve: 'Linear',
             baseline: 30,
-            style: { strokeWidth: 0, opacity: 0.5 },
+            style: { strokeWidth: 0, fillOpacity: 0.5 },
         }}
         component={ScatterArea}
         decorators={[ChartScatterDecorator]}
@@ -84,7 +84,7 @@ The `ScatterArea` component is often used together with `ScatterCurve`.
                     ids={['A']}
                     baseline={0}
                     curve="Natural"
-                    style={{ opacity: 0.1, strokeWidth: 0 }}
+                    style={{ fillOpacity: 0.1, strokeWidth: 0 }}
                 />
                 <ScatterCurve ids={['A']} curve="Natural" style={{ strokeWidth: 3 }} />
             </Scatter>
@@ -105,11 +105,11 @@ Some visual interactivity can be achieved with css style classes, applied via th
             theme={{
                 path: {
                     area: {
-                        opacity: 0.1,
+                        fillOpacity: 0.1,
                         strokeWidth: 0,
                     },
                     'area:hover': {
-                        opacity: 0.3,
+                        fillOpacity: 0.3,
                     },
                 },
             }}

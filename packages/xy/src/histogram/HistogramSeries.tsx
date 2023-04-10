@@ -7,15 +7,14 @@ export const HistogramSeries = ({
     ids,
     layers = ['area', 'curve'],
     curve = 'MonotoneX',
-    variant = 'default',
     areaStyle,
     curveStyle,
     className,
-    setRole,
+    setRole = true,
     dataComponent = DataComponent,
     ...props
 }: HistogramSeriesProps) => {
-    const commonProps = { variant, curve, className, setRole, dataComponent, ...props }
+    const commonProps = { curve, className, setRole, dataComponent, ...props }
     const result = layers.map((layer: HistogramSeriesLayer) => {
         if (layer === 'curve') {
             return (

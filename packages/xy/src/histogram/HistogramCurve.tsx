@@ -15,10 +15,8 @@ import { isHistogramProcessedData } from './predicates'
 export const HistogramCurve = ({
     ids,
     curve = 'MonotoneX',
-    variant = 'default',
     style,
-    className = 'histogramCurve',
-    setRole,
+    setRole = true,
     dataComponent = DataComponent,
     ...props
 }: HistogramCurveProps) => {
@@ -38,10 +36,9 @@ export const HistogramCurve = ({
             data: processedData[seriesIndex],
             component: Path,
             props: {
+                variant: 'histogram-curve',
                 points: preparedData.data[seriesIndex].points,
                 curve,
-                variant,
-                className,
                 style: seriesStyle,
                 setRole,
             },
@@ -49,7 +46,7 @@ export const HistogramCurve = ({
         })
         return (
             <OpacityMotion
-                role={'histogram-curve'}
+                role={setRole ? 'histogram-curve-presence' : undefined}
                 key={'histogram-curve-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}

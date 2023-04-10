@@ -93,7 +93,7 @@ export const ManyLinesHistogramChart = ({ fref, chartData, rawData }: MilestoneS
             padding={[80, 40, 60, 70]}
             theme={customTheme}
         >
-            <Histogram {...histogramProps} data={rawData} density={true}>
+            <Histogram {...histogramProps} data={rawData} variant='density'>
                 <Typography variant={'title'} position={[-55, -50]}>
                     Many distributions
                 </Typography>

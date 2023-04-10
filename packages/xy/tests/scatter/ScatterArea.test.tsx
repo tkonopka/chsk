@@ -12,8 +12,9 @@ describe('ScatterArea', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-area').querySelectorAll('path')
-        expect(result).toHaveLength(1)
+        expect(screen.getByRole('scatter-area-presence')).toBeDefined()
+        expect(screen.getByRole('scatter-area-presence').querySelectorAll('path')).toHaveLength(1)
+        expect(screen.queryAllByRole('scatter-area')).toHaveLength(1)
     })
 
     it('skips work when a series id does not exist', () => {

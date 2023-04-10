@@ -14,8 +14,11 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-label')
-        expect(result.querySelector('text')?.textContent).toBe('Label')
+        expect(screen.queryByRole('scatter-label')).not.toBeNull()
+        const label = screen.getByRole('label')
+        expect(label).not.toBeNull()
+        expect(label.querySelector('text')?.textContent).toBe('Label')
+        expect(label.querySelector('text')?.getAttribute('class')).toContain('label scatterLabel')
     })
 
     it('creates a label using a relative position', () => {
@@ -28,8 +31,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-label')
-        const text = result.querySelector('text')
+        const text = screen.getByRole('scatter-label').querySelector('text')
         // x=1 in view-relative units means at x=400 in svg units
         expect(text?.closest('g')?.getAttribute('style')).toContain('translateX(400')
     })
@@ -44,8 +46,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-curve')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-label')).toBeNull()
     })
 
     it('uses auto-rotation', () => {
@@ -58,8 +59,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-label')
-        const text = result.querySelector('text')
+        const text = screen.getByRole('scatter-label').querySelector('text')
         expect(text?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
         expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
@@ -75,8 +75,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-label')
-        const text = result.querySelector('text')
+        const text = screen.getByRole('scatter-label').querySelector('text')
         expect(text?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
         expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
@@ -92,8 +91,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-label')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('label')).toBeNull()
     })
 
     it('skips rendering for empty data', () => {
@@ -112,8 +110,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-label')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-label')).toBeNull()
     })
 
     it('handles vertical lines', () => {
@@ -136,8 +133,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-label')
-        const text = result?.querySelector('text')
+        const text = screen.queryByRole('scatter-label')?.querySelector('text')
         expect(text?.textContent).toBe('Label')
         // slope will be positive, so rotate -90
         expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-90')
@@ -159,8 +155,7 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-label')
-        const text = result?.querySelector('text')
+        const text = screen.queryByRole('scatter-label')?.querySelector('text')
         expect(text?.textContent).toBe('Label')
         expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(0')
     })

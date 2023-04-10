@@ -36,14 +36,14 @@ export type HistogramDataContextProps = ProcessedDataContextProps & {
 export type HistogramInteractiveDataItem = HistogramProcessedDataItem & { bin?: number }
 
 export interface HistogramProps
-    extends SvgElementProps,
+    extends SvgElementVariantProps,
         Pick<ViewProps, 'container' | 'data' | 'autoRescale' | 'children'> {
+    /** variant */
+    variant?: 'count' | 'density'
     /** data */
     data: Array<HistogramDataItem>
     /** breakpoints for bins */
     breaks: number | number[]
-    /** toggle between count-based and density-based view */
-    density?: boolean
     /** scale for horizontal axis */
     scaleX?: ContinuousScaleSpec
     /** scale for vertical axis */
@@ -53,7 +53,7 @@ export interface HistogramProps
 }
 
 export interface HistogramCurveProps
-    extends SvgElementVariantProps,
+    extends SvgElementProps,
         DataInteractivityProps<HistogramInteractiveDataItem, PathProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
@@ -75,7 +75,7 @@ export interface HistogramSeriesProps extends HistogramCurveProps {
 }
 
 export interface HistogramBarsProps
-    extends SvgElementVariantProps,
+    extends SvgElementProps,
         DataInteractivityProps<HistogramInteractiveDataItem, RectangleProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]

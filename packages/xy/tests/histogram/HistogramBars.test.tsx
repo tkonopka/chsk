@@ -12,8 +12,9 @@ describe('HistogramBars', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.getByRole('histogram-bars').querySelectorAll('rect')
-        expect(result.length).toBeGreaterThan(1)
+        expect(screen.queryByRole('histogram-bars-presence')).not.toBeNull()
+        expect(screen.getByRole('view-content').querySelectorAll('rect').length).toBeGreaterThan(1)
+        expect(screen.getAllByRole('histogram-bar').length).toBeGreaterThan(1)
     })
 
     it('skips work when a series id does not exist', () => {
@@ -24,7 +25,7 @@ describe('HistogramBars', () => {
                 </Histogram>
             </Chart>
         )
-        expect(screen.queryByRole('histogram-bars')).toBeNull()
+        expect(screen.queryByRole('histogram-bars-presence')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -35,7 +36,7 @@ describe('HistogramBars', () => {
                 </Histogram>
             </Chart>
         )
-        expect(screen.queryByRole('histogram-bars')).toBeNull()
+        expect(screen.queryByRole('histogram-bars-presence')).toBeNull()
     })
 
     it('skips work in non-histogram context', () => {
@@ -46,7 +47,7 @@ describe('HistogramBars', () => {
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('histogram-bars')).toBeNull()
+        expect(screen.queryByRole('histogram-bars-presence')).toBeNull()
     })
 
     it('skips work when scale is not linear', () => {
@@ -57,6 +58,6 @@ describe('HistogramBars', () => {
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('histogram-bars')).toBeNull()
+        expect(screen.queryByRole('histogram-bars-presence')).toBeNull()
     })
 })

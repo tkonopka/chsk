@@ -26,8 +26,11 @@ describe('ScatterInterval', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.getByRole('scatter-interval').querySelectorAll('path')
-        expect(result).toHaveLength(1)
+        expect(screen.getByRole('scatter-interval-presence')).toBeDefined()
+        expect(screen.getByRole('scatter-interval-presence').querySelectorAll('path')).toHaveLength(
+            1
+        )
+        expect(screen.queryAllByRole('scatter-interval')).toHaveLength(1)
     })
 
     it('skips work when a series id does not exist', () => {
@@ -38,8 +41,7 @@ describe('ScatterInterval', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-interval')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-interval')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -50,8 +52,7 @@ describe('ScatterInterval', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-interval')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-interval')).toBeNull()
     })
 
     it('skips work in non-scatter context', () => {

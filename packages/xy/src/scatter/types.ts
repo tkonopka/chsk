@@ -79,7 +79,8 @@ export type ScatterInteractiveDataItem = WithId & {
 // this uses symbolClassName and symbolStyle instead of SvgElementProps
 // that is to facilitate transferring props from ScatterSeries to ScatterPoints
 export interface ScatterPointsProps
-    extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps> {
+    extends Pick<SvgElementProps, 'setRole'>,
+        DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** symbol for individual data points */
@@ -102,7 +103,7 @@ export type SignalProcessingProps = {
 }
 
 export interface ScatterCurveProps
-    extends SvgElementVariantProps,
+    extends SvgElementProps,
         DataInteractivityProps<ScatterInteractiveDataItem, PathProps>,
         SignalProcessingProps {
     /** ids to display (defaults to all ids) */
@@ -111,7 +112,7 @@ export interface ScatterCurveProps
     curve?: CurveSpec
 }
 
-export interface ScatterLabelProps extends SvgElementVariantProps {
+export interface ScatterLabelProps extends SvgElementProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** position along the x-axis */

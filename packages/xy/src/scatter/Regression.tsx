@@ -83,7 +83,7 @@ const PooledRegression = ({
         ...props,
     })
     return (
-        <OpacityMotion role={'regression'} firstRender={firstRender}>
+        <OpacityMotion role={'regression-presence'} firstRender={firstRender}>
             {element}
         </OpacityMotion>
     )
@@ -136,7 +136,7 @@ const IndividualRegression = ({
         })
         return (
             <OpacityMotion
-                role={'regression'}
+                role={'regression-presence'}
                 key={'regression-' + seriesIndex}
                 firstRender={firstRender}
             >

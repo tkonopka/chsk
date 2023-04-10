@@ -71,10 +71,9 @@ export const ScatterInterval = ({
     downsampleIndex,
     // curves
     curve = 'Linear',
-    variant = 'default',
     style,
     className,
-    setRole,
+    setRole = true,
     dataComponent = DataComponent,
     ...pathProps
 }: ScatterIntervalProps) => {
@@ -111,7 +110,7 @@ export const ScatterInterval = ({
             data: { id },
             component: Path,
             props: {
-                variant,
+                variant: 'scatter-interval',
                 d,
                 setRole,
                 style: seriesStyle,
@@ -121,7 +120,7 @@ export const ScatterInterval = ({
         })
         return (
             <OpacityMotion
-                role={'scatter-interval'}
+                role={setRole ? 'scatter-interval-presence' : undefined}
                 key={'scatter-interval-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}

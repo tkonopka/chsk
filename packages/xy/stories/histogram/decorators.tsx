@@ -4,8 +4,8 @@ import { generateHistogramSeries, randomNormalValue } from './generators'
 import { Histogram } from '../../src'
 
 export const sampleData = [
-    generateHistogramSeries('A', 100, () => randomNormalValue(-2, 0.8)),
-    generateHistogramSeries('B', 100, () => randomNormalValue(2, 1.6)),
+    generateHistogramSeries('A', 150, () => randomNormalValue(-2, 0.8)),
+    generateHistogramSeries('B', 150, () => randomNormalValue(2, 1.6)),
 ]
 
 export const ChartHistogramDecorator = (Story: () => ReactNode) => (

@@ -14,7 +14,6 @@ import { curvePoints } from './signals'
 export const ScatterCurve = ({
     ids,
     curve = 'Linear',
-    variant = 'default',
     // signal processing
     convolutionMask,
     convolutionOffset,
@@ -22,8 +21,8 @@ export const ScatterCurve = ({
     downsampleIndex,
     // component props
     style,
-    className = 'scatterCurve',
-    setRole,
+    className,
+    setRole = true,
     dataComponent = TooltipDataComponent,
     ...pathProps
 }: ScatterCurveProps) => {
@@ -52,7 +51,7 @@ export const ScatterCurve = ({
             props: {
                 points,
                 curve,
-                variant,
+                variant: 'scatter-curve',
                 className,
                 style: seriesStyle,
                 setRole,
@@ -61,7 +60,7 @@ export const ScatterCurve = ({
         })
         return (
             <OpacityMotion
-                role={'scatter-curve'}
+                role={setRole ? 'scatter-curve-presence' : undefined}
                 key={'scatter-curve-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}

@@ -12,8 +12,8 @@ describe('HistogramCurve', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.getByRole('histogram-curve').querySelectorAll('path')
-        expect(result).toHaveLength(1)
+        expect(screen.getByRole('view-content').querySelectorAll('path')).toHaveLength(1)
+        expect(screen.getByRole('histogram-curve')).not.toBeNull()
     })
 
     it('skips work when a series id does not exist', () => {

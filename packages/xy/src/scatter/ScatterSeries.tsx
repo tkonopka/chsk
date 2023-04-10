@@ -9,13 +9,12 @@ export const ScatterSeries = ({
     layers = ['area', 'curve', 'points'],
     curve = 'Linear',
     symbol,
-    variant = 'default',
     areaStyle,
     curveStyle,
     symbolStyle,
     ...props
 }: ScatterSeriesProps) => {
-    const commonProps = { variant, curve, ...props }
+    const commonProps = { curve, ...props }
     const result = layers.map((layer: ScatterSeriesLayer) => {
         if (layer === 'points') {
             return (

@@ -12,10 +12,8 @@ describe('HistogramSeries', () => {
                 </Histogram>
             </Chart>
         )
-        const area = screen.getByRole('histogram-area').querySelectorAll('path')
-        expect(area).toHaveLength(1)
-        const curve = screen.getByRole('histogram-curve').querySelectorAll('path')
-        expect(curve).toHaveLength(1)
+        expect(screen.queryAllByRole('histogram-area')).toHaveLength(1)
+        expect(screen.queryAllByRole('histogram-curve')).toHaveLength(1)
     })
 
     it('creates paths for area only', () => {
@@ -26,10 +24,8 @@ describe('HistogramSeries', () => {
                 </Histogram>
             </Chart>
         )
-        const area = screen.getByRole('histogram-area').querySelectorAll('path')
-        expect(area).toHaveLength(1)
-        const curve = screen.queryAllByRole('histogram-curve')
-        expect(curve).toHaveLength(0)
+        expect(screen.queryAllByRole('histogram-area')).toHaveLength(1)
+        expect(screen.queryAllByRole('histogram-curve')).toHaveLength(0)
     })
 
     it('skips work when a series id does not exist', () => {
@@ -40,8 +36,7 @@ describe('HistogramSeries', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-series')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-curve')).toBeNull()
     })
 
     it('skips work when layers are empty', () => {
@@ -52,7 +47,6 @@ describe('HistogramSeries', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-series')
-        expect(result).toBeNull()
+        expect(screen.getByRole('view-content').querySelectorAll('path')).toHaveLength(0)
     })
 })

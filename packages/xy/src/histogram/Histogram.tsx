@@ -93,10 +93,10 @@ const getHistogramScaleProps = (
 }
 
 export const Histogram = ({
+    variant = 'count',
     container = defaultContainerProps,
     data,
     breaks,
-    density = false,
     scaleX = defaultLinearScaleSpec,
     scaleY = defaultLinearScaleSpec,
     scaleColor,
@@ -116,8 +116,8 @@ export const Histogram = ({
 
     // process dataset - arrange raw data into histogram bins
     const processedData = useMemo(
-        () => processData(data, breaksArray, density),
-        [data, breaksArray, density]
+        () => processData(data, breaksArray, variant === 'density'),
+        [data, breaksArray, variant]
     )
 
     // set up scales

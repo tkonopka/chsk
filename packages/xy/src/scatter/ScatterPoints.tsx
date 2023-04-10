@@ -19,6 +19,7 @@ export const ScatterPoints = ({
     symbolStyle,
     symbolClassName,
     dataComponent = DataComponent,
+    setRole = true,
     ...props
 }: ScatterPointsProps) => {
     const processedData = useProcessedData().data
@@ -58,7 +59,7 @@ export const ScatterPoints = ({
         return (
             <OpacityMotion
                 key={'scatter-points-' + seriesIndex}
-                role={'scatter-points'}
+                role={setRole ? 'scatter-points' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

@@ -12,8 +12,8 @@ describe('HistogramArea', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.getByRole('histogram-area').querySelectorAll('path')
-        expect(result).toHaveLength(1)
+        expect(screen.getByRole('view-content').querySelectorAll('path')).toHaveLength(1)
+        expect(screen.getByRole('histogram-area')).not.toBeNull()
     })
 
     it('skips work when a series id does not exist', () => {
@@ -24,8 +24,7 @@ describe('HistogramArea', () => {
                 </Histogram>
             </Chart>
         )
-        const result = screen.queryByRole('histogram-area')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('histogram-area')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {

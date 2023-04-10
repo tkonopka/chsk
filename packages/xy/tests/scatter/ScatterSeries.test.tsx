@@ -12,10 +12,8 @@ describe('ScatterSeries', () => {
                 </Scatter>
             </Chart>
         )
-        const area = screen.getByRole('scatter-area').querySelectorAll('path')
-        expect(area).toHaveLength(1)
-        const curve = screen.getByRole('scatter-curve').querySelectorAll('path')
-        expect(curve).toHaveLength(1)
+        expect(screen.queryAllByRole('scatter-area')).toHaveLength(1)
+        expect(screen.queryAllByRole('scatter-curve')).toHaveLength(1)
     })
 
     it('creates paths for points', () => {
@@ -38,8 +36,7 @@ describe('ScatterSeries', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-series')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-series')).toBeNull()
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -50,7 +47,6 @@ describe('ScatterSeries', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryByRole('scatter-series')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('scatter-series')).toBeNull()
     })
 })

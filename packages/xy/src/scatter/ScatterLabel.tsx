@@ -6,6 +6,7 @@ import {
     useDimensions,
     useScales,
     useDisabledKeys,
+    getClassName,
 } from '@chsk/core'
 import { ScatterLabelProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
@@ -34,12 +35,14 @@ export const ScatterLabel = ({
     autoRotate = false,
     style,
     className,
+    setRole = true,
     children,
 }: ScatterLabelProps) => {
     const preparedData = useScatterPreparedData()
     const { scales } = useScales()
     const { size } = useDimensions()
     const { disabledKeys, firstRender } = useDisabledKeys()
+    const compositeClassName = getClassName('scatter-label', className)
 
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
@@ -68,17 +71,17 @@ export const ScatterLabel = ({
         return (
             <OpacityMotion
                 key={'scatter-label-' + seriesIndex}
-                role={'scatter-label'}
+                role={setRole ? 'scatter-label' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >
                 <Typography
-                    variant={'scatterLabel'}
+                    variant={'label'}
                     position={[point[0] + offset[0], point[1] + offset[1]]}
                     angle={angle}
-                    className={className}
+                    className={compositeClassName}
                     style={style}
-                    setRole={false}
+                    setRole={setRole}
                 >
                     {children}
                 </Typography>

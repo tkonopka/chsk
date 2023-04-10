@@ -72,7 +72,7 @@ const multiviewTheme: ThemeSpec = {
 const multiviewHistogramProps = {
     units: 'relative' as const,
     breaks: stepSequence([-3, 4], 0.4),
-    density: true,
+    variant: 'density' as const,
     scaleX: {
         variant: 'linear' as const,
         domain: [-3, 4] as [number, number],

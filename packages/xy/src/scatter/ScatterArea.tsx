@@ -38,7 +38,6 @@ export const ScatterArea = ({
     ids,
     baseline,
     curve = 'Linear',
-    variant = 'default',
     // signal processing
     convolutionMask,
     convolutionOffset,
@@ -46,8 +45,8 @@ export const ScatterArea = ({
     downsampleIndex,
     // other props
     style,
-    className = 'scatterArea',
-    setRole,
+    className,
+    setRole = true,
     dataComponent = DataComponent,
     ...pathProps
 }: ScatterAreaProps) => {
@@ -100,7 +99,7 @@ export const ScatterArea = ({
             data: { id },
             component: Path,
             props: {
-                variant,
+                variant: 'scatter-area',
                 d: areas[id],
                 setRole,
                 style: seriesStyle,
@@ -111,7 +110,7 @@ export const ScatterArea = ({
 
         return (
             <OpacityMotion
-                role={'scatter-area'}
+                role={setRole ? 'scatter-area-presence' : undefined}
                 key={'scatter-area-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
