@@ -1,6 +1,6 @@
 {
     "name": "@chsk/themes",
-    "version": "0.3.0-alpha.0",
+    "version": "0.3.0",
     "author": "Tomasz Konopka",
     "description": "Components for theming charts",
     "main": "./dist/chsk-themes.cjs.js",
@@ -18,8 +18,8 @@
         "build": "PACKAGE=themes rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "d3-scale-chromatic": "^3.0.0",
-        "@chsk/core": "^0.3.0-alpha.0"
+        "@chsk/core": "^0.3.0",
+        "d3-scale-chromatic": "^3.0.0"
     },
     "devDependencies": {
         "@types/d3-scale-chromatic": "^3.0.0"
