@@ -8,7 +8,7 @@ axes hold categorical / discrete labels.
 
 -   **Heat maps** display information in a grid, conveying numerical values
     using color and size
--   **Upset charts** summarize overlaps between several sets
+-   **Upset charts** summarize overlaps between sets
 
 ## Documentation
 

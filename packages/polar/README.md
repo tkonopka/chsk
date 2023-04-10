@@ -10,5 +10,4 @@ appear circular.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?
-path=/docs/addons-polar-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-polar-overview--page)

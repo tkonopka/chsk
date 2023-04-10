@@ -1,8 +1,7 @@
 # @chsk/themes
 
 `@chsk/themes` is part of a data visualization framework based on `@chsk/core`.
-It provides a collection of objects that adjust look-and-feel through
-custom props and css styles.
+It provides a collection of objects that adjust chart look-and-feel.
 
 ## Features
 

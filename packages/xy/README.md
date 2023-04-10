@@ -8,7 +8,8 @@ axes display continuous values.
 
 -   **Histograms** summarize numeric distributions using binned or smooth curves
 -   **Scatter charts** display data points as symbols on a 2D plane
--   **Line charts**, similarly to scatter charts, display data on a 2D plane, but use curves and/or areas to show connections between data points
+-   **Line charts** use curves and/or areas to show connections between
+    adjacent data points
 
 ## Documentation
 

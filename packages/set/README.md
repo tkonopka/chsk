@@ -5,8 +5,7 @@ It provides components for displaying set intersections.
 
 ## Features
 
--   **Venn diagrams** with two or three sets, including (Euler) diagrams with
-    areas proportional to set size
+-   **Venn diagrams** summarize overlaps between two or three sets
 
 ## Documentation
 

@@ -79,26 +79,24 @@ Core components can be combined to produce chart skeletons with distinctive visu
                     style={{ fill: '#ffffff', stroke: '#222222', strokeWidth: '1px' }}
                     expansion={[10, 10, 10, 10]}
                 />
-                <Axis variant={'bottom'} offset={10}>
+                <Axis variant={'bottom'} distance={10}>
                     <AxisTicks
                         variant={'bottom'}
                         tickSize={5}
-                        labelOffset={8}
+                        labelDistance={8}
                         style={{ strokeWidth: '1px' }}
                     />
-                    <AxisLabel variant={'bottom'} offset={36} children={'x-axis (a.u.)'} />
+                    <AxisLabel variant={'bottom'} distance={36} children={'x-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'left'} offset={10}>
+                <Axis variant={'left'} distance={10}>
                     <AxisTicks
                         variant={'left'}
                         tickSize={5}
-                        labelOffset={8}
+                        labelDistance={8}
                         style={{ strokeWidth: '1px' }}
                     />
-                    <AxisLabel variant={'left'} offset={44} children={'y-axis (a.u.)'} />
+                    <AxisLabel variant={'left'} distance={44} children={'y-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'right'} ticks={[]} offset={10} />
-                <Axis variant={'top'} ticks={[]} offset={10} />
                 <Typography position={[140, -22]} variant="title" style={{ textAnchor: 'middle' }}>
                     Boxed
                 </Typography>
@@ -123,19 +121,19 @@ Core components can be combined to produce chart skeletons with distinctive visu
                     expansion={[12, 12]}
                     style={{ stroke: '#aaaaaa', strokeDasharray: '5 5' }}
                 />
-                <Axis variant={'bottom'} ticks={null} offset={12}>
-                    <AxisTicks variant={'bottom'} ticks={5} tickSize={-5} labelOffset={6} />
-                    <AxisLabel variant={'bottom'} offset={36} children={'x-axis (a.u.)'} />
+                <Axis variant={'bottom'} ticks={null} distance={12}>
+                    <AxisTicks variant={'bottom'} ticks={5} tickSize={-5} labelDistance={6} />
+                    <AxisLabel variant={'bottom'} distance={36} children={'x-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'left'} ticks={null} offset={12}>
-                    <AxisTicks variant={'left'} ticks={5} tickSize={-5} labelOffset={6} />
-                    <AxisLabel variant={'left'} offset={44} children={'y-axis (a.u.)'} />
+                <Axis variant={'left'} ticks={null} distance={12}>
+                    <AxisTicks variant={'left'} ticks={5} tickSize={-5} labelDistance={6} />
+                    <AxisLabel variant={'left'} distance={44} children={'y-axis (a.u.)'} />
                 </Axis>
-                <Axis variant={'right'} ticks={null} offset={12}>
-                    <AxisTicks variant={'right'} ticks={5} tickSize={-5} labelFormat={null} />
+                <Axis variant={'right'} ticks={null} distance={12}>
+                    <AxisTicks variant={'right'} ticks={5} tickSize={-5} labelFormat={() => ''} />
                 </Axis>
-                <Axis variant={'top'} ticks={null} offset={12}>
-                    <AxisTicks variant={'top'} ticks={5} tickSize={-5} labelFormat={null} />
+                <Axis variant={'top'} ticks={null} distance={12}>
+                    <AxisTicks variant={'top'} ticks={5} tickSize={-5} labelFormat={() => ''} />
                 </Axis>
                 <Typography position={[140, -26]} variant="title" style={{ textAnchor: 'middle' }}>
                     Boxed with grid
@@ -160,7 +158,7 @@ Core components can be combined to produce chart skeletons with distinctive visu
                 <Surface variant={'outer'} style={{ fill: '#f4f4f4' }} />
                 <GridLines variant={'y'} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
                 <Axis variant={'bottom'}>
-                    <AxisTicks variant={'bottom'} ticks={5} tickSize={5} labelOffset={10} />
+                    <AxisTicks variant={'bottom'} ticks={5} tickSize={5} labelDistance={10} />
                     <AxisLine
                         variant={'bottom'}
                         style={{ visibility: 'visible', stroke: '#222222', strokeWidth: '2px' }}
@@ -168,12 +166,12 @@ Core components can be combined to produce chart skeletons with distinctive visu
                     <AxisLabel
                         variant={'bottom'}
                         anchor={'end'}
-                        offset={32}
+                        distance={32}
                         children={'x-axis (a.u.)'}
                     />
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} ticks={5} tickSize={0} labelOffset={6} />
+                    <AxisTicks variant={'left'} ticks={5} tickSize={0} labelDistance={6} />
                 </Axis>
                 <Typography position={[-6, -28]} variant={'axisLabel'} children={'y-axis (a.u.)'} />
                 <Typography position={[140, -28]} variant={'title'}>

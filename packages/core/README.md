@@ -1,7 +1,7 @@
 # @chsk/core
 
-`@chsk/core` is the foundation of a data visualization framework for React. It
-provides tools for customizable, extendable, and dynamic story-telling with data.
+`@chsk/core` is a data visualization framework for React. It provides tools
+for customizable, extendable, and dynamic story-telling with data.
 
 The framework relies on [react](https://www.npmjs.com/package/react) for
 managing state and
@@ -17,7 +17,7 @@ elements as scalable vector graphics (svg).
 
 -   **Chart and view components** provide the basic infrastructure to create
     svg graphics
--   **Axes components** draw x- and y- axes
+-   **Axis components** draw x- and y- axes
 -   **Legend components** provide support for legends with categorical items,
     color scales, and size scales
 -   **Shape components** display basic shapes, including rectangles, lines,
@@ -37,8 +37,9 @@ customization and extension.
 
 ## Add-ons
 
-As `@chsk/core` provides infrastructure that is relevant to all / many
-visualizations, it does not provide support for specific chart types. Support for specific chart types is instead available through add-on packages.
+While `@chsk/core` provides infrastructure that is relevant to data
+visualization in general, support for specific chart types is available
+through add-on packages.
 
 -   **[@chsk/annotation](https://www.npmjs.com/package/@chsk/annotation)**
     provides miscellaneous elements that can be used to enrich base charts, e.g.
@@ -50,9 +51,8 @@ visualizations, it does not provide support for specific chart types. Support fo
 -   **[@chsk/set](https://www.npmjs.com/package/@chsk/set)** generates Venn
     diagrams
 -   **[@chsk/themes](https://www.npmjs.com/package/@chsk/themes)** provides a
-    collection of objects that change
-    chart look-and-feel
--   **[@chs/xy](https://www.npmjs.com/package/@chsk/xy)** creates on charts
+    collection of objects that change chart look-and-feel
+-   **[@chs/xy](https://www.npmjs.com/package/@chsk/xy)** creates charts
     with two continuous axes, e.g. scatter charts
 
 ## Documentation

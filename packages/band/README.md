@@ -9,7 +9,8 @@ continuous axis.
 -   **Bar charts** visualize data using grouped, stacked, or layered bars
 -   **Distribution charts** summarize number distributions, for example, using
     box-and-whisker elements
--   **Schedule charts** use rectangular shapes to visualize intervals with well-defined start and end boundaries
+-   **Schedule charts** visualize intervals with well-defined start and end
+    boundaries
 -   **Strip charts**, similarly to distribution charts, visualize number
     distributions, but unlike distribution charts, display all data points
 -   **Band components** are general-purpose objects that can be used in
