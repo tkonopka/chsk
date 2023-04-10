@@ -2,7 +2,7 @@ import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
 import { Surface, Label } from '@chsk/core'
 import { Pie, Origin, Slices } from '../../src'
 import { ChartDecorator } from '../decorators'
-import { commonPieProps } from './decorators'
+import { commonPieProps, OriginAndSlices } from './decorators'
 
 # Pie
 
@@ -46,11 +46,7 @@ To create a doughnut, set `rInner` to a non-zero value.
         ...commonPieProps,
             rInner: 0,
             rOuter: 1,
-             children: (
-                            <Origin>
-                                <Slices />
-                            </Origin>
-                        ),
+            children: (<OriginAndSlices />),
         }}
 
         component={Pie}
@@ -64,11 +60,7 @@ To create a doughnut, set `rInner` to a non-zero value.
         ...commonPieProps,
             rInner: 0.6,
             rOuter: 1,
-             children: (
-                            <Origin>
-                                <Slices />
-                            </Origin>
-                        ),
+            children: (<OriginAndSlices />),
         }}
         component={Pie}
         decorators={[ChartDecorator]}
@@ -87,11 +79,7 @@ Prop `rOuter` determines the outer radius of the pie, and thus sets an overall s
             ...commonPieProps,
             rInner: 0.4,
             rOuter: 0.6,
-            children: (
-                <Origin>
-                    <Slices />
-                </Origin>
-            ),
+            children: <OriginAndSlices />,
         }}
         component={Pie}
         decorators={[ChartDecorator]}
@@ -123,9 +111,7 @@ the chart coordinate system appears with a 1:1 aspect ratio in svg coordinates.
             children: (
                 <>
                     <Surface />
-                    <Origin>
-                        <Slices />
-                    </Origin>
+                    <OriginAndSlices />
                 </>
             ),
         }}
@@ -145,9 +131,7 @@ the chart coordinate system appears with a 1:1 aspect ratio in svg coordinates.
             children: (
                 <>
                     <Surface />
-                    <Origin>
-                        <Slices />
-                    </Origin>
+                    <OriginAndSlices />
                 </>
             ),
         }}
@@ -171,11 +155,7 @@ The value can be specified in degrees or radians, with the unit specified in pro
             ...commonPieProps,
             angle: Math.PI / 2,
             angleUnit: 'radian',
-            children: (
-                <Origin>
-                    <Slices />
-                </Origin>
-            ),
+            children: <OriginAndSlices />,
         }}
         component={Pie}
         decorators={[ChartDecorator]}
@@ -197,11 +177,7 @@ Intermediate values are possible as well.
         args={{
             ...commonPieProps,
             angleAlign: 1,
-            children: (
-                <Origin>
-                    <Slices />
-                </Origin>
-            ),
+            children: <OriginAndSlices />,
         }}
         component={Pie}
         decorators={[ChartDecorator]}
@@ -213,11 +189,7 @@ Intermediate values are possible as well.
         args={{
             ...commonPieProps,
             angleAlign: 0.5,
-            children: (
-                <Origin>
-                    <Slices />
-                </Origin>
-            ),
+            children: <OriginAndSlices />,
         }}
         component={Pie}
         decorators={[ChartDecorator]}
@@ -238,7 +210,7 @@ The center of a pie or doughnut is always at `[0, 0]` in the view's cartesian co
             rInner: 0.8,
             children: (
                 <Origin>
-                    <Slices rInner={0.6} />
+                    <Slices rInner={0.6} style={{ fillOpacity: 1 }} />
                     <Label position={[0, 0]} style={{ fontSize: '18px', fontWeight: 600 }}>
                         Label
                     </Label>
