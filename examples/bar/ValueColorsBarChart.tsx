@@ -170,7 +170,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                         labelStyle={{ textAnchor: 'end' }}
                     />
                 </Axis>
-                <ViewClip id={'bar-clip'}>
+                <ViewClip id={'bar-clip'} expansion={[2, 0, 2, 0]}>
                     <Bars component={CustomRectangle} modifiers={customModifiers} />
                 </ViewClip>
                 <GridLines

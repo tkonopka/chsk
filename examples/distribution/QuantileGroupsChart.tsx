@@ -7,6 +7,8 @@ import {
     ThemeSpec,
     TooltipDataItem,
     Typography,
+    ViewClip,
+    ViewController,
 } from '@chsk/core'
 import {
     BandHighlight,
@@ -18,7 +20,7 @@ import {
 import { buttonTheme, tooltipItemLabelValueTheme } from '@chsk/themes'
 import { alphabetGreek, randomNormalValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
-import { DownloadButtons } from '../navigation'
+import { DownloadButtons, IconButton } from '../navigation'
 
 export const generateQuantileGroupsData = () => {
     const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
@@ -128,13 +130,20 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                 <GridLines variant={'x'} />
                 <Axis variant={'left'} label={'score (a.u.)'} ticks={6} />
                 <Axis variant={'bottom'} label={'Samples'} />
-                <Distributions
-                    boxStyle={{ stroke: '#222222' }}
-                    whiskerStyle={{ stroke: '#161616' }}
-                    middleStyle={{ stroke: '#161616' }}
-                    whiskerCapWidth={0.75}
+                <ViewClip id={'quantile-groups'}>
+                    <Distributions
+                        boxStyle={{ stroke: '#222222' }}
+                        whiskerStyle={{ stroke: '#161616' }}
+                        middleStyle={{ stroke: '#161616' }}
+                        whiskerCapWidth={0.75}
+                    />
+                    <BandHighlight style={{ fill: '#222222', opacity: 0.3 }} />
+                </ViewClip>
+                <ViewController
+                    variant={'x'}
+                    container={{ position: [1, 0], positionUnits: 'relative', offset: [12, 0] }}
+                    component={IconButton}
                 />
-                <BandHighlight style={{ fill: '#222222', opacity: 0.3 }} />
                 <Legend
                     position={[650, 260]}
                     positionUnits={'absolute'}
@@ -156,7 +165,7 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                 <DownloadButtons position={[620, 270]} data image />
                 <DistributionTooltip
                     anchor={[0, 0.5]}
-                    offset={[20, 0]}
+                    offset={[24, 0]}
                     maxOverhang={[40, 40, 40, 40]}
                     padding={[8, 8, 8, 8]}
                     itemSize={[160, 26]}
