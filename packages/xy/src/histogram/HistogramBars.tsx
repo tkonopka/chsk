@@ -83,7 +83,7 @@ export const HistogramBars = ({
             .filter(Boolean)
         return (
             <OpacityMotion
-                key={'histogram-bars-' + seriesIndex}
+                key={'bars-' + seriesIndex}
                 role={setRole ? 'histogram-bars-presence' : undefined}
                 visible={visible}
                 firstRender={firstRender}

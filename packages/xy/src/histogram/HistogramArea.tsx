@@ -65,7 +65,7 @@ export const HistogramArea = ({
         return (
             <OpacityMotion
                 role={setRole ? 'histogram-area-presence' : undefined}
-                key={'histogram-area-' + seriesIndex}
+                key={'area-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

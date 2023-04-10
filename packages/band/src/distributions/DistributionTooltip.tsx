@@ -80,7 +80,7 @@ export const DistributionTooltip = ({
     const content = tooltipData.map((data, i) => {
         return (
             <DistributionTooltipItem
-                key={'tooltip-item-' + i}
+                key={'item-' + i}
                 position={infoPositions[i]}
                 data={data as DistributionProcessedSummary & TooltipDataItem} // already check at start
                 label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
@@ -111,7 +111,7 @@ export const DistributionTooltip = ({
             setRole={setRole}
         >
             <TooltipTitle
-                key={'tooltip-title'}
+                key={'title'}
                 variant={'right'}
                 position={titlePosition}
                 size={itemSize}

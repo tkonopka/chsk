@@ -70,7 +70,7 @@ export const ScatterLabel = ({
 
         return (
             <OpacityMotion
-                key={'scatter-label-' + seriesIndex}
+                key={'label-' + seriesIndex}
                 role={setRole ? 'scatter-label' : undefined}
                 visible={visible}
                 firstRender={firstRender}

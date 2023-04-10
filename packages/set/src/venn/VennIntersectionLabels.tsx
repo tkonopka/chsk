@@ -31,7 +31,7 @@ export const VennIntersectionLabels = ({
             return createElement(
                 component,
                 {
-                    key: 'intersection-' + i,
+                    key: 'label-' + i,
                     position: item.labelPosition,
                     className: compositeClassName,
                     ...componentProps,

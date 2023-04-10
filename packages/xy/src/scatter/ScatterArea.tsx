@@ -111,7 +111,7 @@ export const ScatterArea = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-area-presence' : undefined}
-                key={'scatter-area-' + seriesIndex}
+                key={'area-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

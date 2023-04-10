@@ -79,7 +79,7 @@ export const BarsLabels = ({
 
         return (
             <OpacityMotion
-                key={'bars-labels-' + i}
+                key={'labels-' + i}
                 role={'bars-labels'}
                 visible={visible}
                 firstRender={firstRender}

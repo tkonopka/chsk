@@ -111,7 +111,7 @@ export const ScatterErrors = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-errors' : undefined}
-                key={'scatter-errors-' + seriesIndex}
+                key={'errors-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

@@ -147,14 +147,14 @@ export const DistributionTooltipItem = ({
 
     return (
         <g
-            key={'tooltip-item-' + item}
+            key={'item-' + item}
             role={setRole ? 'tooltip-item' : undefined}
             transform={getTranslate(position)}
             style={style}
             className={'tooltipItem'}
         >
             {createElement(symbol, {
-                key: 'tooltip-symbol-' + item,
+                key: 'symbol-' + item,
                 cx: symbolPosition[X],
                 cy: symbolPosition[Y],
                 r: r,
@@ -163,7 +163,7 @@ export const DistributionTooltipItem = ({
                 setRole: false,
             })}
             <text
-                key={'tooltip-label'}
+                key={'label'}
                 x={labelPosition[X]}
                 y={labelPosition[Y]}
                 className={textClassName}

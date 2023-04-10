@@ -121,7 +121,7 @@ export const ScatterInterval = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-interval-presence' : undefined}
-                key={'scatter-interval-' + seriesIndex}
+                key={'interval-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

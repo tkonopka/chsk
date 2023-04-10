@@ -43,12 +43,7 @@ export const HeatMapSurface = ({
     return (
         <g role={'heatmap-surface'}>
             <m.rect
-                key={
-                    'heatmap-surface-' +
-                    Array.from(idSet).join(',') +
-                    '-' +
-                    Array.from(keySet).join(',')
-                }
+                key={'surface-' + Array.from(idSet).join(',') + '-' + Array.from(keySet).join(',')}
                 x={keyInterval[0]}
                 width={keyInterval[1] - keyInterval[0]}
                 y={idInterval[0]}

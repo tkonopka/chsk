@@ -39,7 +39,7 @@ export const SliceLabels = ({
         if (!idSet.has(seriesData.id)) return null
         if (seriesData.endAngle - seriesData.startAngle < minAngleRad) return null
         return createElement(dataComponent, {
-            key: 'slice-label-' + i,
+            key: 'label-' + i,
             component: component ?? SliceLabel,
             data: seriesData,
             props: {

@@ -58,7 +58,7 @@ export const ScatterPoints = ({
             : null
         return (
             <OpacityMotion
-                key={'scatter-points-' + seriesIndex}
+                key={'points-' + seriesIndex}
                 role={setRole ? 'scatter-points' : undefined}
                 visible={visible}
                 firstRender={firstRender}

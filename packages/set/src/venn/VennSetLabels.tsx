@@ -49,7 +49,7 @@ export const VennSetLabels = ({
             return createElement(
                 component,
                 {
-                    key: 'venn-label-' + id,
+                    key: 'label-' + id,
                     position: [scaleX(pos[X]) + offset[X], scaleY(pos[Y]) + offset[Y]],
                     size,
                     align,

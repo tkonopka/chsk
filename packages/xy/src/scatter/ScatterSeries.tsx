@@ -19,7 +19,7 @@ export const ScatterSeries = ({
         if (layer === 'points') {
             return (
                 <ScatterPoints
-                    key={'scatter-series-points'}
+                    key={'points'}
                     ids={ids}
                     {...commonProps}
                     symbol={symbol}
@@ -28,19 +28,12 @@ export const ScatterSeries = ({
             )
         }
         if (layer === 'curve') {
-            return (
-                <ScatterCurve
-                    key={'scatter-series-curves'}
-                    ids={ids}
-                    {...commonProps}
-                    style={curveStyle}
-                />
-            )
+            return <ScatterCurve key={'curve'} ids={ids} {...commonProps} style={curveStyle} />
         }
         if (layer === 'area') {
             return (
                 <ScatterArea
-                    key={'scatter-series-areas'}
+                    key={'area'}
                     ids={ids}
                     {...commonProps}
                     baseline={baseline}

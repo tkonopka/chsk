@@ -47,7 +47,7 @@ export const HistogramCurve = ({
         return (
             <OpacityMotion
                 role={setRole ? 'histogram-curve-presence' : undefined}
-                key={'histogram-curve-' + seriesIndex}
+                key={'curve-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

@@ -95,9 +95,9 @@ export const HeatMapCells = ({
     customScalesContextValue.scales.color = colorScale
 
     return (
-        <g role={'heatmap-cells'} key={'heatmap-cells'}>
+        <g role={'heatmap-cells'}>
             {elements}
-            <ScalesProvider key={'scale-provider'} value={customScalesContextValue}>
+            <ScalesProvider key={'provider'} value={customScalesContextValue}>
                 {children}
             </ScalesProvider>
         </g>

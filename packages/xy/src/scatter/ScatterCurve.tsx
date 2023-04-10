@@ -61,7 +61,7 @@ export const ScatterCurve = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-curve-presence' : undefined}
-                key={'scatter-curve-' + seriesIndex}
+                key={'curve-' + seriesIndex}
                 visible={visible}
                 firstRender={firstRender}
             >

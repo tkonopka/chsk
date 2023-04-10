@@ -17,24 +17,10 @@ export const HistogramSeries = ({
     const commonProps = { curve, className, setRole, dataComponent, ...props }
     const result = layers.map((layer: HistogramSeriesLayer) => {
         if (layer === 'curve') {
-            return (
-                <HistogramCurve
-                    key={'scatter-series-curves'}
-                    ids={ids}
-                    {...commonProps}
-                    style={curveStyle}
-                />
-            )
+            return <HistogramCurve key={'curves'} ids={ids} {...commonProps} style={curveStyle} />
         }
         if (layer === 'area') {
-            return (
-                <HistogramArea
-                    key={'scatter-series-areas'}
-                    ids={ids}
-                    {...commonProps}
-                    style={areaStyle}
-                />
-            )
+            return <HistogramArea key={'areas'} ids={ids} {...commonProps} style={areaStyle} />
         }
     })
 
