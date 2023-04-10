@@ -4,7 +4,7 @@
 
 ### Highlights
 
--   Zoom and pan capabilities for all chart/scale types
+-   Zoom and pan capabilities for all chart types
 -   New package `@chsk/polar` for pie and doughnut charts
 -   New components in existing packages, including for animated text, bars with
     whiskers, and curved arrows
@@ -21,7 +21,7 @@
 
 -   [band] prop `variant` for `BandSurface` to fine-tune the size of
     background rectangles
--   [example] venn diagrams with custom text at intersections
+-   [examples] venn diagrams with custom text at intersections
 -   [set] support for data subsets when drawing set intersection labels
 -   [core] component `Style` to create themed css for arbitrary ancestors
 -   [annotation] conversion of rgba colors to hex in svg exports
