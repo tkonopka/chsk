@@ -21,7 +21,11 @@ Prop `variant` determines the shape of the marker.
     <Story name="circle">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <BluntMarker id="circle" variant="Circle" style={{ fill: '#222222' }} />
+                <BluntMarker
+                    id="circle"
+                    variant="Circle"
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'circle'} style={{ strokeWidth: 3 }} />
         </Chart>
@@ -29,7 +33,11 @@ Prop `variant` determines the shape of the marker.
     <Story name="square">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <BluntMarker id="square" variant="Square" style={{ fill: '#222222' }} />
+                <BluntMarker
+                    id="square"
+                    variant="Square"
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'square'} style={{ strokeWidth: 3 }} />
         </Chart>
@@ -37,7 +45,11 @@ Prop `variant` determines the shape of the marker.
     <Story name="diamond">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <BluntMarker id="diamond" variant="Diamond" style={{ fill: '#222222' }} />
+                <BluntMarker
+                    id="diamond"
+                    variant="Diamond"
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line
                 x1={0}
@@ -63,7 +75,7 @@ The size of the marker is set with props `size`.
                     id="small-circle"
                     variant="Circle"
                     size={8}
-                    style={{ fill: '#222222' }}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
                 />
             </defs>
             <Line
@@ -83,7 +95,7 @@ The size of the marker is set with props `size`.
                     id="large-square"
                     variant="Square"
                     size={15}
-                    style={{ fill: '#222222' }}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
                 />
             </defs>
             <Line
@@ -102,7 +114,7 @@ The size of the marker is set with props `size`.
                 <BluntMarker
                     id="color-circle"
                     variant="Circle"
-                    style={{ stroke: '#2222dd', fill: '#2222dd' }}
+                    style={{ stroke: '#2222dd', fill: '#2222dd', fillOpacity: 1 }}
                 />
             </defs>
             <Line

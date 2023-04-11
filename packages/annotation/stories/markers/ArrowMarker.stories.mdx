@@ -7,7 +7,8 @@ import { ArrowMarker } from '../../src'
 <Meta title="Addons/Annotation/Markers/ArrowMarker" />
 export const Template = args => <ArrowMarker {...args} />
 
-`ArrowMarker` creates a definition for an arrow-head 'marker'. Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
+`ArrowMarker` creates a definition for an arrow-head 'marker'.
+Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
 
 <ArgsTable of={ArrowMarker} />
 
@@ -21,7 +22,11 @@ Prop `variant` determines the shape of the arrowhead.
     <Story name="triangle">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <ArrowMarker id="triangle" variant="Triangle" style={{ fill: '#222222' }} />
+                <ArrowMarker
+                    id="triangle"
+                    variant="Triangle"
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line
                 x1={0}
@@ -36,7 +41,11 @@ Prop `variant` determines the shape of the arrowhead.
     <Story name="winged">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <ArrowMarker id="winged" variant="Winged" style={{ fill: '#222222' }} />
+                <ArrowMarker
+                    id="winged"
+                    variant="Winged"
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'winged'} style={{ strokeWidth: 3 }} />
         </Chart>
@@ -67,7 +76,8 @@ In particular, the `chevron` arrowhead requires `fillOpacity: 0`.
 
 ## Arrow size and width
 
-The shape of the arrowheads can further be adjusted using props `size` and `width`. The overall weight is also scaled by the stroke width of the line.
+The shape of the arrowheads can further be adjusted using props `size` and `width`.
+The overall weight is also scaled by the stroke width of the line.
 
 <Canvas>
     <Story name="narrow">
@@ -77,7 +87,7 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
                     id="narrow"
                     variant="Triangle"
                     width={0.7}
-                    style={{ fill: '#222222' }}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
                 />
             </defs>
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'narrow'} style={{ strokeWidth: 3 }} />
@@ -86,7 +96,12 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
     <Story name="large">
         <Chart size={[200, 120]} padding={[20, 20, 20, 20]}>
             <defs>
-                <ArrowMarker id="large" variant="Winged" size={16} style={{ fill: '#222222' }} />
+                <ArrowMarker
+                    id="large"
+                    variant="Winged"
+                    size={16}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <Line x1={0} y1={60} x2={140} y2={20} markerEnd={'large'} style={{ strokeWidth: 3 }} />
         </Chart>
@@ -109,7 +124,7 @@ The shape of the arrowheads can further be adjusted using props `size` and `widt
                 y2={20}
                 markerStart={'color'}
                 markerEnd={'color'}
-                style={{ strokeWidth: 2, stroke: '#2222dd' }}
+                style={{ strokeWidth: 3, stroke: '#2222dd', strokeLinecap: 'round' }}
             />
         </Chart>
     </Story>

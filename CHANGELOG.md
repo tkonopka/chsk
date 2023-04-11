@@ -8,6 +8,8 @@
 
 ### Changed
 
+-   [documentation] miscellaneous edits, including fixes to styling
+
 ## v0.3.0
 
 ### Highlights

@@ -27,6 +27,7 @@ In particular, props `stemWidth`, `headWidth`, and `headLength` determine the ar
             stemWidth: 10,
             headWidth: 30,
             headLength: 40,
+            style: { fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}
@@ -42,6 +43,7 @@ In particular, props `stemWidth`, `headWidth`, and `headLength` determine the ar
             stemWidth: 40,
             headWidth: 60,
             headLength: 20,
+            style: { fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}
@@ -64,6 +66,7 @@ Prop `variant` determines the 'handed-ness' of the curvature.
             units: 'absolute',
             variant: 'left',
             r: 400,
+            style: { fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}
@@ -78,6 +81,7 @@ Prop `variant` determines the 'handed-ness' of the curvature.
             units: 'absolute',
             variant: 'right',
             r: 400,
+            style: { fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}
@@ -101,6 +105,7 @@ Arrowheads can be configured at each side via prop `heads`.
             heads: [true, true],
             variant: 'left',
             r: 400,
+            style: { fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}
@@ -115,14 +120,14 @@ Arrows can be styled using css.
 
 <Canvas>
     <Story
-        name="filled"
+        name="custom style"
         args={{
             start: [50, 160],
             end: [200, 60],
             units: 'absolute',
             variant: 'left',
             r: 400,
-            style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777' },
+            style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777', fillOpacity: 1 },
         }}
         component={ArcArrow}
         decorators={[ChartDecorator]}

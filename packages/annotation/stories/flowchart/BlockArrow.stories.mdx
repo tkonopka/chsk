@@ -27,6 +27,7 @@ The shape of the arrow is determined by props `stemWidth`, `headWidth`, and `hea
             stemWidth: 10,
             headWidth: 30,
             headLength: 40,
+            style: { fillOpacity: 1 },
         }}
         component={BlockArrow}
         decorators={[ChartDecorator]}
@@ -42,6 +43,7 @@ The shape of the arrow is determined by props `stemWidth`, `headWidth`, and `hea
             stemWidth: 40,
             headWidth: 60,
             headLength: 20,
+            style: { fillOpacity: 1 },
         }}
         component={BlockArrow}
         decorators={[ChartDecorator]}
@@ -63,6 +65,7 @@ Arrowheads can be configured at each side via prop `heads`.
             end: [200, 60],
             units: 'absolute',
             heads: [true, true],
+            style: { fillOpacity: 1 },
         }}
         component={BlockArrow}
         decorators={[ChartDecorator]}
@@ -83,7 +86,7 @@ Arrows can be styled using css, including with gradients and filters.
             end: [200, 60],
             units: 'absolute',
             stemWidth: 12,
-            style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777' },
+            style: { strokeWidth: 2, stroke: '#dd0000', fill: '#dd7777', fillOpacity: 1 },
         }}
         component={BlockArrow}
         decorators={[ChartDecorator]}
@@ -107,7 +110,7 @@ Arrows can be styled using css, including with gradients and filters.
                 start={[50, 160]}
                 end={[200, 60]}
                 units={'absolute'}
-                style={{ fill: 'url(#arrow-gradient)', strokeWidth: 0 }}
+                style={{ fill: 'url(#arrow-gradient)', strokeWidth: 0, fillOpacity: 1 }}
             />
         </Chart>
     </Story>
@@ -121,7 +124,12 @@ Arrows can be styled using css, including with gradients and filters.
                 start={[50, 160]}
                 end={[200, 60]}
                 units={'absolute'}
-                style={{ fill: '#dd0000', filter: 'url(#arrow-shadow)', strokeWidth: 0 }}
+                style={{
+                    fill: '#dd0000',
+                    fillOpacity: 1,
+                    filter: 'url(#arrow-shadow)',
+                    strokeWidth: 0,
+                }}
             />
         </Chart>
     </Story>

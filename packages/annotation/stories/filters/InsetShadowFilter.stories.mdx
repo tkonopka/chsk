@@ -8,13 +8,13 @@ import { InsetShadowFilter } from '../../src/filters'
 
 export const Template = args => <InsetShadowFilter {...args} />
 
-`InsetShadowFilter` creates an svg filter that creates a lighter-color mask.
+`InsetShadowFilter` creates an svg filter with a shadow / blur effect.
 
 <ArgsTable of={InsetShadowFilter} />
 
 ## Blur
 
-Prop `blurStdDeviation` determines the amount of blur for the shadow.
+Prop `blurStdDeviation` determines the amount of blur.
 Larger values makes the shadow spread further into the target object.
 
 <Canvas>
@@ -80,7 +80,7 @@ Larger values makes the shadow spread further into the target object.
 
 ## Flood color
 
-Props 'floodColor' and 'floodOpacity' control the coloring of the shadow.
+Props 'floodColor' and 'floodOpacity' control the color and intensity of the shadow.
 
 <Canvas>
     <Story name="light">
