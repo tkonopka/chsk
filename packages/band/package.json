@@ -1,6 +1,6 @@
 {
     "name": "@chsk/band",
-    "version": "0.3.0",
+    "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts with one categorical axis and one continuous axis",
     "main": "./dist/chsk-band.cjs.js",
@@ -18,7 +18,7 @@
         "build": "PACKAGE=band rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chsk/core": "^0.3.0",
+        "@chsk/core": "^0.4.0-alpha.0",
         "framer-motion": "^7.0.0"
     },
     "peerDependencies": {
