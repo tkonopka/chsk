@@ -2,6 +2,8 @@ name: documentation
 on:
     push:
         paths: ['examples/**', 'packages/**']
+    branches:
+        - main
 permissions:
     contents: write
 jobs:
