@@ -24,15 +24,11 @@ li {
 .sbdocs p,
 .sbdocs li {
     max-width: 800px;
-}
-
-p,
-li {
     line-height: 1.6;
     font-size: 17px;
 }
 
-p code {
+.sbdocs p code {
     background-color: #f8f8f8;
     border: #dddddd solid 1px;
     color: #333333;
