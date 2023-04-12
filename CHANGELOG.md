@@ -8,6 +8,7 @@
 
 ### Changed
 
+-   [documentation] upgraded storybook to v7.0.3
 -   [core] fixed bug with handlers in `DataComponent` and
     `TooltipDataComponent` leading to some missed and some redundant function
     calls

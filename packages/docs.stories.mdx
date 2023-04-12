@@ -4,18 +4,20 @@ import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
 
 # Using the documentation
 
-## Organization
+The documentation is organized into three main parts.
 
-**CORE.** The first part describes the `@chsk/core` package, which provides general-purpose components and hooks. These elements are the building blocks for constructing composite visualizations.
+Section **CORE** describes the `@chsk/core` package, which provides general-purpose infrastructure for data visualization. The section covers components, hooks, and props. Documentation pages summarize APIs and provide some illustrative examples.
 
-**ADDONS.** While the core package provides infrastructure, add-on packages provide practical elements for specific chart types. For example, add-on packages can be used to create bar charts or scatter charts. Add-on packages also provide components for chart annotations and style themes.
+Section **ADDONS** covers other packages of the `@chsk` ecosystem. These packages provide components for specific chart types, e.g. bar charts or scatter charts.
 
-**GALLERY.** The gallery contains examples of complete charts that combine multiple components.
+The **GALLERY** contains examples of visualizations that combine multiple components from the core and add-on packages. In some cases, the examples use the framework's infrastructure to create bespoke components.
 
-## Note on interactivity
+&nbsp;
 
-The documentation site is powered by [storybook](https://storybook.js.org/), and each page has a toolbar at the top with two buttons: 'Canvas' and 'Docs'.
+### Note on interactivity
 
-By default, pages appear in 'Docs' mode. Many include examples (called storybook stories) that consist of minimal charts that showcase a single element. These examples appear static in 'Docs' mode, but in many cases they are interactive widgets.
+This documentation site is powered by [storybook](https://storybook.js.org/) and includes both text-based descriptions and interactive examples.
 
-To explore the examples interactively, select the 'Canvas' button in the toolbar. The page should switch to display a single example (i.e. a single storybook story). Ensure that the 'addons' / 'controls' tab is enabled (use the storybook three-dots menu, or press 'A' on the keyboard). The controls tab should display text boxes or other form elements. Use these controls to see how various props affect rendering of the example.
+In the table of contents (on the left of the page), the text descriptions appear with the heading 'Docs'. Those pages often have a table summarizing a component's API, some illustrative examples, and descriptions that give context to the examples.
+
+The examples also appear as separate entries in the table of contents. In those views, many of the examples provide interactive controls.

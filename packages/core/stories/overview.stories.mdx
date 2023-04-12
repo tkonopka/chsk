@@ -19,18 +19,16 @@ import { CharWithAxisGridViewProps as commonViewProps } from './decorators'
 
 Package `@chsk/core` provides infrastructure for building dynamic highly-customizable charts.
 
-## Documentation
+**Components** are the building blocks for charts.
+Many components, for example `<Axis>`, create visual elements that appear within a chart. A few components, for example `<View>`, do not create visual output, but rather organize information for other components.
 
-**Components.** Components are the building blocks for charts.
-Most components, for example `<Axis>`, create lines, shapes, or text that appear within a chart. A few components, for example `<View>`, do not create visual elements, but organize information for other components.
+**Hooks** are functions that enable components to access chart state. For many use-cases, complete charts can be created with core components and add-on packages, without the need to use hooks directly. However, the functions can be useful for creating bespoke components.
 
-**Hooks.** Hooks are functions that provide access to chart state. For many use-cases, complete charts can be created with core components and add-on packages, without the need to use hooks directly. However, the functions can be useful for creating advanced bespoke components.
-
-**Props.** Many components share common sets of props. Such props are treated by topic in separate pages.
+**Props** are the inputs to component functions. In `@chsk`, all props are associated with typescript types. In addition, many props are shared and reused across many components. Some dedicated pages outline the ideas behind these common props.
 
 ## Skeletons
 
-Core components can be combined to produce chart skeletons with distinctive visual features.
+Components in `@chsk/core` can be combined to produce chart skeletons with distinctive visual features.
 
 <Canvas>
     <Story name="default">
