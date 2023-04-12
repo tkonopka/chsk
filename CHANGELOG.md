@@ -8,6 +8,9 @@
 
 ### Changed
 
+-   [core] fixed bug with handlers in `DataComponent` and
+    `TooltipDataComponent` leading to some missed and some redundant function
+    calls
 -   [documentation] miscellaneous edits, including fixes to styling
 
 ## v0.3.0

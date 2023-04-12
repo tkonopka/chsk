@@ -20,7 +20,6 @@ import { buttonTheme } from '@chsk/themes'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
 import { DownloadButtons, IconButton } from '../navigation'
-import { cloneDeep } from 'lodash'
 
 export const generateValueColorsBarData = () => {
     const now = new Date(Date.now())
@@ -80,7 +79,7 @@ const CustomRectangle = ({ width, height, style, ...props }: RectangleProps) => 
     const { scales } = useScales()
     const colorScale = scales.color
     const color = height > 0 ? colorScale(1) : colorScale(0)
-    const adjustedStyle = cloneDeep(style) ?? {}
+    const adjustedStyle = { ...style } ?? {}
     adjustedStyle.fill = undefined
     adjustedStyle.stroke = undefined
     return (
