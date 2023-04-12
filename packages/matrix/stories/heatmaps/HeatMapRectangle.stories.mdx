@@ -11,4 +11,9 @@ export const Template = args => <HeatMapCells {...args} />
 
 <ArgsTable of={HeatMapRectangle} />
 
-Note that `HeatMapRectangle` has the same API as `Rectangle` and similarly produces rectangular shapes. However, the `HeatMapRectangle` implementation does not include motion animations and always creates centered shapes. These adjustments optimize this component for the heat map setting.
+Although `HeatMapRectangle` has a complex API, its implementation is actually rudimentary and ignores most of the props.
+Notably, `HeatMapRectangle` does not support animations and always creates centered shapes.
+These adjustments optimize the component for the heat map setting.
+
+(The complex API documents the props that `HeatMapCells` passes down to the cell component,
+rather than the props that `HeatMapRectangle` uses. This should be documented differently at some point.)
