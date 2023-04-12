@@ -57,7 +57,12 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
             theme={customTheme}
         >
             <defs>
-                <ArrowMarker variant={'Winged'} id={'arrowV'} size={24} style={{ fill: '#222' }} />
+                <ArrowMarker
+                    variant={'Winged'}
+                    id={'arrowV'}
+                    size={24}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
+                />
             </defs>
             <View>
                 <MilestoneMotion initialOn={'title'}>

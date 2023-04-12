@@ -177,7 +177,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     variant={'Winged'}
                     id={'treeArrow'}
                     size={10}
-                    style={{ fill: '#222' }}
+                    style={{ fill: '#222222', fillOpacity: 1 }}
                 />
             </defs>
             <View>
