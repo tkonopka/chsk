@@ -2,8 +2,8 @@ import fs from 'fs'
 import babel from '@rollup/plugin-babel'
 import json from '@rollup/plugin-json'
 import resolve from '@rollup/plugin-node-resolve'
+import terser from '@rollup/plugin-terser'
 import cleanup from 'rollup-plugin-cleanup'
-import { terser } from 'rollup-plugin-terser'
 
 const pkg = process.env.PACKAGE
 const env = process.env.NODE_ENV ?? 'development'
