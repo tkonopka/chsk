@@ -3,6 +3,13 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts with two cartesian axes with continuous scales",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts",
+        "scatter chart",
+        "histogram"
+    ],
     "main": "./dist/chsk-xy.cjs.js",
     "module": "./dist/chsk-xy.es.js",
     "typings": "./dist/types/index.d.ts",

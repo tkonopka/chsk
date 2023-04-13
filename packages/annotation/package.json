@@ -3,6 +3,12 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for chart annotation",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts",
+        "annotation"
+    ],
     "main": "./dist/chsk-annotation.cjs.js",
     "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",

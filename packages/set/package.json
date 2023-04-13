@@ -3,6 +3,13 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for diagrams summarizing sets",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts",
+        "sets",
+        "Venn diagram"
+    ],
     "main": "./dist/chsk-set.cjs.js",
     "module": "./dist/chsk-set.es.js",
     "typings": "./dist/types/index.d.ts",

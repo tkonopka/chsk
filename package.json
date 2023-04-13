@@ -2,15 +2,17 @@
     "name": "chsk",
     "version": "0.1.0",
     "author": "Tomasz Konopka",
-    "description": "chart skeletons",
+    "description": "Library for dynamic data visualization and story-telling with React",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts"
+    ],
     "homepage": "https://github.com/tkonopka/chsk#readme",
     "repository": {
         "type": "git",
         "url": "git+https://github.com/tkonopka/chsk.git"
     },
-    "keywords": [
-        "charts"
-    ],
     "license": "MIT",
     "scripts": {
         "bootstrap": "lerna bootstrap --hoist",

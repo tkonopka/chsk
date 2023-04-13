@@ -3,6 +3,13 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts with two categorical axes",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts",
+        "heat map",
+        "upset chart"
+    ],
     "main": "./dist/chsk-matrix.cjs.js",
     "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",

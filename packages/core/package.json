@@ -3,6 +3,11 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Framework for building dynamic data visualizations",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts"
+    ],
     "main": "./dist/chsk-core.cjs.js",
     "module": "./dist/chsk-core.es.js",
     "typings": "./dist/types/index.d.ts",

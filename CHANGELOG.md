@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [all] keywords to all `package.json` files
+
 ### Changed
 
 -   [documentation] upgraded storybook to v7.0.3

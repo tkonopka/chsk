@@ -3,6 +3,13 @@
     "version": "0.4.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts using polar coordinates",
+    "keywords": [
+        "react",
+        "visualization",
+        "charts",
+        "pie chart",
+        "doughnut chart"
+    ],
     "main": "./dist/chsk-polar.cjs.js",
     "module": "./dist/chsk-polar.es.js",
     "typings": "./dist/types/index.d.ts",
