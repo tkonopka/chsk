@@ -1,0 +1,73 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Grid, GridItem } from '../../../src'
+import { GridFiller3x3 } from './decorators'
+
+# Grid
+
+<Meta title="Core/Components/Views/Grid" />
+export const Template = args => <Grid {...args} />
+
+`Grid` is an organizational component.
+It does not display any visual elements, but it conceptually splits the available chart space into a grid.
+Children components can access this grid to position their content.
+
+<ArgsTable of={Grid} />
+
+## Size
+
+Prop `size` accepts an array with integers representing the number of columns and rows in the grid.
+
+The example below creates a 3x3 grid, and populates the grid with content to visualize the layout.
+
+<Canvas>
+    <Story name="grid size">
+        <Chart
+            size={[400, 300]}
+            padding={[20, 20, 20, 20]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Grid size={[3, 3]}>
+                <GridFiller3x3 />
+            </Grid>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Spacing
+
+Prop `spacing` accepts an array with horizontal and vertical distances between columns and rows, respectively.
+
+<Canvas>
+    <Story name="spacing">
+        <Chart
+            size={[400, 300]}
+            padding={[20, 20, 20, 20]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Grid size={[3, 3]} spacing={[10, 20]}>
+                <GridFiller3x3 />
+            </Grid>
+        </Chart>
+    </Story>
+</Canvas>
+
+## Variants
+
+Prop `variant` toggles between horizontal and vertical arrangements of cells within the grid.
+The default layout is `horizontal`, in which the cells are arranged from left-to right, then down a row, and so on
+(see examples above).
+The alternative variant is `vertical`, in which the cells are arranged going downward, then across.
+
+<Canvas>
+    <Story name="vertical">
+        <Chart
+            size={[400, 300]}
+            padding={[20, 20, 20, 20]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Grid size={[3, 3]} variant={'vertical'}>
+                <GridFiller3x3 />
+            </Grid>
+        </Chart>
+    </Story>
+</Canvas>

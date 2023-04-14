@@ -1,6 +1,6 @@
-// indexes for padding arrays
 import { AlignSpec, FourSideSizeSpec, NumericPositionSpec } from './types'
 
+// indexes for padding arrays
 export const TOP = 0,
     RIGHT = 1,
     BOTTOM = 2,

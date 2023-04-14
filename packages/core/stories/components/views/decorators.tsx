@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import { Chart, View, Surface, Axis, AxisTicks } from '../../../src'
+import { Chart, View, Surface, Axis, AxisTicks, Label } from '../../../src'
+import { Grid, GridItem } from '../../../src/views'
 
 export const ChartForControllerDecorator = (Story: () => ReactNode) => (
     <Chart
@@ -90,6 +91,32 @@ export const ChartWithTimeForControllerDecorator = (Story: () => ReactNode) => {
                 </Axis>
                 {Story()}
             </View>
+        </Chart>
+    )
+}
+
+export const GridFiller3x3 = () => {
+    const indexes = Array.from(Array(9).keys())
+    return indexes.map(i => {
+        return (
+            <GridItem key={i} position={i}>
+                <Surface style={{ stroke: '#222222', strokeWidth: 1 }} />
+                <Label position={[0, 0]} size={[20, 20]} anchor={[0, 0]} align={[0.5, 0.5]}>
+                    {i}
+                </Label>
+            </GridItem>
+        )
+    })
+}
+
+export const ChartWithGridDecorator = (Story: () => ReactNode) => {
+    return (
+        <Chart
+            size={[400, 300]}
+            padding={[20, 20, 20, 20]}
+            style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+        >
+            <Grid size={[3, 3]}>{Story()}</Grid>
         </Chart>
     )
 }

@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     FourSideSizeSpec,
     NumericPositionSpec,
@@ -10,6 +10,7 @@ import {
     ContainerProps,
     CssProps,
     DimensionsProviderProps,
+    SizeSpec,
 } from '../general'
 import {
     AxisScaleProps,
@@ -139,4 +140,39 @@ export interface ViewControllerProps
     modifiers?: DataInteractivityModifiers
     /** style for selection rectangle */
     boxStyle?: CssProps
+}
+
+/** Grids */
+
+type GridVariant = 'horizontal' | 'vertical'
+
+export interface GridContextProps {
+    /** size of grid as [rows, columns] */
+    size: SizeSpec
+    /** variant */
+    variant: GridVariant
+    /** size of individual grid item */
+    itemSize: SizeSpec
+    /** positions of grid items */
+    itemPositions?: NumericPositionSpec[]
+}
+
+export interface GridProps extends SvgElementVariantProps {
+    /** variant, order of grid items in grid */
+    variant?: GridVariant
+    /** location of grid */
+    container?: ContainerProps
+    /** size of grid as [rows, columns] */
+    size?: SizeSpec
+    /** spacing between rows and columns */
+    spacing?: SizeSpec
+    /** children */
+    children?: ReactNode
+}
+
+export interface GridItemProps extends SvgElementProps {
+    /** position of item in grid as [row, column] indexes, or as a linearized index */
+    position?: NumericPositionSpec | number
+    /** children */
+    children?: ReactNode
 }

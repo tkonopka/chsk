@@ -1,0 +1,51 @@
+import { ArgsTable, Canvas, Meta, Source, Story } from '@storybook/addon-docs'
+import { Surface, GridItem } from '../../../src'
+import { ChartWithGridDecorator } from './decorators'
+
+# GridItem
+
+<Meta title="Core/Components/Views/GridItem" />
+export const Template = args => <GridItem {...args} />
+
+`GridItem` is an organizational component to be used within a `Grid` environment.
+It does not display any visual elements, but it sets up a local container that matches a cell in a grid.
+
+<ArgsTable of={GridItem} />
+
+## Position
+
+Prop `position` specifies a location within a grid.
+This can be specified as a pair of integers indicating the column index and row index,
+or as a single number indicating the cell index (see prop `variant` in `Grid`).
+
+The examples below set up a 3x3 grid, and a `GridItem` is used to create a local coordinate system in one of the cells.
+A `Surface` component fills that cell with color.
+
+<Canvas>
+    <Story
+        name="index"
+        args={{
+            position: 2,
+            children: <Surface style={{ fill: '#ddaaaa' }} />,
+        }}
+        component={GridItem}
+        decorators={[ChartWithGridDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="position"
+        args={{
+            position: [2, 1],
+            children: <Surface style={{ fill: '#ddaaaa' }} />,
+        }}
+        component={GridItem}
+        decorators={[ChartWithGridDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that when referring to a grid, matrix, or data frame, an often-used convention
+is to specify locations as '[row, column]'. However, `GridItem` interprets `position`
+as '[column, row]' for consistency with other position props that specify [x, y] coordinates.

@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { RawDataContextProps, ProcessedDataContextProps } from './types'
+import { RawDataContextProps, ProcessedDataContextProps, GridContextProps } from './types'
 
 /** Context for data in original format */
 
@@ -36,3 +36,28 @@ export const ProcessedDataProvider = function ({
 }
 
 export const useProcessedData = () => useContext(ProcessedDataContext)
+
+/** Context for grid layout */
+
+export const GridContext = createContext({
+    size: [2, 2],
+    variant: 'horizontal',
+    itemSize: [0, 0],
+    itemPositions: [],
+} as GridContextProps)
+
+export const GridProvider = function ({
+    size,
+    variant,
+    itemSize,
+    itemPositions,
+    children,
+}: GridContextProps & { children: ReactNode }) {
+    return (
+        <GridContext.Provider value={{ size, variant, itemSize, itemPositions }}>
+            {children}
+        </GridContext.Provider>
+    )
+}
+
+export const useGrid = () => useContext(GridContext)

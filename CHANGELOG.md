@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] components `Grid` and `GridItem` to arrange complex content in a
+    grid layout
 -   [all] keywords to all `package.json` files
 
 ### Changed
