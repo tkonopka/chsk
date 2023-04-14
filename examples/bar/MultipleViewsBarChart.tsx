@@ -1,10 +1,6 @@
 import {
     Chart,
-    ContainerProps,
     Axis,
-    AxisLabel,
-    AxisLine,
-    AxisTicks,
     GridLines,
     ThemeSpec,
     Tooltip,
@@ -19,11 +15,13 @@ import {
     TooltipProvider,
     TooltipData,
     TooltipDataItem,
+    Grid,
+    GridItem,
 } from '@chsk/core'
 import { BandSurface, Bar, Bars, BarsLabels } from '@chsk/band'
 import { generateKeyValues } from './generators'
 import { MilestoneStory } from '../types'
-import { createElement, MouseEvent, ReactNode, useCallback, useState } from 'react'
+import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { clone, merge } from 'lodash'
 import { InsetColorFilter } from '@chsk/annotation'
 
@@ -104,6 +102,9 @@ const multiviewTheme: ThemeSpec = {
             distance: 10,
         },
     },
+    AxisTicks: {
+        left: { tickSize: 0 },
+    },
     Tooltip: {
         default: {
             itemSize: [120, 26],
@@ -165,10 +166,9 @@ const GlobalHoverDataComponent = <
             handlers?.onMouseEnter?.(data, event)
             if (modifiers?.onMouseEnter) {
                 setComponentStyle(merge(clone(style), modifiers.onMouseEnter))
-                setKey(key => key + 1)
             }
         },
-        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle]
     )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -176,10 +176,9 @@ const GlobalHoverDataComponent = <
             handlers?.onMouseMove?.(data, event)
             if (modifiers?.onMouseMove) {
                 setComponentStyle(merge(clone(style), modifiers.onMouseMove))
-                setKey(key => key + 1)
             }
         },
-        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle]
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
@@ -191,17 +190,16 @@ const GlobalHoverDataComponent = <
                 setKey(key => key + 1)
             }
         },
-        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, key, setKey]
+        [data, handleTooltip, handlers, modifiers, style, setComponentStyle, setKey]
     )
     const handleClick = useCallback(
         (event: MouseEvent) => {
             handlers?.onClick?.(data, event)
             if (modifiers?.onClick) {
                 setComponentStyle(merge(clone(style), modifiers.onClick))
-                setKey(key => key + 1)
             }
         },
-        [data, handlers, modifiers, style, setComponentStyle, key, setKey]
+        [data, handlers, modifiers, style, setComponentStyle]
     )
 
     return createElement(component, {
@@ -215,19 +213,27 @@ const GlobalHoverDataComponent = <
     })
 }
 
-// custom React layer that transfers information from chart context to a tooltip context
-const ActiveIdTooltipProvider = ({ children }: { children: ReactNode }) => {
+// layer that transfers information from chart context to a tooltip context and displays a band surface
+const ActiveIdSurface = ({ expansion }: { expansion: [number, number] }) => {
     const { data: chartData } = useChartData()
     const { data: tooltipData, setData } = useTooltip()
-    // set tooltip data with priority: existing tooltip info, info from chart data, empty object
+    // set tooltip data: existing tooltip info when available, info from chart data, fallback to empty object
     let compositeData: TooltipData = {}
-    if (chartData.activeId) {
-        compositeData = { data: [{ id: String(chartData.activeId) }] }
-    }
     if (tooltipData.x !== undefined) {
         compositeData = tooltipData
+    } else if (chartData.activeId) {
+        compositeData = { data: [{ id: String(chartData.activeId) }] }
     }
-    return <TooltipProvider value={{ data: compositeData, setData }}>{children}</TooltipProvider>
+    return (
+        <TooltipProvider value={{ data: compositeData, setData }}>
+            <BandSurface
+                tooltip={true}
+                interactive={true}
+                expansion={expansion}
+                dataComponent={GlobalHoverDataComponent}
+            />
+        </TooltipProvider>
+    )
 }
 
 const customTooltipLabel = (x: TooltipDataItem) => {
@@ -235,20 +241,9 @@ const customTooltipLabel = (x: TooltipDataItem) => {
 }
 
 export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
-    const containerA: ContainerProps = {
-        size: [0.333, 1],
-        position: [0, 0],
-        positionUnits: 'relative',
-    }
-    const containerB: ContainerProps = {
-        size: [0.333, 1],
-        position: [0.35, 0],
-        positionUnits: 'relative',
-    }
-    const containerC: ContainerProps = {
-        size: [0.333, 1],
-        position: [0.7, 0],
-        positionUnits: 'relative',
+    const modifiers = {
+        onMouseEnter: { filter: 'url(#darker)' },
+        onMouseLeave: {},
     }
     return (
         <Chart
@@ -260,74 +255,42 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             theme={multiviewTheme}
         >
             <InsetColorFilter id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
-            <Bar container={containerA} {...multiviewBarProps} data={rawData} keys={['alpha']}>
-                <ActiveIdTooltipProvider>
-                    <BandSurface
-                        tooltip={true}
-                        interactive={true}
-                        expansion={[0, 8]}
-                        dataComponent={GlobalHoverDataComponent}
-                    />
-                </ActiveIdTooltipProvider>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'}>Alpha</AxisLabel>
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars
-                    dataComponent={GlobalHoverDataComponent}
-                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-                />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-                <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} tickSize={0} />
-                </Axis>
-                <Tooltip labelFormat={customTooltipLabel} />
-            </Bar>
-            <Bar container={containerB} {...multiviewBarProps} data={rawData} keys={['beta']}>
-                <ActiveIdTooltipProvider>
-                    <BandSurface
-                        tooltip={true}
-                        interactive={true}
-                        expansion={[0, 8]}
-                        dataComponent={GlobalHoverDataComponent}
-                    />
-                </ActiveIdTooltipProvider>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'}>Beta</AxisLabel>
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars
-                    dataComponent={GlobalHoverDataComponent}
-                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-                />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-                <Tooltip labelFormat={customTooltipLabel} />
-            </Bar>
-            <Bar container={containerC} {...multiviewBarProps} data={rawData} keys={['gamma']}>
-                <ActiveIdTooltipProvider>
-                    <BandSurface
-                        tooltip={true}
-                        interactive={true}
-                        dataComponent={GlobalHoverDataComponent}
-                    />
-                </ActiveIdTooltipProvider>
-                <GridLines variant={'y'} shift={[-0.6]} />
-                <Axis variant={'top'}>
-                    <AxisLine variant={'top'} />
-                    <AxisLabel variant={'top'}>Gamma</AxisLabel>
-                </Axis>
-                <Axis variant={'bottom'} ticks={[]} />
-                <Bars
-                    dataComponent={GlobalHoverDataComponent}
-                    modifiers={{ onMouseEnter: { filter: 'url(#darker)' }, onMouseLeave: {} }}
-                />
-                <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
-                <Tooltip labelFormat={customTooltipLabel} />
-            </Bar>
+            <Grid size={[3, 1]} spacing={[10, 0]}>
+                <GridItem position={0}>
+                    <Bar {...multiviewBarProps} data={rawData} keys={['alpha']}>
+                        <ActiveIdSurface expansion={[0, 10]} />
+                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <Axis variant={'top'} label={'Alpha'} ticks={[]} />
+                        <Axis variant={'bottom'} ticks={[]} />
+                        <Axis variant={'left'} />
+                        <Bars dataComponent={GlobalHoverDataComponent} modifiers={modifiers} />
+                        <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                        <Tooltip labelFormat={customTooltipLabel} />
+                    </Bar>
+                </GridItem>
+                <GridItem position={1}>
+                    <Bar {...multiviewBarProps} data={rawData} keys={['beta']}>
+                        <ActiveIdSurface expansion={[0, 10]} />
+                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <Axis variant={'top'} label={'Beta'} ticks={[]} />
+                        <Axis variant={'bottom'} ticks={[]} />
+                        <Bars dataComponent={GlobalHoverDataComponent} modifiers={modifiers} />
+                        <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                        <Tooltip labelFormat={customTooltipLabel} />
+                    </Bar>
+                </GridItem>
+                <GridItem position={2}>
+                    <Bar {...multiviewBarProps} data={rawData} keys={['gamma']}>
+                        <ActiveIdSurface expansion={[0, 0]} />
+                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <Axis variant={'top'} label={'Gamma'} ticks={[]} />
+                        <Axis variant={'bottom'} ticks={[]} />
+                        <Bars dataComponent={GlobalHoverDataComponent} modifiers={modifiers} />
+                        <BarsLabels showOuter={true} align={[0, 0.5]} minSize={[24, 10]} />
+                        <Tooltip labelFormat={customTooltipLabel} />
+                    </Bar>
+                </GridItem>
+            </Grid>
         </Chart>
     )
 }

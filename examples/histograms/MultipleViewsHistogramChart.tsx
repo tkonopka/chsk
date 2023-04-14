@@ -8,10 +8,11 @@ import {
     Surface,
     ThemeSpec,
     Typography,
-    ContainerProps,
+    Grid,
+    GridItem,
 } from '@chsk/core'
 import { BoxedLabel } from '@chsk/annotation'
-import { Histogram, HistogramCurve, isHistogramData } from '@chsk/xy'
+import { Histogram, HistogramCurve, HistogramProps, isHistogramData } from '@chsk/xy'
 import { generateMixedPopulation, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
 
@@ -69,36 +70,34 @@ const multiviewTheme: ThemeSpec = {
 }
 
 // props for Histograms
-const multiviewHistogramProps = {
-    units: 'relative' as const,
+const multiviewHistogramProps: Pick<HistogramProps, 'variant' | 'breaks' | 'scaleX' | 'scaleY'> = {
+    variant: 'density',
     breaks: stepSequence([-3, 4], 0.4),
-    variant: 'density' as const,
-    scaleX: {
-        variant: 'linear' as const,
-        domain: [-3, 4] as [number, number],
-    },
-    scaleY: {
-        variant: 'linear' as const,
-        domain: [0, 0.55] as [number, number],
-    },
+    scaleX: { variant: 'linear', domain: [-3, 4] },
+    scaleY: { variant: 'linear', domain: [0, 0.55] },
 }
 
-// animation settings for boxed label
-const boxedLabelInitial = {
-    opacity: 1,
-    scale: 1.5,
-}
-const boxedLabelTransition = {
-    type: 'spring' as const,
-    delay: 0.5,
-    duration: 1.0,
+// an animated label that first appears large, then positions itself in a corner
+const AppearingLabel = ({ enterOn, n }: { enterOn: string; n: number }) => {
+    const initial = { opacity: 1, scale: 1.5 }
+    const transition = { type: 'spring' as const, delay: 0.5, duration: 1.0 }
+    return (
+        <MilestoneMotion initial={initial} initialOn={enterOn} exit={null} transition={transition}>
+            <BoxedLabel
+                position={[1, 0]}
+                positionUnits={'relative'}
+                size={[60, 24]}
+                sizeUnits={'absolute'}
+                anchor={[1, 0]}
+            >
+                {'n = ' + n}
+            </BoxedLabel>
+        </MilestoneMotion>
+    )
 }
 
 export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isHistogramData(rawData)) return null
-    const containerA: ContainerProps = { size: [0.333, 1], position: [0, 0] }
-    const containerB: ContainerProps = { size: [0.333, 1], position: [0.35, 0] }
-    const containerC: ContainerProps = { size: [0.333, 1], position: [0.7, 0] }
     return (
         <Chart
             data={chartData}
@@ -108,88 +107,45 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             padding={[60, 40, 40, 60]}
             theme={multiviewTheme}
         >
-            <MilestoneMotion initialOn={'small'}>
-                <Histogram container={containerA} {...multiviewHistogramProps} data={rawData}>
-                    <GridLines variant={'y'} shift={[-0.6]} />
-                    <Surface />
-                    <Axis variant={'bottom'} />
-                    <HistogramCurve ids={['small']} />
-                    <Axis variant={'left'}>
-                        <AxisTicks variant={'left'} tickSize={0} />
-                        <AxisLabel variant={'left'}>probability density</AxisLabel>
-                    </Axis>
-                    <MilestoneMotion
-                        initial={boxedLabelInitial}
-                        initialOn={'small'}
-                        exit={null}
-                        transition={boxedLabelTransition}
-                    >
-                        <BoxedLabel
-                            position={[1, 0]}
-                            positionUnits={'relative'}
-                            size={[60, 24]}
-                            sizeUnits={'absolute'}
-                            offset={[-30, 12]}
-                        >
-                            {'n = ' + rawData[0].data.length}
-                        </BoxedLabel>
+            <Grid size={[3, 1]} spacing={[6, 0]}>
+                <GridItem position={0}>
+                    <MilestoneMotion initialOn={'small'}>
+                        <Histogram {...multiviewHistogramProps} data={rawData}>
+                            <GridLines variant={'y'} />
+                            <Surface />
+                            <Axis variant={'bottom'} />
+                            <HistogramCurve ids={['small']} />
+                            <Axis variant={'left'}>
+                                <AxisTicks variant={'left'} tickSize={0} />
+                                <AxisLabel variant={'left'}>probability density</AxisLabel>
+                            </Axis>
+                            <AppearingLabel enterOn={'small'} n={rawData[0].data.length} />
+                        </Histogram>
                     </MilestoneMotion>
-                </Histogram>
-            </MilestoneMotion>
-            <MilestoneMotion initialOn={'medium'}>
-                <Histogram container={containerB} {...multiviewHistogramProps} data={rawData}>
-                    <GridLines variant={'y'} shift={[-0.6]} />
-                    <Surface />
-                    <Axis variant={'bottom'} label={'values (a.u.)'} />
-                    <HistogramCurve ids={['medium']} />
-                    <Axis variant={'left'}>
-                        <AxisTicks variant={'left'} tickSize={0} ticks={[]} />
-                    </Axis>
-                    <MilestoneMotion
-                        initial={boxedLabelInitial}
-                        initialOn={'small'}
-                        exit={null}
-                        transition={boxedLabelTransition}
-                    >
-                        <BoxedLabel
-                            position={[1, 0]}
-                            positionUnits={'relative'}
-                            size={[60, 24]}
-                            sizeUnits={'absolute'}
-                            offset={[-30, 12]}
-                        >
-                            {'n = ' + rawData[1].data.length}
-                        </BoxedLabel>
+                </GridItem>
+                <GridItem position={1}>
+                    <MilestoneMotion initialOn={'medium'}>
+                        <Histogram {...multiviewHistogramProps} data={rawData}>
+                            <GridLines variant={'y'} />
+                            <Surface />
+                            <Axis variant={'bottom'} label={'values (a.u.)'} />
+                            <HistogramCurve ids={['medium']} />
+                            <AppearingLabel enterOn={'medium'} n={rawData[1].data.length} />
+                        </Histogram>
                     </MilestoneMotion>
-                </Histogram>
-            </MilestoneMotion>
-            <MilestoneMotion initialOn={'large'}>
-                <Histogram container={containerC} {...multiviewHistogramProps} data={rawData}>
-                    <GridLines variant={'y'} shift={[-0.6]} />
-                    <Surface />
-                    <Axis variant={'bottom'} />
-                    <HistogramCurve ids={['large']} />
-                    <Axis variant={'left'}>
-                        <AxisTicks variant={'left'} tickSize={0} ticks={[]} />
-                    </Axis>
-                    <MilestoneMotion
-                        initial={boxedLabelInitial}
-                        initialOn={'small'}
-                        exit={null}
-                        transition={boxedLabelTransition}
-                    >
-                        <BoxedLabel
-                            position={[1, 0]}
-                            positionUnits={'relative'}
-                            size={[60, 24]}
-                            sizeUnits={'absolute'}
-                            offset={[-30, 12]}
-                        >
-                            {'n = ' + rawData[2].data.length}
-                        </BoxedLabel>
+                </GridItem>
+                <GridItem position={2}>
+                    <MilestoneMotion initialOn={'large'}>
+                        <Histogram {...multiviewHistogramProps} data={rawData}>
+                            <GridLines variant={'y'} />
+                            <Surface />
+                            <Axis variant={'bottom'} />
+                            <HistogramCurve ids={['large']} />
+                            <AppearingLabel enterOn={'large'} n={rawData[2].data.length} />
+                        </Histogram>
                     </MilestoneMotion>
-                </Histogram>
-            </MilestoneMotion>
+                </GridItem>
+            </Grid>
             <Typography variant={'title'} position={[0, -40]}>
                 Three measurements of the same distribution
             </Typography>
