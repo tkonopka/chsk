@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [documentation] tables with prop names and typings for commonly used core
+    props
 -   [core] components `Grid` and `GridItem` to arrange complex content in a
     grid layout
 -   [all] keywords to all `package.json` files

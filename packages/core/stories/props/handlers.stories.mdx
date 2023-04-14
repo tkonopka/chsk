@@ -1,31 +1,33 @@
-import { Meta, Source } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Source } from '@storybook/addon-docs'
+import { MockHandlers, MockDataHandlers } from './mocks'
 
 <Meta title="Core/Props/Handlers" />
 
 # Handlers
 
-Handlers are functions that perform bespoke actions in response to user interactions.
-In chsk, there are two types of handlers - one type that applies to individual components,
-and another that is used by components that create many visual elements in batch.
+Handlers are functions that perform actions in response to user interactions.
+There are two types of handlers: those associated with individual components,
+and those associated with data elements in batch.
 
 ## Handlers for individual components
 
 Components such as `Rectangle` and `Path` create single visual elements on a chart.
-Such components accept handlers for common mouse events: mouse enter, mouse move, mouse leave, and click.
+They accept handlers for common mouse events: mouse enter, mouse move, mouse leave, and click.
 
-Handlers for individual components receive as input an object summarizing the triggering event.
+<ArgsTable of={MockHandlers} />
+
+Handlers for individual components receive an object summarizing the triggering event.
 A custom implementation is as follows.
 
 <Source
     language="javascript"
     code={`
 const handleIndividualClick = (event) => {
-  console.log('handling event')
+  console.log('click')
 }`}
 />
 
-Such a custom handler can be provided to a component via one of the handler props: `onMouseEnter`,
-`onMouseMove`, `onMouseLeave`, and `onClick`.
+Such a custom handler can be provided to a component directly, for example:
 
 <Source
     language="javascript"
@@ -36,11 +38,14 @@ Such a custom handler can be provided to a component via one of the handler prop
 
 ## Data-dependent handlers
 
-Some components, especially in add-on packages, create several visual components in batch based on a dataset.
-For example, `Bars` (from the `@chsk/band` package) creates many rectangles to represent bars in a bar chart.
-In such scenarios, handlers receive two inputs: a data object and another object summarizing the triggering event.
+Some components, especially in add-on packages, create several visual elements in batch.
+(As an example, consider `Bars` from the `@chsk/band` package, which creates many rectangles to display a bar chart.)
+Those components have a prop `handlers` that accepts a group of functions that mimic the handlers above, but
+receive two inputs: a data object along with an object summarizing the triggering event.
 
-An implementation of a custom handler can have two arguments.
+<ArgsTable of={MockDataHandlers} />
+
+An implementation of a custom handler would be as follows.
 
 <Source
     language="javascript"
@@ -51,7 +56,7 @@ const handleDataClick = (data, event) => {
 />
 
 The content of the data object varies.
-In the bar chart context, for example, it would contain identifiers and data values for bars in the chart.
+In the bar chart context, for example, it would contain an identifier and a value associated with the size of a bar.
 
 Data-dependent handlers should be grouped and provided as a single prop `handlers`.
 
@@ -61,8 +66,3 @@ Data-dependent handlers should be grouped and provided as a single prop `handler
 <Bars handlers={{ onClick: handleDataClick }} />
 `}
 />
-
-This API with prop `handlers` is a design choice with following rationale:
-(1) it emphasizes the difference in functional signature for data-dependent and individual handlers;
-(2) it provides some consistency with definitions for style modifiers (see section on style modifiers);
-(3) it allows components such as `Bars` to group props and simplify internal prop propagation.

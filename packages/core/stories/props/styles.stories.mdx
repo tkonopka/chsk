@@ -1,4 +1,5 @@
-import { Meta, Source } from '@storybook/addon-docs'
+import { ArgsTable, Meta, Source } from '@storybook/addon-docs'
+import { MockStyles } from './mocks'
 
 <Meta title="Core/Props/Styles" />
 
@@ -6,59 +7,65 @@ import { Meta, Source } from '@storybook/addon-docs'
 
 Style props tune the visual appearance of chart elements.
 
-## `className`
+<ArgsTable of={MockStyles} />
 
-The prop `className` accepts a string. Its value is passed to an svg component as a class.
+### Css classes
+
+Most components support a prop `className`, which accepts a string. Its value is passed to an svg component as a css class.
 
 <Source
     language="javascript"
     code={`
-// source JS code
+// JS source code
 
-<Circle r={2} class={'special'}} />
+<Circle r={2} className={'special'}} />
 
-// resulting SVG code
+// SVG output
 
 <circle role="default" r="2" class="special"></circle>
 `} />
 
-If the class is included in the global chart style, it will affect the appearance of the svg element.
-To include the class in the global chart style, create a `<style>` tag inside the chart, or use themes.
+If the class matches existing css definitions, those definitions will affect the appearance of the svg element.
+To create css definitions for a class, create a `<style>` tag inside the chart, or use themes.
 
-## `style`
+### Inline styles
 
-The prop `style` accepts css definitions. These custom styles are applied inline to individual svg components.
+Prop `style` accepts inline css definitions.
 
 In the example below, a `Circle` component is given a unique set of visual properties, which are passed to the svg graphic.
 
 <Source
     language="javascript"
     code={`
-// source JS code
+// JS source code
 
 <Circle r={2} style={{ stroke: 'red', strokeWidth: '2px' }} />
 
-// resulting SVG code
+// SVG output
 
 <circle role="default" r="2" style="stroke: red; stroke-width: 2px;"></circle>
 `} />
 
-## `variant`
+### Variants
 
-The prop `variant` is used to assign a semantic role and a visual style to a component.
+Prop `variant` is intended to toggle between different forms of a component.
+For components that wrap base SVG elements, the prop also doubles as an automatic style class.
 
-The detailed behavior of the prop is component-dependent. However, one of the effects of the prop is that
-it's value is copied as a class name in the resulting svg. Thus, values for the `variant` prop are
-automatically used as css class names.
+In the example below, a typography component uses a custom variant string,
+which is automatically converted into a class name.
 
 <Source
     language="javascript"
     code={`
-// source JS code
+// JS source code
 
-<Typography variant={'title'}>Title</Typography>
+<Typography variant={'my-title'}>Title</Typography>
 
-// resulting SVG code
+// SVG output
 
-<text class="title">Title</text>
+<text role="my-title" class="myTitle">
+    Title
+</text>
 `} />
+
+To create css definitions for a variant, create a `<style>` tag inside the chart, or use themes.

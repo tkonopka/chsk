@@ -1,4 +1,11 @@
-import { Meta, Source } from '@storybook/addon-docs'
+import { Meta, Source, ArgsTable } from '@storybook/addon-docs'
+import {
+    MockColors,
+    MockCategoricalScale,
+    MockSequentialScale,
+    MockDivergingScale,
+    MockThresholdScale,
+} from './mocks'
 
 <Meta title="Core/Props/Colors" />
 
@@ -7,12 +14,17 @@ import { Meta, Source } from '@storybook/addon-docs'
 While colors for individual components can be set via css styles with props such as `style`
 (sometimes `labelStyle`, `symbolStyle` or similar), color schemes are set via scales with prop `scaleColor`.
 
+<ArgsTable of={MockColors} />
+
 Color scales are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), with minor adjustments.
 They are specified with objects that define a scale variant, domain, and other properties.
 
 ## Categorical colors
 
 Categorical scales use a discrete set of colors.
+
+<ArgsTable of={MockCategoricalScale} />
+
 The example below defines a custom scale by explicitly listing color codes.
 
 <Source
@@ -52,9 +64,16 @@ import { schemeBlues } from 'd3-scale-chromatic'
 `}
 />
 
+When using color schemes, it is especially relevant to set `size` to select
+the number of desired colors.
+
 ## Sequential colors
 
-Sequential scales convert numbers from a domain into continuous color shades. Simple scales are defined by two values
+Sequential scales convert numbers from a domain into continuous color shades.
+
+<ArgsTable of={MockSequentialScale} />
+
+Simple scales are defined by two values
 representing domain edges, and two colors representing edge colors.
 
 <Source
@@ -96,7 +115,11 @@ Note this example also uses the imported interpolation function.
 ## Diverging colors
 
 Diverging color scales are similar to sequential colors, except that the domain is defined with an additional 'center'
-point. The example below defines a blue-white-red scheme centered at a value zero.
+point.
+
+<ArgsTable of={MockDivergingScale} />
+
+The example below defines a blue-white-red scheme centered at a value zero.
 
 <Source
     language="javascript"
@@ -114,6 +137,9 @@ Several interpolators are readily available from [d3-scale-chromatic](https://gi
 ## Threshold colors
 
 Threshold color scales map numbers into a discrete set of colors using thresholds.
+
+<ArgsTable of={MockThresholdScale} />
+
 The example below creates a three-color scheme based on two thresholds.
 
 <Source

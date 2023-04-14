@@ -1,0 +1,50 @@
+import { Meta, Source, ArgsTable } from '@storybook/addon-docs'
+import { MockContainer } from './mocks'
+
+<Meta title="Core/Props/Containers" />
+
+# Containers
+
+Container props define a rectangular region inside an existing container, view, or chart.
+
+<ArgsTable of={MockContainer} />
+
+These props may appear in the API of a component, as in `Label`.
+Alternatively, they may be grouped into a single `container` prop, as in `View`.
+Either way, they always carry the same meaning.
+
+### Position
+
+`position` is a two-element array that specifies [x, y] coordinates for the container.
+The exact meaning of these coordinates is dependent on prop `anchor` (see below), but
+default settings typically set these coordinates as the top-left corner of a rectangle.
+
+The position coordinates can be specified in absolute svg units, as fractions of an existing/parent container,
+or using view-specific coordinates. These modes are toggled with prop `positionUnits`, taking values as 'absolute',
+'relative', and 'view', respectively.
+
+### Size
+
+`size` is a two-element array that specifies the [width, height] of the container region.
+
+Values can be specified in absolute svg units, as fractions of an existing/parent container,
+or using view-specific coordinates. These modes are toggled with prop `sizeUnits`.
+
+### Anchor
+
+`anchor` is a two-element array that determines the interpretation of the `position`.
+
+As an example, an anchor of `[0.5, 0.5]` means that the center of a container rectangle will be
+located at `position`. An anchor of `[0, 0]` means that the position is the top-left corner of the rectangle.
+
+### Padding
+
+`padding` is a four-element array that determines space along the top, right, bottom, and left
+boundaries of the container, in that order. Padding always uses absolute svg values.
+
+### Offset
+
+`offset` is a two-element array that always uses absolute svg coordinates.
+It translates the container by a fixed amount.
+The translation is always applied as a final step in container placement,
+i.e. after calculations determined by `position`, `size`, `padding`, and `anchor`.

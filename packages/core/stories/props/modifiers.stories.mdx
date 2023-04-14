@@ -1,17 +1,16 @@
-import { Canvas, Meta, Source } from '@storybook/addon-docs'
+import { ArgsTable, Canvas, Meta, Source } from '@storybook/addon-docs'
+import { MockModifiers } from './mocks'
 
 <Meta title="Core/Props/Modifiers" />
 
 # Modifiers
 
 Modifiers are style definitions that augment a base style.
-They can be used to adjust visual appearance in response to events.
+They can be used to adjust visual appearance in response to mouse events.
 
-In the `@chsk/core` package, modifiers are used in the low-level `DataComponent` and `TooltipDataComponent` functions.
-In practice, modifiers are more often used by add-on packages. They can be used, for example,
-to change fill or stroke properties as the mouse hovers over data elements.
+<ArgsTable of={MockModifiers} />
 
-As an example, consider the following modifiers object.
+Modifier styles should be grouped into one objects. As an example, consider the following object.
 
 <Source
     language="javascript"
@@ -32,8 +31,7 @@ When creating a bars in a bar chart with `Bars`, this object can be provided to 
 `}
 />
 
-As a result, bars in the chart should adjust their appearance in response to the mouse events specified
-in the custom modifiers object, i.e. mouse enter, mouse click, and mouse leave.
+As a result, bars in the chart should adjust their appearance in response to mouse events.
 
 Note that style modifications are not animated by the chsk framework.
-However, styles in the modifiers may contain [css animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).
+However, styles may contain [css animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).
