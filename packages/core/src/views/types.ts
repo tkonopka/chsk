@@ -148,13 +148,13 @@ type GridVariant = 'horizontal' | 'vertical'
 
 export interface GridContextProps {
     /** size of grid as [rows, columns] */
-    size: SizeSpec
+    grid: SizeSpec
     /** variant */
     variant: GridVariant
-    /** size of individual grid item */
-    itemSize: SizeSpec
-    /** positions of grid items */
-    itemPositions?: NumericPositionSpec[]
+    /** sizes of all grid items */
+    sizes: SizeSpec[]
+    /** positions of all grid items */
+    positions: NumericPositionSpec[]
 }
 
 export interface GridProps extends SvgElementVariantProps {
@@ -162,10 +162,14 @@ export interface GridProps extends SvgElementVariantProps {
     variant?: GridVariant
     /** location of grid */
     container?: ContainerProps
-    /** size of grid as [rows, columns] */
-    size?: SizeSpec
+    /** size of grid as [columns, rows] */
+    grid?: SizeSpec
     /** spacing between rows and columns */
     spacing?: SizeSpec
+    /** relative widths of columns */
+    widths?: number[]
+    /** relative heights of columns */
+    heights?: number[]
     /** children */
     children?: ReactNode
 }

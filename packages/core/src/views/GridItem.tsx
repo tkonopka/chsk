@@ -11,15 +11,15 @@ export const GridItem = ({
 }: GridItemProps) => {
     const grid = useGrid()
 
-    let itemIndex = 0
+    let index = 0
     if (Array.isArray(position)) {
         if (grid.variant === 'horizontal') {
-            itemIndex = position[X] + grid.size[Y] * position[Y]
+            index = position[X] + grid.grid[Y] * position[Y]
         } else if (grid.variant === 'vertical') {
-            itemIndex = position[X] * grid.size[X] + position[Y]
+            index = position[X] * grid.grid[X] + position[Y]
         }
     } else {
-        itemIndex = position
+        index = position
     }
 
     return (
@@ -27,10 +27,10 @@ export const GridItem = ({
             role={setRole ? 'grid-item' : undefined}
             className={className}
             style={style}
-            transform={getTranslate(grid.itemPositions?.[itemIndex] ?? [0, 0])}
+            transform={getTranslate(grid.positions?.[index] ?? [0, 0])}
         >
             <DimensionsProvider
-                size={grid.itemSize}
+                size={grid.sizes?.[index] ?? [0, 0]}
                 padding={zeroPadding}
                 role={'grid-item-content'}
             >

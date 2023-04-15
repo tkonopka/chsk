@@ -11,7 +11,7 @@ describe('GridItem', () => {
     it('creates a grid item with index', () => {
         render(
             <Chart {...chartProps}>
-                <Grid size={[4, 4]}>
+                <Grid grid={[4, 4]}>
                     <GridItem position={1} />
                     <GridItem position={6} />
                 </Grid>
@@ -29,7 +29,7 @@ describe('GridItem', () => {
     it('creates a grid item with position', () => {
         render(
             <Chart {...chartProps}>
-                <Grid size={[4, 4]} variant={'vertical'}>
+                <Grid grid={[4, 4]} variant={'vertical'}>
                     <GridItem position={[1, 2]} />
                     <GridItem position={[0, 3]} />
                 </Grid>
@@ -45,7 +45,7 @@ describe('GridItem', () => {
     it('creates a dimensions provider that affect children', () => {
         render(
             <Chart {...chartProps}>
-                <Grid size={[4, 4]} variant={'vertical'}>
+                <Grid grid={[4, 4]} variant={'vertical'}>
                     <GridItem position={[1, 2]}>
                         <Surface />
                     </GridItem>

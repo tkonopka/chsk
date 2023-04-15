@@ -116,7 +116,7 @@ export const ChartWithGridDecorator = (Story: () => ReactNode) => {
             padding={[20, 20, 20, 20]}
             style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
         >
-            <Grid size={[3, 3]}>{Story()}</Grid>
+            <Grid grid={[3, 3]}>{Story()}</Grid>
         </Chart>
     )
 }

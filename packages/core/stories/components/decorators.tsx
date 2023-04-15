@@ -12,6 +12,16 @@ export const DivDecorator = (Story: () => ReactNode) => (
     </div>
 )
 
+export const ChartPlainDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[40, 40, 40, 40]}
+        style={{ margin: '0.5em', border: 'solid 1px #aa3333', display: 'inline-block' }}
+    >
+        {Story()}
+    </Chart>
+)
+
 export const ChartDecorator = (Story: () => ReactNode) => (
     <Chart
         size={[400, 300]}

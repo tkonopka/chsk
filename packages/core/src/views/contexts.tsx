@@ -40,21 +40,21 @@ export const useProcessedData = () => useContext(ProcessedDataContext)
 /** Context for grid layout */
 
 export const GridContext = createContext({
-    size: [2, 2],
+    grid: [2, 2],
     variant: 'horizontal',
-    itemSize: [0, 0],
-    itemPositions: [],
+    sizes: [],
+    positions: [],
 } as GridContextProps)
 
 export const GridProvider = function ({
-    size,
+    grid,
     variant,
-    itemSize,
-    itemPositions,
+    sizes,
+    positions,
     children,
 }: GridContextProps & { children: ReactNode }) {
     return (
-        <GridContext.Provider value={{ size, variant, itemSize, itemPositions }}>
+        <GridContext.Provider value={{ grid, variant, sizes, positions }}>
             {children}
         </GridContext.Provider>
     )
