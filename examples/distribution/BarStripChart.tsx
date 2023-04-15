@@ -94,7 +94,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     itemPadding={[2, 2, 2, 2]}
                     r={9}
                 />
-                <MilestoneMotion initialOn={'boxes'} exitOn={'bars'}>
+                <MilestoneMotion enterOn={'boxes'} exitOn={'bars'}>
                     <Distributions
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
@@ -102,7 +102,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         whiskerCapWidth={0.5}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'bars'}>
+                <MilestoneMotion enterOn={'bars'}>
                     <Distributions
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
@@ -117,7 +117,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     valueSize={4}
                     style={{ pointerEvents: 'none' }}
                 >
-                    <MilestoneMotion initialOn={'points'} exitOn={'barsonly'}>
+                    <MilestoneMotion enterOn={'points'} exitOn={'barsonly'}>
                         <Strips symbolStyle={{ strokeWidth: 1, stroke: '#161616' }} />
                     </MilestoneMotion>
                 </Strip>

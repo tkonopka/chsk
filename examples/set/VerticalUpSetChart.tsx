@@ -69,7 +69,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
             theme={customTheme}
         >
             <UpSet data={rawData} horizontal={false}>
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
@@ -82,11 +82,11 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'grid'}>
+                <MilestoneMotion enterOn={'grid'}>
                     <UpSetGrid symbolStyle={{ strokeWidth: 1, stroke: '#aaa' }} />
                     <UpSetMemberships />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'bars'}>
+                <MilestoneMotion enterOn={'bars'}>
                     <UpSetBar
                         size={260}
                         padding={[0, 0, 0, 10]}

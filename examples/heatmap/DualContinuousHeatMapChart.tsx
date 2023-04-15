@@ -105,10 +105,10 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                     extraPadding: { A: 0.5, B: 0.5 },
                 }}
             >
-                <MilestoneMotion initialOn={'measurements'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'measurements'}>
                     <Axis variant={'left'} label={'Measurements'} ticks={alphabetUppercase} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'top'}>
+                <MilestoneMotion enterOn={'top'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
@@ -117,7 +117,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         <AxisLabel variant={'top'}>Samples</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'categorical'}>
+                <MilestoneMotion enterOn={'categorical'}>
                     <Axis variant={'left'} label={''} ticks={['group']} />
                     <HeatMapCells
                         ids={['group']}
@@ -141,7 +141,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         />
                     </HeatMapCells>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'vowels'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'vowels'}>
                     <HeatMapCells ids={alphabetUppercaseVowels} scaleColor={scaleBlues}>
                         <Legend
                             variant={'color'}
@@ -165,7 +165,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                         </Legend>
                     </HeatMapCells>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'consonants'}>
+                <MilestoneMotion enterOn={'consonants'}>
                     <HeatMapCells ids={alphabetUppercaseConsonants} scaleColor={scalePurples}>
                         <Legend
                             variant={'color'}

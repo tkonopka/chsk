@@ -191,7 +191,7 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     size: 'auto',
                 }}
             >
-                <MilestoneMotion initialOn={'grid'}>
+                <MilestoneMotion enterOn={'grid'}>
                     <GridLines variant={'x'} />
                     <Axis variant={'bottom'}>
                         <AxisTicks variant={'bottom'} labelDistance={10} />
@@ -204,37 +204,37 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'A'}>
+                <MilestoneMotion enterOn={'A'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['A']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'}>
+                <MilestoneMotion enterOn={'B'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['B']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'C'}>
+                <MilestoneMotion enterOn={'C'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['C']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'D'}>
+                <MilestoneMotion enterOn={'D'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['D']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'E'}>
+                <MilestoneMotion enterOn={'E'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['E']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'F'}>
+                <MilestoneMotion enterOn={'F'}>
                     <HeatMapCells cell={HeatMapSquareCounter} keys={['F']} />
                     <HeatMapHighlight style={{ opacity: 0 }} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'title'}>
+                <MilestoneMotion enterOn={'title'}>
                     <Typography variant={'title'} position={[-80, -60]}>
                         What is the main reason for &lsquo;X&rsquo;?
                     </Typography>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'subtitle'}>
+                <MilestoneMotion enterOn={'subtitle'}>
                     <Typography variant={'subtitle'} position={[-80, -32]}>
                         Responders from six domains were asked to pick one answer from among six
                         options.
                     </Typography>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'download'}>
+                <MilestoneMotion enterOn={'download'}>
                     <Typography variant={'source'} position={[-80, 420]}>
                         Source: synthetic data.
                     </Typography>

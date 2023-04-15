@@ -129,12 +129,12 @@ export const FractionShadowsBarChart = ({ fref, chartData, rawData }: MilestoneS
         </defs>
         <Surface variant={'outer'} style={{ fill: 'url(#shadows-bg)' }} />
         <View container={{ position: [-365, 0], positionUnits: 'absolute' }}>
-            <MilestoneMotion initialOn={'title'}>
+            <MilestoneMotion enterOn={'title'}>
                 <Typography variant={'title'} position={[0, -10]}>
                     Chart with shadows
                 </Typography>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'description'}>
+            <MilestoneMotion enterOn={'description'}>
                 <Paragraph position={[0, 25]} size={[310, 18]} align={0}>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
@@ -159,7 +159,7 @@ export const FractionShadowsBarChart = ({ fref, chartData, rawData }: MilestoneS
                     colors: ['#1f77b4', '#d62728', '#7f7f7f'],
                 }}
             >
-                <MilestoneMotion initialOn={'A'}>
+                <MilestoneMotion enterOn={'A'}>
                     <Bars keys={['A']} style={{ stroke: '#ffffff' }} />
                     <TwoBarsLabels ids={['A']} keys={['A']} label={'Group A'} />
                     <LineLabel
@@ -169,11 +169,11 @@ export const FractionShadowsBarChart = ({ fref, chartData, rawData }: MilestoneS
                         expansion={[0.5, 0.5]}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'}>
+                <MilestoneMotion enterOn={'B'}>
                     <Bars keys={['B']} style={{ stroke: '#ffffff' }} />
                     <TwoBarsLabels ids={['B']} keys={['B']} label={'Group B'} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'C'}>
+                <MilestoneMotion enterOn={'C'}>
                     <Bars keys={['C']} style={{ stroke: '#ffffff' }} />
                     <TwoBarsLabels ids={['C']} keys={['C']} label={'Others'} />
                 </MilestoneMotion>

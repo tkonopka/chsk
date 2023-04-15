@@ -151,7 +151,7 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                 <Typography position={[0, -20]} variant={'title'}>
                     Line chart with inset
                 </Typography>
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <GridLines variant={'y'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <Surface />
@@ -172,13 +172,13 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                         firstOffset={[0, 4]}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'box'}>
+                <MilestoneMotion enterOn={'box'}>
                     <FlowPath points={zoomRect} units={'view'} style={{ fill: '#f8f8f8' }} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'}>
+                <MilestoneMotion enterOn={'data'}>
                     <ScatterCurve />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'inner'}>
+                <MilestoneMotion enterOn={'inner'}>
                     <ZoomBox
                         fromX={bounds}
                         fromY={detailMax}
@@ -187,7 +187,7 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                     />
                 </MilestoneMotion>
                 <MilestoneMotion
-                    initialOn={'inner'}
+                    enterOn={'inner'}
                     exit={null}
                     transition={{ type: 'spring', delay: 0.7 }}
                 >

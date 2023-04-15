@@ -123,8 +123,8 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                 <GridItem position={0}>
                     <Scatter {...commonProps} y={'A'} data={rawData} scaleY={scaleY}>
                         <MilestoneMotion
-                            initial={enterAnimation}
-                            initialOn={'A'}
+                            enter={enterAnimation}
+                            enterOn={'A'}
                             transition={enterTransition}
                         >
                             <GridLines variant={'y'} />
@@ -135,7 +135,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                             <ScatterPoints />
                             <BoxedTitle variant={'top'}>Device A</BoxedTitle>
                         </MilestoneMotion>
-                        <MilestoneMotion initialOn={'legend'}>
+                        <MilestoneMotion enterOn={'legend'}>
                             <Legend
                                 position={[440, 80]}
                                 positionUnits={'absolute'}
@@ -153,8 +153,8 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                 </GridItem>
                 <GridItem position={1}>
                     <MilestoneMotion
-                        initial={enterAnimation}
-                        initialOn={'B'}
+                        enter={enterAnimation}
+                        enterOn={'B'}
                         transition={enterTransition}
                     >
                         <Scatter {...commonProps} y={'B'} data={rawData} scaleY={scaleY}>
@@ -169,8 +169,8 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                 </GridItem>
                 <GridItem position={2}>
                     <MilestoneMotion
-                        initial={enterAnimation}
-                        initialOn={'C'}
+                        enter={enterAnimation}
+                        enterOn={'C'}
                         transition={enterTransition}
                     >
                         <Scatter {...commonProps} y={'C'} data={rawData} scaleY={scaleY}>

@@ -79,10 +79,10 @@ const multiviewHistogramProps: Pick<HistogramProps, 'variant' | 'breaks' | 'scal
 
 // an animated label that first appears large, then positions itself in a corner
 const AppearingLabel = ({ enterOn, n }: { enterOn: string; n: number }) => {
-    const initial = { opacity: 1, scale: 1.5 }
+    const enter = { opacity: 1, scale: 1.5 }
     const transition = { type: 'spring' as const, delay: 0.5, duration: 1.0 }
     return (
-        <MilestoneMotion initial={initial} initialOn={enterOn} exit={null} transition={transition}>
+        <MilestoneMotion enter={enter} enterOn={enterOn} exit={null} transition={transition}>
             <BoxedLabel
                 position={[1, 0]}
                 positionUnits={'relative'}
@@ -109,7 +109,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
         >
             <Grid grid={[3, 1]} spacing={[6, 0]}>
                 <GridItem position={0}>
-                    <MilestoneMotion initialOn={'small'}>
+                    <MilestoneMotion enterOn={'small'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
                             <Surface />
@@ -124,7 +124,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     </MilestoneMotion>
                 </GridItem>
                 <GridItem position={1}>
-                    <MilestoneMotion initialOn={'medium'}>
+                    <MilestoneMotion enterOn={'medium'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
                             <Surface />
@@ -135,7 +135,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                     </MilestoneMotion>
                 </GridItem>
                 <GridItem position={2}>
-                    <MilestoneMotion initialOn={'large'}>
+                    <MilestoneMotion enterOn={'large'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
                             <Surface />
@@ -149,7 +149,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             <Typography variant={'title'} position={[0, -40]}>
                 Three measurements of the same distribution
             </Typography>
-            <MilestoneMotion initialOn={'subtitle'}>
+            <MilestoneMotion enterOn={'subtitle'}>
                 <Typography variant={'subtitle'} position={[0, -20]}>
                     Measurements involve sampling n points from a distribution
                 </Typography>

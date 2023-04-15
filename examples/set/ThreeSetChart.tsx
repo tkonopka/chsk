@@ -94,17 +94,17 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             padding={[100, 40, 40, 40]}
             theme={customTheme}
         >
-            <MilestoneMotion initialOn={'title'}>
+            <MilestoneMotion enterOn={'title'}>
                 <Typography variant={'title'} position={[-30, -70]}>
                     Consider a pool of 600 elements.
                 </Typography>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'sizes'}>
+            <MilestoneMotion enterOn={'sizes'}>
                 <Typography variant={'title'} position={[-30, -46]}>
                     Pick three sets at random, each of size [20, 400].
                 </Typography>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'sizes'}>
+            <MilestoneMotion enterOn={'sizes'}>
                 <Bar
                     data={rawData}
                     keys={['size']}
@@ -119,7 +119,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <Tooltip itemSize={[90, 24]} />
                 </Bar>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'intersections'}>
+            <MilestoneMotion enterOn={'intersections'}>
                 <Typography variant={'title'} position={[200, 6]}>
                     The random sets will likely
                 </Typography>
@@ -127,7 +127,7 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     have non-zero overlap.
                 </Typography>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'intersections'}>
+            <MilestoneMotion enterOn={'intersections'}>
                 <Venn
                     data={rawData}
                     proportional={true}

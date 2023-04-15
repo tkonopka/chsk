@@ -46,7 +46,7 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     domain: [0, 1],
                 }}
             >
-                <MilestoneMotion initialOn={'control'}>
+                <MilestoneMotion enterOn={'control'}>
                     <GridLines variant={'y'} style={{ stroke: '#cccccc' }} />
                     <Axis variant={'bottom'} label={'time (days)'} />
                     <Axis variant={'left'}>
@@ -74,7 +74,7 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         control
                     </ScatterLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'treated'}>
+                <MilestoneMotion enterOn={'treated'}>
                     <ScatterInterval
                         ids={['treated']}
                         lower={'lower'}

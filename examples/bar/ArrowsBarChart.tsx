@@ -99,13 +99,13 @@ export const ArrowsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
         theme={customTheme}
     >
         <Bar {...customProps} data={rawData}>
-            <MilestoneMotion initialOn={'axes'}>
+            <MilestoneMotion enterOn={'axes'}>
                 <GridLines variant={'y'} />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'data'}>
+            <MilestoneMotion enterOn={'data'}>
                 <Bars component={BarsComponentWithArrow} />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'axes'}>
+            <MilestoneMotion enterOn={'axes'}>
                 <Axis variant={'left'} label={'Score (%)'} />
                 <Axis variant={'bottom'}>
                     <AxisLine variant={'bottom'} />

@@ -58,13 +58,13 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                 <ArrowMarker variant={'Winged'} id={'arrowH'} size={24} style={{ fill: '#222' }} />
             </defs>
             <View>
-                <MilestoneMotion initialOn={'start'}>
+                <MilestoneMotion enterOn={'start'}>
                     <DatasetIcon x={xStart - 12} y={y - 24} className={'icon'} />
                     <Label position={[xStart, y + 12]} size={[100, 30]} className={'center'}>
                         Input data
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch1'}>
+                <MilestoneMotion enterOn={'branch1'}>
                     <FlowPath
                         points={[
                             [x[0], y],
@@ -77,7 +77,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch1'} transition={{ delay: 1 }} exit={null}>
+                <MilestoneMotion enterOn={'branch1'} transition={{ delay: 1 }} exit={null}>
                     <CheckIcon x={x[4] + 20} y={y - branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y - branchHeight]}
@@ -87,7 +87,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         Standard analysis
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch2a'}>
+                <MilestoneMotion enterOn={'branch2a'}>
                     <FlowPath
                         points={[
                             [x[0], y],
@@ -100,7 +100,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch2a'} transition={{ delay: 0.7 }} exit={null}>
+                <MilestoneMotion enterOn={'branch2a'} transition={{ delay: 0.7 }} exit={null}>
                     <FilterIcon x={xMid - 12} y={y + branchHeight - 24} className={'icon'} />
                     <Label
                         position={[xMid, y + branchHeight + 12]}
@@ -110,7 +110,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         Data filter
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch2b'}>
+                <MilestoneMotion enterOn={'branch2b'}>
                     <FlowPath
                         points={[
                             [340, y + branchHeight],
@@ -121,7 +121,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'branch2b'} transition={{ delay: 0.3 }} exit={null}>
+                <MilestoneMotion enterOn={'branch2b'} transition={{ delay: 0.3 }} exit={null}>
                     <CheckIcon x={x[4] + 20} y={y + branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y + branchHeight]}
@@ -131,7 +131,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         Custom analysis
                     </Label>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'buttons'}>
+                <MilestoneMotion enterOn={'buttons'}>
                     <DownloadButtons position={[520, 140]} image />
                 </MilestoneMotion>
             </View>

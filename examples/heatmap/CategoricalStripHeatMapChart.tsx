@@ -89,10 +89,10 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                     extraPadding: { A: 0.5 },
                 }}
             >
-                <MilestoneMotion initialOn={'measurements'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'measurements'}>
                     <Axis variant={'left'} label={'Measurements'} ticks={alphabetUppercase} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'top'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'top'}>
                     <Axis variant={'top'}>
                         <AxisTicks
                             variant={'top'}
@@ -101,7 +101,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         <AxisLabel variant={'top'}>Samples</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'categorical'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'categorical'}>
                     <Axis variant={'left'} label={''} ticks={['group']} />
                     <HeatMapCells
                         ids={['group']}
@@ -126,7 +126,7 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                         />
                     </HeatMapCells>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'heatmap'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'heatmap'}>
                     <HeatMapCells ids={ids} />
                     <Legend
                         variant={'color'}

@@ -110,7 +110,7 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                     title={'Measurements (arbitrary values)'}
                     interactive={false}
                 />
-                <MilestoneMotion initialOn={'grid'}>
+                <MilestoneMotion enterOn={'grid'}>
                     <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                     <Axis variant={'top'} />
                     <Axis variant={'left'}>
@@ -121,14 +121,14 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'bars-before'}>
+                <MilestoneMotion enterOn={'bars-before'}>
                     <Bars keys={['before']} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'bars-after'}>
+                <MilestoneMotion enterOn={'bars-after'}>
                     <Bars keys={['after']} />
                     <Tooltip />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'percentages'}>
+                <MilestoneMotion enterOn={'percentages'}>
                     <PercentageChangeLabels keys={groupedKeys} />
                 </MilestoneMotion>
             </Bar>

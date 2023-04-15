@@ -99,27 +99,27 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                     size: 1,
                 }}
             >
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <Axis variant={'bottom'} label={'Covariate (a.u.)'} />
                     <Axis variant={'left'}>
                         <AxisLabel variant={'left'}>Measurement (a.u.)</AxisLabel>
                         <AxisTicks variant={'left'} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'}>
+                <MilestoneMotion enterOn={'data'}>
                     <ScatterPoints
                         ids={['points', 'outliers']}
                         symbolStyle={{ strokeWidth: 1, stroke: '#ffffff' }}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'regression1'}>
+                <MilestoneMotion enterOn={'regression1'}>
                     <Regression
                         ids={['points', 'outliers']}
                         variant={'pooled'}
                         className={'pooled'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'outliers'}>
+                <MilestoneMotion enterOn={'outliers'}>
                     <BracketLabel
                         variant={'right'}
                         start={[outlierX[0] - 0.2, outlierY[0] - 1]}
@@ -138,7 +138,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                         className={'outliers'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'arrow'} exitOn={'regression2'}>
+                <MilestoneMotion enterOn={'arrow'} exitOn={'regression2'}>
                     <BlockArrow
                         start={[(outlierX[0] + outlierX[1]) / 2, outlierY[0] - 4.5]}
                         end={[(outlierX[0] + outlierX[1]) / 2, outlierY[0] - 2]}
@@ -147,7 +147,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                         className={'outliers'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'regression2'}>
+                <MilestoneMotion enterOn={'regression2'}>
                     <Regression
                         ids={['points']}
                         style={{ strokeWidth: 4, stroke: '#222222' }}
@@ -162,7 +162,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                     anchor={[0, 0]}
                     horizontal={false}
                 >
-                    <MilestoneMotion initialOn={'regression1'}>
+                    <MilestoneMotion enterOn={'regression1'}>
                         <LegendTitle variant={'right'} position={[0, 0]} size={[80, 24]}>
                             Regression
                         </LegendTitle>
@@ -181,7 +181,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                             interactive={false}
                         />
                     </MilestoneMotion>
-                    <MilestoneMotion initialOn={'regression2'}>
+                    <MilestoneMotion enterOn={'regression2'}>
                         <LegendItem
                             variant={'right'}
                             position={[0, 42]}

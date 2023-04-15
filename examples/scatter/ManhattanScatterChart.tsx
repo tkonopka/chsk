@@ -170,7 +170,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                 <Typography position={[-45, -20]} variant={'subtitle'}>
                     This chart has {nPoints} data points
                 </Typography>
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <GridLines variant={'y'} />
                     <GridLines variant={'x'} values={chromBoundaries} />
                     <Axis variant={'bottom'}>
@@ -184,7 +184,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     </Axis>
                     <Axis variant={'left'} label={'- log10 (p-value)'} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'}>
+                <MilestoneMotion enterOn={'data'}>
                     <ViewClip id={'manhattan-pointer'} expansion={[4, 4, 4, 4]}>
                         <ScatterPoints symbol={SimpleCircle} dataComponent={SimpleDataComponent} />
                     </ViewClip>

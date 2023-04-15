@@ -104,18 +104,18 @@ const DoubleLabel = ({
 // milestone animation with an arrow flow-path, followed by custom children
 const MilestoneArrow = ({
     points,
-    initialOn,
+    enterOn,
     duration = 0.5,
     children,
 }: {
     points: NumericPositionSpec[]
-    initialOn: string
+    enterOn: string
     duration?: number
     children: ReactNode
 }) => {
     return (
         <>
-            <MilestoneMotion initialOn={initialOn}>
+            <MilestoneMotion enterOn={enterOn}>
                 <FlowPath
                     points={points}
                     units={['relative', 'absolute']}
@@ -123,7 +123,7 @@ const MilestoneArrow = ({
                     markerEnd={'treeArrow'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={initialOn} transition={{ delay: duration }} exit={null}>
+            <MilestoneMotion enterOn={enterOn} transition={{ delay: duration }} exit={null}>
                 {children}
             </MilestoneMotion>
         </>
@@ -184,7 +184,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Typography variant={'title'} position={[-10, -20]}>
                     A / B study plan
                 </Typography>
-                <MilestoneMotion initialOn={'start'}>
+                <MilestoneMotion enterOn={'start'}>
                     <DoubleLabel
                         position={boxStart}
                         className={'start'}
@@ -192,7 +192,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nTotal}
                     />
                 </MilestoneMotion>
-                <MilestoneArrow points={arrowPoints1} initialOn={'filter'} duration={0.3}>
+                <MilestoneArrow points={arrowPoints1} enterOn={'filter'} duration={0.3}>
                     <BoxedLabel
                         positionUnits={['relative', 'absolute']}
                         rx={4}
@@ -204,7 +204,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         <Typography>{nLoss} failed data QC</Typography>
                     </BoxedLabel>
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'A'} points={arrowPointsA0}>
+                <MilestoneArrow enterOn={'A'} points={arrowPointsA0}>
                     <DoubleLabel
                         position={boxA}
                         className={'A'}
@@ -212,7 +212,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nA}
                     />
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'A1'} points={arrowPointsA1} duration={0.3}>
+                <MilestoneArrow enterOn={'A1'} points={arrowPointsA1} duration={0.3}>
                     <DoubleLabel
                         position={boxA1}
                         className={'A'}
@@ -220,7 +220,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nA1}
                     />
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'A2'} points={arrowPointsA2} duration={0.3}>
+                <MilestoneArrow enterOn={'A2'} points={arrowPointsA2} duration={0.3}>
                     <DoubleLabel
                         position={boxA2}
                         className={'A'}
@@ -228,7 +228,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nA2}
                     />
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'B'} points={arrowPointsB0}>
+                <MilestoneArrow enterOn={'B'} points={arrowPointsB0}>
                     <DoubleLabel
                         position={boxB}
                         className={'B'}
@@ -236,7 +236,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nB}
                     />
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'B1'} points={arrowPointsB1} duration={0.3}>
+                <MilestoneArrow enterOn={'B1'} points={arrowPointsB1} duration={0.3}>
                     <DoubleLabel
                         position={boxB1}
                         className={'B'}
@@ -244,7 +244,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         value={nB1}
                     />
                 </MilestoneArrow>
-                <MilestoneArrow initialOn={'B2'} points={arrowPointsB2} duration={0.3}>
+                <MilestoneArrow enterOn={'B2'} points={arrowPointsB2} duration={0.3}>
                     <DoubleLabel
                         position={boxB2}
                         className={'B'}

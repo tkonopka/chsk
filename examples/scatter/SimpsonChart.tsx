@@ -83,28 +83,28 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     domain: 'auto',
                 }}
             >
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <Axis variant={'bottom'} label={'Covariate (a.u.)'} />
                     <Axis variant={'left'}>
                         <AxisLabel variant={'left'}>Measurement (a.u.)</AxisLabel>
                         <AxisTicks variant={'left'} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'A'}>
+                <MilestoneMotion enterOn={'A'}>
                     <ScatterPoints ids={['A']} />
                     <Regression ids={['A']} variant={'series'} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'A'} exitOn={'B'}>
+                <MilestoneMotion enterOn={'A'} exitOn={'B'}>
                     <Regression ids={['A']} variant={'pooled'} style={regressionStyle} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'}>
+                <MilestoneMotion enterOn={'B'}>
                     <ScatterPoints ids={['B']} />
                     <Regression ids={['B']} variant={'series'} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'B'} exitOn={'C'}>
+                <MilestoneMotion enterOn={'B'} exitOn={'C'}>
                     <Regression ids={['A', 'B']} variant={'pooled'} style={regressionStyle} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'C'}>
+                <MilestoneMotion enterOn={'C'}>
                     <ScatterPoints ids={['C']} />
                     <Regression ids={['C']} variant={'series'} />
                     <Regression ids={['A', 'B', 'C']} variant={'pooled'} style={regressionStyle} />

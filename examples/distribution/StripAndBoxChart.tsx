@@ -91,7 +91,7 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
             theme={customTheme}
         >
             <Strip {...stripProps} data={rawData} paddingInternal={0.4}>
-                <MilestoneMotion initialOn={'axes'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <GridLines variant={'y'} values={6} />
                     <Axis variant={'left'} label={'counts'} ticks={6} />
                     <Axis variant={'bottom'} label={'counts'}>
@@ -109,12 +109,12 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         itemPadding={[2, 2, 2, 2]}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'strips'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'strips'}>
                     <Strips />
                 </MilestoneMotion>
             </Strip>
             <Distribution {...stripProps} data={rawData} paddingInternal={0}>
-                <MilestoneMotion initialOn={'quantiles'} initial={'invisible'}>
+                <MilestoneMotion enterOn={'quantiles'}>
                     <Distributions
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 1.5 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 1.5 }}

@@ -129,7 +129,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     firstOffset={[5, 0]}
                     symbol={VerticalGoldenRectangle}
                 />
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <CustomBandSurface ids={ids} r={9} style={{ fill: '#f4f4f4 ' }} />
                     <Axis variant={'top'} label={''} />
                     <Axis variant={'left'} label={''}>
@@ -140,7 +140,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                         />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'}>
+                <MilestoneMotion enterOn={'data'}>
                     <CustomBandSurface ids={ids} r={9} style={{ fill: '#f4f4f4 ' }} />
                     <ScatterPoints symbol={VerticalGoldenRectangle} />
                     <ScatterCrosshair

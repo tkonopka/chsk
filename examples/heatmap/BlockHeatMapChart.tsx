@@ -108,7 +108,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     domain: [0, 50, 80, 100],
                 }}
             >
-                <MilestoneMotion initialOn={'map'}>
+                <MilestoneMotion enterOn={'map'}>
                     <HeatMapCells />
                 </MilestoneMotion>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
@@ -139,16 +139,16 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         gradientId={'grad-blocks'}
                     />
                 </Legend>
-                <MilestoneMotion initialOn={'blockA'} exitOn={'blockB'}>
+                <MilestoneMotion enterOn={'blockA'} exitOn={'blockB'}>
                     <HeatMapHighlight ids={idsA} keys={idsA} interactive={false} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'blockB'} exitOn={'blockC'}>
+                <MilestoneMotion enterOn={'blockB'} exitOn={'blockC'}>
                     <HeatMapHighlight ids={idsB} keys={idsB} interactive={false} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'blockC'} exitOn={'final'}>
+                <MilestoneMotion enterOn={'blockC'} exitOn={'final'}>
                     <HeatMapHighlight ids={idsC} keys={idsC} interactive={false} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'final'}>
+                <MilestoneMotion enterOn={'final'}>
                     <HeatMapHighlight edgeAnimation={true} style={{ opacity: 0.6 }} />
                     <Tooltip
                         offset={[0, 18]}

@@ -95,7 +95,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
         theme={customTheme}
     >
         <Bar variant={'stacked'} data={rawData} keys={['A', 'B', 'C']} horizontal={true}>
-            <MilestoneMotion initialOn={'title'}>
+            <MilestoneMotion enterOn={'title'}>
                 <Typography variant={'title'} position={[0, -30]}>
                     Partition of resources
                 </Typography>
@@ -103,7 +103,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     data source: synthetic
                 </Typography>
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'A'}>
+            <MilestoneMotion enterOn={'A'}>
                 <Bars keys={['A']} />
                 <BarsLabels
                     keys={['A']}
@@ -120,7 +120,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     format={() => 'alpha'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'B'}>
+            <MilestoneMotion enterOn={'B'}>
                 <Bars keys={['B']} />
                 <BarsLabels
                     keys={['B']}
@@ -137,7 +137,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     format={() => 'beta'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion initialOn={'C'}>
+            <MilestoneMotion enterOn={'C'}>
                 <Bars keys={['C']} />
                 <CustomLabel>gamma</CustomLabel>
             </MilestoneMotion>

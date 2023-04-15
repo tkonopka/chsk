@@ -74,7 +74,7 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
             theme={customHistogramTheme}
         >
             <Histogram {...customHistogramProps} data={rawData}>
-                <MilestoneMotion initialOn={'axes'}>
+                <MilestoneMotion enterOn={'axes'}>
                     <GridLines variant={'y'} />
                     <Axis variant={'left'} label={'counts'} />
                     <Axis variant={'bottom'}>
@@ -86,11 +86,11 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                         <AxisLabel variant={'bottom'}>values (a.u.)</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'data'}>
+                <MilestoneMotion enterOn={'data'}>
                     <HistogramArea ids={['custom']} curve={'Step'} />
                     <HistogramCurve ids={['custom']} curve={'Step'} />
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'primary-label'}>
+                <MilestoneMotion enterOn={'primary-label'}>
                     <LineLabel
                         start={[-2, -0.05]}
                         end={[2, -0.05]}
@@ -100,7 +100,7 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                         Primary population
                     </LineLabel>
                 </MilestoneMotion>
-                <MilestoneMotion initialOn={'secondary-label'}>
+                <MilestoneMotion enterOn={'secondary-label'}>
                     <LineLabel start={[3.4, 15]} end={[5.6, 15]} units={'view'}>
                         Secondary population
                     </LineLabel>
