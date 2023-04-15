@@ -11,7 +11,7 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        const lines = screen.getByRole('grid-x').querySelectorAll('line')
+        const lines = screen.getByRole('grid-lines').querySelectorAll('line')
         expect(lines).toHaveLength(6)
         expect(lines[0].getAttribute('role')).toBeNull()
         expect(lines[1].getAttribute('role')).toBeNull()
@@ -25,7 +25,7 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-lines').querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates grid without role', () => {
@@ -54,7 +54,7 @@ describe('GridLines', () => {
         )
         // this criterion does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-lines').querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates grid with numeric nice', () => {
@@ -70,7 +70,7 @@ describe('GridLines', () => {
         )
         // this test does not actually check the effect of nice: true
         // the usefulness of the test is only in that it doesn't crash
-        expect(screen.getByRole('grid-y').querySelectorAll('line')).toHaveLength(6)
+        expect(screen.getByRole('grid-lines').querySelectorAll('line')).toHaveLength(6)
     })
 
     it('creates expanded lines (asymmetric)', () => {
@@ -81,7 +81,7 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-y').querySelectorAll('line')
+        const result = screen.getByRole('grid-lines').querySelectorAll('line')
         // the chart has inner width = 400-40 = 360.
         // a side-to-side grid line should have x2=360. An expanded line should go to x2=400
         expect(result[0].getAttribute('x1')).toBe('-10')
@@ -96,7 +96,7 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-y').querySelectorAll('line')
+        const result = screen.getByRole('grid-lines').querySelectorAll('line')
         expect(result[0].getAttribute('x1')).toBe('-10')
         expect(result[0].getAttribute('x2')).toBe('370')
     })
@@ -109,8 +109,7 @@ describe('GridLines', () => {
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('grid-x')).toBeNull()
-        expect(screen.queryByRole('grid-y')).toBeNull()
+        expect(screen.queryByRole('grid-lines')).toBeNull()
         expect(screen.getByRole('chart-content').querySelectorAll('line')).toHaveLength(6)
     })
 })

@@ -111,7 +111,7 @@ const UnthemedAxisTicks = ({
     })
 
     if (tickMarks === null) return null
-    return <g role={setRole ? 'axis-ticks' : undefined}>{tickMarks}</g>
+    return <g role={setRole ? 'ticks' : undefined}>{tickMarks}</g>
 }
 
 export const AxisTicks = (props: AxisTicksProps) => (

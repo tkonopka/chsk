@@ -13,9 +13,9 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('axis-top').querySelectorAll('g')
+        const result = screen.getByRole('axis').querySelectorAll('g')
         // the first g inside axis-top should be a group with all ticks
-        expect(result[0].getAttribute('role')).toBe('axis-ticks')
+        expect(result[0].getAttribute('role')).toBe('ticks')
         // the next g should be a group with one tick
         expect(result[1].getAttribute('role')).toBe('tick')
         // elements within the tick group do not need a role
@@ -33,7 +33,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('axis-top').querySelectorAll('g')
+        const result = screen.getByRole('axis').querySelectorAll('g')
         expect(result[0].getAttribute('role')).toBeNull()
         expect(result[1].getAttribute('role')).toBeNull()
         expect(result[1].querySelector('line')?.getAttribute('role')).toBeNull()
@@ -65,7 +65,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const result = screen.queryAllByRole('axis-ticks')
+        const result = screen.queryAllByRole('ticks')
         expect(result).toHaveLength(0)
     })
 
@@ -79,7 +79,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('axis-top').querySelectorAll('text')).toHaveLength(0)
+        expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(0)
     })
 
     it('can request specific ticks', () => {
@@ -92,7 +92,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        expect(screen.getByRole('axis-top').querySelectorAll('text')).toHaveLength(3)
+        expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(3)
     })
 
     it('can rotate tick labels', () => {
@@ -105,7 +105,7 @@ describe('AxisTicks', () => {
                 </View>
             </Chart>
         )
-        const ticks = screen.getByRole('axis-top').querySelectorAll('text')
+        const ticks = screen.getByRole('axis').querySelectorAll('text')
         expect(ticks[0].closest('g')?.getAttribute('style')).toContain('rotate(45')
     })
 })

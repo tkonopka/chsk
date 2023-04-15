@@ -32,7 +32,7 @@ const UnthemedGridLines = ({
     if (isX) {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
-                key={'grid-x-' + i}
+                key={'x-' + i}
                 variant={'grid'}
                 x1={v}
                 x2={v}
@@ -46,7 +46,7 @@ const UnthemedGridLines = ({
     } else {
         result = tickCoordinates?.map((v: number, i: number) => (
             <Line
-                key={'grid-y-' + i}
+                key={'y-' + i}
                 variant={'grid'}
                 x1={-e1}
                 x2={size[X] + e2}
@@ -58,7 +58,7 @@ const UnthemedGridLines = ({
             />
         ))
     }
-    return <g role={setRole ? 'grid-' + variant : undefined}>{result}</g>
+    return <g role={setRole ? 'grid-lines' : undefined}>{result}</g>
 }
 
 export const GridLines = (props: GridLinesProps) => (

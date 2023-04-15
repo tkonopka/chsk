@@ -11,14 +11,11 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const axis = screen.getByRole('axis-top')
-        expect(axis).toBeDefined()
-        const ticks = screen.getAllByRole('tick')
-        expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axis-label')
-        expect(label.textContent).toContain('top axis')
-        const line = screen.getByRole('axis')
-        expect(line.getAttribute('class')).toEqual('axis top')
+        const result = screen.getByRole('axis')
+        expect(screen.getAllByRole('tick')).toHaveLength(6)
+        // there should be one line per tick, plus the axis line
+        expect(result.querySelectorAll('line')).toHaveLength(7)
+        expect(screen.getByRole('axis-label').textContent).toContain('top axis')
     })
 
     it('creates bottom axis', () => {
@@ -29,14 +26,10 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const axis = screen.getByRole('axis-bottom')
-        expect(axis).toBeDefined()
-        const ticks = screen.getAllByRole('tick')
-        expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axis-label')
-        expect(label.textContent).toContain('bottom axis')
-        const line = screen.getByRole('axis')
-        expect(line.getAttribute('class')).toEqual('axis bottom')
+        const result = screen.getByRole('axis')
+        expect(screen.getAllByRole('tick')).toHaveLength(6)
+        expect(result.querySelectorAll('line')).toHaveLength(7)
+        expect(screen.getByRole('axis-label').textContent).toContain('bottom axis')
     })
 
     it('creates left axis', () => {
@@ -47,14 +40,10 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const axis = screen.getByRole('axis-left')
-        expect(axis).toBeDefined()
-        const ticks = screen.getAllByRole('tick')
-        expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axis-label')
-        expect(label.textContent).toContain('left axis')
-        const line = screen.getByRole('axis')
-        expect(line.getAttribute('class')).toEqual('axis left')
+        const result = screen.getByRole('axis')
+        expect(screen.getAllByRole('tick')).toHaveLength(6)
+        expect(result.querySelectorAll('line')).toHaveLength(7)
+        expect(screen.getByRole('axis-label').textContent).toContain('left axis')
     })
 
     it('creates right axis', () => {
@@ -65,14 +54,10 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const axis = screen.getByRole('axis-right')
-        expect(axis).toBeDefined()
-        const ticks = screen.getAllByRole('tick')
-        expect(ticks).toHaveLength(6)
-        const label = screen.getByRole('axis-label')
-        expect(label.textContent).toContain('right axis')
-        const line = screen.getByRole('axis')
-        expect(line.getAttribute('class')).toEqual('axis right')
+        const result = screen.getByRole('axis')
+        expect(screen.getAllByRole('tick')).toHaveLength(6)
+        expect(result.querySelectorAll('line')).toHaveLength(7)
+        expect(screen.getByRole('axis-label').textContent).toContain('right axis')
     })
 
     it('creates axis without role', () => {
@@ -83,7 +68,7 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('axis-right')).toBeNull()
+        expect(screen.queryByRole('axis')).toBeNull()
     })
 
     it('skips label component when label is empty', () => {
@@ -94,8 +79,7 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const label = screen.queryByRole('axis-label')
-        expect(label).toBeNull()
+        expect(screen.queryByRole('axis-label')).toBeNull()
     })
 
     it('places label at the end of the axis', () => {

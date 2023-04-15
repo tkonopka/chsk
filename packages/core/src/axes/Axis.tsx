@@ -20,7 +20,7 @@ const UnthemedAxis = ({
     const { size } = useDimensions()
     return (
         <g
-            role={setRole ? 'axis-' + variant : undefined}
+            role={setRole ? 'axis' : undefined}
             transform={getTranslate(getAxisPosition(variant, size, distance))}
             className={className}
             style={style}

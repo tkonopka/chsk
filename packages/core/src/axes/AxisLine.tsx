@@ -3,7 +3,7 @@ import { Line } from '../shapes'
 import { AxisLineProps } from './types'
 import { getClassName } from '../themes'
 
-export const AxisLine = ({ variant, className, style, setRole }: AxisLineProps) => {
+export const AxisLine = ({ variant, className, style }: AxisLineProps) => {
     const horizontal = variant === 'top' || variant === 'bottom'
     const { size } = useDimensions()
     const compositeClassName = getClassName(variant, className)
@@ -16,7 +16,7 @@ export const AxisLine = ({ variant, className, style, setRole }: AxisLineProps) 
             variant={'axis'}
             className={compositeClassName}
             style={style}
-            setRole={setRole}
+            setRole={false} // role is redundant because the 'variant' is 'axis' already
         />
     )
 }

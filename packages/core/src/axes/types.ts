@@ -25,7 +25,7 @@ export interface AxisThemedProps extends Pick<AxisProps, 'distance' | 'ticks' | 
     ticks: TickType
 }
 
-export interface AxisLineProps extends SvgElementVariantProps {
+export interface AxisLineProps extends Omit<SvgElementVariantProps, 'setRole'> {
     /** type of axis */
     variant: SideVariant
 }

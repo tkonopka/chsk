@@ -14,6 +14,8 @@
 
 ### Changed
 
+-   [core] stopped including variant in role string in components related to
+    axes
 -   [documentation] upgraded storybook to v7.0.3
 -   [core] fixed bug with handlers in `DataComponent` and
     `TooltipDataComponent` leading to some missed and some redundant function

@@ -98,7 +98,7 @@ describe('Grid', () => {
         }
         render(
             <Chart {...chartProps}>
-                <Grid grid={[2,2]} widths={[3, 1]} heights={[1, 3]}>
+                <Grid grid={[2, 2]} widths={[3, 1]} heights={[1, 3]}>
                     <GetGrid />
                 </Grid>
             </Chart>

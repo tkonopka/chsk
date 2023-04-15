@@ -48,9 +48,8 @@ describe('AxisLabel', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('axis-top')
-        const g = result.querySelector('g')
-        expect(getTransform(g, 'X')).toEqual(20)
-        expect(getTransform(g, 'Y')).toEqual(-5) // -10 + 5
+        const result = screen.getByRole('axis').querySelector('g')
+        expect(getTransform(result, 'X')).toEqual(20)
+        expect(getTransform(result, 'Y')).toEqual(-5) // -10 + 5
     })
 })
