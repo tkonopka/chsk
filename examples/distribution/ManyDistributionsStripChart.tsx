@@ -36,13 +36,9 @@ export const generateManyDistributionsData = () => {
 
 export const customTheme: ThemeSpec = mergeTheme(tooltipItemLabelValueTheme, {
     line: {
-        axis: {
-            visibility: 'visible',
-            strokeWidth: 1,
-        },
         grid: {
-            strokeDasharray: '5 5',
-            stroke: '#999999',
+            strokeDasharray: '6 6',
+            stroke: '#888888',
         },
         median: {
             stroke: '#dd0000',

@@ -107,7 +107,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             padding={[60, 40, 40, 60]}
             theme={multiviewTheme}
         >
-            <Grid size={[3, 1]} spacing={[6, 0]}>
+            <Grid grid={[3, 1]} spacing={[6, 0]}>
                 <GridItem position={0}>
                     <MilestoneMotion initialOn={'small'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>

@@ -255,7 +255,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
             theme={multiviewTheme}
         >
             <InsetColorFilter id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
-            <Grid size={[3, 1]} spacing={[10, 0]}>
+            <Grid grid={[3, 1]} spacing={[10, 0]}>
                 <GridItem position={0}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['alpha']}>
                         <ActiveIdSurface expansion={[0, 10]} />

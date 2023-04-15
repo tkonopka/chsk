@@ -88,14 +88,11 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     offset={[20, 0]}
                     position={[1, 1]}
                     positionUnits={'relative'}
-                    sizeUnits={'absolute'}
-                    horizontal={false}
                     anchor={[0, 1]}
-                    padding={[0, 0, 0, 0]}
-                    r={9}
+                    title={'Conditions'}
                     itemSize={[100, 20]}
                     itemPadding={[2, 2, 2, 2]}
-                    title={'Conditions'}
+                    r={9}
                 />
                 <MilestoneMotion initialOn={'boxes'} exitOn={'bars'}>
                     <Distributions

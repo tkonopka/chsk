@@ -43,7 +43,7 @@ const customTheme: ThemeSpec = {
             stroke: '#222255',
         },
         axis: {
-            visibility: 'visible',
+            strokeWidth: 1.5,
         },
     },
     text: {
@@ -87,28 +87,26 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
             fref={fref}
             data={chartData}
             size={[360, 400]}
-            padding={[60, 60, 60, 80]}
+            padding={[40, 60, 60, 80]}
             theme={customTheme}
         >
             <Strip {...stripProps} data={rawData} paddingInternal={0.4}>
                 <MilestoneMotion initialOn={'axes'} initial={'invisible'}>
-                    <GridLines variant={'y'} />
+                    <GridLines variant={'y'} values={6} />
                     <Axis variant={'left'} label={'counts'} ticks={6} />
                     <Axis variant={'bottom'} label={'counts'}>
                         <AxisLine variant={'bottom'} />
                     </Axis>
                     <Legend
-                        position={[5, 360]}
-                        positionUnits={'absolute'}
-                        size={[300, 80]}
-                        sizeUnits={'absolute'}
+                        position={[0, 1]}
+                        positionUnits={'relative'}
+                        anchor={[0, 0]}
+                        offset={[5, 5]}
                         horizontal={true}
-                        anchor={[0, 1]}
-                        padding={[20, 0, 20, 0]}
-                        r={10.5}
+                        padding={[10, 0, 10, 0]}
+                        r={10}
                         itemSize={[85, 20]}
                         itemPadding={[2, 2, 2, 2]}
-                        firstOffset={[-85, 24]}
                     />
                 </MilestoneMotion>
                 <MilestoneMotion initialOn={'strips'} initial={'invisible'}>

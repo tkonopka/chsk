@@ -49,9 +49,6 @@ const customTheme: ThemeSpec = mergeThemes([
     tooltipItemLabelValueTheme,
     {
         line: {
-            axis: {
-                visibility: 'visible',
-            },
             median: {
                 stroke: '#161616',
                 strokeWidth: 3,
@@ -68,10 +65,6 @@ const customTheme: ThemeSpec = mergeThemes([
             },
         },
         text: {
-            axisLabel: {
-                textAnchor: 'middle',
-                dominantBaseline: 'auto',
-            },
             intervalLabel: {
                 textAnchor: 'middle',
                 fontWeight: 400,
@@ -145,11 +138,9 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                     component={IconButton}
                 />
                 <Legend
-                    position={[650, 260]}
-                    positionUnits={'absolute'}
-                    size={[100, 100]}
-                    sizeUnits={'absolute'}
-                    horizontal={false}
+                    position={[1, 1]}
+                    positionUnits={'relative'}
+                    offset={[12, 0]}
                     anchor={[0, 1]}
                     padding={[0, 0, 0, 0]}
                     r={9}

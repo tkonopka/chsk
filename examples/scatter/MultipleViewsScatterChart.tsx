@@ -67,7 +67,7 @@ const multiviewTheme: ThemeSpec = {
     },
     rect: {
         inner: {
-            fill: '#ffffff00',
+            fillOpacity: 0,
             stroke: '#222222',
             strokeWidth: 1,
         },
@@ -119,7 +119,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
             padding={[40, 120, 60, 60]}
             theme={multiviewTheme}
         >
-            <Grid size={[3, 1]} spacing={[8, 0]}>
+            <Grid grid={[3, 1]} spacing={[8, 0]}>
                 <GridItem position={0}>
                     <Scatter {...commonProps} y={'A'} data={rawData} scaleY={scaleY}>
                         <MilestoneMotion
