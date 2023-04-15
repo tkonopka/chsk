@@ -219,8 +219,8 @@ export const defaultTheme: CompleteThemeSpec = {
     },
     MilestoneMotion: {
         default: {
-            initial: 'hidden',
-            animate: 'default',
+            enter: 'hidden',
+            config: 'default',
             exit: 'hidden',
             transition: 'default',
         },

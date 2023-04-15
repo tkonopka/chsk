@@ -55,10 +55,20 @@ export const EntryMilestones = () => {
             >
                 <Surface variant={'inner'} />
                 <View>
-                    <MilestoneMotion initial={'invisible'} initialOn={'left'} exit={null}>
+                    <MilestoneMotion
+                        enter={'invisible'}
+                        enterOn={'left'}
+                        exit={null}
+                        transition={{ type: 'tween', duration: 1 }}
+                    >
                         <Axis variant={'left'} />
                     </MilestoneMotion>
-                    <MilestoneMotion initial={'invisible'} initialOn={'right'} exit={null}>
+                    <MilestoneMotion
+                        enter={'invisible'}
+                        enterOn={'right'}
+                        exit={null}
+                        transition={{ type: 'tween', duration: 1 }}
+                    >
                         <Axis variant={'right'} />
                     </MilestoneMotion>
                 </View>
@@ -92,10 +102,20 @@ export const ExitMilestones = () => {
             >
                 <Surface variant={'inner'} />
                 <View>
-                    <MilestoneMotion initial={null} exit={'invisible'} exitOn={'left'}>
+                    <MilestoneMotion
+                        enter={null}
+                        exit={'invisible'}
+                        exitOn={'left'}
+                        transition={{ type: 'tween', duration: 1 }}
+                    >
                         <Axis variant={'left'} />
                     </MilestoneMotion>
-                    <MilestoneMotion initial={null} exit={'invisible'} exitOn={'right'}>
+                    <MilestoneMotion
+                        enter={null}
+                        exit={'invisible'}
+                        exitOn={'right'}
+                        transition={{ type: 'tween', duration: 1 }}
+                    >
                         <Axis variant={'right'} />
                     </MilestoneMotion>
                 </View>
@@ -106,12 +126,16 @@ export const ExitMilestones = () => {
 }
 
 export const EntryExitMilestones = ({
-    initial,
+    enter,
     exit,
+    onEnter,
+    onExit,
     transition,
 }: {
-    initial: AnimationSpec
+    enter: AnimationSpec
     exit: AnimationSpec
+    onEnter?: () => void
+    onExit?: () => void
     transition?: TransitionSpec
 }) => {
     const ref = useRef<ChartRef>(null)
@@ -136,20 +160,25 @@ export const EntryExitMilestones = ({
                 <Surface variant={'inner'} />
                 <View>
                     <MilestoneMotion
-                        initial={initial}
-                        initialOn={'A'}
+                        enter={enter}
+                        enterOn={'A'}
+                        onEnter={onEnter}
                         exit={exit}
                         exitOn={'B'}
+                        onExit={onExit}
                         transition={transition}
                     >
                         <Axis variant={'left'} />
                     </MilestoneMotion>
                     <MilestoneMotion
-                        initial={initial}
-                        initialOn={'C'}
+                        enter={enter}
+                        enterOn={'C'}
+                        onEnter={onEnter}
                         exit={exit}
                         exitOn={'D'}
+                        onExit={onExit}
                         transition={transition}
+                        visible={true}
                     >
                         <Axis variant={'right'} />
                     </MilestoneMotion>

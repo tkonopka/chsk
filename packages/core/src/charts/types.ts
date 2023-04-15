@@ -56,18 +56,22 @@ export type AnimationSpec = undefined | null | string | AnimationProps
 export type TransitionSpec = undefined | null | string | TransitionProps
 
 export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'variant' | 'setRole'> {
-    /** initial animation settings */
-    initial?: AnimationSpec
+    /** enter configuration */
+    enter?: AnimationSpec
     /** milestone on which to initialize animation */
-    initialOn?: string
-    /** exit animation settings */
+    enterOn?: string
+    /** function executed when enter is triggered */
+    onEnter?: () => void
+    /** exit configuration */
     exit?: AnimationSpec
     /** milestone on which to activate exit animation */
     exitOn?: string
+    /** function executed when exit is toggled */
+    onExit?: () => void
     /** children components */
     children: ReactNode
-    /** base animation setting */
-    animate?: AnimationSpec
+    /** base configuration */
+    config?: AnimationSpec
     /** transition settings */
     transition?: TransitionSpec
     /** default visibility setting */
@@ -75,9 +79,9 @@ export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'vari
 }
 
 export interface MilestoneMotionThemedProps
-    extends Pick<MilestoneMotionProps, 'initial' | 'exit' | 'animate' | 'transition'> {
-    initial: AnimationSpec
+    extends Pick<MilestoneMotionProps, 'enter' | 'exit' | 'config' | 'transition'> {
+    enter: AnimationSpec
     exit: AnimationSpec
-    animate: AnimationSpec
+    config: AnimationSpec
     transition: TransitionSpec
 }

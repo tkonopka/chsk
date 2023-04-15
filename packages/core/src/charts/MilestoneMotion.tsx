@@ -6,44 +6,48 @@ import { MilestoneMotionProps } from './types'
 import { useTheme, useThemedProps } from '../themes'
 
 const UnthemedMilestoneMotion = ({
-    initial,
-    initialOn,
-    exit,
+    enter = 'hidden',
+    enterOn,
+    onEnter,
+    exit = 'hidden',
     exitOn,
-    animate = 'none',
+    onExit,
+    config,
     transition,
     visible,
     setRole = true,
     children,
 }: MilestoneMotionProps) => {
     const theme = useTheme()
-    const [active, setActive] = useState(visible ?? initialOn === undefined)
+    const [active, setActive] = useState(visible ?? enterOn === undefined)
     const milestones = useMilestones()
 
-    const turnOn = (initialOn && milestones.has(initialOn)) ?? false
+    const turnOn = (enterOn && milestones.has(enterOn)) ?? false
     const turnOff = (exitOn && milestones.has(exitOn)) ?? false
-    const defaultOn = !initialOn
+    const defaultOn = !enterOn
 
     if (milestones.size > 0 || !visible) {
         if (!active) {
             if ((turnOn || defaultOn) && !turnOff) {
                 setActive(true)
+                onEnter?.()
             }
         }
         if (active) {
             if ((!turnOn && !defaultOn) || turnOff) {
                 setActive(false)
+                onExit?.()
             }
         }
     }
-    const role = 'milestone-' + (initialOn ? initialOn : '') + (exitOn ? '-' + exitOn : '')
+    const role = 'milestone-' + (enterOn ? enterOn : '') + (exitOn ? '-' + exitOn : '')
     return (
         <AnimatePresence>
             {active && (
                 <m.g
                     role={setRole ? role : undefined}
-                    initial={getAnimationValue(initial, theme)}
-                    animate={getAnimationValue(animate, theme)}
+                    initial={getAnimationValue(enter, theme)}
+                    animate={getAnimationValue(config, theme)}
                     exit={getAnimationValue(exit, theme)}
                     transition={getTransitionValue(transition, theme)}
                 >

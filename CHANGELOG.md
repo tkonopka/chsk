@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] support for custom functions `onEnter` and `onExit` in `MilestoneMotion`
 -   [documentation] tables with prop names and typings for commonly used core
     props
 -   [core] components `Grid` and `GridItem` to arrange complex content in a
@@ -14,6 +15,10 @@
 
 ### Changed
 
+-   [core] renamed prop `initialOn` in `MilestoneMotion` with `enterOn` for
+    readability and for compatibility with new `onEnter` prop
+-   [core] renamed prop `initial` in `MilestoneMotion` with `enter` for
+    readability and for compatibility with new onEnter prop
 -   [core] stopped including variant in role string in components related to
     axes
 -   [documentation] upgraded storybook to v7.0.3

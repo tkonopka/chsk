@@ -1,12 +1,13 @@
-import { render, screen } from '@testing-library/react'
-import { Chart, MilestoneMotion } from '../../src/charts'
+import { useRef } from 'react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
+import { Chart, ChartRef, MilestoneMotion } from '../../src/charts'
 import { chartProps } from '../props'
 
 describe('MilestoneMotion', () => {
     it('hides content before a milestone is reached', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion initial={'hidden'} initialOn={'A'}>
+                <MilestoneMotion enter={'hidden'} enterOn={'A'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -17,7 +18,7 @@ describe('MilestoneMotion', () => {
     it('displays content in first render', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion initial={'hidden'} initialOn={'A'} visible={true}>
+                <MilestoneMotion enter={'hidden'} enterOn={'A'} visible={true}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -26,11 +27,11 @@ describe('MilestoneMotion', () => {
         expect(screen.queryByRole('milestone-A')).not.toBeNull()
     })
 
-    it('handles null initial and exit states', () => {
+    it('handles null enter and exit states', () => {
         const milestones = new Set<string>(['A'])
         render(
             <Chart {...chartProps} data={{ milestones }}>
-                <MilestoneMotion initial={null} exit={null} transition={null} initialOn={'A'}>
+                <MilestoneMotion enter={null} exit={null} transition={null} enterOn={'A'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -41,7 +42,7 @@ describe('MilestoneMotion', () => {
     it('displays content without role', () => {
         render(
             <Chart {...chartProps}>
-                <MilestoneMotion initialOn={'A'} visible={true} setRole={false}>
+                <MilestoneMotion enterOn={'A'} visible={true} setRole={false}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -50,24 +51,24 @@ describe('MilestoneMotion', () => {
         expect(screen.queryByRole('milestone-A')).toBeNull()
     })
 
-    it('displays content between entry and exit milestones', () => {
-        const setExit = new Set<string>(['entry'])
+    it('displays content between enter and exit milestones', () => {
+        const milestones = new Set<string>(['enter'])
         render(
-            <Chart {...chartProps} data={{ milestones: setExit }}>
-                <MilestoneMotion initialOn={'entry'} exitOn={'exit'}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enterOn={'enter'} exitOn={'exit'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
         )
         expect(screen.getByRole('chart-content').querySelector('rect')).toBeDefined()
-        expect(screen.queryByRole('milestone-entry-exit')).not.toBeNull()
+        expect(screen.queryByRole('milestone-enter-exit')).not.toBeNull()
     })
 
     it('hides content after an exit milestone', () => {
-        const setExit = new Set<string>(['exit'])
+        const milestones = new Set<string>(['exit'])
         render(
-            <Chart {...chartProps} data={{ milestones: setExit }}>
-                <MilestoneMotion initialOn={'entry'} exitOn={'exit'}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enterOn={'entry'} exitOn={'exit'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -77,10 +78,10 @@ describe('MilestoneMotion', () => {
     })
 
     it('quietly accepts incorrect motion settings', () => {
-        const setA = new Set<string>(['A'])
+        const milestones = new Set<string>(['A'])
         render(
-            <Chart {...chartProps} data={{ milestones: setA }}>
-                <MilestoneMotion initial={'abcabc'} initialOn={'A'}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enter={'abcabc'} enterOn={'A'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -90,10 +91,10 @@ describe('MilestoneMotion', () => {
     })
 
     it('toggles visibility off after exit milestone, even with default visible', () => {
-        const setExit = new Set<string>(['exit'])
+        const milestones = new Set<string>(['exit'])
         render(
-            <Chart {...chartProps} data={{ milestones: setExit }}>
-                <MilestoneMotion initialOn={'entry'} exitOn={'exit'} visible={true}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enterOn={'entry'} exitOn={'exit'} visible={true}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -103,12 +104,12 @@ describe('MilestoneMotion', () => {
     })
 
     it('accepts custom motion settings', () => {
-        const setEntry = new Set<string>(['entry'])
+        const milestones = new Set<string>(['enter'])
         render(
-            <Chart {...chartProps} data={{ milestones: setEntry }}>
+            <Chart {...chartProps} data={{ milestones }}>
                 <MilestoneMotion
-                    initial={{ opacity: 0.5, scale: 0.5 }}
-                    initialOn={'entry'}
+                    enter={{ opacity: 0.5, scale: 0.5 }}
+                    enterOn={'enter'}
                     visible={false}
                 >
                     <rect width={10} height={10} />
@@ -120,10 +121,10 @@ describe('MilestoneMotion', () => {
     })
 
     it('accepts named transition configuration', () => {
-        const setEntry = new Set<string>(['entry'])
+        const milestones = new Set<string>(['enter'])
         render(
-            <Chart {...chartProps} data={{ milestones: setEntry }}>
-                <MilestoneMotion initialOn={'entry'} visible={false} transition={'default'}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enterOn={'enter'} visible={false} transition={'default'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -133,10 +134,10 @@ describe('MilestoneMotion', () => {
     })
 
     it('accepts named transition but falls back to default', () => {
-        const setEntry = new Set<string>(['entry'])
+        const milestones = new Set<string>(['enter'])
         render(
-            <Chart {...chartProps} data={{ milestones: setEntry }}>
-                <MilestoneMotion initialOn={'entry'} visible={false} transition={'incorrect'}>
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion enterOn={'enter'} visible={false} transition={'incorrect'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -146,12 +147,12 @@ describe('MilestoneMotion', () => {
     })
 
     it('accepts custom transition settings', () => {
-        const setEntry = new Set<string>(['entry'])
+        const milestones = new Set<string>(['enter'])
         render(
-            <Chart {...chartProps} data={{ milestones: setEntry }}>
+            <Chart {...chartProps} data={{ milestones }}>
                 <MilestoneMotion
-                    initial={{ opacity: 0.5, scale: 0.5 }}
-                    initialOn={'entry'}
+                    enter={{ opacity: 0.5, scale: 0.5 }}
+                    enterOn={'enter'}
                     visible={false}
                     transition={{ type: 'spring', duration: 0.5, stiffness: 50 }}
                 >
@@ -161,5 +162,98 @@ describe('MilestoneMotion', () => {
         )
         const result = screen.getByRole('chart-content')
         expect(result.querySelector('rect')).not.toBeNull()
+    })
+
+    it('executes custom functions on entry', () => {
+        const milestones = new Set<string>(['enter'])
+        let value = 0
+        const onEnter = () => {
+            value = value + 1
+        }
+        render(
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion
+                    enter={{ opacity: 0.5, scale: 0.5 }}
+                    enterOn={'enter'}
+                    onEnter={onEnter}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        expect(screen.getByRole('chart-content').querySelector('rect')).not.toBeNull()
+        expect(value).toEqual(1)
+    })
+
+    it('executes functions when milestones triggered not call functions unnecessarily', async () => {
+        let value = 0
+        const onEnter = () => {
+            value = value + 1
+        }
+        const onExit = () => {
+            value = value * 5 + 2
+        }
+        const CustomChart = () => {
+            const ref = useRef<ChartRef>(null)
+            const toggleA = () => {
+                ref?.current?.toggleMilestone('A')
+            }
+            const toggleB = () => {
+                ref?.current?.toggleMilestone('B')
+            }
+            return (
+                <Chart {...chartProps} fref={ref}>
+                    <rect width={10} height={10} role={'A'} onClick={toggleA} />
+                    <rect width={10} height={10} role={'B'} onClick={toggleB} />
+                    <MilestoneMotion
+                        enter={{ opacity: 0.5, scale: 0.5 }}
+                        enterOn={'A'}
+                        onEnter={onEnter}
+                        exitOn={'B'}
+                        onExit={onExit}
+                    >
+                        <circle cx={0} cy={0} r={4} />
+                    </MilestoneMotion>
+                </Chart>
+            )
+        }
+        render(<CustomChart />)
+        expect(value).toBe(0)
+        fireEvent.click(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(value).toBe(1) // 0 + 1
+        })
+        fireEvent.click(screen.getByRole('B'))
+        await waitFor(() => {
+            expect(value).toBe(7) // (1*5)+2
+        })
+    })
+
+    it('does not call functions unnecessarily', () => {
+        const milestones = new Set<string>(['enter', 'exit'])
+        let value = 0
+        const onEnter = () => {
+            value = value + 1
+        }
+        const onExit = () => {
+            value = value * 5 + 2
+        }
+        render(
+            <Chart {...chartProps} data={{ milestones }}>
+                <MilestoneMotion
+                    enter={{ opacity: 0.5, scale: 0.5 }}
+                    enterOn={'enter'}
+                    onEnter={onEnter}
+                    exitOn={'exit'}
+                    onExit={onExit}
+                >
+                    <rect width={10} height={10} />
+                </MilestoneMotion>
+            </Chart>
+        )
+        // the content should be invisible
+        expect(screen.getByRole('chart-content').querySelector('rect')).toBeNull()
+        // the config should detect there is nothing to be done, so settings should not change
+        expect(value).toEqual(0)
     })
 })
