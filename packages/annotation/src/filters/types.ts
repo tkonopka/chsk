@@ -21,3 +21,7 @@ export interface InsetShadowFilterProps extends WithId, FloodProps {
 export interface BackgroundColorFilterProps extends WithId, FloodProps {
     expansion?: FourSideSizeSpec
 }
+
+export interface BlurFilterProps extends WithId {
+    blurStdDeviation?: number
+}

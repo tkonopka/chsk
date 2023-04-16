@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [annotation] filter `BlurFilter`
 -   [core] support for `MilestoneMotion` animation without children, i.e. using
     only `onEnter` and `onExit` functions
 -   [core] support for custom functions `onEnter` and `onExit` in `MilestoneMotion`

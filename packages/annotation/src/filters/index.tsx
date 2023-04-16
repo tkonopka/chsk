@@ -1,4 +1,5 @@
 export * from './BackgroundColorFilter'
+export * from './BlurFilter'
 export * from './InsetBorderFilter'
 export * from './InsetColorFilter'
 export * from './InsetShadowFilter'

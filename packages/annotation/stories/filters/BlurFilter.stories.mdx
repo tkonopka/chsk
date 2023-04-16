@@ -1,0 +1,81 @@
+import { ArgsTable, Canvas, Meta, Story } from '@storybook/addon-docs'
+import { Chart, Surface, Rectangle } from '@chsk/core'
+import { BlurFilter } from '../../src/filters'
+
+<Meta title="Addons/Annotation/Filters/BlurFilter" />
+
+# BlurFilter
+
+export const Template = args => <BlurFilter {...args} />
+
+`BlurFilter` creates an svg filter that applies a blur effect.
+
+<ArgsTable of={BlurFilter} />
+
+(`BlurFilter` is a simple a wrapper for svg's `feGaussianBlur`.
+The filter is provided as a distinct component for consistency in notation with other library filters.)
+
+## Blur
+
+Prop `blurStdDeviation` determines the amount of blur.
+
+<Canvas>
+    <Story name="small">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <BlurFilter id={'small-blur'} blurStdDeviation={1} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                    filter: 'url(#small-blur)',
+                }}
+            />
+        </Chart>
+    </Story>
+    <Story name="large">
+        <Chart size={[280, 180]} padding={[20, 20, 20, 20]} style={{ display: 'inline-block' }}>
+            <Surface />
+            <BlurFilter id={'large-blur'} blurStdDeviation={4} />
+            <Rectangle
+                x={40}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                }}
+            />
+            <Rectangle
+                x={140}
+                y={40}
+                width={60}
+                height={60}
+                style={{
+                    stroke: '#000000',
+                    strokeWidth: 1,
+                    fill: '#dd9999',
+                    filter: 'url(#large-blur)',
+                }}
+            />
+        </Chart>
+    </Story>
+</Canvas>
