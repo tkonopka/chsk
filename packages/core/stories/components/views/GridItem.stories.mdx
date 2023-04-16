@@ -14,25 +14,13 @@ It does not display any visual elements, but it sets up a local container that m
 
 ## Position
 
-Prop `position` specifies a location within a grid.
-This can be specified as a pair of integers indicating the column index and row index,
-or as a single number indicating the cell index (see prop `variant` in `Grid`).
+Prop `position` specifies a location in a grid.
+This prop interprets values as x- and y- indexes in the grid: a value _[i, j]_ corresponds to column _i_ and row _j_.
 
-The examples below set up a 3x3 grid, and a `GridItem` is used to create a local coordinate system in one of the cells.
-A `Surface` component fills that cell with color.
+The example below sets up a 3x3 grid.
+A `GridItem` creates a local coordinate system in one of the cells, and a `Surface` component fills the cell with color.
 
 <Canvas>
-    <Story
-        name="index"
-        args={{
-            position: 2,
-            children: <Surface style={{ fill: '#ddaaaa' }} />,
-        }}
-        component={GridItem}
-        decorators={[ChartWithGridDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
     <Story
         name="position"
         args={{
@@ -46,6 +34,36 @@ A `Surface` component fills that cell with color.
     </Story>
 </Canvas>
 
-Note that when referring to a grid, matrix, or data frame, an often-used convention
-is to specify locations as '[row, column]'. However, `GridItem` interprets `position`
-as '[column, row]' for consistency with other position props that specify [x, y] coordinates.
+## Index
+
+Prop `index` is an alternative way to specify a location in a grid.
+
+An index provided as a single number is interpreted using grid linearization (see prop `variant` in `Grid`).
+When index consists of a pair of integers, they are interpreted as row and column indexes:
+a value of _[i, j]_ corresponds to row _i_ and column _j_.
+(Note this is opposite to prop `position`.)
+
+<Canvas>
+    <Story
+        name="index as integer"
+        args={{
+            index: 2,
+            children: <Surface style={{ fill: '#ddaaaa' }} />,
+        }}
+        component={GridItem}
+        decorators={[ChartWithGridDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+    <Story
+        name="index as array"
+        args={{
+            index: [0, 2],
+            children: <Surface style={{ fill: '#ddaaaa' }} />,
+        }}
+        component={GridItem}
+        decorators={[ChartWithGridDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

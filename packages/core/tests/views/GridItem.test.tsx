@@ -8,12 +8,12 @@ const chartProps: Partial<ChartProps> = {
 }
 
 describe('GridItem', () => {
-    it('creates a grid item with index', () => {
+    it('creates a grid item using single-number index', () => {
         render(
             <Chart {...chartProps}>
                 <Grid grid={[4, 4]}>
-                    <GridItem position={1} />
-                    <GridItem position={6} />
+                    <GridItem index={1} />
+                    <GridItem index={6} />
                 </Grid>
             </Chart>
         )
@@ -26,10 +26,10 @@ describe('GridItem', () => {
         expect(items[1].getAttribute('transform')).toBe('translate(200,100)')
     })
 
-    it('creates a grid item with position', () => {
+    it('creates a grid item using position', () => {
         render(
             <Chart {...chartProps}>
-                <Grid grid={[4, 4]} variant={'vertical'}>
+                <Grid grid={[4, 4]}>
                     <GridItem position={[1, 2]} />
                     <GridItem position={[0, 3]} />
                 </Grid>
@@ -37,9 +37,23 @@ describe('GridItem', () => {
         )
         expect(screen.queryAllByRole('grid-item')).toHaveLength(2)
         const items = screen.getAllByRole('grid-item')
-        // accessing by position is independent of horizontal/vertical order
         expect(items[0].getAttribute('transform')).toBe('translate(100,200)')
         expect(items[1].getAttribute('transform')).toBe('translate(0,300)')
+    })
+
+    it('creates a grid item using array index', () => {
+        render(
+            <Chart {...chartProps}>
+                <Grid grid={[4, 4]}>
+                    <GridItem index={[1, 2]} />
+                    <GridItem index={[0, 3]} />
+                </Grid>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('grid-item')).toHaveLength(2)
+        const items = screen.getAllByRole('grid-item')
+        expect(items[0].getAttribute('transform')).toBe('translate(200,100)')
+        expect(items[1].getAttribute('transform')).toBe('translate(300,0)')
     })
 
     it('creates a dimensions provider that affect children', () => {

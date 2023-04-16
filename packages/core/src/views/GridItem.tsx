@@ -3,7 +3,8 @@ import { DimensionsProvider, getTranslate, X, Y, zeroPadding } from '../general'
 import { useGrid } from './contexts'
 
 export const GridItem = ({
-    position = 0,
+    index,
+    position,
     className,
     setRole = true,
     style,
@@ -11,15 +12,16 @@ export const GridItem = ({
 }: GridItemProps) => {
     const grid = useGrid()
 
-    let index = 0
-    if (Array.isArray(position)) {
+    // convert array-based position/index into a single-integer index
+    if (index === undefined && position !== undefined) {
+        index = [position[Y], position[X]]
+    }
+    if (Array.isArray(index)) {
         if (grid.variant === 'horizontal') {
-            index = position[X] + grid.grid[Y] * position[Y]
+            index = index[Y] + grid.grid[Y] * index[X]
         } else if (grid.variant === 'vertical') {
-            index = position[X] * grid.grid[X] + position[Y]
+            index = index[Y] * grid.grid[X] + index[X]
         }
-    } else {
-        index = position
     }
 
     return (
@@ -27,10 +29,10 @@ export const GridItem = ({
             role={setRole ? 'grid-item' : undefined}
             className={className}
             style={style}
-            transform={getTranslate(grid.positions?.[index] ?? [0, 0])}
+            transform={getTranslate(grid.positions?.[Number(index)] ?? [0, 0])}
         >
             <DimensionsProvider
-                size={grid.sizes?.[index] ?? [0, 0]}
+                size={grid.sizes?.[Number(index)] ?? [0, 0]}
                 padding={zeroPadding}
                 role={'grid-item-content'}
             >

@@ -175,8 +175,10 @@ export interface GridProps extends SvgElementVariantProps {
 }
 
 export interface GridItemProps extends SvgElementProps {
-    /** position of item in grid as [row, column] indexes, or as a linearized index */
-    position?: NumericPositionSpec | number
+    /** position of item in grid as [column, row] */
+    position?: NumericPositionSpec
+    /** location of item in grid (overrides position) */
+    index?: NumericPositionSpec | number
     /** children */
     children?: ReactNode
 }
