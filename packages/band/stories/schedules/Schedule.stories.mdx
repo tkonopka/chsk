@@ -9,13 +9,17 @@ import { commonScheduleProps } from './decorators'
 <Meta title="Addons/Band/Schedules/Schedule" />
 export const Template = args => <Schedule {...args} />
 
-`Schedule` sets up a view for a schedule chart (also referred to as 'Gantt chart'). `Schedule` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Schedules`.
+`Schedule` sets up a view for a chart displaying intervals (also referred to as 'Gantt chart').
+`Schedule` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Schedules`.
 
 <ArgsTable of={Schedule} />
 
 ## Data
 
-Data should be prepared as an array of objects. All objects should contain a string identifier `'id'` and an array `'data'`. The data array should contain objects that define a key string, as well as interval start- and end-points. The key string can be used to toggle visibility of certain intervals.
+Data should be prepared as an array of objects.
+All objects should contain a string identifier `'id'` and an array `'data'`.
+The data array should contain objects that define a key string, as well as interval start- and end-points.
+The key string can be used to toggle visibility of certain intervals.
 
 The pseudocode below shows one data item with an array of three intervals.
 
@@ -69,4 +73,5 @@ Prop `horizontal` determines the orientation of the intervals.
 
 ## Other features
 
-`Schedule` supports many of the same features as `Bar`, for example, for adjusting padding. See the documentation for `Bar` for examples.
+`Schedule` supports many of the same features as `Bar`, for example, for adjusting padding.
+See the documentation for `Bar` for examples.

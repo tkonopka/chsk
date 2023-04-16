@@ -17,7 +17,8 @@ The library provides React components for data visualization.
     and geometric shapes.
 -   **Data-specific components** include bar charts, line charts,
     scatter plots, pie/doughnut charts, strip charts, quantile/box plots,
-    histograms, heat maps, set/Venn diagrams, upset diagrams, and schedule/Gant charts.
+    histograms, heat maps, set (Venn) diagrams, upset diagrams, and
+    schedule (Gantt) charts.
 
 Advanced features enable creating dynamic and bespoke content.
 
