@@ -114,7 +114,7 @@ export const HeatMapHighlight = ({
     )
 
     useEffect(() => {
-        if (!interactive && zone === null) {
+        if (!interactive) {
             const xInterval = getMinMax(detectorIntervals[0])
             const yInterval = getMinMax(detectorIntervals[1])
             setZone([xInterval, yInterval])
