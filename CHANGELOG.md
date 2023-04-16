@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] support for `MilestoneMotion` animation without children, i.e. using
+    only `onEnter` and `onExit` functions
 -   [core] support for custom functions `onEnter` and `onExit` in `MilestoneMotion`
 -   [documentation] tables with prop names and typings for commonly used core
     props
@@ -15,6 +17,7 @@
 
 ### Changed
 
+-   [core] added missing key fields in `Axis`
 -   [core] renamed prop `initialOn` in `MilestoneMotion` with `enterOn` for
     readability and for compatibility with new `onEnter` prop
 -   [core] renamed prop `initial` in `MilestoneMotion` with `enter` for

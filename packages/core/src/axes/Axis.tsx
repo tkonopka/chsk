@@ -25,13 +25,13 @@ const UnthemedAxis = ({
             className={className}
             style={style}
         >
-            {children ? (
-                children
-            ) : (
+            {children ?? (
                 <>
-                    <AxisTicks variant={variant} ticks={ticks} />
-                    <AxisLine style={style} variant={variant} />
-                    <AxisLabel variant={variant}>{label}</AxisLabel>
+                    <AxisTicks key={0} variant={variant} ticks={ticks} />
+                    <AxisLine key={1} style={style} variant={variant} />
+                    <AxisLabel key={2} variant={variant}>
+                        {label}
+                    </AxisLabel>
                 </>
             )}
         </g>

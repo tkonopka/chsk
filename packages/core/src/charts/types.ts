@@ -69,7 +69,7 @@ export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'vari
     /** function executed when exit is toggled */
     onExit?: () => void
     /** children components */
-    children: ReactNode
+    children?: ReactNode
     /** base configuration */
     config?: AnimationSpec
     /** transition settings */
