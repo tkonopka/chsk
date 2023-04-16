@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Chart,
     Axis,
@@ -90,6 +91,8 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
     const idsB = ids.slice(breakIndexes[0], breakIndexes[1])
     const idsC = ids.slice(breakIndexes[1])
 
+    const [blockIds, setBlockIds] = useState<string[]>(idsA)
+
     return (
         <Chart
             data={chartData}
@@ -139,15 +142,24 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                         gradientId={'grad-blocks'}
                     />
                 </Legend>
-                <MilestoneMotion enterOn={'blockA'} exitOn={'blockB'}>
-                    <HeatMapHighlight ids={idsA} keys={idsA} interactive={false} />
+                <MilestoneMotion enterOn={'blockA'} exitOn={'final'}>
+                    <HeatMapHighlight ids={blockIds} keys={blockIds} interactive={false} />
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'blockB'} exitOn={'blockC'}>
-                    <HeatMapHighlight ids={idsB} keys={idsB} interactive={false} />
-                </MilestoneMotion>
-                <MilestoneMotion enterOn={'blockC'} exitOn={'final'}>
-                    <HeatMapHighlight ids={idsC} keys={idsC} interactive={false} />
-                </MilestoneMotion>
+                <MilestoneMotion
+                    enterOn={'blockA'}
+                    onEnter={() => setBlockIds(idsA)}
+                    onExit={() => setBlockIds(idsB)}
+                />
+                <MilestoneMotion
+                    enterOn={'blockB'}
+                    onEnter={() => setBlockIds(idsB)}
+                    onExit={() => setBlockIds(idsA)} // on exit required to support backward in milestone navigation
+                />
+                <MilestoneMotion
+                    enterOn={'blockC'}
+                    onEnter={() => setBlockIds(idsC)}
+                    onExit={() => setBlockIds(idsB)} // on exit required to support backward in milestone navigation
+                />
                 <MilestoneMotion enterOn={'final'}>
                     <HeatMapHighlight edgeAnimation={true} style={{ opacity: 0.6 }} />
                     <Tooltip

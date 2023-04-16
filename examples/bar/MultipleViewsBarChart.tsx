@@ -256,7 +256,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
         >
             <InsetColorFilter id={'darker'} floodColor={'#000000'} erodeR={0} floodOpacity={0.5} />
             <Grid grid={[3, 1]} spacing={[10, 0]}>
-                <GridItem position={0}>
+                <GridItem index={0}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['alpha']}>
                         <ActiveIdSurface expansion={[0, 10]} />
                         <GridLines variant={'y'} shift={[-0.6]} />
@@ -268,7 +268,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                         <Tooltip labelFormat={customTooltipLabel} />
                     </Bar>
                 </GridItem>
-                <GridItem position={1}>
+                <GridItem index={1}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['beta']}>
                         <ActiveIdSurface expansion={[0, 10]} />
                         <GridLines variant={'y'} shift={[-0.6]} />
@@ -279,7 +279,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                         <Tooltip labelFormat={customTooltipLabel} />
                     </Bar>
                 </GridItem>
-                <GridItem position={2}>
+                <GridItem index={2}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['gamma']}>
                         <ActiveIdSurface expansion={[0, 0]} />
                         <GridLines variant={'y'} shift={[-0.6]} />

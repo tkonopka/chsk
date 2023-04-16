@@ -120,7 +120,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
             theme={multiviewTheme}
         >
             <Grid grid={[3, 1]} spacing={[8, 0]}>
-                <GridItem position={0}>
+                <GridItem index={0}>
                     <Scatter {...commonProps} y={'A'} data={rawData} scaleY={scaleY}>
                         <MilestoneMotion
                             enter={enterAnimation}
@@ -151,7 +151,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                         </MilestoneMotion>
                     </Scatter>
                 </GridItem>
-                <GridItem position={1}>
+                <GridItem index={1}>
                     <MilestoneMotion
                         enter={enterAnimation}
                         enterOn={'B'}
@@ -167,7 +167,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                         </Scatter>
                     </MilestoneMotion>
                 </GridItem>
-                <GridItem position={2}>
+                <GridItem index={2}>
                     <MilestoneMotion
                         enter={enterAnimation}
                         enterOn={'C'}

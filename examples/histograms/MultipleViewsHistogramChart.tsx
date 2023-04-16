@@ -108,7 +108,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
             theme={multiviewTheme}
         >
             <Grid grid={[3, 1]} spacing={[6, 0]}>
-                <GridItem position={0}>
+                <GridItem index={0}>
                     <MilestoneMotion enterOn={'small'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
@@ -123,7 +123,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                         </Histogram>
                     </MilestoneMotion>
                 </GridItem>
-                <GridItem position={1}>
+                <GridItem index={1}>
                     <MilestoneMotion enterOn={'medium'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
@@ -134,7 +134,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                         </Histogram>
                     </MilestoneMotion>
                 </GridItem>
-                <GridItem position={2}>
+                <GridItem index={2}>
                     <MilestoneMotion enterOn={'large'}>
                         <Histogram {...multiviewHistogramProps} data={rawData}>
                             <GridLines variant={'y'} />
