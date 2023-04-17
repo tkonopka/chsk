@@ -88,7 +88,6 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>
                     <AxisTicks
-                        variant={'bottom'}
                         tickSize={5}
                         labelAngle={-90}
                         labelDistance={9}
@@ -96,11 +95,11 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                     />
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} tickSize={5} />
-                    <AxisLabel variant={'left'}>Measurements (a.u.)</AxisLabel>
+                    <AxisTicks tickSize={5} />
+                    <AxisLabel>Measurements (a.u.)</AxisLabel>
                 </Axis>
                 <Axis variant={'right'}>
-                    <AxisTicks variant={'right'} tickSize={5} />
+                    <AxisTicks tickSize={5} />
                 </Axis>
                 <Strips />
             </Strip>

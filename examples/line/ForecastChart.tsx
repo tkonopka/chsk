@@ -208,12 +208,11 @@ export const ForecastChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <ForecastRectangle />
                 <GridLines variant={'y'} expansion={[0, 30]} />
                 <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
+                    <AxisLine />
                     <YearAxisTicks variant={'bottom'} />
                 </Axis>
                 <Axis variant={'right'} distance={30}>
                     <AxisTicks
-                        variant={'right'}
                         labelFormat={v => Number(v).toFixed(1)}
                         labelStyle={{ textAnchor: 'end' }}
                     />

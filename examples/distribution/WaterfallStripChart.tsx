@@ -124,22 +124,19 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
                 />
                 <Axis variant={'bottom'}>
                     <AxisTicks
-                        variant={'bottom'}
                         tickSize={5}
                         labelAngle={-45}
                         labelDistance={9}
                         labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }}
                     />
-                    <AxisLabel variant={'bottom'} distance={55}>
-                        Samples
-                    </AxisLabel>
+                    <AxisLabel distance={55}>Samples</AxisLabel>
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} tickSize={5} />
-                    <AxisLabel variant={'left'}>z-score</AxisLabel>
+                    <AxisTicks tickSize={5} />
+                    <AxisLabel>z-score</AxisLabel>
                 </Axis>
                 <Axis variant={'right'}>
-                    <AxisTicks variant={'right'} tickSize={5} />
+                    <AxisTicks tickSize={5} />
                 </Axis>
                 <Strips />
                 <BetweenBandsLabel

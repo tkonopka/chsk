@@ -3,8 +3,6 @@ import {
     CssProps,
     Circle,
     Axis,
-    AxisLabel,
-    AxisTicks,
     MilestoneMotion,
     Typography,
     Legend,
@@ -85,10 +83,7 @@ export const SimpsonChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             >
                 <MilestoneMotion enterOn={'axes'}>
                     <Axis variant={'bottom'} label={'Covariate (a.u.)'} />
-                    <Axis variant={'left'}>
-                        <AxisLabel variant={'left'}>Measurement (a.u.)</AxisLabel>
-                        <AxisTicks variant={'left'} />
-                    </Axis>
+                    <Axis variant={'left'} label={'Measurement (a.u.)'} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'A'}>
                     <ScatterPoints ids={['A']} />

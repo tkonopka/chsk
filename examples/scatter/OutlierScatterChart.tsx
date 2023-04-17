@@ -1,8 +1,6 @@
 import {
     Chart,
     Axis,
-    AxisLabel,
-    AxisTicks,
     MilestoneMotion,
     Typography,
     Legend,
@@ -101,10 +99,7 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
             >
                 <MilestoneMotion enterOn={'axes'}>
                     <Axis variant={'bottom'} label={'Covariate (a.u.)'} />
-                    <Axis variant={'left'}>
-                        <AxisLabel variant={'left'}>Measurement (a.u.)</AxisLabel>
-                        <AxisTicks variant={'left'} />
-                    </Axis>
+                    <Axis variant={'left'} label={'Measurement (a.u.)'} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'data'}>
                     <ScatterPoints

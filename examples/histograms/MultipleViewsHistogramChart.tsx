@@ -116,8 +116,8 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             <Axis variant={'bottom'} />
                             <HistogramCurve ids={['small']} />
                             <Axis variant={'left'}>
-                                <AxisTicks variant={'left'} tickSize={0} />
-                                <AxisLabel variant={'left'}>probability density</AxisLabel>
+                                <AxisTicks tickSize={0} />
+                                <AxisLabel>probability density</AxisLabel>
                             </Axis>
                             <AppearingLabel enterOn={'small'} n={rawData[0].data.length} />
                         </Histogram>

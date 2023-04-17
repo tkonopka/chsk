@@ -1,13 +1,4 @@
-import {
-    Chart,
-    Axis,
-    AxisLabel,
-    AxisLine,
-    AxisTicks,
-    MilestoneMotion,
-    ThemeSpec,
-    mergeTheme,
-} from '@chsk/core'
+import { Chart, Axis, AxisTicks, MilestoneMotion, ThemeSpec, mergeTheme } from '@chsk/core'
 import { UpSet, UpSetGrid, UpSetMemberships, UpSetBar, isUpSetData } from '@chsk/matrix'
 import { Bars } from '@chsk/band'
 import { alphabetGreek, generateIdentifiers, randomSelection } from '../utils'
@@ -92,14 +83,7 @@ export const VerticalUpSetChart = ({ fref, chartData, rawData }: MilestoneStory)
                         padding={[0, 0, 0, 10]}
                         scaleIndex={{ variant: 'band', padding: 0.25 }}
                     >
-                        <Axis variant={'top'}>
-                            <AxisLine variant={'top'} />
-                            <AxisTicks variant={'top'} />
-                            <AxisLabel variant={'top'}>Set intersection</AxisLabel>
-                        </Axis>
-                        <Axis variant={'left'}>
-                            <AxisLine variant={'left'} />
-                        </Axis>
+                        <Axis variant={'top'} label={'Set intersection'} />
                         <Bars />
                     </UpSetBar>
                 </MilestoneMotion>

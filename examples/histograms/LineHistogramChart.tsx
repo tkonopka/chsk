@@ -78,12 +78,9 @@ export const LineHistogramChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <GridLines variant={'y'} />
                     <Axis variant={'left'} label={'counts'} />
                     <Axis variant={'bottom'}>
-                        <AxisLine
-                            variant={'bottom'}
-                            style={{ strokeWidth: 1, visibility: 'visible' }}
-                        />
-                        <AxisTicks variant={'bottom'} ticks={8} />
-                        <AxisLabel variant={'bottom'}>values (a.u.)</AxisLabel>
+                        <AxisLine style={{ strokeWidth: 1 }} />
+                        <AxisTicks ticks={8} />
+                        <AxisLabel>values (a.u.)</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'data'}>

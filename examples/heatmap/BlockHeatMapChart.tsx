@@ -117,11 +117,8 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Replicate 1'} />
                 <Axis variant={'top'}>
-                    <AxisTicks
-                        variant={'top'}
-                        labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
-                    />
-                    <AxisLabel variant={'top'}>Replicate 2</AxisLabel>
+                    <AxisTicks labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }} />
+                    <AxisLabel>Replicate 2</AxisLabel>
                 </Axis>
                 <Legend
                     variant={'color'}

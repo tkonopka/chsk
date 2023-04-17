@@ -50,8 +50,8 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     <GridLines variant={'y'} style={{ stroke: '#cccccc' }} />
                     <Axis variant={'bottom'} label={'time (days)'} />
                     <Axis variant={'left'}>
-                        <AxisLabel variant={'left'}>Survival (probability)</AxisLabel>
-                        <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
+                        <AxisLabel>Survival (probability)</AxisLabel>
+                        <AxisTicks labelFormat={v => Number(v).toFixed(1)} />
                     </Axis>
                     <ScatterInterval
                         ids={['control']}

@@ -117,10 +117,10 @@ export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 }}
             >
                 <Axis variant={'top'}>
-                    <AxisTicks variant={'top'} ticks={5} labelFormat={s => s + '%'} />
+                    <AxisTicks ticks={5} labelFormat={s => s + '%'} />
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} tickSize={0} />
+                    <AxisTicks tickSize={0} />
                 </Axis>
                 <GridLines variant={'x'} />
                 <Schedules />

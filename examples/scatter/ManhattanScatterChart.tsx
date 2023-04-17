@@ -174,13 +174,8 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     <GridLines variant={'y'} />
                     <GridLines variant={'x'} values={chromBoundaries} />
                     <Axis variant={'bottom'}>
-                        <AxisTicks
-                            variant={'bottom'}
-                            ticks={chromMids}
-                            tickSize={0}
-                            labelFormat={chromLabel}
-                        />
-                        <AxisLabel variant={'bottom'}>Genome position</AxisLabel>
+                        <AxisTicks ticks={chromMids} tickSize={0} labelFormat={chromLabel} />
+                        <AxisLabel>Genome position</AxisLabel>
                     </Axis>
                     <Axis variant={'left'} label={'- log10 (p-value)'} />
                 </MilestoneMotion>

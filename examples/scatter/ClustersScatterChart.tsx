@@ -114,10 +114,10 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                     <Axis variant={'bottom'} label={'x values (a.u.)'} />
                     <Axis variant={'left'} label={'y values (a.u.)'} />
                     <Axis variant={'top'}>
-                        <AxisTicks variant={'top'} labelFormat={() => ''} />
+                        <AxisTicks labelFormat={() => ''} />
                     </Axis>
                     <Axis variant={'right'}>
-                        <AxisTicks variant={'right'} labelFormat={() => ''} />
+                        <AxisTicks labelFormat={() => ''} />
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'legend'}>

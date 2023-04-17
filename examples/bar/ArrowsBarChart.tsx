@@ -108,8 +108,8 @@ export const ArrowsBarChart = ({ fref, chartData, rawData }: MilestoneStory) => 
             <MilestoneMotion enterOn={'axes'}>
                 <Axis variant={'left'} label={'Score (%)'} />
                 <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
-                    <AxisTicks variant={'bottom'} labelAngle={45} labelDistance={11} />
+                    <AxisLine />
+                    <AxisTicks labelAngle={45} labelDistance={11} />
                 </Axis>
             </MilestoneMotion>
             <Tooltip />

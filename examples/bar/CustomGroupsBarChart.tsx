@@ -2,7 +2,6 @@ import {
     Chart,
     Axis,
     AxisLine,
-    AxisTicks,
     GridLines,
     MilestoneMotion,
     ThemeSpec,
@@ -114,7 +113,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
             <MilestoneMotion enterOn={'axes'}>
                 <GridLines variant={'y'} />
                 <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
+                    <AxisLine />
                 </Axis>
                 <Typography variant={'axisLabel'} position={[-45, 206]}>
                     Samples
@@ -130,10 +129,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 >
                     Group A
                 </LineLabel>
-                <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
-                    <AxisTicks variant={'bottom'} ticks={idsA} />
-                </Axis>
+                <Axis variant={'bottom'} ticks={idsA} label={''} />
             </MilestoneMotion>
             <MilestoneMotion enterOn={'B'}>
                 <Bars keys={['B']} modifiers={customModifiers} />
@@ -144,10 +140,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 >
                     Group B
                 </LineLabel>
-                <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
-                    <AxisTicks variant={'bottom'} ticks={idsB} />
-                </Axis>
+                <Axis variant={'bottom'} ticks={idsB} label={''} />
             </MilestoneMotion>
             <MilestoneMotion enterOn={'C'}>
                 <Bars keys={['C']} modifiers={customModifiers} />
@@ -158,10 +151,7 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
                 >
                     others
                 </LineLabel>
-                <Axis variant={'bottom'}>
-                    <AxisLine variant={'bottom'} />
-                    <AxisTicks variant={'bottom'} ticks={idsC} />
-                </Axis>
+                <Axis variant={'bottom'} ticks={idsC} label={''} />
             </MilestoneMotion>
             <Tooltip
                 offset={[16, 0]}

@@ -97,9 +97,8 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
             >
                 <MilestoneMotion enterOn={'samples'}>
                     <Axis variant={'left'}>
-                        <AxisLabel variant={'left'}>Samples</AxisLabel>
+                        <AxisLabel>Samples</AxisLabel>
                         <AxisTicks
-                            variant={'left'}
                             ticks={alphabetGreek}
                             tickSize={0}
                             labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}

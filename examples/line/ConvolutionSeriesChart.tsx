@@ -105,7 +105,7 @@ export const ConvolutionSeriesChart = ({ fref, chartData, rawData }: MilestoneSt
                 <GridLines variant={'y'} style={{ stroke: '#cccccc' }} />
                 <Axis variant={'bottom'} label={'time (a.u.)'} />
                 <Axis variant={'left'}>
-                    <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
+                    <AxisTicks labelFormat={v => Number(v).toFixed(1)} />
                 </Axis>
                 <ScatterPoints />
                 <ScatterCurve

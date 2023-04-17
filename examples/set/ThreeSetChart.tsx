@@ -111,8 +111,8 @@ export const ThreeSetChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     container={{ size: [0.4, 1], padding: [10, 40, 0, 20] }}
                 >
                     <Axis variant={'bottom'}>
-                        <AxisLine variant={'bottom'} />
-                        <AxisTicks variant={'bottom'} labelFormat={labelFormat} />
+                        <AxisLine />
+                        <AxisTicks labelFormat={labelFormat} />
                     </Axis>
                     <Axis variant={'left'} label={'Set size'} />
                     <Bars />

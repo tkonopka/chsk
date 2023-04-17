@@ -115,7 +115,7 @@ export const FractionGradientsBarChart = ({ fref, chartData, rawData }: Mileston
             />
             <Axis variant={'bottom'} />
             <Axis variant={'left'}>
-                <AxisTicks variant={'left'} tickSize={0} labelFormat={v => v + '%'} />
+                <AxisTicks tickSize={0} labelFormat={v => v + '%'} />
             </Axis>
             <Tooltip
                 itemSize={[110, 25]}

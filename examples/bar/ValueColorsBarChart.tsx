@@ -153,9 +153,8 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                     % change on previous month
                 </Typography>
                 <Axis variant={'bottom'}>
-                    <AxisTicks variant={'bottom'} labelDistance={8} labelFormat={monthTickFormat} />
+                    <AxisTicks labelDistance={8} labelFormat={monthTickFormat} />
                     <AxisTicks
-                        variant={'bottom'}
                         labelDistance={26}
                         labelFormat={yearTickFormat}
                         labelStyle={{ fill: '#222222', fontWeight: 600, textAnchor: 'start' }}
@@ -163,11 +162,7 @@ export const ValueColorsBarChart = ({ fref, chartData, rawData }: MilestoneStory
                 </Axis>
                 <GridLines variant={'y'} expansion={[0, 26]} />
                 <Axis variant={'right'} distance={4}>
-                    <AxisTicks
-                        variant={'right'}
-                        labelOffset={[12, -7]}
-                        labelStyle={{ textAnchor: 'end' }}
-                    />
+                    <AxisTicks labelOffset={[12, -7]} labelStyle={{ textAnchor: 'end' }} />
                 </Axis>
                 <ViewClip id={'bar-clip'} expansion={[2, 0, 2, 0]}>
                     <Bars component={CustomRectangle} modifiers={customModifiers} />

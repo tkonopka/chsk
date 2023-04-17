@@ -194,11 +194,10 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                 <MilestoneMotion enterOn={'grid'}>
                     <GridLines variant={'x'} />
                     <Axis variant={'bottom'}>
-                        <AxisTicks variant={'bottom'} labelDistance={10} />
+                        <AxisTicks labelDistance={10} />
                     </Axis>
                     <Axis variant={'left'}>
                         <AxisTicks
-                            variant={'left'}
                             labelDistance={80}
                             labelFormat={v => String(idLabels[String(v)])}
                         />

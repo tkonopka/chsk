@@ -111,10 +111,9 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                 <MilestoneMotion enterOn={'top'}>
                     <Axis variant={'top'}>
                         <AxisTicks
-                            variant={'top'}
                             labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }}
                         />
-                        <AxisLabel variant={'top'}>Samples</AxisLabel>
+                        <AxisLabel>Samples</AxisLabel>
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'categorical'}>

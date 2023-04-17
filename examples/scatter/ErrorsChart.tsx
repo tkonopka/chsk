@@ -2,8 +2,6 @@ import {
     Chart,
     Circle,
     Axis,
-    AxisLabel,
-    AxisTicks,
     GridLines,
     MilestoneMotion,
     Typography,
@@ -112,14 +110,8 @@ export const ErrorsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     </Typography>
                     <GridLines variant={'x'} values={24} />
                     <GridLines variant={'y'} values={24} />
-                    <Axis variant={'bottom'}>
-                        <AxisLabel variant={'bottom'}>A (a.u.)</AxisLabel>
-                        <AxisTicks variant={'bottom'} ticks={6} />
-                    </Axis>
-                    <Axis variant={'left'}>
-                        <AxisLabel variant={'left'}>B (a.u.)</AxisLabel>
-                        <AxisTicks variant={'left'} ticks={6} />
-                    </Axis>
+                    <Axis variant={'bottom'} ticks={6} label={'A (a.u.)'} />
+                    <Axis variant={'left'} ticks={6} label={'B (a.u.)'} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'points'}>
                     <Typography variant={'subtitle'} position={[-50, -30]}>

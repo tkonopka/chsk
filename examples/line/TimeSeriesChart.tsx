@@ -178,16 +178,11 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 <GridLines variant={'y'} style={{ stroke: '#cccccc' }} />
                 <GridLines variant={'y'} values={[0]} style={{ stroke: '#222222' }} />
                 <Axis variant={'bottom'} label={'time'}>
-                    <AxisTicks
-                        variant={'bottom'}
-                        labelFormat={v => dateToString(new Date(Number(v)))}
-                    />
+                    <AxisTicks labelFormat={v => dateToString(new Date(Number(v)))} />
                 </Axis>
                 <Axis variant={'left'}>
-                    <AxisLabel variant={'left'} distance={60}>
-                        Value (a.u.)
-                    </AxisLabel>
-                    <AxisTicks variant={'left'} labelFormat={v => Number(v).toFixed(1)} />
+                    <AxisLabel distance={60}>Value (a.u.)</AxisLabel>
+                    <AxisTicks labelFormat={v => Number(v).toFixed(1)} />
                 </Axis>
                 <ViewClip id={'time-curve'} expansion={[5, 5, 5, 5]}>
                     <SignCurve />
