@@ -7,7 +7,7 @@ creating static charts for offline publications, dynamic components for
 dashboards, and animated stories for presentations.
 
 -   [documentation](https://tkonopka.github.io/chsk/)
--   [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--page)
+-   [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--docs)
 
 ## Features
 
