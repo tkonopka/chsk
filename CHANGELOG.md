@@ -18,6 +18,9 @@
 
 ### Changed
 
+-   [core] enabled transfer of prop `variant` from `Axis` to its children; this
+    removes requirement for `AxisLabel`, `AxisLine`, and `AxisTicks` to
+    specify the variant prop
 -   [core] added missing key fields in `Axis`
 -   [core] renamed prop `initialOn` in `MilestoneMotion` with `enterOn` for
     readability and for compatibility with new `onEnter` prop

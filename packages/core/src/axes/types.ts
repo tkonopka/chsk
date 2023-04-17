@@ -27,12 +27,12 @@ export interface AxisThemedProps extends Pick<AxisProps, 'distance' | 'ticks' | 
 
 export interface AxisLineProps extends Omit<SvgElementVariantProps, 'setRole'> {
     /** type of axis */
-    variant: SideVariant
+    variant?: SideVariant
 }
 
 export interface AxisLabelProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideVariant
+    variant?: SideVariant
     /** distance between axis line and label */
     distance?: number
     /** offset */
@@ -55,7 +55,7 @@ export interface AxisLabelThemedProps
 
 export interface AxisTicksProps extends SvgElementVariantProps {
     /** type of axis */
-    variant: SideVariant
+    variant?: SideVariant
     /** specification for tick positions **/
     ticks?: TickType
     /** length of tick lines */

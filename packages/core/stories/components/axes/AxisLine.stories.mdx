@@ -8,14 +8,14 @@ import { ChartBottomAxisDecorator } from './decorators'
 export const Template = args => <AxisLine {...args} />
 
 `AxisLine` draws a line intended as an axis.
+It is intended to be used a child of an `Axis` component.
 
 <ArgsTable of={AxisLine} />
 
-`AxisLine` should be used within an `Axis` component.
-
 ## Variants
 
-Predefined variants place an axis line near the top, right, bottom, or left side of a chart. For brevity, the example below shows a line along the bottom edge.
+Prop `variant` configures a line for the top, right, bottom, or left side of a chart.
+For brevity, the example below shows a line along the bottom edge.
 
 <Canvas>
     <Story
@@ -23,7 +23,7 @@ Predefined variants place an axis line near the top, right, bottom, or left side
         args={{
             variant: 'bottom',
             style: {
-                visibility: 'visible',
+                strokeWidth: 2,
             },
         }}
         component={AxisLine}
@@ -33,27 +33,5 @@ Predefined variants place an axis line near the top, right, bottom, or left side
     </Story>
 </Canvas>
 
-Note that in the default theme, the axis line is invisible.
-To make the line appear as above, it is necessary to set a css style.
-
-## Styles
-
-The line can be styled with custom css, for example to set the stroke color and width (thickness).
-
-<Canvas>
-    <Story
-        name="styled"
-        args={{
-            variant: 'bottom',
-            style: {
-                visibility: 'visible',
-                stroke: '#0000dd',
-                strokeWidth: '3px',
-            },
-        }}
-        component={AxisLine}
-        decorators={[ChartBottomAxisDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
+Note that in the default theme, the axis line has zero thickness and is therefore invisible.
+To make the line appear, set a css style, or adjust the chart theme.

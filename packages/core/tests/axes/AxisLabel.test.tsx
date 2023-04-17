@@ -6,37 +6,54 @@ import { getTransform } from '../utils'
 describe('AxisLabel', () => {
     it('aligns axis label to the left', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View {...viewProps}>
                     <Axis variant="top">
                         <AxisLabel variant={'top'} align={0}>
-                            Left
+                            label
                         </AxisLabel>
                     </Axis>
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('axis-label')
-        expect(result[0].getAttribute('style')).toContain('translateX(0')
+        const result = screen.getByRole('axis-label')
+        expect(getTransform(result, 'X')).toEqual(0)
+        expect(result.textContent).toBe('label')
+    })
+
+    it('aligns axis label to the right', () => {
+        render(
+            <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
+                <View {...viewProps}>
+                    <Axis variant="top">
+                        <AxisLabel align={1}>label</AxisLabel>
+                    </Axis>
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('axis-label')
+        // view width is (400-50-50=300) and the label is aligned to the right
+        expect(getTransform(result, 'X')).toEqual(300)
+        expect(result.textContent).toBe('label')
     })
 
     it('aligns axis label in the middle', () => {
         render(
-            <Chart {...chartProps}>
+            <Chart size={[400, 300]} padding={[50, 50, 50, 50]}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisLabel variant={'top'} align={0.5}>
-                            Middle
-                        </AxisLabel>
+                        <AxisLabel align={0.5}>Middle</AxisLabel>
                     </Axis>
                 </View>
             </Chart>
         )
-        const result = screen.getAllByRole('axis-label')
-        expect(result[0].getAttribute('style')).toContain('translateX(1')
+        const result = screen.getByRole('axis-label')
+        // view width is (400-50-50=300) and the label is aligned in the middle
+        expect(getTransform(result, 'X')).toEqual(150)
+        expect(result.textContent).toBe('Middle')
     })
 
-    it('aligns and offset axis label', () => {
+    it('aligns and translates by an offset', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>

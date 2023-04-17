@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Axis, View } from '../../src'
+import { Chart, Axis, View, AxisLabel } from '../../src'
 import { chartProps, viewProps } from '../props'
 
 describe('Axis', () => {
@@ -101,5 +101,33 @@ describe('Axis', () => {
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
         expect(label?.getAttribute('style')).toContain('translateX(320')
+    })
+
+    it('transfers variant to child elements', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="top" ticks={[]}>
+                        <AxisLabel>label</AxisLabel>
+                    </Axis>
+                </View>
+            </Chart>
+        )
+        const label = screen.getByRole('axis-label')
+        expect(label.querySelector('text')?.getAttribute('class')).toBe('axisLabel top')
+    })
+
+    it('handles misc children elements variant to child elements', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="top" ticks={[]}>
+                        miscellaneous
+                        <AxisLabel key={0}>label</AxisLabel>
+                    </Axis>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('axis-label').textContent).toBe('label')
     })
 })

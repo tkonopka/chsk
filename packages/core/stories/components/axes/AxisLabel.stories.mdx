@@ -8,14 +8,14 @@ import { ChartBottomAxisDecorator, ChartLeftAxisDecorator } from './decorators'
 export const Template = args => <AxisLabel {...args} />
 
 `AxisLabel` draws text intended as a label for an axis.
+It is intended to be used a child of an `Axis` component.
 
 <ArgsTable of={AxisLabel} />
 
-`AxisLabel` should be used within an `Axis` component.
-
 ## Variants
 
-Predefined variants place a label near the top, right, bottom, or left axis. For brevity, the examples below shows labels on the bottom and left axes.
+Variants creates labels configured for one of the top, right, bottom, or left axes.
+For brevity, the examples below shows labels on the bottom and left axes.
 
 <Canvas>
     <Story
@@ -37,6 +37,26 @@ Predefined variants place a label near the top, right, bottom, or left axis. For
         }}
         component={AxisLabel}
         decorators={[ChartLeftAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+Note that `AxisLabel` is meant to be used as a child in an `Axis` component, which itself carries a prop `variant`.
+The `Axis` component automatically transfers the value of its prop `variant`
+to its children components, including to `AxisLabel`. Thus, the prop can often be omitted in `AxisLabel`.
+Alternatively, the prop can override the default value,
+for example to create a top-axis label variant along a bottom axis.
+
+<Canvas>
+    <Story
+        name="top label on bottom axis"
+        args={{
+            variant: 'top',
+            children: 'axis label',
+        }}
+        component={AxisLabel}
+        decorators={[ChartBottomAxisDecorator]}
     >
         {Template.bind({})}
     </Story>

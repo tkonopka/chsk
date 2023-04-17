@@ -84,23 +84,25 @@ By default, axes are positioned on the border of the charting surface. They can 
 
 ## Longform syntax
 
-Example above use a shorthand syntax, whereby a single `Axis` component displays an axis line, an axis label, and ticks. Because of this shorthand form, there are a limited tuning props.
+Example above use a shorthand syntax, whereby the `Axis` component displays an axis line, an axis label, and ticks.
+Because of this shorthand form, there are a limited tuning props.
 
-For more fine-grained control, the `Axis` component can instead be used as a container, with `AxisLine`, `AxisLabel`, and `AxisTicks` as child components, as in the pseudo-code below.
+For more fine-grained control, `Axis` can instead be used as a container
+with `AxisLine`, `AxisLabel`, and `AxisTicks` as child components.
 
 <Source
     language="javascript"
     code={`
 <Axis variant={'top'}>
-    <AxisLine variant={'top'} />
-    <AxisLabel variant={'top'} />axis label</AxisLabel>
-    <AxisTicks variant={'top'} />
+    <AxisLine />
+    <AxisLabel>axis label</AxisLabel>
+    <AxisTicks />
 </Axis>
 `}
 />
 
 It is also possible to use any of the child components multiple times.
-Below, the axis draws two sets of ticks of different lengths/sizes.
+Below, the axis draws two sets of ticks of different sizes.
 
 <Canvas>
     <Story name="custom axis">
@@ -112,18 +114,8 @@ Below, the axis draws two sets of ticks of different lengths/sizes.
             <View>
                 <Surface variant={'inner'} />
                 <Axis variant={'bottom'}>
-                    <AxisTicks
-                        variant={'bottom'}
-                        ticks={[0, 20, 40, 60, 80, 100]}
-                        tickSize={6}
-                        labelDistance={10}
-                    />
-                    <AxisTicks
-                        variant={'bottom'}
-                        ticks={[10, 30, 50, 70, 90]}
-                        labelFormat={() => {}}
-                        tickSize={18}
-                    />
+                    <AxisTicks ticks={[0, 20, 40, 60, 80, 100]} tickSize={6} labelDistance={10} />
+                    <AxisTicks ticks={[10, 30, 50, 70, 90]} labelFormat={() => {}} tickSize={18} />
                 </Axis>
             </View>
         </Chart>

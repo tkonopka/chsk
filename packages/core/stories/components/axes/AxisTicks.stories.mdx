@@ -8,14 +8,14 @@ import { ChartBottomAxisDecorator } from './decorators'
 export const Template = args => <AxisTicks {...args} />
 
 `AxisTicks` draws a set of tick line and labels.
+It is intended to be used a child of an `Axis` component.
 
 <ArgsTable of={AxisTicks} />
 
-`AxisTicks` should be used within an `Axis` component.
-
 ## Variants
 
-Predefined variants draw ticks on the top, right, bottom, or left axis. For brevity, the example below shows ticks on the bottom axis.
+Prop `variant` configures ticks for the top, right, bottom, or left axis.
+For brevity, the example below shows ticks on the bottom axis.
 
 <Canvas>
     <Story
@@ -30,9 +30,11 @@ Predefined variants draw ticks on the top, right, bottom, or left axis. For brev
     </Story>
 </Canvas>
 
-## Tick marks
+## Ticks
 
-The position of ticks can be specified as an integer (to suggest a number of tick marks) or as an array (to specify all the tick positions).
+Prop `ticks` determines the position of tick marks.
+The prop can be specified as an integer (to suggest a number of tick marks)
+or as an array (to specify all the tick positions).
 
 <Canvas>
     <Story
@@ -61,7 +63,26 @@ The position of ticks can be specified as an integer (to suggest a number of tic
 
 Note that suggestions for the number of tick marks are approximate and the actual number of ticks may differ; the actual positions are computed by [d3-scale](https://github.com/d3/d3-scale).
 
-## Label position
+## Size
+
+Props `tickSize` controls the length of the tick lines.
+
+<Canvas>
+    <Story
+        name="tick size"
+        args={{
+            variant: 'bottom',
+            tickSize: 15,
+            labelDistance: 20,
+        }}
+        component={AxisTicks}
+        decorators={[ChartBottomAxisDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>
+
+## Labels
 
 The position of the text labels near tick marks is controlled with props `labelDistance` and `labelOffset`.
 
@@ -94,28 +115,10 @@ The position of the text labels near tick marks is controlled with props `labelD
     </Story>
 </Canvas>
 
-## Tick size
-
-Props `tickSize` controls the length of the tick lines.
-
-<Canvas>
-    <Story
-        name="tick size"
-        args={{
-            variant: 'bottom',
-            tickSize: 15,
-            labelDistance: 20,
-        }}
-        component={AxisTicks}
-        decorators={[ChartBottomAxisDecorator]}
-    >
-        {Template.bind({})}
-    </Story>
-</Canvas>
-
 ## Rotation
 
-Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
+Labels can be rotated using prop `labelAngle`.
+Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
 
 <Canvas>
     <Story
@@ -123,7 +126,7 @@ Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the
         args={{
             variant: 'bottom',
             labelDistance: 10,
-            labelRotate: -90,
+            labelAngle: -90,
             labelStyle: {
                 textAnchor: 'end',
                 dominantBaseline: 'middle',
@@ -138,8 +141,8 @@ Tick labels can be rotated using the prop `labelRotate`. Note that adjusting the
 
 ## Label format
 
-Labels can be tuned with prop `labelFormat`, which accepts a function with
-signature `(value: unknown, index: number) => string`.
+Prop `labelFormat` specifies a function that converts a tick value into a string label.
+This can be used to create custom label, for example, to include percentage marks.
 
 <Canvas>
     <Story

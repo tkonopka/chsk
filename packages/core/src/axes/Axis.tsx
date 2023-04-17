@@ -1,3 +1,4 @@
+import { Children, isValidElement } from 'react'
 import { getTranslate, useDimensions } from '../general'
 import { AxisProps } from './types'
 import { AxisLine } from './AxisLine'
@@ -25,7 +26,13 @@ const UnthemedAxis = ({
             className={className}
             style={style}
         >
-            {children ?? (
+            {children ? (
+                Children.map(children, child => {
+                    if (!isValidElement(child)) return child
+                    child.props = { variant, ...child.props }
+                    return child
+                })
+            ) : (
                 <>
                     <AxisTicks key={0} variant={variant} ticks={ticks} />
                     <AxisLine key={1} style={style} variant={variant} />

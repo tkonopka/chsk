@@ -6,7 +6,7 @@ import { defaultAxisLabelTopProps } from './defaults'
 import { getAxisPosition } from './utils'
 
 const UnthemedAxisLabel = ({
-    variant,
+    variant = 'top',
     distance = defaultAxisLabelTopProps.distance,
     offset = defaultAxisLabelTopProps.offset,
     align = defaultAxisLabelTopProps.align,
@@ -22,10 +22,8 @@ const UnthemedAxisLabel = ({
     // use size=[0, 0] because AxisLabel will be called from within Axis.
     let [x, y] = getAxisPosition(variant, [0, 0], distance)
     if (variant === 'left' || variant === 'right') {
-        // vertical axes
         y += (1 - align) * size[Y]
     } else {
-        // horizontal axes
         x += align * size[X]
     }
 

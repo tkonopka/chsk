@@ -13,7 +13,7 @@ const stringFormat = (v: unknown) => String(v)
 // Note this re-uses AxisTicksProps with optional props, e.g. tickSize
 // However, the expectation is that practical calls will specify all the props
 export const getScaleTicks = ({
-    variant,
+    variant = 'top',
     scale,
     scaleSize,
     ticks,
@@ -79,7 +79,7 @@ export const getScaleTicks = ({
 }
 
 const UnthemedAxisTicks = ({
-    variant,
+    variant = 'top',
     ticks = defaultAxisTicksProps.ticks,
     tickSize = defaultAxisTicksProps.tickSize,
     labelDistance = defaultAxisTicksProps.labelDistance,
