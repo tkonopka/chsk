@@ -41,11 +41,7 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
                 <Axis variant={'top'} />
                 <Axis variant={'left'}>
-                    <AxisTicks
-                        variant={'left'}
-                        labelDistance={60}
-                        labelStyle={{ textAnchor: 'start' }}
-                    />
+                    <AxisTicks labelDistance={60} labelStyle={{ textAnchor: 'start' }} />
                 </Axis>
                 <Bars />
                 <GridLines
@@ -58,11 +54,9 @@ export const DivergingBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <Legend
                     position={[-60, -80]}
                     positionUnits={'absolute'}
-                    size={[300, 80]}
-                    sizeUnits={'absolute'}
                     horizontal={true}
                     r={10.5}
-                    itemSize={[85, 20]}
+                    itemSize={[85, 25]}
                     itemPadding={[2, 0, 2, 0]}
                     firstOffset={[-85, 24]}
                     title={'Measurements (arbitrary values)'}

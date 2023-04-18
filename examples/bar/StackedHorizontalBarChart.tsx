@@ -40,11 +40,9 @@ export const StackedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                 <Legend
                     position={[-2, -80]}
                     positionUnits={'absolute'}
-                    size={[300, 80]}
-                    sizeUnits={'absolute'}
                     horizontal={true}
                     r={10.5}
-                    itemSize={[85, 20]}
+                    itemSize={[85, 25]}
                     itemPadding={[2, 2, 2, 2]}
                     firstOffset={[-85, 24]}
                     title={'Measurements (a.u.)'}
