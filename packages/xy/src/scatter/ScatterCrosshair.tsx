@@ -29,7 +29,7 @@ import {
 import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterData, isScatterProcessedData } from './predicates'
-import { getSymbolData, getTargets, distanceSquared } from './helpers'
+import { useSymbolData, useTargets, distanceSquared } from './helpers'
 import { defaultScatterTooltipFormat } from './defaults'
 
 const createCrosshairLines = ({
@@ -145,8 +145,8 @@ export const ScatterCrosshair = ({
     // extension of detector rectangle
     const padding: FourSideSizeSpec = expansion ? expansion : [0, 0, 0, 0]
 
-    const symbolData = getSymbolData(processedData, preparedData)
-    const targets = getTargets(preparedData, disabledKeys)
+    const symbolData = useSymbolData(processedData, preparedData)
+    const targets = useTargets(preparedData, disabledKeys)
 
     const handleMouseLeave = useCallback(() => {
         setActiveData(undefined)

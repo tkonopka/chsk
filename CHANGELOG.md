@@ -18,6 +18,8 @@
 
 ### Changed
 
+-   [xy] replaced prop `ids` with `id` in `ScatterLabel` because the component
+    is meant to create a single label for a single data series
 -   [core] enabled transfer of prop `variant` from `Axis` to its children; this
     removes requirement for `AxisLabel`, `AxisLine`, and `AxisTicks` to
     specify the variant prop

@@ -113,8 +113,8 @@ export interface ScatterCurveProps
 }
 
 export interface ScatterLabelProps extends SvgElementProps {
-    /** ids to display (defaults to all ids) */
-    ids?: string[]
+    /** series id (defaults to first id) */
+    id?: string
     /** position along the x-axis */
     x: number
     /** units for position x */

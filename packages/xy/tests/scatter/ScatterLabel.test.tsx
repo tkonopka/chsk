@@ -8,7 +8,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={4}>
+                    <ScatterLabel id={'linear'} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -25,7 +25,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={1} units={'relative'}>
+                    <ScatterLabel id={'linear'} x={1} units={'relative'}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -40,7 +40,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['non-existent']} x={4}>
+                    <ScatterLabel id={'non-existent'} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -53,7 +53,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={4.2} autoRotate={true}>
+                    <ScatterLabel id={'linear'} x={4.2} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -69,7 +69,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={4.8} autoRotate={true}>
+                    <ScatterLabel id={'linear'} x={4.8} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -85,7 +85,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['linear']) }}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel ids={['linear']} x={4}>
+                    <ScatterLabel id={'linear'} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -104,7 +104,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={emptyData}>
-                    <ScatterLabel ids={['empty']} x={4}>
+                    <ScatterLabel id={'empty'} x={4}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -127,7 +127,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={verticalData}>
-                    <ScatterLabel ids={['vertical']} x={0.5} autoRotate={true}>
+                    <ScatterLabel id={'vertical'} x={0.5} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -149,7 +149,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={singleData}>
-                    <ScatterLabel ids={['single']} x={0.5} autoRotate={true}>
+                    <ScatterLabel id={'single'} x={0.5} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>

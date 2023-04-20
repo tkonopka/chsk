@@ -11,7 +11,7 @@ import {
 import { ScatterPointsProps } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterProcessedData } from './predicates'
-import { getSymbolData } from './helpers'
+import { useSymbolData } from './helpers'
 
 export const ScatterPoints = ({
     ids,
@@ -28,7 +28,7 @@ export const ScatterPoints = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
     if (!isScatterProcessedData(processedData)) return null
 
-    const symbolData = getSymbolData(processedData, preparedData)
+    const symbolData = useSymbolData(processedData, preparedData)
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]

@@ -27,7 +27,7 @@ const getClosestPointToX = (target: number, data: ScatterPreparedDataItem, avoid
 }
 
 export const ScatterLabel = ({
-    ids,
+    id,
     x,
     units = 'relative',
     offset = [0, 0],
@@ -44,50 +44,45 @@ export const ScatterLabel = ({
     const { disabledKeys, firstRender } = useDisabledKeys()
     const compositeClassName = getClassName('scatter-label', className)
 
-    const result = (ids ?? preparedData.keys).map(id => {
-        const visible = !disabledKeys.has(id)
-        const seriesIndex = preparedData.seriesIndexes[id]
-        if (seriesIndex === undefined) return null
-        const data = preparedData.data[seriesIndex]
-        if (data.x.length === 0) return null
-        // convert input x to a coordinate and search for the closest data points
-        const value = getAbsoluteCoordinate(
-            x,
-            Array.isArray(units) ? units[0] : units,
-            size[0],
-            scales.x
-        )
-        const pointIndex = getClosestPointToX(value, data)
-        let point = [data.x[pointIndex], data.y[pointIndex]]
-        if (autoRotate) {
-            const secondPointIndex = getClosestPointToX(value, data, pointIndex)
-            const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
-            const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
-            angle = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
-            angle = Number.isNaN(angle) ? 0 : angle
-            point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
-        }
-
-        return (
-            <OpacityMotion
-                key={'label-' + seriesIndex}
-                role={setRole ? 'scatter-label' : undefined}
-                visible={visible}
-                firstRender={firstRender}
+    id = id ?? preparedData.keys[0]
+    const visible = !disabledKeys.has(id)
+    const seriesIndex = preparedData.seriesIndexes[id]
+    const data = preparedData.data[seriesIndex]
+    if (seriesIndex === undefined || data.x.length === 0) return null
+    // convert input x to a coordinate and search for the closest data points
+    const value = getAbsoluteCoordinate(
+        x,
+        Array.isArray(units) ? units[0] : units,
+        size[0],
+        scales.x
+    )
+    const pointIndex = getClosestPointToX(value, data)
+    let point = [data.x[pointIndex], data.y[pointIndex]]
+    if (autoRotate) {
+        const secondPointIndex = getClosestPointToX(value, data, pointIndex)
+        const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
+        const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
+        angle = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)
+        angle = Number.isNaN(angle) ? 0 : angle
+        point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
+    }
+    return (
+        <OpacityMotion
+            key={'label-' + seriesIndex}
+            role={setRole ? 'scatter-label' : undefined}
+            visible={visible}
+            firstRender={firstRender}
+        >
+            <Typography
+                variant={'label'}
+                position={[point[0] + offset[0], point[1] + offset[1]]}
+                angle={angle}
+                className={compositeClassName}
+                style={style}
+                setRole={setRole}
             >
-                <Typography
-                    variant={'label'}
-                    position={[point[0] + offset[0], point[1] + offset[1]]}
-                    angle={angle}
-                    className={compositeClassName}
-                    style={style}
-                    setRole={setRole}
-                >
-                    {children}
-                </Typography>
-            </OpacityMotion>
-        )
-    })
-
-    return <>{result.filter(Boolean)}</>
+                {children}
+            </Typography>
+        </OpacityMotion>
+    )
 }

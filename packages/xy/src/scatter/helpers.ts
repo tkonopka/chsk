@@ -78,7 +78,7 @@ export const getColorScaleProps = (
     return createColorScaleProps(scaleSpec, minmax)
 }
 
-export const getSymbolData = (
+export const useSymbolData = (
     processedData: Array<RecordWithId>,
     preparedData: ScatterDataContextProps
 ): Array<ScatterInteractiveDataItem[]> => {
@@ -107,7 +107,7 @@ export const distanceSquared = (a: number[], b: number[]) => (a[0] - b[0]) ** 2 
 // array with [coordinate X, coordinate Y, series index, point index]
 export type targetData = [number, number, number, number]
 
-export const getTargets = (preparedData: ScatterDataContextProps, disabledKeys: Set<string>) => {
+export const useTargets = (preparedData: ScatterDataContextProps, disabledKeys: Set<string>) => {
     return useMemo(() => {
         const result: targetData[] = []
         preparedData.keys.forEach(id => {
