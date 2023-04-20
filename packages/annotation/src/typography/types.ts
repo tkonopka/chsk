@@ -38,7 +38,7 @@ export interface BoxedLabelProps extends SvgElementVariantProps, ContainerProps,
     /** variant */
     variant?: 'boxed-label' | string
     /** size of box in absolute units */
-    size: SizeSpec
+    size?: SizeSpec
     /** angle */
     angle?: number
     /** angle unit */

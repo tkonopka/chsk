@@ -1,4 +1,11 @@
-import { roundDecimalPlaces, rad2deg, getMoments, deg2rad, relu } from '../../src/general/utils'
+import {
+    roundDecimalPlaces,
+    rad2deg,
+    getMoments,
+    deg2rad,
+    relu,
+    squaredDistance,
+} from '../../src/general/utils'
 import { sortedIndex } from 'lodash'
 
 describe('roundDecimalPlaces', () => {
@@ -84,5 +91,17 @@ describe('relu', () => {
     it('relu transformation', () => {
         expect(relu(-1)).toEqual(0)
         expect(relu(1)).toEqual(1)
+    })
+})
+
+describe('squaredDistance', () => {
+    it('between a point and itself', () => {
+        expect(squaredDistance([0, 0], [0, 0])).toBe(0)
+        expect(squaredDistance([1.0, 2.0], [1.0, 2.0])).toBe(0)
+    })
+
+    it('between a two non-equivalent points', () => {
+        expect(squaredDistance([0, 0], [1, 0])).toBe(1.0)
+        expect(squaredDistance([2.0, 1.0], [1.0, 2.0])).toBe(2.0)
     })
 })

@@ -149,11 +149,22 @@ export const ScatterCrosshair = ({
     const symbolData = useSymbolData(processedData, preparedData)
     const targets = useTargets(preparedData, disabledKeys)
 
-    const handleMouseLeave = useCallback(() => {
-        setActiveData(undefined)
-        setTooltipData({})
-        setDetectorStyle(props.modifiers?.onMouseLeave ?? {})
-    }, [setActiveData, setTooltipData])
+    const handleClick = useCallback(
+        (event: MouseEvent) => {
+            console.log('handleClick with activeData ' + JSON.stringify(activeData))
+            props.handlers?.onClick?.(activeData, event)
+        },
+        [activeData, props]
+    )
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            props.handlers?.onMouseLeave?.(activeData, event)
+            setActiveData(undefined)
+            setTooltipData({})
+            setDetectorStyle(props.modifiers?.onMouseLeave ?? {})
+        },
+        [setActiveData, setTooltipData]
+    )
 
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -170,7 +181,7 @@ export const ScatterCrosshair = ({
             )
             const hitDistance = Math.sqrt(hit[0])
             if (minDistance && hitDistance > minDistance) {
-                handleMouseLeave()
+                handleMouseLeave(event)
                 return
             }
             const target = targets[hit[1] ?? 0]
@@ -213,6 +224,7 @@ export const ScatterCrosshair = ({
             style={{ ...detectorStyle, opacity: 0.0 }}
             onMouseMove={debouncedHandleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
         />
     )
 

@@ -2,16 +2,18 @@ import { FC, ReactNode } from 'react'
 import {
     AccessorFunction,
     ColorScaleSpec,
+    ContainerProps,
     ContinuousScaleSpec,
     CssProps,
     CurveSpec,
     DataInteractivityProps,
     FourSideSizeSpec,
     InteractivityProps,
+    LabelProps,
     LineProps,
     NumericPositionSpec,
     PathProps,
-    PositionUnits,
+    PositionSpec,
     ProcessedDataContextProps,
     SizeScaleSpec,
     SvgElementProps,
@@ -112,19 +114,18 @@ export interface ScatterCurveProps
     curve?: CurveSpec
 }
 
-export interface ScatterLabelProps extends SvgElementProps {
+export interface ScatterLabelProps
+    extends SvgElementProps,
+        Omit<LabelProps, 'position'>,
+        Pick<ContainerProps, 'positionUnits'> {
     /** series id (defaults to first id) */
     id?: string
     /** position along the x-axis */
-    x: number
-    /** units for position x */
-    units?: PositionUnits
-    /** offset with respect to data point */
-    offset?: NumericPositionSpec
-    /** rotation angle */
-    angle?: number
+    position: number | PositionSpec
     /** set rotation automatically */
     autoRotate?: boolean
+    /** component used to draw the label */
+    component?: FC<LabelProps>
     /** child components */
     children?: ReactNode
 }

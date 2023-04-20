@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [examples] scatter chart with several point labels
 -   [xy] support for style modifiers in `ScatterCrosshair` to change cursor
     when hovering near a data point
 -   [annotation] filter `BlurFilter`
@@ -20,6 +21,8 @@
 
 ### Changed
 
+-   [xy] expanded API for `ScatterLabel` to use `LabelProps` and a
+    custom component to draw; `ScatterLabel` can now use, e.g. `BoxedLabel`
 -   [xy] replaced prop `ids` with `id` in `ScatterLabel` because the component
     is meant to create a single label for a single data series
 -   [core] enabled transfer of prop `variant` from `Axis` to its children; this

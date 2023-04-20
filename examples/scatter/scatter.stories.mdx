@@ -5,6 +5,7 @@ import { generateClusterScatterData, ClustersScatterChart } from './ClustersScat
 import { generateAxisTooltipScatterData, AxisTooltipScatterChart } from './AxisTooltipScatterChart'
 import { generateManhattanScatterData, ManhattanScatterChart } from './ManhattanScatterChart'
 import { generateErrorsData, ErrorsChart } from './ErrorsChart'
+import { generateLabelsData, LabelsChart } from './LabelsChart'
 import { generateSimpsonData, SimpsonChart } from './SimpsonChart'
 import { generateOutlierScatterData, OutlierScatterChart } from './OutlierScatterChart'
 import {
@@ -77,6 +78,12 @@ import { generateDotScatterData, DotScatterChart } from './DotScatterChart'
             chart={ErrorsChart}
             steps={['axes', 'points', 'curve', 'legend']}
         />
+    </Story>
+</Canvas>
+
+<Canvas>
+    <Story name="labels">
+        <Controller generator={generateLabelsData} chart={LabelsChart} />
     </Story>
 </Canvas>
 

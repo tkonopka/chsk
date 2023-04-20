@@ -24,11 +24,12 @@ export const dataWithNoise = [
     ),
 ]
 
-## Labeling a group of points
+## Position
 
-The base position of the label is controlled with prop `x`. This prop specifies a position along the x-axis, from which `ScatterLabel` retrieves a relevant data point nearby. That data point determines the vertical position of the label.
+The position of the label is specified with prop `position` and an accompanying `positionUnit`.
 
-From the base position computed from the `x` and from the series data, the label can be shifted using prop `offset`.
+The position can be specified as a single value. In this case, the value is interpreted as the x coordinate.
+`ScatterLabel` retrieves a data point nearby that x position, and determines the vertical location for the label.
 
 <Canvas>
     <Story name="points">
@@ -56,8 +57,8 @@ From the base position computed from the `x` and from the series data, the label
                 />
                 <ScatterLabel
                     id={'A'}
-                    x={0.5}
-                    units={'relative'}
+                    position={0.5}
+                    positionUnits={'relative'}
                     offset={[0, -60]}
                     style={{ textAnchor: 'end', fontWeight: 600 }}
                     children="Label"
@@ -67,23 +68,25 @@ From the base position computed from the `x` and from the series data, the label
     </Story>
 </Canvas>
 
-For noisy data, the position of the label can appear in odd places. If `ScatterLabel` doesn't give appropriate effects, use the `Text` or `BoxedLabel` components instead.
+Prop `position` can also be given as a two-component array. In that case, `ScatterLabel` finds the nearest
+data point to that position, and places the location there.
 
 ## Rotation
 
-The label can be rotated with prop `angle`. Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
+The label can be rotated with prop `angle`.
+Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
 
 <Canvas>
     <Story
         name="manual angle"
         args={{
             id: 'quadratic',
-            x: 6,
-            units: 'view',
+            position: 6,
+            positionUnits: 'view',
             offset: [0, -10],
-            angle: -15,
+            angle: -20,
             style: { textAnchor: 'end', fontWeight: 600 },
-            children: 'manual rotation',
+            children: 'manual',
         }}
         component={ScatterLabel}
         decorators={[ChartScatterQuadraticDecorator]}
@@ -94,8 +97,8 @@ The label can be rotated with prop `angle`. Alternatively, a prop `autoRotate` c
         name="auto rotation"
         args={{
             id: 'quadratic',
-            x: 6,
-            units: 'view',
+            position: 6,
+            positionUnits: 'view',
             offset: [0, -10],
             autoRotate: true,
             style: { textAnchor: 'start', fontWeight: 600 },

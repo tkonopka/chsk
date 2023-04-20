@@ -65,3 +65,8 @@ export const url = (id: string | undefined) => (id ? 'url(#' + id + ')' : undefi
 
 /** ensure a number x is >= 0, useful to avoid negative widths and heights */
 export const relu = (x: number) => Math.max(0, x)
+
+/** compute squared distances between two points */
+export const squaredDistance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+    return (a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2
+}
