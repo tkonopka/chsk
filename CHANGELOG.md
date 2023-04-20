@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [xy] support for style modifiers in `ScatterCrosshair` to change cursor
+    when hovering near a data point
 -   [annotation] filter `BlurFilter`
 -   [core] support for `MilestoneMotion` animation without children, i.e. using
     only `onEnter` and `onExit` functions

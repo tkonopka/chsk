@@ -144,3 +144,25 @@ To activate a tooltip, use a `Tooltip` component.
         {Template.bind({})}
     </Story>
 </Canvas>
+
+## Style modifiers
+
+Prop `modifiers` is a group of styles applied to the detector surface. This can be used, for example,
+to change the cursor when the mouse hovers near a data point.
+
+<Canvas>
+    <Story
+        name="cursor "
+        args={{
+            minDistance: 20,
+            modifiers: {
+                onMouseEnter: { cursor: 'pointer' },
+                onMouseLeave: {},
+            },
+        }}
+        component={ScatterCrosshair}
+        decorators={[ChartForRegressionDecorator]}
+    >
+        {Template.bind({})}
+    </Story>
+</Canvas>

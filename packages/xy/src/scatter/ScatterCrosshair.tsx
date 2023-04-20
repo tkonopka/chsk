@@ -139,6 +139,7 @@ export const ScatterCrosshair = ({
     const detectorRef = useRef<SVGRectElement>(null)
     const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)
     const { setData: setTooltipData } = useTooltip()
+    const [detectorStyle, setDetectorStyle] = useState<CssProps>({})
     if (!isScatterProcessedData(processedData)) return null
     if (!isScatterData(originalData)) return null
 
@@ -151,6 +152,7 @@ export const ScatterCrosshair = ({
     const handleMouseLeave = useCallback(() => {
         setActiveData(undefined)
         setTooltipData({})
+        setDetectorStyle(props.modifiers?.onMouseLeave ?? {})
     }, [setActiveData, setTooltipData])
 
     const handleMouseMove = useCallback(
@@ -193,6 +195,7 @@ export const ScatterCrosshair = ({
                 title: newActiveData.id,
                 data: [newActiveData],
             })
+            setDetectorStyle(props.modifiers?.onMouseEnter ?? {})
             props.handlers?.onMouseEnter?.(data, event)
         },
         [activeData, setActiveData, setTooltipData, targets, processedData]
@@ -207,7 +210,7 @@ export const ScatterCrosshair = ({
             y={-padding[TOP]}
             width={size[X] + padding[LEFT] + padding[RIGHT]}
             height={size[Y] + padding[TOP] + padding[BOTTOM]}
-            style={{ opacity: 0.0 }}
+            style={{ ...detectorStyle, opacity: 0.0 }}
             onMouseMove={debouncedHandleMouseMove}
             onMouseLeave={handleMouseLeave}
         />
