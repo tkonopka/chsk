@@ -151,7 +151,6 @@ export const ScatterCrosshair = ({
 
     const handleClick = useCallback(
         (event: MouseEvent) => {
-            console.log('handleClick with activeData ' + JSON.stringify(activeData))
             props.handlers?.onClick?.(activeData, event)
         },
         [activeData, props]
