@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import {
     Chart,
     Axis,
@@ -22,7 +23,6 @@ import { BoxedLabel } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, generateUniformPopulation, round2dp, round4dp } from '../utils'
-import { useEffect, useState } from 'react'
 import { DownloadButtons } from '../navigation'
 
 export const generateLabelsData = () => {
@@ -84,38 +84,32 @@ const CustomLabel = (props: LabelProps) => {
 }
 
 export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
-    type ScatterLabelPropsWithIndex = ScatterLabelProps & { index: number }
-
     // on first render, create one label to display a non-trivial chart scene
-    let firstLabels: ScatterLabelPropsWithIndex[] = []
+    let firstLabels: ScatterLabelProps[] = []
     if (isScatterData(rawData)) {
         firstLabels = [
             {
                 id: rawData[0].id,
-                index: 0,
                 position: [Number(rawData[0].data[0].x), Number(rawData[0].data[0].y)],
                 children: String(rawData[0].data[0].label),
             },
         ]
     }
-    const [labels, setLabels] = useState<Array<ScatterLabelPropsWithIndex>>(firstLabels)
+    const [labels, setLabels] = useState<Array<ScatterLabelProps>>(firstLabels)
     if (!isScatterData(rawData)) return null
 
-    // upon click, either add or remove a label
+    // upon click, add/remove an element from the visible labels array
     const toggleLabel = (x?: ScatterInteractiveDataItem) => {
         if (!x) return
-        let hit = -1
-        labels.forEach((label, index) => {
-            if (label.id === x.id && label['index'] === x.index) {
-                hit = index
-            }
-        })
+        const xLabel = String(x.original?.['label'])
+        const hit = labels
+            .map(label => label.id === x.id && label.children === xLabel)
+            .indexOf(true)
         if (hit === -1) {
-            const newLabel: ScatterLabelPropsWithIndex = {
+            const newLabel: ScatterLabelProps = {
                 id: x.id,
-                index: x.index ?? 0,
                 position: x.point ?? 0,
-                children: String(x.original?.['label']),
+                children: xLabel,
             }
             setLabels([...labels, newLabel])
         } else {
@@ -125,15 +119,23 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
 
     // when the dataset changes, re-assign positions to synchronize data points and labels
     useEffect(() => {
-        const newLabels: ScatterLabelPropsWithIndex[] = labels.map(label => {
-            const rawSeries = rawData.filter(rawSeries => rawSeries.id === label.id)[0]
-            const rawPoint = rawSeries.data[label.index]
+        // construct a map from 'id label' -> indexes in raw dataset
+        const indexMap: Record<string, [number, number]> = {}
+        rawData.map((rawSeries, seriesIndex) => {
+            const id = rawSeries.id
+            rawSeries.data.map((item, itemIndex) => {
+                indexMap[id + ' ' + String(item['label'])] = [seriesIndex, itemIndex]
+            })
+        })
+        // convert positions in old dataset into positions in new dataset
+        const newLabels: ScatterLabelProps[] = labels.map(label => {
+            const indexes = indexMap[label.id + ' ' + label.children]
+            const rawPoint = rawData[indexes[0]].data[indexes[1]]
             return { ...label, position: [Number(rawPoint['x']), Number(rawPoint['y'])] }
         })
         setLabels(newLabels)
     }, [rawData])
 
-    const rawDataStr = JSON.stringify(rawData)
     return (
         <Chart
             data={chartData}
@@ -165,7 +167,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <ScatterPoints />
                 {labels.map(labelProps => (
                     <ScatterLabel
-                        key={rawDataStr + '-' + String(labelProps.children)}
+                        key={'label-' + String(labelProps.children)}
                         positionUnits={'view'}
                         {...labelProps}
                         component={CustomLabel}
