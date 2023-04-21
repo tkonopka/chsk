@@ -16,7 +16,7 @@
     "license": "MIT",
     "scripts": {
         "bootstrap": "lerna bootstrap --hoist",
-        "prettier": "prettier --write .",
+        "prettier": "prettier --loglevel warn --write .",
         "prettier-check": "prettier --check .",
         "lint": "lerna run lint",
         "build": "NODE_ENV=production lerna run build",
