@@ -2,7 +2,6 @@ import {
     AccessorFunction,
     addColor,
     ContinuousAxisScale,
-    RawDataContextProps,
     getAccessor,
     isContinuousAxisScale,
     useRawData,
@@ -13,39 +12,35 @@ import {
     SimpleDataComponent,
     getClassName,
 } from '@chsk/core'
-import { ScatterDataContextProps, ScatterErrorsProps } from './types'
+import { ScatterErrorsProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { ScatterErrorBar } from './ScatterErrorBar'
+import { isScatterData, isScatterPreparedData } from './predicates'
 
+// construct svg-coordinates for lower and upper edges of error bars
 const getErrorPoints = ({
     variant,
-    seriesIndex,
     rawData,
-    preparedData,
+    seriesData,
     scale,
     lower,
     upper,
 }: {
     variant: 'x' | 'y'
-    seriesIndex: number
-    rawData: RawDataContextProps
-    preparedData: ScatterDataContextProps
+    rawData: Array<Record<string, unknown>>
+    seriesData: ScatterPreparedDataItem
     scale: ContinuousAxisScale
     lower: string | AccessorFunction<number>
     upper: string | AccessorFunction<number>
 }) => {
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
-    const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
-    const lowerValues = originalSeriesData.map(item => scale(getLower(item)))
-    const upperValues = originalSeriesData.map(item => scale(getUpper(item)))
-    const seriesData = preparedData.data[seriesIndex]
+    const lowerValues = rawData.map(item => scale(getLower(item)))
+    const upperValues = rawData.map(item => scale(getUpper(item)))
     const otherValues = variant === 'y' ? seriesData.x : seriesData.y
     const transform: (x: NumericPositionSpec) => NumericPositionSpec =
-        variant === 'y'
-            ? (x: NumericPositionSpec) => x
-            : (x: NumericPositionSpec) => x.reverse() as NumericPositionSpec
+        variant === 'y' ? x => x : x => [x[1], x[0]]
     return lowerValues.map((v, i) => ({
         lower: transform([otherValues[i], v]),
         upper: transform([otherValues[i], upperValues[i]]),
@@ -66,34 +61,42 @@ export const ScatterErrors = ({
     ...props
 }: ScatterErrorsProps) => {
     const preparedData = useScatterPreparedData()
-    const rawData = useRawData()
+    const data = preparedData.data
+    const rawData = useRawData().data
     const { x: scaleX, y: scaleY, color: scaleColor } = useScales().scales
     const { disabledKeys, firstRender } = useDisabledKeys()
+    if (
+        !isContinuousAxisScale(scaleX) ||
+        !isContinuousAxisScale(scaleY) ||
+        !isScatterPreparedData(data) ||
+        !isScatterData(rawData)
+    )
+        return null
 
-    if (!isContinuousAxisScale(scaleX) || !isContinuousAxisScale(scaleY)) return null
+    const errorsData = useMemo(
+        () =>
+            data.map((seriesData, index) =>
+                getErrorPoints({
+                    variant,
+                    rawData: rawData[index].data,
+                    seriesData,
+                    scale: variant === 'y' ? scaleY : scaleX,
+                    lower,
+                    upper,
+                })
+            ),
+        [variant, data, rawData, scaleX, scaleY, lower, upper]
+    )
+
     const compositeClassName = getClassName('scatter-errors', className)
-
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
         const seriesStyle = addColor(style, scaleColor(seriesIndex))
-        const seriesData = useMemo(
-            () =>
-                getErrorPoints({
-                    variant,
-                    seriesIndex,
-                    rawData,
-                    preparedData,
-                    scale: variant === 'y' ? scaleY : scaleX,
-                    lower,
-                    upper,
-                }),
-            [variant, seriesIndex, rawData, preparedData, scaleX, scaleY, lower, upper]
-        )
-        const elements = seriesData.map((points, index) => {
+        const elements = errorsData[seriesIndex].map((points, index) => {
             return createElement(dataComponent, {
-                key: 'error-' + variant + '-' + id + '-' + index,
+                key: 'error-' + id + '-' + index,
                 data: { id, index },
                 component,
                 props: {
@@ -111,7 +114,7 @@ export const ScatterErrors = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-errors' : undefined}
-                key={'errors-' + seriesIndex}
+                key={'errors-' + id}
                 visible={visible}
                 firstRender={firstRender}
             >
