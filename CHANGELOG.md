@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [repository] set up lerna caching
 -   [examples] scatter chart with several point labels
 -   [xy] support for style modifiers in `ScatterCrosshair` to change cursor
     when hovering near a data point

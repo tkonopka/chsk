@@ -1,0 +1,27 @@
+{
+    "tasksRunnerOptions": {
+        "default": {
+            "runner": "nx/tasks-runners/default",
+            "options": {
+                "cacheableOperations": ["lint", "test", "test-coverage", "build"]
+            }
+        }
+    },
+    "targetDefaults": {
+        "lint": {
+            "dependsOn": ["^lint"]
+        },
+        "test": {
+            "dependsOn": ["^test"],
+            "outputs": ["{projectRoot}/tests/jest.json"]
+        },
+        "test-coverage": {
+            "dependsOn": ["^test-coverage"],
+            "outputs": ["{projectRoot}/coverage"]
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": ["{projectRoot}/dist"]
+        }
+    }
+}
