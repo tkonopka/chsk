@@ -86,7 +86,7 @@ export const Controller = ({
     }
 
     return (
-        <div>
+        <div className={'controller-story'}>
             <div className={'controller'}>
                 <div className={'controller-label'}>Data</div>
                 <button onClick={handleRefresh}>

@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as RectangleStories from './Rectangle.stories'
+
+# Rectangle
+
+<Meta of={RectangleStories} />
+
+`Rectangle` displays a rectangle shape.
+
+<ArgTypes of={RectangleStories} />
+
+## Centering
+
+By default, props `x` and `y` specify the coordinates for the top-left corner of the rectangle.
+To use those coordinates as the center of the rectangle instead, set the prop `center` to `true`.
+
+<Canvas of={RectangleStories.Centered} />
+
+## Rounded corners
+
+Rectangle corners can be rounded by setting props `rx` and `ry`.
+
+<Canvas of={RectangleStories.RoundedCorners} />

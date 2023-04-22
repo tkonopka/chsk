@@ -1,0 +1,17 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as PolygonStories from './Polygon.stories'
+
+# Polygon
+
+<Meta of={PolygonStories} />
+
+`Polygon` displays a closed shape composed of straight-line segments.
+
+<ArgTypes of={PolygonStories} />
+
+## Style
+
+Polygons are defined by a series of points. The resulting shape can be styled with css.
+
+<Canvas of={PolygonStories.Transparent} />
+<Canvas of={PolygonStories.Filled} />

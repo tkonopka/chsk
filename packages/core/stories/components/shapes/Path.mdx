@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as PathStories from './Path.stories'
+
+# Path
+
+<Meta of={PathStories} />
+
+`Path` displays a (curved) line.
+
+<ArgTypes of={PathStories} />
+
+## Open curves
+
+Paths are defined by a series of points, and interpolations are controlled via the prop `curve`. The examples below show distinct curves produced by the same set of points.
+
+<Canvas of={PathStories.Linear} />
+<Canvas of={PathStories.Natural} />
+<Canvas of={PathStories.MonotoneX} />
+<Canvas of={PathStories.Step} />
+
+## Closed curves
+
+Paths can display closed curves.
+
+<Canvas of={PathStories.LinearClosed} />
+<Canvas of={PathStories.BasisClosed} />
+<Canvas of={PathStories.CardinalClosed} />
+<Canvas of={PathStories.CatmullRomClosed} />
+
+## Style
+
+Paths can be styled with css.
+In particular, paths may require setting the `fill` or `fillOpacity` attributes.
+
+<Canvas of={PathStories.OpenFilled} />
+<Canvas of={PathStories.ClosedFilled} />

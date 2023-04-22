@@ -43,10 +43,15 @@ export const parameters = {
         },
     },
     docs: {
-        transformSource: input =>
-            prettier.format(input, {
-                parser: 'babel',
-                plugins: [prettierBabel],
-            }),
+        source: {
+            transform: input => {
+                try {
+                    return prettier.format(input, { parser: 'babel', plugins: [prettierBabel] })
+                } catch (e) {
+                    return input
+                }
+            },
+            excludeDecorators: false,
+        },
     },
 }

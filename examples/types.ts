@@ -1,4 +1,4 @@
-import { FC, Ref } from 'react'
+import { FC, ReactNode, Ref } from 'react'
 import { ChartDataContextProps, ChartRef, RawData } from '@chsk/core'
 
 export type MilestoneStep = string | number
@@ -20,7 +20,7 @@ export interface ControllerProps {
     /** array of milestones */
     steps: MilestoneStep[]
     /** comment */
-    comment?: string
+    comment?: string | ReactNode
     /** width of comment box */
     commentWidth?: string
 }
