@@ -12,7 +12,7 @@ import {
 } from '@chsk/core'
 import { BlockArrow, BracketLabel, Segment } from '@chsk/annotation'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
-import { generateRegressionData } from '../line/generators'
+import { generateRegressionData } from '../lines/generators'
 import { MilestoneStory } from '../types'
 
 export const generateOutlierScatterData = () => [

@@ -27,7 +27,8 @@ export const generateTreeFlowData = () => {
     const nA2 = nA - nA1
     const nB1 = Math.round(nB / 2)
     const nB2 = nB - nB1
-    return [nTotal, nLoss, nA, nB, nA1, nA2, nB1, nB2]
+    // return data in a format that satisfies RawData
+    return [{ id: 'data', data: [nTotal, nLoss, nA, nB, nA1, nA2, nB1, nB2] }]
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
@@ -131,7 +132,7 @@ const MilestoneArrow = ({
 }
 
 export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
-    const nData = rawData as unknown as number[]
+    const nData = rawData[0].data as unknown as number[]
     const [nTotal, nLoss, nA, nB, nA1, nA2, nB1, nB2] = nData
     // coordinates and settings for box locations
     const boxStart: NumericPositionSpec = [0.5, 30]

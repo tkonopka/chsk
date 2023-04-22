@@ -36,7 +36,7 @@ export const Controller = ({
     chart,
     steps = [],
     comment,
-    commentWidth = '20%',
+    commentWidth = '25%',
 }: ControllerProps) => {
     const [rawData, setRawData] = useState(generator())
     const ref = useRef<ChartRef>(null)

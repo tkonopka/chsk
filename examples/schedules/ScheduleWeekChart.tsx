@@ -89,8 +89,8 @@ export const ScheduleWeekChart = ({ fref, chartData, rawData }: MilestoneStory) 
             data={chartData}
             fref={fref}
             id="project-week"
-            size={[640, 480]}
-            padding={[60, 120, 60, 60]}
+            size={[640, 440]}
+            padding={[60, 120, 20, 60]}
             theme={weekTheme}
         >
             <Schedule

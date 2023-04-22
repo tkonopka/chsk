@@ -1,5 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
-import { Controller } from '../Controller'
+import { GalleryMeta, GalleryStory } from '../gallery'
 import { generateGroupedData, GroupedVerticalBarChart } from './GroupedVerticalBarChart'
 import { GroupedHorizontalBarChart } from './GroupedHorizontalBarChart'
 import { generateStackedData, StackedVerticalBarChart } from './StackedVerticalBarChart'
@@ -24,15 +23,12 @@ import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './Quest
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLogoBarChart'
 
-const meta: Meta<typeof Controller> = {
+export default {
+    ...GalleryMeta,
     title: 'Gallery/Bar charts',
-    component: Controller,
-    parameters: { controls: { include: [] } },
 }
-export default meta
-type Story = StoryObj<typeof Controller>
 
-export const GroupedVertical: Story = {
+export const GroupedVertical: GalleryStory = {
     name: 'grouped, vertical',
     args: {
         generator: generateGroupedData,
@@ -40,7 +36,7 @@ export const GroupedVertical: Story = {
     },
 }
 
-export const GroupedHorizontal: Story = {
+export const GroupedHorizontal: GalleryStory = {
     name: 'grouped, horizontal',
     args: {
         generator: generateGroupedData,
@@ -50,7 +46,7 @@ export const GroupedHorizontal: Story = {
     },
 }
 
-export const GroupedDiverging: Story = {
+export const GroupedDiverging: GalleryStory = {
     name: 'grouped, diverging',
     args: {
         generator: generateDivergingBarData,
@@ -58,7 +54,7 @@ export const GroupedDiverging: Story = {
     },
 }
 
-export const GroupedTooltip: Story = {
+export const GroupedTooltip: GalleryStory = {
     name: 'grouped, tooltip',
     args: {
         generator: generateGroupedData,
@@ -66,7 +62,7 @@ export const GroupedTooltip: Story = {
     },
 }
 
-export const StackedVertical: Story = {
+export const StackedVertical: GalleryStory = {
     name: 'stacked, vertical',
     args: {
         generator: generateStackedData,
@@ -74,7 +70,7 @@ export const StackedVertical: Story = {
     },
 }
 
-export const StackedHorizontal: Story = {
+export const StackedHorizontal: GalleryStory = {
     name: 'stacked, horizontal',
     args: {
         generator: generateStackedData,
@@ -82,7 +78,7 @@ export const StackedHorizontal: Story = {
     },
 }
 
-export const CustomGroups: Story = {
+export const CustomGroups: GalleryStory = {
     name: 'custom groups',
     args: {
         generator: generateCustomGroupsBarData,
@@ -91,7 +87,7 @@ export const CustomGroups: Story = {
     },
 }
 
-export const ValueColors: Story = {
+export const ValueColors: GalleryStory = {
     name: 'value colors',
     args: {
         generator: generateValueColorsBarData,
@@ -99,7 +95,7 @@ export const ValueColors: Story = {
     },
 }
 
-export const QuestionMC: Story = {
+export const QuestionMC: GalleryStory = {
     name: 'question, multiple choice',
     args: {
         generator: generateQuestionMultipleChoicesData,
@@ -107,7 +103,7 @@ export const QuestionMC: Story = {
     },
 }
 
-export const QuestionBinary: Story = {
+export const QuestionBinary: GalleryStory = {
     name: 'question, binary choices',
     args: {
         generator: generateQuestionTwoChoicesData,
@@ -115,7 +111,7 @@ export const QuestionBinary: Story = {
     },
 }
 
-export const Fractions: Story = {
+export const Fractions: GalleryStory = {
     name: 'fractions',
     args: {
         generator: generateFractionsBarData,
@@ -124,7 +120,7 @@ export const Fractions: Story = {
     },
 }
 
-export const Shadows: Story = {
+export const Shadows: GalleryStory = {
     name: 'shadows',
     args: {
         generator: generateFractionShadowsBarData,
@@ -133,7 +129,7 @@ export const Shadows: Story = {
     },
 }
 
-export const Gradients: Story = {
+export const Gradients: GalleryStory = {
     name: 'gradients',
     args: {
         generator: generateFractionGradientsBarData,
@@ -141,7 +137,7 @@ export const Gradients: Story = {
     },
 }
 
-export const Arrows: Story = {
+export const Arrows: GalleryStory = {
     name: 'arrows',
     args: {
         generator: generateArrowsData,
@@ -150,7 +146,7 @@ export const Arrows: Story = {
     },
 }
 
-export const SequenceLogo: Story = {
+export const SequenceLogo: GalleryStory = {
     name: 'sequence logo',
     args: {
         generator: generateSequenceLogoBarData,
@@ -166,7 +162,7 @@ export const SequenceLogo: Story = {
     },
 }
 
-export const MultipleViews: Story = {
+export const MultipleViews: GalleryStory = {
     name: 'multiple views',
     args: {
         generator: generateMultiViewsData,
@@ -180,7 +176,7 @@ export const MultipleViews: Story = {
     },
 }
 
-export const BandLabels: Story = {
+export const BandLabels: GalleryStory = {
     name: 'band labels',
     args: {
         generator: generateBandLabelsData,

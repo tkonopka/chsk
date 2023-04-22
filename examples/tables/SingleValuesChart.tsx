@@ -19,10 +19,12 @@ import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { randomUniformValue } from '../utils'
 
-export const generateSingleValuesData = () =>
-    Array(5)
+export const generateSingleValuesData = () => {
+    const data = Array(5)
         .fill(0)
         .map(() => Math.round(randomUniformValue(0, 100)))
+    return [{ id: 'data', data }]
+}
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     text: {
@@ -141,6 +143,7 @@ const DashboardValue = ({
 }
 
 export const SingleValuesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
+    const values = rawData[0].data as number[]
     return (
         <Chart
             data={chartData}
@@ -157,11 +160,11 @@ export const SingleValuesChart = ({ fref, chartData, rawData }: MilestoneStory) 
                     domain: [0, 40, 100],
                 }}
             >
-                <DashboardValue title={'Alpha'} position={[0, 0]} value={Number(rawData[0])} />
-                <DashboardValue title={'Beta'} position={[100, 0]} value={Number(rawData[1])} />
-                <DashboardValue title={'Gamma'} position={[200, 0]} value={Number(rawData[2])} />
-                <DashboardValue title={'Delta'} position={[300, 0]} value={Number(rawData[3])} />
-                <DashboardValue title={'Epsilon'} position={[400, 0]} value={Number(rawData[4])} />
+                <DashboardValue title={'Alpha'} position={[0, 0]} value={Number(values[0])} />
+                <DashboardValue title={'Beta'} position={[100, 0]} value={Number(values[1])} />
+                <DashboardValue title={'Gamma'} position={[200, 0]} value={Number(values[2])} />
+                <DashboardValue title={'Delta'} position={[300, 0]} value={Number(values[3])} />
+                <DashboardValue title={'Epsilon'} position={[400, 0]} value={Number(values[4])} />
             </View>
         </Chart>
     )

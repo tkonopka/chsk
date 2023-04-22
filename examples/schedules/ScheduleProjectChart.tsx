@@ -55,8 +55,8 @@ export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStor
             data={chartData}
             fref={fref}
             id="schedule-project"
-            size={[600, 340]}
-            padding={[90, 40, 60, 60]}
+            size={[600, 300]}
+            padding={[90, 40, 20, 60]}
         >
             <Schedule data={rawData} keys={['A', 'B', 'C', 'D']} horizontal={true}>
                 <Typography position={[-50, -70]} variant={'title'}>
