@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as AxisLineStories from './AxisLine.stories'
+
+# Axis
+
+<Meta of={AxisLineStories} />
+
+`AxisLine` draws a line intended as an axis.
+It is intended to be used a child of an `Axis` component.
+
+<ArgTypes of={AxisLineStories} />
+
+## Variants
+
+Prop `variant` configures a line for the top, right, bottom, or left side of a chart.
+For brevity, the example below shows a line along the bottom edge.
+
+<Canvas of={AxisLineStories.Visibility} />
+
+Note that in the default theme, the axis line has zero thickness and is therefore invisible.
+To make the line appear, set a css style, or adjust the chart theme.

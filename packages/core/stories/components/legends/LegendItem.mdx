@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LegendItemStories from './LegendItem.stories'
+
+# LegendItem
+
+<Meta of={LegendItemStories} />
+
+`LegendItem` draws one entry in a legend.
+
+<ArgTypes of={LegendItemStories} />
+
+## Variants
+
+`LegendItem` draws a symbol and a corresponding text label.
+Prop `variant` determines how the legend symbol and label are arranged.
+The terminology matches that of axis and tick labels.
+For example, variant 'right' makes the text label appear to the right of the symbol
+(analogously to how labels appear to the right of tick marks on an axis placed on the right edge of a chart).
+
+<Canvas of={LegendItemStories.Right} />
+<Canvas of={LegendItemStories.Left} />
+<Canvas of={LegendItemStories.Bottom} />
+<Canvas of={LegendItemStories.Top} />
+
+Note that `variant` is not the only prop that affects placement of the text label. It is often necessary to adjust the css style for the label via prop `labelStyle`.
+
+## Symbols
+
+Use prop `symbol` to change the symbol.
+
+<Canvas of={LegendItemStories.Symbol} />
+<Canvas of={LegendItemStories.NoSymbol} />

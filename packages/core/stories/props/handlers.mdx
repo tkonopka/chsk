@@ -1,0 +1,68 @@
+import { ArgTypes, Meta, Source } from '@storybook/blocks'
+import { MockHandlers, MockDataHandlers } from './mocks'
+
+<Meta title="Core/Props/Handlers" />
+
+# Handlers
+
+Handlers are functions that perform actions in response to user interactions.
+There are two types of handlers: those associated with individual components,
+and those associated with data elements in batch.
+
+## Handlers for individual components
+
+Components such as `Rectangle` and `Path` create single visual elements on a chart.
+They accept handlers for common mouse events: mouse enter, mouse move, mouse leave, and click.
+
+<ArgTypes of={MockHandlers} />
+
+Handlers for individual components receive an object summarizing the triggering event.
+A custom implementation is as follows.
+
+<Source
+    language="javascript"
+    code={`
+const handleIndividualClick = (event) => {
+  console.log('click')
+}`}
+/>
+
+Such a custom handler can be provided to a component directly, for example:
+
+<Source
+    language="javascript"
+    code={`
+<Rectangle x={0} y={0} width={10} height={10} onClick={handleIndividualClick} />
+`}
+/>
+
+## Data-dependent handlers
+
+Some components, especially in add-on packages, create several visual elements in batch.
+(As an example, consider `Bars` from the `@chsk/band` package, which creates many rectangles to display a bar chart.)
+Those components have a prop `handlers` that accepts a group of functions that mimic the handlers above, but
+receive two inputs: a data object along with an object summarizing the triggering event.
+
+<ArgTypes of={MockDataHandlers} />
+
+An implementation of a custom handler would be as follows.
+
+<Source
+    language="javascript"
+    code={`
+const handleDataClick = (data, event) => {
+  console.log('clicked ' + JSON.stringify(data))
+}`}
+/>
+
+The content of the data object varies.
+In the bar chart context, for example, it would contain an identifier and a value associated with the size of a bar.
+
+Data-dependent handlers should be grouped and provided as a single prop `handlers`.
+
+<Source
+    language="javascript"
+    code={`
+<Bars handlers={{ onClick: handleDataClick }} />
+`}
+/>

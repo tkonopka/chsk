@@ -1,0 +1,17 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as TooltipTitleStories from './TooltipTitle.stories'
+
+# TooltipTitle
+
+<Meta of={TooltipTitleStories} />
+
+`TooltipTitle` draws a text component intended as a tooltip title.
+
+<ArgTypes of={TooltipTitleStories} />
+
+## Position
+
+Positioning of `TooltipTitle` text works in the same way as for ordinary `Typography` components,
+but the coordinates are measured from the top-left corner or the tooltip container.
+
+<Canvas of={TooltipTitleStories.Title} />

@@ -1,0 +1,41 @@
+import { Meta, Source } from '@storybook/blocks'
+
+<Meta title="Core/Props/Animations" />
+
+# Animations
+
+Animations are implemented using [Framer Motion](https://www.framer.com/docs/).
+
+Their configuration can be set via themes, using key 'Motion'.
+The example below specifies a spring-based animation (values correspond to the default theme).
+
+<Source
+    language="javascript"
+    code={`
+const customTheme = {
+  Motion: {
+     mass: 0.5,
+     stiffness: 250,
+     damping: 25,
+  }
+}`}
+/>
+
+Settings that can be included in the 'Motion' dictionary are: `duration`, `bounce`, `mass`, `stiffness`, and `damping`.
+For detailed description of their role in animations, see the [motion-framer documentation](https://www.framer.com/docs/transition/).
+In particular, note that some properties may over-ride others. Some rules of thumb are:
+
+-   Larger stiffness increases responsiveness, i.e. makes animations seem to begin faster.
+-   Larger damping reduces oscillations.
+
+To apply custom animation settings, use prop `theme` in the `Chart` component.
+
+<Source
+    language="javascript"
+    code={`
+<Chart {...props} theme={customTheme}>
+  ...
+</Chart>`}
+/>
+
+All settings apply equally to all chart content.

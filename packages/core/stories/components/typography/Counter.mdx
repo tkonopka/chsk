@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as CounterStories from './Counter.stories'
+
+# Counter
+
+<Meta of={CounterStories} />
+
+`Counter` creates a text element with a number. Its characteristic feature is that when data changes, the number is animated.
+
+<ArgTypes of={CounterStories} />
+
+## Position
+
+`Counter` shares many props with `Typography`. The position of the text, for example, is determined by prop `position`.
+
+<Canvas of={CounterStories.Position} />
+
+## Content format
+
+By default, `Counter` displays a number 'as-is'.
+Prop `nDecimalPlaces` introduces number-rounding to a fixed number of decimal places.
+Alternatively, prop `format` accepts a function to perform custom number-to-string conversion.
+This can be used, for example, to display values as percentages.
+
+<Canvas of={CounterStories.CustomFormat} />
+
+## Custom components
+
+For even more control over how the counter is displayed, prop `component` accepts a custom React component.
+Custom components can be used to, for example, display text with nested `tspan` tags.
+
+<Canvas of={CounterStories.CustomComponent} />

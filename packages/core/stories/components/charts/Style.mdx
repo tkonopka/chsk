@@ -1,0 +1,43 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as StyleStories from './Style.stories'
+
+# Style
+
+<Meta of={StyleStories} />
+
+`Style` generates an HTML / SVG `style` component holding css definitions.
+
+<ArgTypes of={StyleStories} />
+
+## Usage
+
+The `Style` component is called within the `Chart` component and, by default,
+all theme styles are automatically applied to each new chart.
+Thus, it is usually not necessary to use `Style` manually.
+
+However, if a web page contains many charts with the same theme,
+it may be possible to optimise performance by applying `Style` with bespoke settings.
+This is because under default settings, each chart on a page creates its own copy of css definitions.
+Many copies of equivalent css definitions can add unnecessarily to the overall page size
+(the default theme leads to around 3kb of css).
+
+To avoid redundant css, `Style` can be called manually to generate definitions with an appropriate scoping selector.
+To remove css from subsequent charts, set the prop `selectors` in each `Chart` to `null`.
+
+## Base theme and custom theme
+
+`Style` accepts two props with theme objects, `baseTheme` and `theme`. These objects are
+merged, and the used to generate css definitions.
+
+<Canvas of={StyleStories.Themes} />
+
+Open the console with `Ctrl Shift C`, find the elements corresponding to the example above,
+and find the adjacent `style` element. It should contain a short css definition styling text elements.
+
+## Ancestor
+
+Prop `ancestor` limits the scope of the output css to a specified ancestor.
+This can be used to limit styles to a specific chart via an identifier, or to a group of charts
+with a broader selector.
+
+<Canvas of={StyleStories.Ancestor} />

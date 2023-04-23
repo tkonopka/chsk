@@ -132,8 +132,8 @@ export const EntryExitMilestones = ({
     onExit,
     transition,
 }: {
-    enter: AnimationSpec
-    exit: AnimationSpec
+    enter?: AnimationSpec
+    exit?: AnimationSpec
     onEnter?: () => void
     onExit?: () => void
     transition?: TransitionSpec

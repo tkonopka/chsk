@@ -1,0 +1,67 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as TooltipStories from './Tooltip.stories'
+
+# Tooltip
+
+<Meta of={TooltipStories} />
+
+`Tooltip` is a container component for tooltips.
+
+<ArgTypes of={TooltipStories} />
+
+`Tooltip` is meant to display information intermittently as the mouse pointer hovers over chart elements.
+It determines its location and information content using the `useTooltip` hook.
+As such, it should be used alongside components that sets data for the tooltip context.
+
+The examples in this documentation page use custom elements that set tooltip data manually.
+
+## Position
+
+`Tooltip` determines its position from the tooltip context via the `useTooltip` hook.
+Further, the tooltip can be offset with prop `offset`.
+
+<Canvas of={TooltipStories.Position} />
+
+## Size and anchor
+
+`Tooltip` requires information about its size and how it should be anchored to the target position.
+The relevant props are `size` and `anchor`.
+Hover on the examples below to display a tooltip anchored at different location relative to the mouse pointer.
+
+<Canvas of={TooltipStories.AnchoredMiddleLeft} />
+<Canvas of={TooltipStories.AnchoredTopRight} />
+
+## Overhang
+
+A tooltip created within a view may hover beyond the view boundary, and sometimes, that is acceptable.
+However, when the tooltip moves beyond the entire chart boundary, it may become clipped.
+
+To avoid clipping, use prop `maxOverhang` to set a margin around the view.
+Tooltips that move beyond the overhang will flip direction.
+
+<Canvas of={TooltipStories.LargeOverhang} />
+<Canvas of={TooltipStories.SmallOverhang} />
+
+## Tooltip content
+
+The content of the tooltip consists of a number of distinct pieces.
+These pieces can be tuned with props such as `itemSize` and `itemPadding`.
+
+The examples below display tooltips that have: compact padding, ample padding, and a title line.
+(Note that the tooltips do not disappear when the mouse moves away.
+In these examples, this behavior is intentional -
+it facilitates inspection of the tooltip using developer tools `Ctrl Shift C`.)
+
+<Canvas of={TooltipStories.SmallItemPadding} />
+<Canvas of={TooltipStories.LargeItemPadding} />
+<Canvas of={TooltipStories.Title} />
+
+To create a tooltip with only a title, i.e. without entries with a symbol and label, set prop `labelFormat` to null.
+
+<Canvas of={TooltipStories.OnlyTitle} />
+
+## Custom style
+
+The tooltip can be styled using css.
+
+<Canvas of={TooltipStories.CustomStyle} />

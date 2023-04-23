@@ -1,0 +1,19 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LegendSizeScaleStories from './LegendSizeScale.stories'
+
+# LegendSizeScale
+
+<Meta of={LegendSizeScaleStories} />
+
+`LegendSizeScale` draws a rectangle with a color scale.
+
+<ArgTypes of={LegendSizeScaleStories} />
+
+## Variants
+
+Prop `variant` determines where the labels marks appear in relation to symbol.
+
+<Canvas of={LegendSizeScaleStories.Bottom} />
+<Canvas of={LegendSizeScaleStories.Top} />
+<Canvas of={LegendSizeScaleStories.Left} />
+<Canvas of={LegendSizeScaleStories.Right} />

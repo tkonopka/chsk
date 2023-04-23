@@ -1,0 +1,41 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as TypographyStories from './Typography.stories'
+
+# Typography
+
+<Meta of={TypographyStories} />
+
+`Typography` places a text element on a chart.
+
+<ArgTypes of={TypographyStories} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`.
+
+<Canvas of={TypographyStories.Title} />
+<Canvas of={TypographyStories.Subtitle} />
+<Canvas of={TypographyStories.AxisLabel} />
+<Canvas of={TypographyStories.TickLabel} />
+
+In the examples above, the prop `variant` determines the visual style for the text.
+Positions are set manually to suggest how the visual styles might be used within a chart.
+
+## Rotation
+
+Text can be rotated with prop `angle`.
+
+<Canvas of={TypographyStories.Rotation} />
+
+## Styles
+
+Components can be adjusted individually using css styles.
+
+<Canvas of={TypographyStories.Color} />
+<Canvas of={TypographyStories.LetterSpacing} />
+
+## Content
+
+The component accepts complex children, including styled `<tspan>` elements.
+
+<Canvas of={TypographyStories.Tspan} />

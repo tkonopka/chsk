@@ -1,0 +1,45 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as AxisLabelStories from './AxisLabel.stories'
+
+# AxisLabel
+
+<Meta of={AxisLabelStories} />
+
+`AxisLabel` draws text intended as a label for an axis.
+It is intended to be used a child of an `Axis` component.
+
+<ArgTypes of={AxisLabelStories} />
+
+## Variants
+
+Variants creates labels configured for one of the top, right, bottom, or left axes.
+For brevity, the examples below shows labels on the bottom and left axes.
+
+<Canvas of={AxisLabelStories.BottomAxis} />
+<Canvas of={AxisLabelStories.LeftAxis} />
+
+Note that `AxisLabel` is meant to be used as a child in an `Axis` component, which itself carries a prop `variant`.
+The `Axis` component automatically transfers the value of its prop `variant`
+to its children components, including to `AxisLabel`. Thus, the prop can often be omitted in `AxisLabel`.
+Alternatively, the prop can override the default value,
+for example to create a top-axis label variant along a bottom axis.
+
+<Canvas of={AxisLabelStories.TopLabelOnBottomAxis} />
+
+## Distance from baseline
+
+The distance between the axis line and the axis label is controlled by prop `distance`.
+The value can be positive or negative, moving the label away or toward the center, respectively.
+
+<Canvas of={AxisLabelStories.NegativeDistance} />
+
+## Alignment
+
+The position of the label along the axis is controlled by prop `align`, which
+here takes a single value from 0 (start) to 1 (end).
+
+<Canvas of={AxisLabelStories.Alignment} />
+
+Note that the value of this prop is often adjusted together with the css style `textAnchor`,
+as in the example above. Another prop to fine-tune the label position is `offset`, which
+translates the label in an arbitrary direction.

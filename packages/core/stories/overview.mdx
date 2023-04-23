@@ -1,0 +1,26 @@
+import { Canvas, Meta } from '@storybook/blocks'
+import * as OverviewStories from './overview.stories'
+
+<Meta of={OverviewStories} />
+
+# Core
+
+Package `@chsk/core` provides infrastructure for building dynamic highly-customizable charts.
+
+**Components** are the building blocks for charts.
+Many components, for example `<Axis>`, create visual elements that appear within a chart. A few components, for example `<View>`, do not create visual output, but rather organize information for other components.
+
+**Hooks** are functions that enable components to access chart state. For many use-cases, complete charts can be created with core components and add-on packages, without the need to use hooks directly. However, the functions can be useful for creating bespoke components.
+
+**Props** are the inputs to component functions. In `@chsk`, all props are associated with typescript types. In addition, many props are shared and reused across many components. Some dedicated pages outline the ideas behind these common props.
+
+## Skeletons
+
+Components in `@chsk/core` can be combined to produce chart skeletons with distinctive visual features.
+
+<Canvas of={OverviewStories.Default} />
+<Canvas of={OverviewStories.Grid} />
+<Canvas of={OverviewStories.InverseGrid} />
+<Canvas of={OverviewStories.Boxed} />
+<Canvas of={OverviewStories.BoxedWithGrid} />
+<Canvas of={OverviewStories.SmallLabels} />

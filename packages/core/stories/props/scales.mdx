@@ -1,0 +1,154 @@
+import { ArgTypes, Meta, Source } from '@storybook/blocks'
+import { MockScales, MockNumericScale, MockTimeScale, MockBandScale } from './mocks'
+
+<Meta title="Core/Props/Scales" />
+
+# Scales
+
+Scales transform data into a form that can be used for visualization.
+Use-cases for scales include converting numeric data into coordinates along an axis (e.g. in a scatter chart),
+converting categorical labels into coordinates along an axis (e.g. in a bar chart),
+translating categorical labels into color codes (e.g. in a bar chart),
+and using numeric data to determine the sizes of visual symbols (e.g. in a scatter chart).
+
+Scales in chsk are based on [d3-scale](https://github.com/d3/d3-scale) and [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic),
+although there are some modifications.
+They are typically specified in view components, e.g. `View`.
+
+<ArgTypes of={MockScales} />
+
+## Numeric scales
+
+Numeric scales transform numeric inputs into numeric outputs. They are used to map data points into positions along a chart axis.
+
+<ArgTypes of={MockNumericScale} />
+
+### Linear scales
+
+The archetypic numeric scale is the linear scale. A minimal specification requires a string `variant` set to `linear`, and an array of two numbers as a `domain`. For example, the scale below maps numbers in the unit interval into coordinates along an axis.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'linear',
+  domain: [0, 1],
+}`}
+/>
+
+When specifying scales for a chart axis, it is possible to configure the domain so that it adjusts automatically to the chart data. Set `domain` to the string 'auto', or use the string 'auto' as either the lower or upper bound. For example, the scale below always includes zero as the lower bound.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'linear',
+  domain: [0, 'auto'],
+}`}
+/>
+
+### Non-linear scales
+
+Non-linear scales perform transformation on the input data.
+The supported non-linear scale variants are logarithmic and square-root transformations.
+The two examples below use a custom domain and a fully-automatic domain.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'log',
+  domain: [10, 10000],
+}`}
+/>
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sqrt',
+  domain: 'auto',
+}`}
+/>
+
+Note that these non-linear scales only work with data values that are non-negative (`sqrt`) or strictly positive (`log`).
+
+### Advanced props
+
+Parameters `clamp` and `nice` are carried from [d3-scale](https://github.com/d3/d3-scale).
+
+Parameter `reverse` reverses the default mapping directions.
+For example, for scales for the x-axis, the default behavior is to map increasing domain values left-to-right along the axis.
+Activating the `reverse` setting thus maps increasing domain values right-to-left.
+
+## Time scales
+
+Time scales are similar to linear scales, except their `domain` should be specified with `Date` objects.
+
+<ArgTypes of={MockTimeScale} />
+
+The example below creates a scale that covers the entire year 2022.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'date',
+  domain: [new Date('2022-01-01'), new Date('2023-01-01')],
+}`}
+/>
+
+## Band scales
+
+Band scales transform a discrete set of strings into coordinates along a chart axis.
+
+<ArgTypes of={MockBandScale} />
+
+### Domain
+
+The domain of these scales should be an array with all possible input values.
+In the example below, the domain consists of exactly four labels.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'band',
+  domain: ['A', 'B', 'C', 'D'],
+}`}
+/>
+
+In some cases, e.g. in the `Bar` view, it is possible to set the domain to `auto`,
+in which case the domain is determined by a relevant dataset.
+
+### Padding
+
+Band scales partition the space along an axis into non-overlapping rectangular regions (i.e. bands or strips) with some empty regions in between.
+For example, in a bar chart, these regions determine the width of bars, and the empty space creates padding between bars.
+
+Padding props fine-tune the empty space around the bands.
+`padding` is a single-value adjustment that controls the empty space between adjacent domain labels.
+
+For finer control, `paddingOuter` controls the space between the axis edge and the first/last bands.
+`paddingInner` controls spacings between adjacent bars. Note that `paddingInner` and `paddingOuter` override `padding`.
+
+For even finer control, prop `extraPadding` adjusts spacing before individual labels.
+The example below shows the formatting for all these custom parameters.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'band',
+  domain: ['A', 'B', 'C', 'D'],
+  padding: 0.2,
+  paddingInner: 0.1,
+  paddingOuter: 0.2,
+  extraPadding: { 'C': 0.2 }
+}`}
+/>
+
+All padding values are interpreted as multiples of a single band width.
+
+## Color scales
+
+Color scales are mappings that generate colors as outputs. These are documented on a separate page on colors.

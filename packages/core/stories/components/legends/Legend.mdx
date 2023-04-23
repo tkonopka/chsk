@@ -1,0 +1,77 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LegendStories from './Legend.stories'
+
+# Legend
+
+<Meta of={LegendStories} />
+
+`Legend` is a container component for legends.
+
+When used on its own, `Legend` draws a standard/automatic legend on a chart.
+It can also be used with children elements to construct a custom legend.
+
+<ArgTypes of={LegendStories} />
+
+## Position, size, and anchor
+
+The location of the legend is controlled by props `position`, `size`, and `anchor`.
+
+Prop `position` determines a coordinate in the current view. Prop `size` sets the width and height of the legend container. These two props can be specified either as absolute values (in pixels), or as fractions of the current view size.
+
+Prop `anchor` determines which point along the legend boundary makes contact with the specified position.
+
+In the examples below, the gray area is the current view, and the blue rectangle indicates the legend.
+
+<Canvas of={LegendStories.RightAnchoredMiddleLeft} />
+<Canvas of={LegendStories.BottomRightAnchoredBottomLeft} />
+<Canvas of={LegendStories.BottomRightAnchoredBottomRight} />
+<Canvas of={LegendStories.BottomAnchoredTop} />
+
+## Offset
+
+A prop `offset` introduces an additional shift (in absolute coordinates)
+with respect to the position determined by `position`, `size`, and `anchor`.
+
+<Canvas of={LegendStories.RightWithPadding} />
+
+## Categorical content
+
+When `Legend` is used without any child elements, it automatically creates a title and entries for relevant colors and labels. The entries are extracted from the `useProcessedData` hook, which return view-specific information.
+
+The content can be arranged vertically or horizontally.
+
+<Canvas of={LegendStories.ListVertical} />
+<Canvas of={LegendStories.ListHorizontal1} />
+<Canvas of={LegendStories.ListHorizontal2} />
+
+## Color scales
+
+The legend can display a continuous color scale by setting prop `variant`.
+
+<Canvas of={LegendStories.ColorsVertical} />
+<Canvas of={LegendStories.ColorsHorizontal} />
+
+For more control of this type of legend, see `LegendColorScale`.
+
+## Size scales
+
+The legend can display a size scale by setting prop `variant`.
+
+<Canvas of={LegendStories.SizesVertical} />
+<Canvas of={LegendStories.SizesHorizontal} />
+
+For more control of this type of legend, see `LegendSizeScale`.
+
+## Interactivity
+
+Prop `interactive` toggles the ability to click on items in a categorical legend.
+
+Legend interactivity is turned on by default. Set `interactive` to 'false' to disable it.
+
+<Canvas of={LegendStories.NonInteractive} />
+
+When a legend is not interactive, clicking on legend items does not change their opacity.
+However, all css style definitions remain the same.
+In particular, in the example above, a css style sets the mouse cursor to a pointer.
+That behavior may be undesirable in a non-interactive component.
+To adjust it, use a custom theme, or create a legend manually and set styles for `LegendItemList` or `LegendItem` components.

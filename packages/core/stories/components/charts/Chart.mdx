@@ -1,0 +1,61 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ChartStories from './Chart.stories'
+
+# Chart
+
+<Meta of={ChartStories} />
+
+`Chart` is the root component for all charts produced with the chsk framework.
+
+`Chart` itself does not draw any visible elements, but it prepares an svg element and performs other book-keeping to support other components.
+
+<ArgTypes of={ChartStories} />
+
+## Identifier
+
+`Chart` accepts a prop `id` that is intended as a unique chart identifier. This prop is used to declare css styles that are specific to a chart.
+
+## Sizing and padding
+
+By default, `Chart` creates a component with non-zero dimensions. The absolute width and height can be adjusted with prop `size`. Another prop `padding` creates space between the chart edges and the area used for subsequent visualization.
+
+<Canvas of={ChartStories.CustomSize} />
+
+Boolean prop `stretch` overrides prop `size` and makes the chart fill its parent container. In the example below, a container has a fixed height and a variable width that fills the available screen space. The chart is configured to stretch to fill the parent container. Resize the browser window to see the container and the chart change shape.
+
+<Canvas of={ChartStories.Stretch} />
+
+## Data
+
+Prop `data` provides the chart with custom settings.
+
+This data object is not meant to contain primary data for visualization; primary data should be provided to specific view components such as `Bar`, `Scatter`, or others depending on the desired output.
+
+Rather, the `data` object can contain settings for downstream components. For example, this object can be used to provide state for milestone animations. However, for most simple charts, this prop is not needed and can be safely ignored.
+
+## Theme
+
+Prop `theme` accepts an object with various settings that apply to the entire chart.
+This can be used to change default settings to children components such as `Axis`.
+It can also set global css styles.
+
+The example below uses a small custom theme to change the color of the background.
+
+<Canvas of={ChartStories.CustomTheme} />
+
+Note that `theme` does not provide a complete description of a chart style, but rather provides
+adjustments that are applied to the default theme. These adjustments can be quite versatile,
+but there are some use cases where it is necessary or desirable to change the default theme itself (see below)
+
+## Base theme
+
+Prop `baseTheme` changes the entire set of settings and styles for the chart.
+In the example below, the base theme is set to `emptyTheme`, which is an object that holds no settings at all.
+
+<Canvas of={ChartStories.BaseTheme} />
+
+To verify that this chart does not hold any css styles, inspect the svg source in the browser developer console (`Ctrl Shift C`) -
+the `<style>` tag inside the `<svg>` element should be empty.
+
+In practice, tuning a chart starting from the empty base theme can be very time consuming.
+For other starting points, see the `@chsk/themes` add-on.

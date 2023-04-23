@@ -1,0 +1,50 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as AxisStories from './Axis.stories'
+
+# Axis
+
+<Meta of={AxisStories} />
+
+`Axis` draws an axis on a chart.
+
+<ArgTypes of={AxisStories} />
+
+## Variants
+
+`Axis` is a composite component that draws a line, a label, and ticks marks with labels.
+Predefined variants place these elements on the top, right, bottom, or left sides of a chart.
+
+<Canvas of={AxisStories.Top} />
+<Canvas of={AxisStories.Right} />
+<Canvas of={AxisStories.Bottom} />
+<Canvas of={AxisStories.Left} />
+
+## Distance from boundary
+
+By default, axes are positioned on the border of the charting surface. They can be moved with the prop `distance`.
+
+<Canvas of={AxisStories.AxisPadding} />
+
+## Longform syntax
+
+Example above use a shorthand syntax, whereby the `Axis` component displays an axis line, an axis label, and ticks.
+Because of this shorthand form, there are a limited tuning props.
+
+For more fine-grained control, `Axis` can instead be used as a container
+with `AxisLine`, `AxisLabel`, and `AxisTicks` as child components.
+
+<Source
+    language="javascript"
+    code={`
+  <Axis variant={'top'}>
+   <AxisLine />
+   <AxisLabel>axis label</AxisLabel>
+   <AxisTicks />
+  </Axis>
+  `}
+/>
+
+It is also possible to use any of the child components multiple times.
+Below, the axis draws two sets of ticks of different sizes.
+
+<Canvas of={AxisStories.CustomAxis} />

@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ViewStories from './View.stories'
+
+# View
+
+<Meta of={ViewStories} />
+
+`View` is an organizational component that manages chart state.
+It does not display any visual elements on a chart, but it prepares data for display.
+In particular, it defines scales for the axes and prepares data for plotting.
+
+<ArgTypes of={ViewStories} />
+
+## Coordinate systems
+
+To see the effect of `View`, consider an `Axis` component drawn by itself (below, first example) and within a `View` component (below, second example).
+
+<Canvas of={ViewStories.WithoutView} />
+<Canvas of={ViewStories.WithView} />
+
+In the first example above, without `View`, the axis does not have information about the scale or the extent of the axis.
+It draws some ticks and labels, but the result is unsatisfactory.
+
+In the second example above, a `View` component specified the extent of the drawing area and the scale for the axes.
+The `Axis` component inside `View` can thus produce informative elements.

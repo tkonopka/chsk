@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LegendColorScaleStories from './LegendColorScale.stories'
+
+# LegendColorScale
+
+<Meta of={LegendColorScaleStories} />
+
+`LegendColorScale` draws a rectangle with a color scale.
+
+<ArgTypes of={LegendColorScaleStories} />
+
+## Variants
+
+Prop `variant` determines where the tick marks appear in relation to the scale rectangle.
+
+<Canvas of={LegendColorScaleStories.Bottom} />
+<Canvas of={LegendColorScaleStories.Top} />
+<Canvas of={LegendColorScaleStories.Left} />
+<Canvas of={LegendColorScaleStories.Right} />
+
+## Tuning
+
+Various props can be used to tune the tick marks and labels.
+
+<Canvas of={LegendColorScaleStories.TuningTicks} />

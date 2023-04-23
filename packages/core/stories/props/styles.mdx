@@ -1,0 +1,71 @@
+import { ArgTypes, Meta, Source } from '@storybook/blocks'
+import { MockStyles } from './mocks'
+
+<Meta title="Core/Props/Styles" />
+
+# Styles
+
+Style props tune the visual appearance of chart elements.
+
+<ArgTypes of={MockStyles} />
+
+### Css classes
+
+Most components support a prop `className`, which accepts a string. Its value is passed to an svg component as a css class.
+
+<Source
+    language="javascript"
+    code={`
+// JS source code
+
+<Circle r={2} className={'special'}} />
+
+// SVG output
+
+<circle role="default" r="2" class="special"></circle>
+`} />
+
+If the class matches existing css definitions, those definitions will affect the appearance of the svg element.
+To create css definitions for a class, create a `<style>` tag inside the chart, or use themes.
+
+### Inline styles
+
+Prop `style` accepts inline css definitions.
+
+In the example below, a `Circle` component is given a unique set of visual properties, which are passed to the svg graphic.
+
+<Source
+    language="javascript"
+    code={`
+// JS source code
+
+<Circle r={2} style={{ stroke: 'red', strokeWidth: '2px' }} />
+
+// SVG output
+
+<circle role="default" r="2" style="stroke: red; stroke-width: 2px;"></circle>
+`} />
+
+### Variants
+
+Prop `variant` is intended to toggle between different forms of a component.
+For components that wrap base SVG elements, the prop also doubles as an automatic style class.
+
+In the example below, a typography component uses a custom variant string,
+which is automatically converted into a class name.
+
+<Source
+    language="javascript"
+    code={`
+// JS source code
+
+<Typography variant={'my-title'}>Title</Typography>
+
+// SVG output
+
+<text role="my-title" class="myTitle">
+    Title
+</text>
+`} />
+
+To create css definitions for a variant, create a `<style>` tag inside the chart, or use themes.

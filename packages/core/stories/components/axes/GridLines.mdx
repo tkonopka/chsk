@@ -1,0 +1,43 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as GridLinesStories from './GridLines.stories'
+
+# GridLines
+
+<Meta of={GridLinesStories} />
+
+`GridLines` draws a set of grid lines on a chart.
+
+<ArgTypes of={GridLinesStories} />
+
+## Variants
+
+There are a number of predefined variants, which can be activated via the prop `variant`. Below, the grid lines are displayed on a gray background surface.
+
+<Canvas of={GridLinesStories.GridX} />
+<Canvas of={GridLinesStories.GridY} />
+
+## Styling
+
+Grid lines can be styled using css. Below are examples with both horizontal and vertical gridlines.
+
+<Canvas of={GridLinesStories.DashedGridLines} />
+<Canvas of={GridLinesStories.NegativeLines} />
+
+## Line positions
+
+Positions can be set via the prop `values`.
+
+<Canvas of={GridLinesStories.CustomPositions} />
+
+## Expansion
+
+By default, grid lines run across the entire chart view. It is possible to adjust their extent - make them longer or shorter - using the prop `expansion`.
+
+<Canvas of={GridLinesStories.LineExtent} />
+
+## Band scales
+
+For band scales, grid lines appear at the center of each band by defaut. It is possible to move the guide lines using prop `shift`, which takes an array of values. The values are multiples of the bandwidth.
+
+<Canvas of={GridLinesStories.Band} />
+<Canvas of={GridLinesStories.BetweenBands} />

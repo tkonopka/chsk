@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SurfaceStories from './Surface.stories'
+
+# Surface
+
+<Meta of={SurfaceStories} />
+
+`Surface` provides a rectangle intended as a background.
+
+<ArgTypes of={SurfaceStories} />
+
+## Variants
+
+There are two preset variants: `inner` and `outer`.
+
+<Canvas of={SurfaceStories.InnerSurface} />
+<Canvas of={SurfaceStories.OuterSurface} />
+
+It is also possible to use them together.
+
+<Canvas of={SurfaceStories.MultipleSurfaces} />
+
+## Expansion
+
+The predefined variants can be adjusted via the prop `expansion`, which stretches a surface in four directions.
+
+<Canvas of={SurfaceStories.Expanded} />

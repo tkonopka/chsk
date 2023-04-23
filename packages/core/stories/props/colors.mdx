@@ -1,0 +1,182 @@
+import { Meta, Source, ArgTypes } from '@storybook/blocks'
+import {
+    MockColors,
+    MockCategoricalScale,
+    MockSequentialScale,
+    MockDivergingScale,
+    MockThresholdScale,
+} from './mocks'
+
+<Meta title="Core/Props/Colors" />
+
+# Colors
+
+While colors for individual components can be set via css styles with props such as `style`
+(sometimes `labelStyle`, `symbolStyle` or similar), color schemes are set via scales with prop `scaleColor`.
+
+<ArgTypes of={MockColors} />
+
+Color scales are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), with minor adjustments.
+They are specified with objects that define a scale variant, domain, and other properties.
+
+## Categorical colors
+
+Categorical scales use a discrete set of colors.
+
+<ArgTypes of={MockCategoricalScale} />
+
+The example below defines a custom scale by explicitly listing color codes.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'categorical',
+  colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
+  size: 6,
+}`}
+/>
+
+Instead of providing an array of colors, it is possible to use a color scheme object in the format
+specified by [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+For example, the following object defines a series of color arrays for sizes from 0 to 5.
+
+<Source
+    language="language"
+    code={`
+[
+   ,,,
+  [ '#deebf7', '#9ecae1', '#3182bd' ],
+  [ '#eff3ff', '#bdd7e7', '#6baed6', '#2171b5' ],
+  [ '#eff3ff', '#bdd7e7', '#6baed6', '#3182bd', '#08519c' ]
+]`}
+/>
+
+The data format intentionally coincides with color schemes in
+[d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+Thus, ready color schemes can be readily imported.
+
+<Source
+    language="javascript"
+    code={`
+import { schemeCategory10 } from 'd3-scale-chromatic'
+import { schemeBlues } from 'd3-scale-chromatic'
+`}
+/>
+
+When using color schemes, it is especially relevant to set `size` to select
+the number of desired colors.
+
+## Sequential colors
+
+Sequential scales convert numbers from a domain into continuous color shades.
+
+<ArgTypes of={MockSequentialScale} />
+
+Simple scales are defined by two values
+representing domain edges, and two colors representing edge colors.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sequential',
+  colors: ['#ffffff', '#0000ff'],
+  domain: [0, 2]
+}`}
+/>
+
+The `color` attribute also accepts an interpolation function that converts a value in [0, 1],
+i.e. a fractional position in the domain interval, to a color.
+Several interpolation schemes are available through [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+For example, `interpolateBlues` uses shades of blue.
+
+<Source
+    language="javascript"
+    code={`
+import { interpolateBlues } from 'd3-scale-chromatic'
+`}
+/>
+
+When a sequential scale is used in a 'view' component (e.g. `View` from the core package, but also `Bar`, `Scatter`, `HeatMap` and others), the domain of the scale can be determined automatically from data. The example below forces a scale to start at a value of 0, but leaves the upper bound to be determined from data.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'sequential',
+  colors: interpolateBlues,
+  domain: [0, 'auto']
+}`}
+/>
+
+Note this example also uses the imported interpolation function.
+
+## Diverging colors
+
+Diverging color scales are similar to sequential colors, except that the domain is defined with an additional 'center'
+point.
+
+<ArgTypes of={MockDivergingScale} />
+
+The example below defines a blue-white-red scheme centered at a value zero.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'diverging',
+  colors: ['#0000ff', '#ffffff', '#ff0000'],
+  domain: [-1, 0, 1]
+}`}
+/>
+
+As with sequential schemes, an alternative to supplying a color array is to use an interpolation function.
+Several interpolators are readily available from [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
+
+## Threshold colors
+
+Threshold color scales map numbers into a discrete set of colors using thresholds.
+
+<ArgTypes of={MockThresholdScale} />
+
+The example below creates a three-color scheme based on two thresholds.
+
+<Source
+    language="javascript"
+    code={`
+{
+  variant: 'threshold',
+  colors: ['#0000ff', '#ffffff', '#ff0000'],
+  domain: [0, 1]
+}`}
+/>
+
+## Default colors
+
+Default color scales can be set using themes. The specifications should be provided under key `Colors`.
+The object below carries the color specifications for the default theme.
+
+<Source
+    language="javascript"
+    code={`
+const customTheme = {
+  Colors: {
+    categorical: {
+        variant: 'categorical',
+        colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
+        size: 6,
+    },
+    sequential: {
+        variant: 'sequential',
+        colors: interpolateBlues,
+        domain: 'auto',
+    },
+    diverging: {
+        variant: 'diverging',
+        colors: interpolateRdBu,
+        domain: 'auto',
+    },
+  }
+}`}
+/>

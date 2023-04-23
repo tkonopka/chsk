@@ -1,0 +1,49 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LabelStories from './Label.stories'
+
+# Label
+
+<Meta of={LabelStories} />
+
+`Label`, similarly to `Typography`, places a text element on a chart.
+It differs from `Typography` in how the props determine the localisation of the text element.
+
+<ArgTypes of={LabelStories} />
+
+## Base position
+
+Prop `position` determines the location of the label anchor point.
+By default, `Label` creates text that is centered around the anchor point.
+Thus, the result is very similar as that produced by `Typography`.
+
+<Canvas of={LabelStories.Default} />
+
+## Alignment
+
+`Label` provides props other than `position` that tune the position of the text.
+To understand how the placement is computed, imagine a rectangle centered around `position`.
+The size of the rectangle is determined by prop `size`. The internal padding is set
+with prop `padding`. The text label is then placed within the accessible rectangle,
+and aligned according to prop `align`.
+
+In each of examples below, `position` is marked with a small circle.
+Two concentric rectangles enclose the circle.
+The dimensions of the outer rectangle correspond to prop `size`.
+The inner rectangle is offset from the outer rectangle according to `padding`.
+Finally, the text element is aligned at a location within the inner rectangle.
+
+In the first example below, the text is aligned `[0, 0.5]`, i.e. to left side in the middle of the inner rectangle.
+The style of the text element uses `textAnchor: 'start'`.
+In the second example, prop `align=[1, 0.5]` to align the text on the right side of the inner rectangle.
+The style of that text element uses `textAnchor: 'end'`.
+
+<Canvas of={LabelStories.AlignedMiddleLeft} />
+<Canvas of={LabelStories.AlignedMiddleRight} />
+
+## Anchor
+
+The examples above explain how the position of the text is calculated with the aid of a rectangle centered around `position`.
+Prop `anchor` changes how that rectangle is positioned relative to `position`.
+In the example below, `anchor` is set to `[0, 0]` so that the rectangle's top-left corner matches with `position`.
+
+<Canvas of={LabelStories.AnchoredTopLeft} />

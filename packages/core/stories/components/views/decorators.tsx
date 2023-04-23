@@ -97,9 +97,9 @@ export const ChartWithTimeForControllerDecorator = (Story: () => ReactNode) => {
 
 export const GridFiller3x3 = () => {
     const indexes = Array.from(Array(9).keys())
-    return indexes.map(i => {
+    const result = indexes.map(i => {
         return (
-            <GridItem key={i} position={i}>
+            <GridItem key={i} index={i}>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1 }} />
                 <Label position={[0, 0]} size={[20, 20]} anchor={[0, 0]} align={[0.5, 0.5]}>
                     {i}
@@ -107,6 +107,7 @@ export const GridFiller3x3 = () => {
             </GridItem>
         )
     })
+    return <>{result}</>
 }
 
 export const ChartWithGridDecorator = (Story: () => ReactNode) => {

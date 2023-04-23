@@ -1,0 +1,90 @@
+import { Canvas, Meta, Source } from '@storybook/blocks'
+import * as ThemesStories from './themes.stories'
+
+<Meta of={ThemesStories} />
+
+# Themes
+
+Themes define the default look-and-feel for a chart.
+By setting styles for an entire chart and not for individual components, themes make code less verbose.
+Themes also help in preparing multiple charts with a consistent appearance.
+
+A theme object is a nested dictionary.
+
+-   Keys in the first nested layer should match svg components, e.g. `text` or `path`, or library components, e.g. `Axis` or `Legend`.
+-   Keys in the second nested layer should match 'variants'.
+-   Keys in the third nested layer should match component props.
+
+For example, the object below changes styles for text, geometric components, and tick components.
+
+<Source
+    language="javascript"
+    code={`
+  const customTheme = {
+  text: {
+   // title in regular font weight
+   title: {
+     fontWeight: 400,
+   }
+  },
+  rect: {
+   // background in a light color
+   inner: {
+     fill: '#f6f6f6'
+   }
+  },
+  line: {
+   // visible axis line
+   axis: {
+       stroke: '#222222',
+       visibility: 'visible' as const,
+       strokeWidth: '2px',
+   },
+   // grid lines in light gray
+   grid: {
+     stroke: '#cccccc',
+     strokeWidth: '1px',
+   },
+   // tick line in a heavier color
+   tick: {
+     stroke: '#222222',
+     strokeWidth: '2px'
+   }
+  },
+  // ticks facing into the chart
+  AxisTicks: {
+   left: {
+       tickSize: -6,
+       labelOffset: 6,
+   },
+   bottom: {
+       tickSize: -6,
+       labelOffset: 6,
+   },
+  }
+  }`}
+/>
+
+To apply the custom theme to a chart, use prop `theme`.
+The charts below display the same content with the default and the custom themes.
+
+<Canvas of={ThemesStories.Default} />
+<Canvas of={ThemesStories.Custom} />
+
+When two charts appear on the same page, as above, a theme for one chart may affect/override the appearance of another chart.
+(This happens because the `<style>` tag in HTML documents specify global settings, no matter how they are nested.)
+To avoid such cross-talk, set a unique identifier for each chart via the prop `id`.
+
+<Source
+    language="javascript"
+    code={`
+  <Chart {...props} theme={customThemeA} id="chart-A">
+  ...
+  </Chart>
+  <Chart {...props} theme={customThemeB} id="chart-B">
+  ...
+  </Chart>`}
+/>
+
+For additional information about themes, including about ready-made themes, see the
+[themes addon](/?path=/docs/addons-themes-overview--page).

@@ -1,0 +1,37 @@
+import { ArgTypes, Meta, Source } from '@storybook/addon-docs'
+import { MockModifiers } from './mocks'
+
+<Meta title="Core/Props/Modifiers" />
+
+# Modifiers
+
+Modifiers are style definitions that augment a base style.
+They can be used to adjust visual appearance in response to mouse events.
+
+<ArgTypes of={MockModifiers} />
+
+Modifier styles should be grouped into one objects. As an example, consider the following object.
+
+<Source
+    language="javascript"
+    code={`
+const customModifiers = {
+  onMouseEnter: { stroke: '#000000' },
+  onMouseClick: { strokeWidth: 2 },
+  onMouseLeave: { }
+}`}
+/>
+
+When creating a bars in a bar chart with `Bars`, this object can be provided to prop `modifiers`.
+
+<Source
+    language="javascript"
+    code={`
+<Bars modifiers={customModifiers} />
+`}
+/>
+
+As a result, bars in the chart should adjust their appearance in response to mouse events.
+
+Note that style modifications are not animated by the chsk framework.
+However, styles may contain [css animations](https://developer.mozilla.org/en-US/docs/Web/CSS/animation).

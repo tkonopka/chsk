@@ -1,0 +1,39 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ButtonStories from './Button.stories'
+
+# Button
+
+<Meta of={ButtonStories} />
+
+`Button` is a minimal click-able button component.
+
+`Button` is not really intended to be used in practice.
+Rather, it is a demonstration of an implementation of the `ButtonProps` interface.
+
+<ArgTypes of={ButtonStories} />
+
+## Variants
+
+Prop `variant`, like in most library components, is used to annotated a component via a `role` attribute and
+a css class. When a `Button` is created without any content, it is also used as a text label.
+
+<Canvas of={ButtonStories.TextButton} />
+
+Note that the text element is click-able; here, click events generate output in the console.
+(Click on the text, then check the console `Ctrl Shift J`.)
+
+## Custom content
+
+`Button` components can contain arbitrary content.
+
+<Canvas of={ButtonStories.CustomContent} />
+
+The content of the button is clickable. (Click on the rectangle, then check the console `Ctrl Shift J`.)
+
+## Styling
+
+Styles supplied to `Button` are used to style the wrapping `g` element, not the button content.
+
+## Other props
+
+`Button` shares props with `Label`. See `Label` for further details.

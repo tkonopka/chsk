@@ -1,0 +1,59 @@
+import { ArgTypes, Canvas, Meta, Source, Story } from '@storybook/blocks'
+import * as AxisTicksStories from './AxisTicks.stories'
+
+# AxisTicks
+
+<Meta of={AxisTicksStories} />
+
+`AxisTicks` draws a set of tick line and labels.
+It is intended to be used a child of an `Axis` component.
+
+<ArgTypes of={AxisTicksStories} />
+
+## Variants
+
+Prop `variant` configures ticks for the top, right, bottom, or left axis.
+For brevity, the example below shows ticks on the bottom axis.
+
+<Canvas of={AxisTicksStories.Default} />
+
+## Ticks
+
+Prop `ticks` determines the position of tick marks.
+The prop can be specified as an integer (to suggest a number of tick marks)
+or as an array (to specify all the tick positions).
+
+<Canvas of={AxisTicksStories.Number} />
+<Canvas of={AxisTicksStories.Positions} />
+
+Note that suggestions for the number of tick marks are approximate and the actual number of ticks may differ; the actual positions are computed by [d3-scale](https://github.com/d3/d3-scale).
+
+## Size
+
+Props `tickSize` controls the length of the tick lines.
+
+<Canvas of={AxisTicksStories.TickSize} />
+
+## Labels
+
+The position of the text labels near tick marks is controlled with props `labelDistance` and `labelOffset`.
+
+`labelDistance` sets a perpendicular distance from the axis to the text label.
+`labelOffset` further translates the label in an arbitrary direction.
+
+<Canvas of={AxisTicksStories.LabelDistance} />
+<Canvas of={AxisTicksStories.LabelOffset} />
+
+## Rotation
+
+Labels can be rotated using prop `labelAngle`.
+Note that adjusting the angle will likely prompt adjustment to css properties like `textAnchor` and `dominantBaseline`.
+
+<Canvas of={AxisTicksStories.Rotation} />
+
+## Label format
+
+Prop `labelFormat` specifies a function that converts a tick value into a string label.
+This can be used to create custom label, for example, to include percentage marks.
+
+<Canvas of={AxisTicksStories.Format} />

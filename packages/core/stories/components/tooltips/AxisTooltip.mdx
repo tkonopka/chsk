@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as AxisTooltipStories from './AxisTooltip.stories'
+
+# AxisTooltip
+
+<Meta of={AxisTooltipStories} />
+
+`AxisTooltip` is a container component for tooltips.
+
+<ArgTypes of={AxisTooltipStories} />
+
+`AxisTooltip` is similar to `Tooltip` in that it displays information intermittently
+using the `useTooltip` hook.
+
+## Variant
+
+Prop `variant` displays a tooltip box at one of the four edges of a view.
+(Hover the mouse on the examples below to activate the tooltip.)
+
+<Canvas of={AxisTooltipStories.Top} />
+<Canvas of={AxisTooltipStories.Right} />
+<Canvas of={AxisTooltipStories.Bottom} />
+<Canvas of={AxisTooltipStories.Left} />
+
+## Position and anchor
+
+`AxisTooltip` accepts props `offset` and `anchor`.
+
+<Canvas of={AxisTooltipStories.CustomPlacement} />
+
+## Other props
+
+`AxisTooltip` shares many props with `Tooltip`. See documentation for `Tooltip` for further details.

@@ -1,0 +1,60 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ViewControllerStories from './ViewController.stories'
+
+# ViewController
+
+<Meta of={ViewControllerStories} />
+
+`ViewController` is component for managing user interactions and view state. It provides some invisible elements that can detect mouse motions, and a toolbar to toggle between interaction modes.
+
+<ArgTypes of={ViewControllerStories} />
+
+## Variants
+
+Prop `variant` determines the type of interactions for the view.
+The default value `xy` allows pan and zoom operations along both the x- an y- axes.
+
+(In the examples below, use the toolbar to select an action, the click/drag on the view surface.)
+
+<Canvas of={ViewControllerStories.Default} />
+
+Variants `x` and `y` restrict view changes to the corresponding axes.
+
+<Canvas of={ViewControllerStories.X} />
+<Canvas of={ViewControllerStories.Y} />
+
+Note that in these examples, the x- and y- axes both initially have a \[0, 100] domain.
+However, they rescale slightly differently upon zoom-in and zoom-out.
+This is because the specifications for the x- and y- axes (props `scaleX` and `scaleY` in the view component)
+have the attribute `nice` set to `false` and `true`, respectively.
+
+## Toolbar layout
+
+The toolbar can be restricted or re-arranged with prop `values`, accepting an array of button codes.
+Prop `value` sets the default toolbar state.
+
+Prop `horizontal` toggles the orientation of the toolbar, and prop `container` determines its
+overall position within/beside the view.
+
+<Canvas of={ViewControllerStories.CustomToolbar} />
+
+## Scales
+
+Zoom and pan operations work on all scale types, including logarithmic scales, time scales, and band scales.
+
+<Canvas of={ViewControllerStories.BandScales} />
+<Canvas of={ViewControllerStories.TimeAndLogScales} />
+
+## Zoom box styling
+
+Prop `boxStyle` applies styles to the box that appears when selecting a custom zoom region.
+
+<Canvas of={ViewControllerStories.ZoomBox} />
+
+## Custom buttons
+
+By default, the buttons in the toolbar are created using a plain `Button` component.
+This can be replaced by setting prop `component`.
+For examples of toolbars with icons, see the charts in the gallery.
+
+Prop `modifiers` sets style modifiers for the buttons upon mouse events.

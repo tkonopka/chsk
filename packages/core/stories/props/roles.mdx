@@ -1,0 +1,41 @@
+import { ArgTypes, Meta, Source } from '@storybook/blocks'
+import { MockSetRole } from './mocks'
+
+<Meta title="Core/Props/Roles" />
+
+# Roles
+
+The `role` attribute is used in svg to ascribe semantic meaning to elements whose purpose would
+otherwise be unclear. Most library components carry a prop `setRole` that toggles the appearance
+of role information in the svg code.
+
+<ArgTypes of={MockSetRole} />
+
+`setRole` is a boolean flag.
+For most components, its value is set to `true` so that the svg source code includes some semantic information.
+This information can be eliminated by toggling the flag.
+
+<Source
+    language="javascript"
+    code={`
+// source JS code
+
+<Typography variant={'title'} setRole={true}>
+    First title
+</Typography>
+<Typography variant={'sub-title'} setRole={false}>
+    Second title
+</Typography>
+
+// resulting SVG code
+
+<text role="title" class="title">
+    First title
+</text>
+<text class="subTitle">Second title</text>
+`} />
+
+Note that for typography components, the role attribute is borderline redundant:
+the same information is also automatically incorporated into the class name.
+However, for higher-level components, the role attribute can be quite information.
+It helps with accessibility, including during manual inspections in svg files and in the console.

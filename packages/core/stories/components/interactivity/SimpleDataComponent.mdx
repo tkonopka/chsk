@@ -1,0 +1,16 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SimpleDataComponentStories from './SimpleDataComponent.stories'
+
+# SimpleDataComponent
+
+<Meta of={SimpleDataComponentStories} />
+
+`SimpleDataComponent` creates a new object / component.
+
+`SimpleDataComponent` is a trivial wrapper for `createReactElement`.
+Its main use-case is to serve as a drop-in replacement for `DataComponent`.
+Whereas `DataComponent` binds handlers to take actions in response to mouse events, `SimpleDataComponent` omits those book-keeping steps.
+
+The simpler implementation of `SimpleDataComponent` can offer a small performance boost in situations where event handling is not necessary.
+
+<ArgTypes of={SimpleDataComponentStories} />

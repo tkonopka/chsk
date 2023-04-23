@@ -1,0 +1,26 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LinearGradientStories from './LinearGradient.stories'
+
+# LinearGradient
+
+<Meta of={LinearGradientStories} />
+
+`LinearGradient` is a component that defines a color gradient.
+Definitions are invisible themselves, but they can be used to decorate other components.
+In particular, color gradients are used to create color legends.
+
+<ArgTypes of={LinearGradientStories} />
+
+## Two-color gradients
+
+The simplest gradients define just two colors with prop `stops`.
+
+<Canvas of={LinearGradientStories.Horizontal} />
+<Canvas of={LinearGradientStories.Vertical} />
+
+## Custom colors, offsets, directions
+
+Props `stops` and `offsets` can be used to define complex gradients with multiple colors and spacings between colors.
+Props `start` and `end` can be used to set the direction for the color progression.
+
+<Canvas of={LinearGradientStories.Custom} />
