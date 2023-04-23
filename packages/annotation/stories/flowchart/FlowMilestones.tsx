@@ -50,7 +50,7 @@ export const FlowMilestones = ({
                 >
                     <Axis variant={'bottom'} />
                     <Axis variant={'left'} />
-                    <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                    <MilestoneMotion enterOn={'A'}>
                         <FlowPath
                             points={points}
                             curve={curve}

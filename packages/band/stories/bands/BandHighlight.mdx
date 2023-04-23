@@ -1,0 +1,35 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BandHighlightStories from './BandHighlight.stories'
+
+# BandHighlight
+
+<Meta of={BandHighlightStories} />
+
+`BandHighlight` draws masks on a band chart in response to the mouse pointer.
+
+<ArgTypes of={BandHighlightStories} />
+
+## Mouse motion
+
+`BandHighlight` detect mouse movements and draws masks to highlight one band.
+Hover the mouse on the charts below.
+
+<Canvas of={BandHighlightStories.Vertical} />
+<Canvas of={BandHighlightStories.Horizontal} />
+
+## Interactivity
+
+Prop `interactive` toggles interactivity.
+Setting the prop to 'false' turns `BandHighlight` into a static decoration for selected ids.
+
+<Canvas of={BandHighlightStories.Static} />
+
+## Edge animation
+
+By default, `BandHighlight` displays masks using a fade-in effect (cf. previous examples).
+Flag `edgeAnimation` instead activates an animation that initially places masks at the edges of the band scale
+and then spreads these masks to zoom onto a target.
+
+<Canvas of={BandHighlightStories.EdgeAnimation} />
+
+Note that the animation is only relevant when the mouse pointer first enters the chart.

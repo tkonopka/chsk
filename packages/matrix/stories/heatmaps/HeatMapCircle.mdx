@@ -1,0 +1,15 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import { HeatMapCircle } from '../../src/heatmap'
+import * as HeatMapCircleStories from './HeatMapCircle.stories'
+
+# HeatMapCircle
+
+<Meta of={HeatMapCircleStories} />
+
+`HeatMapCircle` draws a single circle. This component can be used together with `HeatMapCells` to draw a heatmap with custom cells.
+
+<ArgTypes of={HeatMapCircle} />
+
+`HeatMapCircle` has the same API as `HeatMapRectangle`, but uses its props to display a circle instead of a rectangle.
+
+<Canvas of={HeatMapCircleStories.Circles} />

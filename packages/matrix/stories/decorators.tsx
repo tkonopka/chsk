@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, Axis, Tooltip } from '@chsk/core'
+import { schemeCategory10 } from 'd3-scale-chromatic'
 import { HeatMap, HeatMapCells, HeatMapProps } from '../src/'
 import { UpSet, UpSetGrid, UpSetProps } from '../src/'
 import {
@@ -32,7 +33,7 @@ export const commonProps: Pick<HeatMapProps, 'data' | 'keys'> = {
 export const commonCategoricalProps: Pick<HeatMapProps, 'data' | 'keys' | 'scaleColor'> = {
     data: categorical4x3,
     keys: ['x', 'y', 'z'],
-    scaleColor: { variant: 'categorical', colors: 'Category10' },
+    scaleColor: { variant: 'categorical', colors: schemeCategory10 },
 }
 
 export const commonUpSetProps: UpSetProps = {

@@ -1,0 +1,39 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as LineLabelStories from './LineLabel.stories'
+
+<Meta of={LineLabelStories} />
+
+# LineLabel
+
+`LineLabel` displays a line segment and a text label.
+
+<ArgTypes of={LineLabelStories} />
+
+## Band labels
+
+`LineLabel` can be used on band scales to designate groups. Props `start` and `end` control the extent of the line segment.
+By default, line edges coincide with the centers of the designated bands, but they can be extended via a prop `extension`.
+
+<Canvas of={LineLabelStories.BandCenters} />
+<Canvas of={LineLabelStories.BandEdges} />
+
+## Text positioning
+
+By default, the text label is placed at the center of the interval. The label can be aligned along the line using prop `align` and displaced from the line using prop `offset`.
+
+<Canvas of={LineLabelStories.LeftAligned} />
+<Canvas of={LineLabelStories.BelowLine} />
+
+## Text rotation
+
+Use prop `angle` to adjust the orientation of the text, for example for vertical lines.
+
+<Canvas of={LineLabelStories.VerticalLineHorizontalLabel} />
+<Canvas of={LineLabelStories.VerticalLabel} />
+
+## Styling
+
+Both the line and the text can be styled using css. The line accepts arrow markers.
+
+<Canvas of={LineLabelStories.Styling} />
+<Canvas of={LineLabelStories.Arrow} />

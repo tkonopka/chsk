@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as FlowTypographyStories from './FlowTypography.stories'
+
+<Meta of={FlowTypographyStories} />
+
+# FlowTypography
+
+`FlowTypography` animates text so that it reveals one character at a time.
+
+<ArgTypes of={FlowTypographyStories} />
+
+## Reveal rate
+
+The speed of text reveal is determined by props `rate` and `duration`.
+Prop `rate` sets the number of characters that appear per second.
+Prop `duration`, which overrides `rate`, sets the total length of time for the animation.
+
+The two examples below display 'This is an example' using default settings (left)
+and with custom `rate` to slow down the effect (right).
+Click on the button to start the animation.
+
+<Canvas of={FlowTypographyStories.Default} />
+<Canvas of={FlowTypographyStories.SlowText} />
+
+## Styling
+
+Text can be styled using css, including with filters.
+
+<Canvas of={FlowTypographyStories.Styled} />

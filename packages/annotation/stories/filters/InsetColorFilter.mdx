@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as InsetColorFilterStories from './InsetColorFilter.stories'
+
+<Meta of={InsetColorFilterStories} />
+
+# InsetColorFilter
+
+`InsetColorFilter` creates an svg filter that applies a solid color mask.
+
+<ArgTypes of={InsetColorFilterStories} />
+
+## Color and opacity
+
+Prop `floodColor` determines the color of the mask.
+Prop `floodOpacity` determines the intensity of the filter.
+
+Each of the examples below shows a shape with a regular fill and the same shape with a filter.
+
+<Canvas of={InsetColorFilterStories.Lighter} />
+<Canvas of={InsetColorFilterStories.Darker} />
+
+## Inset
+
+By default, `InsetColorFilter` affects the entire shape, including the boundary.
+To exclude the boundary from the filter, set prop `erodeR` with the width of the boundary stroke.
+
+<Canvas of={InsetColorFilterStories.Inset} />
+
+Note that the filter appears to affect only the inside of the shape because `erodeR` is matched with the boundary stroke width.
+The matching must be done manually. Otherwise, the filter can affect only a part of the object.
+
+<Canvas of={InsetColorFilterStories.MismatchedRadius} />

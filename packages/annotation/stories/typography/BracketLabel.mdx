@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BracketLabelStories from './BracketLabel.stories'
+
+<Meta of={BracketLabelStories} />
+
+# BracketLabel
+
+`BracketLabel` displays a bracket and a text label. A 'bracket' is a line that forms a shape like '\[' or ']'.
+
+<ArgTypes of={BracketLabelStories} />
+
+## Ticks
+
+The feature that distinguishes `BracketLabel` from `LineLabel` is the presence of ticks at the ends of the line.
+The length of these ticks is determined by prop `tickSize`.
+
+<Canvas of={BracketLabelStories.ShortTicks} />
+<Canvas of={BracketLabelStories.LongTicks} />
+
+## Other settings
+
+`BracketLabel` shares many props and features with `LineLabel`, for example with regard to orientation of text, rotations, and styling.
+See documentation for `LineLabel` for details.

@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as UpSetBarStories from './UpSetBar.stories'
+
+# UpSetBar
+
+<Meta of={UpSetBarStories} />
+
+`UpSetBar` sets up a sub-view within an `UpSet` view.
+The sub-view is set up to display a bar chart displaying set intersection sizes.
+
+<ArgTypes of={UpSetBarStories} />
+
+Note that the `UpSetBar` component does not draw any visible elements;
+it only pre-processes data so that it can be visualized with other components, notably `Bars` from the `@chsk/band` package.
+Moreover, `UpSetBar` only performs its function within a view set up by `UpSet`.
+Putting these two elements together, it is quite difficult to demonstrate `UpSetBar` apart from other components.
+As a result, examples on this page show near-complete upset charts that combine multiple elements.
+
+## Orientation
+
+The `UpSet` chart can be oriented horizontally or vertically, and the `UpSetBar` component automatically prepares the bar sub-chart accordingly.
+On a horizontal upset chart, the bar sub-chart is positioned above the grid.
+On a vertical upset chart, the bar sub-chart is placed to the right of the grid.
+
+<Canvas of={UpSetBarStories.Horizontal} />
+<Canvas of={UpSetBarStories.Vertical} />
+
+Note that in order for the chart as a whole to have space for the bars, the parent `UpSet` view should have appropriate padding.

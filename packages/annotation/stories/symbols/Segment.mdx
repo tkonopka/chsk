@@ -1,0 +1,18 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SegmentStories from './Segment.stories'
+
+<Meta of={SegmentStories} />
+
+# Segment
+
+`Segment` displays a short horizontal line segment. It is intended as a symbol for legends.
+
+<ArgTypes of={SegmentStories} />
+
+## Legends
+
+`Segment` accepts the same props as symbols like `Circle`, `Square`, and others.
+The component can thus be used as a symbol in a legend. It can also be styled using css.
+
+<Canvas of={SegmentStories.InLegend} />
+<Canvas of={SegmentStories.Styled} />

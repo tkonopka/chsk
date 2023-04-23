@@ -1,0 +1,57 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as UpSetStories from './UpSet.stories'
+
+# UpSet
+
+<Meta of={UpSetStories} />
+
+`UpSet` sets up a view for an upset chart, which summarizes relationships between sets.
+The chart design is motivated and explained [here](https://upset.app/).
+
+Note that the `UpSet` component does not draw any visible elements;
+it only pre-processes a dataset so that it can be visualized with other components, for example `UpSetMemberships` and `UpSetGrid`.
+The examples on this page use `UpSetGrid` in order to display the effect of `UpSet` settings on child elements.
+
+<ArgTypes of={UpSetStories} />
+
+## Data
+
+Data should be prepared as an array of objects that represent sets.
+The objects should contain a string identifier `id` and an array `data` holding the unique elements of the set.
+
+The pseudocode below shows one object with a data array that contains four strings.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "data": ['a', 'b', 'c', 'd'],
+  },
+  ...
+  ]
+  `}
+/>
+
+## Orientation
+
+`UpSet` charts can be arranged horizontally (default) or vertically.
+The orientation is toggled with prop `horizontal`.
+
+<Canvas of={UpSetStories.Default} />
+<Canvas of={UpSetStories.Vertical} />
+
+## Symbol size
+
+Symbols are sized automatically to fill the space available in each row / column. The apparent size can be tuned, however, by adjusting the padding for the x-axis and y-axis band scales.
+
+<Canvas of={UpSetStories.LargePadding} />
+
+## `HeatMap` components
+
+Some components designed for heat maps can also be used within `UpSet` views.
+In particular, `HeatMapSurface` can provide outlines or background colors for the UpSet grid.
+
+<Canvas of={UpSetStories.Outline} />
+<Canvas of={UpSetStories.BackgroundStripes} />

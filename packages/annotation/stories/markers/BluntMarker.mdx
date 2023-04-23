@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BluntMarkerStories from './BluntMarker.stories'
+
+# BluntMarker
+
+<Meta of={BluntMarkerStories} />
+
+`BluntMarker` creates a definition for a 'marker'.
+Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
+
+<ArgTypes of={BluntMarkerStories} />
+
+`BluntMarker` objects should be contained within an svg `def` tag.
+
+## Variants
+
+Prop `variant` determines the shape of the marker.
+
+<Canvas of={BluntMarkerStories.Circle} />
+<Canvas of={BluntMarkerStories.Square} />
+<Canvas of={BluntMarkerStories.Diamond} />
+
+## Size
+
+The size of the marker is set with props `size`.
+
+<Canvas of={BluntMarkerStories.Small} />
+<Canvas of={BluntMarkerStories.Large} />
+<Canvas of={BluntMarkerStories.DoubleSided} />

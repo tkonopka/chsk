@@ -1,0 +1,55 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BoxedTitleStories from './BoxedTitle.stories'
+
+<Meta of={BoxedTitleStories} />
+
+# BoxedTitle
+
+`BoxedTitle` displays a text label enclosed in a rectangle.
+The label is positioned around the edges of a chart, intended as a title.
+
+<ArgTypes of={BoxedTitleStories} />
+
+`BoxedTitle` is closely related to `BoxedLabel`, but offers a simpler set of props to quickly position labels intended as titles.
+
+## Variants
+
+The labels can be placed on the top, right, bottom, or left side of a chart.
+
+<Canvas of={BoxedTitleStories.Top} />
+<Canvas of={BoxedTitleStories.Right} />
+<Canvas of={BoxedTitleStories.Left} />
+<Canvas of={BoxedTitleStories.Bottom} />
+
+## Offsets
+
+Boxes can be positioned away from the chart boundary via the prop `offset`.
+
+<Canvas of={BoxedTitleStories.Offset} />
+
+## Expansion
+
+It is possible to adjust the extent of the box via the prop `expansion`.
+
+<Canvas of={BoxedTitleStories.SmallExpansion} />
+<Canvas of={BoxedTitleStories.LargeExpansion} />
+
+Note a small negative expansion will shrink the box, and can balance a non-zero color border.
+
+## Corners
+
+Box corners can be adjusted using props `rx` and `ry`.
+
+<Canvas of={BoxedTitleStories.RoundedCorners} />
+
+## Content
+
+The content of the label can be an object
+
+<Canvas of={BoxedTitleStories.CustomContent} />
+
+## Styling
+
+It is possible to style the box as well as the text.
+
+<Canvas of={BoxedTitleStories.Styling} />

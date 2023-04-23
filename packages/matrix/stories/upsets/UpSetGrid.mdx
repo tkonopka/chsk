@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as UpSetGridStories from './UpSetGrid.stories'
+
+# UpSetGrid
+
+<Meta of={UpSetGridStories} />
+
+`UpSetGrid` draws a grid of symbols on an `UpSet` view.
+
+<ArgTypes of={UpSetGridStories} />
+
+## Custom symbols
+
+The default grid displays a matrix of circles.
+Other shapes can be set using prop `symbol`.
+
+<Canvas of={UpSetGridStories.Default} />
+<Canvas of={UpSetGridStories.CustomSymbol} />
+
+## Styling
+
+Symbols can be styled using prop `symbolStyle`.
+
+<Canvas of={UpSetGridStories.CustomStyles} />

@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ArrowMarkerStories from './ArrowMarker.stories'
+
+# ArrowMarker
+
+<Meta of={ArrowMarkerStories} />
+
+`ArrowMarker` creates a definition for an arrow-head 'marker'.
+Markers are invisible themselves, but they can be used to decorate `Line` or `Path` components.
+
+<ArgTypes of={ArrowMarkerStories} />
+
+`ArrowMarker` objects should be contained within an svg `def` tag.
+
+## Variants
+
+Prop `variant` determines the shape of the arrowhead.
+
+<Canvas of={ArrowMarkerStories.Triangle} />
+<Canvas of={ArrowMarkerStories.Winged} />
+<Canvas of={ArrowMarkerStories.Chevron} />
+
+Note that for the arrow shapes to appear correctly, it may be necessary to set styles in the `ArrowMarker` component.
+In particular, the `chevron` arrowhead requires `fillOpacity: 0`.
+
+## Arrow size and width
+
+The shape of the arrowheads can further be adjusted using props `size` and `width`.
+The overall weight is also scaled by the stroke width of the line.
+
+<Canvas of={ArrowMarkerStories.Narrow} />
+<Canvas of={ArrowMarkerStories.Large} />
+<Canvas of={ArrowMarkerStories.DoubleSided} />

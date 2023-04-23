@@ -1,0 +1,32 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BlockArrowStories from './BlockArrow.stories'
+
+<Meta of={BlockArrowStories} />
+
+# BlockArrow
+
+`BlockArrow` displays a thick arrow.
+
+<ArgTypes of={BlockArrowStories} />
+
+## Arrow shape
+
+The shape of the arrow is determined by props `stemWidth`, `headWidth`, and `headLength`.
+
+<Canvas of={BlockArrowStories.Narrow} />
+<Canvas of={BlockArrowStories.Wide} />
+
+## Arrow heads
+
+By default, `BlockArrow` creates a shape that is blunt at the start position and has an arrowhead at the end position.
+Arrowheads can be configured at each side via prop `heads`.
+
+<Canvas of={BlockArrowStories.DoubleSided} />
+
+## Styling
+
+Arrows can be styled using css, including with gradients and filters.
+
+<Canvas of={BlockArrowStories.CssStyle} />
+<Canvas of={BlockArrowStories.Gradient} />
+<Canvas of={BlockArrowStories.Filter} />

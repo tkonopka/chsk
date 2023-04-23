@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BackgroundColorFilterStories from './BackgroundColorFilter.stories'
+
+<Meta of={BackgroundColorFilterStories} />
+
+# BackgroundColorFilter
+
+`BackgroundColorFilter` creates an svg filter that applies a solid background color.
+
+<ArgTypes of={BackgroundColorFilterStories} />
+
+## Color and opacity
+
+Prop `floodColor` determines the background color.
+Prop `floodOpacity` determines the opacity of the filter.
+
+<Canvas of={BackgroundColorFilterStories.Color} />
+<Canvas of={BackgroundColorFilterStories.Opacity} />
+
+## Expansion
+
+Prop `expansion` takes a four-element array that expands the background color around the
+element. The array entries determine expansion along the top, right, bottom, and left sides.
+Values are interpreted as fractions of the object's dimensions.
+
+<Canvas of={BackgroundColorFilterStories.Expansion} />
+
+Unfortunately, it is not possible to use svg filters to expand a fixed number of pixels around the text.

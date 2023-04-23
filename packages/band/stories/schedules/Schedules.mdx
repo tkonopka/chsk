@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SchedulesStories from './Schedules.stories'
+
+# Schedules
+
+<Meta of={SchedulesStories} />
+
+`Schedules` draws intervals on a schedule chart.
+
+`Schedules` is intended to be used within a `Schedule` view. Note that while the `Schedules` component is the one that draws visual elements, much of the chart layout is determined by the parent view`Schedule`.
+
+<ArgTypes of={SchedulesStories} />
+
+## Data subsets
+
+By default, `Schedules` draws the entire dataset. To draw subsets, set the props `ids` and `keys`.
+
+<Canvas of={SchedulesStories.SelectedIds} />
+<Canvas of={SchedulesStories.SelectedKeys} />
+
+## Mouse events
+
+To make elements respond to mouse events, set prop `handlers`.
+
+<Canvas of={SchedulesStories.MouseClick} />
+
+(Click on the boxes, then check the browser console with `Ctrl Shift J` for output.)

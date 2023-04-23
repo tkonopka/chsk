@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HeatMapSurfaceStories from './HeatMapSurface.stories'
+
+# HeatMapSurface
+
+<Meta of={HeatMapSurfaceStories} />
+
+`HeatMapSurface` draws a rectangle on a heat map.
+
+<ArgTypes of={HeatMapSurfaceStories} />
+
+## Expansions
+
+`HeatMapSurface` draws a rectangle with corners at the centers of heat map cells.
+To expand the rectangle to capture the entire cells, use prop `expansion` and provide values as multiples of cell width/height.
+
+<Canvas of={HeatMapSurfaceStories.Default} />
+<Canvas of={HeatMapSurfaceStories.Expanded} />
+
+## Data subsets
+
+Providing values to props `ids` and `keys` makes the surface cover only a part of the heatmap.
+
+<Canvas of={HeatMapSurfaceStories.Selection} />

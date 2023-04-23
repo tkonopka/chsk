@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as StripsStories from './Strips.stories'
+
+# Strips
+
+<Meta of={StripsStories} />
+
+`Strips` draws data points on a strip chart.
+
+`Strips` is intended to be used within a `Strip` view.
+Note that while the `Strips` component is the one that draws data points, much of the chart layout is determined by the parent view `Strip`.
+
+<ArgTypes of={StripsStories} />
+
+## Data subsets
+
+By default, `Strips` draws the entire dataset. To draw subsets, set the props `ids` and `keys`.
+
+<Canvas of={StripsStories.SelectedIds} />
+<Canvas of={StripsStories.SelectedKeys} />
+
+## Symbols
+
+Prop `component` accepts a function for rendering individual data points.
+The default function draws circles, but this can be replaced, for example, to create squares or other symbols.
+
+<Canvas of={StripsStories.Symbols} />
+
+See documentation in `@chsk/core` for symbols `Circle`, `Diamond`, `Square`, `Triangle`, `InvertedTriangle`.
+
+## Mouse events
+
+To make points respond to mouse events, set prop `handlers`.
+
+<Canvas of={StripsStories.MouseClick} />
+
+(Click on the data points, then check the browser console with `Ctrl Shift J` for output.)

@@ -1,0 +1,48 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BandSurfaceStories from './BandSurface.stories'
+
+# BandSurface
+
+<Meta of={BandSurfaceStories} />
+
+`BandSurface` creates rectangles that highlight bands.
+
+<ArgTypes of={BandSurfaceStories} />
+
+## Variant
+
+Prop `variant` clarifies the definition of a band surface.
+Variant 'step' creates a surface that includes the content of a band and also covers padding our the content.
+Variant 'band' omits the padding.
+
+<Canvas of={BandSurfaceStories.Step} />
+<Canvas of={BandSurfaceStories.Band} />
+
+## Data subsets
+
+Use prop `ids` to specify the bands to highlight.
+
+<Canvas of={BandSurfaceStories.Subset} />
+
+## Interactivity
+
+Flag `interactive` activates interactivity.
+
+<Canvas of={BandSurfaceStories.Interactive} />
+
+Above, hovering on the band makes the band surface appear, but moving the mouse onto the bars
+within a band makes the interactive band surface disappear.
+One way to maintain the surface while hovering on the bars is to include a style `pointer-events: 'none'`.
+This style can be set inline or via themes.
+
+<Canvas of={BandSurfaceStories.PointerEvents} />
+
+## Tooltip
+
+Another way to activate the surfaces is with prop `tooltip`.
+Setting this flag indicates that a surface should become visible based on data from the tooltip context.
+
+<Canvas of={BandSurfaceStories.Tooltip} />
+
+Note that setting `tooltip` makes the surface appear when the mouse hovers on the bars, and not
+on the empty space. To activate both behaviors, set both `tooltip` and `interactive`.

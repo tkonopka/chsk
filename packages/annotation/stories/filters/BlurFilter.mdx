@@ -1,0 +1,20 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BlurFilterStories from './BlurFilter.stories'
+
+<Meta of={BlurFilterStories} />
+
+# BlurFilter
+
+`BlurFilter` creates an svg filter that applies a blur effect.
+
+<ArgTypes of={BlurFilterStories} />
+
+(`BlurFilter` is a simple a wrapper for svg's `feGaussianBlur`.
+The filter is provided as a distinct component for consistency in notation with other library filters.)
+
+## Blur
+
+Prop `blurStdDeviation` determines the amount of blur.
+
+<Canvas of={BlurFilterStories.Small} />
+<Canvas of={BlurFilterStories.Large} />

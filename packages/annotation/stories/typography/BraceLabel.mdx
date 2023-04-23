@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BraceLabelStories from './BraceLabel.stories'
+
+<Meta of={BraceLabelStories} />
+
+# BraceLabel
+
+`BraceLabel` displays a brace and a text label. A 'brace' is a line that forms a shape like '{' or '}'.
+
+<ArgTypes of={BraceLabelStories} />
+
+## Brace shape
+
+The features that distinguish `BraceLabel` from `LineLabel` are curves at the ends of the line and a pinch in the middle of the line.
+The shape of these curves is determined by props `tickSize` and `braceR`.
+
+<Canvas of={BraceLabelStories.TickSize} />
+<Canvas of={BraceLabelStories.WideCurves} />
+
+## Other settings
+
+`BraceLabel` shares many props and features with `LineLabel`, for example with regard to orientation of text, rotations, and styling.
+See documentation for `LineLabel` for details.

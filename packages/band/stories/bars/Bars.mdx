@@ -1,0 +1,45 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as BarsStories from './Bars.stories'
+
+# Bars
+
+<Meta of={BarsStories} />
+
+`Bars` draws a set of rectangles to display a bar chart.
+
+`Bars` is intended to be used within a `Bar` view. The `Bars` component is the one that draws visual elements, but actually much of the layout is determined by `Bar`.
+
+<ArgTypes of={BarsStories} />
+
+## Data subsets
+
+By default, `Bars` draws the entire dataset. To draw subsets of bars, set props `ids` and `keys`.
+
+<Canvas of={BarsStories.SelectedIds} />
+<Canvas of={BarsStories.SelectedKeys} />
+
+## Mouse events
+
+To make bars respond to mouse events, set prop `handlers`.
+
+<Canvas of={BarsStories.MouseClick} />
+
+(Check the browser console with `Ctrl Shift J` for output.)
+
+## Style modifiers
+
+Prop `modifiers` accepts specifications for css styles that are applied following mouse events.
+
+<Canvas of={BarsStories.StyleModifiers} />
+
+(Check the browser console with `Ctrl Shift J` for output.)
+
+## Tooltip
+
+By default, `Bars` automatically manages data for a tooltip.
+To make a tooltip visible, include a `Tooltip` component beside `Bars`.
+
+<Canvas of={BarsStories.WithTooltip} />
+
+If a tooltip is not needed, having `Bars` manage tooltip data is unnecessary.
+To remove tooltip management, set prop `dataComponent` to either `DataComponent` or `SimpleDataComponent` from `@chsk/core`.

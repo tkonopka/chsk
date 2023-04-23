@@ -1,0 +1,126 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as BarStories from './Bar.stories'
+
+# Bar
+
+<Meta of={BarStories} />
+
+`Bar` sets up a view for a bar chart. `Bar` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Bars`.
+
+<ArgTypes of={BarStories} />
+
+## Data
+
+Data should be prepared as an array of objects. All objects should contain a string identifier `'id'`. Other keys with numeric values can be used to display bars.
+
+The pseudocode below shows one data item with an identifier and three numeric values.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "x": 55,
+   "y": 35,
+   "z": 10
+  },
+  ...
+  ]
+  `}
+/>
+
+## Variants
+
+Prop \`variant' specifies whether the bar chart should be organized with groups of bars displayed side-by-side, or stacked one after the other.
+
+<Canvas of={BarStories.VerticalGrouped} />
+<Canvas of={BarStories.VerticalStacked} />
+
+## Orientation
+
+Prop `horizontal` determines the orientation of the bars.
+
+<Canvas of={BarStories.HorizontalGrouped} />
+<Canvas of={BarStories.HorizontalStacked} />
+
+## Band padding
+
+The specification of the band axis through prop `scaleIndex` controls the spacing between the edges and the bars (`paddingOuter`) and between groups of bars (`paddingInner`).
+
+<Canvas of={BarStories.LargeOuterPadding} />
+<Canvas of={BarStories.LargeInnerPadding} />
+
+## Internal padding
+
+For grouped bars, an additional padding prop `paddingInternal` controls the space between bars within one group.
+
+<Canvas of={BarStories.LargeInternalPadding} />
+<Canvas of={BarStories.ZeroInternalPadding} />
+
+## Keys
+
+The prop `keys` determines the number of subgroups that are incorporated into the chart.
+Below, both examples use a grouped bar layout based on the same data as above.
+The second chart uses a single key, and thus displays a simple bar chart.
+
+<Canvas of={BarStories.TwoKeys} />
+<Canvas of={BarStories.SingleKey} />
+
+## Custom spacing
+
+By default, bars are arranged with equal spacing along the axis.
+It is possible to customize the spacing through the specification of the band scale, with prop `scaleIndex`.
+Below, the examples use a dataset with seven bars, and the second example applies extra padding before one of the bands.
+
+<Canvas of={BarStories.EqualSpacing} />
+<Canvas of={BarStories.CustomSpacing} />
+
+## Missing data items
+
+Datasets may have missing/omitted values.
+For example, the dataset below has three data series with different keys.
+Key 'x' is present for series 'alpha' but it is not present for series 'beta'.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "x": 85
+  },
+  {
+   "id": "beta",
+   "y": 45
+  },
+  {
+   "id": "gamma",
+   "z": 60
+  }
+  ]
+  `}
+/>
+
+Bars that would correspond to id-key combinations with missing values are omitted.
+This behavior can be used to draw a 'stacked' chart that appears like a regular bar chart, but where bars appear with different colors (below, left).
+Another way to achieve the same result is to set prop `variant` to 'layered'.
+This variant arranges all elements associated with one id on top of each other (below, right).
+
+<Canvas of={BarStories.MissingKeys} />
+<Canvas of={BarStories.NullInternalPadding} />
+
+## Axis Scaling
+
+Scales on the axes can be set manually, or determined automatically based on the data.
+
+When the scale on the value axis is set to automatic, it will automatically rescale/adjust when the data changes or when certain keys are toggled using a legend (below, left).
+The automatic rescaling can be disabled using prop `autoRescale` (below, right).
+
+<Canvas of={BarStories.AutoRescaling} />
+<Canvas of={BarStories.FixedScales} />
+
+## Negative values
+
+The `Bar` component can accept negative values.
+Note, however, for data that contain both positive and negative values for an index, bars may appear overlapping.

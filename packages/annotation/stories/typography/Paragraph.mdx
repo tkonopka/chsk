@@ -1,0 +1,74 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ParagraphStories from './Paragraph.stories'
+
+<Meta of={ParagraphStories} />
+
+# Paragraph
+
+`Paragraph` displays text and wraps long segments into multiple lines.
+
+<ArgTypes of={ParagraphStories} />
+
+## Position and alignment
+
+Similarly to the `Typography` component, `Paragraph` accepts a prop `position` with absolute coordinates.
+Unlike `Typography`, however, `Paragraph` also has a prop `align` that determines vertical alignment.
+
+In the examples below, the `Paragraph` components are placed at the origin of the view (top-left corner).
+The prop `align` determines whether it is the first line or another part of the paragraph
+that aligns with `position`.
+
+<Canvas of={ParagraphStories.TopAlignment} />
+<Canvas of={ParagraphStories.MiddleAlignment} />
+
+To rotate the entire paragraph rotate around `position`, use prop `angle`.
+
+<Canvas of={ParagraphStories.Rotation} />
+
+## Wrapping
+
+`Paragraph` wraps long segments of text into multiple lines.
+Prop `size` determines the recommended width of each line, and also the spacing between adjacent lines.
+
+<Canvas of={ParagraphStories.WrappingWide} />
+<Canvas of={ParagraphStories.WrappingNarrow} />
+
+`Paragraph` can accept a prop `separator` to split text at a specific text pattern.
+Below, a separator is used to force an artificial line break after the first word.
+Other line breaks are created as in the previous examples, i.e. based on the line size.
+
+<Canvas of={ParagraphStories.WrappingDelimiter} />
+
+## Fonts and letter widths
+
+Text wrapping is not automatic in SVG. Thus, the `Paragraph` component performs
+calculations to determine where to break long text into separate lines.
+The calculations estimate the width of words and try to fit as many words as possible on each line.
+
+Prop `letterBaseWidths` can be set to either `sans` or `serif` to load letter profiles for a sans-serif font
+(Arial) or a serif font (Times New Roman).
+These profiles have been assembled manually based on letters of size 16px.
+They only contain a small subset of characters (a-z, A-Z, 0-9, and some punctuation).
+The selection should cover many, although clearly not all, use cases.
+
+To fine tune the line-break calculations, prop `letterWidths` accepts a dictionary mapping letters
+to their widths in pixels. These props over-ride values in the `sans` and `serif` presets.
+The custom values can be used to accommodate an unusual font or to support additional letters.
+
+## Styling
+
+Styles provided via prop `style` are applied to each line.
+
+<Canvas of={ParagraphStories.Centered} />
+
+Note that css styles can affect the effective width of a text segment.
+Such effects are not taken into account in the calculations that determine line breaks.
+
+## Boxed labels
+
+`Paragraph` components can be placed inside `BoxedLabel` components to create
+the effect of a paragraph enclosed in a rectangle.
+
+<Canvas of={ParagraphStories.InBoxedLabel} />
+
+Note that when placing `Paragraph` (or `Typography`) within a `BoxedLabel`, coordinates in prop `position` are relative to the center of the box.

@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as InsetShadowFilterStories from './InsetShadowFilter.stories'
+
+<Meta of={InsetShadowFilterStories} />
+
+# InsetShadowFilter
+
+`InsetShadowFilter` creates an svg filter with a shadow / blur effect.
+
+<ArgTypes of={InsetShadowFilterStories} />
+
+## Blur
+
+Prop `blurStdDeviation` determines the amount of blur.
+Larger values make the shadow spread further into the target object.
+
+<Canvas of={InsetShadowFilterStories.Narrow} />
+<Canvas of={InsetShadowFilterStories.Wide} />
+
+## Flood color
+
+Props 'floodColor' and 'floodOpacity' control the color and intensity of the shadow.
+
+<Canvas of={InsetShadowFilterStories.Light} />

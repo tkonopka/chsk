@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as DownloadStories from './Download.stories'
+
+<Meta of={DownloadStories} />
+
+# Download
+
+`Download` provides a click-able object that triggers a download of chart content into a file.
+
+<ArgTypes of={DownloadStories} />
+
+## Data download
+
+Set prop `variant` to `'data'` to fetch the raw data associated with a view (in `json` format).
+
+The example below uses a simple `Bar` view; click the text above the bars to download the raw data for the bars.
+
+<Canvas of={DownloadStories.DataDownload} />
+
+## Image download
+
+Set prop `variant` to `'image'` to fetch an image of the entire chart (in `svg` format).
+
+<Canvas of={DownloadStories.ImageDownload} />
+
+Note that the downloaded image may appear slightly different, when previewed offline, than in the browser.
+This is usually because of discrepancies in font faces.
+In particular, the generic font face 'sans-serif' may be interpreted differently in different contexts.
+To maximize consistency, use a specific font face that is available across all target platforms.

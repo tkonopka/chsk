@@ -34,7 +34,7 @@ export const FlowTypographyDemo = ({
                     scaleX={{ variant: 'linear', domain: [0, 100] }}
                     scaleY={{ variant: 'linear', domain: [0, 100] }}
                 >
-                    <MilestoneMotion initial={'invisible'} initialOn={'A'}>
+                    <MilestoneMotion enterOn={'A'}>
                         <FlowTypography position={position} rate={rate} style={style}>
                             {children}
                         </FlowTypography>

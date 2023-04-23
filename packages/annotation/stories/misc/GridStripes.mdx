@@ -1,0 +1,41 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as GridStripesStories from './GridStripes.stories'
+
+<Meta of={GridStripesStories} />
+
+# GridStripes
+
+`GridStripes` displays rectangular stripes to mark regions along an axis.
+
+<ArgTypes of={GridStripesStories} />
+
+## Variants
+
+Prop `variant` toggles between vertical and horizontal stripes that mark regions along the x- and y-axis.
+
+<Canvas of={GridStripesStories.X} />
+<Canvas of={GridStripesStories.Y} />
+
+## Parity
+
+`GridStripes`, like 'GridLines', divides an axis into regions. Whereas `GridLines` draws lines at the
+boundaries between these regions, `GridStripes` draws rectangles in alternating regions.
+Prop `parity` determines whether these rectangles appear in even or odd-indexed regions.
+
+<Canvas of={GridStripesStories.Even} />
+<Canvas of={GridStripesStories.Odd} />
+
+To draw alternating stripes with different colors / styles, use two separate `GridStripes` components.
+
+## Shift
+
+Prop `shift` adjusts the position of region boundaries on band scales.
+This can be used to create stripes between adjacent bands or to highlight alternating bands.
+
+<Canvas of={GridStripesStories.BetweenBands} />
+<Canvas of={GridStripesStories.CenteredOnBands} />
+
+## Other props
+
+`GridStripes` shares many props with `GridLines` from the `@chsk/core` package.
+See the documentation for `GridLines` for further details.

@@ -1,0 +1,40 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as UpSetMembershipsStories from './UpSetMemberships.stories'
+
+# UpSetMemberships
+
+<Meta of={UpSetMembershipsStories} />
+
+`UpSetMemberships` summarizes set intersections through a graphical system of symbols and connecting lines.
+The graphical scheme is motivated and explained by the creators of UpSet charts [here](https://upset.app/).
+
+<ArgTypes of={UpSetMembershipsStories} />
+
+## Set memberships
+
+`UpSetMemberships` displays symbols and lines to mark set intersections.
+In the examples below, the dataset consists of four sets labeled 'alpha', 'beta', 'gamma', and 'delta'.
+
+<Canvas of={UpSetMembershipsStories.Default} />
+
+The interpretation of these visual elements follows the conventions of [upset charts](https://upset.app/).
+Isolated symbols convey that a set contains elements that are not shared with any other set.
+When two or more symbols are connected with a line, the line indicates that some elements are present in all the marked sets, but not in any of the unmarked sets.
+
+Note that `UpSetMemberships` does not draw a background grid.
+A grid can be added separately using `UpSetGrid`.
+
+<Canvas of={UpSetMembershipsStories.WithGrid} />
+
+## Custom symbols
+
+The default set markers is a circle.
+That can be replaced by a custom symbol using prop `symbol`.
+
+<Canvas of={UpSetMembershipsStories.CustomSymbol} />
+
+## Styling
+
+Symbols and lines can be styled using props `symbolStyle` and `lineStyle`, respectively.
+
+<Canvas of={UpSetMembershipsStories.CustomStyles} />

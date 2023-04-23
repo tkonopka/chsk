@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as InsetBorderFilterStories from './InsetBorderFilter.stories'
+
+<Meta of={InsetBorderFilterStories} />
+
+# InsetBorderFilter
+
+`InsetBorderFilter` creates an svg filter that applies a solid color mask to the boundary of a target.
+
+<ArgTypes of={InsetBorderFilterStories} />
+
+## Color and opacity
+
+Prop `floodColor` determines the color of the mask.
+Prop `floodOpacity` determines the intensity of the filter.
+
+<Canvas of={InsetBorderFilterStories.Lighter} />
+<Canvas of={InsetBorderFilterStories.Darker} />
+
+## Inset
+
+By default, `InsetBorderFilter` affects the entire shape, including any existing boundary.
+To exclude the boundary from the filter, set prop `erodeR` with the width of the boundary stroke.
+
+<Canvas of={InsetBorderFilterStories.Inset} />

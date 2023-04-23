@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HeatMapCellsStories from './HeatMapCells.stories'
+
+# HeatMapCells
+
+<Meta of={HeatMapCellsStories} />
+
+`HeatMapCells` draws a set of rectangles to produce a heat map matrix.
+
+<ArgTypes of={HeatMapCellsStories} />
+
+Note that `HeatMapCells` is intended to be used within a `HeatMap` component.
+
+## Data subsets
+
+By default, `HeatMapCells` shows the entire dataset.
+To display selected rows or columns, use props `ids` and `keys`, respectively.
+
+<Canvas of={HeatMapCellsStories.SelectedIds} />
+<Canvas of={HeatMapCellsStories.SelectedKeys} />
+
+To display only selected cells, specify an array of id-key pairs with prop `cells`.
+
+<Canvas of={HeatMapCellsStories.SelectedCells} />
+
+## Custom scales
+
+`HeatMapCells` uses scales defined in `HeatMap` by default (below, first two rows).
+However, it is possible to specify a custom color scale (below, last two rows).
+
+<Canvas of={HeatMapCellsStories.CustomScales} />
+
+Note that the way the color scales are specified differ slightly in `HeatMap` and `HeatMapCells`.
+In `HeatMap`, it is possible to specify the type of scale and allow the component to determine appropriate domain settings.
+In `HeatMapCells`, it is necessary to provide the domain settings manually.
+
+## Legends for custom colors
+
+Using custom colors in `HeatMapCells` automatically resets the scale for all its child components.
+Thus, it is possible to create Legends based on the custom colors, including using multiple legends on the same chart.
+
+<Canvas of={HeatMapCellsStories.CustomLegends} />
+
+Note that for legends with continuous colors, it may be necessary to define a custom identifier `gradientId` to display the color gradient.

@@ -1,0 +1,34 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as DistributionTooltipStories from './DistributionTooltip.stories'
+
+# DistributionTooltip
+
+<Meta of={DistributionTooltipStories} />
+
+`DistributionTooltip` creates a tooltip summarizing a distribution.
+
+<ArgTypes of={DistributionTooltipStories} />
+
+## Tooltip configuration
+
+`DistributionTooltip` creates a tooltip with information about a data distribution.
+The component shares many props with the `Tooltip` component from `@chsk/core`.
+For example, the position of the tooltip is configured with props `offset` and `anchor`.
+
+<Canvas of={DistributionTooltipStories.Tooltip} />
+
+## Table format
+
+`DistributionTooltip` differs from `Tooltip` in that it displays summary statistics for a data distribution in a
+table-like layout.
+
+The table layout is configured with props with prefix `cell`.
+Notably, for the text elements in the table to display correctly, it may be necessary to set styles with `cellStyle`.
+
+Other cell props are `cellSize` and `cellPadding`, which control the space allocated to each label / value
+in the table, and the spacing between the two columns.
+
+<Canvas of={DistributionTooltipStories.TableFormat} />
+
+The component does not offer further tuning props in order to keep its implementation and interface at a manageable
+complexity. To create a different type of tooltip, replace the component with a bespoke component.

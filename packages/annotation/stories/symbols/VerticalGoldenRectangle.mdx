@@ -1,0 +1,20 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as VerticalGoldenRectangleStories from './VerticalGoldenRectangle.stories'
+
+<Meta of={VerticalGoldenRectangleStories} />
+
+# VerticalGoldenRectangle
+
+`VerticalGoldenRectangle` displays a rectangular symbol with height / width proportion set to the golden ratio (1.618).
+
+Geometrically, golden rectangles are just rectangles and can be created using the versatile `Rectangle` component.
+However, `VerticalGoldenRectangle` is relevant in that it has the same API as symbols such as `Circle` and `Square`.
+The component can be used, for example, in legends and tooltips.
+
+<ArgTypes of={VerticalGoldenRectangleStories} />
+
+## Styles
+
+The symbol can be styled using css.
+
+<Canvas of={VerticalGoldenRectangleStories.Styled} />

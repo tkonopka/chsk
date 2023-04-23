@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HeatMapHighlightStories from './HeatMapHighlight.stories'
+
+# HeatMapHighlight
+
+<Meta of={HeatMapHighlightStories} />
+
+`HeatMapHighlight` draws masks on a heatmap to focus attention on a specific row and column.
+
+<ArgTypes of={HeatMapHighlightStories} />
+
+## Mouse motion
+
+`HeatMapHighlight` detects mouse movements and emphasizes a cell in the heatmap by masking other parts of the map.
+
+The effect works on maps with and without padding.
+The appearance of the masks can be tuned via the prop `style`.
+
+<Canvas of={HeatMapHighlightStories.Default} />
+<Canvas of={HeatMapHighlightStories.Padding} />
+
+## Data subsets
+
+To restrict the highlighting to a subset of rows and columns, use props `ids` and `keys`.
+In the example below, the highlights should activate only on the first few rows.
+
+<Canvas of={HeatMapHighlightStories.DataSubsets} />
+
+## Interactivity
+
+Interactivity and mouse motion can be turned off via prop `interactive`.
+Then, `HeatmapHighlight` can be used as a static tool to highlight a subset of ids and/or keys.
+
+<Canvas of={HeatMapHighlightStories.Static} />
+
+## Edge animation
+
+By default, `HeatMapHighlight` displays masks using a fade-in effect (cf. previous examples).
+Flag `edgeAnimation` instead activates an animation that initially places masks at the corners
+of the matrix and then spreads these masks to zoom onto a target.
+
+<Canvas of={HeatMapHighlightStories.EdgeAnimation} />
+
+Note that the animation is only relevant when the mouse pointer first enters the heatmap.
+
+## Tooltip
+
+`HeatMapHighlight` automatically sets data for a tooltip.
+To activate a tooltip, use a `Tooltip` component.
+
+<Canvas of={HeatMapHighlightStories.Tooltip} />

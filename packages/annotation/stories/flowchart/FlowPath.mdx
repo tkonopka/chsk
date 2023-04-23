@@ -1,0 +1,41 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as FlowPathStories from './FlowPath.stories'
+
+<Meta of={FlowPathStories} />
+
+# FlowPath
+
+`FlowPath` creates an animated path.
+
+<ArgTypes of={FlowPathStories} />
+
+## Trajectory
+
+The trajectory of `FlowPath` is determined by a series of points specified in prop `points`.
+There can be as few as two points to create a single line segment, or many points to create a complex path.
+
+Click the milestone buttons in the examples below to see the animation.
+
+<Canvas of={FlowPathStories.SimpleLine} />
+<Canvas of={FlowPathStories.ComplexLine} />
+
+Note that for the animation to show-up correctly, the `fill-opacity` css attribute should be set to 0 for the path.
+This can be achieved via themes, or by providing a `style` prop.
+
+## Curves
+
+By default, `FlowPath` connects points with straight, i.e. linear, segments.
+Other interpolations between points can be set with prop `curve`.
+
+<Canvas of={FlowPathStories.NaturalCurve} />
+
+## Transitions
+
+The duration of the animation (and other animation settings) can be adjusted via prop `transition`.
+
+<Canvas of={FlowPathStories.SlowTransition} />
+
+## Styling
+
+Paths can be styled using css.
+Note, however, that the animation (managed by framer-motion) utilises property `strokeDasharray`, and this property should not be modified with custom settings.

@@ -1,0 +1,18 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as InvertedTriangleStories from './InvertedTriangle.stories'
+
+<Meta of={InvertedTriangleStories} />
+
+# InvertedTriangle
+
+`InvertedTriangle` displays a triangle shape.
+
+Note that `InvertedTriangle` is similar to `Triangle`, except the shape is flipped upside down.
+
+<ArgTypes of={InvertedTriangleStories} />
+
+## Styles
+
+Inverted triangles can be styled using css.
+
+<Canvas of={InvertedTriangleStories.Styled} />

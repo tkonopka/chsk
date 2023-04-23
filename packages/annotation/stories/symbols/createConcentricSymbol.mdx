@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as CreateConcentricSymbolStories from './createConcentricSymbol.stories'
+
+<Meta of={CreateConcentricSymbolStories} />
+
+# createConcentricSymbol
+
+`createConcentricSymbol` is a factory.
+It creates a function that creates a symbol composed of two concentric parts.
+It can be used to create composite symbols such as concentric circles, squares, or any other shapes.
+
+<ArgTypes of={CreateConcentricSymbolStories} />
+
+**Note:** `createConcentricSymbol` is a factory method and creates new functions.
+An example usage is as follows.
+
+<Source
+  language="javascript"
+  code={`
+  import { createConcentricSymbol } from '@chsk/annotation'
+
+const ConcentricCirclesBg = createConcentricSymbol({ variant: 'background', rMultiplier: 1.4 })
+`}
+/>
+
+The examples below demonstrate behavior of components creates with this pattern.
+
+## Variant
+
+A concentric symbol is composed of one primary symbol and one secondary symbol.
+Prop `variant` determines whether the secondary object appears in the background or in the foreground.
+
+`variant` is often used together with prop `rMultiplier`,
+which determines the size of the secondary object relative to the size of the primary symbol.
+
+<Canvas of={CreateConcentricSymbolStories.Background} />
+<Canvas of={CreateConcentricSymbolStories.Foreground} />
+
+## Symbols
+
+The shapes of the primary and secondary parts are controlled with props `symbolPrimary` and `symbolSecondary`.
+
+<Canvas of={CreateConcentricSymbolStories.Squares} />
+<Canvas of={CreateConcentricSymbolStories.Hybrid} />
