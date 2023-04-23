@@ -1,0 +1,38 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SliceLabelsStories from './SliceLabels.stories'
+
+# SliceLabels
+
+<Meta of={SliceLabelsStories} />
+
+`SliceLabels` draws pieces for a pie / doughnut chart.
+
+<ArgTypes of={SliceLabelsStories} />
+
+## Alignment
+
+Prop `align` tunes the position of the label.
+The default value is \[0.5, 0.5], which indicates a position at the center of the slice:
+halfway between the inner and outer slice radii and halfway between the start and end angles.
+A value of \[0.8, 0.5] pushes the label closer toward the outer edge of the slice.
+
+<Canvas of={SliceLabelsStories.Doughnut} />
+<Canvas of={SliceLabelsStories.Pie} />
+
+## Data subsets
+
+By default, `SlicesLabels` draws labels for all slices in a dataset. To draw subsets, set props `ids`.
+
+<Canvas of={SliceLabelsStories.SelectedIds} />
+
+## Minimum angle
+
+Prop `minAngle` specifies an angle threshold. Labels for slices smaller than the threshold will be omitted.
+
+<Canvas of={SliceLabelsStories.MinimumAngle} />
+
+## Styling
+
+Labels can be styled using css.
+
+<Canvas of={SliceLabelsStories.Styled} />

@@ -1,0 +1,29 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HistogramAreaStories from './HistogramArea.stories'
+
+# HistogramArea
+
+<Meta of={HistogramAreaStories} />
+
+`HistogramArea` paints polygons that represent histograms.
+
+<ArgTypes of={HistogramAreaStories} />
+
+## Curves
+
+All histograms are computed from a binned representation of data.
+Prop `curve` controls the type of interpolation between bins.
+
+The curve settings that are most appropriate for histograms are 'MonotoneX' and 'Step'.
+These interpolations guarantee that the the outline will remain above the baseline.
+The `Step` curve type conveys the binning strategy.
+
+<Canvas of={HistogramAreaStories.LinearCurve} />
+<Canvas of={HistogramAreaStories.StepCurve} />
+
+## Multiple series
+
+Use `HistogramArea` multiple times to overlay multiple series.
+Each series can have a distinct curve setting and css style.
+
+<Canvas of={HistogramAreaStories.MultipleSeries} />

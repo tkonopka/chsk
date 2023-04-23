@@ -1,0 +1,25 @@
+import { Meta, Story } from '@storybook/blocks'
+import * as PiecesStories from './pieces.stories'
+
+<Meta of={PiecesStories} />
+
+# Theme pieces
+
+Theme pieces, like partial themes, are objects that satisfy typescript type `ThemeSpec` from `@chsk/core`.
+Unlike partial themes, theme pieces have more targeted effects and only modify the appearance of a small number of elements.
+
+## `buttonTheme`
+
+`buttonTheme` holds definitions for `text`, `rect`, and `path` associated with css class 'button'.
+
+This theme piece is used in the gallery charts to style buttons that trigger downloads.
+
+<Story of={PiecesStories.Button} />
+
+## `tooltipItemLabelValue`
+
+`tooltipItemLabelValue` holds definitions for `text` components with css classes `tooltipItem label` and `tooltipItem value`.
+
+This theme piece is useful in quantile charts, which display tables with key-value pairs.
+
+<Story of={PiecesStories.TooltipItemLabelAndValue} />

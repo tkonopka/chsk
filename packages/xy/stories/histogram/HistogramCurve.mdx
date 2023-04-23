@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HistogramCurveStories from './HistogramCurve.stories'
+
+# HistogramCurve
+
+<Meta of={HistogramCurveStories} />
+
+`HistogramCurve` draws curves that represent histograms.
+
+<ArgTypes of={HistogramCurveStories} />
+
+## Curves
+
+All histograms are computed from a binned representation of data. Prop `curve` controls the type of interpolation between bins.
+
+The curve settings that are most appropriate for histograms are 'MonotoneX' and 'Step'.
+These interpolations guarantee that the the outline will remain above the baseline, i.e. convey positive counts/densities.
+The `Step` curve type conveys the binning strategy.
+
+<Canvas of={HistogramCurveStories.LinearCurve} />
+<Canvas of={HistogramCurveStories.StepCurve} />
+
+## Multiple series
+
+Use `HistogramCurve` multiple times to overlay multiple series.
+Each series can have a distinct curve setting and css style.
+
+<Canvas of={HistogramCurveStories.MultipleSeries} />

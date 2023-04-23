@@ -1,0 +1,24 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ScatterIntervalStories from './ScatterInterval.stories'
+
+# ScatterInterval
+
+<Meta of={ScatterIntervalStories} />
+
+`ScatterInterval` draws a polygon intended as an interval around a curve
+
+<ArgTypes of={ScatterIntervalStories} />
+
+## Interval bounds
+
+`ScatterInterval` shapes are characterized, for value along the x-axis, with a lower- and an upper value on the y-axis.
+These bounds are extracted from data using keys set with props `lower` and `upper`.
+
+<Canvas of={ScatterIntervalStories.Interval} />
+
+## Convolution and down-sampling
+
+Similarly to `ScatterCurve`, ScatterInterval\` accepts signal-processing props related to convolution and down-sampling.
+The example below shows the same data as before, with a moving average of three points and down-sampling by a factor of 0.5.
+
+<Canvas of={ScatterIntervalStories.SignalProcessing} />

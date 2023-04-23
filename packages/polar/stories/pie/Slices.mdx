@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SlicesStories from './Slices.stories'
+
+# Slices
+
+<Meta of={SlicesStories} />
+
+`Slices` draws pieces for a pie / doughnut chart.
+
+<ArgTypes of={SlicesStories} />
+
+## Data subsets
+
+By default, `Slices` draws an entire dataset. To draw subsets, set props `ids`.
+
+<Canvas of={SlicesStories.Default} />
+<Canvas of={SlicesStories.SelectedIds} />
+
+## Decorations
+
+Prop `rCorner` creates slices with rounded corners.
+Prop `padAngle` creates empty space between adjacent slices.
+
+<Canvas of={SlicesStories.RoundedCorners} />
+
+## Styling
+
+Slices can be styled using css.
+
+<Canvas of={SlicesStories.Styled} />

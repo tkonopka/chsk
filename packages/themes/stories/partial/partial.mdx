@@ -1,0 +1,44 @@
+import { Meta, Story } from '@storybook/blocks'
+import * as PartialStories from './partial.stories'
+
+<Meta of={PartialStories} />
+
+# Partial themes
+
+Partial themes are objects that satisfy typescript type `ThemeSpec` from `@chsk/core`.
+These objects can be passed to the `theme` prop of a `Chart` component.
+They can also be extended and augmented using `mergeTheme` and `mergeThemes` utilities.
+
+The sections below showcase partial themes in `@chsk/themes`.
+For simplicity of presentation, these sections are named after the theme objects and are arranged alphabetically.
+
+## `boxedViewTheme`
+
+The boxed theme is characterized by axes that are offset slightly from the edges of the view.
+`Surface` components create a bounding box around a view.
+
+<Story of={PartialStories.BoxedView} />
+
+## `faintTicksTheme`
+
+`faintTicksTheme` sets colors and line widths to de-emphasize ticks on the axes.
+
+<Story of={PartialStories.FaintTicks} />
+
+## `fontSystemUITheme`
+
+`fontSystemUITheme` changes the default font style to 'system-ui'.
+
+<Story of={PartialStories.FontSystemUi} />
+
+## `inverseGridTheme`
+
+The inverse grid theme is characterized by white grid lines.
+
+<Story of={PartialStories.InverseGrid} />
+
+## `smallAxisTextTheme`
+
+`smallAxisTextTheme` sets the font size for axis labels and axis ticks to '10px'
+
+<Story of={PartialStories.SmallAxisText} />

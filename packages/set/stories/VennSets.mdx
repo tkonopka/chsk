@@ -1,0 +1,17 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as VennSetsStories from './VennSets.stories'
+
+# VennSets
+
+<Meta of={VennSetsStories} />
+
+`VennSets` draws sets on a Venn chart.
+
+<ArgTypes of={VennSetsStories} />
+
+## Styling
+
+Sets can be styled using css.
+
+<Canvas of={VennSetsStories.StyledTwoSets} />
+<Canvas of={VennSetsStories.StyledThreeSets} />

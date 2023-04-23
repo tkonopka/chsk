@@ -1,0 +1,44 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as VennSetLabelsStories from './VennSetLabels.stories'
+
+# VennSetLabels
+
+<Meta of={VennSetLabelsStories} />
+
+`VennSetLabels` draws labels on a Venn chart.
+
+<ArgTypes of={VennSetLabelsStories} />
+
+## Data subsets
+
+By default, `VennSetLabels` draws labels for all the sets in the dataset.
+To draw subsets, specify the desired sets via prop `ids`.
+
+<Canvas of={VennSetLabelsStories.Default} />
+<Canvas of={VennSetLabelsStories.OneSet} />
+
+## Label position
+
+By default, labels appear at the centers of the sets.
+The positions can be adjusted with props `rs`, `angles`, and `offset`.
+The first two props displace the labels in a radial and angular direction.
+The radial distance is relative to the size of the sets, so labels with unit radii are placed on / near the circumference.
+Translations are absolute shifts.
+
+<Canvas of={VennSetLabelsStories.LabelsUnderSets} />
+
+For labels that require different translations, use separate `VennSetLabels` components, each with its own custom settings.
+
+<Canvas of={VennSetLabelsStories.LabelsAtCustomAngles} />
+
+## Label format
+
+By default, labels display the set id. The content can be adjusted via prop `format`.
+
+<Canvas of={VennSetLabelsStories.CustomFormat} />
+
+## Styling
+
+Text labels can be styled with css.
+
+<Canvas of={VennSetLabelsStories.Styled} />

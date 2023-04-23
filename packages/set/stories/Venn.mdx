@@ -1,0 +1,93 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as VennStories from './Venn.stories'
+
+# Venn
+
+<Meta of={VennStories} />
+
+`Venn` sets up a view for a Venn diagram with two or three sets.
+
+<ArgTypes of={VennStories} />
+
+## Data
+
+Data should be prepared as an array of objects.
+All objects should contain a string identifier `id` and an array of elements `data`.
+The array will be treated as a set, and the Venn chart will summarize overlaps between those sets.
+
+The pseudocode below shows one data item with an identifier and an array with four string elements.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "data": ['a', 'b', 'c', 'd'],
+  },
+  ...
+  ]
+  `}
+/>
+
+## Separation
+
+By default, sets are positioned at fixed locations in the view, irrespective of their sizes (number of elements) or extent of overlap (number of shared elements).
+The distance between sets is determined by prop `separation`.
+
+<Canvas of={VennStories.Default} />
+<Canvas of={VennStories.LittleSeparation} />
+
+## Disjoint sets
+
+Sets that do not overlap are positioned further apart.
+
+<Canvas of={VennStories.Disjoint} />
+
+## Proportional areas
+
+For datasets with two sets, it is possible to compute sizes that reflect the number of elements in the sets and the number of common elements.
+This feature is toggled with prop `proportional`.
+
+<Canvas of={VennStories.ProportionalSmallOverlap} />
+<Canvas of={VennStories.ProportionalLargeOverlap} />
+<Canvas of={VennStories.AContainedInB} />
+<Canvas of={VennStories.BContainedInA} />
+<Canvas of={VennStories.ProportionalDisjoint} />
+
+## Number of sets
+
+`Venn` can also accept datasets with just one set, or three sets.
+
+<Canvas of={VennStories.OneSet} />
+<Canvas of={VennStories.ThreeSets} />
+
+Note that proportional areas are only supported for diagrams with two sets.
+
+To visualize datasets with more than three sets, see the `UpSet` chart in the `@chsk/matrix` package.
+
+## Orientation
+
+The arrangement of sets can be rotated with prop `angle`.
+
+<Canvas of={VennStories.RotatedTwoSets} />
+<Canvas of={VennStories.RotatedThreeSets} />
+
+## Sizing
+
+To adjust the appearance of the sets on the chart, set custom scales using prop `scaleX` or `scaleY`.
+
+<Canvas of={VennStories.CustomSize} />
+
+## Color interpolation
+
+Colors for sets are determined by the color scale (via prop `scaleColor` or via themes).
+Colors for intersections are determined by interpolation between the set colors.
+The default interpolation can adjusted with a custom function with prop `interpolation`.
+
+For charts with only two sets, `interpolation` is only called once.
+It can therefore just return the desired color for the intersection.
+For charts with three sets, the function is called several times,
+and should thus handle combinations of two and three set colors.
+
+<Canvas of={VennStories.CustomColors} />

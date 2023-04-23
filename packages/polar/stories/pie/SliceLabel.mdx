@@ -1,0 +1,39 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as SliceLabelStories from './SliceLabel.stories'
+
+# SliceLabel
+
+<Meta of={SliceLabelStories} />
+
+`SliceLabel` draws a text element on a pie / doughnut chart.
+
+<ArgTypes of={SliceLabelStories} />
+
+## Position
+
+The position of the label is specified similarly as in `Slice` components:
+with two radii (prop `innerRadius` and `outerRadius`) and two angle ('startAngle' and 'endAngle').
+Note that the radii should be given in svg/absolute coordinates, not view coordinates.
+Angles can be given in degrees or radians, with the unit set in prop `angleUnit`.
+
+In the example below, a label is set for angles matching the top-left slice in the doughnut chart.
+The label should appear in the middle of the slice, i.e. at an angle left from vertical.
+
+<Canvas of={SliceLabelStories.LabelPosition} />
+
+Note that label positions can be specified arbitrarily.
+Radii and angles need not correspond to slices in the pie/doughnut representation.
+
+## Alignment
+
+Prop `align` takes an array with radial and angular alignment.
+In the example below, a value of 0 for the angular alignment positions the label
+at an angle that matches the `startAngle` prop.
+
+<Canvas of={SliceLabelStories.LeftAligned} />
+
+## Styling
+
+Labels can be styled using css.
+
+<Canvas of={SliceLabelStories.Styled} />

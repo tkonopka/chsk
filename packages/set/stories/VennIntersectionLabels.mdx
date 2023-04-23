@@ -1,0 +1,54 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as VennIntersectionLabelsStories from './VennIntersectionLabels.stories'
+
+# VennIntersectionLabels
+
+<Meta of={VennIntersectionLabelsStories} />
+
+`VennIntersectionLabels` draws labels on a Venn chart.
+
+<ArgTypes of={VennIntersectionLabelsStories} />
+
+## Number of sets
+
+`VennIntersectionLabels` labels all regions of a venn diagram.
+The component automatically positions the labels for datasets with one, two, or three sets.
+
+<Canvas of={VennIntersectionLabelsStories.OneSet} />
+<Canvas of={VennIntersectionLabelsStories.TwoSets} />
+<Canvas of={VennIntersectionLabelsStories.ThreeSets} />
+
+## Proportional areas
+
+Labels work automatically for Venn diagrams with proportional sizes.
+
+<Canvas of={VennIntersectionLabelsStories.ProportionalAreas} />
+<Canvas of={VennIntersectionLabelsStories.ProportionalDisjoint} />
+
+## Label format
+
+By default, labels display the set id. The content can be adjusted via prop `format`.
+
+<Canvas of={VennIntersectionLabelsStories.CustomFormat} />
+
+(The custom format function may not appear correctly in the storybook doc.
+Please check the table at the top of the page for the function signature, or the sourcecode on github
+for source code.)
+
+## Data subsets
+
+To display only some of the labels, set prop `ids` with an array of strings based on the data item ids.
+Partitions that correspond to items in one set and not in any of the others are denoted with the id
+corresponding to the containing set, e.g. 'alpha' or 'beta'.
+Intersections are denoted with ids separated by spaces, e.g. 'alpha beta'.
+
+<Canvas of={VennIntersectionLabelsStories.Subsets} />
+
+Tip: even when it is desirable to draw all the labels, this feature can be useful
+for fine-tuning the position of certain labels with props `align`, `anchor`, and `offset`.
+
+## Styling
+
+Text labels can be styled with css.
+
+<Canvas of={VennIntersectionLabelsStories.Styled} />

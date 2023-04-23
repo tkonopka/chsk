@@ -1,0 +1,17 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ScatterSeriesStories from './ScatterSeries.stories'
+
+# ScatterSeries
+
+<Meta of={ScatterSeriesStories} />
+
+`ScatterSeries` is a convenience component that combines the capabilities of `ScatterArea`, `ScatterCurve`, `ScatterInterval`, and `ScatterPoints`.
+
+<ArgTypes of={ScatterSeriesStories} />
+
+## Layers
+
+The prop `layers` controls the amount of information that is displayed about a series. Setting the prop to `['curve', 'points']`, for example, can display a curve and data points. An array with an additional `'area'` would also create a polygon.
+
+<Canvas of={ScatterSeriesStories.CurveAndPoints} />
+<Canvas of={ScatterSeriesStories.AreaCurveAndPoints} />

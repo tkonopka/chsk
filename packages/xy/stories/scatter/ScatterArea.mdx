@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ScatterAreaStories from './ScatterArea.stories'
+
+# ScatterArea
+
+<Meta of={ScatterAreaStories} />
+
+`ScatterArea` draws a polygon bounded by a series and a constant baseline.
+
+<ArgTypes of={ScatterAreaStories} />
+
+## Baseline
+
+The prop `baseline` determines the vertical extent of the curve
+
+<Canvas of={ScatterAreaStories.DefaultBaseline} />
+<Canvas of={ScatterAreaStories.CustomBaseline} />
+
+## Layering
+
+The `ScatterArea` component is often used together with `ScatterCurve`.
+
+<Canvas of={ScatterAreaStories.Composite} />
+
+## Css effects
+
+Some visual interactivity can be achieved with css style classes, applied via the chart theme.
+
+<Canvas of={ScatterAreaStories.CssEffects} />
+
+This technique applies to all components, but can be particularly visible with component with large surface area.
+
+For another approach to provide interactivity, see the mouse event props, for example `onMouseEnter` and `onMouseLeave`.

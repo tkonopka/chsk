@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ScatterLabelStories from './ScatterLabel.stories'
+
+# ScatterLabel
+
+<Meta of={ScatterLabelStories} />
+
+`ScatterLabel` draws a label on a scatter plot.
+
+<ArgTypes of={ScatterLabelStories} />
+
+## Position
+
+The position of the label is specified with prop `position` and an accompanying `positionUnit`.
+
+The position can be specified as a single value. In this case, the value is interpreted as the x coordinate.
+`ScatterLabel` retrieves a data point nearby that x position, and determines the vertical location for the label.
+
+<Canvas of={ScatterLabelStories.Points} />
+
+Prop `position` can also be given as a two-component array. In that case, `ScatterLabel` finds the nearest
+data point to that position, and places the location there.
+
+## Rotation
+
+The label can be rotated with prop `angle`.
+Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
+
+<Canvas of={ScatterLabelStories.ManualAngle} />
+<Canvas of={ScatterLabelStories.AutoRotation} />

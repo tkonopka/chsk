@@ -1,0 +1,20 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as OriginStories from './Origin.stories'
+
+# Origin
+
+<Meta of={OriginStories} />
+
+`Origin` moves the svg coordinate system.
+
+<ArgTypes of={OriginStories} />
+
+## Usage
+
+`Origin` is intended to be used as an immediate child of a view component, e.g. `Pie`.
+Whereas svg coordinates in a view are centered on the top-left corner of the view,
+`Origin` introduces an svg `g` element that moves the origin of the coordinate system to the center.
+This is important for components such as `Slices`.
+
+<Canvas of={OriginStories.WithoutOrigin} />
+<Canvas of={OriginStories.WithOrigin} />

@@ -1,0 +1,67 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as ScatterErrorsStories from './ScatterErrors.stories'
+
+# ScatterErrors
+
+<Meta of={ScatterErrorsStories} />
+
+`ScatterErrors` draws error bars for a series of points.
+
+<ArgTypes of={ScatterErrorsStories} />
+
+## Data
+
+`ScatterErrors` works with datasets provided to a `Scatter` chart.
+The data itself does not need to be provided as a prop. However, `ScatterErrors`
+does require information about how to extract the sizes of errors bars from the raw data.
+
+The examples below assume that the data is prepared in a format as follows.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "data": [
+     {
+       "x": 1,
+       "y": 2,
+       "xlo": 0.5,
+       "xhi": 1.5,
+       "ylo": 1.5,
+       "yhi": 2.5,
+     },
+     ...
+   ]
+  },
+  ...
+  ]
+  `}
+/>
+
+Notably, each data point is characterized by keys specifying the x- and y- coordinates,
+as well as four distinct keys specifying the lower and upper uncertainty bounds on each axis.
+
+## Variant
+
+Prop `variant` determines whether error bars display uncertainties along the x- or y-axes.
+In each case, use props `lower` and `higher` to designate the keys in the original dataset
+that hold the lower and upper error bounds, respectively.
+
+<Canvas of={ScatterErrorsStories.X} />
+<Canvas of={ScatterErrorsStories.Y} />
+
+To display both horizontal and vertical error bars, overlay two separate `ScatterError` components.
+
+## Caps
+
+To display orthogonal lines (caps) at the end of the error bars, specify the size of those caps with prop `capWidth`.
+
+<Canvas of={ScatterErrorsStories.Caps} />
+
+## Styling
+
+Error bar lines can be styled using css.
+
+<Canvas of={ScatterErrorsStories.Styles} />

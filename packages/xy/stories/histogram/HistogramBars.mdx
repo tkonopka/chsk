@@ -1,0 +1,31 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HistogramBarsStories from './HistogramBars.stories'
+
+# HistogramBars
+
+<Meta of={HistogramBarsStories} />
+
+`HistogramBars` creates bars that represent histogram bins.
+
+Note that `HistogramBars` provides similar output as `HistogramCurve` and `HistogramArea`.
+However, whereas the other components paint a single object to represent the whole histogram, `HistogramBars` creates distinct rectangles.
+This implementation makes it possible to visualize bin boundaries.
+
+<ArgTypes of={HistogramBarsStories} />
+
+## Styles
+
+Prop `styles` applies css settings to the bars / rectangles.
+
+<Canvas of={HistogramBarsStories.Default} />
+
+## Css effects
+
+Some interactivity can be achieved with css style classes defined in the chart theme.
+
+<Canvas of={HistogramBarsStories.CssEffects} />
+
+Above, the chart displays bars as well as two curves, and the bars change opacity when the mouse pointer hovers on the histogram.
+Note that components that overlay the bars may require a css style `pointerEvents: 'none'`.
+
+For another approach to provide interactivity, see the mouse event props, for example `onMouseEnter` and `onMouseLeave`.

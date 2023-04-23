@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as PolarItemStories from './PolarItem.stories'
+
+# PolarItem
+
+<Meta of={PolarItemStories} />
+
+`PolarItem` positions and animates an arbitrary component on a polar chart.
+
+<ArgTypes of={PolarItemStories} />
+
+## Position
+
+By default, `PolarItem` places its content at the local origin.
+Prop `position` specifies an alternate position in the form of a radius (in pixels) and an angle.
+Angles can be specified in radians or degrees, with the unit declared using prop `angleUnit`.
+
+<Canvas of={PolarItemStories.Origin} />
+<Canvas of={PolarItemStories.TwoOClock} />
+
+## Orientation
+
+`PolarItem` orient text horizontally by default.
+Flags `radial` and `tangential` rotate the labels based on their position along the circle.
+
+<Canvas of={PolarItemStories.Radial} />
+<Canvas of={PolarItemStories.Tangential} />
+
+Note that `PolarItem` automatically adjust rotations for radial and tangential content:
+radial labels are rotated differently in the left and right hemispheres;
+tangential labels are rotated different in the top and bottom hemisphere.
+
+<Canvas of={PolarItemStories.RadialLeftHemisphere} />
+<Canvas of={PolarItemStories.TangentBottomHemisphere} />
+
+Note that labels in the right and left hemispheres may require different alignments (css style `textAnchor`).

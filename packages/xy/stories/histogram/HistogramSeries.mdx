@@ -1,0 +1,17 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as HistogramSeriesStories from './HistogramSeries.stories'
+
+# HistogramSeries
+
+<Meta of={HistogramSeriesStories} />
+
+`HistogramSeries` is a convenience component that combines the capabilities of `HistogramArea`, `HistogramBars`, and `HistogramCurve`.
+
+<ArgTypes of={HistogramSeriesStories} />
+
+## Layers
+
+The prop `layers` controls the amount of information that is displayed about a series.
+Setting the prop to `['area', curve']` displays an area polygon and a curve.
+
+<Canvas of={HistogramSeriesStories.AreaAndCurve} />

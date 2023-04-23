@@ -1,0 +1,36 @@
+import { ArgTypes, Meta, Canvas } from '@storybook/blocks'
+import * as SliceStories from './Slice.stories'
+
+# Slice
+
+<Meta of={SliceStories} />
+
+`Slice` draws one piece of a pie / doughnut chart.
+
+`Slice` components are typically not used as standalone objects, but rather used as a prop to `Slices`.
+
+<ArgTypes of={SliceStories} />
+
+## Position and size
+
+A slice is defined by two radii (props `innerRadius` and `outerRadius`)
+and two angles (props `startAngle` and `endAngle`).
+The angles can be specified in degrees or radians, the unit declared in prop `angleUnit`.
+
+<Canvas of={SliceStories.QuarterCircleDegrees} />
+<Canvas of={SliceStories.HalfCircleRadians} />
+
+## Corners
+
+Prop `r` sets a radius for rounded corners.
+
+<Canvas of={SliceStories.RoundedCorners} />
+
+## Padding
+
+Prop `padAngle` shrinks the effective shape to create empty space at the slice boundaries.
+The examples below display semi-circular slices.
+Non-zero `padAngle` values make the slices appear slightly smaller.
+
+<Canvas of={SliceStories.SmallAnglePadding} />
+<Canvas of={SliceStories.LargeAnglePadding} />

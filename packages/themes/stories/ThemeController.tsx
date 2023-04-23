@@ -24,8 +24,6 @@ export interface ThemeControllerProps {
     themes: Record<string, ThemeSpec>
     /** flag to provide themes to the baseTheme prop instead of the theme prop */
     baseTheme?: boolean
-    /** first theme to display */
-    start: string
 }
 
 export const ThemeController = ({
@@ -51,7 +49,7 @@ export const ThemeController = ({
         ? { chartId, theme: null, baseTheme: theme as CompleteThemeSpec }
         : { chartId, theme }
     return (
-        <div>
+        <div className={'controller-story'}>
             <div className={'controller'}>
                 <div className={'controller-label'}>Themes</div>
                 {themeNames.length > 0 ? (

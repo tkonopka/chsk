@@ -1,0 +1,23 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as RegressionStories from './Regression.stories'
+
+# Regression
+
+<Meta of={RegressionStories} />
+
+`Regression` computes and draws regression lines on a scatter plot.
+
+<ArgTypes of={RegressionStories} />
+
+## Data subsets
+
+`Regression` produces best-fit lines for all data series by default. It is also possible to restrict drawing to specific data series.
+
+<Canvas of={RegressionStories.AllSeries} />
+<Canvas of={RegressionStories.IndividualSeries} />
+
+## Pooled data
+
+By default, `Regression` treats individual data series. To produce a regression that combines several data series, set prop `variant` to 'pooled'. In the example below, toggle visibility of the data series and observe how the best-fit line changes.
+
+<Canvas of={RegressionStories.PooledData} />

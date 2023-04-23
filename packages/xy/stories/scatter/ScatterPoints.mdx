@@ -1,0 +1,37 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ScatterPointsStories from './ScatterPoints.stories'
+
+# ScatterPoints
+
+<Meta of={ScatterPointsStories} />
+
+`ScatterPoints` draws points on a scatter plot view.
+
+<ArgTypes of={ScatterPointsStories} />
+
+The examples on this page use a dataset with series with ids `linear` and `quadratic`.
+
+## Data subsets
+
+`ScatterPoints` displays the entire dataset by default, automatically applying distinct colors to data series (below, first example). It is also possible to draw individual data series, or subsets of data series, by setting prop `ids` (below, second example).
+
+<Canvas of={ScatterPointsStories.EntireDataset} />
+<Canvas of={ScatterPointsStories.SingleSeries} />
+
+To draw multiple series with further customization, use the `ScatterPoints` component multiple times to overlay the series.
+
+## Symbols
+
+Symbols can be adjusted with prop `symbol`.
+
+<Canvas of={ScatterPointsStories.Symbol} />
+
+Note that the prop `symbol` requires a function. Some symbol functions are available in the `@chsk/core` package: see `Circle`, `Diamond`, `Square`, `Triangle`, and `InvertedTriangle`.
+
+## Mouse events
+
+Points can respond to mouse events. Set the function props with prefix `on`, for example `onClick`.
+
+<Canvas of={ScatterPointsStories.MouseClick} />
+
+(Check the browser console with `Ctrl Shift J` for output.)

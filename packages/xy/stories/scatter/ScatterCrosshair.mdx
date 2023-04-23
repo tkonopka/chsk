@@ -1,0 +1,68 @@
+import { ArgTypes, Canvas, Meta, Source, Story } from '@storybook/blocks'
+import { Chart, Square } from '@chsk/core'
+import { Scatter, ScatterCrosshair } from '../../src'
+import { ChartForRegressionDecorator, DoubleSquare, ChartWithTooltipDecorator } from './decorators'
+import dataPolynomials from './dataPolynomials.json'
+import * as ScatterCrosshairStories from './ScatterCrosshair.stories'
+
+# ScatterCrosshair
+
+<Meta of={ScatterCrosshairStories} />
+
+`ScatterCrosshair` detects mouse motion and draws crosshair lines to highlight a nearby data point.
+
+<ArgTypes of={ScatterCrosshairStories} />
+
+## Variants
+
+The default `ScatterCrosshair` component draws horizontal and vertical lines that span the entire chart view.
+
+<Canvas of={ScatterCrosshairStories.Default} />
+
+To remove the lines, or to display only horizontal or vertical lines,
+set prop `variant` to 'none', 'horizontal', or 'vertical', respectively.
+
+<Canvas of={ScatterCrosshairStories.Horizontal} />
+<Canvas of={ScatterCrosshairStories.Vertical} />
+
+Note that even when the crosshair lines appear only along one axis, the calculations that determine
+what point is nearest the mouse position are always performed in two dimensions.
+
+## Minimum distance
+
+Prop `minDistance` sets a minimal distance between the mouse pointer and the nearest data point.
+
+<Canvas of={ScatterCrosshairStories.MinimumDistance} />
+
+## Detector area
+
+By default, `ScatterCrosshair` detects mouse event at positions within the chart view, but the detector region
+can be tuned using prop `expansion`.
+A nontrivial expansion triggers the crosshair lines even when the mouse pointer is outside of the chart view,
+i.e. beyond the extent of the axes.
+
+<Canvas of={ScatterCrosshairStories.Expansion} />
+
+## Custom symbol
+
+Once `ScatterCrosshair` determines an active data point and draws crosshair lines, it also creates a new symbol
+on top of the existing chart.
+(This ensures that the data symbol is not covered by the crosshair lines.)
+The default symbol is a circle, but it can be tuned with props `symbol`, `symbolStyle`, and `symbolClassName`.
+
+<Canvas of={ScatterCrosshairStories.CustomSymbol} />
+<Canvas of={ScatterCrosshairStories.CustomSymbol2} />
+
+## Tooltip
+
+`ScatterCrosshair` automatically sets data for a tooltip.
+To activate a tooltip, use a `Tooltip` component.
+
+<Canvas of={ScatterCrosshairStories.Tooltip} />
+
+## Style modifiers
+
+Prop `modifiers` is a group of styles applied to the detector surface.
+This can be used, for example, to change the cursor when the mouse hovers near a data point.
+
+<Canvas of={ScatterCrosshairStories.Cursor} />

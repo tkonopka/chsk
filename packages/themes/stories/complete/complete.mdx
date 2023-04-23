@@ -1,0 +1,41 @@
+import { Meta, Story } from '@storybook/blocks'
+import * as CompleteStories from './complete.stories'
+
+<Meta of={CompleteStories} />
+
+# Complete Themes
+
+Complete themes are objects that satisfy typescript type `CompleteThemeSpec` from `@chsk/core`.
+
+## `darkTheme`
+
+`darkTheme` defines a theme suitable for use with dark backgrounds.
+Apart from reversing dark and light colors, `darkTheme` is otherwise very similar to the default theme.
+
+<Story of={CompleteStories.Dark} />
+
+Note that if a chart specifies colors using inline styles, those styles will not be affected by the theme.
+In the chart above, for example, the regression line specifies a dark-gray color with a `stroke` setting passed to a `style` prop,
+and that color is not adjusted via the theme, becoming almost imperceptible on a dark background.
+This detail reveals that toggling themes may not automatically give perfect outcomes,
+and some charts may require manual adjustment.
+
+## `emptyTheme`
+
+`emptyTheme` is an object that satisfies the `CompleteThemeSpec` interface but does not hold any data.
+
+<Story of={CompleteStories.Empty} />
+
+As evidenced in the example above, using `emptyTheme` on its own is likely to produce very poor outcomes.
+However, `emptyTheme` is valuable because it is a bare-bones structure that can be provided to prop `baseTheme`
+in the `Chart` component, upon which it is then possible to build a new theme from scratch.
+
+To understand why a bare-bones theme is valuable, recall that the `Chart` component uses the chart theme to
+generate the content of the `<style>` tag in an svg graphic.
+The default theme provides styles for several commonly-used elements such as text in titles, legends, and tooltips.
+Altogether, those definitions add around 3kb to the size of each chart.
+If a particular chart type does not require many of those styles, it may be worthwhile to exclude them.
+Unfortunately, removing styles from the default theme is not straightforward
+(it has to do with how nested objects are merged in lodash/javascript, and with typescript types).
+Thus, to achieve a smaller footprint for the `<style>` tag, it is necessary to start from a bare theme and then
+add the elements required for a given application.

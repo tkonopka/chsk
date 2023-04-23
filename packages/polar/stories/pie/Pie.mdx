@@ -1,0 +1,82 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as PieStories from './Pie.stories'
+
+# Pie
+
+<Meta of={PieStories} />
+
+`Pie` sets up a view for a pie or doughnut chart.
+
+<ArgTypes of={PieStories} />
+
+## Data
+
+Data should be prepared as an array of objects.
+All objects should contain a string identifier `id` and a numeric field `data`.
+
+The pseudocode below shows one data item with an identifier and one numeric value.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "data": 55,
+  },
+  ...
+  ]
+  `}
+/>
+
+## Radii
+
+Props `rInner` and `rOuter` determine the radii of slices.
+Default values are `rInner=0` and `rOuter=1`, which create slices for a pie chart.
+To create a doughnut, set `rInner` to a non-zero value.
+
+<Canvas of={PieStories.PieChart} />
+<Canvas of={PieStories.Doughnut} />
+
+Prop `rOuter` determines the outer radius of the pie, and thus sets an overall scale.
+
+<Canvas of={PieStories.Scaled} />
+
+An alternative way to adjust the overall scale is via props `scaleX` and `scaleY` (see below).
+
+## Scales
+
+Although `Pie` manages data meant for a polar layout, the `Pie` view actually uses linear x- and y- scales
+to map cartesian coordinates to svg coordinates.
+(The `useScales` hook returns linear scales.)
+
+Props `scaleX` and `scaleY` specify cartesian linear scale.
+In contrast to other views, however, `Pie` adjusts the specified domains in order to ensure that
+the chart coordinate system appears with a 1:1 aspect ratio in svg coordinates.
+
+<Canvas of={PieStories.WideXDomain} />
+<Canvas of={PieStories.NonCentralOrigin} />
+
+## Orientation
+
+By default `Pie` processed data so that the first data slice aligns with the vertical axis.
+Prop `angle` rotates the whole chart around its center.
+The value can be specified in degrees or radians, with the unit specified in prop `angleUnit`.
+
+<Canvas of={PieStories.Rotated} />
+
+## Alignment
+
+Prop `angleAlign` adjusts the orientation of the chart in a data-dependent way.
+The default value (zero) makes the leading edge of first slice align with the global chart angle.
+A value of one instead aligns the other edge of the first slice.
+Intermediate values are possible as well.
+
+<Canvas of={PieStories.RightAligned} />
+<Canvas of={PieStories.CenterAligned} />
+
+## Center
+
+The center of a pie or doughnut is always at `[0, 0]` in the view's cartesian coordinate system.
+
+<Canvas of={PieStories.CenterLabel} />
