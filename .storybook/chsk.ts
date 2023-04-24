@@ -28,6 +28,7 @@ const removeUnnecessaryProps = (input: string) => {
             .replace(prop + '={() => {}}', '')
             .replace(prop + '={function noRefCheck() {}}', '')
     })
+    //onClick={function noRefCheck() {}}
     unnecessaryStrings.forEach(target => {
         result = result.replace(target, '')
     })
@@ -51,7 +52,9 @@ const prettierChartCode = (input: string) => {
 
 /** custom code transforms specific to the chsk project */
 export const transformCode = (input: string) => {
+    console.log('input: ' + input)
     const shortInput = removeUnnecessaryProps(input)
+    console.log('short: ' + shortInput)
     try {
         return prettierCode(shortInput)
     } catch {}
