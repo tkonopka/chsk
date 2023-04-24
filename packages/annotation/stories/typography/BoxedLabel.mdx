@@ -13,7 +13,9 @@ import * as BoxedLabelStories from './BoxedLabel.stories'
 
 ## Position
 
-The prop `position` marks a location on the chart / view. This can be specified with absolute values `[x, y]`, or as fractions of the chart / view dimensions.
+The prop `position` marks a location on the chart / view.
+This is specified as a pair of `[x, y]` values.
+The values can be specified as absolute svg coordinates, or as fractions of the view dimensions.
 In the latter case, the prop `units` should be set to `'relative'`.
 
 <Canvas of={BoxedLabelStories.AbsolutePosition} />
@@ -21,22 +23,22 @@ In the latter case, the prop `units` should be set to `'relative'`.
 
 ## Anchors
 
-The prop `anchor` determines what part of the label is aligned with the point on the chart designated by `position`.
+Prop `anchor` determines what part of the label is aligned with the point on the chart designated by `position`.
 
 <Canvas of={BoxedLabelStories.AnchorTopLeftCorner} />
 <Canvas of={BoxedLabelStories.AnchorTopRightCorner} />
 
 ## Offset
 
-The prop `offset` accepts an array `[x, y]`, which shifts the position of the label.
-The translation works together with other props, in particular `position`, and it can be used to place a label off-center or adjacent to a corner.
+Prop `offset` accepts an array `[x, y]`, which shifts the position of the label.
+The translation can be used, for example, to displace a label from the center or a corner.
 
 <Canvas of={BoxedLabelStories.OffsetAboveCenter} />
 <Canvas of={BoxedLabelStories.OffsetAwayFromCorner} />
 
 ## Rotation
 
-The box and the label can be rotated using prop `angle`.
+The label can be rotated using prop `angle`.
 
 <Canvas of={BoxedLabelStories.Rotation} />
 
