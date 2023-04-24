@@ -35,6 +35,7 @@ export const CustomDataComponent = <
 
     const handleMouseEnter = useCallback(
         (event: MouseEvent) => {
+            if (!setChartData) return
             setChartData({ ...chartData, activeId: data?.id })
             handlers?.onMouseEnter?.(data, event)
         },
@@ -46,6 +47,7 @@ export const CustomDataComponent = <
     )
     const handleMouseLeave = useCallback(
         (event: MouseEvent) => {
+            if (!setChartData) return
             setChartData({ ...chartData, activeId: null })
             handlers?.onMouseLeave?.(data, event)
         },
@@ -53,6 +55,7 @@ export const CustomDataComponent = <
     )
     const handleClick = useCallback(
         (event: MouseEvent) => {
+            if (!setChartData) return
             if (clickedIds.has(id)) {
                 clickedIds.delete(id)
             } else {

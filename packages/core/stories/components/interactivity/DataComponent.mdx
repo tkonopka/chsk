@@ -12,7 +12,9 @@ It is used extensively by add-on packages to provide interactivity for chart com
 
 <ArgTypes of={DataComponentStories} />
 
-## Function signatures
+## Event handlers
+
+`DataComponent` can be used to handle events on multiple components with a single handler function.
 
 Event handlers should be prepared as functions that accept two arguments: a data object and a mouse event object.
 
@@ -25,13 +27,7 @@ Event handlers should be prepared as functions that accept two arguments: a data
   `}
 />
 
-(In typescript, the type of the `data` argument should match the type of the prop `data` in `DataComponent`.
-The `event` argument should be ot type `React.MouseEvent`.)
-
-## Event handlers
-
-`DataComponent` can be used to handle events on multiple components with a single handler function. In the example below,
-a single `customOnClick` function is associated with two different components (circles).
+In the example below, a single `customOnClick` function is associated with two different components (circles).
 
 <Canvas of={DataComponentStories.ClickEvents} />
 

@@ -13,4 +13,20 @@ import * as ViewClipStories from './ViewClip.stories'
 However, it creates a clip mask and restricts all child elements to create content within that mask.
 This can be useful for drawing views with bespoke scales, for example when using zoom operations.
 
-For usage example, see the `Scatter` view in package `@chsk/xy`.
+## Identifier
+
+Prop `id` assigns a unique identifier to a clip region.
+This identifier is important when there are multiple clip regions in the same graphic
+(e.g. in a chart with multiple views) or on the same page (in a web context).
+
+Below are examples where a circle is drawn in a view without and with clipping.
+
+<Canvas of={ViewClipStories.WithoutClip} />
+<Canvas of={ViewClipStories.WithClip} />
+
+## Expansion
+
+While the default clip region coincides with a view, prop `expansion` extends the region in the
+top, right, bottom, and left directions by a fixed distance.
+
+<Canvas of={ViewClipStories.Expansion} />
