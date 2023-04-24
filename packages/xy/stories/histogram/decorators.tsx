@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
-import { Chart, Axis } from '@chsk/core'
+import { Chart, Axis, roundDecimalPlaces } from '@chsk/core'
 import { generateHistogramSeries, randomNormalValue } from './generators'
 import { Histogram } from '../../src'
 
 export const sampleData = [
-    generateHistogramSeries('A', 150, () => randomNormalValue(-2, 0.8)),
-    generateHistogramSeries('B', 120, () => randomNormalValue(2, 1.6)),
+    generateHistogramSeries('A', 150, () => roundDecimalPlaces(randomNormalValue(-2, 0.8), 4)),
+    generateHistogramSeries('B', 120, () => roundDecimalPlaces(randomNormalValue(2, 1.6), 4)),
 ]
 
 export const ChartHistogramDecorator = (Story: () => ReactNode) => (

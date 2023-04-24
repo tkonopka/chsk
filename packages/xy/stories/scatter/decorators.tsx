@@ -1,5 +1,15 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Legend, Circle, SymbolProps, Square, Tooltip, GridLines } from '@chsk/core'
+import {
+    Axis,
+    Chart,
+    Legend,
+    Circle,
+    SymbolProps,
+    Square,
+    Tooltip,
+    GridLines,
+    roundDecimalPlaces,
+} from '@chsk/core'
 import {
     Scatter,
     ScatterCurve,
@@ -119,9 +129,9 @@ const generateBubbles = (n: number, xyInterval = [0.5, 10], vInterval = [1, 12])
     return Array(n)
         .fill(0)
         .map(() => ({
-            x: xyInterval[0] + xySize * Math.random(),
-            y: xyInterval[0] + xySize * Math.random(),
-            value: vInterval[0] + vSize * Math.random(),
+            x: roundDecimalPlaces(xyInterval[0] + xySize * Math.random(), 4),
+            y: roundDecimalPlaces(xyInterval[0] + xySize * Math.random(), 4),
+            value: roundDecimalPlaces(vInterval[0] + vSize * Math.random(), 4),
         }))
 }
 export const dataBubbles = [

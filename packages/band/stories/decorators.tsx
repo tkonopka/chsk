@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Chart, Surface } from '@chsk/core'
+import { Chart, roundDecimalPlaces, Surface } from '@chsk/core'
 import { generateUniformValues } from './generators'
 
 export const ChartDecorator = (Story: () => ReactNode) => (
@@ -12,12 +12,12 @@ export const ChartDecorator = (Story: () => ReactNode) => (
 export const dataRawValues = [
     {
         id: 'alpha',
-        x: generateUniformValues(30, [0, 10]),
-        y: generateUniformValues(30, [2, 16]),
+        x: generateUniformValues(30, [0, 10]).map(v => roundDecimalPlaces(v, 4)),
+        y: generateUniformValues(30, [2, 16]).map(v => roundDecimalPlaces(v, 4)),
     },
     {
         id: 'beta',
-        x: generateUniformValues(30, [5, 15]),
-        y: generateUniformValues(30, [10, 20]),
+        x: generateUniformValues(30, [5, 15]).map(v => roundDecimalPlaces(v, 4)),
+        y: generateUniformValues(30, [10, 20]).map(v => roundDecimalPlaces(v, 4)),
     },
 ]

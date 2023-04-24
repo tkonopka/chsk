@@ -10,11 +10,15 @@ const unnecessaryProps = [
     'format',
     'labelFormat',
 ]
+const unnecessaryStrings = ['colors: () => {},', 'colors: function noRefCheck() {}']
 
-/** remove unnecessary props from code
+/**
+ * remove unnecessary props from code
  *
- * Storybook-generated code may turn an 'undefined' prop with a function type into ()=>{}.
- * This function removes those snippets
+ * Storybook-generated code may contain spurious entries.
+ * e.g. when a prop has a function type and an 'undefined' default value,
+ * the storybook-generated code may display it as '()=>{}'
+ * This function removes such snippets snippets using string 'replace'
  *
  * */
 const removeUnnecessaryProps = (input: string) => {
@@ -23,6 +27,9 @@ const removeUnnecessaryProps = (input: string) => {
         result = result
             .replace(prop + '={() => {}}', '')
             .replace(prop + '={function noRefCheck() {}}', '')
+    })
+    unnecessaryStrings.forEach(target => {
+        result = result.replace(target, '')
     })
     return result
 }
