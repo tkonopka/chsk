@@ -22,6 +22,9 @@
 
 ### Changed
 
+-   [annotation] renamed prop `offset` with `distance` in `BoxedTitle` for
+    consistency with convention used by axes whereby offset is always an array
+    and distance is orthogonal distance
 -   [xy] expanded API for `ScatterLabel` to use `LabelProps` and a
     custom component to draw; `ScatterLabel` can now use, e.g. `BoxedLabel`
 -   [xy] replaced prop `ids` with `id` in `ScatterLabel` because the component

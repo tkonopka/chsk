@@ -51,7 +51,7 @@ export interface BoxedTitleProps extends SvgElementVariantProps, BoxedTextProps 
     /** absolute size of box in direction orthogonal to the axis */
     size?: number
     /** distance from axis */
-    offset?: number
+    distance?: number
 }
 
 /** labels with lines */

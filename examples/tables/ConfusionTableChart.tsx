@@ -138,12 +138,12 @@ export const ConfusionTableChart = ({ fref, chartData, rawData }: MilestoneStory
                 <HeatMapCells cell={HeatMapCounter} style={{ strokeWidth: 0 }} />
                 <GridLines variant={'x'} shift={[-0.5, 0.5]} />
                 <GridLines variant={'y'} shift={[-0.5, 0.5]} />
-                <BoxedTitle variant={'left'} offset={0} size={35} />
-                <BoxedTitle variant={'left'} offset={35} size={35} className={'outer'}>
+                <BoxedTitle variant={'left'} distance={0} size={35} />
+                <BoxedTitle variant={'left'} distance={35} size={35} className={'outer'}>
                     Ground truth
                 </BoxedTitle>
-                <BoxedTitle variant={'top'} offset={0} size={32} />
-                <BoxedTitle variant={'top'} offset={32} size={32} className={'outer'}>
+                <BoxedTitle variant={'top'} distance={0} size={32} />
+                <BoxedTitle variant={'top'} distance={32} size={32} className={'outer'}>
                     Model prediction
                 </BoxedTitle>
                 <Axis variant={'top'} />

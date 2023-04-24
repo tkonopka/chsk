@@ -4,7 +4,7 @@ import { BoxedLabel } from './BoxedLabel'
 
 export const BoxedTitle = ({
     variant,
-    offset = 0,
+    distance = 0,
     size = 26,
     expansion = [0, 0, 0, 0],
     rx,
@@ -28,10 +28,10 @@ export const BoxedTitle = ({
     // location and rotation of center of label
     let x = 0,
         y = 0
-    if (variant === 'left') x -= size / 2 + offset
-    if (variant === 'right') x += width + size / 2 + offset
-    if (variant === 'top') y -= size / 2 + offset
-    if (variant === 'bottom') y += height + size / 2 + offset
+    if (variant === 'left') x -= size / 2 + distance
+    if (variant === 'right') x += width + size / 2 + distance
+    if (variant === 'top') y -= size / 2 + distance
+    if (variant === 'bottom') y += height + size / 2 + distance
     if (vertical) y += 0.5 * height
     if (horizontal) x += 0.5 * width
     const angle = variant === 'left' ? -90 : variant === 'right' ? 90 : 0

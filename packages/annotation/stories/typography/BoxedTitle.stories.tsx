@@ -63,8 +63,8 @@ export const Bottom = {
     decorators: [ChartDecorator],
 }
 
-export const Offset = {
-    name: 'offset',
+export const Distance = {
+    name: 'distance from axis',
     args: {
         variant: 'top',
         boxStyle: {
@@ -72,7 +72,7 @@ export const Offset = {
             stroke: '#222222',
             strokeWidth: '1px',
         },
-        offset: 10,
+        distance: 10,
         children: 'Title',
     },
     decorators: [ChartDecorator],
@@ -103,7 +103,6 @@ export const LargeExpansion = {
             strokeWidth: '2px',
         },
         expansion: [0, 30, 0, 30],
-        offset: 0,
         children: 'Title',
     },
     decorators: [ChartDecorator],
