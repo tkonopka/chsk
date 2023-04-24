@@ -11,17 +11,16 @@ import * as LineStories from './Line.stories'
 
 ## Variants
 
-There are a number of predefined variants, which can be activated via the prop `variant`.
+Prop `variant` applies pre-defined styles to a line.
+The examples below show variants `tick` and `grid`, which apply styling suitable for axis tick marks
+and for grid lines, respectively.
 
 <Canvas of={LineStories.Tick} />
 <Canvas of={LineStories.Grid} />
 
-The examples above show variants `tick` and `grid`. Other variants include `default` and `axis`.
-(The default theme does not display a line for axes, hence it would not be useful to display an example.)
-
 ## Styles
 
-It is possible to adjust individual lines using css.
+It is possible to adjust individual lines using inline styles.
 
 <Canvas of={LineStories.Color} />
 <Canvas of={LineStories.Dasharray} />

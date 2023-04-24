@@ -1,6 +1,5 @@
-import prettier from 'prettier/standalone'
-import prettierBabel from 'prettier/parser-babel'
 import './docs.css'
+import { transformCode } from './chsk'
 
 export const parameters = {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -44,14 +43,7 @@ export const parameters = {
     },
     docs: {
         source: {
-            transform: input => {
-                try {
-                    return prettier.format(input, { parser: 'babel', plugins: [prettierBabel] })
-                } catch (e) {
-                    return input
-                }
-            },
-            excludeDecorators: false,
+            transform: transformCode,
         },
     },
 }
