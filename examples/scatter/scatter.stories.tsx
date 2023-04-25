@@ -75,6 +75,7 @@ export const Labels: GalleryStory = {
     args: {
         generator: generateLabelsData,
         chart: LabelsChart,
+        comment: <div>Click on/near data points to toggle labels.</div>,
     },
 }
 

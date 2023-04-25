@@ -17,22 +17,22 @@ export default {
 }
 
 export const Default = {
+    name: 'default',
     render: () => (
         <Chart {...commonProps}>
             <View {...commonViewProps}>
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
-                <Typography position={[0, -20]} variant="title">
+                <Typography variant={'title'} position={[0, -20]}>
                     Default style
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'default',
 }
 
 export const Grid = {
+    name: 'grid',
     render: () => (
         <Chart {...commonProps}>
             <View {...commonViewProps}>
@@ -40,41 +40,38 @@ export const Grid = {
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} />
                 <GridLines variant={'y'} />
-                <Typography position={[0, -20]} variant="title">
+                <Typography variant={'title'} position={[0, -20]}>
                     With grid
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'grid',
 }
 
 export const InverseGrid = {
+    name: 'inverse grid',
     render: () => (
         <Chart {...commonProps}>
             <View {...commonViewProps}>
-                <Surface variant={'inner'} style={{ fill: '#f0f0f0' }} />
+                <Surface style={{ fill: '#f0f0f0' }} />
                 <Axis variant={'bottom'} label={'x-axis (a.u.)'} />
                 <Axis variant={'left'} label={'y-axis (a.u.)'} />
                 <GridLines variant={'x'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
                 <GridLines variant={'y'} style={{ stroke: '#ffffff', strokeWidth: '2px' }} />
-                <Typography position={[0, -20]} variant="title">
+                <Typography variant={'title'} position={[0, -20]}>
                     Inverse grid
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'inverse grid',
 }
 
 export const Boxed = {
+    name: 'boxed',
     render: () => (
         <Chart {...commonProps}>
             <View {...commonViewProps}>
                 <Surface
-                    variant={'inner'}
                     style={{
                         fill: '#ffffff',
                         stroke: '#222222',
@@ -90,22 +87,24 @@ export const Boxed = {
                     <AxisTicks tickSize={5} labelDistance={8} style={{ strokeWidth: '1px' }} />
                     <AxisLabel distance={44}>y-axis (a.u.)</AxisLabel>
                 </Axis>
-                <Typography position={[140, -22]} variant="title" style={{ textAnchor: 'middle' }}>
+                <Typography
+                    variant={'title'}
+                    position={[140, -22]}
+                    style={{ textAnchor: 'middle' }}
+                >
                     Boxed
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'boxed',
 }
 
 export const BoxedWithGrid = {
+    name: 'boxed with grid',
     render: () => (
         <Chart {...commonProps}>
             <View {...commonViewProps}>
                 <Surface
-                    variant={'inner'}
                     style={{
                         fill: '#ffffff',
                         stroke: '#222222',
@@ -137,17 +136,20 @@ export const BoxedWithGrid = {
                 <Axis variant={'top'} distance={12}>
                     <AxisTicks ticks={5} tickSize={-5} labelFormat={() => ''} />
                 </Axis>
-                <Typography position={[140, -26]} variant="title" style={{ textAnchor: 'middle' }}>
+                <Typography
+                    variant={'title'}
+                    position={[140, -26]}
+                    style={{ textAnchor: 'middle' }}
+                >
                     Boxed with grid
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'boxed with grid',
 }
 
 export const SmallLabels = {
+    name: 'small labels',
     render: () => (
         <Chart
             id="small-labels"
@@ -172,7 +174,7 @@ export const SmallLabels = {
             }}
         >
             <View {...commonViewProps}>
-                <Surface variant={'outer'} style={{ fill: '#f4f4f4' }} />
+                <Surface style={{ fill: '#f4f4f4' }} />
                 <GridLines variant={'y'} style={{ stroke: '#aaaaaa', strokeWidth: '1px' }} />
                 <Axis variant={'bottom'}>
                     <AxisTicks ticks={5} tickSize={5} labelDistance={10} />
@@ -190,15 +192,13 @@ export const SmallLabels = {
                 <Axis variant={'left'}>
                     <AxisTicks ticks={5} tickSize={0} labelDistance={6} />
                 </Axis>
-                <Typography position={[-6, -28]} variant={'axisLabel'}>
+                <Typography variant={'axisLabel'} position={[-6, -28]}>
                     y-axis (a.u.)
                 </Typography>
-                <Typography position={[140, -28]} variant={'title'}>
+                <Typography variant={'title'} position={[140, -28]}>
                     Small labels
                 </Typography>
             </View>
         </Chart>
     ),
-
-    name: 'small labels',
 }

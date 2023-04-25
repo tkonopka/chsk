@@ -158,7 +158,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     Dataset with labeled points
                 </Typography>
                 <Typography variant={'subtitle'} position={[-50, -28]}>
-                    Click on data point to toggle labels
+                    Click on data points to toggle labels
                 </Typography>
                 <GridLines variant={'x'} />
                 <GridLines variant={'y'} />
