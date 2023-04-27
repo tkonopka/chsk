@@ -1,6 +1,6 @@
 import { CompleteThemeSpec, useChartData, useRawData, useTheme } from '@chsk/core'
-import { CleanSvgConfig, DownloadProps } from './types'
-import { cleanSvg, defaultCleanSvgConfig } from './cleanSvg'
+import { SvgTransformConfig, DownloadProps } from './types'
+import { transformSvg, defaultSvgTransformConfig } from './transformSvg'
 
 // modified from https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
 const downloadToFile = (data: string, filename: string) => {
@@ -17,12 +17,12 @@ const downloadToFile = (data: string, filename: string) => {
 const downloadSvgToFile = (
     id: string,
     filename: string,
-    config: CleanSvgConfig,
+    config: SvgTransformConfig,
     theme: CompleteThemeSpec
 ) => {
     const svg = document.getElementById(id)
     if (!svg) return
-    let result = cleanSvg(svg?.cloneNode(true) as HTMLElement, config, theme)?.outerHTML
+    let result = transformSvg(svg?.cloneNode(true) as HTMLElement, config, theme)?.outerHTML
     config.newlineTags.forEach(tag => {
         const closePattern = new RegExp('</' + tag + '><', 'g')
         const openPattern = new RegExp('><' + tag, 'g')
@@ -55,7 +55,7 @@ const DataDownload = ({
 
 const ImageDownload = ({
     filename,
-    cleanSvgConfig = defaultCleanSvgConfig,
+    svgTransformConfig = defaultSvgTransformConfig,
     className,
     setRole,
     children,
@@ -66,7 +66,7 @@ const ImageDownload = ({
         <g
             role={setRole ? 'download-image' : undefined}
             className={className}
-            onClick={() => downloadSvgToFile(chartData.id, filename, cleanSvgConfig, theme)}
+            onClick={() => downloadSvgToFile(chartData.id, filename, svgTransformConfig, theme)}
         >
             {children}
         </g>
@@ -76,7 +76,7 @@ const ImageDownload = ({
 export const Download = ({
     variant,
     filename,
-    cleanSvgConfig = defaultCleanSvgConfig,
+    svgTransformConfig = defaultSvgTransformConfig,
     className,
     setRole = true,
     children,
@@ -90,7 +90,7 @@ export const Download = ({
     return (
         <ImageDownload
             filename={filename}
-            cleanSvgConfig={cleanSvgConfig}
+            svgTransformConfig={svgTransformConfig}
             className={className}
             setRole={setRole}
         >

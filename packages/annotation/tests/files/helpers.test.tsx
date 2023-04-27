@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { defaultCleanSvgConfig } from '../../src/tools/cleanSvg'
+import { defaultSvgTransformConfig } from '../../src/files/transformSvg'
 import {
     roundPxDecimalPlaces,
     rgb2hex,
@@ -8,7 +8,7 @@ import {
     scanSvg,
     shakeStyles,
     changeAncestor,
-} from '../../src/tools/helpers'
+} from '../../src/files/helpers'
 import { cloneDeep } from 'lodash'
 
 describe('roundPxDecimalPlaces', () => {
@@ -212,7 +212,7 @@ describe('scanSvg', () => {
                 <circle cx={0} cy={0} r={5} />
             </svg>
         )
-        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
+        const result = scanSvg(screen.getByRole('root'), defaultSvgTransformConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect('line' in result).toBeFalsy()
@@ -225,7 +225,7 @@ describe('scanSvg', () => {
                 <circle cx={0} cy={0} r={5} className={'B C'} />
             </svg>
         )
-        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
+        const result = scanSvg(screen.getByRole('root'), defaultSvgTransformConfig)
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect(result['rect']).toContain('A')
@@ -246,7 +246,7 @@ describe('scanSvg', () => {
                 </g>
             </svg>
         )
-        const result = scanSvg(screen.getByRole('root'), defaultCleanSvgConfig)
+        const result = scanSvg(screen.getByRole('root'), defaultSvgTransformConfig)
         expect(result['circle']).toContain('A')
         expect(result['circle']).toContain('B')
         expect(result['circle']).toContain('C')
@@ -265,7 +265,7 @@ describe('scanSvg', () => {
                 </g>
             </svg>
         )
-        const config = cloneDeep(defaultCleanSvgConfig)
+        const config = cloneDeep(defaultSvgTransformConfig)
         config.skipRoles = ['skip-this']
         const result = scanSvg(screen.getByRole('root'), config)
         expect(result['circle']).toContain('A')

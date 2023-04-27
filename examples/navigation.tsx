@@ -10,14 +10,14 @@ import {
     zeroPadding,
     zeroPosition,
 } from '@chsk/core'
-import { defaultCleanSvgConfig, Download } from '@chsk/annotation'
+import { defaultSvgTransformConfig, Download } from '@chsk/annotation'
 import { iconPaths } from './iconPaths'
 
 // custom configuration for saving svg files
 // - does not export transparent rectangles used for calculating tooltip coordinates
 // - does not export icons/buttons used to download data/images
-const customCleanSvgConfig = JSON.parse(JSON.stringify(defaultCleanSvgConfig))
-customCleanSvgConfig.skipRoles = ['dimensions-reference', 'view-controller', 'downloads']
+const customSvgTransformConfig = JSON.parse(JSON.stringify(defaultSvgTransformConfig))
+customSvgTransformConfig.skipRoles = ['dimensions-reference', 'view-controller', 'downloads']
 
 // displays two text links - a data download and an image download
 export const DownloadButtons = ({
@@ -47,7 +47,7 @@ export const DownloadButtons = ({
                 <Download
                     key={'image'}
                     variant={'image'}
-                    cleanSvgConfig={customCleanSvgConfig}
+                    svgTransformConfig={customSvgTransformConfig}
                     filename={'chart.svg'}
                 >
                     <IconButton position={positionImage} variant={'image'} />

@@ -1,5 +1,5 @@
 import { roundDecimalPlaces } from '@chsk/core'
-import { CleanSvgConfig } from './types'
+import { SvgTransformConfig } from './types'
 
 /** round a pixel dimensions to a fixed number of decimal places, e.g. '2px 2.1234px' -> '2 2.123'  */
 export const roundPxDecimalPlaces = (s: string, n: number, preservePx = false): string => {
@@ -123,7 +123,7 @@ export const cleanStyle = (raw: string, n: number) => {
  */
 export const scanSvg = (
     element: HTMLElement,
-    config: CleanSvgConfig,
+    config: SvgTransformConfig,
     content?: Record<string, Set<string>>
 ): Record<string, Set<string>> => {
     const result = content ?? {}

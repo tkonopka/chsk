@@ -7,9 +7,9 @@ import {
     scanSvg,
     shakeStyles,
 } from './helpers'
-import { CleanSvgConfig } from './types'
+import { SvgTransformConfig } from './types'
 
-export const defaultCleanSvgConfig: CleanSvgConfig = {
+export const defaultSvgTransformConfig: SvgTransformConfig = {
     skipAttributes: ['transform-origin', 'svg.id'],
     skipRoles: ['dimensions-reference', 'view-controller'],
     roundAttributes: [
@@ -60,9 +60,9 @@ export const defaultCleanSvgConfig: CleanSvgConfig = {
  * @param theme object with theme, if available then css definitions will be recomputed
  * @param content object summarizing svg components and styles (for internal use)
  */
-export const cleanSvg = (
+export const transformSvg = (
     element: HTMLElement,
-    config: CleanSvgConfig = defaultCleanSvgConfig,
+    config: SvgTransformConfig = defaultSvgTransformConfig,
     theme?: CompleteThemeSpec,
     content?: Record<string, Set<string>>
 ): HTMLElement => {
@@ -143,7 +143,9 @@ export const cleanSvg = (
 
     // apply the same transformations to all child elements
     if (element.hasChildNodes())
-        element.childNodes.forEach(child => cleanSvg(child as HTMLElement, config, theme, content))
+        element.childNodes.forEach(child =>
+            transformSvg(child as HTMLElement, config, theme, content)
+        )
 
     return element
 }

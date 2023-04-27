@@ -4,7 +4,7 @@ import { Download, BoxedLabel } from '../../src'
 import { barProps } from '../decorators'
 
 export default {
-    title: 'Addons/Annotation/Misc/Download',
+    title: 'Addons/Annotation/Files/Download',
     component: Download,
 }
 

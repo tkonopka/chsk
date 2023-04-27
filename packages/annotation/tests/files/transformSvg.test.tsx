@@ -1,8 +1,7 @@
 import { render, screen } from '@testing-library/react'
-import { cleanSvg, defaultCleanSvgConfig } from '../../src/tools'
-import { cloneDeep } from 'lodash'
+import { transformSvg, defaultSvgTransformConfig } from '../../src/files'
 
-describe('cleanSvg', () => {
+describe('transformSvg', () => {
     it('rounds values in one element', () => {
         render(
             <svg>
@@ -10,7 +9,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const result = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const result = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(result.getAttribute('width')).toEqual('25.625')
         expect(raw.getAttribute('height')).toEqual('130.344827px')
         expect(result.getAttribute('height')).toEqual('130.345')
@@ -23,7 +22,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const root = screen.getByRole('root')
-        const cleanRoot = cleanSvg(root.cloneNode(true) as HTMLElement)
+        const cleanRoot = transformSvg(root.cloneNode(true) as HTMLElement)
         expect(root.outerHTML).toContain('<svg')
         expect(cleanRoot.outerHTML).toContain('<svg')
         const rect = root.querySelector('rect')
@@ -46,7 +45,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('transform')).toBeNull()
         expect(clean.getAttribute('transform')).toEqual('translate(20,50)')
     })
@@ -61,7 +60,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('transform')).toBeNull()
         expect(clean.getAttribute('transform')).toEqual('translate(29,12.5)')
     })
@@ -74,7 +73,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('transform')).toBeNull()
         expect(clean.getAttribute('transform')).toBeNull()
     })
@@ -87,7 +86,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(raw.getAttribute('style')).not.toBeNull()
         expect(clean.getAttribute('style')).toBeNull()
     })
@@ -106,7 +105,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         // width has a legitimate value, so should be preserved
         expect(raw.getAttribute('width')).not.toBeNull()
         expect(clean.getAttribute('width')).not.toBeNull()
@@ -131,7 +130,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(clean.getAttribute('stroke')).toEqual('#000000')
         expect(clean.getAttribute('fill')).toEqual('#000000')
     })
@@ -149,7 +148,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const raw = screen.getByRole('target')
-        const clean = cleanSvg(raw.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(raw.cloneNode(true) as HTMLElement)
         expect(clean.getAttribute('stroke')).toEqual('#0000ff80')
         expect(clean.getAttribute('fill')).toEqual('#0000ff80')
     })
@@ -167,7 +166,7 @@ describe('cleanSvg', () => {
         expect(svg.querySelector('circle')).not.toBeNull()
         expect(svg.querySelector('g')).not.toBeNull()
         expect(svg.querySelector('rect')).not.toBeNull()
-        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(svg.cloneNode(true) as HTMLElement)
         expect(clean.querySelector('circle')).not.toBeNull()
         expect(clean.querySelector('g')).toBeNull()
         expect(clean.querySelector('rect')).toBeNull()
@@ -192,7 +191,7 @@ describe('cleanSvg', () => {
         const svg = screen.getByRole('svg')
         expect(svg.querySelector('text')).not.toBeNull()
         expect(svg.querySelectorAll('rect')).toHaveLength(2)
-        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(svg.cloneNode(true) as HTMLElement)
         expect(clean.querySelector('text')).not.toBeNull()
         expect(clean.querySelectorAll('rect')).toHaveLength(0)
     })
@@ -208,7 +207,7 @@ describe('cleanSvg', () => {
         const svg = screen.getByRole('svg')
         expect(svg.querySelector('g')).not.toBeNull()
         expect(svg.querySelector('rect')).not.toBeNull()
-        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(svg.cloneNode(true) as HTMLElement)
         expect(clean.querySelector('g')).toBeNull()
         expect(clean.querySelector('rect')).toBeNull()
     })
@@ -225,7 +224,7 @@ describe('cleanSvg', () => {
             </svg>
         )
         const svg = screen.getByRole('svg')
-        const clean = cleanSvg(svg.cloneNode(true) as HTMLElement)
+        const clean = transformSvg(svg.cloneNode(true) as HTMLElement)
         expect(clean.querySelector('g')).toBeNull()
         expect(clean.querySelector('rect')).toBeNull()
     })
@@ -240,7 +239,7 @@ describe('cleanSvg', () => {
         )
         const svg = screen.getByRole('svg')
         expect(svg.getAttribute('id')).toBe('root')
-        const clean = cleanSvg(screen.getByRole('svg'), defaultCleanSvgConfig)
+        const clean = transformSvg(screen.getByRole('svg'), defaultSvgTransformConfig)
         expect(clean.getAttribute('id')).toBeNull()
     })
 })

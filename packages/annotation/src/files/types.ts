@@ -5,13 +5,13 @@ export interface DownloadProps extends SvgElementVariantProps {
     variant: 'data' | 'image'
     /** filename */
     filename: string
-    /** configuration for cleaning svg content */
-    cleanSvgConfig?: CleanSvgConfig
+    /** configuration for transforming svg content */
+    svgTransformConfig?: SvgTransformConfig
     /** children */
     children: ReactNode
 }
 
-export interface CleanSvgConfig {
+export interface SvgTransformConfig {
     /** attribute names to exclude from output */
     skipAttributes: string[]
     /** list of roles to exclude from output */

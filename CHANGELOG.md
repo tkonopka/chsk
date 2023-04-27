@@ -22,6 +22,9 @@
 
 ### Changed
 
+-   [annotation] changed `cleanSvg` into `transformSvg` to give a more neutral
+    note to the function; changed typings and prop names to similarly replace
+    'clean' into 'transform'
 -   [annotation] renamed prop `offset` with `distance` in `BoxedTitle` for
     consistency with convention used by axes whereby offset is always an array
     and distance is orthogonal distance
