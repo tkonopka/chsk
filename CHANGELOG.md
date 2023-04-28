@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] added more mathematical utility functions: `norm`, `angleTheta`, `clip`
 -   [repository] set up lerna caching
 -   [examples] scatter chart with several point labels
 -   [xy] support for style modifiers in `ScatterCrosshair` to change cursor

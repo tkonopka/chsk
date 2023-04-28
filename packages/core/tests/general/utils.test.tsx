@@ -5,8 +5,12 @@ import {
     deg2rad,
     relu,
     squaredDistance,
+    angleTheta,
+    clip,
+    norm,
 } from '../../src/general/utils'
 import { sortedIndex } from 'lodash'
+import { NumericPositionSpec } from '../../dist/types'
 
 describe('roundDecimalPlaces', () => {
     it('rounds to 1 decimal place', () => {
@@ -103,5 +107,71 @@ describe('squaredDistance', () => {
     it('between a two non-equivalent points', () => {
         expect(squaredDistance([0, 0], [1, 0])).toBe(1.0)
         expect(squaredDistance([2.0, 1.0], [1.0, 2.0])).toBe(2.0)
+    })
+})
+
+describe('angleTheta', () => {
+    it('between a point and itself', () => {
+        expect(angleTheta([0, 0], [0, 0])).toBe(0)
+    })
+
+    it('between horizontal points', () => {
+        expect(angleTheta([0, 0], [1, 0])).toBe(0)
+        expect(angleTheta([0.0, 0.0], [-2.0, 0.0])).toBe(Math.PI)
+    })
+
+    it('between vertical points', () => {
+        expect(angleTheta([0, 0], [0, 1])).toBe(Math.PI / 2)
+        expect(angleTheta([0.0, 0.0], [0, -1])).toBe(-Math.PI / 2)
+    })
+
+    it('angles are positive in (svg) bottom-right quadrant', () => {
+        const result = angleTheta([0, 0], [10, 10])
+        expect(result).toBeGreaterThan(0)
+        expect(result).toBeLessThan(Math.PI / 2)
+    })
+
+    it('angles are positive in (svg) bottom-left quadrant', () => {
+        const result = angleTheta([0, 0], [-10, 10])
+        expect(result).toBeGreaterThan(Math.PI / 2)
+        expect(result).toBeLessThan(Math.PI)
+    })
+
+    it('angles are negative in (svg) top-right quadrant', () => {
+        const result = angleTheta([0, 0], [10, -10])
+        expect(result).toBeLessThan(0)
+        expect(result).toBeGreaterThan(-Math.PI / 2)
+    })
+
+    it('angles are negative in (svg) top-left quadrant', () => {
+        const result = angleTheta([0, 0], [-10, -10])
+        expect(result).toBeLessThan(-Math.PI / 2)
+        expect(result).toBeGreaterThan(-Math.PI)
+    })
+})
+
+describe('norm', () => {
+    it('norm of zero position', () => {
+        expect(norm([0, 0])).toBe(0)
+    })
+
+    it('norm of non-zero position', () => {
+        expect(norm([1, 2])).toBe(Math.sqrt(1 + 4))
+    })
+})
+
+describe('clip', () => {
+    it('clip to unit interval', () => {
+        expect(clip(0, 0, 1)).toBe(0)
+        expect(clip(0.5, 0, 1)).toBe(0.5)
+        expect(clip(-0.5, 0, 1)).toBe(0)
+        expect(clip(23, 0, 1)).toBe(1)
+    })
+
+    it('clip to arbitrary interval', () => {
+        expect(clip(0, -1, 2)).toBe(0)
+        expect(clip(-0.5, -1, 2)).toBe(-0.5)
+        expect(clip(1.5, -1, 2)).toBe(1.5)
+        expect(clip(2.5, -1, 2)).toBe(2.0)
     })
 })

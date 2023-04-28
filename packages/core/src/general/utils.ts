@@ -70,3 +70,25 @@ export const relu = (x: number) => Math.max(0, x)
 export const squaredDistance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
     return (a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2
 }
+
+/** l2 norm for a point in 2 dimensions */
+export const norm = (a: NumericPositionSpec): number => {
+    return Math.sqrt(a[X] ** 2 + a[Y] ** 2)
+}
+
+/** compute angle between two points */
+export const angleTheta = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+    const deltaY = b[Y] - a[Y]
+    const deltaX = b[X] - a[X]
+    if (deltaX === 0 && deltaY === 0) return 0
+    const atan = Math.atan(deltaY / deltaX)
+    if (deltaX < 0) {
+        if (deltaY === 0) return Math.PI
+        if (deltaY > 0) return Math.PI + atan
+        if (deltaY < 0) return -Math.PI + atan
+    }
+    return atan
+}
+
+/** ensure a number x is in the interval [lower, upper] */
+export const clip = (x: number, lower: number, upper: number) => Math.max(lower, Math.min(upper, x))
