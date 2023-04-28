@@ -1,5 +1,4 @@
 import {
-    getAbsoluteCoordinate,
     rad2deg,
     OpacityMotion,
     useDimensions,
@@ -10,36 +9,37 @@ import {
     squaredDistance,
     getAbsolutePosition,
     Label,
+    X,
+    Y,
+    clip,
 } from '@chsk/core'
 import { ScatterLabelProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement } from 'react'
 
-// returns index of point that is nearest to target
-const getClosestPoint = (target: NumericPositionSpec, data: ScatterPreparedDataItem) => {
-    if (data.x.length === 1) return 0
-    let result = 0
-    let best = squaredDistance(target, [data.x[result], data.y[result]])
-    data.x.forEach((v, i) => {
-        const distanceSquared = squaredDistance(target, [v, data.y[i]])
-        if (distanceSquared < best) {
-            best = distanceSquared
-            result = i
-        }
-    })
-    return result
+// alternative distance functions
+const distanceX = (a: NumericPositionSpec, b: NumericPositionSpec) => {
+    return Math.abs(a[X] - b[X])
+}
+const distanceY = (a: NumericPositionSpec, b: NumericPositionSpec) => {
+    return Math.abs(a[Y] - b[Y])
 }
 
+type DistanceFunction = (a: NumericPositionSpec, b: NumericPositionSpec) => number
+
 // returns index of point that is nearest to target
-const getClosestPointToX = (target: number, data: ScatterPreparedDataItem, avoidIndex = -1) => {
+const getClosestPoint = (
+    target: NumericPositionSpec,
+    data: ScatterPreparedDataItem,
+    distance: DistanceFunction
+) => {
     if (data.x.length === 1) return 0
-    let result = avoidIndex !== 0 ? 0 : 1
-    let best = Math.abs(target - data.x[result])
+    let result = 0
+    let best = distance(target, [data.x[result], data.y[result]])
     data.x.forEach((v, i) => {
-        if (i === avoidIndex) return
-        const distance = Math.abs(target - v)
-        if (distance < best) {
-            best = distance
+        const value = distance(target, [v, data.y[i]])
+        if (value < best) {
+            best = value
             result = i
         }
     })
@@ -47,8 +47,9 @@ const getClosestPointToX = (target: number, data: ScatterPreparedDataItem, avoid
 }
 
 export const ScatterLabel = ({
+    variant = 'xy',
     id,
-    position,
+    position = [0, 0],
     positionUnits = 'relative',
     offset = [0, 0],
     angle = 0,
@@ -72,23 +73,13 @@ export const ScatterLabel = ({
     if (seriesIndex === undefined || data.x.length === 0) return null
 
     // convert input position to a coordinate and search for the closest data points
-    let pointIndex = 0
-    if (Array.isArray(position)) {
-        const absPosition = getAbsolutePosition(position, positionUnits, size, scales)
-        pointIndex = getClosestPoint(absPosition, data)
-    } else {
-        const value = getAbsoluteCoordinate(
-            position,
-            Array.isArray(positionUnits) ? positionUnits[0] : positionUnits,
-            size[0],
-            scales.x
-        )
-        pointIndex = getClosestPointToX(value, data)
-    }
+    const absPosition = getAbsolutePosition(position, positionUnits, size, scales)
+    const distanceFun = variant === 'xy' ? squaredDistance : variant === 'x' ? distanceX : distanceY
+    const pointIndex = getClosestPoint(absPosition, data, distanceFun)
     let point = [data.x[pointIndex], data.y[pointIndex]]
 
     if (autoRotate) {
-        const secondPointIndex = getClosestPointToX(data.x[pointIndex], data, pointIndex)
+        const secondPointIndex = clip(pointIndex - 1, 0, data.x.length)
         const secondPoint = [data.x[secondPointIndex], data.y[secondPointIndex]]
         const slope = (secondPoint[1] - point[1]) / (secondPoint[0] - point[0])
         angle = rad2deg(Math.atan(slope)) * (secondPoint[0] > point[0] ? -1 : 1)

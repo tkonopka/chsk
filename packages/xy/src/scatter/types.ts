@@ -11,9 +11,9 @@ import {
     InteractivityProps,
     LabelProps,
     LineProps,
+    LocationProps,
     NumericPositionSpec,
     PathProps,
-    PositionSpec,
     ProcessedDataContextProps,
     SizeScaleSpec,
     SvgElementProps,
@@ -115,13 +115,13 @@ export interface ScatterCurveProps
 }
 
 export interface ScatterLabelProps
-    extends SvgElementProps,
-        Omit<LabelProps, 'position'>,
+    extends SvgElementVariantProps,
+        LabelProps,
         Pick<ContainerProps, 'positionUnits'> {
+    /** variant */
+    variant?: 'xy' | 'x' | 'y'
     /** series id (defaults to first id) */
     id?: string
-    /** position along the x-axis */
-    position: number | PositionSpec
     /** set rotation automatically */
     autoRotate?: boolean
     /** component used to draw the label */
@@ -217,4 +217,22 @@ export interface ScatterCrosshairProps
     tooltipFormat?: (data: ScatterInteractiveDataItem) => string
     /** style for crosshair lines */
     style?: CssProps
+}
+
+/** label packing */
+
+export interface ScatterDataLabelsProps {
+    data: ScatterLabelProps[]
+}
+
+export interface PackingProps extends LocationProps {
+    /** radial object size */
+    r?: number
+}
+
+export interface CompletePackingProps extends LocationProps {
+    /** center position */
+    center: NumericPositionSpec
+    /** radial object size */
+    r: number
 }

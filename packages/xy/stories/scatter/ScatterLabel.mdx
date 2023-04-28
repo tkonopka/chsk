@@ -11,20 +11,30 @@ import * as ScatterLabelStories from './ScatterLabel.stories'
 
 ## Position
 
-The position of the label is specified with prop `position` and an accompanying `positionUnit`.
+The position of the label is determined by prop `position` and an accompanying `positionUnit`.
+`ScatterLabel` uses the `position` to find a nearby data point, and then creates a label at that data point.
 
-The position can be specified as a single value. In this case, the value is interpreted as the x coordinate.
-`ScatterLabel` retrieves a data point nearby that x position, and determines the vertical location for the label.
+<Canvas of={ScatterLabelStories.Position} />
 
-<Canvas of={ScatterLabelStories.Points} />
+(The example above places the label so that its center overlaps with the data point.
+In practice, the label can be adjusted away from the data point with props such as `anchor` and `offset`.)
 
-Prop `position` can also be given as a two-component array. In that case, `ScatterLabel` finds the nearest
-data point to that position, and places the location there.
+## Variant
+
+Prop `variant` modulates how the `position` is used to find a relevant data point.
+The default variant 'xy' uses euclidean distance in two dimensions to find the nearest data point.
+Variants 'x' and 'y' only consider the x- and y-coordinate, respectively.
+
+The examples below show how the alternate variants can be used to align along the chart domain, or to find extrema.
+
+<Canvas of={ScatterLabelStories.X} />
+<Canvas of={ScatterLabelStories.Y} />
 
 ## Rotation
 
 The label can be rotated with prop `angle`.
-Alternatively, a prop `autoRotate` can compute a relevant rotation angle.
+Alternatively, a prop `autoRotate` can find a relevant rotation angle.
+This calculation relies on nearby points and is suited for line charts.
 
 <Canvas of={ScatterLabelStories.ManualAngle} />
 <Canvas of={ScatterLabelStories.AutoRotation} />

@@ -6,7 +6,10 @@
 
 ### Added
 
--   [core] added more mathematical utility functions: `norm`, `angleTheta`, `clip`
+-   [xy] prop `variant` for `ScatterLabel` to place labels next to data points
+    identified according to euclidean distance in xy dimensions, or euclidean
+    distance along only one of the axes
+-   [core] mathematical utility functions: `norm`, `angleTheta`, `clip`
 -   [repository] set up lerna caching
 -   [examples] scatter chart with several point labels
 -   [xy] support for style modifiers in `ScatterCrosshair` to change cursor
@@ -23,6 +26,8 @@
 
 ### Changed
 
+-   [xy] discontinued support for single-value position in `ScatterLabel` in
+    favor of using a new prop `variant`
 -   [annotation] changed `cleanSvg` into `transformSvg` to give a more neutral
     note to the function; changed typings and prop names to similarly replace
     'clean' into 'transform'

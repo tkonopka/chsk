@@ -12,7 +12,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'linear'} position={4}>
+                    <ScatterLabel id={'linear'} position={[4, 0]}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -29,7 +29,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'quadratic'} position={1} positionUnits={'relative'}>
+                    <ScatterLabel id={'quadratic'} position={[1, 0]} positionUnits={'relative'}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -47,7 +47,12 @@ describe('ScatterLabel', () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'quadratic'} position={[8, 50]} positionUnits={'view'}>
+                    <ScatterLabel
+                        variant={'xy'}
+                        id={'quadratic'}
+                        position={[8, 50]}
+                        positionUnits={'view'}
+                    >
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -55,9 +60,55 @@ describe('ScatterLabel', () => {
         )
         const text = screen.getByRole('scatter-label').querySelector('text')
         // data has x=1..8 and y=1..64
-        // the nearest data point to [8, 50] should be [7, 49] rather than [8, 64]
+        // the nearest data point to [8, 50] should be [7, 49]
         const g = text?.closest('g')
         expect(getTransform(g ?? text, 'X')).toBeLessThan(400)
+        expect(getTransform(g ?? text, 'Y')).toBeGreaterThan(50)
+    })
+
+    it('creates a label using x coordinate', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <Scatter {...scatterProps}>
+                    <ScatterLabel
+                        variant={'x'}
+                        id={'quadratic'}
+                        position={[8, 50]}
+                        positionUnits={'view'}
+                    >
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const text = screen.getByRole('scatter-label').querySelector('text')
+        // data has x=1..8 and y=1..64
+        // the nearest data point to [8, 50] is [7, 49] in 2d, but [8, 64] in x dimensions
+        const g = text?.closest('g')
+        expect(getTransform(g ?? text, 'X')).toBeGreaterThan(350)
+        expect(getTransform(g ?? text, 'Y')).toBeLessThan(50)
+    })
+
+    it('creates a label using y coordinate', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <Scatter {...scatterProps}>
+                    <ScatterLabel
+                        variant={'y'}
+                        id={'quadratic'}
+                        position={[1, 0.5]}
+                        positionUnits={'relative'}
+                    >
+                        Label
+                    </ScatterLabel>
+                </Scatter>
+            </Chart>
+        )
+        const text = screen.getByRole('scatter-label').querySelector('text')
+        // data has x=1..8 and y=1..64
+        // middle of y axis is 32, and the nearest point is [6, 36]
+        const g = text?.closest('g')
+        expect(getTransform(g ?? text, 'X')).toBeLessThan(350)
         expect(getTransform(g ?? text, 'Y')).toBeGreaterThan(50)
     })
 
@@ -65,9 +116,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'non-existent'} position={4}>
-                        Label
-                    </ScatterLabel>
+                    <ScatterLabel id={'non-existent'}>Label</ScatterLabel>
                 </Scatter>
             </Chart>
         )
@@ -78,7 +127,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'linear'} position={4.2} autoRotate={true}>
+                    <ScatterLabel id={'linear'} position={[4.2, 4.2]} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -94,7 +143,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'linear'} position={4.8} autoRotate={true}>
+                    <ScatterLabel id={'linear'} position={[4.8, 4]} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -110,7 +159,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['linear']) }}>
                 <Scatter {...scatterProps}>
-                    <ScatterLabel id={'linear'} position={4}>
+                    <ScatterLabel id={'linear'} position={[4, 4]}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -129,7 +178,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={emptyData}>
-                    <ScatterLabel id={'empty'} position={4}>
+                    <ScatterLabel id={'empty'} position={[4, 4]}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -152,7 +201,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={verticalData}>
-                    <ScatterLabel id={'vertical'} position={0.5} autoRotate={true}>
+                    <ScatterLabel id={'vertical'} position={[0.5, 0.5]} autoRotate={true}>
                         Label
                     </ScatterLabel>
                 </Scatter>
@@ -160,8 +209,7 @@ describe('ScatterLabel', () => {
         )
         const text = screen.queryByRole('scatter-label')?.querySelector('text')
         expect(text?.textContent).toBe('Label')
-        // slope will be positive, so rotate -90
-        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-90')
+        expect(text?.closest('g')?.getAttribute('style')).toContain('90deg')
     })
 
     it('handles data series with single point', () => {
@@ -175,7 +223,7 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={singleData}>
-                    <ScatterLabel id={'single'} position={0.5} autoRotate={true}>
+                    <ScatterLabel id={'single'} position={[0.5, 0.5]} autoRotate={true}>
                         Label
                     </ScatterLabel>
                     <ScatterLabel id={'single'} position={[3, 4]} autoRotate={true}>
