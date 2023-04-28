@@ -2,6 +2,7 @@ import {
     roundDecimalPlaces,
     rad2deg,
     getMoments,
+    getCenter,
     deg2rad,
     relu,
     squaredDistance,
@@ -88,6 +89,12 @@ describe('getMoments', () => {
     it('handles single value', () => {
         const result = getMoments([5])
         expect(result).toEqual([5, NaN])
+    })
+})
+
+describe('getCenter', () => {
+    it('computes center of an anchored box', () => {
+        expect(getCenter([0, 0], [10, 10], [0.5, 1], [0, 0])).toEqual([0, -5])
     })
 })
 

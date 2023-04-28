@@ -54,6 +54,17 @@ export const getAnchoredOrigin = (
     return [position[X] - anchor[X] * size[X], position[Y] - anchor[Y] * size[Y]]
 }
 
+/** get center of a box */
+export const getCenter = (
+    position: NumericPositionSpec,
+    size: SizeSpec,
+    anchor: AnchorSpec,
+    offset: NumericPositionSpec
+): NumericPositionSpec => {
+    const corner = getAnchoredOrigin(position, size, anchor)
+    return [corner[X] + size[X] / 2 + offset[X], corner[Y] + size[Y] / 2 + offset[Y]]
+}
+
 /** vector addition */
 export const addPositions = (
     a: NumericPositionSpec,

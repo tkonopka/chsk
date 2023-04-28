@@ -221,18 +221,23 @@ export interface ScatterCrosshairProps
 
 /** label packing */
 
-export interface ScatterDataLabelsProps {
-    data: ScatterLabelProps[]
+export interface ScatterChargedLabelData extends LocationProps {
+    id: string
+    index: number
+    content: ReactNode
 }
 
-export interface PackingProps extends LocationProps {
-    /** radial object size */
-    r?: number
-}
-
-export interface CompletePackingProps extends LocationProps {
-    /** center position */
-    center: NumericPositionSpec
-    /** radial object size */
-    r: number
+export interface ScatterChargedLabelsProps
+    extends SvgElementProps,
+        Pick<ScatterLabelProps, 'component' | 'offset' | 'anchor'> {
+    /** collection of labels */
+    data: ScatterChargedLabelData[]
+    /** distance between data points and label */
+    clearance?: number
+    /** maximum number of iterations in label placement calculations */
+    maxIterations?: number
+    /** maximum displacement of a label at each iteration */
+    maxDelta?: number
+    /** minimum label displacement at each iteration */
+    minDelta?: number
 }

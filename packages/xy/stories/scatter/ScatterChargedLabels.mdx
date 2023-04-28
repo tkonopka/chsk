@@ -1,0 +1,65 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as ScatterChargedLabelsStories from './ScatterChargedLabels.stories'
+
+# ScatterChargedLabels
+
+<Meta of={ScatterChargedLabelsStories} />
+
+`ScatterChargedLabels` draws a set of labels on a scatter plot, automatically adjusting their positions to avoid overlaps.
+
+<ArgTypes of={ScatterChargedLabelsStories} />
+
+## Data
+
+`ScatterChargedLabels` requires a data object specifying the data points to label.
+This object should be an array, with each element holding an `id` of the data series,
+an `index` specifying the data point in the series to label, a `size` array to set the
+size of the label, and a `content` field holding the text inside the label.
+
+The pseudocode below demonstrates the required format.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "index": 0,
+   "size": [60, 25],
+   "content": "label content"
+   },
+  ...
+  ]
+  `}
+/>
+
+## Label position
+
+The position of each label is determined automatically.
+By default, a label appear directly above a data point.
+If placing a label above a data point would interfere with existing data points,
+the labels may shift slightly, as in the second example below.
+
+<Canvas of={ScatterChargedLabelsStories.TwoA} />
+<Canvas of={ScatterChargedLabelsStories.TwoB} />
+
+## Offset
+
+Prop `offset` determines an initial shift of the label from its associated data point.
+This prop can determine if a label is pushed above, below, or to the side of the data.
+
+<Canvas of={ScatterChargedLabelsStories.Offset} />
+
+Note that values in this prop should be small.
+The values are only meant to orient the initial direction of label displacement;
+after the initial displacement, much of the label adjustments are determined by prop `clearance` (see below).
+
+## Clearance
+
+Prop `clearance` determines the space between a data point and its label.
+
+<Canvas of={ScatterChargedLabelsStories.Clearance} />
+
+Clearance calculations takes the size of each data point into account.
+
+<Canvas of={ScatterChargedLabelsStories.Bubbles} />

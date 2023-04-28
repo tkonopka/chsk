@@ -51,7 +51,6 @@ export const ScatterLabel = ({
     id,
     position = [0, 0],
     positionUnits = 'relative',
-    offset = [0, 0],
     angle = 0,
     autoRotate = false,
     component = Label,
@@ -76,7 +75,7 @@ export const ScatterLabel = ({
     const absPosition = getAbsolutePosition(position, positionUnits, size, scales)
     const distanceFun = variant === 'xy' ? squaredDistance : variant === 'x' ? distanceX : distanceY
     const pointIndex = getClosestPoint(absPosition, data, distanceFun)
-    let point = [data.x[pointIndex], data.y[pointIndex]]
+    let point: NumericPositionSpec = [data.x[pointIndex], data.y[pointIndex]]
 
     if (autoRotate) {
         const secondPointIndex = clip(pointIndex - 1, 0, data.x.length)
@@ -90,7 +89,7 @@ export const ScatterLabel = ({
     const result = createElement(
         component,
         {
-            position: [point[0] + offset[0], point[1] + offset[1]],
+            position: point,
             angle,
             className: compositeClassName,
             setRole,
