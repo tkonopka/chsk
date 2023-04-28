@@ -66,8 +66,9 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
                     <ScatterLabel
+                        variant={'x'}
                         id={'control'}
-                        position={500}
+                        position={[500, 0]}
                         offset={[10, 0]}
                         style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
                     >
@@ -88,8 +89,9 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
                     <ScatterLabel
+                        variant={'x'}
                         id={'treated'}
-                        position={500}
+                        position={[500, 0]}
                         offset={[10, 0]}
                         style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
                     >
