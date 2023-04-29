@@ -1,5 +1,4 @@
-import { uniq } from 'lodash'
-import { getTickCoordinates, useScales } from '../scales'
+import { getTickCoordinates, getTicks, useScales } from '../scales'
 import { useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
@@ -20,44 +19,34 @@ const UnthemedGridLines = ({
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y
 
-    // compute locations for tick marks, avoiding drawing multiple lines with uniq
-    const tickCoordinates = uniq(shift.map(s => getTickCoordinates(scale, values, s)).flat())
+    // compute locations for grid lines, avoiding duplicate positions
+    const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
+    const coordinates = new Set<number>()
+    type KeyValue = [string, number]
+    const tickCoordinates: KeyValue[] = []
+    shift.map(s => {
+        getTickCoordinates(scale, tickValues, s).map((v, i) => {
+            if (!coordinates.has(v)) {
+                tickCoordinates.push([String(tickValues[i]) + s, v])
+                coordinates.add(v)
+            }
+        })
+    })
 
     // extension of gridlines across the natural view boundaries
     const [e1, e2] = Array.isArray(expansion)
         ? [expansion[0], expansion[1]]
         : [expansion, expansion]
 
-    let result
-    if (isX) {
-        result = tickCoordinates?.map(v => (
-            <Line
-                key={'x-' + v}
-                variant={'grid'}
-                x1={v}
-                x2={v}
-                y1={-e1}
-                y2={size[Y] + e2}
-                className={className}
-                style={style}
-                setRole={false}
-            />
-        ))
-    } else {
-        result = tickCoordinates?.map(v => (
-            <Line
-                key={'y-' + v}
-                variant={'grid'}
-                x1={-e1}
-                x2={size[X] + e2}
-                y1={v}
-                y2={v}
-                className={className}
-                style={style}
-                setRole={false}
-            />
-        ))
-    }
+    const lineProps = { variant: 'grid', className, style, setRole: false }
+    const result = isX
+        ? tickCoordinates.map(kv => (
+              <Line key={kv[0]} {...lineProps} x1={kv[1]} x2={kv[1]} y1={-e1} y2={size[Y] + e2} />
+          ))
+        : tickCoordinates.map(kv => (
+              <Line key={kv[0]} {...lineProps} x1={-e1} x2={size[X] + e2} y1={kv[1]} y2={kv[1]} />
+          ))
+
     return <g role={setRole ? 'grid-lines' : undefined}>{result}</g>
 }
 
