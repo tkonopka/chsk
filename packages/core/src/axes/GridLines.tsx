@@ -30,9 +30,9 @@ const UnthemedGridLines = ({
 
     let result
     if (isX) {
-        result = tickCoordinates?.map((v: number, i: number) => (
+        result = tickCoordinates?.map(v => (
             <Line
-                key={'x-' + i}
+                key={'x-' + v}
                 variant={'grid'}
                 x1={v}
                 x2={v}
@@ -44,9 +44,9 @@ const UnthemedGridLines = ({
             />
         ))
     } else {
-        result = tickCoordinates?.map((v: number, i: number) => (
+        result = tickCoordinates?.map(v => (
             <Line
-                key={'y-' + i}
+                key={'y-' + v}
                 variant={'grid'}
                 x1={-e1}
                 x2={size[X] + e2}

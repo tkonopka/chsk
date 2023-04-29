@@ -28,6 +28,8 @@
 
 ### Changed
 
+-   [core] fixed internal keys in `GridLines` to avoid lines switching
+    position during panning
 -   [xy] discontinued support for single-value position in `ScatterLabel` in
     favor of using a new prop `variant`
 -   [annotation] changed `cleanSvg` into `transformSvg` to give a more neutral
@@ -50,7 +52,7 @@
     readability and for compatibility with new onEnter prop
 -   [core] stopped including variant in role string in components related to
     axes
--   [documentation] upgraded storybook to v7.0.3
+-   [documentation] upgraded storybook to v7
 -   [core] fixed bug with handlers in `DataComponent` and
     `TooltipDataComponent` leading to some missed and some redundant function
     calls
