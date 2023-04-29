@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
     Chart,
     Axis,
@@ -14,7 +15,16 @@ import {
     ViewController,
     ViewClip,
 } from '@chsk/core'
-import { Scatter, ScatterPoints, ScatterCrosshair, isScatterData } from '@chsk/xy'
+import {
+    Scatter,
+    ScatterPoints,
+    ScatterCrosshair,
+    isScatterData,
+    ScatterSelectedLabelData,
+    ScatterInteractiveDataItem,
+    ScatterSelectedLabels,
+} from '@chsk/xy'
+import { BoxedLabel } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
 import { schemeDark2 } from 'd3-scale-chromatic'
 import { generateXYValues } from './generators'
@@ -58,6 +68,13 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
             strokeWidth: 1,
         },
     },
+    rect: {
+        scatterLabel: {
+            fill: '#ffffff',
+            stroke: '#222222',
+            strokeWidth: 1,
+        },
+    },
     g: {
         'sizeScale g.legendItem:hover': {
             cursor: 'auto',
@@ -87,6 +104,26 @@ const customTooltipLabel = (x: TooltipDataItem) => {
 
 export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
+
+    // tracking of labels
+    const [labels, setLabels] = useState<Array<ScatterSelectedLabelData>>([])
+    const toggleLabel = (x?: ScatterInteractiveDataItem) => {
+        if (!x) return
+        const xLabel = x.id + ' ' + x.index
+        const hit = labels.map(label => label.id === x.id && label.content === xLabel).indexOf(true)
+        if (hit === -1) {
+            const newLabel: ScatterSelectedLabelData = {
+                id: x.id,
+                index: x.index ?? 0,
+                size: [10 + xLabel.length * 9, 26],
+                content: xLabel,
+            }
+            setLabels([...labels, newLabel])
+        } else {
+            setLabels([...labels.slice(0, hit), ...labels.slice(hit + 1, labels.length)])
+        }
+    }
+
     return (
         <Chart
             data={chartData}
@@ -114,7 +151,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 scaleSize={{
                     variant: 'sqrt',
                     domain: 'auto',
-                    size: 15,
+                    size: 20,
                 }}
                 scaleColor={{
                     variant: 'categorical',
@@ -131,9 +168,11 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                     <ViewClip id={'points'}>
                         <ScatterPoints symbolClassName="custom" />
                         <ScatterCrosshair
-                            symbolStyle={{ stroke: '#ssssss', strokeWidth: 1, fillOpacity: 1 }}
+                            symbolStyle={{ stroke: '#000000', strokeWidth: 1, fillOpacity: 1 }}
                             style={{ stroke: '#000000' }}
+                            handlers={{ onClick: toggleLabel }}
                         />
+                        <ScatterSelectedLabels data={labels} component={BoxedLabel} />
                     </ViewClip>
                     <Tooltip
                         offset={[16, -16]}
@@ -146,10 +185,8 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'legend'}>
                     <Legend
-                        position={[635, 470]}
-                        positionUnits={'absolute'}
-                        size={[110, 60]}
-                        sizeUnits={'absolute'}
+                        offset={[12, 0]}
+                        position={[1, 1]}
                         anchor={[0, 1]}
                         padding={[0, 12, 0, 12]}
                         r={9}
@@ -160,13 +197,11 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                         firstOffset={[0, 4]}
                     />
                     <Legend
-                        position={[635, 340]}
-                        positionUnits={'absolute'}
-                        size={[110, 100]}
-                        sizeUnits={'absolute'}
+                        variant={'size'}
+                        offset={[12, -190]}
+                        position={[1, 1]}
                         anchor={[0, 1]}
                         padding={[0, 12, 0, 12]}
-                        variant={'size'}
                         itemSize={[80, 22]}
                         itemPadding={[2, 2, 2, 2]}
                         title={'Size scale'}

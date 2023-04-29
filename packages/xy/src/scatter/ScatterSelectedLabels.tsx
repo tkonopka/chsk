@@ -1,14 +1,14 @@
 import { OpacityMotion, useDisabledKeys, NumericPositionSpec, Label, getCenter } from '@chsk/core'
 import {
-    ScatterChargedLabelsProps,
-    ScatterChargedLabelData,
+    ScatterSelectedLabelsProps,
+    ScatterSelectedLabelData,
     ScatterPreparedDataItem,
 } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { blockObject, BlockObject, arrangeBlockObjects } from './charges'
 
-export const ScatterChargedLabels = ({
+export const ScatterSelectedLabels = ({
     data,
     component = Label,
     anchor = [0.5, 0.5],
@@ -20,7 +20,7 @@ export const ScatterChargedLabels = ({
     className,
     style,
     setRole = true,
-}: ScatterChargedLabelsProps) => {
+}: ScatterSelectedLabelsProps) => {
     const preparedData = useScatterPreparedData()
     const { disabledKeys, firstRender } = useDisabledKeys()
 
@@ -36,12 +36,12 @@ export const ScatterChargedLabels = ({
         return result
     }, [preparedData, disabledKeys])
 
-    const seriesFilter = (item: ScatterChargedLabelData) => {
+    const seriesFilter = (item: ScatterSelectedLabelData) => {
         return !disabledKeys.has(item.id) && preparedData.seriesIndexes[item.id] !== undefined
     }
     const active = data.filter(seriesFilter)
     const labels = useMemo(() => {
-        return data.filter(seriesFilter).map((item: ScatterChargedLabelData) => {
+        return data.filter(seriesFilter).map((item: ScatterSelectedLabelData) => {
             const seriesIndex = preparedData.seriesIndexes[item.id]
             const seriesData = preparedData.data[seriesIndex]
             const position: NumericPositionSpec = [
@@ -74,7 +74,7 @@ export const ScatterChargedLabels = ({
             component,
             {
                 key: 'label-' + String(active[i].content),
-                variant: 'scatter-charged-label',
+                variant: 'scatter-label',
                 style,
                 className,
                 ...active[i],
@@ -87,7 +87,7 @@ export const ScatterChargedLabels = ({
 
     return (
         <OpacityMotion
-            role={setRole ? 'scatter-charged-labels' : undefined}
+            role={setRole ? 'scatter-selected-labels' : undefined}
             firstRender={firstRender}
         >
             {result}

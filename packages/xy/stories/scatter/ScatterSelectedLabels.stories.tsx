@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Chart, Axis } from '@chsk/core'
-import { Scatter, ScatterPoints, ScatterChargedLabels } from '../../src'
+import { Scatter, ScatterPoints, ScatterSelectedLabels } from '../../src'
 
 const dataTwo = [
     {
@@ -23,11 +23,11 @@ const dataBubbles = [
 ]
 
 export default {
-    title: 'Addons/XY/Scatter/ScatterChargedLabels',
-    component: ScatterChargedLabels,
+    title: 'Addons/XY/Scatter/ScatterSelectedLabels',
+    component: ScatterSelectedLabels,
 }
 
-const TwoChargedLabelsDecorator = (Story: () => ReactNode) => (
+const TwoSelectedLabelsDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Scatter
             data={dataTwo}
@@ -49,7 +49,7 @@ const TwoChargedLabelsDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
-const BubbleChargedLabelsDecorator = (Story: () => ReactNode) => (
+const BubbleSelectedLabelsDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
         <Scatter
             data={dataBubbles}
@@ -78,14 +78,14 @@ export const TwoA = {
     args: {
         data: [{ id: 'A', index: 0, size: [60, 16], content: 'label A' }],
     },
-    decorators: [TwoChargedLabelsDecorator],
+    decorators: [TwoSelectedLabelsDecorator],
 }
 export const TwoB = {
     name: 'beside point',
     args: {
         data: [{ id: 'A', index: 1, size: [60, 16], content: 'label B' }],
     },
-    decorators: [TwoChargedLabelsDecorator],
+    decorators: [TwoSelectedLabelsDecorator],
 }
 
 export const Offset = {
@@ -94,7 +94,7 @@ export const Offset = {
         data: [{ id: 'A', index: 0, size: [60, 16], content: 'label A' }],
         offset: [0, 0.1],
     },
-    decorators: [TwoChargedLabelsDecorator],
+    decorators: [TwoSelectedLabelsDecorator],
 }
 
 export const Clearance = {
@@ -106,7 +106,7 @@ export const Clearance = {
         ],
         clearance: 2,
     },
-    decorators: [TwoChargedLabelsDecorator],
+    decorators: [TwoSelectedLabelsDecorator],
 }
 
 export const Bubbles = {
@@ -118,5 +118,5 @@ export const Bubbles = {
         ],
         clearance: 4,
     },
-    decorators: [BubbleChargedLabelsDecorator],
+    decorators: [BubbleSelectedLabelsDecorator],
 }

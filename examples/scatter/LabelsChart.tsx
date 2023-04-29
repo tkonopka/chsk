@@ -16,8 +16,8 @@ import {
     ScatterPoints,
     ScatterCrosshair,
     ScatterInteractiveDataItem,
-    ScatterChargedLabelData,
-    ScatterChargedLabels,
+    ScatterSelectedLabelData,
+    ScatterSelectedLabels,
 } from '@chsk/xy'
 import { BoxedLabel } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
@@ -74,7 +74,7 @@ const CustomLabel = (props: LabelProps) => {
 
 export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     // on first render, create one label to display a non-trivial chart scene
-    let firstLabels: ScatterChargedLabelData[] = []
+    let firstLabels: ScatterSelectedLabelData[] = []
     if (isScatterData(rawData)) {
         const labelString = String(rawData[0].data[0].label)
         firstLabels = [
@@ -86,7 +86,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             },
         ]
     }
-    const [labels, setLabels] = useState<Array<ScatterChargedLabelData>>(firstLabels)
+    const [labels, setLabels] = useState<Array<ScatterSelectedLabelData>>(firstLabels)
     if (!isScatterData(rawData)) return null
 
     // upon click, add/remove an element from the visible labels array
@@ -95,7 +95,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
         const xLabel = String(x.original?.['label'])
         const hit = labels.map(label => label.id === x.id && label.content === xLabel).indexOf(true)
         if (hit === -1) {
-            const newLabel: ScatterChargedLabelData = {
+            const newLabel: ScatterSelectedLabelData = {
                 id: x.id,
                 index: x.index ?? 0,
                 size: [10 + xLabel.length * 9, 26],
@@ -133,7 +133,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Axis variant={'bottom'} ticks={6} label={'A (a.u.)'} />
                 <Axis variant={'left'} ticks={6} label={'B (a.u.)'} />
                 <ScatterPoints />
-                <ScatterChargedLabels data={labels} component={CustomLabel} />
+                <ScatterSelectedLabels data={labels} component={CustomLabel} />
                 <ScatterCrosshair
                     minDistance={16}
                     symbolStyle={{ fill: '#dd0000' }}

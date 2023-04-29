@@ -35,13 +35,7 @@ export const blockObject = (
     size?: SizeSpec,
     r?: number
 ): BlockObject => {
-    const result: BlockObject = [-1, -1, -1, -1, -1]
-    result[X] = center[X]
-    result[Y] = center[Y]
-    if (r === undefined && size === undefined) {
-        result[R] = 0
-        return result
-    }
+    const result: BlockObject = [center[X], center[Y], -1, -1, 0]
     if (size) {
         result[W] = size[X]
         result[H] = size[Y]

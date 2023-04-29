@@ -6,7 +6,7 @@
 
 ### Added
 
--   [xy] component `ScatterChargedLabels` to display labels linked to data
+-   [xy] component `ScatterSelectedLabels` to display labels linked to data
     points
 -   [xy] prop `variant` for `ScatterLabel` to place labels next to data points
     identified according to euclidean distance in xy dimensions, or euclidean
