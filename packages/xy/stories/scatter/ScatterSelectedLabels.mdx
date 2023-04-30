@@ -57,9 +57,42 @@ after the initial displacement, much of the label adjustments are determined by 
 ## Clearance
 
 Prop `clearance` determines the space between a data point and its label.
+The value is a guide only, and actual distances between data points and labels may vary as a result of
+data configurations, including data point radii.
 
 <Canvas of={ScatterSelectedLabelsStories.Clearance} />
-
-Clearance calculations takes the size of each data point into account.
-
 <Canvas of={ScatterSelectedLabelsStories.Bubbles} />
+
+## Symbol
+
+Prop `symbol` accepts a function for creating symbols for data points.
+By default, `symbol` is unspecified and `ScatterSelectedLabels` creates only text labels.
+Setting this prop to a non-null function can be useful to highlight the data points that are associated with labels.
+The prop is often used together with `symbolStyle` and `symbolClassName`.
+
+Below, several data points are located near one another.
+The text label is automatically placed away from the data points to avoid overlaps, and custom styling can help
+convey that the label is associated with a specific data point.
+
+<Canvas of={ScatterSelectedLabelsStories.Grid} />
+
+## Connector
+
+Prop `connector` accepts a function for creating lines between the data point and the label.
+By default, `connector` is unspecified and `ScatterSelectedLabels` does not draw any connector.
+A suitable value is the `Line` component, which draws a straight connecting line.
+
+<Canvas of={ScatterSelectedLabelsStories.Connector} />
+
+In the example above, the line overlaps the data point as well as the text label.
+An improved appearance can be achieved by using the connector along with `symbol` (see above)
+and a custom text style.
+
+<Canvas of={ScatterSelectedLabelsStories.SymbolConnector} />
+
+## Custom components
+
+Further adjustments should typically be delegated to custom implementations for props `component`,
+`symbol`, and `connector`. The add-on package `@chsk/annotation` offers some support in this direction.
+
+<Canvas of={ScatterSelectedLabelsStories.Custom} />

@@ -1,5 +1,5 @@
 import { roundDecimalPlaces } from '@chsk/core'
-import { convolution, curvePoints, downsample } from '../../src/scatter'
+import { convolution, curvePoints, downsample } from '../../src/scatter/signals'
 
 const round2dp = (x: number) => roundDecimalPlaces(x, 2)
 

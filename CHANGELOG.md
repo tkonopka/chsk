@@ -28,6 +28,8 @@
 
 ### Changed
 
+-   [xy] removed `signals.tsx` from exports because functions are only used
+    internally in xy package
 -   [core] fixed internal keys in `GridLines` to avoid lines switching
     position during panning
 -   [xy] discontinued support for single-value position in `ScatterLabel` in

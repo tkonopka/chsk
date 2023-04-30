@@ -229,9 +229,16 @@ export interface ScatterSelectedLabelData extends LocationProps {
 
 export interface ScatterSelectedLabelsProps
     extends SvgElementProps,
-        Pick<ScatterLabelProps, 'component' | 'offset' | 'anchor'> {
+        Pick<ScatterLabelProps, 'component' | 'offset' | 'anchor'>,
+        Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'> {
     /** collection of labels */
     data: ScatterSelectedLabelData[]
+    /** connector line between data point and label */
+    connector?: FC<LineProps>
+    /** style for connector line */
+    connectorStyle?: CssProps
+    /** style class for connector line */
+    connectorClassName?: string
     /** distance between data points and label */
     clearance?: number
     /** maximum number of iterations in label placement calculations */

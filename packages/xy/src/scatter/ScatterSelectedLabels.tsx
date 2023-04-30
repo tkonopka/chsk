@@ -1,29 +1,65 @@
-import { OpacityMotion, useDisabledKeys, NumericPositionSpec, Label, getCenter } from '@chsk/core'
+import {
+    OpacityMotion,
+    useDisabledKeys,
+    NumericPositionSpec,
+    Label,
+    getCenter,
+    useScales,
+    useProcessedData,
+    X,
+    Y,
+} from '@chsk/core'
 import {
     ScatterSelectedLabelsProps,
     ScatterSelectedLabelData,
     ScatterPreparedDataItem,
+    ScatterDataContextProps,
 } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { blockObject, BlockObject, arrangeBlockObjects } from './charges'
+import { createActiveSymbol } from './overlays'
+import { useSymbolData } from './helpers'
+
+const getPointPosition = (
+    id: string,
+    index: number,
+    preparedData: ScatterDataContextProps
+): { position: NumericPositionSpec; r: number } => {
+    const seriesIndex = preparedData.seriesIndexes[id]
+    const seriesData = preparedData.data[seriesIndex]
+    return { position: [seriesData.x[index], seriesData.y[index]], r: seriesData.r[index] }
+}
 
 export const ScatterSelectedLabels = ({
     data,
     component = Label,
     anchor = [0.5, 0.5],
     offset = [0, -0.1],
+    // symbol
+    symbol,
+    symbolStyle,
+    symbolClassName,
+    // connector
+    connector,
+    connectorStyle,
+    connectorClassName,
+    // layout
     clearance = 8,
     maxIterations = 10,
     maxDelta = 20,
     minDelta = 0.1,
+    //svg
     className,
     style,
     setRole = true,
 }: ScatterSelectedLabelsProps) => {
+    const processedData = useProcessedData().data
     const preparedData = useScatterPreparedData()
+    const { scales } = useScales()
     const { disabledKeys, firstRender } = useDisabledKeys()
 
+    const symbolData = useSymbolData(processedData, preparedData)
     const obstacles = useMemo(() => {
         const result: BlockObject[] = []
         preparedData.data.map((seriesData: ScatterPreparedDataItem) => {
@@ -42,19 +78,14 @@ export const ScatterSelectedLabels = ({
     const active = data.filter(seriesFilter)
     const labels = useMemo(() => {
         return data.filter(seriesFilter).map((item: ScatterSelectedLabelData) => {
-            const seriesIndex = preparedData.seriesIndexes[item.id]
-            const seriesData = preparedData.data[seriesIndex]
-            const position: NumericPositionSpec = [
-                seriesData.x[item.index],
-                seriesData.y[item.index],
-            ]
+            const { position, r } = getPointPosition(item.id, item.index, preparedData)
             const center = getCenter(
                 position,
                 item.size ?? [0, 0],
                 item.anchor ?? anchor,
                 item.offset ?? offset
             )
-            return blockObject(center, item.size, seriesData.r[item.index])
+            return blockObject(center, item.size, r)
         })
     }, [preparedData, disabledKeys])
 
@@ -69,19 +100,59 @@ export const ScatterSelectedLabels = ({
         })
     }, [labels, obstacles])
 
-    const result = packed.map((item, i) => {
-        return createElement(
+    const result = active.map((item, i) => {
+        const seriesIndex = preparedData.seriesIndexes[item.id]
+        const activeData = symbolData[seriesIndex][item.index]
+        const { position } = getPointPosition(item.id, item.index, preparedData)
+        const itemSymbol = symbol
+            ? createActiveSymbol({
+                  activeData,
+                  coordinates: position,
+                  scales,
+                  seriesIndex,
+                  symbol,
+                  symbolStyle,
+                  symbolClassName,
+                  setRole: false,
+              })
+            : null
+        const itemConnector = connector
+            ? createElement(connector, {
+                  key: 'connector',
+                  variant: 'scatter-label',
+                  style: connectorStyle,
+                  className: connectorClassName,
+                  x1: position[X],
+                  y1: position[Y],
+                  x2: packed[i].position[X],
+                  y2: packed[i].position[Y],
+                  setRole: false,
+              })
+            : null
+        const itemLabel = createElement(
             component,
             {
-                key: 'label-' + String(active[i].content),
+                key: 'label',
                 variant: 'scatter-label',
                 style,
                 className,
-                ...active[i],
-                position: item.position,
-                anchor: item.anchor,
+                ...item,
+                position: packed[i].position,
+                anchor: [0.5, 0.5],
+                setRole: false,
             },
             active[i].content
+        )
+
+        return (
+            <g
+                key={'label-' + String(active[i].content)}
+                role={setRole ? 'scatter-selected-label' : undefined}
+            >
+                {itemConnector}
+                {itemSymbol}
+                {itemLabel}
+            </g>
         )
     })
 
