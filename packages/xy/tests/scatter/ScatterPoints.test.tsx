@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterPoints } from '../../src/scatter'
+import { Chart, useProcessedData, View } from '@chsk/core'
+import { Scatter, ScatterPoints, useScatterPreparedData } from '../../src/scatter'
 import { scatterProps, timeScatterProps } from './scatter.props'
+import { useSymbolData } from '../../src/scatter/helpers'
 
 describe('ScatterPoints', () => {
     it('creates a series of circles', () => {
@@ -133,5 +134,23 @@ describe('ScatterPoints', () => {
             </Chart>
         )
         expect(screen.queryByRole('scatter-points')).toBeNull()
+    })
+
+    it('symbolData hook skips work in non-scatter context', () => {
+        let result: unknown[] = []
+        const CustomWithHook = () => {
+            const processedData = useProcessedData()
+            const preparedData = useScatterPreparedData()
+            result = useSymbolData(processedData.data, preparedData)
+            return null
+        }
+        render(
+            <Chart>
+                <View data={[{ id: 'a' }]}>
+                    <CustomWithHook />
+                </View>
+            </Chart>
+        )
+        expect(result).toHaveLength(0)
     })
 })

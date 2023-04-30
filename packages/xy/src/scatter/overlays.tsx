@@ -29,12 +29,11 @@ export const createCrosshairLines = ({
     setRole?: boolean
     className?: string
 }) => {
-    if (coordinates === undefined) return null
     return (
         <>
             {variant === 'default' || variant === 'vertical' ? (
                 <Line
-                    key={'vertical'}
+                    key={'v'}
                     variant={'crosshair'}
                     x1={coordinates[X]}
                     x2={coordinates[X]}
@@ -47,7 +46,7 @@ export const createCrosshairLines = ({
             ) : null}
             {variant === 'default' || variant === 'horizontal' ? (
                 <Line
-                    key={'horizontal'}
+                    key={'h'}
                     variant={'crosshair'}
                     x1={0}
                     x2={size[X]}

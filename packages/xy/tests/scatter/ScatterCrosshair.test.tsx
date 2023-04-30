@@ -1,7 +1,8 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterCrosshair } from '../../src'
+import { Scatter, ScatterCrosshair, ScatterPoints } from '../../src'
 import { scatterProps } from './scatter.props'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('ScatterCrosshair', () => {
     it('creates a rectangle for detecting mouse events', () => {
@@ -110,5 +111,31 @@ describe('ScatterCrosshair', () => {
         await waitFor(() => {
             expect(screen.queryByRole('crosshair-presence')).toBeNull()
         })
+    })
+
+    it('targets only active series', async () => {
+        render(
+            <Chart
+                size={[400, 300]}
+                padding={[0, 0, 0, 0]}
+                data={{ disabledKeys: new Set<string>(['quadratic']) }}
+            >
+                <Scatter {...scatterProps}>
+                    <ScatterPoints />
+                    <ScatterCrosshair variant={'horizontal'} />
+                </Scatter>
+            </Chart>
+        )
+        const detector = screen.getByRole('crosshair-detector')
+        // trigger mouse near top-right corner
+        // although the quadratic series has a point in top-right quadrant
+        // the nearest point in the linear series is the lower half
+        fireEvent.mouseMove(detector, { clientX: 200, clientY: 15 })
+        await waitFor(() => {
+            expect(screen.queryByRole('crosshair-presence')).toBeDefined()
+        })
+        const line = screen.getByRole('scatter-crosshair').querySelector('line')
+        expect(getNumberAttr(line, 'y1')).toBeGreaterThan(150)
+        expect(getNumberAttr(line, 'y2')).toBeGreaterThan(150)
     })
 })

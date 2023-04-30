@@ -194,6 +194,7 @@ describe('ScatterLabel', () => {
                 data: [
                     { x: 1, y: 2 },
                     { x: 1, y: 4 },
+                    { x: 1, y: 6 },
                     { x: 3, y: 6 },
                 ],
             },
@@ -201,7 +202,12 @@ describe('ScatterLabel', () => {
         render(
             <Chart>
                 <Scatter {...scatterProps} data={verticalData}>
-                    <ScatterLabel id={'vertical'} position={[0.5, 0.5]} autoRotate={true}>
+                    <ScatterLabel
+                        id={'vertical'}
+                        position={[0.5, 5.5]}
+                        positionUnits={'view'}
+                        autoRotate={true}
+                    >
                         Label
                     </ScatterLabel>
                 </Scatter>

@@ -1,19 +1,18 @@
+import { ScatterProps } from '../../src/scatter'
 import dataPolynomials from './dataPolynomials.json'
 
-export const scatterProps = {
+export const scatterProps: ScatterProps = {
     data: dataPolynomials,
     x: 'x',
     y: 'y',
-    r: 5,
+    valueSize: 5,
     scaleX: {
-        variant: 'linear' as const,
-        min: 0,
-        max: 8,
+        variant: 'linear',
+        domain: [0, 8],
     },
     scaleY: {
-        variant: 'linear' as const,
-        min: 0,
-        max: 64,
+        variant: 'linear',
+        domain: [0, 64],
     },
 }
 

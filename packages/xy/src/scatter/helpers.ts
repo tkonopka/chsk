@@ -113,7 +113,6 @@ export const useTargets = (preparedData: ScatterDataContextProps, disabledKeys: 
         preparedData.keys.forEach(id => {
             if (disabledKeys.has(id)) return
             const seriesIndex = preparedData.seriesIndexes[id]
-            if (seriesIndex === undefined) return
             const data = preparedData.data[seriesIndex]
             data.r.forEach((r: number, index: number) => {
                 result.push([data.x[index], data.y[index], seriesIndex, index])
