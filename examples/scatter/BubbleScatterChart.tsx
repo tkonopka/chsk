@@ -71,7 +71,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     rect: {
         scatterLabel: {
             fill: '#ffffff',
-            stroke: '#222222',
+            stroke: '#000000',
             strokeWidth: 1,
         },
     },
@@ -86,6 +86,10 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
         },
         legendSymbol: {
             fillOpacity: 1,
+        },
+        active: {
+            strokeWidth: 1.5,
+            pointerEvents: 'none',
         },
     },
 })
@@ -109,6 +113,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
     const [labels, setLabels] = useState<Array<ScatterSelectedLabelData>>([])
     const toggleLabel = (x?: ScatterInteractiveDataItem) => {
         if (!x) return
+        console.log('labels ' + JSON.stringify(labels) + ' x ' + JSON.stringify(x))
         const xLabel = x.id + ' ' + x.index
         const hit = labels.map(label => label.id === x.id && label.content === xLabel).indexOf(true)
         if (hit === -1) {
@@ -171,8 +176,14 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                             symbolStyle={{ stroke: '#000000', strokeWidth: 1, fillOpacity: 1 }}
                             style={{ stroke: '#000000' }}
                             handlers={{ onClick: toggleLabel }}
+                            minDistance={30}
                         />
-                        <ScatterSelectedLabels data={labels} component={BoxedLabel} />
+                        <ScatterSelectedLabels
+                            data={labels}
+                            component={BoxedLabel}
+                            symbol={Circle}
+                            symbolStyle={{ stroke: '#000000' }}
+                        />
                     </ViewClip>
                     <Tooltip
                         offset={[16, -16]}

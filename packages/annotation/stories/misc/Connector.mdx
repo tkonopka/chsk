@@ -1,0 +1,59 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ConnectorStories from './Connector.stories'
+
+<Meta of={ConnectorStories} />
+
+# Connector
+
+`Connector` creates a line between two positions.
+
+<ArgTypes of={ConnectorStories} />
+
+## Straight line
+
+Prop `variant` toggles between various line types, and the single line type is the straight line.
+
+<Canvas of={ConnectorStories.Line} />
+
+## Arcs
+
+Variants `arc-left` and `arc-right` create curved lines.
+
+<Canvas of={ConnectorStories.ArcLeft} />
+<Canvas of={ConnectorStories.ArcRight} />
+
+Arc-based lines respond to props `rx`, `ry`, and `angle`, which parametrize an ellipse.
+
+<Canvas of={ConnectorStories.Radii} />
+
+The parametrization follows svg conventions for arcs described in the
+[svg docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths#arcs).
+
+## Segmented lines
+
+Four variants create segmented lines.
+A segmented connector can start as horizontal and then bend toward the finish,
+start vertical and then bend toward the finish, or start at an angle.
+
+<Canvas of={ConnectorStories.HStart} />
+<Canvas of={ConnectorStories.VStart} />
+<Canvas of={ConnectorStories.HEnd} />
+<Canvas of={ConnectorStories.VEnd} />
+
+The position where the slope of the segmented line changes is controlled with prop `elbow` and `elbowUnit`.
+The default elbow value is 0.5 in relative units, which places the bend in the center of the line.
+It is also possible to specify the elbow as a different fraction, or set it at an absolute distance.
+
+<Canvas of={ConnectorStories.ElbowStartRelative} />
+<Canvas of={ConnectorStories.ElbowStartAbsolute} />
+
+In variants 'h-end' and 'v-end', the value of `elbow` is interpreted to refer to the
+horizontal/vertical segment.
+
+<Canvas of={ConnectorStories.ElbowEndRelative} />
+<Canvas of={ConnectorStories.ElbowEndAbsolute} />
+
+Note that the segmented variants have symmetry -
+the shape created by 'h-end' can be equivalently generated with 'h-start' by reversing coordinates.
+However, the variants are provided as the extended format to facilitate usage in higher level components
+that may apply differential treatment to starting and ending positions.

@@ -76,6 +76,10 @@ convey that the label is associated with a specific data point.
 
 <Canvas of={ScatterSelectedLabelsStories.Grid} />
 
+Note that `symbol` does not change the existing data point, but rather creates a new object at the same location.
+This can disrupt mouse interactions linked with the data point.
+To preserve such interactions, set `pointerEvents: 'none'` in the symbol style, or in the chart theme.
+
 ## Connector
 
 Prop `connector` accepts a function for creating lines between the data point and the label.

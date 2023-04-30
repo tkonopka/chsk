@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {
     Chart,
     Axis,
+    Circle,
     GridLines,
     Typography,
     ThemeSpec,
@@ -9,6 +10,7 @@ import {
     TooltipDataItem,
     mergeTheme,
     LabelProps,
+    LineProps,
 } from '@chsk/core'
 import {
     isScatterData,
@@ -19,14 +21,14 @@ import {
     ScatterSelectedLabelData,
     ScatterSelectedLabels,
 } from '@chsk/xy'
-import { BoxedLabel } from '@chsk/annotation'
+import { BoxedLabel, Connector } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { alphabetGreek, generateUniformPopulation, round2dp, round4dp } from '../utils'
 import { DownloadButtons } from '../navigation'
 
 export const generateLabelsData = () => {
-    const n = 15
+    const n = 20
     const xValues = generateUniformPopulation(n, 0.05, 10.0)
     const yValues = generateUniformPopulation(n, 0.05, 10.0)
     const data = xValues.map((x, i) => ({
@@ -70,6 +72,9 @@ const customTooltipLabel = (x: TooltipDataItem) => {
 
 const CustomLabel = (props: LabelProps) => {
     return <BoxedLabel {...props} rx={3} ry={3} variant={'boxed-label'} />
+}
+const CustomConnector = (props: LineProps) => {
+    return <Connector rx={60} {...props} variant={'h-end'} elbow={0.75} />
 }
 
 export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -133,7 +138,14 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Axis variant={'bottom'} ticks={6} label={'A (a.u.)'} />
                 <Axis variant={'left'} ticks={6} label={'B (a.u.)'} />
                 <ScatterPoints />
-                <ScatterSelectedLabels data={labels} component={CustomLabel} />
+                <ScatterSelectedLabels
+                    data={labels}
+                    component={CustomLabel}
+                    symbol={Circle}
+                    connector={CustomConnector}
+                    connectorStyle={{ stroke: '#888888', strokeWidth: 1 }}
+                    clearance={25}
+                />
                 <ScatterCrosshair
                     minDistance={16}
                     symbolStyle={{ fill: '#dd0000' }}

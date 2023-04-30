@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [annotation] component `Connector` to draw various types of lines,
+    especially for connecting data points to labels
 -   [xy] component `ScatterSelectedLabels` to display labels linked to data
     points
 -   [xy] prop `variant` for `ScatterLabel` to place labels next to data points
