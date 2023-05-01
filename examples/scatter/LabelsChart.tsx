@@ -74,7 +74,7 @@ const CustomLabel = (props: LabelProps) => {
     return <BoxedLabel {...props} rx={3} ry={3} variant={'boxed-label'} />
 }
 const CustomConnector = (props: LineProps) => {
-    return <Connector rx={60} {...props} variant={'h-end'} elbow={0.75} />
+    return <Connector {...props} variant={'lh'} elbow={0.75} />
 }
 
 export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {

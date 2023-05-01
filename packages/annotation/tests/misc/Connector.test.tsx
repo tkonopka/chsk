@@ -21,48 +21,14 @@ describe('Connector', () => {
             </Chart>
         )
         const result = screen.getByRole('chart-content')
-        const line = result.querySelector('line')
-        expect(getNumberAttr(line, 'x1')).toBe(100)
-        expect(getNumberAttr(line, 'x2')).toBe(150)
-        expect(getNumberAttr(line, 'y1')).toBe(100)
-        expect(getNumberAttr(line, 'y2')).toBe(50)
+        expect(result.querySelector('path')?.getAttribute('d')).toContain('M 100 100')
     })
 
-    it('creates an arc-based connector with default settings', () => {
+    it('creates a segmented connector (hl)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'arc-left'} {...lineProps} />
-                </View>
-            </Chart>
-        )
-        const result = screen.getByRole('chart-content')
-        expect(result.querySelectorAll('path')).toHaveLength(1)
-        const d = result.querySelector('path')?.getAttribute('d')
-        expect(d).toContain('M 100 100')
-        expect(d).toContain(' 150 50')
-    })
-
-    it('creates an arc-based connector with custom settings', () => {
-        render(
-            <Chart {...chartProps}>
-                <View {...viewProps}>
-                    <Connector variant={'arc-right'} {...lineProps} rx={88} ry={99} angle={10} />
-                </View>
-            </Chart>
-        )
-        const result = screen.getByRole('chart-content')
-        expect(result.querySelectorAll('path')).toHaveLength(1)
-        const d = result.querySelector('path')?.getAttribute('d')
-        expect(d).toContain('M 100 100')
-        expect(d).toContain('A 88 99 10')
-    })
-
-    it('creates a segmented connector (h-start)', () => {
-        render(
-            <Chart {...chartProps}>
-                <View {...viewProps}>
-                    <Connector variant={'h-start'} {...lineProps} />
+                    <Connector variant={'hl'} {...lineProps} />
                 </View>
             </Chart>
         )
@@ -71,11 +37,11 @@ describe('Connector', () => {
         expect(d).toContain('M 100 100 L 125 100')
     })
 
-    it('creates a segmented connector (h-end)', () => {
+    it('creates a segmented connector (lh)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'h-end'} {...lineProps} />
+                    <Connector variant={'lh'} {...lineProps} />
                 </View>
             </Chart>
         )
@@ -84,11 +50,11 @@ describe('Connector', () => {
         expect(d).toContain('M 100 100 L 125 50')
     })
 
-    it('creates a segmented connector (v-start)', () => {
+    it('creates a segmented connector (vl)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'v-start'} {...lineProps} />
+                    <Connector variant={'vl'} {...lineProps} />
                 </View>
             </Chart>
         )
@@ -97,11 +63,11 @@ describe('Connector', () => {
         expect(d).toContain('M 100 100 L 100 75')
     })
 
-    it('creates a segmented connector (v-end)', () => {
+    it('creates a segmented connector (lv)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'v-end'} {...lineProps} />
+                    <Connector variant={'lv'} {...lineProps} />
                 </View>
             </Chart>
         )
@@ -110,11 +76,11 @@ describe('Connector', () => {
         expect(d).toContain('M 100 100 L 150 75')
     })
 
-    it('creates a segmented connector with absolute elbow distance (v-end)', () => {
+    it('creates a segmented connector with absolute elbow distance (lv)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'v-end'} elbow={10} elbowUnit={'absolute'} {...lineProps} />
+                    <Connector variant={'lv'} elbow={10} elbowUnit={'absolute'} {...lineProps} />
                 </View>
             </Chart>
         )
@@ -123,16 +89,29 @@ describe('Connector', () => {
         expect(d).toContain('M 100 100 L 150 60 L 150 50')
     })
 
-    it('creates a segmented connector with absolute elbow distance (h-end)', () => {
+    it('creates a segmented connector with absolute elbow distance (lh)', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <Connector variant={'h-end'} elbow={10} elbowUnit={'absolute'} {...lineProps} />
+                    <Connector variant={'lh'} elbow={10} elbowUnit={'absolute'} {...lineProps} />
                 </View>
             </Chart>
         )
         const result = screen.getByRole('chart-content')
         const d = result.querySelector('path')?.getAttribute('d')
         expect(d).toContain('M 100 100 L 140 50 L 150 50')
+    })
+
+    it('creates a segmented connector with bundle smoothing', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Connector variant={'vl'} {...lineProps} beta={0.5} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        const d = result.querySelector('path')?.getAttribute('d')
+        expect(d).toContain('C')
     })
 })

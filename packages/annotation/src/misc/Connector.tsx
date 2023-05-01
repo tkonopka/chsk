@@ -1,6 +1,9 @@
-import { Line, Path, squaredDistance, X, Y, NumericPositionSpec } from '@chsk/core'
+import { Path, X, Y, NumericPositionSpec } from '@chsk/core'
 import { ConnectorProps } from './types'
+import { curveBundle, line } from 'd3-shape'
+import { useMemo } from 'react'
 
+// compute a position of a segment elbow using absolute or relative approach
 const elbowCoordinate = (start: number, end: number, elbow: number, relative: boolean): number => {
     if (relative) {
         return start + elbow * (end - start)
@@ -16,46 +19,40 @@ export const Connector = ({
     y1,
     x2,
     y2,
-    // arc
-    rx,
-    ry,
-    angle,
-    // elbow
+    // settings
+    beta,
     elbow = 0.5,
     elbowUnit = 'relative',
     // svg
     ...props
 }: ConnectorProps) => {
-    if (variant.startsWith('arc-')) {
-        rx = rx ?? ry
-        ry = ry ?? rx
-        if (rx === undefined) {
-            rx = Math.sqrt(squaredDistance([x1, y1], [x2, y2]))
-            ry = rx
-        }
-        angle = angle ?? 0
-        const sweep = variant === 'arc-left' ? 0 : 1
-        const d = ['M', x1, y1, 'A', rx, ry, angle, '0', sweep, x2, y2].join(' ')
-        return <Path d={d} {...props} />
-    }
+    // d3 generator for smoothed curves
+    const generator = useMemo(() => {
+        return (
+            line()
+                //.defined((d: NumericPositionSpec) => d[0] !== null && d[1] !== null)
+                .curve(curveBundle.beta(beta ?? 0))
+        )
+    }, [beta])
 
     // elbow/ankle connectors
     const relative = elbowUnit === 'relative'
     let elbowPosition: NumericPositionSpec = [x1, y1]
-    if (variant === 'h-start') {
+    if (variant === 'hl') {
         elbowPosition = [elbowCoordinate(x1, x2, elbow, relative), y1]
-    } else if (variant === 'h-end') {
+    } else if (variant === 'lh') {
         elbowPosition = [elbowCoordinate(x2, x1, elbow, relative), y2]
-    } else if (variant === 'v-start') {
+    } else if (variant === 'vl') {
         elbowPosition = [x1, elbowCoordinate(y1, y2, elbow, relative)]
-    } else if (variant === 'v-end') {
+    } else if (variant === 'lv') {
         elbowPosition = [x2, elbowCoordinate(y2, y1, elbow, relative)]
     }
-    if (variant.startsWith('h-') || variant.startsWith('v-')) {
-        const d = ['M', x1, y1, 'L', elbowPosition[X], elbowPosition[Y], 'L', x2, y2].join(' ')
-        return <Path d={d} {...props} />
-    }
 
-    // variant 'line' or anything else
-    return <Line x1={x1} y1={y1} x2={x2} y2={y2} {...props} />
+    let d = ''
+    if (beta === undefined) {
+        d = ['M', x1, y1, 'L', elbowPosition[X], elbowPosition[Y], 'L', x2, y2].join(' ')
+    } else {
+        d = generator([[x1, y1], elbowPosition, [x2, y2]]) ?? ''
+    }
+    return <Path d={d} {...props} />
 }

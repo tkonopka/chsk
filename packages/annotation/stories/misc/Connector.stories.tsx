@@ -14,7 +14,7 @@ const ConnectorDecorator = (Story: () => ReactNode) => (
     </Chart>
 )
 
-const coordinates = { x1: 50, x2: 200, y1: 75, y2: 25 }
+const coordinates = { x1: 200, x2: 350, y1: 50, y2: 25 }
 
 export const Line = {
     name: 'line',
@@ -43,37 +43,19 @@ export const ArcRight = {
     decorators: [ConnectorDecorator],
 }
 
-export const HStart = {
-    name: 'horizontal start',
+export const ArcH = {
+    name: 'arc horizontal',
     args: {
-        variant: 'h-start',
+        variant: 'arc-h',
         ...coordinates,
     },
     decorators: [ConnectorDecorator],
 }
 
-export const HEnd = {
-    name: 'horizontal end',
+export const ArcV = {
+    name: 'arc vertical',
     args: {
-        variant: 'h-end',
-        ...coordinates,
-    },
-    decorators: [ConnectorDecorator],
-}
-
-export const VStart = {
-    name: 'vertical start',
-    args: {
-        variant: 'v-start',
-        ...coordinates,
-    },
-    decorators: [ConnectorDecorator],
-}
-
-export const VEnd = {
-    name: 'vertical end',
-    args: {
-        variant: 'v-end',
+        variant: 'arc-v',
         ...coordinates,
     },
     decorators: [ConnectorDecorator],
@@ -83,8 +65,44 @@ export const Radii = {
     name: 'radii',
     args: {
         variant: 'arc-right',
-        rx: 200,
-        ry: 50,
+        rx: 150,
+        ry: 40,
+        ...coordinates,
+    },
+    decorators: [ConnectorDecorator],
+}
+
+export const HL = {
+    name: 'horizontal line',
+    args: {
+        variant: 'hl',
+        ...coordinates,
+    },
+    decorators: [ConnectorDecorator],
+}
+
+export const LH = {
+    name: 'line horizontal',
+    args: {
+        variant: 'lh',
+        ...coordinates,
+    },
+    decorators: [ConnectorDecorator],
+}
+
+export const VL = {
+    name: 'vertical line',
+    args: {
+        variant: 'vl',
+        ...coordinates,
+    },
+    decorators: [ConnectorDecorator],
+}
+
+export const LV = {
+    name: 'line vertical',
+    args: {
+        variant: 'vl',
         ...coordinates,
     },
     decorators: [ConnectorDecorator],
@@ -93,7 +111,7 @@ export const Radii = {
 export const ElbowStartRelative = {
     name: 'elbow relative',
     args: {
-        variant: 'h-start',
+        variant: 'hl',
         elbow: 0.25,
         elbowUnit: 'relative',
         ...coordinates,
@@ -104,7 +122,7 @@ export const ElbowStartRelative = {
 export const ElbowStartAbsolute = {
     name: 'elbow absolute',
     args: {
-        variant: 'h-start',
+        variant: 'lh',
         elbow: 20,
         elbowUnit: 'absolute',
         ...coordinates,
@@ -115,7 +133,7 @@ export const ElbowStartAbsolute = {
 export const ElbowEndRelative = {
     name: 'elbow end relative',
     args: {
-        variant: 'h-end',
+        variant: 'lh',
         elbow: 0.25,
         elbowUnit: 'relative',
         ...coordinates,
@@ -126,9 +144,20 @@ export const ElbowEndRelative = {
 export const ElbowEndAbsolute = {
     name: 'elbow absolute',
     args: {
-        variant: 'h-end',
+        variant: 'lh',
         elbow: 20,
         elbowUnit: 'absolute',
+        ...coordinates,
+    },
+    decorators: [ConnectorDecorator],
+}
+
+export const Smoothing = {
+    name: 'smoothing',
+    args: {
+        variant: 'hl',
+        elbow: 0.9,
+        beta: 0.85,
         ...coordinates,
     },
     decorators: [ConnectorDecorator],

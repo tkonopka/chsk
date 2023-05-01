@@ -11,49 +11,44 @@ import * as ConnectorStories from './Connector.stories'
 
 ## Straight line
 
-Prop `variant` toggles between various line types, and the single line type is the straight line.
+Prop `variant` toggles between various line types.
+Variant `line` uses a single straight segment.
 
 <Canvas of={ConnectorStories.Line} />
 
-## Arcs
-
-Variants `arc-left` and `arc-right` create curved lines.
-
-<Canvas of={ConnectorStories.ArcLeft} />
-<Canvas of={ConnectorStories.ArcRight} />
-
-Arc-based lines respond to props `rx`, `ry`, and `angle`, which parametrize an ellipse.
-
-<Canvas of={ConnectorStories.Radii} />
-
-The parametrization follows svg conventions for arcs described in the
-[svg docs](https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths#arcs).
-
 ## Segmented lines
 
-Four variants create segmented lines.
+Four variants create segmented lines: `hl`, `vl`, `lh`, `lv`.
 A segmented connector can start as horizontal and then bend toward the finish,
 start vertical and then bend toward the finish, or start at an angle.
 
-<Canvas of={ConnectorStories.HStart} />
-<Canvas of={ConnectorStories.VStart} />
-<Canvas of={ConnectorStories.HEnd} />
-<Canvas of={ConnectorStories.VEnd} />
+<Canvas of={ConnectorStories.HL} />
+<Canvas of={ConnectorStories.VL} />
+<Canvas of={ConnectorStories.LH} />
+<Canvas of={ConnectorStories.LV} />
 
 The position where the slope of the segmented line changes is controlled with prop `elbow` and `elbowUnit`.
-The default elbow value is 0.5 in relative units, which places the bend in the center of the line.
-It is also possible to specify the elbow as a different fraction, or set it at an absolute distance.
+The default connector uses `elbow=0.5` in relative units and places the bend in the center.
+It is also possible to specify a different fraction, or specify an absolute distance.
 
 <Canvas of={ConnectorStories.ElbowStartRelative} />
 <Canvas of={ConnectorStories.ElbowStartAbsolute} />
 
-In variants 'h-end' and 'v-end', the value of `elbow` is interpreted to refer to the
-horizontal/vertical segment.
+In variants `lh` and `lv`, the value of `elbow` is interpreted to refer to the segment with fixed (horizontal/vertical) slope.
 
 <Canvas of={ConnectorStories.ElbowEndRelative} />
 <Canvas of={ConnectorStories.ElbowEndAbsolute} />
 
-Note that the segmented variants have symmetry -
-the shape created by 'h-end' can be equivalently generated with 'h-start' by reversing coordinates.
-However, the variants are provided as the extended format to facilitate usage in higher level components
-that may apply differential treatment to starting and ending positions.
+## Smoothing
+
+Prop `beta` sets a smoothing parameter.
+Smoothing uses [d3's bundle curve](https://github.com/d3/d3-shape#curveBundle) to create a shape without sharp corners.
+
+<Canvas of={ConnectorStories.Smoothing} />
+
+## Symmetries
+
+Note that several of the variants are related through symmetry.
+For example, a shape created by `lh` can be equivalently created with `hl` with reversed endpoints.
+This redundancy is provided to accommodate higher-level components that may apply differential treatment to
+starting and ending positions.

@@ -14,6 +14,7 @@ import {
     TooltipDataItem,
     ViewController,
     ViewClip,
+    LineProps,
 } from '@chsk/core'
 import {
     Scatter,
@@ -24,7 +25,7 @@ import {
     ScatterInteractiveDataItem,
     ScatterSelectedLabels,
 } from '@chsk/xy'
-import { BoxedLabel } from '@chsk/annotation'
+import { BoxedLabel, Connector } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
 import { schemeDark2 } from 'd3-scale-chromatic'
 import { generateXYValues } from './generators'
@@ -90,6 +91,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
         active: {
             strokeWidth: 1.5,
             pointerEvents: 'none',
+            fillOpacity: 1,
         },
     },
 })
@@ -104,6 +106,9 @@ const customTooltipLabel = (x: TooltipDataItem) => {
     const point = 'point' in x ? (x['point'] as [number, number]) : [0, 0]
     const size = 'size' in x ? x['size'] : ''
     return '(' + point[0] + ', ' + point[1] + ') size: ' + size
+}
+const CustomConnector = (props: LineProps) => {
+    return <Connector {...props} variant={'vl'} elbow={1} beta={0.85} />
 }
 
 export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -183,6 +188,8 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                             component={BoxedLabel}
                             symbol={Circle}
                             symbolStyle={{ stroke: '#000000' }}
+                            connector={CustomConnector}
+                            clearance={25}
                         />
                     </ViewClip>
                     <Tooltip
