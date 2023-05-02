@@ -15,8 +15,9 @@ import { ChartDataProvider } from './contexts'
 export const Chart = ({
     id = 'chsk',
     size = [500, 400],
-    stretch = false,
     padding = [40, 40, 40, 40],
+    stretch = false,
+    stretchExpansion = [0, 0],
     baseTheme = defaultTheme,
     theme,
     data = {},
@@ -58,7 +59,10 @@ export const Chart = ({
         debouncedSetChartSize([parent.clientWidth, parent.clientHeight])
         const resizeObserver = new ResizeObserver(event => {
             const box = event[0].contentBoxSize[0]
-            const boxSize: SizeSpec = [box.inlineSize, box.blockSize]
+            const boxSize: SizeSpec = [
+                Math.round(box.inlineSize + stretchExpansion[X]),
+                Math.round(box.blockSize + stretchExpansion[Y]),
+            ]
             debouncedSetChartSize(boxSize)
         })
         resizeObserver.observe(parent)

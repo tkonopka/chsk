@@ -1,5 +1,11 @@
 import { ReactNode, Ref } from 'react'
-import { SvgElementProps, SvgElementVariantProps, WithId, ContainerProps } from '../general'
+import {
+    SvgElementProps,
+    SvgElementVariantProps,
+    WithId,
+    ContainerProps,
+    SizeSpec,
+} from '../general'
 import { AnimationProps, TransitionProps, StyleProps } from '../themes'
 
 /** Chart */
@@ -31,8 +37,10 @@ export interface ChartProps
         Omit<ContainerProps, 'position' | 'positionUnits'> {
     /** identifier for the chart */
     id?: string
-    /** adjust size to fill parent container */
+    /** automatically change chart size to fill parent container */
     stretch?: boolean
+    /** adjustment to svg size during stretch */
+    stretchExpansion?: SizeSpec
     /** chart settings, e.g. milestones */
     data?: Omit<ChartDataContextProps, 'id'>
     /** forwarded ref */

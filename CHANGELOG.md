@@ -30,6 +30,7 @@
 
 ### Changed
 
+-   [core] fixed expanding chart size when `stretch=true`
 -   [xy] removed `signals.tsx` from exports because functions are only used
     internally in xy package
 -   [core] fixed internal keys in `GridLines` to avoid lines switching

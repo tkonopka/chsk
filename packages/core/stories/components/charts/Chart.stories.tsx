@@ -26,7 +26,12 @@ export const Stretch = {
                 display: 'inline-block',
             }}
         >
-            <Chart size={[400, 300]} stretch={true} padding={[40, 40, 40, 40]}>
+            <Chart
+                size={[400, 300]}
+                padding={[40, 40, 40, 40]}
+                stretch={true}
+                stretchExpansion={[-1, -1]}
+            >
                 <Surface variant={'inner'} />
             </Chart>
         </div>
