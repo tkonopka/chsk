@@ -49,8 +49,8 @@ const UnthemedGridStripes = ({
         // vertical rectangles
         result = startCoordinates?.map((v: number, i: number) => (
             <Rectangle
-                variant={'grid-stripes'}
-                key={'grid-stripes-x-' + i}
+                variant={'grid-stripe'}
+                key={'x-' + i}
                 x={v}
                 width={endCoordinates[i] - v}
                 y={-e1}
@@ -62,8 +62,8 @@ const UnthemedGridStripes = ({
         // horizontal rectangles
         result = startCoordinates?.map((v: number, i: number) => (
             <Rectangle
-                variant={'grid-stripes'}
-                key={'grid-stripes-y-' + i}
+                variant={'grid-stripe'}
+                key={'y-' + i}
                 x={-e1}
                 width={size[X] + e2}
                 y={v}
@@ -72,7 +72,7 @@ const UnthemedGridStripes = ({
             />
         ))
     }
-    return <g role={setRole ? 'grid-stripes-' + variant : undefined}>{result}</g>
+    return <g role={setRole ? 'grid-stripes' : undefined}>{result}</g>
 }
 
 export const GridStripes = (props: GridStripesProps) => (

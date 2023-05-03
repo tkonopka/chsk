@@ -30,6 +30,8 @@
 
 ### Changed
 
+-   [annotation] changed role and class strings in `GridStripes` to improve
+    consistency with other components
 -   [core] fixed expanding chart size when `stretch=true`
 -   [xy] removed `signals.tsx` from exports because functions are only used
     internally in xy package

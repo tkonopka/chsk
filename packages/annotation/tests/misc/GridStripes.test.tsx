@@ -12,7 +12,7 @@ describe('GridStripes', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-stripes-x')
+        const result = screen.getByRole('grid-stripes')
         // stripes should be [0-20], [40-60], [80-100] -> 3 rectangles
         expect(result.querySelectorAll('rect')).toHaveLength(3)
     })
@@ -25,7 +25,7 @@ describe('GridStripes', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-stripes-x')
+        const result = screen.getByRole('grid-stripes')
         // stripes should be [20-40], [60-80] -> 2 rectangles
         expect(result.querySelectorAll('rect')).toHaveLength(2)
     })
@@ -38,7 +38,7 @@ describe('GridStripes', () => {
                 </View>
             </Chart>
         )
-        const result = screen.getByRole('grid-stripes-y')
+        const result = screen.getByRole('grid-stripes')
         expect(result.querySelectorAll('rect').length).toBeGreaterThan(1)
     })
 
@@ -46,11 +46,12 @@ describe('GridStripes', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
-                    <GridStripes variant={'y'} setRole={false} />
+                    <GridStripes key={0} variant={'x'} setRole={false} />
+                    <GridStripes key={1} variant={'y'} setRole={false} />
                 </View>
             </Chart>
         )
-        expect(screen.queryByRole('grid-stripes-y')).toBeNull()
+        expect(screen.queryByRole('grid-stripes')).toBeNull()
         expect(screen.getByRole('chart-content').querySelectorAll('rect').length).toBeGreaterThan(2)
     })
 })
