@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
 import { chartProps, viewProps } from '../props'
 import { GridStripes } from '../../src'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('GridStripes', () => {
     it('creates even stripes along x-axis', () => {
@@ -53,5 +54,29 @@ describe('GridStripes', () => {
         )
         expect(screen.queryByRole('grid-stripes')).toBeNull()
         expect(screen.getByRole('chart-content').querySelectorAll('rect').length).toBeGreaterThan(2)
+    })
+
+    it('applies expansion to make rectangles larger (x)', () => {
+        render(
+            <Chart {...chartProps} size={[400, 400]} padding={[10, 10, 10, 10]}>
+                <View {...viewProps}>
+                    <GridStripes variant={'x'} expansion={[10, 10]} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('grid-stripes').querySelectorAll('rect')
+        expect(getNumberAttr(result[0], 'height')).toBe(400)
+    })
+
+    it('applies expansion to make rectangles larger (y)', () => {
+        render(
+            <Chart {...chartProps} size={[400, 400]} padding={[10, 10, 10, 10]}>
+                <View {...viewProps}>
+                    <GridStripes variant={'y'} expansion={[10, 10]} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('grid-stripes').querySelectorAll('rect')
+        expect(getNumberAttr(result[0], 'width')).toBe(400)
     })
 })

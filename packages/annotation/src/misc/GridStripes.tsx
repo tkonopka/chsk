@@ -1,6 +1,7 @@
 import { GridStripesProps } from './types'
 import {
     getTickCoordinates,
+    numberPair,
     Rectangle,
     useDimensions,
     useScales,
@@ -38,11 +39,7 @@ const UnthemedGridStripes = ({
         endCoordinates = tickCoordinates.filter((_, i) => i > 0 && i % 2 === 0)
     }
     startCoordinates = startCoordinates.slice(0, endCoordinates.length)
-
-    // extension of gridlines across the natural view boundaries
-    const [e1, e2] = Array.isArray(expansion)
-        ? [expansion[0], expansion[1]]
-        : [expansion, expansion]
+    const [e1, e2] = numberPair(expansion)
 
     let result
     if (isX) {
@@ -54,7 +51,7 @@ const UnthemedGridStripes = ({
                 x={v}
                 width={endCoordinates[i] - v}
                 y={-e1}
-                height={size[Y] + e2}
+                height={size[Y] + e1 + e2}
                 {...props}
             />
         ))
@@ -65,7 +62,7 @@ const UnthemedGridStripes = ({
                 variant={'grid-stripe'}
                 key={'y-' + i}
                 x={-e1}
-                width={size[X] + e2}
+                width={size[X] + e1 + e2}
                 y={v}
                 height={endCoordinates[i] - v}
                 {...props}

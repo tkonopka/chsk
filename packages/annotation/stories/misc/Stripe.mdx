@@ -1,0 +1,38 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as StripeStories from './Stripe.stories'
+
+<Meta of={StripeStories} />
+
+# Stripe
+
+`Stripe` display a rectangle that stretches across one of the view axes.
+
+<ArgTypes of={StripeStories} />
+
+## Placement
+
+Prop `variant`, which accepts values `x` or `y`, toggles between vertical and horizontal shapes.
+Prop `domain` defines the stripe boundaries.
+
+<Canvas of={StripeStories.X} />
+<Canvas of={StripeStories.Y} />
+
+The domain can be specified in view coordinates or as relative values; the units are specified with prop `domainUnits`.
+
+<Canvas of={StripeStories.Units} />
+
+## Expansion
+
+By default, a `Stripe` rectangle spans across the entire view in the direction orthogonal to the domain axis.
+Prop `expansion` adjusts that span. The units are always absolute svg coordinates.
+
+<Canvas of={StripeStories.Expansion} />
+
+## Shift
+
+On band axes, `domain` values are interpreted to coincide with the tick marks.
+To make the stripe capture an entire band, use prop `shift` to adjust the boundaries.
+Shift values are interpreted as multiples of the bandwidth.
+
+<Canvas of={StripeStories.BandWithoutShift} />
+<Canvas of={StripeStories.BandWithShift} />

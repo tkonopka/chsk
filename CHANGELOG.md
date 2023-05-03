@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [annotation] component `Stripe` to create rectangles suitable for view
+    backgrounds
 -   [core] functions `numberPair` and `unitPair` to simplify conversion of
     ambiguous data types to array-based types
 -   [annotation] component `Connector` to draw various types of lines,
