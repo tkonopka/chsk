@@ -1,4 +1,11 @@
-import { NumericPositionSpec, FourSideSizeSpec, SizeSpec, AnchorSpec } from './types'
+import {
+    NumericPositionSpec,
+    FourSideSizeSpec,
+    SizeSpec,
+    AnchorSpec,
+    PositionUnits,
+    PositionUnit,
+} from './types'
 import { TOP, BOTTOM, LEFT, RIGHT, X, Y } from './constants'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
@@ -63,6 +70,14 @@ export const getCenter = (
 ): NumericPositionSpec => {
     const corner = getAnchoredOrigin(position, size, anchor)
     return [corner[X] + size[X] / 2 + offset[X], corner[Y] + size[Y] / 2 + offset[Y]]
+}
+
+/** conversion of ambiguous data types */
+export const numberPair = (x: number | [number, number]): [number, number] => {
+    return Array.isArray(x) ? x : [x, x]
+}
+export const positionUnitPair = (x: PositionUnits): [PositionUnit, PositionUnit] => {
+    return Array.isArray(x) ? x : [x, x]
 }
 
 /** vector addition */

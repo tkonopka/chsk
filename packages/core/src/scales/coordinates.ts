@@ -1,5 +1,5 @@
 import { AxisScale, Scales } from './types'
-import { PositionSpec, PositionUnit, PositionUnits, SizeSpec } from '../general'
+import { PositionSpec, PositionUnit, PositionUnits, SizeSpec, positionUnitPair } from '../general'
 import { isContinuousAxisScale } from './predicates'
 
 // converts a position, possibly expressed in relative units or in view-specific values,
@@ -10,10 +10,10 @@ export const getAbsolutePosition = (
     dimensions: SizeSpec,
     scales: Scales
 ): [number, number] => {
-    const unitPair = Array.isArray(unit) ? unit : [unit, unit]
+    const units = positionUnitPair(unit)
     return [
-        getAbsoluteCoordinate(position[0], unitPair[0], dimensions[0], scales.x),
-        getAbsoluteCoordinate(position[1], unitPair[1], dimensions[1], scales.y),
+        getAbsoluteCoordinate(position[0], units[0], dimensions[0], scales.x),
+        getAbsoluteCoordinate(position[1], units[1], dimensions[1], scales.y),
     ]
 }
 

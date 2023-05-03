@@ -1,5 +1,5 @@
 import { getTickCoordinates, getTicks, useScales } from '../scales'
-import { useDimensions, X, Y } from '../general'
+import { numberPair, useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
 import { defaultGridLinesProps } from './defaults'
@@ -32,11 +32,7 @@ const UnthemedGridLines = ({
             }
         })
     })
-
-    // extension of gridlines across the natural view boundaries
-    const [e1, e2] = Array.isArray(expansion)
-        ? [expansion[0], expansion[1]]
-        : [expansion, expansion]
+    const [e1, e2] = numberPair(expansion)
 
     const lineProps = { variant: 'grid', className, style, setRole: false }
     const result = isX

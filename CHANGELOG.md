@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] functions `numberPair` and `unitPair` to simplify conversion of
+    ambiguous data types to array-based types
 -   [annotation] component `Connector` to draw various types of lines,
     especially for connecting data points to labels
 -   [xy] component `ScatterSelectedLabels` to display labels linked to data

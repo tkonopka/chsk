@@ -5,16 +5,17 @@ import {
     SizeSpec,
     SizeUnits,
 } from './types'
+import { positionUnitPair } from './utils'
 
 export const getAbsoluteSize = (
     size: SizeSpec,
     units: SizeUnits,
     referenceSize: SizeSpec
 ): SizeSpec => {
-    const unitPair = Array.isArray(units) ? units : [units, units]
+    const pair = positionUnitPair(units)
     return [
-        unitPair[0] === 'relative' ? size[0] * referenceSize[0] : size[0],
-        unitPair[1] === 'relative' ? size[1] * referenceSize[1] : size[1],
+        pair[0] === 'relative' ? size[0] * referenceSize[0] : size[0],
+        pair[1] === 'relative' ? size[1] * referenceSize[1] : size[1],
     ]
 }
 
