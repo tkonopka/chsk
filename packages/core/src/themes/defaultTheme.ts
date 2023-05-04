@@ -39,6 +39,9 @@ export const defaultTheme: CompleteThemeSpec = {
         tooltip: {
             pointerEvents: 'none',
         },
+        draggable: {
+            cursor: 'grab',
+        },
     },
     line: {
         default: {
@@ -74,6 +77,9 @@ export const defaultTheme: CompleteThemeSpec = {
         default: {
             stroke: '#222222',
             strokeWidth: 0,
+        },
+        dragging: {
+            cursor: 'grabbing',
         },
         inner: {
             fill: '#f2f2f2',

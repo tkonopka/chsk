@@ -1,4 +1,5 @@
 export * from './Button'
+export * from './Draggable'
 export * from './Toolbar'
 export * from './DataComponent'
 export * from './SimpleDataComponent'

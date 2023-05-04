@@ -1,6 +1,7 @@
 import { FC, MouseEvent, ReactNode } from 'react'
 import {
     CssProps,
+    FourSideSizeSpec,
     ItemListProps,
     LocationProps,
     NumericPositionSpec,
@@ -97,4 +98,13 @@ export interface ToolbarProps<Value>
     value?: Value
     /** component to draw items */
     component: FC<ButtonProps>
+}
+
+export interface DraggableProps extends SvgElementVariantProps, InteractivityProps {
+    /** variant */
+    variant?: 'xy' | 'x' | 'y'
+    /** expansion of region receptive to mouse motion */
+    expansion?: FourSideSizeSpec
+    /** content */
+    children?: ReactNode
 }

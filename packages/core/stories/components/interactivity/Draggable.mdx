@@ -1,0 +1,27 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as DraggableStories from './Draggable.stories'
+
+# Draggable
+
+<Meta of={DraggableStories} />
+
+`Draggable` is a wrapper that enables dragging element.
+
+<ArgTypes of={DraggableStories} />
+
+## Variants
+
+The default variant allows unconstrained dragging.
+
+<Canvas of={DraggableStories.XY} />
+
+Variants `x` and `y` constrain motion along the horizontal and vertical directions, respectively.
+
+<Canvas of={DraggableStories.X} />
+<Canvas of={DraggableStories.Y} />
+
+## Expansion
+
+Prop `expansion` helps to set the size of a surrounding region used to catch mouse events.
+The default region comprises a current view, plus a comfortable surrounding area.
+In most practical situations, it is not necessary to change this default.

@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] component `Draggable` to enable dragging chart elements
 -   [annotation] component `Stripe` to create rectangles suitable for view
     backgrounds
 -   [core] functions `numberPair` and `unitPair` to simplify conversion of
