@@ -5,6 +5,8 @@ import {
     ItemListProps,
     LocationProps,
     NumericPositionSpec,
+    PositionSpec,
+    PositionUnits,
     SvgElementProps,
     SvgElementVariantProps,
     WithId,
@@ -100,11 +102,27 @@ export interface ToolbarProps<Value>
     component: FC<ButtonProps>
 }
 
-export interface DraggableProps extends SvgElementVariantProps, InteractivityProps {
+export type DragData = {
+    absolute: NumericPositionSpec
+    relative: NumericPositionSpec
+    view: NumericPositionSpec
+}
+
+export interface DraggableProps extends SvgElementVariantProps {
     /** variant */
     variant?: 'xy' | 'x' | 'y'
+    /** guide position */
+    position?: PositionSpec
+    /** position units */
+    positionUnits?: PositionUnits
     /** expansion of region receptive to mouse motion */
     expansion?: FourSideSizeSpec
+    /** handler for drag start */
+    onDragStart?: (data: DragData, event: MouseEvent) => void
+    /** handler for drag change */
+    onDrag?: (data: DragData, event: MouseEvent) => void
+    /** handler for drag end */
+    onDragEnd?: (data: DragData, event: MouseEvent) => void
     /** content */
     children?: ReactNode
 }

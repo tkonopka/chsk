@@ -25,3 +25,18 @@ Variants `x` and `y` constrain motion along the horizontal and vertical directio
 Prop `expansion` helps to set the size of a surrounding region used to catch mouse events.
 The default region comprises a current view, plus a comfortable surrounding area.
 In most practical situations, it is not necessary to change this default.
+
+## Events
+
+Handlers `onDragStart`, `onDrag`, and `onDragEnd` accept functions that can process information during the drag process.
+Specifically, the first argument passed to these functions has information about the drag state.
+
+In the examples below, a custom `onDrag` handler parses information about the drag state and updates the chart title.
+The custom handler also logs the entire drag state (check the browser console with `Ctrl Shift J`).
+
+<Canvas of={DraggableStories.Linear} />
+<Canvas of={DraggableStories.Band} />
+
+Note that in the case of band scales, the information returned may need some post-processing.
+Transforming a continuous position along the axis to a discrete band is ambiguous, and thus resolving that
+ambiguity is left for application-specific code.
