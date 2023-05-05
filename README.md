@@ -23,7 +23,8 @@ The library provides React components for data visualization.
 Advanced features enable creating dynamic and bespoke content.
 
 -   **Milestone animations** power step-by-step story-telling.
--   **Zoom and pan interactions** allow in-depth data exploration.
+-   **Rich interactions** allow data exploration through zooming, panning,
+    and dragging.
 -   **Customizable components** combine in arbitrary ways to compose truly
     original designs.
 -   **Annotation components** add decorations to base charts.
