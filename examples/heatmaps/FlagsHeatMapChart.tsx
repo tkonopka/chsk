@@ -49,6 +49,11 @@ const customTheme = mergeTheme(buttonTheme, {
             fillOpacity: 0,
         },
     },
+    g: {
+        'legendItem:hover': {
+            cursor: 'auto',
+        },
+    },
     AxisLabel: {
         top: {
             distance: 70,
@@ -134,6 +139,7 @@ export const FlagsHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                             anchor={[0, 0]}
                             title={'Flags'}
                             symbolStyle={{ stroke: '#222222', strokeWidth: 1 }}
+                            interactive={false}
                         />
                     </HeatMapCells>
                     <HeatMapSurface

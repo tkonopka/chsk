@@ -10,6 +10,7 @@ import {
     TooltipProvider,
     mergeThemes,
     AxisTicks,
+    Draggable,
 } from '@chsk/core'
 import { Scatter, ScatterPoints, isScatterData, ScatterCrosshair } from '@chsk/xy'
 import { createConcentricSymbol } from '@chsk/annotation'
@@ -120,20 +121,6 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <AxisTicks labelFormat={() => ''} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'legend'}>
-                    <Legend
-                        position={[1, 0.2]}
-                        positionUnits={'relative'}
-                        size={[100, 88]}
-                        sizeUnits={'absolute'}
-                        anchor={[0, 0.5]}
-                        padding={[0, 8, 0, 8]}
-                        r={10.5}
-                        itemSize={[80, 22]}
-                        itemPadding={[1, 2, 1, 2]}
-                        title={'Populations'}
-                    />
-                </MilestoneMotion>
                 <MilestoneMotion enterOn={'data'}>
                     <TooltipProvider>
                         <ScatterPoints symbolClassName={'custom'} />
@@ -150,6 +137,23 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                             itemPadding={[4, 8, 4, 8]}
                         />
                     </TooltipProvider>
+                </MilestoneMotion>
+                <MilestoneMotion enterOn={'legend'}>
+                    <Draggable>
+                        <Legend
+                            position={[1, 0.2]}
+                            positionUnits={'relative'}
+                            offset={[2, 0]}
+                            size={[100, 88]}
+                            sizeUnits={'absolute'}
+                            anchor={[0, 0.5]}
+                            padding={[0, 8, 0, 8]}
+                            r={10.5}
+                            itemSize={[80, 22]}
+                            itemPadding={[1, 2, 1, 2]}
+                            title={'Populations'}
+                        />
+                    </Draggable>
                 </MilestoneMotion>
             </Scatter>
         </Chart>

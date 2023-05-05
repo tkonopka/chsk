@@ -33,6 +33,7 @@ export const Clusters: GalleryStory = {
         generator: generateClusterScatterData,
         chart: ClustersScatterChart,
         steps: ['axes', 'legend', 'data'],
+        comment: <div>Here, the interactive legend is both clickable and draggable.</div>,
     },
 }
 

@@ -45,6 +45,11 @@ const customTheme = mergeTheme(buttonTheme, {
             strokeWidth: 1,
         },
     },
+    g: {
+        'legendItem:hover': {
+            cursor: 'auto',
+        },
+    },
     AxisLabel: {
         top: {
             distance: 60,
@@ -119,6 +124,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     </LegendTitle>
                     <LegendSizeScale
                         variant={'right'}
+                        interactive={false}
                         itemPadding={[0, 8, 0, 8]}
                         position={[0, 26]}
                         ticks={4}

@@ -24,6 +24,12 @@ export const Sequential: GalleryStory = {
     args: {
         generator: generateSequentialHeatMapData,
         chart: SequentialHeatMapChart,
+        comment: (
+            <div>
+                <p>Check out the toolbar to explore the map at different zoom levels.</p>
+                <p>This example also has a draggable legend.</p>
+            </div>
+        ),
     },
 }
 

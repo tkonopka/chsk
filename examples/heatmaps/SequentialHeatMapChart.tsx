@@ -12,6 +12,7 @@ import {
     ViewController,
     mergeTheme,
     defaultSequentialScaleSpec,
+    Draggable,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { buttonTheme } from '@chsk/themes'
@@ -82,31 +83,33 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     />
                     <AxisLabel key={'label'}>Samples</AxisLabel>
                 </Axis>
-                <Legend
-                    variant={'color'}
-                    horizontal={false}
-                    position={[360, 70]}
-                    size={[60, 180]}
-                    positionUnits={'absolute'}
-                    sizeUnits={'absolute'}
-                    anchor={[0, 0]}
-                >
-                    <LegendTitle
-                        key={'title'}
-                        position={[0, 8]}
-                        size={[60, 24]}
-                        padding={[0, 0, 0, 0]}
+                <Draggable variant={'y'}>
+                    <Legend
+                        variant={'color'}
+                        horizontal={false}
+                        position={[360, 70]}
+                        size={[60, 180]}
+                        positionUnits={'absolute'}
+                        sizeUnits={'absolute'}
+                        anchor={[0, 0]}
                     >
-                        scores
-                    </LegendTitle>
-                    <LegendColorScale
-                        key={'legend-color-scale'}
-                        variant={'right'}
-                        size={[9, 120]}
-                        position={[0, 30]}
-                        gradientId={'grad-sequential'}
-                    />
-                </Legend>
+                        <LegendTitle
+                            key={'title'}
+                            position={[0, 8]}
+                            size={[60, 24]}
+                            padding={[0, 0, 0, 0]}
+                        >
+                            scores
+                        </LegendTitle>
+                        <LegendColorScale
+                            key={'legend-color-scale'}
+                            variant={'right'}
+                            size={[9, 120]}
+                            position={[0, 30]}
+                            gradientId={'grad-sequential'}
+                        />
+                    </Legend>
+                </Draggable>
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <ViewController
                     container={{

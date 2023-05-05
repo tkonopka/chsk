@@ -7,12 +7,16 @@ import {
     LegendTitle,
     LegendColorScale,
     Tooltip,
+    Draggable,
+    mergeTheme,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
+import { buttonTheme } from '@chsk/themes'
 import { interpolateReds } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
+import { DownloadButtons } from '../navigation'
 
 const ids = alphabetGreek
 export const generateTriangularHeatMapData = () => {
@@ -41,7 +45,7 @@ export const generateTriangularHeatMapData = () => {
     return result
 }
 
-const customTheme = {
+const customTheme = mergeTheme(buttonTheme, {
     rect: {
         legendColorScale: {
             stroke: '#222222',
@@ -61,7 +65,7 @@ const customTheme = {
             labelAngle: -45,
         },
     },
-}
+})
 
 // precompute cell coordinates belonging to lower- and upper-triangular shapes
 const lowerTriangularCells: [string, string][] = []
@@ -112,25 +116,27 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     <AxisTicks labelStyle={{ textAnchor: 'end', dominantBaseline: 'middle' }} />
                     <AxisLabel>Replicate 2</AxisLabel>
                 </Axis>
-                <Legend
-                    variant={'color'}
-                    horizontal={false}
-                    position={[250, 10]}
-                    size={[60, 180]}
-                    positionUnits={'absolute'}
-                    sizeUnits={'absolute'}
-                    anchor={[0, 0]}
-                >
-                    <LegendTitle position={[0, 8]} size={[60, 24]}>
-                        R2 (%)
-                    </LegendTitle>
-                    <LegendColorScale
-                        variant={'right'}
-                        size={[9, 120]}
-                        position={[0, 30]}
-                        gradientId={'grad-triangular'}
-                    />
-                </Legend>
+                <Draggable>
+                    <Legend
+                        variant={'color'}
+                        horizontal={false}
+                        position={[250, 10]}
+                        size={[60, 180]}
+                        positionUnits={'absolute'}
+                        sizeUnits={'absolute'}
+                        anchor={[0, 0]}
+                    >
+                        <LegendTitle position={[0, 8]} size={[60, 24]}>
+                            R2 (%)
+                        </LegendTitle>
+                        <LegendColorScale
+                            variant={'right'}
+                            size={[9, 120]}
+                            position={[0, 30]}
+                            gradientId={'grad-triangular'}
+                        />
+                    </Legend>
+                </Draggable>
                 <Tooltip
                     offset={[15, -15]}
                     anchor={[0, 1]}
@@ -138,6 +144,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     itemSize={[115, 26]}
                     itemPadding={[4, 8, 4, 8]}
                 />
+                <DownloadButtons position={[350, 410]} data image />
             </HeatMap>
         </Chart>
     )

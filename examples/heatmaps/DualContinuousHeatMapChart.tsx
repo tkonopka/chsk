@@ -40,6 +40,11 @@ export const generateDualContinuousHeatMapData = () => {
 }
 
 const customTheme = {
+    g: {
+        'legendItem:hover': {
+            cursor: 'auto',
+        },
+    },
     rect: {
         legendColorScale: {
             stroke: '#222222',
@@ -137,6 +142,7 @@ export const DualContinuousHeatMapChart = ({ fref, chartData, rawData }: Milesto
                             itemPadding={[1, 4, 1, 4]}
                             anchor={[0, 0]}
                             title={'Groups'}
+                            interactive={false}
                         />
                     </HeatMapCells>
                 </MilestoneMotion>

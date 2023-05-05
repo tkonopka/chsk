@@ -11,6 +11,7 @@ import {
     Tooltip,
     TooltipProps,
     useTooltip,
+    Draggable,
 } from '@chsk/core'
 import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
 import { interpolateYlGnBu, schemeSet1 } from 'd3-scale-chromatic'
@@ -110,42 +111,46 @@ export const CategoricalStripHeatMapChart = ({ fref, chartData, rawData }: Miles
                             colors: schemeSet1,
                         }}
                     >
-                        <Legend
-                            variant={'list'}
-                            horizontal={false}
-                            position={[460, -4]}
-                            size={[60, 180]}
-                            positionUnits={'absolute'}
-                            sizeUnits={'absolute'}
-                            itemSize={[60, 18]}
-                            itemPadding={[2, 4, 2, 4]}
-                            anchor={[0, 0]}
-                            title={'Groups'}
-                            interactive={false}
-                        />
+                        <Draggable variant={'y'}>
+                            <Legend
+                                variant={'list'}
+                                horizontal={false}
+                                position={[460, -4]}
+                                size={[60, 180]}
+                                positionUnits={'absolute'}
+                                sizeUnits={'absolute'}
+                                itemSize={[60, 18]}
+                                itemPadding={[2, 4, 2, 4]}
+                                anchor={[0, 0]}
+                                title={'Groups'}
+                                interactive={false}
+                            />
+                        </Draggable>
                     </HeatMapCells>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'heatmap'}>
                     <HeatMapCells ids={ids} />
-                    <Legend
-                        variant={'color'}
-                        horizontal={false}
-                        position={[460, 260]}
-                        size={[60, 130]}
-                        positionUnits={'absolute'}
-                        sizeUnits={'absolute'}
-                        anchor={[0, 1]}
-                    >
-                        <LegendTitle position={[0, 8]} size={[60, 24]}>
-                            Scores
-                        </LegendTitle>
-                        <LegendColorScale
-                            key={'legend-color-scale'}
-                            variant={'right'}
-                            size={[13, 100]}
-                            position={[1, 30]}
-                        />
-                    </Legend>
+                    <Draggable variant={'y'}>
+                        <Legend
+                            variant={'color'}
+                            horizontal={false}
+                            position={[460, 260]}
+                            size={[60, 130]}
+                            positionUnits={'absolute'}
+                            sizeUnits={'absolute'}
+                            anchor={[0, 1]}
+                        >
+                            <LegendTitle position={[0, 8]} size={[60, 24]}>
+                                Scores
+                            </LegendTitle>
+                            <LegendColorScale
+                                key={'legend-color-scale'}
+                                variant={'right'}
+                                size={[13, 100]}
+                                position={[1, 30]}
+                            />
+                        </Legend>
+                    </Draggable>
                     <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                     <CustomTooltip
                         padding={[4, 0, 4, 0]}
