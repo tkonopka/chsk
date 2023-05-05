@@ -45,6 +45,7 @@ export const Draggable = ({
     onDragStart,
     onDrag,
     onDragEnd,
+    timeout = 250,
     // svg
     style,
     className,
@@ -62,13 +63,19 @@ export const Draggable = ({
     const [offset, setOffset] = useState<NumericPositionSpec>([0, 0])
     // position of drag start
     const [start, setStart] = useState<NumericPositionSpec | null>(null)
+    // state of drag
+    const [dragging, setDragging] = useState<boolean>(false)
 
     const handleMouseDown = useCallback(
         (event: MouseEvent) => {
             const { x, y } = getEventXY(event, ref)
             if (x === undefined || y === undefined) return
-            setStart([x, y])
             onDragStart?.(getDragData(latest, size, scales), event)
+            setStart([x, y])
+            // timeout is required to allow click events to reach children
+            setTimeout(() => {
+                setDragging(true)
+            }, timeout)
         },
         [ref, setStart, onDragStart, latest]
     )
@@ -81,6 +88,9 @@ export const Draggable = ({
             setOffset([0, 0])
             setStart(null)
             onDragEnd?.(getDragData(newLatest, size, scales), event)
+            setTimeout(() => {
+                setDragging(false)
+            }, timeout)
         },
         [ref, variant, start, setStart, setOffset, latest, setLatest, onDragEnd]
     )
@@ -101,7 +111,7 @@ export const Draggable = ({
     // invisible reference rectangle picks up mouse events even when pointer moves
     // outside the draggable shape - needed for fast mouse movements
     const reference =
-        start !== null ? (
+        dragging && start !== null ? (
             <rect
                 role={setRole ? 'draggable-reference' : undefined}
                 key={'reference'}
@@ -125,6 +135,8 @@ export const Draggable = ({
                 className={compositeClassName}
                 style={style}
                 onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
             >
                 {children}
             </g>

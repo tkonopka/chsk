@@ -123,6 +123,8 @@ export interface DraggableProps extends SvgElementVariantProps {
     onDrag?: (data: DragData, event: MouseEvent) => void
     /** handler for drag end */
     onDragEnd?: (data: DragData, event: MouseEvent) => void
+    /** timeout between drag start and click */
+    timeout?: number
     /** content */
     children?: ReactNode
 }

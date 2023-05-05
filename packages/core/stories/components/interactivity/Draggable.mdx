@@ -20,11 +20,12 @@ Variants `x` and `y` constrain motion along the horizontal and vertical directio
 <Canvas of={DraggableStories.X} />
 <Canvas of={DraggableStories.Y} />
 
-## Expansion
+## Position
 
-Prop `expansion` helps to set the size of a surrounding region used to catch mouse events.
-The default region comprises a current view, plus a comfortable surrounding area.
-In most practical situations, it is not necessary to change this default.
+`Draggable` accepts a props `position` and `positionUnits` to associate coordinates with the draggable element.
+These props are used for internal book-keeping and do not affect the rendering of the draggable element.
+In some use-cases, therefore, it is not necessary to set these props.
+The props are relevant, however, for extracting information about changes in the draggable element through even handlers (see below).
 
 ## Events
 
@@ -40,3 +41,17 @@ The custom handler also logs the entire drag state (check the browser console wi
 Note that in the case of band scales, the information returned may need some post-processing.
 Transforming a continuous position along the axis to a discrete band is ambiguous, and thus resolving that
 ambiguity is left for application-specific code.
+
+## Expansion
+
+Prop `expansion` helps to set the size of a surrounding region used to catch mouse events.
+The default region comprises a current view, plus a comfortable surrounding area.
+In most practical situations, it is not necessary to change this default.
+
+## Timeout
+
+Prop `timeout` sets a time interval between a mouse down event and the moment when the draggable element is fully committed to dragging.
+This timeout is relevant when children have event handlers.
+A nonzero timeout allows those children to receive and process click events.
+After the timeout, `Draggable` creates an invisible layer on top the chart that prevents events on lower layers.
+These properties make it possible to create, for example, legends that are both clickable and draggable.

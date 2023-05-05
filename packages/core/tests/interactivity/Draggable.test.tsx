@@ -44,6 +44,27 @@ describe('Draggable', () => {
         })
     })
 
+    it('handles quick interactions', async () => {
+        render(
+            <Chart {...chartProps}>
+                <Draggable>
+                    <rect x={0} y={0} width={50} height={50} />
+                </Draggable>
+            </Chart>
+        )
+        const target = screen.getByRole('draggable')
+        expect(getTransform(target, 'X')).toBe(null)
+        expect(getTransform(target, 'Y')).toBe(null)
+        // quick events without waits in between
+        fireEvent.mouseDown(target, { clientX: 10, clientY: 10 })
+        fireEvent.mouseMove(target, { clientX: 20, clientY: 20 })
+        fireEvent.mouseUp(target, { clientX: 30, clientY: 30 })
+        await waitFor(() => {
+            expect(target.getAttribute('transform')).toBe('translate(20,20)')
+            expect(screen.queryByRole('draggable-reference')).toBeNull()
+        })
+    })
+
     it('allows dragging (x)', async () => {
         render(
             <Chart {...chartProps}>
