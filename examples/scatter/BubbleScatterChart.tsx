@@ -181,6 +181,7 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
                             symbolStyle={{ stroke: '#000000', strokeWidth: 1, fillOpacity: 1 }}
                             style={{ stroke: '#000000' }}
                             handlers={{ onClick: toggleLabel }}
+                            modifiers={{ onMouseEnter: { cursor: 'pointer' }, onMouseLeave: {} }}
                             minDistance={30}
                         />
                         <ScatterSelectedLabels
