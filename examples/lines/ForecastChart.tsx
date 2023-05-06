@@ -10,9 +10,6 @@ import {
     getMinMax,
     TimeAxisScale,
     useScales,
-    useDimensions,
-    X,
-    Y,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterInterval } from '@chsk/xy'
 import { LineLabel, Stripe } from '@chsk/annotation'
@@ -79,15 +76,12 @@ const getYear = (v: unknown) => {
 export const ForecastRectangle = () => {
     const now = new Date(Date.now())
     const { scales } = useScales()
-    const { size } = useDimensions()
-    const scaleX = scales.x as TimeAxisScale
-    const xCoordinate = scaleX(Number(now))
     return (
         <>
             <LineLabel
-                start={[xCoordinate, 0]}
-                end={[size[X], 0]}
-                units={'absolute'}
+                start={[Number(now), 0]}
+                end={[scales.x.domain()[1], 0]}
+                units={['view', 'absolute']}
                 className={'forecast'}
                 lineStyle={{ visibility: 'hidden' }}
                 textStyle={{ textAnchor: 'middle', fill: '#999' }}
