@@ -172,7 +172,6 @@ describe('ScatterCrosshair', () => {
         })
         fireEvent.click(detector, { clientX: 200, clientY: 15 })
         await waitFor(() => {
-            expect(data).not.toBeUndefined()
             expect(data?.id).toBe('quadratic')
         })
     })
