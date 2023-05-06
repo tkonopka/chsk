@@ -15,18 +15,23 @@ import * as ScatterCrosshairStories from './ScatterCrosshair.stories'
 
 ## Variants
 
-The default `ScatterCrosshair` component draws horizontal and vertical lines that span the entire chart view.
+The default `ScatterCrosshair` component tracks the mouse pointer and finds the nearest data point.
+The component calculates distances using a common Euclidean metric in two dimensions.
 
 <Canvas of={ScatterCrosshairStories.Default} />
 
-To remove the lines, or to display only horizontal or vertical lines,
-set prop `variant` to 'none', 'horizontal', or 'vertical', respectively.
+Prop `variant` changes the calculation of nearest data point.
+Variants `x` and `y` use only the horizontal and vertical positions, respectively.
+
+<Canvas of={ScatterCrosshairStories.X} />
+<Canvas of={ScatterCrosshairStories.Y} />
+
+## Lines
+
+Prop `visible` toggles visibility of the horizontal and vertical crosshair lines.
 
 <Canvas of={ScatterCrosshairStories.Horizontal} />
 <Canvas of={ScatterCrosshairStories.Vertical} />
-
-Note that even when the crosshair lines appear only along one axis, the calculations that determine
-what point is nearest the mouse position are always performed in two dimensions.
 
 ## Minimum distance
 

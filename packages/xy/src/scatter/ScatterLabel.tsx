@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import {
     rad2deg,
     OpacityMotion,
@@ -9,23 +10,12 @@ import {
     squaredDistance,
     getAbsolutePosition,
     Label,
-    X,
-    Y,
+    DistanceFunction,
     clip,
 } from '@chsk/core'
+import { distanceX, distanceY } from './helpers'
 import { ScatterLabelProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
-import { createElement } from 'react'
-
-// alternative distance functions
-const distanceX = (a: NumericPositionSpec, b: NumericPositionSpec) => {
-    return Math.abs(a[X] - b[X])
-}
-const distanceY = (a: NumericPositionSpec, b: NumericPositionSpec) => {
-    return Math.abs(a[Y] - b[Y])
-}
-
-type DistanceFunction = (a: NumericPositionSpec, b: NumericPositionSpec) => number
 
 // returns index of point that is nearest to target
 const getClosestPoint = (

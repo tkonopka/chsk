@@ -144,7 +144,7 @@ export const DotScatterChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                     <CustomBandSurface ids={ids} r={9} style={{ fill: '#f4f4f4 ' }} />
                     <ScatterPoints symbol={VerticalGoldenRectangle} />
                     <ScatterCrosshair
-                        variant={'vertical'}
+                        visible={[true, false]}
                         symbol={VerticalGoldenRectangle}
                         minDistance={20}
                     />

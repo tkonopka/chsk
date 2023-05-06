@@ -201,20 +201,20 @@ export interface RegressionProps
     ids?: string[]
 }
 
-export type ScatterCrosshairVariant = 'default' | 'horizontal' | 'vertical' | 'none'
-
 export interface ScatterCrosshairProps
     extends DataInteractivityProps<ScatterInteractiveDataItem, SymbolProps>,
         SvgElementVariantProps,
         Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'> {
     /** crosshair variant */
-    variant?: ScatterCrosshairVariant
+    variant?: 'xy' | 'x' | 'y'
     /** expansion of background surface */
     expansion?: FourSideSizeSpec
     /** minimum distance to nearest point */
     minDistance?: number
     /** format of tooltip label */
     tooltipFormat?: (data: ScatterInteractiveDataItem) => string
+    /** visibility for crosshair lines */
+    visible?: [boolean, boolean]
     /** style for crosshair lines */
     style?: CssProps
 }

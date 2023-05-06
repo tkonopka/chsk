@@ -19,10 +19,36 @@ export const Default = {
     decorators: [ChartForRegressionDecorator],
 }
 
+export const X = {
+    name: 'x',
+    args: {
+        variant: 'x',
+        style: {
+            stroke: '#444',
+            strokeWidth: 1,
+            strokeDasharray: 6,
+        },
+    },
+    decorators: [ChartForRegressionDecorator],
+}
+
+export const Y = {
+    name: 'y',
+    args: {
+        variant: 'y',
+        style: {
+            stroke: '#444',
+            strokeWidth: 1,
+            strokeDasharray: 6,
+        },
+    },
+    decorators: [ChartForRegressionDecorator],
+}
+
 export const Horizontal = {
     name: 'horizontal',
     args: {
-        variant: 'horizontal',
+        visible: [false, true],
         style: {
             stroke: '#444',
             strokeWidth: 1,
@@ -35,7 +61,7 @@ export const Horizontal = {
 export const Vertical = {
     name: 'vertical',
     args: {
-        variant: 'vertical',
+        visible: [true, false],
         style: {
             stroke: '#444',
             strokeWidth: 1,
@@ -48,7 +74,7 @@ export const Vertical = {
 export const MinimumDistance = {
     name: 'minimum distance',
     args: {
-        minDistance: 20,
+        minDistance: 16,
         style: {
             stroke: '#444',
             strokeWidth: 1,

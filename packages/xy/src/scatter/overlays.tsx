@@ -1,4 +1,4 @@
-import { ScatterCrosshairProps, ScatterCrosshairVariant, ScatterInteractiveDataItem } from './types'
+import { ScatterCrosshairProps, ScatterInteractiveDataItem } from './types'
 import {
     addColor,
     Circle,
@@ -15,14 +15,14 @@ import {
 import { createElement } from 'react'
 
 export const createCrosshairLines = ({
-    variant = 'default',
+    visible,
     coordinates,
     size,
     style,
     setRole,
     className,
 }: {
-    variant: ScatterCrosshairVariant
+    visible: [boolean, boolean]
     coordinates: [number, number]
     size: SizeSpec
     style?: CssProps
@@ -31,9 +31,9 @@ export const createCrosshairLines = ({
 }) => {
     return (
         <>
-            {variant === 'default' || variant === 'vertical' ? (
+            {visible[X] ? (
                 <Line
-                    key={'v'}
+                    key={'x'}
                     variant={'crosshair'}
                     x1={coordinates[X]}
                     x2={coordinates[X]}
@@ -44,9 +44,9 @@ export const createCrosshairLines = ({
                     setRole={setRole}
                 />
             ) : null}
-            {variant === 'default' || variant === 'horizontal' ? (
+            {visible[Y] ? (
                 <Line
-                    key={'h'}
+                    key={'y'}
                     variant={'crosshair'}
                     x1={0}
                     x2={size[X]}

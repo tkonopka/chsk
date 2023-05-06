@@ -24,18 +24,19 @@ import {
 import { ScatterCrosshairProps, ScatterInteractiveDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { isScatterData, isScatterProcessedData } from './predicates'
-import { useSymbolData, useTargets, distanceSquared } from './helpers'
+import { useSymbolData, useTargets, distanceXY, distanceX, distanceY } from './helpers'
 import { defaultScatterTooltipFormat } from './defaults'
 import { createActiveSymbol, createCrosshairLines } from './overlays'
 
 export const ScatterCrosshair = ({
-    variant,
+    variant = 'xy',
     expansion,
     symbol = Circle,
     symbolStyle,
     symbolClassName,
     minDistance,
     tooltipFormat = defaultScatterTooltipFormat,
+    visible,
     className,
     style,
     setRole = true,
@@ -77,6 +78,7 @@ export const ScatterCrosshair = ({
         [setActiveData, setTooltipData]
     )
 
+    const criterion = variant === 'xy' ? distanceXY : variant === 'x' ? distanceX : distanceY
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (!detectorRef || !detectorRef.current) return
@@ -85,13 +87,12 @@ export const ScatterCrosshair = ({
                 event.clientX - x - padding[LEFT],
                 event.clientY - y - padding[TOP],
             ]
-            const distances = targets.map(target => distanceSquared(target, mouse))
-            const hit = distances.reduce(
+            const values = targets.map(target => criterion(target, mouse))
+            const hit = values.reduce(
                 (result, x, i) => (x < result[0] ? [x, i] : result),
-                [distances[0], 0]
+                [values[0], 0]
             )
-            const hitDistance = Math.sqrt(hit[0])
-            if (minDistance && hitDistance > minDistance) {
+            if (minDistance && hit[0] > minDistance) {
                 handleMouseLeave(event)
                 return
             }
@@ -158,7 +159,7 @@ export const ScatterCrosshair = ({
         setRole,
     })
     const lines = createCrosshairLines({
-        variant: variant ?? 'default',
+        visible: visible ?? [true, true],
         size,
         coordinates,
         style,

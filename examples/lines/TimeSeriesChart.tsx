@@ -187,7 +187,8 @@ export const TimeSeriesChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 <ViewClip id={'time-curve'} expansion={[5, 5, 5, 5]}>
                     <SignCurve />
                     <ScatterCrosshair
-                        variant={'vertical'}
+                        variant={'x'}
+                        visible={[true, false]}
                         style={{ stroke: '#888888', strokeDasharray: 5 }}
                         symbolStyle={{ fill: '#555555' }}
                     />

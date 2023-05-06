@@ -91,7 +91,6 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     />
                 </ViewClip>
                 <ScatterCrosshair
-                    variant={'vertical'}
                     style={{ strokeDasharray: 5, stroke: '#000000', strokeWidth: 0.5 }}
                     symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
                 />

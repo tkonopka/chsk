@@ -11,6 +11,7 @@ import {
     getMax,
     getMinMax,
     isScaleWithDomain,
+    NumericPositionSpec,
     RecordWithId,
     SizeScaleProps,
     SizeScaleSpec,
@@ -102,14 +103,18 @@ export const useSymbolData = (
     }, [processedData, preparedData])
 }
 
-export const distanceSquared = (a: number[], b: number[]) => (a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2
-
 // array with [coordinate X, coordinate Y, series index, point index]
-export type targetData = [number, number, number, number]
+export type TargetData = [number, number, number, number]
+
+// alternative ranking functions (distance or distance-squared)
+type XY = NumericPositionSpec | TargetData
+export const distanceXY = (a: XY, b: XY) => Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
+export const distanceX = (a: XY, b: XY) => Math.abs(a[X] - b[X])
+export const distanceY = (a: XY, b: XY) => Math.abs(a[Y] - b[Y])
 
 export const useTargets = (preparedData: ScatterDataContextProps, disabledKeys: Set<string>) => {
     return useMemo(() => {
-        const result: targetData[] = []
+        const result: TargetData[] = []
         preparedData.keys.forEach(id => {
             if (disabledKeys.has(id)) return
             const seriesIndex = preparedData.seriesIndexes[id]

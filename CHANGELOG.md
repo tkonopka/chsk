@@ -6,6 +6,10 @@
 
 ### Added
 
+-   [xy] prop `visible` in `ScatterCrosshair` to toggle visibility of
+    horizontal and vertical crosshair lines
+-   [xy] capabilities in `ScatterCrosshair` to find data points based on x-
+    and y-coordinate distance
 -   [core] component `Draggable` to enable dragging chart elements
 -   [annotation] component `Stripe` to create rectangles suitable for view
     backgrounds
@@ -35,6 +39,8 @@
 
 ### Changed
 
+-   [xy] changed meaning of prop `variant` in `ScatterCrosshair` so that it
+    now changes calculations, not visual output
 -   [core] removed type `XY` in favor of existing `NumericPositionSpec`
 -   [annotation] changed role and class strings in `GridStripes` to improve
     consistency with other components
