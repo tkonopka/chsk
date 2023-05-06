@@ -13,10 +13,9 @@ import {
     useDimensions,
     X,
     Y,
-    Rectangle,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterInterval } from '@chsk/xy'
-import { LineLabel } from '@chsk/annotation'
+import { LineLabel, Stripe } from '@chsk/annotation'
 import { MilestoneStory } from '../types'
 import { randomNormalValue, randomUniformValue } from '../utils'
 
@@ -88,18 +87,16 @@ export const ForecastRectangle = () => {
             <LineLabel
                 start={[xCoordinate, 0]}
                 end={[size[X], 0]}
-                units={['absolute', 'absolute']}
+                units={'absolute'}
                 className={'forecast'}
                 lineStyle={{ visibility: 'hidden' }}
                 textStyle={{ textAnchor: 'middle', fill: '#999' }}
             >
                 FORECAST
             </LineLabel>
-            <Rectangle
-                x={xCoordinate}
-                width={size[X] - xCoordinate}
-                y={0}
-                height={size[Y]}
+            <Stripe
+                variant={'x'}
+                domain={[Number(now), scales.x.domain()[1]]}
                 className={'forecast'}
             />
         </>
@@ -226,8 +223,11 @@ export const ForecastChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     style={{ strokeWidth: 0, fillOpacity: 0.25 }}
                 />
                 <ScatterCurve ids={['forecast']} curve={'Linear'} />
-                <Typography variant={'title'} position={[0, -40]}>
-                    Time series with a seasonal pattern (arbitrary units)
+                <Typography variant={'title'} position={[0, -45]}>
+                    Time series with a seasonal pattern
+                </Typography>
+                <Typography variant={'subtitle'} position={[0, -25]}>
+                    Measurements in arbitrary units
                 </Typography>
             </Scatter>
         </Chart>
