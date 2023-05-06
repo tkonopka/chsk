@@ -35,6 +35,12 @@ export const Survival: GalleryStory = {
         generator: generateSurvivalData,
         chart: SurvivalChart,
         steps: ['control', 'treated'],
+        comment: (
+            <div>
+                When automatic label placement seems unsatisfactory, draggable labels can help
+                finding alternative solutions.
+            </div>
+        ),
     },
 }
 

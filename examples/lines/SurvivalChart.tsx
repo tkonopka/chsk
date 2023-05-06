@@ -6,6 +6,7 @@ import {
     GridLines,
     MilestoneMotion,
     Typography,
+    Draggable,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterInterval, ScatterLabel } from '@chsk/xy'
 import { generateSurvivalMatrix } from './generators'
@@ -65,15 +66,17 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         curve={'StepAfter'}
                         style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
-                    <ScatterLabel
-                        variant={'x'}
-                        id={'control'}
-                        position={[500, 0]}
-                        offset={[10, 0]}
-                        style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
-                    >
-                        control
-                    </ScatterLabel>
+                    <Draggable>
+                        <ScatterLabel
+                            variant={'x'}
+                            id={'control'}
+                            position={[500, 0]}
+                            offset={[10, 0]}
+                            style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
+                        >
+                            control
+                        </ScatterLabel>
+                    </Draggable>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'treated'}>
                     <ScatterInterval
@@ -88,15 +91,17 @@ export const SurvivalChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         curve={'StepAfter'}
                         style={{ strokeWidth: 3, fillOpacity: 0 }}
                     />
-                    <ScatterLabel
-                        variant={'x'}
-                        id={'treated'}
-                        position={[500, 0]}
-                        offset={[10, 0]}
-                        style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
-                    >
-                        treated
-                    </ScatterLabel>
+                    <Draggable>
+                        <ScatterLabel
+                            variant={'x'}
+                            id={'treated'}
+                            position={[500, 0]}
+                            offset={[10, 0]}
+                            style={{ fontWeight: 600, textAnchor: 'start', fontSize: '14px' }}
+                        >
+                            treated
+                        </ScatterLabel>
+                    </Draggable>
                 </MilestoneMotion>
                 <Typography variant={'title'} position={[-50, -50]}>
                     Impact of treatment on disease outcome
