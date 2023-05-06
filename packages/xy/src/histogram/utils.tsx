@@ -1,4 +1,4 @@
-import { createContinuousScale, getMinMax, XY } from '@chsk/core'
+import { createContinuousScale, getMinMax, NumericPositionSpec } from '@chsk/core'
 import { sortedIndex } from 'lodash'
 import { HistogramDataItem } from './types'
 
@@ -7,7 +7,7 @@ import { HistogramDataItem } from './types'
 // - boundary points capture the edges of the bin and repeat the height of the boundary bin
 const formatBinnedData = (values: number[], breaks: number[]) => {
     const n = breaks.length
-    const result: XY[] = Array(n + 1).fill([0, 0])
+    const result: NumericPositionSpec[] = Array(n + 1).fill([0, 0])
     result[0] = [breaks[0], values[0]]
     result[n] = [breaks[n - 1], values[n - 2]]
     values.forEach((count, i) => {

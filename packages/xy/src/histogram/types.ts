@@ -10,8 +10,8 @@ import {
     SvgElementVariantProps,
     ViewProps,
     WithId,
-    XY,
     SvgElementProps,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { FC } from 'react'
 
@@ -21,7 +21,7 @@ export type HistogramDataItem = WithId & {
 
 export type HistogramProcessedDataItem = WithId & {
     index: number
-    points: Array<XY>
+    points: Array<NumericPositionSpec>
     breaks: number[]
     n: number
     mean?: number

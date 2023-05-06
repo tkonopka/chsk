@@ -35,6 +35,7 @@
 
 ### Changed
 
+-   [core] removed type `XY` in favor of existing `NumericPositionSpec`
 -   [annotation] changed role and class strings in `GridStripes` to improve
     consistency with other components
 -   [core] fixed expanding chart size when `stretch=true`

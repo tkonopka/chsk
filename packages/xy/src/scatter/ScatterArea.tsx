@@ -10,8 +10,8 @@ import {
     OpacityMotion,
     useDisabledKeys,
     useScales,
-    XY,
     DataComponent,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { ScatterAreaProps } from './types'
 import { useScatterPreparedData } from './context'
@@ -23,7 +23,7 @@ export const getAreaD = ({
     baseline,
     curve,
 }: {
-    points: XY[]
+    points: NumericPositionSpec[]
     scaleY: ContinuousAxisScale
     baseline?: number
     curve: CurveSpec
