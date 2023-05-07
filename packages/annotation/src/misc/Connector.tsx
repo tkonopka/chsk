@@ -1,7 +1,7 @@
-import { Path, X, Y, NumericPositionSpec } from '@chsk/core'
-import { ConnectorProps } from './types'
-import { curveBundle, line } from 'd3-shape'
 import { useMemo } from 'react'
+import { curveBundle, line } from 'd3-shape'
+import { Path, X, Y, NumericPositionSpec, getClassName } from '@chsk/core'
+import { ConnectorProps } from './types'
 
 // compute a position of a segment elbow using absolute or relative approach
 const elbowCoordinate = (start: number, end: number, elbow: number, relative: boolean): number => {
@@ -24,6 +24,7 @@ export const Connector = ({
     elbow = 0.5,
     elbowUnit = 'relative',
     // svg
+    className,
     ...props
 }: ConnectorProps) => {
     // d3 generator for smoothed curves
@@ -54,5 +55,6 @@ export const Connector = ({
     } else {
         d = generator([[x1, y1], elbowPosition, [x2, y2]]) ?? ''
     }
-    return <Path d={d} {...props} />
+    const compositeClassName = getClassName('connector', className)
+    return <Path d={d} {...props} className={compositeClassName} />
 }

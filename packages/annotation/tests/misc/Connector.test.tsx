@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, View, LineProps } from '@chsk/core'
-import { getNumberAttr } from '../../../core/tests/utils'
 import { chartProps, viewProps } from '../props'
 import { Connector } from '../../src'
 
@@ -11,6 +10,18 @@ describe('Connector', () => {
         x2: 150,
         y2: 50,
     }
+
+    it('creates a path with class name', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Connector variant={'line'} {...lineProps} className={'custom'} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content')
+        expect(result.querySelector('path')?.getAttribute('class')).toContain('connector custom')
+    })
 
     it('creates a straight line', () => {
         render(
