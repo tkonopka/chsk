@@ -15,12 +15,9 @@ export const Typography = ({
     if (!children) return null
     const compositeClassName = getClassName(variant, className)
     const config = { x: position[X], y: position[Y], rotate: angle, originX: '0px', originY: '0px' }
+    const role = setRole && variant !== 'default' ? variant : undefined
     return (
-        <m.g
-            role={setRole && variant !== 'default' ? variant : undefined}
-            initial={config}
-            animate={config}
-        >
+        <m.g role={role} initial={config} animate={config}>
             <text style={style} className={compositeClassName}>
                 {children}
             </text>
