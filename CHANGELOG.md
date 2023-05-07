@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [examples] bar chart with labels using connectors
 -   [xy] prop `visible` in `ScatterCrosshair` to toggle visibility of
     horizontal and vertical crosshair lines
 -   [xy] capabilities in `ScatterCrosshair` to find data points based on x-

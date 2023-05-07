@@ -9,6 +9,10 @@ import { generateMultiViewsData, MultipleViewsBarChart } from './MultipleViewsBa
 import { generateCustomGroupsBarData, CustomGroupsBarChart } from './CustomGroupsBarChart'
 import { generateValueColorsBarData, ValueColorsBarChart } from './ValueColorsBarChart'
 import { generateFractionsBarData, FractionsBarChart } from './FractionsBarChart'
+import {
+    generateFractionsVerticalBarData,
+    FractionsVerticalBarChart,
+} from './FractionsVerticalBarChart'
 import { generateFractionShadowsBarData, FractionShadowsBarChart } from './FractionShadowsBarChart'
 import {
     generateFractionGradientsBarData,
@@ -112,11 +116,19 @@ export const QuestionBinary: GalleryStory = {
 }
 
 export const Fractions: GalleryStory = {
-    name: 'fractions',
+    name: 'fractions, horizontal',
     args: {
         generator: generateFractionsBarData,
         chart: FractionsBarChart,
         steps: ['title', 'A', 'B', 'C'],
+    },
+}
+
+export const FractionsVertical: GalleryStory = {
+    name: 'fractions, vertical',
+    args: {
+        generator: generateFractionsVerticalBarData,
+        chart: FractionsVerticalBarChart,
     },
 }
 
