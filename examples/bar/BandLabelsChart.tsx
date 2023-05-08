@@ -22,8 +22,6 @@ const StyledBoxedLabel = (props: LabelProps) => {
             {...props}
             position={props.position ?? [0, 0]}
             size={props.size ?? [0, 0]}
-            textStyle={{ fill: '#ffffff' }}
-            boxStyle={{ fill: '#777788' }}
             rx={2}
             ry={2}
         />
@@ -35,6 +33,15 @@ const customTheme = mergeTheme(buttonTheme, {
         legendTitle: {
             fontSize: '18px',
             fontWeight: 600,
+        },
+        label: {
+            fill: '#444444',
+            fontSize: '14px',
+        },
+    },
+    rect: {
+        label: {
+            fill: '#dcd0d8',
         },
     },
 })
@@ -69,11 +76,11 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             <Bars />
             <BandLabels
                 offset={[40, 0]}
-                size={[0.95, 0.95]}
+                size={[1.1, 0.9]}
                 component={StyledBoxedLabel}
                 format={v => String(v.delta)}
             />
-            <StyledBoxedLabel position={[460, -18]} size={[55, 26]}>
+            <StyledBoxedLabel position={[460, -18]} size={[55, 25]}>
                 delta
             </StyledBoxedLabel>
             <Legend
