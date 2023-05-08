@@ -11,9 +11,9 @@ import { NumericPositionSpec, AnchorSpec, WithId, FourSideSizeSpec, SideVariant 
 
 export type TooltipTitleProps = LegendTitleProps
 
-export type TooltipItemProps = Omit<LegendItemProps, 'interactive'>
+export type TooltipItemProps = Omit<LegendItemProps, 'interactive' | 'disabledStyle'>
 
-export type TooltipItemThemedProps = Omit<LegendItemThemedProps, 'interactive'>
+export type TooltipItemThemedProps = Omit<LegendItemThemedProps, 'interactive' | 'disabledStyle'>
 
 export interface TooltipProps
     extends Omit<
@@ -25,6 +25,7 @@ export interface TooltipProps
         | 'scaleSize'
         | 'sizeTicks'
         | 'interactive'
+        | 'disabledStyle'
     > {
     /** tooltip type */
     variant?: 'list'
@@ -38,7 +39,8 @@ export interface TooltipProps
     maxOverhang?: FourSideSizeSpec
 }
 
-export interface TooltipThemedProps extends Omit<LegendThemedProps, 'interactive' | 'scaleSize'> {
+export interface TooltipThemedProps
+    extends Omit<LegendThemedProps, 'interactive' | 'disabledStyle' | 'scaleSize'> {
     offset: NumericPositionSpec
     padding: FourSideSizeSpec
     anchor: AnchorSpec
@@ -56,12 +58,15 @@ export interface AxisTooltipThemedProps extends TooltipThemedProps {
     variant: SideVariant
 }
 
-export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive'> & {
+export type TooltipItemListProps = Omit<LegendItemListProps, 'interactive' | 'disabledStyle'> & {
     /** array of ids */
     ids?: string[]
 }
 
-export type TooltipItemListThemedProps = Omit<LegendItemListThemedProps, 'interactive'>
+export type TooltipItemListThemedProps = Omit<
+    LegendItemListThemedProps,
+    'interactive' | 'disabledStyle'
+>
 
 /** Context */
 

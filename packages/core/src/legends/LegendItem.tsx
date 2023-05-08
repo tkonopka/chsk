@@ -1,7 +1,8 @@
 import { createElement } from 'react'
+import { merge } from 'lodash'
 import { getTranslate, X, Y, zeroPosition } from '../general'
 import { Square } from '../shapes'
-import { addOpacity, getClassName, useThemedProps } from '../themes'
+import { getClassName, useThemedProps } from '../themes'
 import { useScales } from '../scales'
 import { useChartData } from '../charts'
 import { defaultLegendItemProps } from './defaults'
@@ -25,6 +26,7 @@ const UnthemedLegendItem = ({
     labelDistance = defaultLegendItemProps.labelDistance,
     color,
     interactive = defaultLegendItemProps.interactive,
+    disabledStyle = defaultLegendItemProps.disabledStyle,
     className,
     style,
     setRole = true,
@@ -48,7 +50,7 @@ const UnthemedLegendItem = ({
     }
 
     const isDisabled = chartData.disabledKeys ? chartData.disabledKeys.has(item) : false
-    const gStyle = addOpacity(style, isDisabled ? 0.5 : 1)
+    const gStyle = isDisabled ? merge(style, disabledStyle) : style
     const symbolClassName = getClassName('legendSymbol', className)
     const itemClassName = getClassName('legendItem', className)
 

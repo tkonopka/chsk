@@ -10,20 +10,13 @@ const UnthemedLegendItemList = ({
     position,
     keys,
     labels,
-    // organization of items within the container
     itemSize = defaultLegendProps.itemSize,
     itemPadding = defaultLegendProps.itemPadding,
     itemStyle,
     horizontal = defaultLegendProps.horizontal,
     r = defaultLegendProps.r,
-    symbol,
-    symbolStyle,
-    labelStyle,
     labelDistance = defaultLegendProps.labelDistance,
-    //
-    interactive = defaultLegendProps.interactive,
-    className,
-    setRole = true,
+    ...props
 }: LegendItemListProps) => {
     const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
     const {
@@ -36,24 +29,18 @@ const UnthemedLegendItemList = ({
     const content = itemPosition.map((pos: NumericPositionSpec, i: number) => {
         return (
             <LegendItem
-                variant={variant}
-                key={'legend-item-' + i}
+                {...props}
+                key={'item-' + i}
                 position={pos}
                 size={itemSizes[i]}
                 padding={itemPadding}
                 r={rs[i]}
-                symbol={symbol}
                 symbolPosition={symbolPosition[i]}
-                symbolStyle={symbolStyle}
                 item={keys ? keys[i] : ''}
                 label={labels ? labels[i] : ''}
                 labelPosition={labelPosition[i]}
-                labelStyle={labelStyle}
                 labelDistance={labelDistance}
-                interactive={interactive}
-                className={className}
                 style={itemStyle}
-                setRole={setRole}
             />
         )
     })

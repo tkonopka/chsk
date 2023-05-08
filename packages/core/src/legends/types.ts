@@ -63,6 +63,8 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     labelDistance?: number
     /** color */
     color?: string | number
+    /** style for disabled keys */
+    disabledStyle?: CssProps
 }
 
 export interface LegendItemThemedProps
@@ -73,6 +75,7 @@ export interface LegendItemThemedProps
     r: number
     labelDistance: number
     interactive: boolean
+    disabledStyle: CssProps
 }
 
 export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {
@@ -103,7 +106,13 @@ export interface LegendProps
         Pick<ViewProps, 'children'>,
         Pick<
             LegendItemProps,
-            'r' | 'symbol' | 'symbolStyle' | 'labelStyle' | 'labelDistance' | 'interactive'
+            | 'r'
+            | 'symbol'
+            | 'symbolStyle'
+            | 'labelStyle'
+            | 'labelDistance'
+            | 'interactive'
+            | 'disabledStyle'
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
@@ -118,7 +127,7 @@ export interface LegendProps
 }
 
 export interface LegendThemedProps
-    extends Pick<LegendProps, 'padding' | 'scaleSize'>,
+    extends Pick<LegendProps, 'padding' | 'scaleSize' | 'disabledStyle'>,
         Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset'> {
     offset: NumericPositionSpec
     padding: FourSideSizeSpec
@@ -132,6 +141,7 @@ export interface LegendThemedProps
     r: number
     labelDistance: number
     interactive: boolean
+    disabledStyle: CssProps
 }
 
 export interface LegendItemListProps
@@ -154,12 +164,16 @@ export interface LegendItemListProps
 }
 
 export interface LegendItemListThemedProps
-    extends Pick<LegendItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'interactive'> {
+    extends Pick<
+        LegendItemListProps,
+        'itemSize' | 'itemPadding' | 'horizontal' | 'interactive' | 'disabledStyle'
+    > {
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec
     horizontal: boolean
     r: number
     labelDistance: number
+    disabledStyle: CssProps
 }
 
 export interface LegendSizeScaleProps

@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] prop `disabledStyle` in legend components to control appearance of
+    disabled legend items
 -   [examples] bar chart with labels using connectors
 -   [xy] prop `visible` in `ScatterCrosshair` to toggle visibility of
     horizontal and vertical crosshair lines
