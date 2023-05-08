@@ -19,7 +19,7 @@ export const Right = {
             strokeWidth: 1,
         },
         label: 'right',
-        labelOffset: 8,
+        labelDistance: 8,
         labelStyle: {
             textAnchor: 'start',
         },
@@ -40,7 +40,7 @@ export const Left = {
             strokeWidth: 1,
         },
         label: 'left',
-        labelOffset: 8,
+        labelDistance: 8,
         labelStyle: {
             textAnchor: 'end',
         },
@@ -61,7 +61,7 @@ export const Bottom = {
             strokeWidth: 1,
         },
         label: 'bottom',
-        labelOffset: 20,
+        labelDistance: 12,
         labelStyle: {
             textAnchor: 'middle',
         },
@@ -82,7 +82,7 @@ export const Top = {
             strokeWidth: 1,
         },
         label: 'top',
-        labelOffset: 20,
+        labelDistance: 12,
         labelStyle: {
             textAnchor: 'middle',
         },
@@ -103,7 +103,7 @@ export const Symbol = {
             strokeWidth: 0,
         },
         label: 'circle',
-        labelOffset: 8,
+        labelDistance: 8,
     },
     decorators: [ChartWithRightLegendDecorator],
 }
@@ -117,7 +117,7 @@ export const NoSymbol = {
         r: 0,
         symbol: () => null,
         label: 'no symbol',
-        labelOffset: 0,
+        labelDistance: 0,
     },
     decorators: [ChartWithRightLegendDecorator],
 }
