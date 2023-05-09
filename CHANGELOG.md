@@ -42,6 +42,7 @@
 
 ### Changed
 
+-   [xy] fixed bug leading to NaN in regressions with short data series
 -   [core] extended type for `format` in `Counter` to simplify counters using
     `tspan` elements
 -   [annotation] changed variant names in `BluntMarker` and `ArrowMarker` to

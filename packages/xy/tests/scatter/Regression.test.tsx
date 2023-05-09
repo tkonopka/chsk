@@ -82,4 +82,28 @@ describe('Regression', () => {
         )
         expect(screen.queryByRole('regression')).toBeNull()
     })
+
+    it('skips work when a series is too short', () => {
+        const shortData = [{ id: 'short', data: [{ x: 2, y: 5 }] }]
+        render(
+            <Chart>
+                <Scatter {...scatterProps} data={shortData}>
+                    <Regression />
+                </Scatter>
+            </Chart>
+        )
+        expect(screen.queryByRole('regression')).toBeNull()
+    })
+
+    it('skips work when a series is empty', () => {
+        const shortData = [{ id: 'empty', data: [] }]
+        render(
+            <Chart>
+                <Scatter {...scatterProps} data={shortData}>
+                    <Regression />
+                </Scatter>
+            </Chart>
+        )
+        expect(screen.queryByRole('regression')).toBeNull()
+    })
 })

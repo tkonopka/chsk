@@ -113,6 +113,7 @@ const IndividualRegression = ({
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
         if (disabledKeys.has(id)) return null
+        if (coefficients[id].some(isNaN)) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
         const points = getRegressionLineCoordinates(
