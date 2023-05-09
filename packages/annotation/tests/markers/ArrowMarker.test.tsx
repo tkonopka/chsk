@@ -12,7 +12,7 @@ describe('ArrowMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <ArrowMarker variant={'Triangle'} id={'arrow'} />
+                    <ArrowMarker variant={'triangle'} id={'arrow'} />
                 </defs>
             </Chart>
         )
@@ -24,7 +24,7 @@ describe('ArrowMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <ArrowMarker variant={'Winged'} id={'arrow'} />
+                    <ArrowMarker variant={'winged'} id={'arrow'} />
                 </defs>
             </Chart>
         )
@@ -36,7 +36,7 @@ describe('ArrowMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <ArrowMarker variant={'Chevron'} id={'arrow'} />
+                    <ArrowMarker variant={'chevron'} id={'arrow'} />
                 </defs>
             </Chart>
         )

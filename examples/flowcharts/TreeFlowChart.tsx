@@ -175,7 +175,7 @@ export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
         >
             <defs>
                 <ArrowMarker
-                    variant={'Winged'}
+                    variant={'winged'}
                     id={'treeArrow'}
                     size={10}
                     style={{ fill: '#222222', fillOpacity: 1 }}

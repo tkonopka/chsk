@@ -11,11 +11,11 @@ const createDiamondD = (size: number): string => {
     ].join('')
 }
 
-export const BluntMarker = ({ variant = 'Circle', id, size = 10, style }: BluntMarkerProps) => {
+export const BluntMarker = ({ variant = 'circle', id, size = 10, style }: BluntMarkerProps) => {
     let content = <rect x={0} y={0} width={size} height={size} style={style} />
-    if (variant === 'Circle') {
+    if (variant === 'circle') {
         content = <circle cx={size / 2} cy={size / 2} r={size / 2} style={style} />
-    } else if (variant === 'Diamond') {
+    } else if (variant === 'diamond') {
         const d = createDiamondD(size)
         content = <path d={d} style={style} />
     }

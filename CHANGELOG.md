@@ -42,6 +42,8 @@
 
 ### Changed
 
+-   [annotation] changed variant names in `BluntMarker` and `ArrowMarker` to
+    lowercase for consistency with other components
 -   [xy] changed meaning of prop `variant` in `ScatterCrosshair` so that it
     now changes calculations, not visual output
 -   [core] removed type `XY` in favor of existing `NumericPositionSpec`

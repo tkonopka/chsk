@@ -12,7 +12,7 @@ export const Circle = {
             <defs>
                 <BluntMarker
                     id="circle"
-                    variant="Circle"
+                    variant="circle"
                     style={{
                         fill: '#222222',
                         fillOpacity: 1,
@@ -41,7 +41,7 @@ export const Square = {
             <defs>
                 <BluntMarker
                     id="square"
-                    variant="Square"
+                    variant="square"
                     style={{
                         fill: '#222222',
                         fillOpacity: 1,
@@ -70,7 +70,7 @@ export const Diamond = {
             <defs>
                 <BluntMarker
                     id="diamond"
-                    variant="Diamond"
+                    variant="diamond"
                     style={{
                         fill: '#222222',
                         fillOpacity: 1,
@@ -99,7 +99,7 @@ export const Small = {
             <defs>
                 <BluntMarker
                     id="small-circle"
-                    variant="Circle"
+                    variant="circle"
                     size={8}
                     style={{
                         fill: '#222222',
@@ -129,7 +129,7 @@ export const Large = {
             <defs>
                 <BluntMarker
                     id="large-square"
-                    variant="Square"
+                    variant="square"
                     size={15}
                     style={{
                         fill: '#222222',
@@ -159,7 +159,7 @@ export const DoubleSided = {
             <defs>
                 <BluntMarker
                     id="color-circle"
-                    variant="Circle"
+                    variant="circle"
                     style={{
                         stroke: '#2222dd',
                         fill: '#2222dd',

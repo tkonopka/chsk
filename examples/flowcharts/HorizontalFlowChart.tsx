@@ -55,7 +55,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
             theme={customTheme}
         >
             <defs>
-                <ArrowMarker variant={'Winged'} id={'arrowH'} size={24} style={{ fill: '#222' }} />
+                <ArrowMarker variant={'winged'} id={'arrowH'} size={24} style={{ fill: '#222' }} />
             </defs>
             <View>
                 <MilestoneMotion enterOn={'start'}>

@@ -58,7 +58,7 @@ export const VerticalFlowChart = ({ fref, chartData }: MilestoneStory) => {
         >
             <defs>
                 <ArrowMarker
-                    variant={'Winged'}
+                    variant={'winged'}
                     id={'arrowV'}
                     size={24}
                     style={{ fill: '#222222', fillOpacity: 1 }}

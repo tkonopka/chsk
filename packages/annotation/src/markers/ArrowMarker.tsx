@@ -29,7 +29,7 @@ const createWingedArrowD = (width: number, size: number): string => {
 }
 
 export const ArrowMarker = ({
-    variant = 'Triangle',
+    variant = 'triangle',
     id,
     size = 10,
     width = 1,
@@ -37,9 +37,9 @@ export const ArrowMarker = ({
 }: ArrowMarkerProps) => {
     let d = ''
     const w = Math.min(1, Math.max(0, width))
-    if (variant === 'Triangle') {
+    if (variant === 'triangle') {
         d = createTriangleArrowD(w, size)
-    } else if (variant === 'Winged') {
+    } else if (variant === 'winged') {
         d = createWingedArrowD(w, size)
     } else {
         d = createChevronArrowD(w, size)

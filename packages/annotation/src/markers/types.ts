@@ -11,12 +11,12 @@ interface BaseMarkerProps {
 
 export interface ArrowMarkerProps extends BaseMarkerProps {
     /** variant of arrowhead */
-    variant: 'Triangle' | 'Chevron' | 'Winged'
+    variant: 'triangle' | 'chevron' | 'winged'
     /** numeric parameter [0, 1] to control width of arrowhead */
     width?: number
 }
 
 export interface BluntMarkerProps extends BaseMarkerProps {
     /** variant of arrowhead */
-    variant: 'Circle' | 'Square' | 'Diamond'
+    variant: 'circle' | 'square' | 'diamond'
 }

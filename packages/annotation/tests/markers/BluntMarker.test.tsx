@@ -12,7 +12,7 @@ describe('BluntMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <BluntMarker variant={'Circle'} id={'circle'} />
+                    <BluntMarker variant={'circle'} id={'circle'} />
                 </defs>
             </Chart>
         )
@@ -24,7 +24,7 @@ describe('BluntMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <BluntMarker variant={'Square'} id={'square'} />
+                    <BluntMarker variant={'square'} id={'square'} />
                 </defs>
             </Chart>
         )
@@ -36,7 +36,7 @@ describe('BluntMarker', () => {
         render(
             <Chart {...chartProps}>
                 <defs>
-                    <BluntMarker variant={'Diamond'} id={'diamond'} />
+                    <BluntMarker variant={'diamond'} id={'diamond'} />
                 </defs>
             </Chart>
         )

@@ -12,7 +12,7 @@ export const Triangle = {
             <defs>
                 <ArrowMarker
                     id="triangle"
-                    variant="Triangle"
+                    variant="triangle"
                     style={{
                         fill: '#222222',
                         fillOpacity: 1,
@@ -41,7 +41,7 @@ export const Winged = {
             <defs>
                 <ArrowMarker
                     id="winged"
-                    variant="Winged"
+                    variant="winged"
                     style={{
                         fill: '#222222',
                         fillOpacity: 1,
@@ -70,7 +70,7 @@ export const Chevron = {
             <defs>
                 <ArrowMarker
                     id="chevron"
-                    variant="Chevron"
+                    variant="chevron"
                     style={{
                         stroke: '#222222',
                         strokeWidth: 2,
@@ -100,7 +100,7 @@ export const Narrow = {
             <defs>
                 <ArrowMarker
                     id="narrow"
-                    variant="Triangle"
+                    variant="triangle"
                     width={0.7}
                     style={{
                         fill: '#222222',
@@ -130,7 +130,7 @@ export const Large = {
             <defs>
                 <ArrowMarker
                     id="large"
-                    variant="Winged"
+                    variant="winged"
                     size={16}
                     style={{
                         fill: '#222222',
@@ -160,7 +160,7 @@ export const DoubleSided = {
             <defs>
                 <ArrowMarker
                     id="color"
-                    variant="Chevron"
+                    variant="chevron"
                     size={14}
                     width={1}
                     style={{
