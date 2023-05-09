@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [examples] chart with histogram with draggable controls
 -   [core] prop `disabledStyle` in legend components to control appearance of
     disabled legend items
 -   [examples] bar chart with labels using connectors

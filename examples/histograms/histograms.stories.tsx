@@ -9,6 +9,7 @@ import {
     generateMultipleViewsHistogramData,
     MultipleViewsHistogramChart,
 } from './MultipleViewsHistogramChart'
+import { generateHistogramScatterData, HistogramScatterChart } from './HistogramScatterChart'
 
 export default {
     ...GalleryMeta,
@@ -48,5 +49,20 @@ export const MultipleViews: GalleryStory = {
         generator: generateMultipleViewsHistogramData,
         chart: MultipleViewsHistogramChart,
         steps: ['subtitle', 'small', 'medium', 'large'],
+    },
+}
+
+export const Controls: GalleryStory = {
+    name: 'user controls',
+    args: {
+        generator: generateHistogramScatterData,
+        chart: HistogramScatterChart,
+        comment: (
+            <div>
+                This dataset combines points from two distributions. Regressions lead to different
+                slopes depending on inclusion criteria. Use the controls on the histogram to change
+                the criteria.
+            </div>
+        ),
     },
 }
