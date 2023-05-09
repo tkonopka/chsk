@@ -1,9 +1,7 @@
 import {
     Chart,
-    Circle,
     Counter,
     CounterProps,
-    Line,
     MilestoneMotion,
     ThemeSpec,
     Typography,
@@ -11,6 +9,7 @@ import {
     X,
     Y,
 } from '@chsk/core'
+import { BluntMarker, Connector } from '@chsk/annotation'
 import { Bar, Bars, BarsLabels, useBarPreparedData } from '@chsk/band'
 import { randomUniformValue } from '../utils'
 import { MilestoneStory } from '../types'
@@ -49,6 +48,9 @@ const customTheme: ThemeSpec = {
             fill: '#fff',
             textAnchor: 'start',
         },
+        counter: {
+            dominantBaseline: 'auto',
+        },
         external: {
             fontSize: '16px',
             fill: '#444444',
@@ -56,11 +58,23 @@ const customTheme: ThemeSpec = {
             dominantBaseline: 'middle',
         },
     },
+    tspan: {
+        percent: {
+            fontSize: '28px',
+            dominantBaseline: 'auto',
+        },
+    },
 }
 
-export const CustomCounter = (props: CounterProps) => {
-    return <Counter {...props} format={v => String(v) + '%'} />
-}
+const CustomCounterContent = (v: number) => (
+    <>
+        {String(v)}
+        <tspan className={'percent'}>%</tspan>
+    </>
+)
+export const CustomCounter = (props: CounterProps) => (
+    <Counter {...props} format={CustomCounterContent} />
+)
 
 export const CustomLabel = ({ children }: Pick<TypographyProps, 'children'>) => {
     const prepared = useBarPreparedData()
@@ -70,13 +84,15 @@ export const CustomLabel = ({ children }: Pick<TypographyProps, 'children'>) => 
     const labelPosition: [number, number] = [anchor[X] - 20, anchor[Y] + 32]
     return (
         <>
-            <Circle cx={anchor[X]} cy={anchor[Y]} r={3} />
-            <Line x1={anchor[X]} y1={anchor[Y]} x2={anchor[X]} y2={labelPosition[Y]} />
-            <Line
+            <Connector
+                variant={'lh'}
+                elbow={1}
+                elbowUnit={'relative'}
                 x1={anchor[X]}
-                y1={labelPosition[Y]}
+                y1={anchor[Y]}
                 x2={labelPosition[X]}
                 y2={labelPosition[Y]}
+                markerStart={'circleMarker'}
             />
             <Typography position={[labelPosition[X] - 8, labelPosition[Y]]} className={'external'}>
                 {children}
@@ -94,6 +110,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
         padding={[60, 40, 40, 40]}
         theme={customTheme}
     >
+        <BluntMarker variant={'circle'} id={'circleMarker'} size={14} />
         <Bar variant={'stacked'} data={rawData} keys={['A', 'B', 'C']} horizontal={true}>
             <MilestoneMotion enterOn={'title'}>
                 <Typography variant={'title'} position={[0, -30]}>
@@ -108,7 +125,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <BarsLabels
                     keys={['A']}
                     align={[0, 1]}
-                    padding={[0, 0, 42, 10]}
+                    padding={[0, 0, 28, 10]}
                     className={'primary'}
                     component={CustomCounter}
                 />
@@ -125,7 +142,7 @@ export const FractionsBarChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <BarsLabels
                     keys={['B']}
                     align={[0, 1]}
-                    padding={[0, 0, 42, 10]}
+                    padding={[0, 0, 28, 10]}
                     className={'primary'}
                     component={CustomCounter}
                 />

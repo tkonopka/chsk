@@ -65,7 +65,7 @@ export const Counter = ({
     const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     return (
         <m.g
-            role={setRole && variant !== 'default' ? variant : undefined}
+            role={setRole && variant !== 'default' ? 'counter' : undefined}
             initial={config}
             animate={config}
         >

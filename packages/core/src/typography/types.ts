@@ -26,7 +26,7 @@ export interface CounterProps extends LabelProps {
     /** number of decimal places */
     nDecimalPlaces?: number
     /** format */
-    format?: (v: number) => string
+    format?: (v: number) => string | ReactNode
     /** component to replace default text */
     component?: FC<TextContentProps>
 }

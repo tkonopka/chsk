@@ -42,6 +42,8 @@
 
 ### Changed
 
+-   [core] extended type for `format` in `Counter` to simplify counters using
+    `tspan` elements
 -   [annotation] changed variant names in `BluntMarker` and `ArrowMarker` to
     lowercase for consistency with other components
 -   [xy] changed meaning of prop `variant` in `ScatterCrosshair` so that it
