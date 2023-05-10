@@ -9,9 +9,9 @@ import {
     angleTheta,
     clip,
     norm,
+    range,
 } from '../../src/general/utils'
 import { sortedIndex } from 'lodash'
-import { NumericPositionSpec } from '../../dist/types'
 
 describe('roundDecimalPlaces', () => {
     it('rounds to 1 decimal place', () => {
@@ -180,5 +180,25 @@ describe('clip', () => {
         expect(clip(-0.5, -1, 2)).toBe(-0.5)
         expect(clip(1.5, -1, 2)).toBe(1.5)
         expect(clip(2.5, -1, 2)).toBe(2.0)
+    })
+})
+
+describe('range', () => {
+    it('creates array of set length', () => {
+        expect(range(0)).toEqual([])
+        expect(range(1)).toEqual([0])
+        expect(range(2)).toEqual([0, 1])
+    })
+
+    it('creates array with min max values (positive step)', () => {
+        expect(range(0, 4)).toEqual([0, 1, 2, 3])
+        expect(range(1, 4)).toEqual([1, 2, 3])
+        expect(range(-2, 2)).toEqual([-2, -1, 0, 1])
+    })
+
+    it('creates array with min max values (negative step)', () => {
+        expect(range(3, 0)).toEqual([3, 2, 1])
+        expect(range(2, -2)).toEqual([2, 1, 0, -1])
+        expect(range(-2, -4)).toEqual([-2, -3])
     })
 })

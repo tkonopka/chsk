@@ -23,6 +23,7 @@ import {
     defaultContainerProps,
     useCreateScales,
     Scales,
+    range,
 } from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
@@ -30,14 +31,16 @@ import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helper
 const getAccessors = ({
     x,
     y,
+    k,
     valueSize = 5,
     valueColor = null,
-}: Pick<ScatterProps, 'x' | 'y' | 'valueColor' | 'valueSize'>) => {
+}: Pick<ScatterProps, 'x' | 'y' | 'k' | 'valueColor' | 'valueSize'>) => {
     const getX = getAccessor(x)
     const getY = getAccessor(y)
+    const getK = k ? getAccessor(k) : undefined
     const getSize = getNumberAccessor(valueSize)
     const getColor = valueColor ? getAccessor(valueColor) : null
-    return { getX, getY, getSize, getColor }
+    return { getX, getY, getK, getSize, getColor }
 }
 
 // turn raw data into a minimal format with arrays
@@ -46,17 +49,16 @@ const processData = (
     accessors: {
         getX: AccessorFunction<number>
         getY: AccessorFunction<number>
+        getK?: AccessorFunction<number>
         getSize: AccessorFunction<number>
         getColor: null | AccessorFunction<number>
     }
 ): Array<ScatterProcessedDataItem> => {
-    const getX = accessors.getX
-    const getY = accessors.getY
-    const getColor = accessors.getColor
-    const getSize = accessors.getSize
+    const { getX, getY, getK, getColor, getSize } = accessors
     return data.map((seriesData, index) => ({
         id: seriesData.id,
         index,
+        k: getK ? seriesData.data.map(item => getK(item)) : range(seriesData.data.length),
         x: seriesData.data.map(item => getX(item)),
         y: seriesData.data.map(item => getY(item)),
         size: seriesData.data.map(item => getSize(item)),
@@ -88,6 +90,7 @@ export const Scatter = ({
     data,
     x,
     y,
+    k,
     valueColor = null,
     valueSize = 5,
     scaleX = defaultLinearScaleSpec,
@@ -106,8 +109,8 @@ export const Scatter = ({
 
     // process dataset
     const accessors = useMemo(
-        () => getAccessors({ x, y, valueSize, valueColor }),
-        [x, y, valueSize, valueColor]
+        () => getAccessors({ x, y, k, valueSize, valueColor }),
+        [x, y, k, valueSize, valueColor]
     )
     const processedData = useMemo(() => processData(data, accessors), [data, accessors])
 

@@ -49,13 +49,24 @@ Points associated with this id will be drawn in the same color.
 The nested data array consists of two records with three keys each (`a`, `b`, and `c`).
 These keys can be used to extract values for x- and y-axes.
 
+## Accessors
+
+Props `x` and `y` specify what values from the original data should be placed on the x- and y-axes.
+These props can be strings that match keys in the data object, e.g. 'a', 'b', 'c' in the pseudo-code above.
+Alternatively, the props can be arbitrary functions that compute numeric x- and y- values.
+
+Prop `k` specifies another accessor that is used to associated each data point with a key/index.
+In many use-cases, it is not necessary to specify this prop, and the relevant keys/indexes will be provided automatically.
+However, in use cases where `Scatter` is updated with different subsets of a large dataset,
+specifying `k` explicitly helps to prevent unnecessary point animations across updates.
+
 ## Axis scaling
 
 `Scatter` can set up x- and y-axes according to manual specifications, or determine relevant settings based on data.
-To demonstrate this, the examples below use `Scatter` (which doesn't create any visual elements) together with components that visualize axes and an example dataset.
-
-When the scales on the axes are determined automatically, `Scatter` automatically adjusts the scales when the data changes, for example when certain data series are toggled via a legend (below, left).
-The automatic rescaling can be disabled via prop `autoRescale` (below, right).
+In charts with automatic scales, prop `autoRescale` determines whether or not the scales re-adjust in response to chart state.
+In the first example below (left), `autoRescale` is turned on.
+Thus, the scales should update when data series are toggled through the legend.
+In the second example (right), rescaling is turned off, and the scales should remain fixed after toggling the legend.
 
 <Canvas of={ScatterStories.AutoRescaling} />
 <Canvas of={ScatterStories.FixedScales} />

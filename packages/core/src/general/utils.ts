@@ -118,3 +118,17 @@ export const angleTheta = (a: NumericPositionSpec, b: NumericPositionSpec): numb
 
 /** ensure a number x is in the interval [lower, upper] */
 export const clip = (x: number, lower: number, upper: number) => Math.max(lower, Math.min(upper, x))
+
+/** create a sequence of numbers, e.g. [0,1,2,3] */
+export const range = (a: number, b?: number): number[] => {
+    if (b === undefined) return Array.from(Array(Math.floor(a)).keys())
+    const n = Math.abs(b - a)
+    const result = Array(n)
+    const step = Math.sign(b - a)
+    let i = 0
+    while (i < n) {
+        result[i] = a + i * step
+        i += 1
+    }
+    return result
+}

@@ -41,10 +41,10 @@ export const generateHistogramScatterData = () => {
     // create a dataset where two populations have different trends
     const data: ScatterData = []
     groupA.forEach((x, i) => {
-        data.push({ x, y: x * 1.0 + noiseA[i] })
+        data.push({ k: data.length, x, y: x * 1.0 + noiseA[i] })
     })
     groupB.forEach((x, i) => {
-        data.push({ x, y: x * 4.0 + noiseB[i] })
+        data.push({ k: data.length, x, y: x * 4.0 + noiseB[i] })
     })
     return [{ id: 'A', data }]
 }
@@ -201,7 +201,7 @@ export const HistogramScatterChart = ({ fref, chartData, rawData }: MilestoneSto
                     </Histogram>
                 </GridItem>
                 <GridItem index={1}>
-                    <Scatter data={scatterData} x={'x'} y={'y'} valueSize={2}>
+                    <Scatter data={scatterData} x={'x'} y={'y'} k={'k'} valueSize={2}>
                         <Surface expansion={[6, 6, 6, 6]} />
                         <Axis variant={'bottom'} label={'x (a.u.)'} distance={6} />
                         <Axis variant={'left'} label={'y (a.u.)'} distance={6} />

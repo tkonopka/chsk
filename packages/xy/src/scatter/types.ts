@@ -31,6 +31,7 @@ export type ScatterProcessedDataItem = WithId & {
     index: number
     x: Array<number>
     y: Array<number>
+    k: Array<number>
     size: Array<number>
     color?: Array<number>
 }
@@ -50,13 +51,15 @@ export type ScatterDataContextProps = ProcessedDataContextProps & {
 export interface ScatterProps
     extends SvgElementProps,
         Pick<ViewProps, 'container' | 'data' | 'autoRescale' | 'children'> {
-    /** key or function to extract x-axis values from raw data */
+    /** extraction of x-axis values from raw data */
     x: string | AccessorFunction<number>
-    /** key or function to extract y-axis values from raw data */
+    /** extraction of y-axis values from raw data */
     y: string | AccessorFunction<number>
-    /** absolute number, key, or function to extract dot size from raw data */
+    /** extraction of key values (indexes) from raw data */
+    k?: string | AccessorFunction<number>
+    /** extraction of dot size from raw data */
     valueSize?: number | string | AccessorFunction<number>
-    /** key or a function to extract a color raw data */
+    /** extraction of a value for color */
     valueColor?: null | string | AccessorFunction<number>
     /** data */
     data: Array<ScatterDataItem>
