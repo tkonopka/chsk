@@ -5,7 +5,7 @@ import {
     Legend,
     MilestoneMotion,
     Surface,
-    getMinMax,
+    interval,
     ThemeSpec,
     Grid,
     GridItem,
@@ -97,7 +97,7 @@ const enterTransition = {
 
 export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-    const yDomain = getMinMax(
+    const yDomain = interval(
         rawData
             .map(seriesData => {
                 const data = seriesData.data as RecordABC[]

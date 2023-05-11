@@ -16,7 +16,7 @@ import {
     ViewController,
     LinearGradient,
     useProcessedData,
-    getMinMax,
+    interval,
     url,
 } from '@chsk/core'
 import {
@@ -104,7 +104,7 @@ const SignCurve = ({ ids, prefix = 'sign-gradient' }: { ids?: string[]; prefix?:
     const result = (ids ?? processedData.keys).map((id: string) => {
         const seriesIndex = processedData.seriesIndexes[id]
         if (seriesIndex === undefined) return
-        const range = getMinMax(data[seriesIndex].y)
+        const range = interval(data[seriesIndex].y)
         const stops = getStops(range)
         const offsets = getOffsets(range)
         const gradId = prefix + '-' + id

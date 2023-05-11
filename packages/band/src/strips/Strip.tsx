@@ -13,7 +13,7 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
-    getMinMax,
+    interval,
     defaultContainerProps,
     useCreateScales,
 } from '@chsk/core'
@@ -50,7 +50,7 @@ const processData = (
             id: seriesData.id,
             index,
             data: summaries,
-            domain: summaries.map(summary => getMinMax(summary?.value ?? [])),
+            domain: summaries.map(summary => interval(summary?.value ?? [])),
         }
     })
 }

@@ -8,8 +8,8 @@ import {
     createColorScaleProps,
     createContinuousScaleProps,
     createSizeScaleProps,
-    getMax,
-    getMinMax,
+    max,
+    interval,
     isScaleWithDomain,
     NumericPositionSpec,
     RecordWithId,
@@ -43,14 +43,14 @@ export const getXYScaleProps = (
             .filter(filterDisabled)
             .map(seriesData => seriesData.x)
             .flat()
-        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x))
+        result.x = createContinuousScaleProps(scaleSpecX, interval(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
             .filter(filterDisabled)
             .map(seriesData => seriesData.y)
             .flat()
-        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y))
+        result.y = createContinuousScaleProps(scaleSpecY, interval(y))
     }
     result.x.size = size[X]
     result.y.size = size[Y]
@@ -62,7 +62,7 @@ export const getSizeScaleProps = (
     scaleSpec: SizeScaleSpec,
     maxSize: unknown
 ): SizeScaleProps => {
-    const maxDomain = getMax(data.map(seriesData => seriesData.size).flat())
+    const maxDomain = max(data.map(seriesData => seriesData.size).flat())
     if (typeof maxSize === 'number') return createSizeScaleProps(scaleSpec, maxDomain, maxSize)
     return createSizeScaleProps(scaleSpec, maxDomain, 10)
 }
@@ -75,7 +75,7 @@ export const getColorScaleProps = (
     if (scaleSpec.variant === 'categorical') {
         return createColorScaleProps(scaleSpec, seriesIds)
     }
-    const minmax = getMinMax(data.map(seriesData => seriesData.color ?? []).flat())
+    const minmax = interval(data.map(seriesData => seriesData.color ?? []).flat())
     return createColorScaleProps(scaleSpec, minmax)
 }
 

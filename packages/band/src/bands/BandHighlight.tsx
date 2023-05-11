@@ -23,9 +23,8 @@ import {
     getZoneSize,
     getClassName,
     useDisabledKeys,
-    getMinMax,
-    relu,
 } from '@chsk/core'
+import { interval, relu } from '@chsk/core'
 import { BandHighlightProps } from './types'
 
 const createDetectorIntervals = (
@@ -112,8 +111,8 @@ export const BandHighlight = ({
 
     useEffect(() => {
         if (!interactive && zone === null) {
-            const xInterval = getMinMax(detectorIntervals[0])
-            const yInterval = getMinMax(detectorIntervals[1])
+            const xInterval = interval(detectorIntervals[0])
+            const yInterval = interval(detectorIntervals[1])
             setZone([xInterval, yInterval])
         }
     }, [detectorIntervals, setZone])

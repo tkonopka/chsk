@@ -1,7 +1,7 @@
 import { createElement, useMemo } from 'react'
 import {
     addColor,
-    getMinMax,
+    interval,
     OpacityMotion,
     Line,
     useDisabledKeys,
@@ -63,7 +63,7 @@ const PooledRegression = ({
         })
         if (x.length === 0) return null
         const coefficients = regression(x, y)
-        return getRegressionLineCoordinates(getMinMax(x), coefficients)
+        return getRegressionLineCoordinates(interval(x), coefficients)
     }, [preparedData, ids])
 
     if (points === null) return null
@@ -117,7 +117,7 @@ const IndividualRegression = ({
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
         const points = getRegressionLineCoordinates(
-            getMinMax(preparedData.data[seriesIndex].x),
+            interval(preparedData.data[seriesIndex].x),
             coefficients[id]
         )
         const element = createElement(dataComponent, {

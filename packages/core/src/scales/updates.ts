@@ -1,7 +1,7 @@
 import { AxisScale, AxisScaleProps, NumericScaleProps } from './types'
 import { cloneDeep } from 'lodash'
+import { interval } from '../general'
 import { createContinuousScale } from './axes'
-import { getMinMax } from './utils'
 
 /** create scale props with a size key */
 export const fillSize = (props: Omit<AxisScaleProps, 'size'>, size: number) => {
@@ -37,7 +37,7 @@ export const shiftDomain = (props: AxisScaleProps, scale: AxisScale, shift: numb
 /** create scale props with a changed domain (target are coordinates to be converted into a new domain) */
 export const changeDomain = (props: AxisScaleProps, scale: AxisScale, target: [number, number]) => {
     const result = cloneDeep(props)
-    result.viewDomain = getMinMax([scale.invert(target[0]), scale.invert(target[1])])
+    result.viewDomain = interval([scale.invert(target[0]), scale.invert(target[1])])
     return result
 }
 

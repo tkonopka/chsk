@@ -45,6 +45,9 @@
 
 ### Changed
 
+-   [core] renamed some math functions for brevity, e.g. `getMax` into `max`
+    and `getMinMax` into `interval`
+-   [core] consolidated math functions into a single location
 -   [core] fixed propagation of style props in `LegendColorScale`
 -   [core] changed handling of ticks with zero size in `AxisTicks`; such tick
     lines are now omitted altogether from the output

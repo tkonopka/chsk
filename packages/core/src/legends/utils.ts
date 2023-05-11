@@ -10,8 +10,9 @@ import {
     Y,
     SideVariant,
     CssProps,
+    max,
 } from '../general'
-import { ColorScale, getMinMax } from '../scales'
+import { ColorScale } from '../scales'
 import { addColor } from '../themes'
 
 // estimate the size of a legend based on number of items
@@ -64,7 +65,7 @@ export const getItemPositions = (
     const stepPadding = horizontal ? pad[LEFT] + pad[RIGHT] : pad[TOP] + pad[BOTTOM]
     const step: NumericPositionSpec = horizontal ? [stepSize, 0] : [0, stepSize]
     const stepMultiplier = horizontal ? [1, 0] : [0, 1]
-    const maxSize: number = getMinMax(symbolSizes)[1]
+    const maxSize: number = max(symbolSizes)
     const centerX = pad[LEFT] + (size[X] - pad[LEFT] - pad[RIGHT]) / 2
 
     const itemPosition: NumericPositionSpec[] = []

@@ -5,7 +5,7 @@ import {
     Typography,
     Legend,
     LegendItem,
-    getMinMax,
+    interval,
     ThemeSpec,
     LegendTitle,
     defaultCategoricalScaleSpec,
@@ -67,8 +67,8 @@ const customTheme: ThemeSpec = {
 
 export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-    const outlierX = getMinMax(rawData[1].data.map(point => Number(point.x)))
-    const outlierY = getMinMax(rawData[1].data.map(point => Number(point.y)))
+    const outlierX = interval(rawData[1].data.map(point => Number(point.x)))
+    const outlierY = interval(rawData[1].data.map(point => Number(point.y)))
     return (
         <Chart
             data={chartData}

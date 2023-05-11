@@ -9,7 +9,7 @@ import {
     ContinuousScaleProps,
     ContinuousScaleSpec,
     isScaleWithDomain,
-    getMinMax,
+    interval,
     getIndexes,
     defaultLinearScaleSpec,
     useDisabledKeys,
@@ -19,7 +19,7 @@ import {
     X,
     Y,
     SizeSpec,
-    getMoments,
+    moments,
     defaultContainerProps,
     useCreateScales,
 } from '@chsk/core'
@@ -33,7 +33,7 @@ const processData = (
     density: boolean
 ): Array<HistogramProcessedDataItem> => {
     return data.map((seriesData, index) => {
-        const [mean, variance] = getMoments(seriesData.data)
+        const [mean, variance] = moments(seriesData.data)
         return {
             id: seriesData.id,
             index,
@@ -78,14 +78,14 @@ const getHistogramScaleProps = (
             .filter(filterDisabled)
             .map(seriesData => seriesData.points.map(point => point[X]))
             .flat()
-        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x))
+        result.x = createContinuousScaleProps(scaleSpecX, interval(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
             .filter(filterDisabled)
             .map(seriesData => seriesData.points.map(point => point[Y]))
             .flat()
-        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y))
+        result.y = createContinuousScaleProps(scaleSpecY, interval(y))
     }
     result.x.size = size[X]
     result.y.size = size[Y]

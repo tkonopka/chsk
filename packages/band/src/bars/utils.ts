@@ -5,7 +5,7 @@ import {
     ContinuousScaleProps,
     ContinuousScaleSpec,
     createContinuousScaleProps,
-    getMinMax,
+    interval,
     isScaleWithDomain,
     SizeSpec,
     X,
@@ -39,7 +39,7 @@ export const getScaleProps = (
             const negative = values.reduce((acc, v) => (isFinite(v) && v < 0 ? acc + v : acc), 0)
             return [negative, positive]
         }
-        const domain = stacked ? getMinMax(values.map(sumValues).flat()) : getMinMax(values.flat())
+        const domain = stacked ? interval(values.map(sumValues).flat()) : interval(values.flat())
         result.value = createContinuousScaleProps(scaleSpecValue, domain) as ContinuousScaleProps
     }
     result.index.size = horizontal ? size[Y] : size[X]

@@ -1,4 +1,4 @@
-import { createContinuousScale, getMinMax, NumericPositionSpec } from '@chsk/core'
+import { createContinuousScale, interval, NumericPositionSpec } from '@chsk/core'
 import { sortedIndex } from 'lodash'
 import { HistogramDataItem } from './types'
 
@@ -39,16 +39,16 @@ export const binValues = (data: number[], breaks: number[], density: boolean) =>
 
 // guess a set of breakpoints using 'ticks' from d3 scales
 export const getBreaksArray = (data: Array<HistogramDataItem>, breaks: number) => {
-    const minmax = getMinMax(data.map(seriesData => getMinMax(seriesData.data)).flat())
+    const minmax = interval(data.map(seriesData => interval(seriesData.data)).flat())
     const scale = createContinuousScale({ variant: 'linear', size: 100, domain: minmax })
     let result = scale.ticks(Math.max(2, breaks))
-    const interval = result[1] - result[0]
+    const step = result[1] - result[0]
     const last = result[result.length - 1]
     if (last < minmax[1]) {
-        result.push(last + interval)
+        result.push(last + step)
     }
     if (result[0] > minmax[0]) {
-        result = [result[0] - interval].concat(result)
+        result = [result[0] - step].concat(result)
     }
     return result
 }

@@ -5,36 +5,8 @@ import {
     DetectorZone,
     DetectorIntervals,
     inZone,
-    getMinMax,
-    getMax,
     getZoneSize,
 } from '../../src/scales'
-
-describe('getMinMax', () => {
-    it('finds min and max values from non-empty array', () => {
-        const result = getMinMax([3, 6, 4, 9, 0, -1])
-        expect(result[0]).toEqual(-1)
-        expect(result[1]).toEqual(9)
-    })
-
-    it('returns default min and max values for empty array', () => {
-        const result = getMinMax([])
-        expect(result[0]).toEqual(1)
-        expect(result[1]).toEqual(1)
-    })
-})
-
-describe('getMax', () => {
-    it('finds max value from non-empty array', () => {
-        const result = getMax([3, 6, 4, 9, 0, -1])
-        expect(result).toEqual(9)
-    })
-
-    it('returns default value for empty array', () => {
-        const result = getMax([], 0)
-        expect(result).toEqual(0)
-    })
-})
 
 describe('zones', () => {
     it('creates intervals', () => {

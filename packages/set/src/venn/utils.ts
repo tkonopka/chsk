@@ -1,7 +1,7 @@
 import {
     ColorScaleProps,
     createColorScaleProps,
-    getMinMax,
+    interval,
     SizeSpec,
     X,
     Y,
@@ -34,7 +34,7 @@ export const getXYScaleProps = (
                 seriesData.center[X] + seriesData.r,
             ])
             .flat()
-        result.x = createContinuousScaleProps(scaleSpecX, getMinMax(x)) as NumericScaleProps
+        result.x = createContinuousScaleProps(scaleSpecX, interval(x)) as NumericScaleProps
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = data
@@ -43,7 +43,7 @@ export const getXYScaleProps = (
                 seriesData.center[Y] + seriesData.r,
             ])
             .flat()
-        result.y = createContinuousScaleProps(scaleSpecY, getMinMax(y)) as NumericScaleProps
+        result.y = createContinuousScaleProps(scaleSpecY, interval(y)) as NumericScaleProps
     }
     result.x.size = size[X]
     result.y.size = size[Y]

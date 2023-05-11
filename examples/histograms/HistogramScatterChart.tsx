@@ -6,7 +6,7 @@ import {
     Typography,
     Grid,
     GridItem,
-    getMinMax,
+    interval,
     Draggable,
     DraggableProps,
     useDimensions,
@@ -151,9 +151,9 @@ export const HistogramScatterChart = ({ fref, chartData, rawData }: MilestoneSto
 
     // on first render, adjust the bounds to include all the data
     useEffect(() => {
-        const minmax = getMinMax(histogramData[0].data)
-        setLower(minmax[0])
-        setUpper(minmax[1])
+        const [min, max] = interval(histogramData[0].data)
+        setLower(min)
+        setUpper(max)
         setInstance(instance => instance + 1)
     }, [rawData])
 

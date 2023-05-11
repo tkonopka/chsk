@@ -6,14 +6,14 @@ import {
     getIdKeySets,
     useScales,
     useProcessedData,
-    getMinMax,
+    interval,
 } from '@chsk/core'
 import { HeatMapSurfaceProps } from './types'
 
 const getInterval = (targets: Set<string>, scale: BandAxisScale, expansion: [number, number]) => {
     const bandwidth = scale.bandwidth()
-    const interval = getMinMax(Array.from(targets).map(scale))
-    return [interval[0] - expansion[0] * bandwidth, interval[1] + expansion[1] * bandwidth]
+    const values = interval(Array.from(targets).map(scale))
+    return [values[0] - expansion[0] * bandwidth, values[1] + expansion[1] * bandwidth]
 }
 
 export const HeatMapSurface = ({

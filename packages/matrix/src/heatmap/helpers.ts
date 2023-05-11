@@ -5,8 +5,8 @@ import {
     ColorScaleSpec,
     createColorScaleProps,
     createSizeScaleProps,
-    getMinMax,
-    getMax,
+    interval,
+    max,
     SizeScaleProps,
     SizeScaleSpec,
     SizeSpec,
@@ -47,7 +47,7 @@ export const getColorScaleProps = (
         )
         return createColorScaleProps(scaleSpec, Array.from(allValues))
     }
-    const minmax = getMinMax(
+    const minmax = interval(
         data
             .map(item => item.value)
             .flat()
@@ -64,7 +64,7 @@ export const getSizeScaleProps = (
     ids: string[],
     keys: string[]
 ): SizeScaleProps => {
-    const maxDomain = getMax(data.map(seriesData => seriesData.size).flat())
+    const maxDomain = max(data.map(seriesData => seriesData.size).flat())
     const maxSize = Math.min(viewSize[Y] / ids.length, viewSize[X] / keys.length) / 2
     return createSizeScaleProps(scaleSpec, maxDomain, maxSize)
 }

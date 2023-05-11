@@ -13,8 +13,8 @@ import {
     useTheme,
     createColorScaleProps,
     BaseView,
-    getMinMax,
-    getMoments,
+    interval,
+    moments,
     defaultContainerProps,
     useCreateScales,
 } from '@chsk/core'
@@ -51,7 +51,7 @@ const processData = (
                 }
             }
             if (!Array.isArray(raw)) return undefined
-            const [mean, variance] = getMoments(raw as number[])
+            const [mean, variance] = moments(raw as number[])
             const sd = isFinite(variance) ? Math.sqrt(variance) : 0
             return {
                 n: raw.length,
@@ -59,14 +59,14 @@ const processData = (
                 interval: [mean - sd, mean + sd] as [number, number],
                 values: getQuantiles(raw as number[], quantiles) as FiveNumbers,
                 quantiles,
-                extrema: getMinMax(raw as number[]),
+                extrema: interval(raw as number[]),
             }
         })
         return {
             id: seriesData.id,
             index,
             data: summaries,
-            domain: summaries.map(summary => getMinMax(summary?.extrema ?? [])),
+            domain: summaries.map(summary => interval(summary?.extrema ?? [])),
         }
     })
 }

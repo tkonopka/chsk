@@ -7,7 +7,7 @@ import {
     GridLines,
     Typography,
     ThemeSpec,
-    getMinMax,
+    interval,
     TimeAxisScale,
     useScales,
 } from '@chsk/core'
@@ -44,8 +44,8 @@ export const generateForecastData = () => {
         }
     })
     const threshold = syntheticData.filter(item => item.time <= now).length
-    const timeRange = getMinMax(syntheticData.map(item => Number(item.time)))
-    const valueRange = getMinMax(syntheticData.map(item => [item.lower, item.upper]).flat())
+    const timeInterval = interval(syntheticData.map(item => Number(item.time)))
+    const valueInterval = interval(syntheticData.map(item => [item.lower, item.upper]).flat())
     // arrange into series
     return [
         {
@@ -61,8 +61,8 @@ export const generateForecastData = () => {
         {
             id: 'interval',
             data: [
-                { time: new Date(timeRange[0]), value: valueRange[0] },
-                { time: new Date(timeRange[1]), value: valueRange[1] },
+                { time: new Date(timeInterval[0]), value: valueInterval[0] },
+                { time: new Date(timeInterval[1]), value: valueInterval[1] },
             ],
         },
     ]

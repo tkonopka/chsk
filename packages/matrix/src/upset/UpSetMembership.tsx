@@ -1,5 +1,5 @@
 import { UpSetMembershipProps } from './types'
-import { Circle, getClassName, getMinMax, Line, X, Y } from '@chsk/core'
+import { Circle, getClassName, interval, Line, X, Y } from '@chsk/core'
 import { createElement } from 'react'
 
 export const UpSetMembership = ({
@@ -12,8 +12,8 @@ export const UpSetMembership = ({
     className,
     setRole = false,
 }: UpSetMembershipProps) => {
-    const xCoordinates = getMinMax(positions.map(coords => coords[X]))
-    const yCoordinates = getMinMax(positions.map(coords => coords[Y]))
+    const xCoordinates = interval(positions.map(coords => coords[X]))
+    const yCoordinates = interval(positions.map(coords => coords[Y]))
     const drawLine = xCoordinates[0] != xCoordinates[1] || yCoordinates[0] != yCoordinates[1]
     const compositeClassName = getClassName('upSetMembership', className)
     const lineElement = createElement(line, {

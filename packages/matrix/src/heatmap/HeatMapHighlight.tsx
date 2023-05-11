@@ -16,7 +16,7 @@ import {
     DetectorIntervals,
     inZone,
     findZone,
-    getMinMax,
+    interval,
     useTooltip,
     OpacityMotion,
     getAlignPosition,
@@ -115,8 +115,8 @@ export const HeatMapHighlight = ({
 
     useEffect(() => {
         if (!interactive) {
-            const xInterval = getMinMax(detectorIntervals[0])
-            const yInterval = getMinMax(detectorIntervals[1])
+            const xInterval = interval(detectorIntervals[0])
+            const yInterval = interval(detectorIntervals[1])
             setZone([xInterval, yInterval])
         }
     }, [detectorIntervals, setZone])
