@@ -12,6 +12,7 @@ import {
     DualContinuousHeatMapChart,
 } from './DualContinuousHeatMapChart'
 import { generateFlagsHeatMapData, FlagsHeatMapChart } from './FlagsHeatMapChart'
+import { generateGridHeatMapData, GridHeatMapChart } from './GridHeatMapChart'
 import { generateSizeBlockHeatMapData, SizeBlockHeatMapChart } from './SizeBlockHeatMapChart'
 
 export default {
@@ -82,6 +83,14 @@ export const BooleanFlags: GalleryStory = {
         generator: generateFlagsHeatMapData,
         chart: FlagsHeatMapChart,
         steps: ['samples', 'flags', 'heatmap'],
+    },
+}
+
+export const Grid: GalleryStory = {
+    name: 'grid',
+    args: {
+        generator: generateGridHeatMapData,
+        chart: GridHeatMapChart,
     },
 }
 

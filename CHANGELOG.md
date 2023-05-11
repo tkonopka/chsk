@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [example] heat map with sparse data and a grid
 -   [xy] props `k` in `Scatter` to provide explicit keys for data points
 -   [examples] chart with histogram with draggable controls
 -   [core] prop `disabledStyle` in legend components to control appearance of
