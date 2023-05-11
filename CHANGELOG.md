@@ -45,6 +45,7 @@
 
 ### Changed
 
+-   [core] fixed propagation of style props in `LegendColorScale`
 -   [core] changed handling of ticks with zero size in `AxisTicks`; such tick
     lines are now omitted altogether from the output
 -   [xy] fixed bug leading to NaN in regressions with short data series
