@@ -41,6 +41,7 @@ const customTheme = mergeTheme(buttonTheme, {
     circle: {
         default: {
             strokeWidth: 1,
+            stroke: '#444444',
         },
     },
     line: {
@@ -59,6 +60,14 @@ const customTheme = mergeTheme(buttonTheme, {
         tickLabel: {
             fill: '#666666',
         },
+        'tickLabel.top': {
+            dominantBaseline: 'middle',
+            textAnchor: 'start',
+        },
+        'tickLabel.bottom': {
+            dominantBaseline: 'middle',
+            textAnchor: 'end',
+        },
     },
     AxisLabel: {
         top: {
@@ -72,7 +81,6 @@ const customTheme = mergeTheme(buttonTheme, {
         top: {
             labelAngle: -90,
             tickSize: 0,
-            labelStyle: { textAnchor: 'start', dominantBaseline: 'middle' },
         },
         left: {
             tickSize: 0,
@@ -83,7 +91,6 @@ const customTheme = mergeTheme(buttonTheme, {
         bottom: {
             labelAngle: -90,
             tickSize: 0,
-            labelStyle: { textAnchor: 'end', dominantBaseline: 'middle' },
         },
     },
     GridLines: {
@@ -112,7 +119,7 @@ const CustomHeatMapCell = ({
             cx={x}
             cy={y}
             r={Math.min(width, height) / 2}
-            style={style}
+            style={{ ...style, stroke: undefined }}
             className={className}
         />
     )
@@ -168,6 +175,7 @@ export const GridHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         size={[100, 9]}
                         position={[0, 14]}
                         gradientId={'grad-grid'}
+                        labelStyle={{ textAnchor: 'middle', dominantBaseline: 'hanging' }}
                     />
                 </Legend>
                 <HeatMapHighlight />
