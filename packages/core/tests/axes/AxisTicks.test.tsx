@@ -8,7 +8,7 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" />
+                        <AxisTicks />
                     </Axis>
                 </View>
             </Chart>
@@ -28,7 +28,7 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" setRole={false} />
+                        <AxisTicks setRole={false} />
                     </Axis>
                 </View>
             </Chart>
@@ -46,7 +46,7 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={6} labelFormat={percentFormat} />
+                        <AxisTicks ticks={6} labelFormat={percentFormat} />
                     </Axis>
                 </View>
             </Chart>
@@ -60,7 +60,7 @@ describe('AxisTicks', () => {
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={[]} />
+                        <AxisTicks ticks={[]} />
                     </Axis>
                 </View>
             </Chart>
@@ -69,12 +69,12 @@ describe('AxisTicks', () => {
         expect(result).toHaveLength(0)
     })
 
-    it('can omit tick labels', () => {
+    it('omits empty tick labels', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={6} labelFormat={() => ''} />
+                        <AxisTicks ticks={6} labelFormat={() => ''} />
                     </Axis>
                 </View>
             </Chart>
@@ -82,12 +82,26 @@ describe('AxisTicks', () => {
         expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(0)
     })
 
-    it('can request specific ticks', () => {
+    it('omits lines of zero length', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={[0, 20, 30]} />
+                        <AxisTicks ticks={6} tickSize={0} />
+                    </Axis>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(6)
+        expect(screen.getByRole('axis').querySelectorAll('line')).toHaveLength(0)
+    })
+
+    it('displays ticks at specified locations', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="top">
+                        <AxisTicks ticks={[0, 20, 30]} />
                     </Axis>
                 </View>
             </Chart>
@@ -95,12 +109,12 @@ describe('AxisTicks', () => {
         expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(3)
     })
 
-    it('can rotate tick labels', () => {
+    it('rotates tick labels', () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
                     <Axis variant="top">
-                        <AxisTicks variant="top" ticks={[0, 50, 100]} labelAngle={45} />
+                        <AxisTicks ticks={[0, 50, 100]} labelAngle={45} />
                     </Axis>
                 </View>
             </Chart>

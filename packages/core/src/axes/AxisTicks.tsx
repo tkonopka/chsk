@@ -51,17 +51,19 @@ export const getScaleTicks = ({
         const [x, y] = position
         return (
             <g key={'tick-' + tickValues[i]} role={setRole ? 'tick' : undefined} style={style}>
-                <Line
-                    key={0}
-                    variant={'tick'}
-                    x1={x}
-                    y1={y}
-                    x2={x + (horizontal ? 0 : tickSize * xMultiplier)}
-                    y2={y + (horizontal ? tickSize * yMultiplier : 0)}
-                    className={compositeClassName}
-                    style={tickStyle}
-                    setRole={false}
-                />
+                {tickSize > 0 ? (
+                    <Line
+                        key={0}
+                        variant={'tick'}
+                        x1={x}
+                        y1={y}
+                        x2={x + (horizontal ? 0 : tickSize * xMultiplier)}
+                        y2={y + (horizontal ? tickSize * yMultiplier : 0)}
+                        className={compositeClassName}
+                        style={tickStyle}
+                        setRole={false}
+                    />
+                ) : null}
                 <Typography
                     key={1}
                     variant={'tick-label'}
