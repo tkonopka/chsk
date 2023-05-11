@@ -44,6 +44,8 @@
 
 ### Changed
 
+-   [core] changed handling of ticks with zero size in `AxisTicks`; such tick
+    lines are now omitted altogether from the output
 -   [xy] fixed bug leading to NaN in regressions with short data series
 -   [core] extended type for `format` in `Counter` to simplify counters using
     `tspan` elements
