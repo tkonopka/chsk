@@ -98,4 +98,6 @@ export interface PathProps
     curve?: CurveSpec
     /** path d argument (supersedes points and curve) */
     d?: string
+    /** closed path */
+    closed?: boolean
 }

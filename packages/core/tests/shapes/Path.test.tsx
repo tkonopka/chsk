@@ -17,7 +17,19 @@ describe('Path', () => {
         )
         const result = screen.getByRole('chart-content').querySelector('path')
         expect(result?.getAttribute('d')).toContain('M')
+        expect(result?.getAttribute('d')).not.toContain('Z')
         expect(result?.getAttribute('role')).toBeNull()
+    })
+
+    it('creates a closed path', () => {
+        render(
+            <Chart {...chartProps}>
+                <Path points={threePoints} curve={'Linear'} closed={true} />
+            </Chart>
+        )
+        const result = screen.getByRole('chart-content').querySelector('path')
+        expect(result?.getAttribute('d')).toContain('M')
+        expect(result?.getAttribute('d')).toContain('80Z')
     })
 
     it('creates a path variant', () => {

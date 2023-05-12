@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] prop `closed` in `Path` to ensure a path is closed
 -   [example] heat map with sparse data and a grid
 -   [xy] props `k` in `Scatter` to provide explicit keys for data points
 -   [examples] chart with histogram with draggable controls

@@ -9,6 +9,7 @@ export const Path = ({
     points,
     curve = 'Linear',
     d,
+    closed,
     markerStart,
     markerEnd,
     className,
@@ -17,7 +18,10 @@ export const Path = ({
 }: PathProps) => {
     const compositeClassName = getClassName(variant, className)
     const generator = useMemo(() => createLineGenerator(curve), [curve])
-    const path = d ?? generator(points ?? [])
+    let path = d ?? generator(points ?? [])
+    if (closed && path && !(path.endsWith('z') || path.endsWith('Z'))) {
+        path += 'Z'
+    }
     return (
         <m.path
             initial={{ d: path ?? undefined }}
