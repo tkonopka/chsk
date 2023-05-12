@@ -114,9 +114,10 @@ export const binValues = (data: number[], breaks: number[], density: boolean) =>
     }
     const min = breaks[0]
     const max = breaks[breaks.length - 1]
-    data.filter(v => v >= min && v < max).forEach(v => {
+    data.filter(v => v >= min && v <= max).forEach(v => {
         const index = sortedIndex(breaks, v)
-        values[index - 1] += 1
+        // may over-estimate density in lowest bin when points are exactly equal to lower bound
+        values[index === 0 ? index : index - 1] += 1
     })
     if (density) {
         const total = values.reduce((acc, v) => acc + v, 0)

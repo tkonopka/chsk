@@ -1,0 +1,51 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as ViolinStories from './Violin.stories'
+
+# Violin
+
+<Meta of={ViolinStories} />
+
+`Violin` sets up a view for a violin chart.
+
+<ArgTypes of={ViolinStories} />
+
+## Data
+
+Data should be prepared as an array of objects.
+All objects should contain a string identifier `'id'`. Other keys with numeric values can be used to display distributions.
+
+The pseudocode below shows one data item with an identifier and two numeric arrays.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "x": [1, 2, 3, ,...],
+   "y": [2, 4, 6, ...],
+  },
+  ...
+  ]
+  `}
+/>
+
+## Orientation
+
+Prop `horizontal` arranges the strips in the horizontal direction.
+
+<Canvas of={ViolinStories.Vertical} />
+<Canvas of={ViolinStories.Horizontal} />
+
+## Breaks
+
+Prop `breaks` determines the resolution of the violin shape.
+This can be specified as a number, which indicates the number of bins, or as an array of breakpoints.
+
+<Canvas of={ViolinStories.BreaksNumber} />
+<Canvas of={ViolinStories.BreaksArray} />
+
+## Other features
+
+`Violin` supports many of the same features as `Bar`, for example, for adjusting padding.
+See the documentation for `Bar` for examples.

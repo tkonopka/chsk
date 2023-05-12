@@ -1,3 +1,4 @@
+import { sum } from 'lodash'
 import {
     roundDecimalPlaces,
     rad2deg,
@@ -248,5 +249,14 @@ describe('breaks', () => {
         expect(result.length).toBeGreaterThanOrEqual(4)
         expect(result[0]).toBeLessThanOrEqual(-2)
         expect(result[result.length - 1]).toBeGreaterThanOrEqual(12)
+    })
+})
+
+describe('binValues', () => {
+    it('assigns all points to a bin', () => {
+        const values = [0, 2, 4, 6, 10, 14, 18, 20]
+        const bins = breaks(values, 5)
+        const result = binValues(values, bins, false)
+        expect(sum(result)).toEqual(values.length)
     })
 })

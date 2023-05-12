@@ -4,6 +4,7 @@ import {
     BarDataItem,
     DistributionProps,
     StripProps,
+    ViolinProps,
     ScheduleProps,
     DistributionDataItem,
 } from '../src'
@@ -135,6 +136,21 @@ export const stripProps: StripProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     valueSize: 2,
+    scaleIndex: {
+        variant: 'band' as const,
+        domain: ['alpha', 'beta'],
+    },
+    scaleValue: {
+        variant: 'linear' as const,
+        domain: [0, 100] as [number, number],
+    },
+}
+
+// props for strip charts are almost the same as for quantile plots
+// but create separate object for easier reading
+export const violinProps: ViolinProps = {
+    data: dataRawValues,
+    keys: ['x', 'y'],
     scaleIndex: {
         variant: 'band' as const,
         domain: ['alpha', 'beta'],

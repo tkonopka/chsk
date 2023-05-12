@@ -1,0 +1,34 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ViolinsStories from './Violins.stories'
+
+# Violins
+
+<Meta of={ViolinsStories} />
+
+`Violins` draws shapes to summarize distributions on a violin chart.
+
+`Violins` is intended to be used within a `Violin` view.
+Note that while `Violins` draws the distributions, much of the chart layout is determined by the parent view `Violin`.
+
+<ArgTypes of={ViolinsStories} />
+
+## Variants
+
+Prop `variant` toggles smoothing.
+The default variant, `smooth`, creates the classic 'violin' shapes.
+Variant `step` instead creates step-wise histograms.
+
+<Canvas of={ViolinsStories.Smooth} />
+<Canvas of={ViolinsStories.Step} />
+
+## Data subsets
+
+By default, `Violins` draws the entire dataset. To draw subsets, set props `ids` and `keys`.
+
+<Canvas of={ViolinsStories.SelectedIds} />
+<Canvas of={ViolinsStories.SelectedKeys} />
+
+## Styling
+
+Violins can be styled with css.
+In particular, note that attribute `fillOpacity` may be needed to trigger a solid fill (see above).

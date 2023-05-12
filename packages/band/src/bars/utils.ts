@@ -16,7 +16,7 @@ import { cloneDeep } from 'lodash'
 
 export const getScaleProps = (
     ids: string[],
-    data: Array<[number, number][]>, // for each id, key, array with [min, max] values
+    data: Array<Array<undefined | [number, number]>>, // for each id, key, array with [min, max] values
     scaleSpecIndex: BandScaleSpec,
     scaleSpecValue: ContinuousScaleSpec,
     size: SizeSpec, // inner size of the view
@@ -33,7 +33,8 @@ export const getScaleProps = (
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
         const filterDisabled = (v: unknown, i: number) => !disabled[i]
-        const values = data.map(d => d.filter(filterDisabled).flat().filter(isFinite))
+        const isValue = (v: unknown) => v !== undefined && isFinite(Number(v))
+        const values = data.map(d => d.filter(filterDisabled).flat().filter(isValue) as number[])
         const sumValues = (values: number[]) => {
             const positive = values.reduce((acc, v) => (isFinite(v) && v > 0 ? acc + v : acc), 0)
             const negative = values.reduce((acc, v) => (isFinite(v) && v < 0 ? acc + v : acc), 0)
