@@ -265,6 +265,34 @@ describe('Strip', () => {
         expect(scales.x.domain()).toEqual([0, 20])
     })
 
+    it('computes scales using available keys and ignores missing data', () => {
+        let scales: Scales = {
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
+            size: defaultSizeScale,
+            color: defaultDivergingScale,
+        }
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
+        render(
+            <Chart>
+                <Strip
+                    data={data}
+                    keys={['x', 'y']}
+                    scaleIndex={{ variant: 'band' }}
+                    scaleValue={{ variant: 'linear' }}
+                >
+                    <GetScales />
+                </Strip>
+            </Chart>
+        )
+        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
+        expect(scales.y.domain()).toEqual([10, 12])
+    })
+
     it('handles missing keys', () => {
         let result: Array<StripProcessedDataItem> = []
         const GetPreparedData = () => {

@@ -45,6 +45,8 @@
 
 ### Changed
 
+-   [band] fixed bug in calculation of domains in strip and distribution
+    charts, which forced inclusion of '1' in domain in cases with missing data
 -   [core] renamed some math functions for brevity, e.g. `getMax` into `max`
     and `getMinMax` into `interval`
 -   [core] consolidated math functions into a single location

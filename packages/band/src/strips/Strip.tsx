@@ -50,7 +50,7 @@ const processData = (
             id: seriesData.id,
             index,
             data: summaries,
-            domain: summaries.map(summary => interval(summary?.value ?? [])),
+            domain: summaries.map(summary => (summary ? interval(summary?.value) : undefined)),
         }
     })
 }

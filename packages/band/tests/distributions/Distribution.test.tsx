@@ -150,6 +150,34 @@ describe('Distribution', () => {
         expect(result[1].data[1]).toBeTruthy()
     })
 
+    it('computes scales using available keys and ignores missing data', () => {
+        let scales: Scales = {
+            x: dummyXBandScale,
+            y: dummyYLinearScale,
+            size: defaultSizeScale,
+            color: defaultDivergingScale,
+        }
+        const GetScales = () => {
+            scales = useScales().scales
+            return null
+        }
+        const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
+        render(
+            <Chart>
+                <Distribution
+                    data={data}
+                    keys={['x', 'y']}
+                    scaleIndex={{ variant: 'band' }}
+                    scaleValue={{ variant: 'linear' }}
+                >
+                    <GetScales />
+                </Distribution>
+            </Chart>
+        )
+        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
+        expect(scales.y.domain()).toEqual([10, 12])
+    })
+
     it('prepares color scale for legend', () => {
         render(
             <Chart>
