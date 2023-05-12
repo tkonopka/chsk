@@ -11,6 +11,9 @@ import {
     squaredDistance,
     max,
     interval,
+    binValues,
+    breaks,
+    histogramPoints,
 } from '../../src/general/math'
 
 describe('roundDecimalPlaces', () => {
@@ -193,5 +196,57 @@ describe('range', () => {
         expect(range(3, 0)).toEqual([3, 2, 1])
         expect(range(2, -2)).toEqual([2, 1, 0, -1])
         expect(range(-2, -4)).toEqual([-2, -3])
+    })
+})
+
+describe('histogramPoints', () => {
+    // ten values - 6 in bin [0, 5] and 4 in bin [5, 10]
+    const tenValues = [1, 2, 2.5, 3, 3.5, 4, 6, 7, 8, 9]
+    // breaks
+    const breaks = [0, 5, 10]
+
+    it('places data into bins', () => {
+        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
+        // center points of bins should be at 0.25 and 0.75
+        const result = histogramPoints(binValues(tenValues, breaks, false), breaks)
+        expect(result.length).toEqual(4)
+        // middle points convey bins and counts in the bins
+        expect(result[1]).toEqual([2.5, 6])
+        expect(result[2]).toEqual([7.5, 4])
+        // boundary points convey the edges
+        expect(result[0]).toEqual([0, 6])
+        expect(result[3]).toEqual([10, 4])
+    })
+
+    it('estimates densities', () => {
+        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
+        // center points of bins should be at 0.25 and 0.75
+        const result = histogramPoints(binValues(tenValues, breaks, true), breaks)
+        expect(result.length).toEqual(4)
+        // middle points convey bins and density
+        expect(result[1]).toEqual([2.5, 0.6 / 5])
+        expect(result[2]).toEqual([7.5, 0.4 / 5])
+        // boundary points convey the edges
+        expect(result[0]).toEqual([0, 0.6 / 5])
+        expect(result[3]).toEqual([10, 0.4 / 5])
+    })
+
+    it('handles empty dataset', () => {
+        // three breakpoints, i.e. two bins [0, 5] and [5, 10]
+        // center points of bins should be at 0.25 and 0.75
+        const result = histogramPoints(binValues([], breaks, true), breaks)
+        // the data is empty, histogram representation should be flat/empty
+        expect(result.length).toEqual(4)
+        expect(result.map(d => d[1])).toEqual([0, 0, 0, 0])
+    })
+})
+
+describe('breaks', () => {
+    it('computes reasonable breakpoints', () => {
+        const values = [0, 2, 4, 6, -2, 2, 4, 12]
+        const result = breaks(values, 4)
+        expect(result.length).toBeGreaterThanOrEqual(4)
+        expect(result[0]).toBeLessThanOrEqual(-2)
+        expect(result[result.length - 1]).toBeGreaterThanOrEqual(12)
     })
 })

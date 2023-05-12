@@ -22,11 +22,12 @@ import {
     moments,
     defaultContainerProps,
     useCreateScales,
+    binValues,
+    histogramPoints,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
-import { binValues, getBreaksArray } from './utils'
+import { getBreaksArray } from './utils'
 
-// turn raw data into a minimal format
 const processData = (
     data: Array<HistogramDataItem>,
     breaks: number[],
@@ -34,10 +35,11 @@ const processData = (
 ): Array<HistogramProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const [mean, variance] = moments(seriesData.data)
+        const bins = binValues(seriesData.data, breaks, density)
         return {
             id: seriesData.id,
             index,
-            points: binValues(seriesData.data, breaks, density),
+            points: histogramPoints(bins, breaks),
             breaks,
             n: seriesData.data.length,
             mean,
@@ -46,7 +48,6 @@ const processData = (
     })
 }
 
-// turn processed data into view-specific coordinates
 const prepareData = (
     seriesData: HistogramProcessedDataItem,
     scaleX: ContinuousAxisScale,

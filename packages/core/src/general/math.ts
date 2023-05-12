@@ -1,7 +1,9 @@
 /** utility functions for mathematical transformations */
 
+import { scaleLinear } from 'd3-scale'
 import { NumericPositionSpec } from './types'
 import { X, Y } from './constants'
+import { sortedIndex } from 'lodash'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
 export const roundDecimalPlaces = (x: number, n: number) => {
@@ -81,6 +83,63 @@ export const range = (a: number, b?: number): number[] => {
     while (i < n) {
         result[i] = a + i * step
         i += 1
+    }
+    return result
+}
+
+/**
+ * internal helper functions to create a series of [a, b] points to represent a histogram
+ *
+ * In the output, most points represent the center of a bin (value a) and the
+ * height of that bin (value b).
+ * Boundary points represent the edges of the histogram and repeat the height of
+ * the boundary bin
+ */
+export const histogramPoints = (values: number[], breaks: number[]) => {
+    const n = breaks.length
+    const result: NumericPositionSpec[] = Array(n + 1).fill([0, 0])
+    result[0] = [breaks[0], values[0]]
+    result[n] = [breaks[n - 1], values[n - 2]]
+    values.forEach((value, i) => {
+        result[i + 1] = [(breaks[i + 1] + breaks[i]) / 2.0, value]
+    })
+    return result
+}
+
+/** compute a binned representation of an array of data points */
+export const binValues = (data: number[], breaks: number[], density: boolean) => {
+    const values = Array<number>(breaks.length - 1).fill(0)
+    if (data.length === 0) {
+        return values
+    }
+    const min = breaks[0]
+    const max = breaks[breaks.length - 1]
+    data.filter(v => v >= min && v < max).forEach(v => {
+        const index = sortedIndex(breaks, v)
+        values[index - 1] += 1
+    })
+    if (density) {
+        const total = values.reduce((acc, v) => acc + v, 0)
+        values.forEach((v, i) => {
+            const width = breaks[i + 1] - breaks[i]
+            values[i] = v / (width * total)
+        })
+    }
+    return values
+}
+
+/** guess a set of breakpoints using 'ticks' from a d3 linear scale */
+export const breaks = (data: number[], n: number) => {
+    const minmax = interval(data)
+    const scale = scaleLinear().range([0, 100]).domain(minmax).clamp(false)
+    let result = scale.ticks(Math.max(2, n))
+    const step = result[1] - result[0]
+    const last = result[result.length - 1]
+    if (last < minmax[1]) {
+        result.push(last + step)
+    }
+    if (result[0] > minmax[0]) {
+        result = [result[0] - step].concat(result)
     }
     return result
 }
