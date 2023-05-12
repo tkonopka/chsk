@@ -11,6 +11,7 @@ export const LinearCurve = {
     name: 'linear curve',
     args: {
         curve: 'MonotoneX',
+        style: { fillOpacity: 1 },
     },
     decorators: [ChartHistogramDecorator],
 }
@@ -19,6 +20,7 @@ export const StepCurve = {
     name: 'step curve',
     args: {
         curve: 'Step',
+        style: { fillOpacity: 1 },
     },
     decorators: [ChartHistogramDecorator],
 }
@@ -44,14 +46,14 @@ export const MultipleSeries = {
                     ids={['A']}
                     curve="Step"
                     style={{
-                        opacity: 0.8,
+                        fillOpacity: 0.8,
                     }}
                 />
                 <HistogramArea
                     ids={['B']}
                     curve="MonotoneX"
                     style={{
-                        opacity: 0.2,
+                        fillOpacity: 0.2,
                     }}
                 />
             </Histogram>

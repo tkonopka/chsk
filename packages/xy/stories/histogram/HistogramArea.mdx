@@ -27,3 +27,13 @@ Use `HistogramArea` multiple times to overlay multiple series.
 Each series can have a distinct curve setting and css style.
 
 <Canvas of={HistogramAreaStories.MultipleSeries} />
+
+## Styling
+
+Areas can be styled with css.
+
+Attribute `fillOpacity` may need to be set in order to create a solid color.
+
+Also, note that setting a non-zero stroke width (line thickness) will create a line that
+traces the histogram shape as well as the baseline.
+To create a line for just the histogram, i.e. not the baseline, use the `ScatterCurve` component instead.
