@@ -21,7 +21,7 @@ export type StripProcessedPoints =
 export type StripProcessedDataItem = WithId & {
     index: number
     data: StripProcessedPoints[]
-    domain: Array<[number, number]>
+    domain: Array<[number, number] | undefined>
 }
 
 export type StripProcessedDataContextProps = ProcessedDataContextProps & {

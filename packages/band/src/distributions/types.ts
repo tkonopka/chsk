@@ -33,7 +33,7 @@ export type DistributionProcessedSummary =
 export type DistributionProcessedDataItem = WithId & {
     index: number
     data: DistributionProcessedSummary[]
-    domain: Array<[number, number]>
+    domain: Array<[number, number] | undefined>
 }
 
 export type DistributionProcessedDataContextProps = ProcessedDataContextProps & {
