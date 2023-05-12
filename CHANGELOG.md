@@ -6,9 +6,10 @@
 
 ### Added
 
+-   [examples] chart with violins
 -   [band] components `Violin` and `Violins` to create violin plots
 -   [core] prop `closed` in `Path` to ensure a path is closed
--   [example] heat map with sparse data and a grid
+-   [examples] heat map with sparse data and a grid
 -   [xy] props `k` in `Scatter` to provide explicit keys for data points
 -   [examples] chart with histogram with draggable controls
 -   [core] prop `disabledStyle` in legend components to control appearance of

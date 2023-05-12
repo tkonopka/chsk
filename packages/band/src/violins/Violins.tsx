@@ -5,9 +5,9 @@ import {
     useScales,
     getIdKeySets,
     isBandAxisScale,
-    DataComponent,
     useProcessedData,
     Path,
+    TooltipDataComponent,
 } from '@chsk/core'
 import { useViolinPreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
@@ -21,7 +21,7 @@ export const Violins = ({
     keys,
     component = Path,
     className,
-    dataComponent = DataComponent,
+    dataComponent = TooltipDataComponent,
     style,
     ...props
 }: ViolinsProps) => {
@@ -65,6 +65,7 @@ export const Violins = ({
                     },
                     component,
                     props: {
+                        variant: 'violin',
                         points,
                         curve,
                         closed: true,

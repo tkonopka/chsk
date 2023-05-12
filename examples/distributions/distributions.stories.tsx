@@ -7,6 +7,7 @@ import {
 } from './ManyDistributionsStripChart'
 import { generateWaterfallStripData, WaterfallStripChart } from './WaterfallStripChart'
 import { generateBarStripData, BarStripChart } from './BarStripChart'
+import { generateViolinData, ViolinChart } from './ViolinChart'
 
 export default {
     ...GalleryMeta,
@@ -58,5 +59,13 @@ export const BarAndWhisker: GalleryStory = {
                 representations. Click through the milestone animation to toggle between them.
             </div>
         ),
+    },
+}
+
+export const Violins: GalleryStory = {
+    name: 'violins',
+    args: {
+        generator: generateViolinData,
+        chart: ViolinChart,
     },
 }

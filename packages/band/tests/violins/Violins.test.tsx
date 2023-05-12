@@ -14,7 +14,7 @@ describe('Violins', () => {
         expect(content.querySelectorAll('path')).toHaveLength(0)
     })
 
-    it('creates strips of data points (vertical)', () => {
+    it('creates paths with violins', () => {
         render(
             <Chart>
                 <Violin {...violinProps}>
@@ -25,5 +25,17 @@ describe('Violins', () => {
         const result = screen.getByRole('view-violin')
         // dataset has two ids and two keys each, so four violins
         expect(result.querySelectorAll('path')).toHaveLength(4)
+    })
+
+    it('assigns custom class name to paths', () => {
+        render(
+            <Chart>
+                <Violin {...violinProps}>
+                    <Violins className={'custom'} />
+                </Violin>
+            </Chart>
+        )
+        const paths = screen.getByRole('view-violin').querySelectorAll('path')
+        expect(paths[0].getAttribute('class')).toContain('violin custom')
     })
 })
