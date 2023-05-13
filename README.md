@@ -2,9 +2,9 @@
 
 [![documentation](https://github.com/tkonopka/chsk/actions/workflows/documentation.yaml/badge.svg)](https://tkonopka.github.io/chsk/) [![tests](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml/badge.svg)](https://github.com/tkonopka/chsk/actions/workflows/tests.yaml) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-Chsk is a library of React components for data visualization. It provides a toolkit for
-creating static charts for offline publications, dynamic components for
-dashboards, and animated stories for presentations.
+Chsk is a library of React components for data visualization.
+It provides a toolkit for creating static charts for offline publications,
+dynamic components for dashboards, and animated stories for presentations.
 
 -   [documentation](https://tkonopka.github.io/chsk/)
 -   [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--docs)
@@ -17,8 +17,8 @@ The library provides React components for data visualization.
     and geometric shapes.
 -   **Data-specific components** include bar charts, line charts,
     scatter plots, pie/doughnut charts, strip charts, quantile/box plots,
-    histograms, heat maps, set (Venn) diagrams, upset diagrams, and
-    schedule (Gantt) charts.
+    violin plots, histograms, heat maps, set (Venn) diagrams, upset diagrams,
+    and schedule (Gantt) charts.
 
 Advanced features enable creating dynamic and bespoke content.
 
@@ -34,11 +34,10 @@ Advanced features enable creating dynamic and bespoke content.
 ## Example
 
 The animation below shows a bar chart with custom spacing between groups of bars.
+The recording starts with an empty surface and parts of the chart enter
+into view in stages. Later, the bars readjust to display new data.
 
 ![Custom bar chart](/gifs/custom-bars-580x280.gif)
-
-(The recording starts with an empty surface and parts of the chart enter
-into view in stages. Later, the bars readjust to display new data.)
 
 All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-groups).
 
