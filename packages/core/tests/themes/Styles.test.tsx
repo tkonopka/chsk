@@ -1,13 +1,5 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '../../src/charts'
-import {
-    mergeTheme,
-    CompleteThemeSpec,
-    ThemeSpec,
-    defaultTheme,
-    emptyTheme,
-} from '../../src/themes'
-import { componentStyles } from '../../src/themes/helpers'
 import { chartProps } from '../props'
 
 describe('Styles', () => {

@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { MouseEvent } from 'react'
 import {
     Chart,
     TooltipDataComponent,
@@ -28,14 +27,8 @@ describe('TooltipDataComponent', () => {
 
     it('creates a component with a click handler', () => {
         let value: string | undefined = ''
-        let tooltipData: TooltipData | null = null
-        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const customHandler = (data: WithId | undefined) => {
             value = data?.id
-        }
-        const CustomGetter = () => {
-            const { data } = useTooltip()
-            tooltipData = data
-            return null
         }
         render(
             <Chart {...chartProps}>
@@ -45,7 +38,6 @@ describe('TooltipDataComponent', () => {
                     props={{ cx: 10, cy: 10, r: 10, variant: 'target' }}
                     handlers={{ onClick: customHandler }}
                 />
-                <CustomGetter />
             </Chart>
         )
         expect(value).toEqual('')
@@ -56,10 +48,10 @@ describe('TooltipDataComponent', () => {
     it('creates a component with a mouse enter and mouse leave handlers', () => {
         let value: string | undefined = undefined
         let tooltipData: TooltipData = {}
-        const enterHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const enterHandler = (data: WithId | undefined) => {
             value = data?.id
         }
-        const leaveHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const leaveHandler = () => {
             value = undefined
         }
         const CustomGetter = () => {

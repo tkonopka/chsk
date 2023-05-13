@@ -5,8 +5,6 @@ const round2dp = (x: number) => roundDecimalPlaces(x, 2)
 
 describe('convolution', () => {
     const mask3 = [1, 1, 1]
-    const mask2 = [1, 1]
-    const maskTriangle = [0.5, 1, 0.5]
     const maskRamp = [1, 2, 3]
 
     it('performs simple moving average', () => {

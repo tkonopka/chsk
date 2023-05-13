@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { Scatter, ScatterCrosshair, ScatterInteractiveDataItem, ScatterPoints } from '../../src'
+import { Scatter, ScatterCrosshair, ScatterInteractiveDataItem } from '../../src/scatter'
 import { scatterProps } from './scatter.props'
 import { getNumberAttr } from '../../../core/tests/utils'
 

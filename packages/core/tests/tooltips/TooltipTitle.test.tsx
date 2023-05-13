@@ -1,4 +1,4 @@
-import { Chart, Tooltip, TooltipDataItem, TooltipItemProps, TooltipTitle, View } from '../../src'
+import { Chart, Tooltip, TooltipItemProps, TooltipTitle, View } from '../../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
 import { scaleCategorical, viewSeriesIndexesKeys, MockTooltipSetter } from './Tooltip.test'

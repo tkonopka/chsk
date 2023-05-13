@@ -39,7 +39,6 @@ describe('DistributionTooltip', () => {
         )
         fireEvent.mouseEnter(screen.getAllByRole('box-and-whiskers')[0])
         await waitFor(() => {
-            const content = screen.getByRole('tooltip-content')
             const title = screen.getByRole('tooltip-title')
             expect(title.textContent).toEqual('Custom title')
             expect(title.getAttribute('class')).toContain('tooltipTitle')

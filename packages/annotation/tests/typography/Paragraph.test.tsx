@@ -4,7 +4,6 @@ import sans from '../../src/typography/arial.json'
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { chartProps } from '../props'
-import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('splitText', () => {
     it('handles empty text', () => {

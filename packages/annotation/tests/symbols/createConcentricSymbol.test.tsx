@@ -99,7 +99,7 @@ describe('createConcentricSymbol', () => {
             symbolPrimary: Square,
             symbolSecondary: Square,
         })
-        let value: number = 0
+        let value = 0
         const customClickHandler = () => {
             value += 1
         }

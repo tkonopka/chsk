@@ -1,5 +1,4 @@
-import { isScatterData, isScatterPreparedData, isScatterProcessedData } from '../../src'
-import { isHistogramData, isHistogramProcessedData } from '../../src'
+import { isHistogramData, isHistogramProcessedData } from '../../src/histogram'
 
 describe('isSHistogramData', () => {
     it('detects correct data format', () => {

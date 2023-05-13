@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, DataComponent, Circle, WithId } from '../../src'
 import { chartProps } from '../props'
@@ -20,7 +19,7 @@ describe('DataComponent', () => {
 
     it('creates a component with a click handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const customHandler = (data: WithId | undefined) => {
             value = data?.id
         }
         render(
@@ -42,7 +41,7 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseEnter handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const customHandler = (data: WithId | undefined) => {
             value = data?.id
         }
         render(
@@ -62,7 +61,7 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseLeave handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const customHandler = (data: WithId | undefined) => {
             value = data?.id
         }
         render(
@@ -82,7 +81,7 @@ describe('DataComponent', () => {
 
     it('creates a component with a mouseMove handler', () => {
         let value: string | undefined = ''
-        const customHandler = (data: WithId | undefined, event: MouseEvent) => {
+        const customHandler = (data: WithId | undefined) => {
             value = data?.id
         }
         render(
@@ -101,8 +100,8 @@ describe('DataComponent', () => {
     })
 
     it('applies only one handler after click', () => {
-        let click: string = ''
-        let enter: string = ''
+        let click = ''
+        let enter = ''
         const customOnClick = (data: WithId | undefined) => {
             click = click + (data?.id ?? '')
         }

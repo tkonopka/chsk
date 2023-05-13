@@ -1,4 +1,3 @@
-import { MouseEvent } from 'react'
 import { fireEvent, render, screen } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
 import { chartProps, viewProps } from '../props'
@@ -30,8 +29,8 @@ describe('BlockArrow', () => {
     })
 
     it('attaches click handler', () => {
-        let value: number = 0
-        const customHandler = (event: MouseEvent) => {
+        let value = 0
+        const customHandler = () => {
             value += 1
         }
         render(

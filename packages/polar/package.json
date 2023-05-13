@@ -19,7 +19,7 @@
         "directory": "packages/polar"
     },
     "scripts": {
-        "lint": "eslint --max-warnings 0 ./{src,test,stories}/**/*{js,ts,tsx}",
+        "lint": "eslint --max-warnings 0 ./{src,tests,stories}/**/*{js,ts,tsx}",
         "test": "jest --json --outputFile tests/jest.json",
         "test-coverage": "jest --coverage",
         "build": "PACKAGE=polar rollup -c ../../rollup.config.js && tsc"

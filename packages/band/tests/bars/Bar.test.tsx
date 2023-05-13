@@ -211,7 +211,7 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let result = cloneDeep(mockScales)
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Bar
