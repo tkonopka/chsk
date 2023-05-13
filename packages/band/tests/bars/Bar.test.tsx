@@ -1,17 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    defaultDivergingScale,
-    defaultSequentialScale,
-    defaultSizeScale,
-    Legend,
-    NumericPositionSpec,
-    useProcessedData,
-    useScales,
-    Scales,
-    X,
-    Y,
-} from '@chsk/core'
+import { cloneDeep } from 'lodash'
+import { Chart, Legend, NumericPositionSpec, useProcessedData, X, Y } from '@chsk/core'
 import {
     Bar,
     BarDataItem,
@@ -20,7 +9,8 @@ import {
     isBarProcessedData,
     useBarPreparedData,
 } from '../../src'
-import { barProps, dummyXBandScale, dummyYLinearScale } from '../props'
+import { barProps, mockScales } from '../props'
+import { GetScales } from '../contexts'
 
 describe('Bar', () => {
     it('creates a view', () => {
@@ -221,16 +211,7 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultSequentialScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        let result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Bar
@@ -239,27 +220,18 @@ describe('Bar', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Bar>
             </Chart>
         )
         // the dataset has two groups alpha and beta
         // when stacked, the alpha group goes from baseline 0 to top 100
-        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([0, 100])
+        expect(result.x.domain()).toEqual(['alpha', 'beta'])
+        expect(result.y.domain()).toEqual([0, 100])
     })
 
     it('auto-detects scales (horizontal)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Bar
@@ -269,14 +241,14 @@ describe('Bar', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Bar>
             </Chart>
         )
         // the dataset has two groups alpha and beta
         // when stacked, the alpha group goes from baseline 0 to top 100
-        expect(scales.y.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.x.domain()).toEqual([0, 100])
+        expect(result.y.domain()).toEqual(['alpha', 'beta'])
+        expect(result.x.domain()).toEqual([0, 100])
     })
 
     it('prepares color scale for legend', () => {
@@ -306,16 +278,7 @@ describe('Bar', () => {
     ]
 
     it('auto-detects scales with negative numbers (horizontal)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Bar
@@ -326,24 +289,15 @@ describe('Bar', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Bar>
             </Chart>
         )
-        expect(scales.x.domain()).toEqual([-80, 80])
+        expect(result.x.domain()).toEqual([-80, 80])
     })
 
     it('auto-detects scales with negative numbers (vertical)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Bar
@@ -354,10 +308,10 @@ describe('Bar', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Bar>
             </Chart>
         )
-        expect(scales.y.domain()).toEqual([-80, 80])
+        expect(result.y.domain()).toEqual([-80, 80])
     })
 })

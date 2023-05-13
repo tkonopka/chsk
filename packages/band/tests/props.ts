@@ -1,4 +1,11 @@
-import { createBandScale, createContinuousScale } from '@chsk/core'
+import {
+    createBandScale,
+    createContinuousScale,
+    defaultSequentialScale,
+    defaultSizeScale,
+    ProcessedDataContextProps,
+    Scales,
+} from '@chsk/core'
 import {
     BarProps,
     BarDataItem,
@@ -9,20 +16,29 @@ import {
     DistributionDataItem,
 } from '../src'
 
-export const dummyXBandScale = createBandScale({
+const mockXBandScale = createBandScale({
     variant: 'band',
     domain: ['a'],
     size: 100,
 })
-export const dummyYLinearScale = createContinuousScale({
+const mockYLinearScale = createContinuousScale({
     variant: 'linear',
     domain: [0, 10],
     size: 100,
     reverseRange: true,
 })
 
-export const getNumber = (s: string | undefined | null) => {
-    return Number(s?.replace('px', ''))
+export const mockScales: Scales = {
+    x: mockXBandScale,
+    y: mockYLinearScale,
+    size: defaultSizeScale,
+    color: defaultSequentialScale,
+}
+
+export const mockProcessedData: ProcessedDataContextProps = {
+    data: [],
+    seriesIndexes: {},
+    keys: [],
 }
 
 const dataGroups: Array<BarDataItem> = [

@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chsk/core'
 import { Bar, BarDataItem, Bars, Strip } from '../../src'
-import { barProps, getNumber, stripProps } from '../props'
+import { barProps, stripProps } from '../props'
+import { getNumberAttr } from '../../../core/tests/utils'
 
 describe('Bars', () => {
     it('avoids work in non-bars context', () => {
@@ -41,8 +42,8 @@ describe('Bars', () => {
         // the chart view will have width 400
         // there are two indexes (alpha, beta)
         // so each bar should have width slightly smaller than 200 (allowing for padding)
-        expect(getNumber(bars[0].getAttribute('width'))).toBeGreaterThan(100)
-        expect(getNumber(bars[0].getAttribute('width'))).toBeLessThan(200)
+        expect(getNumberAttr(bars[0], 'width')).toBeGreaterThan(100)
+        expect(getNumberAttr(bars[0], 'width')).toBeLessThan(200)
     })
 
     it('defines grouped bars (horizontal)', () => {
@@ -222,12 +223,8 @@ describe('Bars', () => {
         const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
-        expect(getNumber(result[0].getAttribute('height'))).toEqual(
-            getNumber(result[1].getAttribute('height'))
-        )
-        expect(getNumber(result[0].getAttribute('width'))).toEqual(
-            getNumber(result[1].getAttribute('width'))
-        )
+        expect(result[0].getAttribute('height')).toEqual(result[1].getAttribute('height'))
+        expect(result[0].getAttribute('width')).toEqual(result[1].getAttribute('width'))
     })
 
     it('handles negative values (horizontal)', () => {
@@ -247,12 +244,8 @@ describe('Bars', () => {
         const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
-        expect(getNumber(result[0].getAttribute('height'))).toEqual(
-            getNumber(result[1].getAttribute('height'))
-        )
-        expect(getNumber(result[0].getAttribute('width'))).toEqual(
-            getNumber(result[1].getAttribute('width'))
-        )
+        expect(result[0].getAttribute('height')).toEqual(result[1].getAttribute('height'))
+        expect(result[0].getAttribute('width')).toEqual(result[1].getAttribute('width'))
     })
 
     it('skips works in non-Bars setting', () => {

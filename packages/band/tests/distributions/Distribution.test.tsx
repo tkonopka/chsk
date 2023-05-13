@@ -1,52 +1,32 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    defaultDivergingScale,
-    defaultSequentialScale,
-    defaultSizeScale,
-    Legend,
-    Scales,
-    useProcessedData,
-    useScales,
-} from '@chsk/core'
+import { cloneDeep } from 'lodash'
+import { Chart, Legend, Scales } from '@chsk/core'
 import {
     Distribution,
     DistributionPreparedDataContextProps,
-    DistributionProcessedDataContextProps,
     isDistributionProcessedData,
     useDistributionPreparedData,
     DistributionProcessedDataItem,
     isDistributionProcessedSummary,
 } from '../../src'
-import { quantileProps, dummyXBandScale, dummyYLinearScale, dataMissingKeys } from '../props'
+import { quantileProps, dataMissingKeys, mockScales, mockProcessedData } from '../props'
+import { GetProcessedData, GetScales } from '../contexts'
 
 describe('Distribution', () => {
     it('defines processed data', () => {
-        const processed: DistributionProcessedDataContextProps = {
-            data: [],
-            seriesIndexes: {},
-            keys: [],
-        }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isDistributionProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.keys = temp.keys
-                processed.seriesIndexes = temp.seriesIndexes
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Distribution {...quantileProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Distribution>
             </Chart>
         )
         // the dataset has two indexes and two keys
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
-        expect(processed.keys).toHaveLength(2)
+        expect(isDistributionProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
@@ -72,16 +52,7 @@ describe('Distribution', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultSequentialScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result: Scales = cloneDeep(mockScales)
         render(
             <Chart>
                 <Distribution
@@ -89,27 +60,18 @@ describe('Distribution', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Distribution>
             </Chart>
         )
         // the dataset has two groups alpha and beta
         // values are [0, 20] in the manual dataset
-        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([0, 20])
+        expect(result.x.domain()).toEqual(['alpha', 'beta'])
+        expect(result.y.domain()).toEqual([0, 20])
     })
 
     it('auto-detects scales (horizontal)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result: Scales = cloneDeep(mockScales)
         render(
             <Chart>
                 <Distribution
@@ -118,49 +80,37 @@ describe('Distribution', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Distribution>
             </Chart>
         )
         // the dataset has two groups alpha and beta
         // values are [0, 20] in the manual dataset
-        expect(scales.y.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.x.domain()).toEqual([0, 20])
+        expect(result.y.domain()).toEqual(['alpha', 'beta'])
+        expect(result.x.domain()).toEqual([0, 20])
     })
 
     it('handles missing keys', () => {
-        let result: Array<DistributionProcessedDataItem> = []
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isDistributionProcessedData(temp.data)) result = temp.data
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Distribution {...quantileProps} data={dataMissingKeys} keys={['x', 'y']}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Distribution>
             </Chart>
         )
+        expect(isDistributionProcessedData(result.data)).toBeTruthy()
+        const data = result.data as Array<DistributionProcessedDataItem>
         // for first id, first key (x) is defined and second key (y) is not
-        expect(result[0].data[0]).toBeTruthy()
-        expect(result[0].data[1]).toBeFalsy()
+        expect(data[0].data[0]).toBeTruthy()
+        expect(data[0].data[1]).toBeFalsy()
         // for second id, first key (x) is not defined
-        expect(result[1].data[0]).toBeFalsy()
-        expect(result[1].data[1]).toBeTruthy()
+        expect(data[1].data[0]).toBeFalsy()
+        expect(data[1].data[1]).toBeTruthy()
     })
 
     it('computes scales using available keys and ignores missing data', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result: Scales = cloneDeep(mockScales)
         const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
         render(
             <Chart>
@@ -170,12 +120,12 @@ describe('Distribution', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Distribution>
             </Chart>
         )
-        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([10, 12])
+        expect(result.x.domain()).toEqual(['alpha', 'beta'])
+        expect(result.y.domain()).toEqual([10, 12])
     })
 
     it('prepares color scale for legend', () => {
@@ -205,23 +155,20 @@ describe('Distribution', () => {
                 },
             },
         ]
-        let result: Array<DistributionProcessedDataItem> = []
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isDistributionProcessedData(temp.data)) result = temp.data
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Distribution data={precomputed} keys={['x']}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Distribution>
             </Chart>
         )
+        expect(isDistributionProcessedData(result.data)).toBeTruthy()
+        const data = result.data as Array<DistributionProcessedDataItem>
         expect(isDistributionProcessedSummary(precomputed[0].x)).toBeTruthy()
-        expect(result[0].id).toEqual(precomputed[0].id)
-        expect(result[0].data[0]?.values).toEqual(precomputed[0].x.values)
-        expect(result[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)
-        expect(JSON.stringify(result[0].data[0])).not.toContain('junk')
+        expect(data[0].id).toEqual(precomputed[0].id)
+        expect(data[0].data[0]?.values).toEqual(precomputed[0].x.values)
+        expect(data[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)
+        expect(JSON.stringify(data[0].data[0])).not.toContain('junk')
     })
 })

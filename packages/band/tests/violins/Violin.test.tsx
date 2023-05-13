@@ -1,42 +1,30 @@
 import { render } from '@testing-library/react'
-import { Chart, useProcessedData } from '@chsk/core'
+import { cloneDeep, sum } from 'lodash'
+import { Chart } from '@chsk/core'
 import {
     Violin,
     ViolinPreparedDataContextProps,
-    ViolinProcessedDataContextProps,
     isViolinProcessedData,
     useViolinPreparedData,
 } from '../../src/violins'
-import { violinProps } from '../props'
-import { sum } from 'lodash'
+import { mockProcessedData, violinProps } from '../props'
+import { GetProcessedData } from '../contexts'
 
 describe('Violin', () => {
     it('defines processed data ', () => {
-        const processed: ViolinProcessedDataContextProps = {
-            data: [],
-            seriesIndexes: {},
-            keys: [],
-        }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isViolinProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.keys = temp.keys
-                processed.seriesIndexes = temp.seriesIndexes
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Violin {...violinProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Violin>
             </Chart>
         )
+        expect(isViolinProcessedData(result.data)).toBeTruthy()
         // the dataset has two indexes and two keys
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
-        expect(processed.keys).toHaveLength(2)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(2)
     })
 
     it('defines prepared data', () => {

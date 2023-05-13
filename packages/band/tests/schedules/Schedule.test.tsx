@@ -1,50 +1,30 @@
 import { render, screen } from '@testing-library/react'
-import {
-    Chart,
-    defaultDivergingScale,
-    defaultSequentialScale,
-    defaultSizeScale,
-    Legend,
-    Scales,
-    useProcessedData,
-    useScales,
-} from '@chsk/core'
+import { cloneDeep } from 'lodash'
+import { Chart, Legend } from '@chsk/core'
 import {
     Schedule,
     SchedulePreparedDataContextProps,
-    ScheduleProcessedDataContextProps,
     isScheduleProcessedData,
     useSchedulePreparedData,
 } from '../../src'
-import { scheduleProps, dummyXBandScale, dummyYLinearScale } from '../props'
+import { mockScales, mockProcessedData, scheduleProps } from '../props'
+import { GetProcessedData, GetScales } from '../contexts'
 
 describe('Schedule', () => {
     it('defines processed data', () => {
-        const processed: ScheduleProcessedDataContextProps = {
-            data: [],
-            seriesIndexes: {},
-            keys: [],
-        }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isScheduleProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.keys = temp.keys
-                processed.seriesIndexes = temp.seriesIndexes
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Schedule {...scheduleProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Schedule>
             </Chart>
         )
         // the dataset has two indexes and two keys
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
-        expect(processed.keys).toHaveLength(2)
+        expect(isScheduleProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
@@ -66,16 +46,7 @@ describe('Schedule', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultSequentialScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Schedule
@@ -84,27 +55,17 @@ describe('Schedule', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Schedule>
             </Chart>
         )
-        // the dataset has two groups alpha and beta
-        // values are [1, 4] in the test dataset
-        expect(scales.x.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.y.domain()).toEqual([1, 4])
+        // the dataset has two groups alpha and beta, values in interval [1, 4]
+        expect(result.x.domain()).toEqual(['alpha', 'beta'])
+        expect(result.y.domain()).toEqual([1, 4])
     })
 
     it('auto-detects scales (horizontal)', () => {
-        let scales: Scales = {
-            x: dummyXBandScale,
-            y: dummyYLinearScale,
-            size: defaultSizeScale,
-            color: defaultDivergingScale,
-        }
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Schedule
@@ -113,32 +74,26 @@ describe('Schedule', () => {
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
-                    <GetScales />
+                    <GetScales value={result} />
                 </Schedule>
             </Chart>
         )
-        // the dataset has two groups alpha and beta
-        // values are [0, 4] in the manual dataset
-        expect(scales.y.domain()).toEqual(['alpha', 'beta'])
-        expect(scales.x.domain()).toEqual([1, 4])
+        // the dataset has two groups alpha and beta, values in interval [1, 4]
+        expect(result.y.domain()).toEqual(['alpha', 'beta'])
+        expect(result.x.domain()).toEqual([1, 4])
     })
 
     it('omits unnecessary intervals', () => {
-        let keys: Array<string> = []
-        const GetKeys = () => {
-            const temp = useProcessedData()
-            if (isScheduleProcessedData(temp.data)) keys = temp.keys
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Schedule {...scheduleProps} keys={['a']}>
-                    <GetKeys />
+                    <GetProcessedData value={result} />
                 </Schedule>
             </Chart>
         )
         // the dataset has keys 'a' and 'b', but prop focuses only on one key 'a'
-        expect(keys).toHaveLength(1)
+        expect(result.keys).toEqual(['a'])
     })
 
     it('prepares color scale for legend', () => {
