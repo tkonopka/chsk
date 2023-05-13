@@ -55,9 +55,9 @@ describe('View', () => {
             seriesIndexes: { X: 0, Y: 1 },
         }
 
-        let processed: ProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let result: ProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetProcessedData = () => {
-            processed = useProcessedData()
+            result = useProcessedData()
             return null
         }
 
@@ -68,8 +68,7 @@ describe('View', () => {
                 </View>
             </Chart>
         )
-        // the dataset has two indexes and three keys
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.keys).toEqual(['a', 'b', 'c'])
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.keys).toEqual(['a', 'b', 'c'])
     })
 })

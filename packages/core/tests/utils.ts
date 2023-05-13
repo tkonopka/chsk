@@ -1,4 +1,4 @@
-// helper to get X/Y coordinate from a framer-motion style string
+/** gets a X/Y coordinate from a framer-motion style string */
 export const getTransform = (el: Element | null, variant = 'X') => {
     const style = el?.getAttribute('style')
     const prefix = variant === 'rotate' ? variant : 'translate' + variant
@@ -17,6 +17,7 @@ export const getTransform = (el: Element | null, variant = 'X') => {
     )
 }
 
+/** gets an attribute value and forces a numeric type */
 export const getNumberAttr = (item: SVGElement | null, attribute: string) => {
     const raw = item ? item.getAttribute(attribute) : ''
     return Number(raw?.replace('px', ''))
