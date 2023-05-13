@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, useProcessedData } from '@chsk/core'
+import { cloneDeep } from 'lodash'
+import { Chart, Legend } from '@chsk/core'
 import {
     Histogram,
     useHistogramPreparedData,
@@ -8,33 +9,26 @@ import {
     HistogramProcessedDataItem,
 } from '../../src/histogram'
 import { histogramProps } from './histogram.props'
+import { GetProcessedData, mockProcessedData } from '../contexts'
 
 describe('Histogram', () => {
     it('defines processed data', () => {
-        const processed: HistogramDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isHistogramProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.seriesIndexes = temp.seriesIndexes
-                processed.keys = temp.keys
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Histogram {...histogramProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Histogram>
             </Chart>
         )
-        // the dataset has two series
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
-        // both series should have mean around 0 and sd < 5
-        processed.data.map((d: HistogramProcessedDataItem) => {
-            expect(Math.abs(d.mean ?? 1000)).toBeLessThan(1)
-            expect(Math.abs(d.sd ?? 1000)).toBeLessThan(5)
+        expect(isHistogramProcessedData(result.data)).toBeTruthy()
+        // the dataset has two series, and each series should have mean around 0 and sd < 5
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        result.data.map(d => {
+            const item = d as HistogramProcessedDataItem
+            expect(Math.abs(item.mean ?? 1000)).toBeLessThan(1)
+            expect(Math.abs(item.sd ?? 1000)).toBeLessThan(5)
         })
     })
 

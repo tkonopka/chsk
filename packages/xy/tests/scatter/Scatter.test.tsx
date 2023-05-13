@@ -1,35 +1,38 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, ProcessedDataContextProps, useProcessedData } from '@chsk/core'
-import {
-    Scatter,
-    useScatterPreparedData,
-    isScatterProcessedData,
-    ScatterDataContextProps,
-} from '../../src'
+import { cloneDeep } from 'lodash'
+import { Chart, Legend } from '@chsk/core'
+import { Scatter, useScatterPreparedData, ScatterDataContextProps } from '../../src'
 import { scatterProps } from './scatter.props'
+import { GetProcessedData, GetScales, mockProcessedData, mockScales } from '../contexts'
 
 describe('Scatter', () => {
-    it('defines processed data', () => {
-        const processed: ProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isScatterProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.seriesIndexes = temp.seriesIndexes
-                processed.keys = temp.keys
-            }
-            return null
-        }
+    it('defines scales', () => {
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <Scatter {...scatterProps}>
-                    <GetProcessedData />
+                    <GetScales value={result} />
+                </Scatter>
+            </Chart>
+        )
+        // the dataset has two series, x domain [1, 8] and y domain [1, 64]
+        expect(result.color.domain()).toHaveLength(2)
+        expect(result.x.domain()).toEqual([0, 8])
+        expect(result.y.domain()).toEqual([0, 64])
+    })
+
+    it('defines processed data', () => {
+        const result = cloneDeep(mockProcessedData)
+        render(
+            <Chart>
+                <Scatter {...scatterProps}>
+                    <GetProcessedData value={result} />
                 </Scatter>
             </Chart>
         )
         // the dataset has two series
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
@@ -67,20 +70,16 @@ describe('Scatter', () => {
         const p2 = { x: 2, y: 4, k: 4 }
         const p3 = { x: 4, y: 8, k: 3 }
         const data = [{ id: 'A', data: [p1, p2, p3] }]
-        let processed: ProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            processed = useProcessedData()
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Scatter {...scatterProps} data={data} k={'k'}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Scatter>
             </Chart>
         )
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(1)
-        expect(processed.data).toHaveLength(1)
-        expect(processed.data[0].k).toEqual([5, 4, 3])
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(1)
+        expect(result.data).toHaveLength(1)
+        expect(result.data[0].k).toEqual([5, 4, 3])
     })
 })

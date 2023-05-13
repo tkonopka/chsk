@@ -1,52 +1,43 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, ColorScale, defaultCategoricalScale, useProcessedData, useScales } from '@chsk/core'
+import { cloneDeep } from 'lodash'
+import { Chart } from '@chsk/core'
 import {
     HeatMap,
     HeatMapCells,
     isHeatMapProcessedData,
-    HeatMapDataContextProps,
+    HeatMapProcessedDataItem,
 } from '../src/heatmap'
 import { heatmapProps } from './props'
+import { mockProcessedData, mockScales, GetScales, GetProcessedData } from './contexts'
 
 const ids = ['alpha', 'beta', 'gamma', 'delta']
 const keysXYZ = ['x', 'y', 'z']
 
 describe('HeatMap', () => {
     it('defines processed data', () => {
-        const processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isHeatMapProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.seriesIndexes = temp.seriesIndexes
-                processed.keys = temp.keys
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <HeatMap {...heatmapProps} keys={keysXYZ}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </HeatMap>
             </Chart>
         )
         // the dataset has four series
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(4)
-        expect(processed.data).toHaveLength(4)
-        expect(processed.keys).toEqual(keysXYZ)
+        expect(isHeatMapProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(4)
+        expect(result.data).toHaveLength(4)
+        expect(result.keys).toEqual(keysXYZ)
         ids.forEach((id, i) => {
-            expect(processed.data[i].id).toEqual(id)
-            expect(processed.data[i].size).toHaveLength(keysXYZ.length)
-            expect(processed.data[i].size.every(v => !isFinite(v))).toBeTruthy()
+            expect(result.data[i].id).toEqual(id)
+            const size = result.data[i].size as number[]
+            expect(size).toHaveLength(keysXYZ.length)
+            expect(size.every(v => !isFinite(v))).toBeTruthy()
         })
     })
 
     it('determines domain for colors (auto)', () => {
-        let scale: ColorScale = defaultCategoricalScale
-        const GetColorScale = () => {
-            scale = useScales().scales.color
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -58,20 +49,16 @@ describe('HeatMap', () => {
                         domain: 'auto',
                     }}
                 >
-                    <GetColorScale />
+                    <GetScales value={result} />
                 </HeatMap>
             </Chart>
         )
-        expect(scale.variant).toEqual('sequential')
-        expect(scale.domain()).toEqual([0, 30])
+        expect(result.color.variant).toEqual('sequential')
+        expect(result.color.domain()).toEqual([0, 30])
     })
 
     it('determines domain for colors (semi-automatic)', () => {
-        let scale: ColorScale = defaultCategoricalScale
-        const GetColorScale = () => {
-            scale = useScales().scales.color
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -83,21 +70,17 @@ describe('HeatMap', () => {
                         domain: ['auto', 'auto'],
                     }}
                 >
-                    <GetColorScale />
+                    <GetScales value={result} />
                 </HeatMap>
             </Chart>
         )
         // the dataset has four series
-        expect(scale.variant).toEqual('sequential')
-        expect(scale.domain()).toEqual([0, 30])
+        expect(result.color.variant).toEqual('sequential')
+        expect(result.color.domain()).toEqual([0, 30])
     })
 
     it('determines middle of diverging color scale', () => {
-        let scale: ColorScale = defaultCategoricalScale
-        const GetColorScale = () => {
-            scale = useScales().scales.color
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -109,21 +92,17 @@ describe('HeatMap', () => {
                         domain: [-70, 'auto', 'auto'],
                     }}
                 >
-                    <GetColorScale />
+                    <GetScales value={result} />
                 </HeatMap>
             </Chart>
         )
         // the dataset has four series
-        expect(scale.variant).toEqual('diverging')
-        expect(scale.domain()).toEqual([-70, -20, 30])
+        expect(result.color.variant).toEqual('diverging')
+        expect(result.color.domain()).toEqual([-70, -20, 30])
     })
 
     it('accepts custom color domain', () => {
-        let scale: ColorScale = defaultCategoricalScale
-        const GetColorScale = () => {
-            scale = useScales().scales.color
-            return null
-        }
+        const result = cloneDeep(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -135,43 +114,36 @@ describe('HeatMap', () => {
                         domain: [-20, 0, 50],
                     }}
                 >
-                    <GetColorScale />
+                    <GetScales value={result} />
                 </HeatMap>
             </Chart>
         )
         // the dataset has four series
-        expect(scale.variant).toEqual('diverging')
-        expect(scale.domain()).toEqual([-20, 0, 50])
+        expect(result.color.variant).toEqual('diverging')
+        expect(result.color.domain()).toEqual([-20, 0, 50])
     })
 
     it('accepts data for sizes', () => {
-        const processed: HeatMapDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isHeatMapProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.seriesIndexes = temp.seriesIndexes
-                processed.keys = temp.keys
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         const dataSize = heatmapProps.data
         render(
             <Chart>
                 <HeatMap {...heatmapProps} keys={keysXYZ} dataSize={dataSize}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </HeatMap>
             </Chart>
         )
+        expect(isHeatMapProcessedData(result.data)).toBeTruthy()
         // the dataset has four series
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(4)
-        expect(processed.data).toHaveLength(4)
-        expect(processed.keys).toEqual(keysXYZ)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(4)
+        expect(result.data).toHaveLength(4)
+        expect(result.keys).toEqual(keysXYZ)
         // none of the sizes should be null, although they can be zero
         ids.forEach((id, i) => {
-            expect(processed.data[i].id).toEqual(id)
-            expect(processed.data[i].size).toHaveLength(keysXYZ.length)
-            expect(processed.data[i].size.every(v => isFinite(v))).toBeTruthy()
+            const d = result.data[i] as HeatMapProcessedDataItem
+            expect(d.id).toEqual(id)
+            expect(d.size).toHaveLength(keysXYZ.length)
+            expect(d.size.every(v => isFinite(v))).toBeTruthy()
         })
     })
 

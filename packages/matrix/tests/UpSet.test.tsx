@@ -1,34 +1,28 @@
 import { render } from '@testing-library/react'
-import { Chart, useProcessedData } from '@chsk/core'
-import { UpSet, isUpSetProcessedData, UpSetDataContextProps } from '../src/upset'
+import { cloneDeep } from 'lodash'
+import { Chart } from '@chsk/core'
+import { UpSet, isUpSetProcessedData } from '../src/upset'
 import { upSetProps } from './props'
+import { GetProcessedData, mockProcessedData } from './contexts'
 
 const ids = ['alpha', 'beta', 'gamma', 'delta']
 
 describe('UpSet', () => {
     it('defines processed data', () => {
-        const processed: UpSetDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isUpSetProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.seriesIndexes = temp.seriesIndexes
-                processed.keys = temp.keys
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <UpSet {...upSetProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </UpSet>
             </Chart>
         )
+        expect(isUpSetProcessedData(result.data)).toBeTruthy()
         // the dataset has four sets, so four ids
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(4)
-        expect(processed.data).toHaveLength(4)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(4)
+        expect(result.data).toHaveLength(4)
         ids.forEach((id, i) => {
-            expect(processed.data[i].id).toEqual(id)
+            expect(result.data[i].id).toEqual(id)
         })
         // the sets intersect so that:
         // 2 elements are present in (alpha)
@@ -36,6 +30,6 @@ describe('UpSet', () => {
         // 2 elements are present in (beta, gamma)
         // 4 elements are present in (delta)
         // so there should be four keys
-        expect(processed.keys).toHaveLength(4)
+        expect(result.keys).toHaveLength(4)
     })
 })
