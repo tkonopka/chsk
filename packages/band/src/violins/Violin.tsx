@@ -86,7 +86,7 @@ const prepareData = (
     } else {
         breaksArray = makeBreaks(fullScaled, Number(breaks))
     }
-    //console.log(JSON.stringify(breaksArray))
+
     return data.map(seriesData => {
         let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2 + offset
         const summaries = seriesData.data.map(summary => {
@@ -97,14 +97,11 @@ const prepareData = (
                 ? summary.breaks.map(v => valueScale(v))
                 : breaksArray
             scaledBreaks.sort((a, b) => a - b)
-            //console.log("scaledBreaks " + JSON.stringify(scaledBreaks))
-            //console.log("scaledRawValues " + JSON.stringify(scaledRawValues))
-            //console.log("binning : " + JSON.stringify(binValues(scaledRawValues, scaledBreaks, false)))
             return {
                 n: summary.n,
                 breaks: summary.breaks ? summary.breaks.map(v => valueScale(v)) : scaledBreaks,
                 values: summary.breaks
-                    ? summary.values.map(v => valueScale(v))
+                    ? summary.values
                     : binValues(scaledRawValues, scaledBreaks, false),
                 bandStart: bandStart - width - gap,
                 bandWidth: width,
@@ -141,7 +138,7 @@ export const Violin = ({
     // collect raw data into an array-based format format
     const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
-    //console.log(JSON.stringify(processedData))
+
     const { index: indexProps, value: valueProps } = getScaleProps(
         processedData.map(d => d.id),
         processedData.map(d => d.domain),
@@ -189,7 +186,7 @@ export const Violin = ({
             breaks,
         ]
     )
-    //console.log(JSON.stringify(preparedData))
+
     return (
         <BaseView
             variant={'violin'}

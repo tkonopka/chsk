@@ -14,10 +14,10 @@ describe('Violins', () => {
         expect(content.querySelectorAll('path')).toHaveLength(0)
     })
 
-    it('creates paths with violins', () => {
+    it('creates paths with violins (vertical)', () => {
         render(
             <Chart>
-                <Violin {...violinProps}>
+                <Violin {...violinProps} horizontal={false}>
                     <Violins />
                 </Violin>
             </Chart>
@@ -25,6 +25,67 @@ describe('Violins', () => {
         const result = screen.getByRole('view-violin')
         // dataset has two ids and two keys each, so four violins
         expect(result.querySelectorAll('path')).toHaveLength(4)
+    })
+
+    it('creates paths with violins (horizontal)', () => {
+        render(
+            <Chart>
+                <Violin {...violinProps} horizontal={true}>
+                    <Violins />
+                </Violin>
+            </Chart>
+        )
+        const result = screen.getByRole('view-violin')
+        expect(result.querySelectorAll('path')).toHaveLength(4)
+    })
+
+    it('does not draw paths for empty data', () => {
+        const data = [
+            {
+                id: 'A',
+                a: {
+                    n: 10,
+                    values: [0, 0, 1, 4, 10, 4, 1, 0],
+                    breaks: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                },
+                b: {
+                    n: 0,
+                    values: [0, 0, 0, 0, 0, 0, 0, 0],
+                    breaks: [0, 1, 2, 3, 4, 5, 6, 7, 8],
+                },
+            },
+        ]
+        render(
+            <Chart>
+                <Violin data={data} keys={['a', 'b']}>
+                    <Violins />
+                </Violin>
+            </Chart>
+        )
+        const result = screen.getByRole('view-violin')
+        // there are two keys, but key 'b' leads to a violin that is completely flat
+        expect(result.querySelectorAll('path')).toHaveLength(1)
+    })
+
+    it('does not draw paths for missing data', () => {
+        const data = [
+            {
+                id: 'alpha',
+                x: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+            },
+            {
+                id: 'beta',
+                y: [10, 12, 14, 16, 18, 20],
+            },
+        ]
+        render(
+            <Chart>
+                <Violin {...violinProps} data={data}>
+                    <Violins />
+                </Violin>
+            </Chart>
+        )
+        expect(screen.getByRole('view-violin').querySelectorAll('path')).toHaveLength(2)
     })
 
     it('assigns custom class name to paths', () => {
@@ -37,5 +98,29 @@ describe('Violins', () => {
         )
         const paths = screen.getByRole('view-violin').querySelectorAll('path')
         expect(paths[0].getAttribute('class')).toContain('violin custom')
+    })
+
+    it('creates paths for selected ids', () => {
+        render(
+            <Chart>
+                <Violin {...violinProps} horizontal={false}>
+                    <Violins ids={['alpha', 'gamma']} />
+                </Violin>
+            </Chart>
+        )
+        // id alpha is valid, gamma is not valid -> one id with two keys
+        expect(screen.getByRole('view-violin').querySelectorAll('path')).toHaveLength(2)
+    })
+
+    it('creates paths for selected keys', () => {
+        render(
+            <Chart>
+                <Violin {...violinProps} horizontal={false}>
+                    <Violins keys={['x', 'z']} />
+                </Violin>
+            </Chart>
+        )
+        // key x is valid, z is not valid -> one key with two ids
+        expect(screen.getByRole('view-violin').querySelectorAll('path')).toHaveLength(2)
     })
 })

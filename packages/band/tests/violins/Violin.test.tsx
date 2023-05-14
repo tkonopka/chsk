@@ -6,6 +6,7 @@ import {
     ViolinPreparedDataContextProps,
     isViolinProcessedData,
     useViolinPreparedData,
+    ViolinProcessedDataItem,
 } from '../../src/violins'
 import { mockProcessedData, violinProps } from '../props'
 import { GetProcessedData } from '../contexts'
@@ -85,5 +86,61 @@ describe('Violin', () => {
         expect(dataAlphaX?.breaks.length).toBe(5)
         expect(dataAlphaX?.n).toBeGreaterThan(3)
         expect(sum(dataAlphaX?.values)).toEqual(dataAlphaX?.n)
+    })
+
+    it('accepts data in a pre-processed form', () => {
+        const preprocessed = [
+            {
+                id: 'A',
+                a: {
+                    n: 20,
+                    values: [5, 5, 5, 5],
+                    breaks: [0, 1, 2, 3, 4],
+                },
+            },
+        ]
+        const result = cloneDeep(mockProcessedData)
+        render(
+            <Chart>
+                <Violin data={preprocessed} keys={['a']}>
+                    <GetProcessedData value={result} />
+                </Violin>
+            </Chart>
+        )
+        expect(isViolinProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(1)
+        expect(result.data).toHaveLength(1)
+        expect(result.keys).toHaveLength(1)
+        const firstItem = result.data[0] as ViolinProcessedDataItem
+        expect(JSON.stringify(firstItem)).toContain(JSON.stringify([5, 5, 5, 5]))
+    })
+
+    it('skips data in incorrect form', () => {
+        const data = [
+            {
+                id: 'A',
+                b: 5,
+                c: [1, 2, 3, 4, 5, 6],
+            },
+        ]
+        const result = cloneDeep(mockProcessedData)
+        render(
+            <Chart>
+                <Violin data={data} keys={['a', 'b', 'c']}>
+                    <GetProcessedData value={result} />
+                </Violin>
+            </Chart>
+        )
+        expect(isViolinProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(1)
+        expect(result.data).toHaveLength(1)
+        expect(result.keys).toHaveLength(3)
+        // first id is A. keys 'a' and 'b' are invalid, key 'c' should lead to a valid processedItem
+        const firstItem = result.data[0] as ViolinProcessedDataItem
+        expect(firstItem.id).toEqual('A')
+        expect(firstItem.data[0]).toBeUndefined()
+        expect(firstItem.data[1]).toBeUndefined()
+        expect(firstItem.data[2]).not.toBeUndefined()
+        expect(firstItem.domain).toEqual([undefined, undefined, [1, 6]])
     })
 })

@@ -44,7 +44,7 @@ export const Violins = ({
         () => allKeys.map((k, i) => addColor(style, colorScale(i))),
         [allKeys, style, colorScale]
     )
-    const curve = variant === 'step' ? 'Step' : horizontal ? 'MonotoneX' : 'MonotoneY'
+    const curve = variant === 'step' ? 'Step' : 'BasisClosed'
 
     const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
@@ -55,6 +55,7 @@ export const Violins = ({
                 const summary = seriesData.data[i]
                 if (!summary) return null
                 const points = violinPoints({ ...summary, horizontal })
+                if (points.length === 0) return null
                 const seriesProcessedData = processedData[seriesData.index].data[i]
                 return createElement(dataComponent, {
                     key: 'violin-' + seriesData.index + '-' + i,

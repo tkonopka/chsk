@@ -8,6 +8,7 @@ import {
     roundDecimalPlaces,
     ThemeSpec,
     Tooltip,
+    TooltipDataItem,
     Typography,
 } from '@chsk/core'
 import { Violin, Violins } from '@chsk/band'
@@ -67,6 +68,10 @@ const customTheme: ThemeSpec = mergeThemes([
     },
 ])
 
+const customLabelFormat = (x: TooltipDataItem) => {
+    return x.id + ', n=' + ('n' in x ? x['n'] : '?')
+}
+
 export const ViolinChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -118,7 +123,7 @@ export const ViolinChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     sensitive to outliers.
                 </Paragraph>
                 <DownloadButtons position={[420, 210]} data image />
-                <Tooltip />
+                <Tooltip itemSize={[120, 24]} labelFormat={customLabelFormat} />
             </Violin>
         </Chart>
     )

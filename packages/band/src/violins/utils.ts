@@ -27,16 +27,11 @@ export const violinPoints = ({
     const histogram = histogramPoints(values.slice(start, end), breaks.slice(start, end + 1))
     const halfWidth = bandWidth / 2
     const midBand = bandStart + halfWidth
-    const fwd = histogram.map(xy => [
-        xy[0],
-        midBand + (xy[1] / maxValue) * halfWidth,
-    ]) as NumericPositionSpec[]
+    const multiplier = halfWidth / maxValue
+    const fwd = histogram.map(xy => [xy[0], midBand + xy[1] * multiplier]) as NumericPositionSpec[]
     const rev = histogram
-        .map(xy => [xy[0], midBand - (xy[1] / maxValue) * halfWidth])
+        .map(xy => [xy[0], midBand - xy[1] * multiplier])
         .reverse() as NumericPositionSpec[]
     const result = fwd.concat(rev)
-    if (horizontal) {
-        return result
-    }
-    return result.map(xy => [xy[1], xy[0]]) as NumericPositionSpec[]
+    return horizontal ? result : result.map(xy => [xy[1], xy[0]])
 }
