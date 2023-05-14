@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [examples] chart with rectangles on a time scale
 -   [examples] chart with violins
 -   [band] components `Violin` and `Violins` to create violin plots
 -   [core] prop `closed` in `Path` to ensure a path is closed

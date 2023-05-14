@@ -12,6 +12,7 @@ import {
     MultipleViewsScatterChart,
 } from './MultipleViewsScatterChart'
 import { generateDotScatterData, DotScatterChart } from './DotScatterChart'
+import { generateTimeBarsScatterData, TimeBarsScatterChart } from './TimeBarsScatterChart'
 
 export default {
     ...GalleryMeta,
@@ -117,8 +118,24 @@ export const Dots: GalleryStory = {
             <div>
                 Dot charts typically use one band (categorical) scale and one continuous scales.
                 This example, however, is implemented with two continuous scales in order to take
-                advantage of `ScatterCrosshair`. The appearance of the vertical axis as a
+                advantage of <code>ScatterCrosshair</code>. The appearance of the vertical axis as a
                 categorical scale is achieved through custom tick labels.
+            </div>
+        ),
+    },
+}
+
+export const TimeBars: GalleryStory = {
+    name: 'bars',
+    args: {
+        generator: generateTimeBarsScatterData,
+        chart: TimeBarsScatterChart,
+        comment: (
+            <div>
+                Charts with rectangles are typically created with the <code>Bar</code> view. This
+                example, however, is implemented as a scatter chart in order to use spaced tick
+                marks on a time scale. Data points are visualized with a custom symbol that creates
+                rectangles stretching to the baseline.
             </div>
         ),
     },
