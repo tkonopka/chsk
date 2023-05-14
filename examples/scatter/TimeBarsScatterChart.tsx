@@ -45,6 +45,21 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
             stroke: '#222222',
         },
     },
+    rect: {
+        data: {
+            strokeWidth: 0.5,
+        },
+    },
+    Axis: {
+        bottom: {
+            distance: 6,
+        },
+    },
+    AxisTicks: {
+        bottom: {
+            tickSize: 0,
+        },
+    },
 })
 
 const ScatterRectangle = ({ cx = 0, cy = 0, ...props }: SymbolProps) => {
@@ -60,13 +75,13 @@ const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const dateToString = (d: Date) => {
     const day = d.getDate()
     const month = months[d.getMonth()]
-    return '' + day + '-' + month
+    return '' + day + ' ' + month
 }
 
 const customTooltipLabelFormat = (x: TooltipDataItem) => {
     if (!('point' in x)) return ''
     const point = x.point as number[]
-    return dateToString(new Date(point[0])) + ' ' + point[1]
+    return dateToString(new Date(point[0])) + ', ' + point[1]
 }
 
 const customModifiers = {
@@ -108,6 +123,7 @@ export const TimeBarsScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                     symbol={ScatterRectangle}
                     dataComponent={TooltipDataComponent}
                     modifiers={customModifiers}
+                    symbolClassName={'data'}
                 />
                 <GridLines variant={'y'} values={[0]} className={'baseline'} expansion={[2, 4]} />
                 <Tooltip
