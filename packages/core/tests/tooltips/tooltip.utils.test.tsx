@@ -29,46 +29,46 @@ describe('exitsParent', () => {
 
     it('detects object inside parent', () => {
         const result = exitsParent([20, 20], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, false])
+        expect(result).toEqual([0, 0])
     })
 
     it('detects exit on top boundary', () => {
         const result = exitsParent([10, -20], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, true])
+        expect(result).toEqual([0, -10])
     })
 
     it('detects exit on right boundary', () => {
         const result = exitsParent([150, 20], [100, 30], containerSize, margin)
-        expect(result).toEqual([true, false])
+        expect(result).toEqual([40, 0])
     })
 
     it('detects exit on bottom boundary', () => {
         const result = exitsParent([50, 190], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, true])
+        expect(result).toEqual([0, 10])
     })
 
-    it('detects exit on bottom boundary', () => {
-        const result = exitsParent([50, 190], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, true])
+    it('detects exit on left boundary', () => {
+        const result = exitsParent([-20, 100], [100, 30], containerSize, margin)
+        expect(result).toEqual([-10, 0])
     })
 
     it('permits exit on top boundary within margin', () => {
         const result = exitsParent([20, -5], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, false])
+        expect(result).toEqual([0, 0])
     })
 
     it('permits exit on right boundary within margin', () => {
         const result = exitsParent([105, 20], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, false])
+        expect(result).toEqual([0, 0])
     })
 
     it('permits exit on bottom boundary within margin', () => {
         const result = exitsParent([50, 175], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, false])
+        expect(result).toEqual([0, 0])
     })
 
     it('permits exit on left boundary within margin', () => {
         const result = exitsParent([-10, 50], [100, 30], containerSize, margin)
-        expect(result).toEqual([false, false])
+        expect(result).toEqual([0, 0])
     })
 })

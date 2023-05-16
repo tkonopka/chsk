@@ -63,7 +63,7 @@ export const LargeOverhang = {
         offset: [0, 0],
         size: [80, 80],
         anchor: [0, 1],
-        maxOverhang: [100, 100, 100, 100],
+        maxOverhang: [60, 60, 60, 60],
         children: (
             <Surface
                 style={{
@@ -82,6 +82,42 @@ export const SmallOverhang = {
         size: [80, 80],
         anchor: [0, 1],
         maxOverhang: [0, 0, 0, 0],
+        children: (
+            <Surface
+                style={{
+                    fill: '#aabbee',
+                }}
+            />
+        ),
+    },
+    decorators: [ChartForDetectorTooltipDecorator],
+}
+
+export const OverhangShiftX = {
+    name: 'overhang shift',
+    args: {
+        offset: [0, 0],
+        size: [160, 40],
+        anchor: [0.5, 1],
+        maxOverhang: [20, 20, 20, 20],
+        children: (
+            <Surface
+                style={{
+                    fill: '#aabbee',
+                }}
+            />
+        ),
+    },
+    decorators: [ChartForDetectorTooltipDecorator],
+}
+
+export const OverhangShiftY = {
+    name: 'overhang shift',
+    args: {
+        offset: [0, 0],
+        size: [40, 120],
+        anchor: [1, 0.5],
+        maxOverhang: [20, 20, 20, 20],
         children: (
             <Surface
                 style={{

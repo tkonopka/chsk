@@ -29,31 +29,38 @@ export const guessLabel = <DataSpec extends WithId & Record<string, unknown>>(
     return result.id
 }
 
-// returns array intended as boolean 0/1 indicators, except in number form
+// returns array indicating by how much a box overlaps a parent container
 export const exitsParent = (
     position: NumericPositionSpec,
     size: SizeSpec,
     containerSize: SizeSpec,
     margin: FourSideSizeSpec
-): [boolean, boolean] => {
-    const x = position[X]
-    const y = position[Y]
-    return [
-        x < -margin[LEFT] || x + size[X] > containerSize[X] + margin[RIGHT],
-        y < -margin[TOP] || y + size[Y] > containerSize[Y] + margin[BOTTOM],
-    ]
+): SizeSpec => {
+    const [x, y] = position
+    const result: SizeSpec = [0, 0]
+    if (x < -margin[LEFT]) {
+        result[X] = x + margin[LEFT]
+    } else if (x + size[X] > containerSize[X] + margin[RIGHT]) {
+        result[X] = x + size[X] - containerSize[X] - margin[RIGHT]
+    }
+    if (y < -margin[TOP]) {
+        result[Y] = y + margin[TOP]
+    } else if (y + size[Y] > containerSize[Y] + margin[BOTTOM]) {
+        result[Y] = y + size[Y] - containerSize[Y] - margin[BOTTOM]
+    }
+    return result
 }
 
 // flip settings for a tooltip, e.g. from top-right to bottom-left
 export const flipPositionAnchor = (
     position: NumericPositionSpec,
     anchor: AnchorSpec,
-    flip: [boolean, boolean]
+    overhang: SizeSpec
 ) => {
     const flippedPosition: NumericPositionSpec = [...position]
     const flippedAnchor: AnchorSpec = [...anchor]
     for (const i in [X, Y]) {
-        if (flip[i]) {
+        if (Math.abs(overhang[i])) {
             flippedPosition[i] = -position[i]
             flippedAnchor[i] = 1 - anchor[i]
         }

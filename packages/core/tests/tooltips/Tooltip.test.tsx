@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/react'
 import { Chart, View, ColorScaleProps, TooltipProvider, TooltipDataItem, Tooltip } from '../../src'
 import { chartProps } from '../props'
 import { schemeCategory10 } from 'd3-scale-chromatic'
+import { getTransform } from '../utils'
 
 export const viewSeriesIndexesKeys = {
     seriesIndexes: { X: 0, Y: 1 },
@@ -68,6 +69,67 @@ describe('Tooltip', () => {
             </Chart>
         )
         expect(screen.queryAllByRole('tooltip-item')).toHaveLength(0)
+    })
+
+    it('creates tooltip at position', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip
+                            anchor={[1, 1]}
+                            size={[40, 40]}
+                            offset={[0, 0]}
+                            maxOverhang={[100, 100, 100, 100]}
+                        />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const tooltip = screen.getByRole('tooltip')
+        // tooltip position is [10, 10], anchored at bottom-right corner, so corner at negative coordinates
+        expect(getTransform(tooltip, 'X')).toEqual(-30)
+        expect(getTransform(tooltip, 'Y')).toEqual(-30)
+    })
+
+    it('creates flipped tooltip', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip
+                            anchor={[1, 1]}
+                            size={[40, 40]}
+                            offset={[0, 0]}
+                            maxOverhang={[0, 0, 0, 0]}
+                        />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const tooltip = screen.getByRole('tooltip')
+        expect(getTransform(tooltip, 'X')).toEqual(10)
+        expect(getTransform(tooltip, 'Y')).toEqual(10)
+    })
+
+    it('creates shifted tooltip', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip
+                            anchor={[0.5, 1]}
+                            size={[40, 40]}
+                            offset={[0, 0]}
+                            maxOverhang={[0, 0, 0, 0]}
+                        />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        const tooltip = screen.getByRole('tooltip')
+        // for centered tooltips, flipping an anchor is not sufficient to avoid overhang, so a shift is needed
+        expect(getTransform(tooltip, 'X')).toEqual(0)
     })
 
     it('creates tooltip with multiple items ', () => {

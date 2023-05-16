@@ -42,6 +42,15 @@ Tooltips that move beyond the overhang will flip direction.
 <Canvas of={TooltipStories.LargeOverhang} />
 <Canvas of={TooltipStories.SmallOverhang} />
 
+If a tooltip still overhangs even after a flip, then it is shifted.
+In practice, the shift is most noticeable for tooltips with anchor values are set to 0.5,
+which typically center the tooltip horizontally or vertically.
+In such cases, when a tooltip is created near the edges of a view, flipping may not prevent overhang,
+ang shifting overrides the anchoring recipe to avoid overhang.
+
+<Canvas of={TooltipStories.OverhangShiftX} />
+<Canvas of={TooltipStories.OverhangShiftY} />
+
 ## Tooltip content
 
 The content of the tooltip consists of a number of distinct pieces.

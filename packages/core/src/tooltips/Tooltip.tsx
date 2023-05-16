@@ -1,6 +1,6 @@
 import { useContainer } from '../views'
 import { useThemedProps } from '../themes'
-import { addPositions, getAnchoredOrigin, NumericPositionSpec } from '../general'
+import { addPositions, getAnchoredOrigin, NumericPositionSpec, X, Y } from '../general'
 import { defaultTooltipProps } from './defaults'
 import { useTooltip } from './contexts'
 import { exitsParent, flipPositionAnchor, guessLabel } from './utils'
@@ -59,19 +59,19 @@ const UnthemedTooltip = ({
     })
     // in cases when the tooltip would exit the parent container, adjust position and anchor
     const tooltipPosition: NumericPositionSpec = [tooltip.x ?? 0, tooltip.y ?? 0]
-    const flip = exitsParent(
-        addPositions(origin, tooltipPosition),
-        tooltipSize,
-        dimensions.size,
-        maxOverhang
-    )
-    const { flippedPosition, flippedAnchor } = flipPositionAnchor(offset, anchor, flip)
+    const naivePosition = addPositions(origin, tooltipPosition)
+    let exits = exitsParent(naivePosition, tooltipSize, dimensions.size, maxOverhang)
+    const { flippedPosition, flippedAnchor } = flipPositionAnchor(offset, anchor, exits)
     const originPosition = getAnchoredOrigin(flippedPosition, tooltipSize, flippedAnchor)
+    const position = addPositions(originPosition, tooltipPosition)
+    exits = exitsParent(position, tooltipSize, dimensions.size, maxOverhang)
+    position[X] = position[X] - exits[X]
+    position[Y] = position[Y] - exits[Y]
 
     return (
         <BaseTooltip
             variant={horizontal ? 'bottom' : 'right'}
-            position={addPositions(originPosition, tooltipPosition)}
+            position={position}
             size={tooltipSize}
             padding={padding}
             data={data}
