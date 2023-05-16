@@ -177,7 +177,7 @@ export const FractionShadowsBarChart = ({ fref, chartData, rawData }: MilestoneS
                     <Bars keys={['C']} style={{ stroke: '#ffffff' }} />
                     <TwoBarsLabels ids={['C']} keys={['C']} label={'Others'} />
                 </MilestoneMotion>
-                <Tooltip itemSize={[70, 30]} rx={4} ry={4} labelFormat={d => d?.data + '%'} />
+                <Tooltip itemSize={[70, 24]} rx={4} ry={4} labelFormat={d => d?.data + '%'} />
             </Bar>
         </g>
     </Chart>

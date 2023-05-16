@@ -13,7 +13,6 @@ import {
     useScales,
     mergeTheme,
     Tooltip,
-    Rectangle,
     useTooltip,
     TooltipItem,
     RawDataContextProps,
@@ -143,7 +142,7 @@ const LogoTooltipItem = () => {
             key={'item-' + item.id + '-' + item.key}
             variant={'right'}
             position={[0, 0]}
-            size={[120, 30]}
+            size={[130, 30]}
             padding={[8, 8, 8, 8]}
             item={item.id}
             label={base + ': ' + value + ' bits'}
@@ -230,18 +229,7 @@ export const SequenceLogoBarChart = ({ fref, chartData, rawData }: MilestoneStor
                         <Bars dataComponent={LogoDataComponent} />
                         <Bars style={{ fillOpacity: 0 }} />
                     </LazyMotion>
-                    <Tooltip>
-                        <Rectangle
-                            key={'surface'}
-                            variant={'tooltip-surface'}
-                            x={0}
-                            y={0}
-                            width={120}
-                            height={30}
-                            rx={1}
-                            ry={1}
-                            className={'tooltip surface'}
-                        />
+                    <Tooltip size={[130, 32]}>
                         <LogoTooltipItem key={'tooltip-item'} />
                     </Tooltip>
                     <DownloadButtons position={[390, -45]} data image />
