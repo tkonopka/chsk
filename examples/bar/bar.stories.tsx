@@ -26,6 +26,7 @@ import {
 import { generateQuestionTwoChoicesData, QuestionTwoChoicesChart } from './QuestionTwoChoicesChart'
 import { generateArrowsData, ArrowsBarChart } from './ArrowsBarChart'
 import { generateSequenceLogoBarData, SequenceLogoBarChart } from './SequenceLogoBarChart'
+import { generateTimeBarData, TimeBarChart } from './TimeBarChart'
 
 export default {
     ...GalleryMeta,
@@ -193,5 +194,22 @@ export const BandLabels: GalleryStory = {
     args: {
         generator: generateBandLabelsData,
         chart: BandLabelsChart,
+    },
+}
+
+export const TimeScale: GalleryStory = {
+    name: 'time scale',
+    args: {
+        generator: generateTimeBarData,
+        chart: TimeBarChart,
+        comment: (
+            <div>
+                Bar charts can use a continuous scale in place of a categorical scale. This setup
+                requires manually specifying the bandwidth associated with each data point. This
+                works well when displaying data associated with fixed-width intervals, e.g. days,
+                but it may not look appealing for other intervals, e.g. months, which have variable
+                width.
+            </div>
+        ),
     },
 }

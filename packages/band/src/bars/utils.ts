@@ -1,7 +1,6 @@
 import {
     BandAxisScale,
     BandScaleProps,
-    BandScaleSpec,
     ContinuousScaleProps,
     ContinuousScaleSpec,
     createContinuousScaleProps,
@@ -13,11 +12,12 @@ import {
 } from '@chsk/core'
 import { BarProps } from './types'
 import { cloneDeep } from 'lodash'
+import { ScaleWithBandwidthSpec } from '../bands'
 
 export const getScaleProps = (
     ids: string[],
     data: Array<Array<undefined | [number, number]>>, // for each id, key, array with [min, max] values
-    scaleSpecIndex: BandScaleSpec,
+    scaleSpecIndex: ScaleWithBandwidthSpec,
     scaleSpecValue: ContinuousScaleSpec,
     size: SizeSpec, // inner size of the view
     horizontal: boolean, // inner size of the view

@@ -160,7 +160,60 @@ export const EqualSpacing = {
             domain: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
             padding: 0.2,
         },
-        children: <Bars />,
+        children: (
+            <>
+                <Bars key={0} />
+                <Axis key={1} variant={'bottom'} />
+                <Axis key={2} variant={'left'} />
+            </>
+        ),
+    },
+    decorators: [ChartDecorator],
+}
+
+export const FixedValueScale = {
+    name: 'fixed domain',
+    args: {
+        ...commonBarProps,
+        data: dataSingles,
+        keys: ['value'],
+        horizontal: false,
+        scaleValue: {
+            variant: 'linear',
+            domain: [0, 100],
+        },
+        scaleIndex: {
+            variant: 'band',
+        },
+        children: (
+            <>
+                <Bars key={0} />
+                <Axis key={1} variant={'bottom'} />
+                <Axis key={2} variant={'left'} />
+            </>
+        ),
+    },
+    decorators: [ChartDecorator],
+}
+
+export const ReorderedIds = {
+    name: 'reordered ids',
+    args: {
+        ...commonBarProps,
+        data: dataSingles,
+        keys: ['value'],
+        horizontal: false,
+        scaleIndex: {
+            variant: 'band',
+            domain: ['E', 'F', 'G', 'A', 'B', 'C', 'D', 'X', 'Y'],
+        },
+        children: (
+            <>
+                <Bars key={0} />
+                <Axis key={1} variant={'bottom'} />
+                <Axis key={2} variant={'left'} />
+            </>
+        ),
     },
     decorators: [ChartDecorator],
 }
@@ -180,7 +233,40 @@ export const CustomSpacing = {
                 E: 0.9,
             },
         },
-        children: <Bars />,
+        children: (
+            <>
+                <Bars />
+                <Axis variant={'bottom'} />
+            </>
+        ),
+    },
+    decorators: [ChartDecorator],
+}
+
+export const LinearIndexScale = {
+    name: 'continuous index',
+    args: {
+        ...commonBarProps,
+        data: [
+            { id: '1', value: 4 },
+            { id: '2', value: 7 },
+            { id: '6', value: 8 },
+            { id: '8', value: 5 },
+        ],
+        keys: ['value'],
+        horizontal: false,
+        scaleIndex: {
+            variant: 'linear',
+            domain: [0, 10],
+            padding: 0.2,
+            bandwidth: [0, 1],
+        },
+        children: (
+            <>
+                <Bars />
+                <Axis variant={'bottom'} />
+            </>
+        ),
     },
     decorators: [ChartDecorator],
 }

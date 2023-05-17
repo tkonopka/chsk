@@ -18,7 +18,8 @@ export const isAxisScale = (scale: Scale): scale is AxisScale => {
         scale.variant === 'band' ||
         scale.variant === 'linear' ||
         scale.variant === 'log' ||
-        scale.variant === 'sqrt'
+        scale.variant === 'sqrt' ||
+        scale.variant === 'time'
     )
 }
 
@@ -57,5 +58,5 @@ export const isScaleWithDomain = (
     const domain = scaleSpec.domain
     if (domain === undefined || typeof domain === 'string') return false
     if (scaleSpec.variant === 'band') return true
-    return domain.map(v => +(typeof v === 'number')).reduce((acc, v) => acc + v, 0) === 2
+    return domain.length === 2 && domain[0] !== 'auto' && domain[1] !== 'auto'
 }

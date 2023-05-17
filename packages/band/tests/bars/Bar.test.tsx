@@ -1,16 +1,15 @@
 import { render, screen } from '@testing-library/react'
 import { cloneDeep } from 'lodash'
-import { Chart, Legend, NumericPositionSpec, useProcessedData, X, Y } from '@chsk/core'
+import { Chart, Legend, NumericPositionSpec, X, Y } from '@chsk/core'
 import {
     Bar,
     BarDataItem,
     BarPreparedDataContextProps,
-    BarProcessedDataContextProps,
     isBarProcessedData,
     useBarPreparedData,
 } from '../../src'
-import { barProps, mockScales } from '../props'
-import { GetScales } from '../contexts'
+import { barProps, mockProcessedData, mockScales } from '../props'
+import { GetScales, GetProcessedData } from '../contexts'
 
 describe('Bar', () => {
     it('creates a view', () => {
@@ -24,27 +23,19 @@ describe('Bar', () => {
     })
 
     it('defines processed data', () => {
-        const processed: BarProcessedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetProcessedData = () => {
-            const temp = useProcessedData()
-            if (isBarProcessedData(temp.data)) {
-                processed.data = temp.data
-                processed.keys = temp.keys
-                processed.seriesIndexes = temp.seriesIndexes
-            }
-            return null
-        }
+        const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
                 <Bar {...barProps}>
-                    <GetProcessedData />
+                    <GetProcessedData value={result} />
                 </Bar>
             </Chart>
         )
         // the dataset has two indexes and three keys
-        expect(Object.keys(processed.seriesIndexes)).toHaveLength(2)
-        expect(processed.data).toHaveLength(2)
-        expect(processed.keys).toHaveLength(3)
+        expect(isBarProcessedData(result.data)).toBeTruthy()
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(3)
     })
 
     const getAllPreparedPositions = (
@@ -249,6 +240,39 @@ describe('Bar', () => {
         // when stacked, the alpha group goes from baseline 0 to top 100
         expect(result.y.domain()).toEqual(['alpha', 'beta'])
         expect(result.x.domain()).toEqual([0, 100])
+    })
+
+    it('accepts continuous index scale', () => {
+        const linearData = [
+            { id: '1', value: 10 },
+            { id: '2', value: 50 },
+            { id: '5', value: 100 },
+        ]
+        const processed = cloneDeep(mockProcessedData)
+        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        const GetPreparedData = () => {
+            prepared = useBarPreparedData()
+            return null
+        }
+        render(
+            <Chart>
+                <Bar
+                    {...barProps}
+                    data={linearData}
+                    keys={['value']}
+                    scaleIndex={{ variant: 'linear', domain: [0, 6], bandwidth: [0, 1] }}
+                >
+                    <GetProcessedData value={processed} />
+                    <GetPreparedData />
+                </Bar>
+            </Chart>
+        )
+        expect(isBarProcessedData(processed.data)).toBeTruthy()
+        // in svg coordinates, the first bar should be at the left, the last bar should be at the right
+        const pos0 = prepared.data[0].position[0]
+        const pos2 = prepared.data[2].position[0]
+        expect(pos0[X]).toBeLessThan(200)
+        expect(pos2[X]).toBeGreaterThan(200)
     })
 
     it('prepares color scale for legend', () => {

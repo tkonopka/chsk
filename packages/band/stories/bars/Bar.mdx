@@ -32,7 +32,7 @@ The pseudocode below shows one data item with an identifier and three numeric va
 
 ## Variants
 
-Prop \`variant' specifies whether the bar chart should be organized with groups of bars displayed side-by-side, or stacked one after the other.
+Prop `variant` specifies whether the bar chart should be organized with groups of bars displayed side-by-side or stacked one after the other.
 
 <Canvas of={BarStories.VerticalGrouped} />
 <Canvas of={BarStories.VerticalStacked} />
@@ -51,8 +51,6 @@ The specification of the band axis through prop `scaleIndex` controls the spacin
 <Canvas of={BarStories.LargeOuterPadding} />
 <Canvas of={BarStories.LargeInnerPadding} />
 
-## Internal padding
-
 For grouped bars, an additional padding prop `paddingInternal` controls the space between bars within one group.
 
 <Canvas of={BarStories.LargeInternalPadding} />
@@ -61,20 +59,69 @@ For grouped bars, an additional padding prop `paddingInternal` controls the spac
 ## Keys
 
 The prop `keys` determines the number of subgroups that are incorporated into the chart.
-Below, both examples use a grouped bar layout based on the same data as above.
-The second chart uses a single key, and thus displays a simple bar chart.
+Below, both examples use a grouped bar layout based on the same data as above, but displaying different keys.
+The second chart uses a single key and thus displays a simple bar chart.
 
 <Canvas of={BarStories.TwoKeys} />
 <Canvas of={BarStories.SingleKey} />
 
-## Custom spacing
+## Custom scales
 
-By default, bars are arranged with equal spacing along the axis.
-It is possible to customize the spacing through the specification of the band scale, with prop `scaleIndex`.
-Below, the examples use a dataset with seven bars, and the second example applies extra padding before one of the bands.
+Configurations for the axes are set with props `valueScale` and `indexScale`.
+These scales must define the scale `variant`, which are typically set to `linear` and `band`, respectively.
+
+By default, both value and the index scales adapt their domain to suit the dataset.
+The example below shows a dataset with seven bars.
 
 <Canvas of={BarStories.EqualSpacing} />
+
+Both the value and index scale accept custom domain.
+For the value axis, this can be used to enforce the visibility of fixed upper/lower bounds.
+For the scale axis, custom domains can be used to reorder ids.
+
+<Canvas of={BarStories.FixedValueScale} />
+<Canvas of={BarStories.ReorderedIds} />
+
+By default, bars are arranged with equal spacing along the index axis.
+It is possible to customize the spacing by adding extra spacing at specified locations.
+Below, extra spacing before one of the bands creates a visual separation into two groups.
+
 <Canvas of={BarStories.CustomSpacing} />
+
+## Continuous index scales
+
+Typically, the index scale is a categorical/band scale with a domain consisting of discrete elements/stings.
+However, it is also possible to use a continuous scale, for example, a linear scale or a time scale.
+
+In the pseudocode below, ids are strings that encode numeric values.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "1",
+   "x": 4
+  },
+  {
+   "id": "2",
+   "y": 7
+  },
+  ...
+  ]
+  `}
+/>
+
+The chart below uses a linear scale to map the ids onto positions along the horizontal axis.
+
+<Canvas of={BarStories.LinearIndexScale} />
+
+To achieve this effect, it is necessary to set `scaleIndex` to the appropriate variant and to
+define the scale domain. It is also necessary to define the width associated with a band.
+This is set via `bandwidth`, which accepts an array of two values.
+The interval between those values determines the width of the bands.
+The reason the bandwidth is specified as a pair of values and not a single number is to
+accommodate nonlinear scales (e.g. logarithmic scales).
 
 ## Missing data items
 
@@ -110,12 +157,12 @@ This variant arranges all elements associated with one id on top of each other (
 <Canvas of={BarStories.MissingKeys} />
 <Canvas of={BarStories.NullInternalPadding} />
 
-## Axis Scaling
+(To repeat, the two charts above use two different methods to produce the same effect.)
 
-Scales on the axes can be set manually, or determined automatically based on the data.
+## Automatic Scaling
 
-When the scale on the value axis is set to automatic, it will automatically rescale/adjust when the data changes or when certain keys are toggled using a legend (below, left).
-The automatic rescaling can be disabled using prop `autoRescale` (below, right).
+Prop `autoRescale` toggles automatic rescaling of the value axis in response to chart state (via the legend).
+By default, axes automatically rescale/adjust when the data changes or when keys are toggled using a legend.
 
 <Canvas of={BarStories.AutoRescaling} />
 <Canvas of={BarStories.FixedScales} />

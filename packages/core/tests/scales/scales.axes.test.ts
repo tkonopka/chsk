@@ -131,6 +131,22 @@ describe('createAxisScale', () => {
         expect(isContinuousAxisScale(result)).toBeTruthy()
     })
 
+    it('creates a time scale', () => {
+        const result = createAxisScale(
+            {
+                variant: 'time',
+                domain: [new Date(Date.now() - 1000000), new Date(Date.now())],
+                size: 100,
+            },
+            'x'
+        )
+        expect(isAxisScale(result)).toBeTruthy()
+        expect(isColorScale(result)).toBeFalsy()
+        expect(isBandAxisScale(result)).toBeFalsy()
+        expect(isContinuousAxisScale(result)).toBeTruthy()
+        expect(isTimeAxisScale(result)).toBeTruthy()
+    })
+
     it('creates a y-axis scale oriented in canonical direction', () => {
         const result = createAxisScale(
             {
@@ -171,6 +187,38 @@ describe('createAxisScale', () => {
         ) as LinearAxisScale
         expect(result(0)).toEqual(100)
         expect(result(10)).toEqual(0)
+    })
+
+    it('creates a linear scale with bandwidth', () => {
+        const result = createAxisScale(
+            {
+                variant: 'linear',
+                domain: [0, 10],
+                size: 100,
+                bandwidth: [1, 2],
+            },
+            'x'
+        )
+        expect(isLinearAxisScale(result)).toBeTruthy()
+        expect(result.bandwidth()).toEqual(10)
+        expect(result.step()).toEqual(10)
+    })
+
+    it('creates a time scale with bandwidth', () => {
+        const now = Date.now()
+        const result = createAxisScale(
+            {
+                variant: 'time',
+                domain: [new Date(now - 1e6), new Date(now)],
+                size: 100,
+                bandwidth: [new Date(now - 1e5), new Date(now)],
+            },
+            'x'
+        )
+        expect(isLinearAxisScale(result)).toBeFalsy()
+        expect(isTimeAxisScale(result)).toBeTruthy()
+        expect(result.bandwidth()).toEqual(10)
+        expect(result.step()).toEqual(10)
     })
 })
 
@@ -301,7 +349,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isNumericAxisScale(result)).toBeTruthy()
-        if (!isNumericAxisScale(result)) return
         expect(result(0)).toEqual(0)
         expect(result(10)).toEqual(100)
         expect(result(5)).toEqual(50)
@@ -315,7 +362,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isNumericAxisScale(result)).toBeTruthy()
-        if (!isNumericAxisScale(result)) return
         // for y-axis, the ordering is reversed
         expect(result(0)).toEqual(100)
         expect(result(10)).toEqual(0)
@@ -330,7 +376,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isNumericAxisScale(result)).toBeTruthy()
-        if (!isNumericAxisScale(result)) return
         expect(result(1)).toEqual(0)
         expect(result(10)).toEqual(50)
         expect(result(100)).toEqual(100)
@@ -359,7 +404,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
-        if (!isTimeAxisScale(result)) return
         expect(result(Number(startDate))).toEqual(0)
         expect(result(Number(endDate))).toEqual(100)
         expect(result.step()).toEqual(0)
@@ -378,7 +422,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
-        if (!isTimeAxisScale(result)) return
         // invert converts coordinates to time-numbers
         expect(result.invert(100)).toBeGreaterThan(Number(endDate) - 10)
         expect(result.invert(0)).toBeLessThan(Number(startDate) + 10)
@@ -393,7 +436,6 @@ describe('createContinuousScale', () => {
             nice: true,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
-        if (!isTimeAxisScale(result)) return
         expect(result(Number(startDate))).toBeGreaterThan(0)
     })
 
@@ -406,7 +448,6 @@ describe('createContinuousScale', () => {
             nice: 1,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
-        if (!isTimeAxisScale(result)) return
         expect(result(Number(startDate))).toBeGreaterThan(0)
     })
 
@@ -418,7 +459,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isNumericAxisScale(result)).toBeTruthy()
-        if (!isNumericAxisScale(result)) return
         expect(result(2)).toEqual(0)
         expect(result(8)).toEqual(100)
         expect(result(0)).toBeLessThan(0)
@@ -433,7 +473,6 @@ describe('createContinuousScale', () => {
             size: 100,
         })
         expect(isTimeAxisScale(result)).toBeTruthy()
-        if (!isTimeAxisScale(result)) return
         expect(Math.round(result(Number(startDate)))).toEqual(0)
         expect(Math.round(result(Number(endDate)))).toEqual(50)
         expect(Math.round(result(Number(futureDate)))).toEqual(100)

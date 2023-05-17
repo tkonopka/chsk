@@ -75,12 +75,16 @@ export type NumericScaleSpec = {
     nice?: boolean | number
     /** reverse direction of axis */
     reverse?: boolean
+    /** interval for bandwidth */
+    bandwidth?: [number, number]
 }
 export type TimeScaleSpec = Pick<NumericScaleSpec, 'clamp' | 'nice' | 'reverse'> & {
     /** type of scale */
     variant: 'time'
     /** domain min and max */
     domain?: [Date, Date] | [Date, 'auto'] | ['auto', Date] | 'auto'
+    /** interval for bandwidth */
+    bandwidth?: [Date, Date]
 }
 
 export type ContinuousScaleSpec = NumericScaleSpec | TimeScaleSpec

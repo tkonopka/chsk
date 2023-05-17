@@ -6,6 +6,9 @@
 
 ### Added
 
+-   [examples] stacked bar chart with a time scale
+-   [core] support for specifying bandwidth for continuous scales, e.g. linear
+    scales and time scales
 -   [examples] chart with rectangles on a time scale
 -   [examples] chart with violins
 -   [band] components `Violin` and `Violins` to create violin plots

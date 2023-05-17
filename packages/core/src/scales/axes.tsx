@@ -97,6 +97,7 @@ export const createTimeScale = ({
     size,
     domain,
     viewDomain,
+    bandwidth,
     clamp = false,
     nice = false,
 }: TimeScaleProps & {
@@ -126,8 +127,11 @@ export const createTimeScale = ({
         const c = range[0] - m * viewDomain[0]
         return (x - c) / m
     }
-    result.bandwidth = () => 0
-    result.step = () => 0
+    result.bandwidth = () => {
+        if (!bandwidth) return 0
+        return scale(bandwidth[1]) - scale(bandwidth[0])
+    }
+    result.step = result.bandwidth
     result.ticks = (count?: number) => scale.ticks(count).map(Number)
     result.variant = 'time' as const
 
@@ -140,13 +144,23 @@ export const createContinuousScale = ({
     size,
     domain,
     viewDomain,
+    bandwidth,
     clamp = false,
     nice = false,
 }: ContinuousScaleProps & {
     reverseRange?: boolean
 }): ContinuousAxisScale => {
     if (variant === 'time') {
-        return createTimeScale({ variant, reverseRange, size, domain, viewDomain, clamp, nice })
+        return createTimeScale({
+            variant,
+            reverseRange,
+            size,
+            domain,
+            viewDomain,
+            bandwidth,
+            clamp,
+            nice,
+        })
     }
     const range: [number, number] = reverseRange ? [size, 0] : [0, size]
     const scale = variant === 'log' ? scaleLog() : variant === 'sqrt' ? scaleSqrt() : scaleLinear()
@@ -159,8 +173,11 @@ export const createContinuousScale = ({
     const result = scale as unknown as GenericScale<number, number>
     result.viewDomain = () => domain
     result.variant = variant
-    result.bandwidth = () => 0
-    result.step = () => 0
+    result.bandwidth = () => {
+        if (!bandwidth) return 0
+        return result(bandwidth[1]) - result(bandwidth[0])
+    }
+    result.step = result.bandwidth
     return result as ContinuousAxisScale
 }
 

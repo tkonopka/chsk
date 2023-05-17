@@ -15,6 +15,8 @@ import {
     ViewProps,
     WithId,
     WithInteractive,
+    NumericScaleSpec,
+    TimeScaleSpec,
 } from '@chsk/core'
 
 export interface BandSurfaceProps
@@ -59,6 +61,11 @@ export interface BandHighlightProps extends SvgElementProps {
     tooltipAlign?: AlignSpec
 }
 
+export type ScaleWithBandwidthSpec =
+    | BandScaleSpec
+    | (NumericScaleSpec & { bandwidth: [number, number] })
+    | (TimeScaleSpec & { bandwidth: [Date, Date] })
+
 // base interface for BarProps, StripProps, QuantileProps
 export interface BandProps
     extends SvgElementProps,
@@ -70,7 +77,7 @@ export interface BandProps
     /** padding between bands in the same group/index */
     paddingInternal?: number
     /** scale for axis with discrete indexes */
-    scaleIndex?: BandScaleSpec
+    scaleIndex?: ScaleWithBandwidthSpec
     /** scale for axis with continuous values */
     scaleValue?: LinearScaleSpec
     /** scale for colors */
