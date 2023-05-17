@@ -41,7 +41,7 @@ const customTheme = mergeTheme(buttonTheme, {
     },
     rect: {
         label: {
-            fill: '#dcd0d8',
+            fill: '#dddddd',
         },
     },
 })

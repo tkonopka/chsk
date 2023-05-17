@@ -205,8 +205,8 @@ export const TimeScale: GalleryStory = {
         comment: (
             <div>
                 Bar charts can use a continuous scale in place of a categorical scale. This setup
-                requires manually specifying the bandwidth associated with each data point. This
-                works well when displaying data associated with fixed-width intervals, e.g. days,
+                requires manually specifying the bandwidth (width of bars). This works well when
+                displaying data associated with fixed-width intervals, e.g. days on a time scale,
                 but it may not look appealing for other intervals, e.g. months, which have variable
                 width.
             </div>
