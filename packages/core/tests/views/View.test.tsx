@@ -1,5 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View, ProcessedDataContextProps, useProcessedData } from '../../src'
+import {
+    Chart,
+    View,
+    RecordWithId,
+    ProcessedDataContextProps,
+    useProcessedData,
+    useRawData,
+} from '../../src'
 import { chartProps, viewProps } from '../props'
 import { getNumberAttr } from '../utils'
 
@@ -47,6 +54,27 @@ describe('View', () => {
         )
         const result = screen.getByRole('view-content')
         expect(result).toBeDefined()
+    })
+
+    it('creates view with raw data context', () => {
+        const data = [
+            { id: 'A', value: 0 },
+            { id: 'B', value: 2 },
+        ]
+        let result: RecordWithId[] = []
+        const GetRawData = () => {
+            result = useRawData().data
+            return null
+        }
+
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps} data={data}>
+                    <GetRawData />
+                </View>
+            </Chart>
+        )
+        expect(result).toHaveLength(2)
     })
 
     it('creates view with prepared keys and seriesIndexes', () => {
