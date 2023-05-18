@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] support for axis labels and axis tick labels with ReactNode type
 -   [band] support for nonlinear scales for strip, quantile, schedule, and
     violin charts
 -   [examples] stacked bar chart with a time scale

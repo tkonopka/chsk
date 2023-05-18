@@ -55,6 +55,22 @@ describe('AxisTicks', () => {
         expect(result[0].textContent).toContain('%')
     })
 
+    it('accepts complex label format function', () => {
+        const customFormat = (v: unknown) => <tspan style={{ fill: 'red' }}>{Number(v)} abc</tspan>
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="top">
+                        <AxisTicks ticks={6} labelFormat={customFormat} />
+                    </Axis>
+                </View>
+            </Chart>
+        )
+        const result = screen.getAllByRole('tick')
+        expect(result[0].textContent).toContain('abc')
+        expect(result[0].querySelectorAll('tspan')).toHaveLength(1)
+    })
+
     it('can omit ticks altogether', () => {
         render(
             <Chart {...chartProps}>

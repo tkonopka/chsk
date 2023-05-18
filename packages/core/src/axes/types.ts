@@ -41,8 +41,8 @@ export interface AxisLabelProps extends SvgElementVariantProps {
     align?: number
     /** rotation angle (degrees) */
     angle?: number
-    /** string label */
-    children?: string
+    /** label, usually string */
+    children?: ReactNode
 }
 
 export interface AxisLabelThemedProps
@@ -69,7 +69,7 @@ export interface AxisTicksProps extends SvgElementVariantProps {
     /** rotation angle (degrees) */
     labelAngle?: number
     /** format */
-    labelFormat?: (value: unknown, index: number) => string
+    labelFormat?: (value: unknown, index: number) => ReactNode
     /** style for tick labels (text) */
     labelStyle?: Partial<CSSProperties>
 }
