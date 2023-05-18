@@ -7,27 +7,28 @@ import {
     Legend,
     AxisLine,
     TooltipDataItem,
+    AxisLabel,
+    AxisTicks,
 } from '@chsk/core'
 import { Quantile, Quantiles, QuantileTooltip, Strip, StripProps, Strips } from '@chsk/band'
-import { generateMixedPopulation, round2dp } from '../utils'
+import { generateMixedPopulation, randomUniformValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
 
-const stripAndBoxKeys = ['x', 'y', 'z']
-
-export const generateStripAndBoxData = () => [
-    {
-        id: 'controls',
-        x: generateMixedPopulation([50, 2], [20, 20], [5, 8]).filter(v => v >= 0),
-    },
-    {
-        id: 'A',
-        y: generateMixedPopulation([50, 2], [20, 25], [6, 10]).filter(v => v >= 0),
-    },
-    {
-        id: 'B',
-        z: generateMixedPopulation([50, 2], [30, 40], [6, 8]).filter(v => v >= 0),
-    },
-]
+export const generateStripAndBoxData = () => {
+    const three = Array(3).fill(0)
+    const means = three.map(() => randomUniformValue(10, 16))
+    const offsets = three.map(() => randomUniformValue(0, 5))
+    const positive = (v: number) => v > 0
+    const x = generateMixedPopulation([45, 5], [means[0], means[0] + offsets[0]], [3, 6])
+    const y = generateMixedPopulation([45, 5], [means[1], means[1] + offsets[1]], [3, 8])
+    const z = generateMixedPopulation([45, 5], [means[2], means[2] + offsets[2]], [3, 6])
+    const power = (v: number) => Math.pow(2, v)
+    return [
+        { id: 'controls', x: x.filter(positive).map(power) },
+        { id: 'A', y: y.filter(positive).map(power) },
+        { id: 'B', z: z.filter(positive).map(power) },
+    ]
+}
 
 const customTheme: ThemeSpec = {
     line: {
@@ -56,10 +57,15 @@ const customTheme: ThemeSpec = {
             dominantBaseline: 'central',
         },
     },
+    tspan: {
+        exponent: {
+            fontSize: '10px',
+        },
+    },
 }
 
 const stripProps: Omit<StripProps, 'data'> = {
-    keys: stripAndBoxKeys,
+    keys: ['x', 'y', 'z'],
     variant: 'layered',
     scaleIndex: {
         variant: 'band' as const,
@@ -73,6 +79,23 @@ const stripProps: Omit<StripProps, 'data'> = {
     },
 }
 
+const expLabelFormat = (v: unknown) => {
+    const [a, b] = Number(v).toExponential().split('e')
+    return (
+        <tspan>
+            {a !== '1' ? a + ' · ' : ''}10
+            <tspan dy={-6} className={'exponent'}>
+                {b.replace('+', '')}
+            </tspan>
+        </tspan>
+    )
+}
+
+const roundExp2dp = (v: number) => {
+    const [a, b] = v.toExponential().split('e')
+    return round2dp(Number(a)) + 'e' + b
+}
+
 export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -83,10 +106,19 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
             padding={[40, 60, 60, 80]}
             theme={customTheme}
         >
-            <Strip {...stripProps} data={rawData} paddingInternal={0.4}>
+            <Strip
+                {...stripProps}
+                data={rawData}
+                paddingInternal={0.4}
+                scaleValue={{ variant: 'log' }}
+            >
                 <MilestoneMotion enterOn={'axes'}>
-                    <GridLines variant={'y'} values={6} />
-                    <Axis variant={'left'} label={'counts'} ticks={6} />
+                    <GridLines variant={'y'} values={5} />
+                    <Axis variant={'left'}>
+                        <AxisLine />
+                        <AxisLabel>Measurements (a.u.)</AxisLabel>
+                        <AxisTicks ticks={5} labelFormat={expLabelFormat} />
+                    </Axis>
                     <Axis variant={'bottom'} label={'counts'}>
                         <AxisLine variant={'bottom'} />
                     </Axis>
@@ -106,7 +138,12 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     <Strips />
                 </MilestoneMotion>
             </Strip>
-            <Quantile {...stripProps} data={rawData} paddingInternal={0}>
+            <Quantile
+                {...stripProps}
+                data={rawData}
+                paddingInternal={0}
+                scaleValue={{ variant: 'log' }}
+            >
                 <MilestoneMotion enterOn={'quantiles'}>
                     <Quantiles
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 1.5 }}
@@ -116,13 +153,13 @@ export const StripAndBoxChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     />
                     <QuantileTooltip
                         maxOverhang={[40, 40, 40, 40]}
-                        size={[200, 140]}
+                        size={[220, 140]}
                         cellSize={[40, 20]}
                         cellPadding={20}
                         padding={[8, 8, 8, 8]}
                         itemSize={[160, 26]}
                         labelFormat={(x: TooltipDataItem) => x.key ?? ''}
-                        valueFormat={round2dp}
+                        valueFormat={roundExp2dp}
                         title={''}
                     />
                 </MilestoneMotion>
