@@ -9,11 +9,11 @@ import {
 import {
     BarProps,
     BarDataItem,
-    DistributionProps,
+    QuantileProps,
     StripProps,
     ViolinProps,
     ScheduleProps,
-    DistributionDataItem,
+    QuantileDataItem,
 } from '../src'
 
 const mockXBandScale = createBandScale({
@@ -98,7 +98,7 @@ export const dataMissingKeys = [
 ]
 
 const q5: [number, number, number, number, number] = [0.05, 0.25, 0.5, 0.75, 0.95]
-export const dataPrecomputedQuantilesValues: Array<DistributionDataItem> = [
+export const dataPrecomputedQuantilesValues: Array<QuantileDataItem> = [
     {
         id: 'alpha',
         label: 'alpha',
@@ -133,7 +133,7 @@ export const dataPrecomputedQuantilesValues: Array<DistributionDataItem> = [
     },
 ]
 
-export const quantileProps: DistributionProps = {
+export const quantileProps: QuantileProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     scaleIndex: {

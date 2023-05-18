@@ -2,48 +2,48 @@ import { render, screen } from '@testing-library/react'
 import { cloneDeep } from 'lodash'
 import { Chart, Legend, Scales } from '@chsk/core'
 import {
-    Distribution,
-    DistributionPreparedDataContextProps,
-    isDistributionProcessedData,
-    useDistributionPreparedData,
-    DistributionProcessedDataItem,
-    isDistributionProcessedSummary,
-} from '../../src'
+    Quantile,
+    QuantilePreparedDataContextProps,
+    isQuantileProcessedData,
+    useQuantilePreparedData,
+    QuantileProcessedDataItem,
+    isQuantileProcessedSummary,
+} from '../../src/quantiles'
 import { quantileProps, dataMissingKeys, mockScales, mockProcessedData } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
 
-describe('Distribution', () => {
+describe('Quantile', () => {
     it('defines processed data', () => {
         const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
-                <Distribution {...quantileProps}>
+                <Quantile {...quantileProps}>
                     <GetProcessedData value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         // the dataset has two indexes and two keys
-        expect(isDistributionProcessedData(result.data)).toBeTruthy()
+        expect(isQuantileProcessedData(result.data)).toBeTruthy()
         expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
         expect(result.data).toHaveLength(2)
         expect(result.keys).toHaveLength(2)
     })
 
     it('defines prepared data', () => {
-        let prepared: DistributionPreparedDataContextProps = {
+        let prepared: QuantilePreparedDataContextProps = {
             data: [],
             seriesIndexes: {},
             keys: [],
         }
         const GetPreparedData = () => {
-            prepared = useDistributionPreparedData()
+            prepared = useQuantilePreparedData()
             return null
         }
         render(
             <Chart>
-                <Distribution {...quantileProps}>
+                <Quantile {...quantileProps}>
                     <GetPreparedData />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
@@ -55,13 +55,13 @@ describe('Distribution', () => {
         const result: Scales = cloneDeep(mockScales)
         render(
             <Chart>
-                <Distribution
+                <Quantile
                     {...quantileProps}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         // the dataset has two groups alpha and beta
@@ -74,14 +74,14 @@ describe('Distribution', () => {
         const result: Scales = cloneDeep(mockScales)
         render(
             <Chart>
-                <Distribution
+                <Quantile
                     {...quantileProps}
                     horizontal={true}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         // the dataset has two groups alpha and beta
@@ -94,13 +94,13 @@ describe('Distribution', () => {
         const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
-                <Distribution {...quantileProps} data={dataMissingKeys} keys={['x', 'y']}>
+                <Quantile {...quantileProps} data={dataMissingKeys} keys={['x', 'y']}>
                     <GetProcessedData value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
-        expect(isDistributionProcessedData(result.data)).toBeTruthy()
-        const data = result.data as Array<DistributionProcessedDataItem>
+        expect(isQuantileProcessedData(result.data)).toBeTruthy()
+        const data = result.data as Array<QuantileProcessedDataItem>
         // for first id, first key (x) is defined and second key (y) is not
         expect(data[0].data[0]).toBeTruthy()
         expect(data[0].data[1]).toBeFalsy()
@@ -114,14 +114,14 @@ describe('Distribution', () => {
         const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
         render(
             <Chart>
-                <Distribution
+                <Quantile
                     data={data}
                     keys={['x', 'y']}
                     scaleIndex={{ variant: 'band' }}
                     scaleValue={{ variant: 'linear' }}
                 >
                     <GetScales value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         expect(result.x.domain()).toEqual(['alpha', 'beta'])
@@ -131,9 +131,9 @@ describe('Distribution', () => {
     it('prepares color scale for legend', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
+                <Quantile {...quantileProps}>
                     <Legend variant={'list'} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         expect(screen.queryAllByRole('legend-item')).toHaveLength(2)
@@ -158,14 +158,14 @@ describe('Distribution', () => {
         const result = cloneDeep(mockProcessedData)
         render(
             <Chart>
-                <Distribution data={precomputed} keys={['x']}>
+                <Quantile data={precomputed} keys={['x']}>
                     <GetProcessedData value={result} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
-        expect(isDistributionProcessedData(result.data)).toBeTruthy()
-        const data = result.data as Array<DistributionProcessedDataItem>
-        expect(isDistributionProcessedSummary(precomputed[0].x)).toBeTruthy()
+        expect(isQuantileProcessedData(result.data)).toBeTruthy()
+        const data = result.data as Array<QuantileProcessedDataItem>
+        expect(isQuantileProcessedSummary(precomputed[0].x)).toBeTruthy()
         expect(data[0].id).toEqual(precomputed[0].id)
         expect(data[0].data[0]?.values).toEqual(precomputed[0].x.values)
         expect(data[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)

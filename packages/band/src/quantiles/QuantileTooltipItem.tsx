@@ -16,8 +16,8 @@ import {
     defaultTooltipItemProps,
 } from '@chsk/core'
 import { createElement } from 'react'
-import { DistributionTooltipItemProps } from './types'
-import { isDistributionProcessedSummary } from './predicates'
+import { QuantileTooltipItemProps } from './types'
+import { isQuantileProcessedSummary } from './predicates'
 
 const getSymbolStyle = (
     style: CssProps | undefined,
@@ -76,7 +76,7 @@ const InformationTable = ({
     )
 }
 
-export const DistributionTooltipItem = ({
+export const QuantileTooltipItem = ({
     position = [0, 0],
     data,
     padding = defaultTooltipItemProps.padding,
@@ -97,9 +97,9 @@ export const DistributionTooltipItem = ({
     className,
     style,
     setRole = true,
-}: DistributionTooltipItemProps) => {
+}: QuantileTooltipItemProps) => {
     const colorScale = useScales().scales.color
-    if (!isDistributionProcessedSummary(data)) return null
+    if (!isQuantileProcessedSummary(data)) return null
     if (!data) return null
 
     const item = 'key' in data ? String(data.key) : ''

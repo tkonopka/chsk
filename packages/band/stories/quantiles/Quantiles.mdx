@@ -1,0 +1,55 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as QuantilesStories from './Quantiles.stories'
+
+# Quantiles
+
+<Meta of={QuantilesStories} />
+
+`Quantiles` summarizes distributions of numeric values.
+
+`Quantiles` is intended to be used within a `Quantile` view.
+Note that while the `Quantiles` component is the one that draws boxes and whiskers, much of the chart layout is determined by the parent view `Quantile`.
+
+<ArgTypes of={QuantilesStories} />
+
+## Component
+
+Prop `component` specifies how distributions are portrayed graphically on the chart.
+By default, `Quantiles` uses a `BoxAndWhiskers` component.
+
+<Canvas of={QuantilesStories.BoxesVertical} />
+<Canvas of={QuantilesStories.BoxesHorizontal} />
+
+Alternative components are `BarAndWhisker` and `LineAndWhiskers`.
+
+<Canvas of={QuantilesStories.BarsVertical} />
+<Canvas of={QuantilesStories.BarsHorizontal} />
+<Canvas of={QuantilesStories.LinesVertical} />
+<Canvas of={QuantilesStories.LinesHorizontal} />
+
+Note that `BoxAndWhiskers` always uses non-parametric summary statistics (quantiles).
+In contrast, `BarAndWhisker` and `LineAndWhiskers` use parametric summary statistics (mean and standard deviation).
+
+Prop `component` also accepts custom implementations of the `BoxAndWhiskersProps` interface.
+
+## Data subsets
+
+By default, `Quantiles` draws the entire dataset.
+To draw subsets, use props `ids` and `keys`.
+
+<Canvas of={QuantilesStories.SelectedIds} />
+<Canvas of={QuantilesStories.SelectedKeys} />
+
+## Whisker cap width
+
+The size of the whisker 'cap' can be adjusted with prop `whiskerCapWidth`.
+
+<Canvas of={QuantilesStories.WhiskerCap} />
+
+## Mouse events
+
+To make the box and whiskers respond to mouse events, set prop `handlers`.
+
+<Canvas of={QuantilesStories.MouseClick} />
+
+(Click on the boxes, then check the browser console with `Ctrl Shift J` for output.)

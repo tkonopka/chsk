@@ -1,16 +1,16 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, Circle, TooltipProvider } from '@chsk/core'
-import { Distribution, Distributions, DistributionTooltip } from '../../src'
+import { Quantile, Quantiles, QuantileTooltip } from '../../src/quantiles'
 import { quantileProps } from '../props'
 
-describe('DistributionTooltip', () => {
+describe('QuantileTooltip', () => {
     it('creates a plain tooltip', async () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions />
-                    <DistributionTooltip symbol={Circle} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                    <QuantileTooltip symbol={Circle} />
+                </Quantile>
             </Chart>
         )
         const boxwhiskers = screen.getAllByRole('box-and-whiskers')
@@ -31,10 +31,10 @@ describe('DistributionTooltip', () => {
     it('creates a tooltip with title', async () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions />
-                    <DistributionTooltip title={'Custom title'} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                    <QuantileTooltip title={'Custom title'} />
+                </Quantile>
             </Chart>
         )
         fireEvent.mouseEnter(screen.getAllByRole('box-and-whiskers')[0])
@@ -48,14 +48,14 @@ describe('DistributionTooltip', () => {
     it('creates a table with distribution information', async () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions />
-                    <DistributionTooltip
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                    <QuantileTooltip
                         itemSize={[100, 30]}
                         cellStyle={{ fill: '#0000dd' }}
                         cellSize={[40, 40]}
                     />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         fireEvent.mouseEnter(screen.getAllByRole('box-and-whiskers')[0])
@@ -76,7 +76,7 @@ describe('DistributionTooltip', () => {
         render(
             <Chart>
                 <TooltipProvider data={{ x: 10, y: 10, title: '', data: [{ id: 'a' }] }}>
-                    <DistributionTooltip />
+                    <QuantileTooltip />
                 </TooltipProvider>
             </Chart>
         )

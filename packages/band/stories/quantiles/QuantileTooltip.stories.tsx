@@ -1,10 +1,10 @@
 import { TooltipDataItem } from '@chsk/core'
-import { DistributionTooltip } from '../../src'
-import { ChartDistributionWithTooltipDecorator } from './decorators'
+import { QuantileTooltip } from '../../src'
+import { ChartQuantileWithTooltipDecorator } from './decorators'
 
 export default {
-    title: 'Addons/Band/Distributions/DistributionTooltip',
-    component: DistributionTooltip,
+    title: 'Addons/Band/Quantiles/QuantileTooltip',
+    component: QuantileTooltip,
 }
 
 export const Tooltip = {
@@ -23,7 +23,7 @@ export const Tooltip = {
             dominantBaseline: 'central',
         },
     },
-    decorators: [ChartDistributionWithTooltipDecorator],
+    decorators: [ChartQuantileWithTooltipDecorator],
 }
 
 export const TableFormat = {
@@ -44,5 +44,5 @@ export const TableFormat = {
             dominantBaseline: 'central',
         },
     },
-    decorators: [ChartDistributionWithTooltipDecorator],
+    decorators: [ChartQuantileWithTooltipDecorator],
 }

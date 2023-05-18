@@ -52,6 +52,10 @@
 
 ### Changed
 
+-   [band] changed components with prefix `Distribution` (back) to using
+    prefix `Quantile`. This is more accurate/specific as to what the
+    components represent and avoids confusion with `Violin` components that
+    also describe distributions but use slightly different data types
 -   [band] fixed bug in calculation of domains in strip and distribution
     charts, which forced inclusion of '1' in domain in cases with missing data
 -   [core] renamed some math functions for brevity, e.g. `getMax` into `max`

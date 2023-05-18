@@ -13,11 +13,11 @@ import {
     BOTTOM,
     TooltipDataItem,
 } from '@chsk/core'
-import { DistributionProcessedSummary, DistributionTooltipProps } from './types'
-import { isDistributionProcessedSummary } from './predicates'
-import { DistributionTooltipItem } from './DistributionTooltipItem'
+import { QuantileProcessedSummary, QuantileTooltipProps } from './types'
+import { isQuantileProcessedSummary } from './predicates'
+import { QuantileTooltipItem } from './QuantileTooltipItem'
 
-export const DistributionTooltip = ({
+export const QuantileTooltip = ({
     // layout of container
     offset = defaultTooltipProps.offset,
     size,
@@ -48,10 +48,10 @@ export const DistributionTooltip = ({
     className,
     style,
     setRole = true,
-}: DistributionTooltipProps) => {
+}: QuantileTooltipProps) => {
     const { data: tooltip } = useTooltip()
     const tooltipData: TooltipDataItem[] = tooltip?.data ?? []
-    if (!tooltipData.every(data => isDistributionProcessedSummary(data))) return null
+    if (!tooltipData.every(data => isQuantileProcessedSummary(data))) return null
 
     title =
         title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
@@ -79,10 +79,10 @@ export const DistributionTooltip = ({
 
     const content = tooltipData.map((data, i) => {
         return (
-            <DistributionTooltipItem
+            <QuantileTooltipItem
                 key={'item-' + i}
                 position={infoPositions[i]}
-                data={data as DistributionProcessedSummary & TooltipDataItem} // already check at start
+                data={data as QuantileProcessedSummary & TooltipDataItem} // already check at start
                 label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
                 labelDistance={labelDistance}
                 item={data.key ?? ''}

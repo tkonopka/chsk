@@ -1,6 +1,6 @@
 export * from './bands'
 export * from './bars'
-export * from './distributions'
+export * from './quantiles'
 export * from './schedules'
 export * from './strips'
 export * from './violins'

@@ -20,27 +20,27 @@ import {
 } from '@chsk/core'
 import {
     FiveNumbers,
-    DistributionDataItem,
-    DistributionPreparedDataItem,
-    DistributionProcessedDataItem,
-    DistributionProps,
+    QuantileDataItem,
+    QuantilePreparedDataItem,
+    QuantileProcessedDataItem,
+    QuantileProps,
 } from './types'
-import { DistributionPreparedDataProvider } from './context'
+import { QuantilePreparedDataProvider } from './context'
 import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
 import { getQuantiles } from './utils'
-import { isDistributionProcessedSummary } from './predicates'
+import { isQuantileProcessedSummary } from './predicates'
 
 // turn raw data into objects with computed quantile levels
 const processData = (
-    data: Array<DistributionDataItem>,
+    data: Array<QuantileDataItem>,
     accessors: Array<AccessorFunction<unknown>>,
     quantiles: FiveNumbers
-): Array<DistributionProcessedDataItem> => {
+): Array<QuantileProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
             if (!raw) return undefined
-            if (isDistributionProcessedSummary(raw)) {
+            if (isQuantileProcessedSummary(raw)) {
                 return {
                     n: raw.n,
                     moments: raw.moments,
@@ -73,14 +73,14 @@ const processData = (
 
 // turn processed data into view-specific coordinates
 const prepareData = (
-    data: Array<DistributionProcessedDataItem>,
+    data: Array<QuantileProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
     horizontal: boolean,
     width: number,
     offset: number,
     gap: number
-): Array<DistributionPreparedDataItem> => {
+): Array<QuantilePreparedDataItem> => {
     return data.map(seriesData => {
         let bandStart = indexScale(seriesData.id) - indexScale.bandwidth() / 2 + offset
         const summaries = seriesData.data.map(summary => {
@@ -105,7 +105,7 @@ const prepareData = (
     })
 }
 
-export const Distribution = ({
+export const Quantile = ({
     container = defaultContainerProps,
     variant = 'grouped',
     data,
@@ -119,7 +119,7 @@ export const Distribution = ({
     scaleColor,
     children,
     ...props
-}: DistributionProps) => {
+}: QuantileProps) => {
     const theme = useTheme()
     const { dimsProps, origin, innerSize } = useContainer(container)
     const { disabled } = useDisabledKeys(keys)
@@ -182,13 +182,13 @@ export const Distribution = ({
             scalesContextValue={scalesContextValue}
             {...props}
         >
-            <DistributionPreparedDataProvider
+            <QuantilePreparedDataProvider
                 data={preparedData}
                 seriesIndexes={seriesIndexes}
                 keys={keys}
             >
                 <LazyMotion features={domAnimation}>{children}</LazyMotion>
-            </DistributionPreparedDataProvider>
+            </QuantilePreparedDataProvider>
         </BaseView>
     )
 }

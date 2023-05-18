@@ -8,13 +8,13 @@ import {
     TooltipDataComponent,
     useProcessedData,
 } from '@chsk/core'
-import { useDistributionPreparedData } from './context'
+import { useQuantilePreparedData } from './context'
 import { ReactNode, createElement, useMemo } from 'react'
 import { BoxAndWhiskers } from './BoxAndWhiskers'
-import { DistributionPreparedDataItem, DistributionsProps } from './types'
-import { isDistributionProcessedData } from './predicates'
+import { QuantilePreparedDataItem, QuantilesProps } from './types'
+import { isQuantileProcessedData } from './predicates'
 
-export const Distributions = ({
+export const Quantiles = ({
     ids,
     keys,
     component, // the default value is not set here to simplify the storybook docs page
@@ -26,15 +26,15 @@ export const Distributions = ({
     whiskerCapWidth,
     dataComponent = TooltipDataComponent,
     ...props
-}: DistributionsProps) => {
+}: QuantilesProps) => {
     const processedData = useProcessedData().data
-    const preparedData = useDistributionPreparedData()
+    const preparedData = useQuantilePreparedData()
     const { scales } = useScales()
     const colorScale = scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     const horizontal = isBandAxisScale(scales.y)
-    if (!isDistributionProcessedData(processedData)) return null
+    if (!isQuantileProcessedData(processedData)) return null
 
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
@@ -60,7 +60,7 @@ export const Distributions = ({
             if (!keySet.has(k)) return null
             const visible = !disabledKeys.has(k)
             const items = data
-                .map((seriesData: DistributionPreparedDataItem) => {
+                .map((seriesData: QuantilePreparedDataItem) => {
                     if (!idSet.has(seriesData.id)) return null
                     const summary = seriesData.data[i]
                     const processedSummary = processedData[seriesData.index].data[i]

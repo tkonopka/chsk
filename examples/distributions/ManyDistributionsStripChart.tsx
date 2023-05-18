@@ -10,14 +10,7 @@ import {
     TooltipDataItem,
     mergeTheme,
 } from '@chsk/core'
-import {
-    BandHighlight,
-    Distribution,
-    Distributions,
-    DistributionTooltip,
-    Strip,
-    Strips,
-} from '@chsk/band'
+import { BandHighlight, Quantile, Quantiles, QuantileTooltip, Strip, Strips } from '@chsk/band'
 import { tooltipItemLabelValueTheme } from '@chsk/themes'
 import { generateMixedPopulation, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -103,18 +96,18 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                 </Axis>
                 <Strips />
             </Strip>
-            <Distribution
+            <Quantile
                 {...customProps}
                 data={rawData}
                 scaleIndex={{ variant: 'band', paddingOuter: 0.15, paddingInner: 0.3 }}
             >
-                <Distributions
+                <Quantiles
                     boxStyle={{ visibility: 'hidden' }}
                     whiskerStyle={{ visibility: 'hidden' }}
                     middleStyle={{ stroke: '#dd0000' }}
                 />
                 <BandHighlight style={{ fill: '#cccccc', opacity: 0.3 }} />
-                <DistributionTooltip
+                <QuantileTooltip
                     anchor={[0, 0.5]}
                     offset={[20, 0]}
                     maxOverhang={[40, 40, 40, 40]}
@@ -128,7 +121,7 @@ export const ManyDistributionsStripChart = ({ fref, chartData, rawData }: Milest
                     style={{ strokeWidth: 1, stroke: '#000000' }}
                     labelStyle={{ fontWeight: 600 }}
                 />
-            </Distribution>
+            </Quantile>
         </Chart>
     )
 }

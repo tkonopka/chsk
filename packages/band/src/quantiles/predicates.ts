@@ -1,12 +1,8 @@
-import {
-    DistributionDataItem,
-    DistributionProcessedDataItem,
-    DistributionProcessedSummary,
-} from './types'
+import { QuantileDataItem, QuantileProcessedDataItem, QuantileProcessedSummary } from './types'
 
 const isArray = Array.isArray
 
-export const isDistributionData = (data: Array<unknown>): data is Array<DistributionDataItem> => {
+export const isQuantileData = (data: Array<unknown>): data is Array<QuantileDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
         if (!('id' in item && 'data' in item)) return false
@@ -15,7 +11,7 @@ export const isDistributionData = (data: Array<unknown>): data is Array<Distribu
     return result.every(Boolean)
 }
 
-export const isDistributionProcessedSummary = (x: unknown): x is DistributionProcessedSummary => {
+export const isQuantileProcessedSummary = (x: unknown): x is QuantileProcessedSummary => {
     if (typeof x !== 'object' || x === null) return false
     if (!('n' in x)) return false
     const keys = [
@@ -30,9 +26,9 @@ export const isDistributionProcessedSummary = (x: unknown): x is DistributionPro
     return result.every(Boolean)
 }
 
-export const isDistributionProcessedData = (
+export const isQuantileProcessedData = (
     data: Array<unknown>
-): data is Array<DistributionProcessedDataItem> => {
+): data is Array<QuantileProcessedDataItem> => {
     const result = data.map((item: unknown) => {
         if (typeof item !== 'object' || item === null) return false
         if (!('id' in item && 'index' in item && 'data' in item && 'domain' in item)) return false

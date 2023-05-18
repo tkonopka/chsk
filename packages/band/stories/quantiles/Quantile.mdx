@@ -1,14 +1,14 @@
 import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
-import * as DistributionStories from './Distribution.stories'
+import * as QuantileStories from './Quantile.stories'
 
-# Distribution
+# Quantile
 
-<Meta of={DistributionStories} />
+<Meta of={QuantileStories} />
 
-`Distribution` sets up a view to summarize distributions, for example, using a box-and-whisker plot.
-`Distribution` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Distributions`.
+`Quantile` sets up a view to summarize distributions, for example, using a box-and-whisker plot.
+`Quantile` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `Quantiles`.
 
-<ArgTypes of={DistributionStories} />
+<ArgTypes of={QuantileStories} />
 
 ## Data
 
@@ -61,10 +61,10 @@ The pseudocode below is an example.
 
 Prop `horizontal` determines whether the boxes appear in the vertical or horizontal direction.
 
-<Canvas of={DistributionStories.Vertical} />
-<Canvas of={DistributionStories.Horizontal} />
+<Canvas of={QuantileStories.Vertical} />
+<Canvas of={QuantileStories.Horizontal} />
 
 ## Other features
 
-`Distribution` supports many of the same features as `Bar`, for example, for adjusting padding.
+`Quantile` supports many of the same features as `Bar`, for example, for adjusting padding.
 See the documentation for `Bar` for examples.

@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { BarAndWhisker, Distribution, Distributions } from '../../src/distributions'
+import { BarAndWhisker, Quantile, Quantiles } from '../../src/quantiles'
 import { dataPrecomputedQuantilesValues, quantileProps } from '../props'
 
 describe('BarAndWhisker', () => {
@@ -17,9 +17,9 @@ describe('BarAndWhisker', () => {
         // dataPrecomputedQuantileValues has valid quantiles, but not moments
         render(
             <Chart>
-                <Distribution {...quantileProps} data={dataPrecomputedQuantilesValues}>
-                    <Distributions component={BarAndWhisker} />
-                </Distribution>
+                <Quantile {...quantileProps} data={dataPrecomputedQuantilesValues}>
+                    <Quantiles component={BarAndWhisker} />
+                </Quantile>
             </Chart>
         )
         expect(screen.getByRole('chart-content').querySelector('view-content')).toBeDefined()
@@ -29,9 +29,9 @@ describe('BarAndWhisker', () => {
     it('creates bars and whiskers (vertical)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions component={BarAndWhisker} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles component={BarAndWhisker} />
+                </Quantile>
             </Chart>
         )
         // the data has two groups of two boxes each
@@ -44,9 +44,9 @@ describe('BarAndWhisker', () => {
     it('creates bar and whiskers (horizontal)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps} horizontal={true}>
-                    <Distributions component={BarAndWhisker} />
-                </Distribution>
+                <Quantile {...quantileProps} horizontal={true}>
+                    <Quantiles component={BarAndWhisker} />
+                </Quantile>
             </Chart>
         )
         const result = screen.getByRole('view-content')
@@ -57,13 +57,9 @@ describe('BarAndWhisker', () => {
     it('creates bar and whisker without role', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions
-                        component={BarAndWhisker}
-                        whiskerCapWidth={0.5}
-                        setRole={false}
-                    />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles component={BarAndWhisker} whiskerCapWidth={0.5} setRole={false} />
+                </Quantile>
             </Chart>
         )
         expect(screen.queryAllByRole('bar-and-whiskers')).toHaveLength(0)

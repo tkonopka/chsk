@@ -10,13 +10,7 @@ import {
     ViewClip,
     ViewController,
 } from '@chsk/core'
-import {
-    BandHighlight,
-    Distribution,
-    DistributionProps,
-    Distributions,
-    DistributionTooltip,
-} from '@chsk/band'
+import { BandHighlight, Quantile, QuantileProps, Quantiles, QuantileTooltip } from '@chsk/band'
 import { buttonTheme, tooltipItemLabelValueTheme } from '@chsk/themes'
 import { alphabetGreek, randomNormalValue, round2dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -89,7 +83,7 @@ const customTheme: ThemeSpec = mergeThemes([
     },
 ])
 
-const quantileProps: Omit<DistributionProps, 'data'> = {
+const quantileProps: Omit<QuantileProps, 'data'> = {
     keys: ['before', 'after'],
     paddingInternal: 0,
     scaleIndex: {
@@ -118,13 +112,13 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
             padding={[60, 100, 80, 60]}
             theme={customTheme}
         >
-            <Distribution {...quantileProps} data={rawData} autoRescale={false}>
+            <Quantile {...quantileProps} data={rawData} autoRescale={false}>
                 <GridLines variant={'y'} values={6} />
                 <GridLines variant={'x'} />
                 <Axis variant={'left'} label={'score (a.u.)'} ticks={6} />
                 <Axis variant={'bottom'} label={'Samples'} />
                 <ViewClip id={'quantile-groups'}>
-                    <Distributions
+                    <Quantiles
                         boxStyle={{ stroke: '#222222' }}
                         whiskerStyle={{ stroke: '#161616' }}
                         middleStyle={{ stroke: '#161616' }}
@@ -154,7 +148,7 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                     Boxes and whiskers drawn from pre-computed quantile data
                 </Typography>
                 <DownloadButtons position={[620, 270]} data image />
-                <DistributionTooltip
+                <QuantileTooltip
                     anchor={[0, 0.5]}
                     offset={[24, 0]}
                     maxOverhang={[40, 40, 40, 40]}
@@ -168,7 +162,7 @@ export const QuantileGroupsChart = ({ fref, chartData, rawData }: MilestoneStory
                     style={{ strokeWidth: 1, stroke: '#000000' }}
                     labelStyle={{ fontWeight: 600 }}
                 />
-            </Distribution>
+            </Quantile>
         </Chart>
     )
 }

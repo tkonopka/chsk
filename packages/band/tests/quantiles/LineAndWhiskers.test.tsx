@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { LineAndWhiskers, Distribution, Distributions } from '../../src/distributions'
+import { LineAndWhiskers, Quantile, Quantiles } from '../../src/quantiles'
 import { dataPrecomputedQuantilesValues, quantileProps } from '../props'
 
 describe('LineAndWhisker', () => {
@@ -17,9 +17,9 @@ describe('LineAndWhisker', () => {
         // dataPrecomputedQuantileValues has valid quantiles, but not moments
         render(
             <Chart>
-                <Distribution {...quantileProps} data={dataPrecomputedQuantilesValues}>
-                    <Distributions component={LineAndWhiskers} />
-                </Distribution>
+                <Quantile {...quantileProps} data={dataPrecomputedQuantilesValues}>
+                    <Quantiles component={LineAndWhiskers} />
+                </Quantile>
             </Chart>
         )
         expect(screen.getByRole('chart-content').querySelector('view-content')).toBeDefined()
@@ -29,9 +29,9 @@ describe('LineAndWhisker', () => {
     it('creates lines and whiskers (vertical)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions component={LineAndWhiskers} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles component={LineAndWhiskers} />
+                </Quantile>
             </Chart>
         )
         // the data has two groups of two boxes each
@@ -44,9 +44,9 @@ describe('LineAndWhisker', () => {
     it('creates lines and whiskers (horizontal)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps} horizontal={true}>
-                    <Distributions component={LineAndWhiskers} />
-                </Distribution>
+                <Quantile {...quantileProps} horizontal={true}>
+                    <Quantiles component={LineAndWhiskers} />
+                </Quantile>
             </Chart>
         )
         expect(screen.getAllByRole('line-and-whiskers')).toHaveLength(4)
@@ -58,13 +58,9 @@ describe('LineAndWhisker', () => {
     it('creates lines and whiskers without role', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions
-                        component={LineAndWhiskers}
-                        whiskerCapWidth={0.5}
-                        setRole={false}
-                    />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles component={LineAndWhiskers} whiskerCapWidth={0.5} setRole={false} />
+                </Quantile>
             </Chart>
         )
         expect(screen.queryAllByRole('line-and-whiskers')).toHaveLength(0)

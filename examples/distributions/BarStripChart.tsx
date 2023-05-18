@@ -11,9 +11,9 @@ import { tooltipItemLabelValueTheme, buttonTheme } from '@chsk/themes'
 import {
     BarAndWhisker,
     isStripData,
-    Distribution,
-    Distributions,
-    DistributionTooltip,
+    Quantile,
+    Quantiles,
+    QuantileTooltip,
     Strip,
     StripProps,
     Strips,
@@ -80,7 +80,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
             padding={[40, 140, 70, 70]}
             theme={customTheme}
         >
-            <Distribution {...stripProps} data={rawData} paddingInternal={0}>
+            <Quantile {...stripProps} data={rawData} paddingInternal={0}>
                 <Axis variant={'bottom'} label={''} />
                 <Axis variant={'left'} label={'Measurements (a.u.)'} />
                 <DownloadButtons position={[160, 350]} data image />
@@ -95,7 +95,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     r={9}
                 />
                 <MilestoneMotion enterOn={'boxes'} exitOn={'bars'}>
-                    <Distributions
+                    <Quantiles
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
                         middleStyle={{ stroke: '#161616', strokeWidth: 3 }}
@@ -103,7 +103,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'bars'}>
-                    <Distributions
+                    <Quantiles
                         boxStyle={{ fillOpacity: 0.35, stroke: '#222222', strokeWidth: 2 }}
                         whiskerStyle={{ stroke: '#161616', strokeWidth: 2 }}
                         middleStyle={{ stroke: '#161616', strokeWidth: 3 }}
@@ -121,7 +121,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                         <Strips symbolStyle={{ strokeWidth: 1, stroke: '#161616' }} />
                     </MilestoneMotion>
                 </Strip>
-                <DistributionTooltip
+                <QuantileTooltip
                     maxOverhang={[40, 40, 40, 40]}
                     size={[200, 140]}
                     anchor={[0.5, 0]}
@@ -134,7 +134,7 @@ export const BarStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     valueFormat={round2dp}
                     title={''}
                 />
-            </Distribution>
+            </Quantile>
         </Chart>
     )
 }

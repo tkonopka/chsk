@@ -1,14 +1,9 @@
-import {
-    Distribution,
-    DistributionInteractiveDataItem,
-    DistributionProps,
-    Distributions,
-} from '../../src'
+import { Quantile, QuantileInteractiveDataItem, QuantileProps, Quantiles } from '../../src'
 import { ReactNode } from 'react'
 import { Axis, Chart, GridLines, roundDecimalPlaces } from '@chsk/core'
 import { dataRawValues } from '../decorators'
 
-export const commonDistributionProps: DistributionProps = {
+export const commonQuantileProps: QuantileProps = {
     data: dataRawValues,
     keys: ['x', 'y'],
     paddingInternal: 0.0,
@@ -23,42 +18,42 @@ export const commonDistributionProps: DistributionProps = {
     },
 }
 
-export const ChartDistributionDecorator = (Story: () => ReactNode) => (
+export const ChartQuantileDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Distribution {...commonDistributionProps} horizontal={false}>
+        <Quantile {...commonQuantileProps} horizontal={false}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a.u.)'} />
             {Story()}
-        </Distribution>
+        </Quantile>
     </Chart>
 )
 
-export const ChartHorizontalDistributionDecorator = (Story: () => ReactNode) => (
+export const ChartHorizontalQuantileDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Distribution {...commonDistributionProps} horizontal={true}>
+        <Quantile {...commonQuantileProps} horizontal={true}>
             <GridLines variant={'x'} />
             <Axis variant={'left'} />
             <Axis variant={'bottom'} label={'Values (a.u.)'} />
             {Story()}
-        </Distribution>
+        </Quantile>
     </Chart>
 )
 
-export const onDistributionsClick = (data: DistributionInteractiveDataItem) => {
+export const onQuantilesClick = (data: QuantileInteractiveDataItem) => {
     console.log('clicked: ' + JSON.stringify(data))
 }
 
 export const round2dp = (x: number) => String(roundDecimalPlaces(x, 2))
 
-export const ChartDistributionWithTooltipDecorator = (Story: () => ReactNode) => (
+export const ChartQuantileWithTooltipDecorator = (Story: () => ReactNode) => (
     <Chart size={[400, 300]} padding={[40, 40, 60, 60]} style={{ display: 'inline-block' }}>
-        <Distribution {...commonDistributionProps} horizontal={false}>
+        <Quantile {...commonQuantileProps} horizontal={false}>
             <GridLines variant={'y'} />
             <Axis variant={'bottom'} />
             <Axis variant={'left'} label={'Values (a.u.)'} />
-            <Distributions middleStyle={{ stroke: '#000000', strokeWidth: 2 }} />
+            <Quantiles middleStyle={{ stroke: '#000000', strokeWidth: 2 }} />
             {Story()}
-        </Distribution>
+        </Quantile>
     </Chart>
 )

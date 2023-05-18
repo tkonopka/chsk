@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Axis } from '@chsk/core'
-import { Distribution, Distributions } from '../../src'
+import { Quantile, Quantiles } from '../../src/quantiles'
 import { dataMissingKeys, quantileProps, stripProps } from '../props'
 
-describe('Distributions', () => {
+describe('Quantiles', () => {
     it('avoids work in non-quantile view', () => {
         render(
             <Chart>
-                <Distributions />
+                <Quantiles />
             </Chart>
         )
         expect(screen.getByRole('chart-content').children).toHaveLength(0)
@@ -16,9 +16,9 @@ describe('Distributions', () => {
     it('creates boxes and whiskers (vertical)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                </Quantile>
             </Chart>
         )
         // the data has two groups of two boxes each
@@ -29,9 +29,9 @@ describe('Distributions', () => {
     it('creates boxes and whiskers (horizontal)', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps} horizontal={true}>
-                    <Distributions />
-                </Distribution>
+                <Quantile {...quantileProps} horizontal={true}>
+                    <Quantiles />
+                </Quantile>
             </Chart>
         )
         const result = screen.getByRole('view-content')
@@ -41,10 +41,10 @@ describe('Distributions', () => {
     it('displays boxes only for specified ids', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions ids={['alpha']} />
+                <Quantile {...quantileProps}>
+                    <Quantiles ids={['alpha']} />
                     <Axis variant={'bottom'} />
-                </Distribution>
+                </Quantile>
             </Chart>
         )
         // the chart should have only bars for 'alpha' - two bars for keys x, y
@@ -59,9 +59,9 @@ describe('Distributions', () => {
     it('displays boxes only for specified keys', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions keys={['x']} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles keys={['x']} />
+                </Quantile>
             </Chart>
         )
         // the chart should have only bars for key 'x' - for ids 'alpha' and 'beta'
@@ -72,9 +72,9 @@ describe('Distributions', () => {
     it('displays nothing when ids are empty', () => {
         render(
             <Chart>
-                <Distribution {...stripProps}>
-                    <Distributions ids={[]} />
-                </Distribution>
+                <Quantile {...stripProps}>
+                    <Quantiles ids={[]} />
+                </Quantile>
             </Chart>
         )
         expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(0)
@@ -83,9 +83,9 @@ describe('Distributions', () => {
     it('displays nothing when keys are empty', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps}>
-                    <Distributions keys={[]} />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles keys={[]} />
+                </Quantile>
             </Chart>
         )
         // the chart should have only bars for keys 'x' and 'y' - for ids 'alpha' and 'beta'
@@ -95,9 +95,9 @@ describe('Distributions', () => {
     it('skips rendering when keys are disabled', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['x', 'y']) }}>
-                <Distribution {...quantileProps}>
-                    <Distributions />
-                </Distribution>
+                <Quantile {...quantileProps}>
+                    <Quantiles />
+                </Quantile>
             </Chart>
         )
         expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(0)
@@ -106,9 +106,9 @@ describe('Distributions', () => {
     it('handles missing data', () => {
         render(
             <Chart>
-                <Distribution {...quantileProps} data={dataMissingKeys}>
-                    <Distributions />
-                </Distribution>
+                <Quantile {...quantileProps} data={dataMissingKeys}>
+                    <Quantiles />
+                </Quantile>
             </Chart>
         )
         expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(2)

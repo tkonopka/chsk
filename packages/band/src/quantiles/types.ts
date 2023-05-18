@@ -13,11 +13,11 @@ import {
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
-export type DistributionDataItem = WithId & Record<string, unknown>
+export type QuantileDataItem = WithId & Record<string, unknown>
 
 export type FiveNumbers = [number, number, number, number, number]
 
-export type DistributionProcessedSummary =
+export type QuantileProcessedSummary =
     | undefined
     | {
           n: number
@@ -30,39 +30,39 @@ export type DistributionProcessedSummary =
           extrema: [number, number]
       }
 
-export type DistributionProcessedDataItem = WithId & {
+export type QuantileProcessedDataItem = WithId & {
     index: number
-    data: DistributionProcessedSummary[]
+    data: QuantileProcessedSummary[]
     domain: Array<[number, number] | undefined>
 }
 
-export type DistributionProcessedDataContextProps = ProcessedDataContextProps & {
+export type QuantileProcessedDataContextProps = ProcessedDataContextProps & {
     /** data */
-    data: Array<DistributionProcessedDataItem>
+    data: Array<QuantileProcessedDataItem>
 }
 
-export type DistributionPreparedSummary =
+export type QuantilePreparedSummary =
     | undefined
-    | (DistributionProcessedSummary & {
+    | (QuantileProcessedSummary & {
           bandStart: number
           bandWidth: number
       })
 
-export type DistributionPreparedDataItem = WithId & {
+export type QuantilePreparedDataItem = WithId & {
     index: number
-    data: DistributionPreparedSummary[]
+    data: QuantilePreparedSummary[]
 }
 
-export type DistributionPreparedDataContextProps = {
+export type QuantilePreparedDataContextProps = {
     /** data */
-    data: Array<DistributionPreparedDataItem>
+    data: Array<QuantilePreparedDataItem>
     /** map from series ids to indexes */
     seriesIndexes: Record<string, number>
     /** list of keys */
     keys: string[]
 }
 
-export type DistributionInteractiveDataItem = {
+export type QuantileInteractiveDataItem = {
     id: string
     key: string
     values: FiveNumbers
@@ -72,7 +72,7 @@ export type DistributionInteractiveDataItem = {
 
 export interface BoxAndWhiskersProps extends SvgElementProps, InteractivityProps {
     /** information with coordinates */
-    data: DistributionPreparedSummary
+    data: QuantilePreparedSummary
     /** orientation of the chart */
     horizontal: boolean
     /** style for box */
@@ -85,24 +85,24 @@ export interface BoxAndWhiskersProps extends SvgElementProps, InteractivityProps
     whiskerCapWidth?: number
 }
 
-export interface DistributionProps extends BandProps {
+export interface QuantileProps extends BandProps {
     /** variant */
     variant?: 'grouped' | 'layered'
     /** data */
-    data: Array<DistributionDataItem>
+    data: Array<QuantileDataItem>
     /** five quantiles for whiskers bounds, box bounds, and central line */
     quantiles?: [number, number, number, number, number]
 }
 
-export interface DistributionsProps
+export interface QuantilesProps
     extends BandsProps,
-        DataInteractivityProps<DistributionInteractiveDataItem, BoxAndWhiskersProps>,
+        DataInteractivityProps<QuantileInteractiveDataItem, BoxAndWhiskersProps>,
         Pick<BoxAndWhiskersProps, 'boxStyle' | 'whiskerStyle' | 'middleStyle' | 'whiskerCapWidth'> {
     /** component used to draw box and whiskers */
     component?: FC<BoxAndWhiskersProps>
 }
 
-export interface DistributionTooltipProps
+export interface QuantileTooltipProps
     extends Omit<TooltipProps, 'variant' | 'horizontal' | 'children'>,
         Pick<TooltipItemProps, 'color'> {
     /** format for quantile values */
@@ -115,11 +115,11 @@ export interface DistributionTooltipProps
     cellStyle?: CssProps
 }
 
-export interface DistributionTooltipItemProps
+export interface QuantileTooltipItemProps
     extends Omit<TooltipItemProps, 'variant' | 'data' | 'size'>,
-        Pick<DistributionTooltipProps, 'valueFormat' | 'cellSize' | 'cellPadding' | 'cellStyle'> {
+        Pick<QuantileTooltipProps, 'valueFormat' | 'cellSize' | 'cellPadding' | 'cellStyle'> {
     /** data */
-    data: TooltipDataItem & DistributionProcessedSummary
+    data: TooltipDataItem & QuantileProcessedSummary
     /** string label next to color symbol */
     label: string
 }

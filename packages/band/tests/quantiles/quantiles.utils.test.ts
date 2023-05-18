@@ -1,4 +1,4 @@
-import { getQuantiles } from '../../src/distributions/utils'
+import { getQuantiles } from '../../src/quantiles/utils'
 
 describe('getQuantiles', () => {
     const q3 = [0, 0.5, 1]

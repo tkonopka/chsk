@@ -1,10 +1,10 @@
 import {
-    isDistributionData,
-    isDistributionProcessedData,
-    isDistributionProcessedSummary,
-} from '../../src'
+    isQuantileData,
+    isQuantileProcessedData,
+    isQuantileProcessedSummary,
+} from '../../src/quantiles'
 
-describe('isDistributionData', () => {
+describe('isQuantileData', () => {
     it('detects correct data format', () => {
         const input = [
             {
@@ -16,7 +16,7 @@ describe('isDistributionData', () => {
                 data: [],
             },
         ]
-        expect(isDistributionData(input)).toBeTruthy()
+        expect(isQuantileData(input)).toBeTruthy()
     })
 
     it('rejects objects with missing data', () => {
@@ -29,7 +29,7 @@ describe('isDistributionData', () => {
                 id: 'b',
             },
         ]
-        expect(isDistributionData(input)).toBeFalsy()
+        expect(isQuantileData(input)).toBeFalsy()
     })
 
     it('rejects non-objects', () => {
@@ -40,36 +40,36 @@ describe('isDistributionData', () => {
             },
             null,
         ]
-        expect(isDistributionData(input)).toBeFalsy()
+        expect(isQuantileData(input)).toBeFalsy()
     })
 })
 
-describe('isDistributionProcessedSummary', () => {
+describe('isQuantileProcessedSummary', () => {
     const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
 
     it('detects correct data format', () => {
         const input = { n: 20, mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
-        expect(isDistributionProcessedSummary(input)).toBeTruthy()
+        expect(isQuantileProcessedSummary(input)).toBeTruthy()
     })
 
     it('rejects arrays', () => {
         const input = [1, 2, 3]
-        expect(isDistributionProcessedSummary(input)).toBeFalsy()
+        expect(isQuantileProcessedSummary(input)).toBeFalsy()
     })
 
     it('rejects objects without n', () => {
         const input = { mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }
-        expect(isDistributionProcessedSummary(input)).toBeFalsy()
+        expect(isQuantileProcessedSummary(input)).toBeFalsy()
     })
 
     it('rejects partial objects', () => {
         const input = { n: 20, mean: 3, values: [1, 2, 3, 4, 5], quantiles: q5 }
-        expect(isDistributionProcessedSummary(input)).toBeFalsy()
+        expect(isQuantileProcessedSummary(input)).toBeFalsy()
     })
 
     it('rejects incorrect lengths', () => {
         const inputV = { n: 20, mean: 3, values: [1, 2, 4, 5], quantiles: q5, extrema: [0, 8] }
-        expect(isDistributionProcessedSummary(inputV)).toBeFalsy()
+        expect(isQuantileProcessedSummary(inputV)).toBeFalsy()
         const inputQ = {
             n: 20,
             mean: 3,
@@ -77,7 +77,7 @@ describe('isDistributionProcessedSummary', () => {
             quantiles: [0, 1],
             extrema: [0, 8],
         }
-        expect(isDistributionProcessedSummary(inputQ)).toBeFalsy()
+        expect(isQuantileProcessedSummary(inputQ)).toBeFalsy()
         const inputE = {
             n: 20,
             mean: 3,
@@ -85,11 +85,11 @@ describe('isDistributionProcessedSummary', () => {
             quantiles: q5,
             extrema: [0, 8, 12],
         }
-        expect(isDistributionProcessedSummary(inputE)).toBeFalsy()
+        expect(isQuantileProcessedSummary(inputE)).toBeFalsy()
     })
 })
 
-describe('isDistributionProcessedData', () => {
+describe('isQuantileProcessedData', () => {
     const q5 = [0.05, 0.25, 0.5, 0.75, 0.95]
 
     it('detects correct data format', () => {
@@ -101,7 +101,7 @@ describe('isDistributionProcessedData', () => {
                 domain: [[0, 8]],
             },
         ]
-        expect(isDistributionProcessedData(input)).toBeTruthy()
+        expect(isQuantileProcessedData(input)).toBeTruthy()
     })
 
     it('rejects objects with incorrect keys', () => {
@@ -111,15 +111,15 @@ describe('isDistributionProcessedData', () => {
                 index: 0,
             },
         ]
-        expect(isDistributionProcessedData(input)).toBeFalsy()
+        expect(isQuantileProcessedData(input)).toBeFalsy()
     })
 
     it('rejects non-objects', () => {
         const input = [null]
-        expect(isDistributionProcessedData(input)).toBeFalsy()
+        expect(isQuantileProcessedData(input)).toBeFalsy()
     })
 
     it('rejects empty data', () => {
-        expect(isDistributionProcessedData([])).toBeFalsy()
+        expect(isQuantileProcessedData([])).toBeFalsy()
     })
 })

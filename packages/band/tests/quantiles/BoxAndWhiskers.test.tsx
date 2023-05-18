@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { BoxAndWhiskers, Distribution, Distributions } from '../../src'
+import { BoxAndWhiskers, Quantile, Quantiles } from '../../src/quantiles'
 import { dataPrecomputedQuantilesValues, quantileProps } from '../props'
 
 describe('BoxAndWhiskers', () => {
@@ -17,9 +17,9 @@ describe('BoxAndWhiskers', () => {
         // dataPrecomputedQuantileValues has valid quantiles, but not moments
         render(
             <Chart>
-                <Distribution {...quantileProps} data={dataPrecomputedQuantilesValues}>
-                    <Distributions component={BoxAndWhiskers} setRole={false} />
-                </Distribution>
+                <Quantile {...quantileProps} data={dataPrecomputedQuantilesValues}>
+                    <Quantiles component={BoxAndWhiskers} setRole={false} />
+                </Quantile>
             </Chart>
         )
         expect(screen.queryAllByRole('box-and-whiskers')).toHaveLength(0)

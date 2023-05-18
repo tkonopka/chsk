@@ -1,7 +1,7 @@
 import { Axis } from '@chsk/core'
-import { Distribution, Distributions } from '../../src'
+import { Quantile, Quantiles } from '../../src'
 import { ChartDecorator } from '../decorators'
-import { commonDistributionProps } from './decorators'
+import { commonQuantileProps } from './decorators'
 
 const quantilesProps = {
     medianStyle: { strokeWidth: 3, stroke: '#444444' },
@@ -9,18 +9,18 @@ const quantilesProps = {
 }
 
 export default {
-    title: 'Addons/Band/Distributions/Distribution',
-    component: Distribution,
+    title: 'Addons/Band/Quantiles/Quantile',
+    component: Quantile,
 }
 
 export const Vertical = {
     name: 'vertical',
     args: {
-        ...commonDistributionProps,
+        ...commonQuantileProps,
         horizontal: false,
         children: (
             <>
-                <Distributions {...quantilesProps} />
+                <Quantiles {...quantilesProps} />
                 <Axis variant={'left'} />
                 <Axis variant={'bottom'} />
             </>
@@ -32,11 +32,11 @@ export const Vertical = {
 export const Horizontal = {
     name: 'horizontal',
     args: {
-        ...commonDistributionProps,
+        ...commonQuantileProps,
         horizontal: true,
         children: (
             <>
-                <Distributions {...quantilesProps} />
+                <Quantiles {...quantilesProps} />
                 <Axis variant={'left'} />
                 <Axis variant={'bottom'} />
             </>

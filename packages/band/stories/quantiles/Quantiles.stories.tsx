@@ -1,13 +1,13 @@
-import { Distributions, BarAndWhisker, BoxAndWhiskers, LineAndWhiskers } from '../../src'
+import { Quantiles, BarAndWhisker, BoxAndWhiskers, LineAndWhiskers } from '../../src'
 import {
-    ChartDistributionDecorator,
-    ChartHorizontalDistributionDecorator,
-    onDistributionsClick,
+    ChartQuantileDecorator,
+    ChartHorizontalQuantileDecorator,
+    onQuantilesClick,
 } from './decorators'
 
 export default {
-    title: 'Addons/Band/Distributions/Distributions',
-    component: Distributions,
+    title: 'Addons/Band/Quantiles/Quantiles',
+    component: Quantiles,
 }
 
 export const BoxesVertical = {
@@ -19,7 +19,7 @@ export const BoxesVertical = {
         },
         component: BoxAndWhiskers,
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const BoxesHorizontal = {
@@ -31,8 +31,8 @@ export const BoxesHorizontal = {
         },
         component: BoxAndWhiskers,
     },
-    component: Distributions,
-    decorators: [ChartHorizontalDistributionDecorator],
+    component: Quantiles,
+    decorators: [ChartHorizontalQuantileDecorator],
 }
 
 export const BarsVertical = {
@@ -46,7 +46,7 @@ export const BarsVertical = {
         },
         component: BarAndWhisker,
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const BarsHorizontal = {
@@ -60,7 +60,7 @@ export const BarsHorizontal = {
         },
         component: BarAndWhisker,
     },
-    decorators: [ChartHorizontalDistributionDecorator],
+    decorators: [ChartHorizontalQuantileDecorator],
 }
 
 export const LinesVertical = {
@@ -74,7 +74,7 @@ export const LinesVertical = {
         },
         component: LineAndWhiskers,
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const LinesHorizontal = {
@@ -88,7 +88,7 @@ export const LinesHorizontal = {
         },
         component: LineAndWhiskers,
     },
-    decorators: [ChartHorizontalDistributionDecorator],
+    decorators: [ChartHorizontalQuantileDecorator],
 }
 
 export const SelectedIds = {
@@ -107,7 +107,7 @@ export const SelectedIds = {
             stroke: '#444444',
         },
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const SelectedKeys = {
@@ -126,7 +126,7 @@ export const SelectedKeys = {
             stroke: '#444444',
         },
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const WhiskerCap = {
@@ -145,7 +145,7 @@ export const WhiskerCap = {
         },
         whiskerCapWidth: 0.5,
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
 
 export const MouseClick = {
@@ -159,8 +159,8 @@ export const MouseClick = {
             strokeWidth: 2,
         },
         handlers: {
-            onClick: onDistributionsClick,
+            onClick: onQuantilesClick,
         },
     },
-    decorators: [ChartDistributionDecorator],
+    decorators: [ChartQuantileDecorator],
 }
