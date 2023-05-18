@@ -128,6 +128,20 @@ describe('Quantile', () => {
         expect(result.y.domain()).toEqual([10, 12])
     })
 
+    it('accepts logarithmic scale', () => {
+        const result = cloneDeep(mockScales)
+        const data = [{ id: 'A', x: [10, 11] }]
+        render(
+            <Chart>
+                <Quantile data={data} keys={['x']} scaleValue={{ variant: 'log' }}>
+                    <GetScales value={result} />
+                </Quantile>
+            </Chart>
+        )
+        expect(result.x.variant).toEqual('band')
+        expect(result.y.variant).toEqual('log')
+    })
+
     it('prepares color scale for legend', () => {
         render(
             <Chart>

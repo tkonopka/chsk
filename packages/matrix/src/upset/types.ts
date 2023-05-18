@@ -13,7 +13,7 @@ import {
     WithId,
     WithInteractive,
 } from '@chsk/core'
-import { BandProps } from '@chsk/band'
+import { BarProps } from '@chsk/band'
 
 export type UpSetDataItem = WithId & {
     data: unknown[]
@@ -69,7 +69,7 @@ export interface UpSetMembershipsProps extends Omit<UpSetMembershipProps, 'posit
 }
 
 export interface UpSetBarProps
-    extends Pick<BandProps, 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {
+    extends Pick<BarProps, 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {
     /** padding */
     padding?: FourSideSizeSpec
     /** size of view along the value axis */

@@ -8,8 +8,8 @@ import {
     useViolinPreparedData,
     ViolinProcessedDataItem,
 } from '../../src/violins'
-import { mockProcessedData, violinProps } from '../props'
-import { GetProcessedData } from '../contexts'
+import { mockProcessedData, mockScales, violinProps } from '../props'
+import { GetProcessedData, GetScales } from '../contexts'
 
 describe('Violin', () => {
     it('defines processed data ', () => {
@@ -142,5 +142,19 @@ describe('Violin', () => {
         expect(firstItem.data[1]).toBeUndefined()
         expect(firstItem.data[2]).not.toBeUndefined()
         expect(firstItem.domain).toEqual([undefined, undefined, [1, 6]])
+    })
+
+    it('accepts logarithmic scale', () => {
+        const result = cloneDeep(mockScales)
+        const data = [{ id: 'A', x: [10, 11] }]
+        render(
+            <Chart>
+                <Violin data={data} keys={['x']} scaleValue={{ variant: 'log' }}>
+                    <GetScales value={result} />
+                </Violin>
+            </Chart>
+        )
+        expect(result.x.variant).toEqual('band')
+        expect(result.y.variant).toEqual('log')
     })
 })

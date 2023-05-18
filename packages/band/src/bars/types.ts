@@ -3,6 +3,7 @@ import {
     CssProps,
     DataInteractivityProps,
     LabelProps,
+    LinearScaleSpec,
     LocationProps,
     NumericPositionSpec,
     ProcessedDataContextProps,
@@ -46,11 +47,13 @@ export type BarInteractiveDataItem = {
     data: number
 }
 
-export interface BarProps extends BandProps {
+export interface BarProps extends Omit<BandProps, 'scaleValue'> {
     /** variant */
     variant?: 'grouped' | 'stacked' | 'layered'
     /** data */
     data: Array<BarDataItem>
+    /** scale for axis with continuous values */
+    scaleValue?: LinearScaleSpec
 }
 
 export interface BarsProps

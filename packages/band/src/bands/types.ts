@@ -6,7 +6,6 @@ import {
     DataInteractivityProps,
     LabelProps,
     LocationProps,
-    LinearScaleSpec,
     RectangleProps,
     SizeSpec,
     SizeUnit,
@@ -17,6 +16,7 @@ import {
     WithInteractive,
     NumericScaleSpec,
     TimeScaleSpec,
+    ContinuousScaleSpec,
 } from '@chsk/core'
 
 export interface BandSurfaceProps
@@ -79,7 +79,7 @@ export interface BandProps
     /** scale for axis with discrete indexes */
     scaleIndex?: ScaleWithBandwidthSpec
     /** scale for axis with continuous values */
-    scaleValue?: LinearScaleSpec
+    scaleValue?: ContinuousScaleSpec
     /** scale for colors */
     scaleColor?: CategoricalScaleSpec
 }

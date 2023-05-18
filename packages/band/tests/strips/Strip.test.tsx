@@ -7,9 +7,23 @@ import {
     isStripProcessedData,
     useStripPreparedData,
     StripProcessedDataItem,
+    StripDataItem,
 } from '../../src/strips'
 import { stripProps, dataMissingKeys, mockScales, mockProcessedData } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
+
+const mockStripPreparedData: StripPreparedDataContextProps = {
+    data: [],
+    seriesIndexes: {},
+    keys: [],
+}
+const GetStripPreparedData = ({ value }: { value: StripPreparedDataContextProps }) => {
+    const preparedData = useStripPreparedData()
+    value.data = preparedData.data
+    value.seriesIndexes = preparedData.seriesIndexes
+    value.keys = preparedData.keys
+    return null
+}
 
 describe('Strip', () => {
     it('defines processed data (no jitter)', () => {
@@ -119,22 +133,18 @@ describe('Strip', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: StripPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData = () => {
-            prepared = useStripPreparedData()
-            return null
-        }
+        const result = cloneDeep(mockStripPreparedData)
         render(
             <Chart>
                 <Strip {...stripProps}>
-                    <GetPreparedData />
+                    <GetStripPreparedData value={result} />
                 </Strip>
             </Chart>
         )
         // the dataset has two indexes and three keys
-        expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
-        expect(prepared.data).toHaveLength(2)
-        expect(prepared.keys).toHaveLength(2)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(2)
     })
 
     it('defines prepared data for series with 0, 1, more points', () => {
@@ -152,21 +162,17 @@ describe('Strip', () => {
                 x: [2, 4],
             },
         ]
-        let prepared: StripPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData = () => {
-            prepared = useStripPreparedData()
-            return null
-        }
+        const result = cloneDeep(mockStripPreparedData)
         render(
             <Chart>
                 <Strip {...stripProps} data={specialCases}>
-                    <GetPreparedData />
+                    <GetStripPreparedData value={result} />
                 </Strip>
             </Chart>
         )
         // the dataset has two indexes and three keys
-        expect(Object.keys(prepared.seriesIndexes)).toHaveLength(3)
-        const preparedData = prepared.data
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(3)
+        const preparedData = result.data
         expect(preparedData[0].data[0]?.internal).toEqual([])
         // all values should be finite
         expect(preparedData[1].data[0]?.internal[0]).toBeLessThan(1000)
@@ -249,6 +255,20 @@ describe('Strip', () => {
         // for second id, first key (x) should not have information
         expect(data[1].data[0]).toBeFalsy()
         expect(data[1].data[1]).not.toBeFalsy()
+    })
+
+    it('accepts logarithmic scale', () => {
+        const result = cloneDeep(mockScales)
+        const data: Array<StripDataItem> = [{ id: 'A', x: [10, 11] }]
+        render(
+            <Chart>
+                <Strip data={data} keys={['x']} scaleValue={{ variant: 'log' }}>
+                    <GetScales value={result} />
+                </Strip>
+            </Chart>
+        )
+        expect(result.x.variant).toEqual('band')
+        expect(result.y.variant).toEqual('log')
     })
 
     it('prepares color scale for legend', () => {
