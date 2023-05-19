@@ -1,6 +1,6 @@
 {
     "name": "@chsk/matrix",
-    "version": "0.4.0",
+    "version": "0.5.0-alpha.0",
     "author": "Tomasz Konopka",
     "description": "Components for charts with two categorical axes",
     "keywords": [
@@ -25,8 +25,8 @@
         "build": "PACKAGE=matrix rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chsk/band": "^0.4.0",
-        "@chsk/core": "^0.4.0",
+        "@chsk/band": "^0.5.0-alpha.0",
+        "@chsk/core": "^0.5.0-alpha.0",
         "framer-motion": "^7.0.0",
         "lodash": "^4.17.21"
     },
