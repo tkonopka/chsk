@@ -1,6 +1,6 @@
 {
     "name": "@chsk/annotation",
-    "version": "0.4.0-alpha.0",
+    "version": "0.4.0",
     "author": "Tomasz Konopka",
     "description": "Components for chart annotation",
     "keywords": [
@@ -24,9 +24,9 @@
         "build": "PACKAGE=annotation rollup -c ../../rollup.config.js && tsc"
     },
     "dependencies": {
-        "@chsk/core": "^0.4.0-alpha.0",
-        "framer-motion": "^7.0.0",
-        "d3-shape": "^3.2.0"
+        "@chsk/core": "^0.4.0",
+        "d3-shape": "^3.2.0",
+        "framer-motion": "^7.0.0"
     },
     "devDependencies": {
         "@types/d3-shape": "^3.1.0"
