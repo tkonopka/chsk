@@ -4,6 +4,17 @@
 
 ### Highlights
 
+-   New components `Violin` and `Violins` for summarizing numeric distributions
+-   New components `ScatterSelectedLabels` for placing
+    non-overlapping labels on scatter charts
+-   Miscellaneous new components, including `Grid` and `GridItem` for
+    view layouts and `Connector` for supporting labels.
+-   Expanded support for milestone animations, in particular for animations
+    that change props
+-   Expanded feature set for continuous scales to support a custom
+    bandwidth, enabling band-like charts with two continuous axes
+-   Upgraded documentation site to storybook v7
+
 ### Added
 
 -   [annotation] support for custom components in `Stripe` and `GridStripes`
