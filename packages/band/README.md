@@ -7,12 +7,14 @@ continuous axis.
 ## Features
 
 -   **Bar charts** visualize data using grouped, stacked, or layered bars
--   **Distribution charts** summarize number distributions, for example, using
-    box-and-whisker elements
+-   **Quantile charts** summarize number distributions using
+    box-and-whisker or bar-and-whisker elements
 -   **Schedule charts** visualize intervals with well-defined start and end
     boundaries
--   **Strip charts**, similarly to distribution charts, visualize number
-    distributions, but unlike distribution charts, display all data points
+-   **Strip charts** visualize number distributions by displaying all
+    data points in a dataset
+-   **Violin charts** visualize the shapes of number
+    distributions using smooth or step-wise curves
 -   **Band components** are general-purpose objects that can be used in
     any of the band-chart views (bar charts, distribution charts, etc.)
 
