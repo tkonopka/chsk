@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [annotation] support for custom components in `Stripe` and `GridStripes`
 -   [core] support for axis labels and axis tick labels with ReactNode type
 -   [band] support for nonlinear scales for strip, quantile, schedule, and
     violin charts

@@ -1,3 +1,4 @@
+import { createElement } from 'react'
 import { StripeProps } from './types'
 import {
     getAbsoluteCoordinate,
@@ -17,6 +18,7 @@ export const Stripe = ({
     domainUnits = 'view',
     expansion = [0, 0],
     shift = [0, 0],
+    component = Rectangle,
     ...props
 }: StripeProps) => {
     const { scales } = useScales()
@@ -34,25 +36,19 @@ export const Stripe = ({
     ]
     const [e1, e2] = numberPair(expansion)
 
-    const result = isX ? (
-        <Rectangle
-            variant={'stripe'}
-            x={coordinates[0]}
-            width={coordinates[1] - coordinates[0]}
-            y={-e1}
-            height={size[Y] + e1 + e2}
-            {...props}
-        />
-    ) : (
-        <Rectangle
-            variant={'stripe'}
-            x={-e1}
-            width={size[X] + e1 + e2}
-            y={coordinates[0]}
-            height={coordinates[1] - coordinates[0]}
-            {...props}
-        />
-    )
+    const rectProps = isX
+        ? {
+              x: coordinates[0],
+              width: coordinates[1] - coordinates[0],
+              y: -e1,
+              height: size[Y] + e1 + e2,
+          }
+        : {
+              x: -e1,
+              width: size[X] + e1 + e2,
+              y: coordinates[0],
+              height: coordinates[1] - coordinates[0],
+          }
 
-    return result
+    return createElement(component, { variant: 'stripe', ...rectProps, ...props })
 }

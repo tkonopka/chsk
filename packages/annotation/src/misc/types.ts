@@ -4,8 +4,10 @@ import {
     NumericPositionSpec,
     PositionSpec,
     PositionUnits,
+    RectangleProps,
     SvgElementVariantProps,
 } from '@chsk/core'
+import { FC } from 'react'
 
 export interface ConnectorProps extends LineProps {
     /** variant */
@@ -18,11 +20,6 @@ export interface ConnectorProps extends LineProps {
     elbowUnit?: 'absolute' | 'relative'
 }
 
-export interface GridStripesProps extends GridLinesProps {
-    /** toggle intervals used for stripes */
-    parity?: 'even' | 'odd'
-}
-
 export interface StripeProps extends SvgElementVariantProps, Pick<GridLinesProps, 'expansion'> {
     /** variant */
     variant: 'x' | 'y'
@@ -32,4 +29,11 @@ export interface StripeProps extends SvgElementVariantProps, Pick<GridLinesProps
     domainUnits?: PositionUnits
     /** shifts for domain boundaries (multiples of bandwidth) */
     shift?: NumericPositionSpec
+    /** component used to draw individual stripes */
+    component?: FC<RectangleProps>
+}
+
+export interface GridStripesProps extends GridLinesProps, Pick<StripeProps, 'component'> {
+    /** toggle intervals used for stripes */
+    parity?: 'even' | 'odd'
 }

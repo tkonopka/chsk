@@ -1,3 +1,5 @@
+import { createElement } from 'react'
+import { uniq } from 'lodash'
 import { GridStripesProps } from './types'
 import {
     getTickCoordinates,
@@ -9,7 +11,6 @@ import {
     X,
     Y,
 } from '@chsk/core'
-import { uniq } from 'lodash'
 
 const UnthemedGridStripes = ({
     variant,
@@ -17,6 +18,7 @@ const UnthemedGridStripes = ({
     values,
     expansion = 0,
     shift = [0],
+    component = Rectangle,
     setRole = true,
     ...props
 }: GridStripesProps) => {
@@ -25,7 +27,6 @@ const UnthemedGridStripes = ({
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y
 
-    // compute locations for regions boundaries
     const tickCoordinates = uniq(shift.map(s => getTickCoordinates(scale, values, s)).flat()).sort(
         (a, b) => a - b
     )
@@ -43,31 +44,29 @@ const UnthemedGridStripes = ({
 
     let result
     if (isX) {
-        // vertical rectangles
-        result = startCoordinates?.map((v: number, i: number) => (
-            <Rectangle
-                variant={'grid-stripe'}
-                key={'x-' + i}
-                x={v}
-                width={endCoordinates[i] - v}
-                y={-e1}
-                height={size[Y] + e1 + e2}
-                {...props}
-            />
-        ))
+        result = startCoordinates?.map((v: number, i: number) =>
+            createElement(component, {
+                variant: 'grid-stripe',
+                key: 'x-' + i,
+                x: v,
+                width: endCoordinates[i] - v,
+                y: -e1,
+                height: size[Y] + e1 + e2,
+                ...props,
+            })
+        )
     } else {
-        // horizontal rectangles
-        result = startCoordinates?.map((v: number, i: number) => (
-            <Rectangle
-                variant={'grid-stripe'}
-                key={'y-' + i}
-                x={-e1}
-                width={size[X] + e1 + e2}
-                y={v}
-                height={endCoordinates[i] - v}
-                {...props}
-            />
-        ))
+        result = startCoordinates?.map((v: number, i: number) =>
+            createElement(component, {
+                variant: 'grid-stripe',
+                key: 'y-' + i,
+                x: -e1,
+                width: size[X] + e1 + e2,
+                y: v,
+                height: endCoordinates[i] - v,
+                ...props,
+            })
+        )
     }
     return <g role={setRole ? 'grid-stripes' : undefined}>{result}</g>
 }

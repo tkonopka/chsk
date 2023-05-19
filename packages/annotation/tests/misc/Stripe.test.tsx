@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, ChartProps, View } from '@chsk/core'
+import { Chart, ChartProps, Rectangle, RectangleProps, View } from '@chsk/core'
 import { viewProps } from '../props'
 import { Stripe } from '../../src'
 import { getNumberAttr, getTransform } from '../../../core/tests/utils'
@@ -75,5 +75,21 @@ describe('Stripe', () => {
         )
         const result = screen.getByRole('view-content').querySelector('rect')
         expect(getNumberAttr(result, 'width')).toBe(360)
+    })
+
+    it('accepts custom component', () => {
+        const CustomRectangle = (props: RectangleProps) => {
+            return <Rectangle rx={5} ry={5} {...props} />
+        }
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Stripe variant={'y'} domain={[0.4, 0.6]} component={CustomRectangle} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('view-content').querySelector('rect')
+        expect(getNumberAttr(result, 'rx')).toBe(5)
+        expect(getNumberAttr(result, 'ry')).toBe(5)
     })
 })

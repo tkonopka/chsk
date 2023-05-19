@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chsk/core'
+import { Chart, Rectangle, RectangleProps, View } from '@chsk/core'
 import { chartProps, viewProps } from '../props'
 import { GridStripes } from '../../src'
 import { getNumberAttr } from '../../../core/tests/utils'
@@ -78,5 +78,21 @@ describe('GridStripes', () => {
         )
         const result = screen.getByRole('grid-stripes').querySelectorAll('rect')
         expect(getNumberAttr(result[0], 'width')).toBe(400)
+    })
+
+    it('accepts custom component', () => {
+        const CustomRectangle = (props: RectangleProps) => {
+            return <Rectangle rx={5} ry={5} {...props} />
+        }
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <GridStripes variant={'y'} component={CustomRectangle} />
+                </View>
+            </Chart>
+        )
+        const result = screen.getByRole('view-content').querySelectorAll('rect')
+        expect(getNumberAttr(result[0], 'rx')).toBe(5)
+        expect(getNumberAttr(result[0], 'ry')).toBe(5)
     })
 })
