@@ -9,6 +9,8 @@
  * area A can appear larger visually than circles with the same area A.
  */
 
+import { range } from '@chsk/core'
+
 /** rectangles */
 
 const goldenRectVisualFactor = 0.96
@@ -53,3 +55,28 @@ export const segmentCoordinates = [
     [-segmentArm, 0],
     [segmentArm, 0],
 ]
+
+/** pentagon */
+
+const angleOffset = -Math.PI / 2
+export const pentagonCoordinates = range(0, 5).map(i => [
+    Math.cos(angleOffset + (2 * Math.PI * i) / 5),
+    Math.sin(angleOffset + (2 * Math.PI * i) / 5),
+])
+
+/** star */
+
+export const starCoordinates: Array<number[]> = []
+const starProtrusion = 0.447
+range(0, 5).forEach(i => {
+    let angle = angleOffset + 2 * Math.PI * ((2 * i) / 10)
+    starCoordinates.push([
+        (1 + starProtrusion) * Math.cos(angle),
+        (1 + starProtrusion) * Math.sin(angle),
+    ])
+    angle += 2 * Math.PI * (1 / 10)
+    starCoordinates.push([
+        (1 - starProtrusion) * Math.cos(angle),
+        (1 - starProtrusion) * Math.sin(angle),
+    ])
+})

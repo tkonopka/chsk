@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [annotation] symbol components `Pentagon` and `Star`
+
 ### Changed
 
 ## v0.4.0
