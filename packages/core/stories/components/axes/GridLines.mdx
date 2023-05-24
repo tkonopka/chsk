@@ -11,41 +11,42 @@ import * as GridLinesStories from './GridLines.stories'
 
 ## Variants
 
-There are a number of predefined variants, which can be activated via the prop `variant`. Below, the grid lines are displayed on a gray background surface.
+Prop `variant` determines whether grid lines are placed along the x- or y- axes.
 
 <Canvas of={GridLinesStories.GridX} />
 <Canvas of={GridLinesStories.GridY} />
 
-## Styling
-
-Grid lines can be styled using css.
-Below are examples with both horizontal and vertical gridlines.
-
-<Canvas of={GridLinesStories.DashedGridLines} />
-<Canvas of={GridLinesStories.NegativeLines} />
-
 ## Line positions
 
-Positions can be set via the prop `values`.
+Line positions can be set via prop `values`, which can be specified as a single value or as an array.
+A single integer is interpreted as the approximate number of equally spaced grid lines along an axis.
+An array is interpreted as the precise set of locations for the grid lines.
 
 <Canvas of={GridLinesStories.CustomPositions} />
 
 ## Expansion
 
 By default, grid lines run across the entire chart view.
-It is possible to adjust their extent - make them longer or shorter - using the prop `expansion`.
+It is possible to make them longer or shorter with prop `expansion`.
 
 <Canvas of={GridLinesStories.LineExtent} />
+
+## Styling
+
+Grid lines can be styled using css.
+
+<Canvas of={GridLinesStories.DashedGridLines} />
+<Canvas of={GridLinesStories.NegativeLines} />
 
 ## Band scales
 
 For band scales, grid lines appear at the center of each band by default.
-It is possible to move the guide lines using prop `shift`, which takes an array of values.
+It is possible to move the lines using prop `shift`, which takes an array of values.
 
 <Canvas of={GridLinesStories.Band} />
 <Canvas of={GridLinesStories.BetweenBands} />
 
 Values in the `shift` array are interpreted as multiples of a base unit associated with the band scale.
 The base unit is set with prop `shiftUnit`.
-The shift unit `band` corresponds to the width of a bar on a bar chart.
+Unit `band` corresponds to the width of a bar on a bar chart.
 Unit `step`, which is the default, corresponds to the width of a bar on a bar chart plus surrounding padding.

@@ -1,5 +1,5 @@
 import { GridLines } from '../../../src'
-import { ChartViewDecorator, ChartBandViewDecorator } from '../decorators'
+import { ChartBandViewDecorator, ChartViewDecorator } from '../decorators'
 
 export default {
     title: 'Core/Components/Axes/GridLines',
@@ -23,75 +23,40 @@ export const GridY = {
 }
 
 export const DashedGridLines = {
-    render: () => (
-        <>
-            <GridLines
-                variant="y"
-                values={4}
-                style={{
-                    strokeDasharray: '4 4',
-                    stroke: '#555555',
-                }}
-            />
-            <GridLines
-                variant="x"
-                values={5}
-                style={{
-                    strokeDasharray: '4 4',
-                    stroke: '#555555',
-                }}
-            />
-        </>
-    ),
     name: 'dashed grid lines',
+    args: {
+        variant: 'y',
+        values: 4,
+        style: {
+            strokeDasharray: '4 4',
+            stroke: '#222222',
+        },
+    },
     decorators: [ChartViewDecorator],
 }
 
 export const NegativeLines = {
-    render: () => (
-        <>
-            <GridLines
-                variant="y"
-                values={5}
-                style={{
-                    strokeWidth: 2,
-                    stroke: '#ffffff',
-                }}
-            />
-            <GridLines
-                variant="x"
-                values={8}
-                style={{
-                    strokeWidth: 2,
-                    stroke: '#ffffff',
-                }}
-            />
-        </>
-    ),
     name: 'negative lines',
+    args: {
+        variant: 'y',
+        values: 5,
+        style: {
+            strokeWidth: 2,
+            stroke: '#ffffff',
+        },
+    },
     decorators: [ChartViewDecorator],
 }
 
 export const CustomPositions = {
-    render: () => (
-        <>
-            <GridLines
-                variant={'y'}
-                values={[0, 10, 20, 50, 80, 90, 100]}
-                style={{
-                    stroke: '#777777',
-                }}
-            />
-            <GridLines
-                variant={'x'}
-                values={[0, 65, 85, 95, 100]}
-                style={{
-                    stroke: '#777777',
-                }}
-            />
-        </>
-    ),
     name: 'custom positions',
+    args: {
+        variant: 'x',
+        values: [0, 65, 85, 95, 100],
+        style: {
+            stroke: '#777777',
+        },
+    },
     decorators: [ChartViewDecorator],
 }
 
