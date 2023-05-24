@@ -118,7 +118,6 @@ export const BubbleScatterChart = ({ fref, chartData, rawData }: MilestoneStory)
     const [labels, setLabels] = useState<Array<ScatterSelectedLabelData>>([])
     const toggleLabel = (x?: ScatterInteractiveDataItem) => {
         if (!x) return
-        console.log('labels ' + JSON.stringify(labels) + ' x ' + JSON.stringify(x))
         const xLabel = x.id + ' ' + x.index
         const hit = labels.map(label => label.id === x.id && label.content === xLabel).indexOf(true)
         if (hit === -1) {
