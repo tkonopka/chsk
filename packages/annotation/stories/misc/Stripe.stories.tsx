@@ -65,7 +65,7 @@ export const BandWithShift = {
     args: {
         variant: 'x',
         domain: ['C', 'E'],
-        shift: [-0.625, 0.625],
+        shift: [-0.5, 0.5],
         style: { fill: '#ffdddd' },
     },
     decorators: [ChartBandViewDecorator],

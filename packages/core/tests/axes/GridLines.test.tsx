@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, GridLines, View } from '../../src'
 import { chartProps, viewProps } from '../props'
+import { getNumberAttr } from '../utils'
 
 describe('GridLines', () => {
     it('creates horizontal grid lines', () => {
@@ -111,5 +112,70 @@ describe('GridLines', () => {
         )
         expect(screen.queryByRole('grid-lines')).toBeNull()
         expect(screen.getByRole('chart-content').querySelectorAll('line')).toHaveLength(6)
+    })
+
+    it('creates grid lines on band scale', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <View
+                    {...viewProps}
+                    scaleX={{
+                        variant: 'band',
+                        domain: ['a', 'b', 'c', 'd'],
+                    }}
+                >
+                    <GridLines variant="x" values={['b', 'c']} />
+                </View>
+            </Chart>
+        )
+        const lines = screen.getByRole('view-content').querySelectorAll('line')
+        expect(lines).toHaveLength(2)
+        expect(getNumberAttr(lines[0], 'x1')).toBeLessThan(200)
+        expect(getNumberAttr(lines[1], 'x1')).toBeGreaterThan(200)
+    })
+
+    it('creates shifted grid lines on band scale (multiples of bandwidth)', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <View
+                    {...viewProps}
+                    scaleX={{
+                        variant: 'band',
+                        domain: ['a', 'b', 'c', 'd'],
+                        paddingOuter: 0.1,
+                        paddingInner: 0.2,
+                    }}
+                >
+                    <GridLines variant="x" values={['b']} shift={[-0.5, 0.5]} shiftUnit={'band'} />
+                </View>
+            </Chart>
+        )
+        const lines = screen.getByRole('view-content').querySelectorAll('line')
+        // the position of 'b' on the axis will be at 150. The lines should be on the left and right
+        expect(getNumberAttr(lines[0], 'x1')).toBeLessThan(150)
+        expect(getNumberAttr(lines[0], 'x1')).toBeGreaterThan(100)
+        expect(getNumberAttr(lines[1], 'x1')).toBeGreaterThan(150)
+        expect(getNumberAttr(lines[1], 'x1')).toBeLessThan(200)
+    })
+
+    it('creates shifted grid lines on band scale (multiples of step)', () => {
+        render(
+            <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
+                <View
+                    {...viewProps}
+                    scaleX={{
+                        variant: 'band',
+                        domain: ['a', 'b', 'c', 'd'],
+                        paddingOuter: 0.1,
+                        paddingInner: 0.2,
+                    }}
+                >
+                    <GridLines variant="x" values={['b']} shift={[-0.5, 0.5]} shiftUnit={'step'} />
+                </View>
+            </Chart>
+        )
+        const lines = screen.getByRole('view-content').querySelectorAll('line')
+        expect(getNumberAttr(lines[0], 'x1')).toEqual(100)
+        expect(getNumberAttr(lines[1], 'x1')).toEqual(200)
     })
 })

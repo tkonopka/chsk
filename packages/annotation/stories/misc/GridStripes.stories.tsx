@@ -60,7 +60,7 @@ export const CenteredOnBands = {
     args: {
         variant: 'x',
         parity: 'even',
-        shift: [-0.625],
+        shift: [-0.5],
         style: { fill: '#ffdddd' },
     },
     decorators: [ChartBandViewDecorator],

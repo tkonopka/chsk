@@ -6,9 +6,17 @@
 
 ### Added
 
+-   [annotation] support for prop `shiftUnit` in `Strip` and `GridStripes` to
+    facilitate using those components on band scales
+-   [core] support for prop `shiftUnit` in `GridLines` to facilitate using
+    grid lines with band scales
 -   [annotation] symbol components `Pentagon` and `Star`
 
 ### Changed
+
+-   [core] changed default behavior of shift arrays in `GridLines`; this
+    change removes the need to recompute shift values when using grid lines
+    between ticks on band scales with padding
 
 ## v0.4.0
 

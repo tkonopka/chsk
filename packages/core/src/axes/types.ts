@@ -1,6 +1,7 @@
 import { CSSProperties, ReactNode } from 'react'
 import {
     NumericPositionSpec,
+    ShiftUnit,
     SideVariant,
     SvgElementVariantProps,
     TwoSideSizeSpec,
@@ -97,13 +98,16 @@ export interface GridLinesProps extends SvgElementVariantProps {
     variant: 'x' | 'y'
     /** positions for grid lines */
     values?: number | number[] | string[]
-    /** shift gridlines compared to natural tick position (multiple of bandwidth) */
+    /** shift compared to natural tick position */
     shift?: number[]
+    /** unit for shift values */
+    shiftUnit?: ShiftUnit
     /** expansion of lines at the start and end of the scale */
     expansion?: number | TwoSideSizeSpec
 }
 
-export interface GridLinesThemedProps extends Pick<GridLinesProps, 'shift' | 'expansion'> {
+export interface GridLinesThemedProps
+    extends Pick<GridLinesProps, 'shift' | 'shiftUnit' | 'expansion'> {
     shift: number[]
     expansion: number | TwoSideSizeSpec
 }

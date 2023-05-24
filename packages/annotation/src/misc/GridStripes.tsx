@@ -18,6 +18,7 @@ const UnthemedGridStripes = ({
     values,
     expansion = 0,
     shift = [0],
+    shiftUnit = 'step',
     component = Rectangle,
     setRole = true,
     ...props
@@ -27,9 +28,10 @@ const UnthemedGridStripes = ({
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y
 
-    const tickCoordinates = uniq(shift.map(s => getTickCoordinates(scale, values, s)).flat()).sort(
-        (a, b) => a - b
-    )
+    const shiftMultiplier = shiftUnit === 'band' ? 1 : scale.step() / scale.bandwidth()
+    const tickCoordinates = uniq(
+        shift.map(s => getTickCoordinates(scale, values, s * shiftMultiplier)).flat()
+    ).sort((a, b) => a - b)
     let startCoordinates: number[] = []
     let endCoordinates: number[] = []
     if (parity === 'even') {

@@ -18,6 +18,7 @@ export const Stripe = ({
     domainUnits = 'view',
     expansion = [0, 0],
     shift = [0, 0],
+    shiftUnit = 'step',
     component = Rectangle,
     ...props
 }: StripeProps) => {
@@ -25,14 +26,14 @@ export const Stripe = ({
     const { size } = useDimensions()
     const isX = variant === 'x'
     const scale = isX ? scales.x : scales.y
-    const bandwidth = scale.bandwidth()
+    const shiftMultiplier = shiftUnit === 'step' ? scale.step() : scale.bandwidth()
 
     const units = positionUnitPair(domainUnits)
     const coordinates: NumericPositionSpec = [
         getAbsoluteCoordinate(domain[0], units[0], isX ? size[X] : size[Y], scale) +
-            shift[0] * bandwidth,
+            shift[0] * shiftMultiplier,
         getAbsoluteCoordinate(domain[1], units[1], isX ? size[X] : size[Y], scale) +
-            shift[1] * bandwidth,
+            shift[1] * shiftMultiplier,
     ]
     const [e1, e2] = numberPair(expansion)
 

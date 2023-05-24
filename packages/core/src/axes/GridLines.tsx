@@ -9,6 +9,7 @@ const UnthemedGridLines = ({
     variant,
     values,
     shift = defaultGridLinesProps.shift,
+    shiftUnit = defaultGridLinesProps.shiftUnit,
     expansion = defaultGridLinesProps.expansion,
     className,
     style,
@@ -24,8 +25,9 @@ const UnthemedGridLines = ({
     const coordinates = new Set<number>()
     type KeyValue = [string, number]
     const tickCoordinates: KeyValue[] = []
-    shift.map(s => {
-        getTickCoordinates(scale, tickValues, s).map((v, i) => {
+    const shiftMultiplier = shiftUnit === 'band' ? 1 : scale.step() / scale.bandwidth()
+    shift.forEach(s => {
+        getTickCoordinates(scale, tickValues, s * shiftMultiplier).map((v, i) => {
             if (!coordinates.has(v)) {
                 tickCoordinates.push([String(tickValues[i]) + s, v])
                 coordinates.add(v)

@@ -48,5 +48,6 @@ export const defaultAxisTicksProps: AxisTicksThemedProps = {
 
 export const defaultGridLinesProps: GridLinesThemedProps = {
     shift: [0],
+    shiftUnit: 'step',
     expansion: [0, 0],
 }

@@ -20,14 +20,16 @@ export interface ConnectorProps extends LineProps {
     elbowUnit?: 'absolute' | 'relative'
 }
 
-export interface StripeProps extends SvgElementVariantProps, Pick<GridLinesProps, 'expansion'> {
+export interface StripeProps
+    extends SvgElementVariantProps,
+        Pick<GridLinesProps, 'expansion' | 'shiftUnit'> {
     /** variant */
     variant: 'x' | 'y'
     /** domain interval */
     domain: PositionSpec
     /** units for domain */
     domainUnits?: PositionUnits
-    /** shifts for domain boundaries (multiples of bandwidth) */
+    /** shifts for domain boundaries */
     shift?: NumericPositionSpec
     /** component used to draw individual stripes */
     component?: FC<RectangleProps>
