@@ -1,9 +1,9 @@
-import { Circle, SimpleDataComponent } from '../../../src'
-import { ChartViewDecorator } from '../decorators'
+import { Circle, TooltipDataComponent } from '../../../src'
+import { ChartViewWithTooltipDecorator } from './decorators'
 
 export default {
-    title: 'Core/Components/Interactivity/SimpleDataComponent',
-    component: SimpleDataComponent,
+    title: 'Core/Components/Interactivity/TooltipDataComponent',
+    component: TooltipDataComponent,
 }
 
 export const Example = {
@@ -13,6 +13,7 @@ export const Example = {
         data: {
             id: 'identifier',
             value: 'value',
+            label: 'custom label',
         },
         props: {
             cx: 50,
@@ -23,5 +24,5 @@ export const Example = {
             },
         },
     },
-    decorators: [ChartViewDecorator],
+    decorators: [ChartViewWithTooltipDecorator],
 }

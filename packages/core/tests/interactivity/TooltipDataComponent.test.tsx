@@ -10,6 +10,16 @@ import {
 } from '../../src'
 import { chartProps } from '../props'
 
+export const GetTooltip = ({ value }: { value: TooltipData }) => {
+    const result = useTooltip().data
+    value.x = result.x
+    value.y = result.y
+    value.title = result.title
+    value.eventPosition = result.eventPosition
+    value.data = result.data
+    return null
+}
+
 describe('TooltipDataComponent', () => {
     it('creates a component without any event handlers', () => {
         render(
@@ -45,19 +55,14 @@ describe('TooltipDataComponent', () => {
         expect(value).toEqual('A')
     })
 
-    it('creates a component with a mouse enter and mouse leave handlers', () => {
+    it('uses custom mouse enter and mouse leave handlers', () => {
         let value: string | undefined = undefined
-        let tooltipData: TooltipData = {}
+        const tooltip: TooltipData = {}
         const enterHandler = (data: WithId | undefined) => {
             value = data?.id
         }
         const leaveHandler = () => {
             value = undefined
-        }
-        const CustomGetter = () => {
-            const { data } = useTooltip()
-            tooltipData = data
-            return null
         }
         render(
             <Chart {...chartProps}>
@@ -74,27 +79,27 @@ describe('TooltipDataComponent', () => {
                         props={{ cx: 10, cy: 10, r: 10, variant: 'empty' }}
                         handlers={{ onMouseEnter: enterHandler, onMouseLeave: leaveHandler }}
                     />
-                    <CustomGetter />
+                    <GetTooltip value={tooltip} />
                 </TooltipProvider>
             </Chart>
         )
         expect(value).toBeUndefined()
-        expect(tooltipData).toEqual({})
+        expect(tooltip).toEqual({})
         // make tooltip appear
         fireEvent.mouseEnter(screen.getByRole('target'))
         expect(value).toEqual('A')
-        expect(tooltipData).not.toEqual({})
+        expect(tooltip).not.toEqual({})
         fireEvent.mouseMove(screen.getByRole('target'))
         expect(value).toEqual('A')
-        expect(tooltipData).not.toEqual({})
+        expect(tooltip).not.toEqual({})
         // make tooltip disappear
         fireEvent.mouseLeave(screen.getByRole('target'))
         expect(value).toBeUndefined()
-        expect(tooltipData).toEqual({})
+        expect(tooltip).toEqual({})
         // triggering on empty data does not create a tooltip
         fireEvent.mouseEnter(screen.getByRole('empty'))
         expect(value).toBeUndefined()
-        expect(tooltipData).toEqual({})
+        expect(tooltip).toEqual({})
     })
 
     it('applies style modifiers', async () => {

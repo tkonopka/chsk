@@ -1,0 +1,28 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as PersistentTooltipDataComponentStories from './PersistentTooltipDataComponent.stories'
+
+# PersistentTooltipDataComponent
+
+<Meta of={PersistentTooltipDataComponentStories} />
+
+`PersistentTooltipDataComponent` is a wrapper function that associates event handlers with components.
+
+`PersistentTooltipDataComponent` is similar to `TooltipDataComponent` in the sense that it manages data available to tooltips.
+However, `PersistentTooltipDataComponent` only responds to mouse click events and not to mouse enter/move/leave events.
+
+<ArgTypes of={PersistentTooltipDataComponentStories} />
+
+# Example
+
+`PersistentTooltipDataComponent` takes a prop `component` to specify a drawing function,
+and a prop `props` holding data passed to the drawing function.
+
+<Canvas of={PersistentTooltipDataComponentStories.Example} />
+
+This example should display a circle.
+Clicking on the circle should update the tooltip context, which should in turn toggle visibility of a tooltip.
+The tooltip should remain visible and stationary until the next time the object is clicked.
+
+(Note that the code preview may not display the `component` prop.
+That is an imperfection in the preview.
+The prop `component` is required and should receive a function that creates a new React node.)

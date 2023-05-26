@@ -1,13 +1,27 @@
 import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
-import { TooltipDataComponent } from '../../../src'
+import * as TooltipDataComponentStories from './TooltipDataComponent.stories'
 
 # TooltipDataComponent
 
-<Meta title="Core/Components/Interactivity/TooltipDataComponent" />
+<Meta of={TooltipDataComponentStories} />
 
 `TooltipDataComponent` is a wrapper function that associates event handlers with components.
 
-`TooltipDataComponent` is a drop-in replacement for `DataComponent`, and it differs from `DataComponent`
-in that it manages state of the tooltip context.
+`TooltipDataComponent` creates a new element and manages data in the tooltip context.
 
-<ArgTypes of={TooltipDataComponent} />
+<ArgTypes of={TooltipDataComponentStories} />
+
+## Example
+
+`TooltipDataComponent` takes a prop `component` to specify a drawing function,
+and a prop `props` holding data passed to the drawing function.
+
+<Canvas of={TooltipDataComponentStories.Example} />
+
+This example should display a circle.
+Hovering the mouse on the circle should update data in the tooltip context,
+which should in turn toggle visibility of a tooltip.
+
+(Note that the code preview may not display the `component` prop.
+That is an imperfection in the preview.
+The prop `component` is required and should receive a function that creates a new React node.)

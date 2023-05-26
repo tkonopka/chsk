@@ -17,6 +17,14 @@ The simpler implementation offers a small performance boost in situations where 
 ## Example
 
 `SimpleDataComponent` takes a prop `component` to specify a drawing function,
-and a prop `props` with an object holding props passed to the drawing functions.
+and a prop `props` holding data passed to the drawing function.
 
-<Canvas of={SimpleDataComponentStories.Element} />
+<Canvas of={SimpleDataComponentStories.Example} />
+
+The above example should display a simple circle.
+To repeat the message above, `SimpleDataComponent` only uses its `component` to
+create an element with the given props.
+
+(Note that the code preview may not display the `component` prop.
+That is an imperfection in the preview.
+The prop `component` is required and should receive a function that creates a new React node.)

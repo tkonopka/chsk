@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] wrapper `PersistentTooltipDataComponent` to create tooltips that
+    remain visible until clicked
 -   [annotation] support for prop `shiftUnit` in `Strip` and `GridStripes` to
     facilitate using those components on band scales
 -   [core] support for prop `shiftUnit` in `GridLines` to facilitate using
