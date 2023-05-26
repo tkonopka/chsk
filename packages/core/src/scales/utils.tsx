@@ -1,6 +1,5 @@
 import { BandAxisScale } from './types'
-import { sortedIndex } from 'lodash'
-import { NumericPositionSpec, SizeSpec, X, Y } from '../general'
+import { NumericPositionSpec, SizeSpec, X, Y, sortedIndex } from '../general'
 import { DetectorZone, DetectorIntervals } from './types'
 
 // create intervals associated with bands

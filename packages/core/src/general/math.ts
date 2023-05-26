@@ -3,7 +3,6 @@
 import { scaleLinear } from 'd3-scale'
 import { NumericPositionSpec } from './types'
 import { X, Y } from './constants'
-import { sortedIndex } from 'lodash'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
 export const roundDecimalPlaces = (x: number, n: number) => {
@@ -88,12 +87,10 @@ export const range = (a: number, b?: number): number[] => {
 }
 
 /**
- * internal helper functions to create a series of [a, b] points to represent a histogram
+ * create a series of positions [a, b] to represent a histogram
  *
- * In the output, most points represent the center of a bin (value a) and the
- * height of that bin (value b).
- * Boundary points represent the edges of the histogram and repeat the height of
- * the boundary bin
+ * In the output, most points represent the center of a bin (a) and the height of that bin (b).
+ * Boundary points represent the edges of the histogram and repeat the height of the boundary bin.
  */
 export const histogramPoints = (values: number[], breaks: number[]) => {
     const n = breaks.length
@@ -104,6 +101,21 @@ export const histogramPoints = (values: number[], breaks: number[]) => {
         result[i + 1] = [(breaks[i + 1] + breaks[i]) / 2.0, value]
     })
     return result
+}
+
+/** find index of a target in a sorted array, replacement for lodash sortedIndex */
+export const sortedIndex = (data: number[], target: number): number => {
+    let low = 0
+    let high = data.length
+    while (low < high) {
+        const mid = (low + high) >>> 1
+        if (data[mid] < target) {
+            low = mid + 1
+        } else {
+            high = mid
+        }
+    }
+    return high
 }
 
 /** compute a binned representation of an array of data points */

@@ -16,6 +16,8 @@
 
 ### Changed
 
+-   [core] replaced a few functions from lodash by own implementations
+    (`isNull`, `isUndefined`, `sortedIndex`)
 -   [core] changed default behavior of shift arrays in `GridLines`; this
     change removes the need to recompute shift values when using grid lines
     between ticks on band scales with padding

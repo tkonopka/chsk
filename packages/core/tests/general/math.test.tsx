@@ -12,6 +12,7 @@ import {
     squaredDistance,
     max,
     interval,
+    sortedIndex,
     binValues,
     breaks,
     histogramPoints,
@@ -249,6 +250,28 @@ describe('breaks', () => {
         expect(result.length).toBeGreaterThanOrEqual(4)
         expect(result[0]).toBeLessThanOrEqual(-2)
         expect(result[result.length - 1]).toBeGreaterThanOrEqual(12)
+    })
+})
+
+describe('sortedIndex', () => {
+    it('finds index of target that is in array', () => {
+        expect(sortedIndex([0, 1, 1, 1, 1, 1, 5], 1)).toEqual(1)
+    })
+
+    it('finds index for target not in array', () => {
+        expect(sortedIndex([0, 1, 2, 3, 4, 5, 6, 7, 8], 2.5)).toEqual(3)
+    })
+
+    it('returns 0 for target lower than first element', () => {
+        expect(sortedIndex([0, 1, 2, 3], -2)).toEqual(0)
+    })
+
+    it('returns array length for target lower than first element', () => {
+        expect(sortedIndex([0, 1, 2, 3], 5)).toEqual(4)
+    })
+
+    it('returns 0 for empty array', () => {
+        expect(sortedIndex([], 5)).toEqual(0)
     })
 })
 
