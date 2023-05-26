@@ -11,6 +11,7 @@
     "main": "./dist/chsk-core.cjs.js",
     "module": "./dist/chsk-core.es.js",
     "typings": "./dist/types/index.d.ts",
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chsk.git",

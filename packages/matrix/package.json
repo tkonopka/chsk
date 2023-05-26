@@ -13,6 +13,7 @@
     "main": "./dist/chsk-matrix.cjs.js",
     "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chsk.git",

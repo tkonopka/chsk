@@ -12,6 +12,7 @@
     "main": "./dist/chsk-annotation.cjs.js",
     "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",
+    "sideEffects": false,
     "repository": {
         "type": "git",
         "url": "https://github.com/tkonopka/chsk.git",

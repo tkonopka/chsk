@@ -16,6 +16,8 @@
 
 ### Changed
 
+-   [all] updated `package.json` in all packages to mark them as
+    free of side effects
 -   [core] replaced a few functions from lodash by own implementations
     (`isNull`, `isUndefined`, `sortedIndex`)
 -   [core] changed default behavior of shift arrays in `GridLines`; this
