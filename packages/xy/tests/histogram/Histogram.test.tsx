@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend } from '@chsk/core'
+import { cloneProps, Chart, Legend } from '@chsk/core'
 import {
     Histogram,
     useHistogramPreparedData,
@@ -13,7 +12,7 @@ import { GetProcessedData, mockProcessedData } from '../contexts'
 
 describe('Histogram', () => {
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Histogram {...histogramProps}>

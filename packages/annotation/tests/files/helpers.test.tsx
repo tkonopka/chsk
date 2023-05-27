@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { cloneProps } from '@chsk/core'
 import { defaultSvgTransformConfig } from '../../src/files/transformSvg'
 import {
     roundPxDecimalPlaces,
@@ -9,7 +10,6 @@ import {
     shakeStyles,
     changeAncestor,
 } from '../../src/files/helpers'
-import { cloneDeep } from 'lodash'
 
 describe('roundPxDecimalPlaces', () => {
     it('leaves standard strings alone', () => {
@@ -265,7 +265,7 @@ describe('scanSvg', () => {
                 </g>
             </svg>
         )
-        const config = cloneDeep(defaultSvgTransformConfig)
+        const config = cloneProps(defaultSvgTransformConfig)
         config.skipRoles = ['skip-this']
         const result = scanSvg(screen.getByRole('root'), config)
         expect(result['circle']).toContain('A')

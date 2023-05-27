@@ -28,8 +28,7 @@
     "dependencies": {
         "@chsk/core": "^0.5.0-alpha.0",
         "d3-interpolate": "^3.0.1",
-        "framer-motion": "^7.0.0",
-        "lodash": "^4.17.21"
+        "framer-motion": "^7.0.0"
     },
     "devDependencies": {
         "@types/d3-interpolate": "^3.0.1"

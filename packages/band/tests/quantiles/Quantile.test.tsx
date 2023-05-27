@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend, Scales } from '@chsk/core'
+import { cloneProps, Chart, Legend, Scales } from '@chsk/core'
 import {
     Quantile,
     QuantilePreparedDataContextProps,
@@ -14,7 +13,7 @@ import { GetProcessedData, GetScales } from '../contexts'
 
 describe('Quantile', () => {
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Quantile {...quantileProps}>
@@ -52,7 +51,7 @@ describe('Quantile', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        const result: Scales = cloneDeep(mockScales)
+        const result: Scales = cloneProps(mockScales)
         render(
             <Chart>
                 <Quantile
@@ -71,7 +70,7 @@ describe('Quantile', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        const result: Scales = cloneDeep(mockScales)
+        const result: Scales = cloneProps(mockScales)
         render(
             <Chart>
                 <Quantile
@@ -91,7 +90,7 @@ describe('Quantile', () => {
     })
 
     it('handles missing keys', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Quantile {...quantileProps} data={dataMissingKeys} keys={['x', 'y']}>
@@ -110,7 +109,7 @@ describe('Quantile', () => {
     })
 
     it('computes scales using available keys and ignores missing data', () => {
-        const result: Scales = cloneDeep(mockScales)
+        const result: Scales = cloneProps(mockScales)
         const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
         render(
             <Chart>
@@ -129,7 +128,7 @@ describe('Quantile', () => {
     })
 
     it('accepts logarithmic scale', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         const data = [{ id: 'A', x: [10, 11] }]
         render(
             <Chart>
@@ -169,7 +168,7 @@ describe('Quantile', () => {
                 },
             },
         ]
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Quantile data={precomputed} keys={['x']}>

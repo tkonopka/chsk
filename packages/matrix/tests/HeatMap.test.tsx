@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart } from '@chsk/core'
+import { cloneProps, Chart } from '@chsk/core'
 import {
     HeatMap,
     HeatMapCells,
@@ -15,7 +14,7 @@ const keysXYZ = ['x', 'y', 'z']
 
 describe('HeatMap', () => {
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <HeatMap {...heatmapProps} keys={keysXYZ}>
@@ -37,7 +36,7 @@ describe('HeatMap', () => {
     })
 
     it('determines domain for colors (auto)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -58,7 +57,7 @@ describe('HeatMap', () => {
     })
 
     it('determines domain for colors (semi-automatic)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -80,7 +79,7 @@ describe('HeatMap', () => {
     })
 
     it('determines middle of diverging color scale', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -102,7 +101,7 @@ describe('HeatMap', () => {
     })
 
     it('accepts custom color domain', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <HeatMap
@@ -124,7 +123,7 @@ describe('HeatMap', () => {
     })
 
     it('accepts data for sizes', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         const dataSize = heatmapProps.data
         render(
             <Chart>

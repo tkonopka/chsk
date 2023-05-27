@@ -1,4 +1,5 @@
 import {
+    cloneProps,
     createContinuousScaleProps,
     expandToSquare,
     isScaleWithDomain,
@@ -8,7 +9,6 @@ import {
     X,
     Y,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 
 export const getPieXYScaleProps = (
     scaleSpecX: LinearScaleSpec,
@@ -16,8 +16,8 @@ export const getPieXYScaleProps = (
     size: SizeSpec
 ) => {
     const result = {
-        x: cloneDeep(scaleSpecX) as NumericScaleProps,
-        y: cloneDeep(scaleSpecY) as NumericScaleProps,
+        x: cloneProps(scaleSpecX) as NumericScaleProps,
+        y: cloneProps(scaleSpecY) as NumericScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
         result.x = createContinuousScaleProps(scaleSpecX, [-1, 1]) as NumericScaleProps

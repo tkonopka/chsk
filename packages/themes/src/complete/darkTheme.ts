@@ -1,6 +1,5 @@
-import { cloneDeep } from 'lodash'
 import { interpolateYlOrBr, interpolateBrBG } from 'd3-scale-chromatic'
-import { CompleteThemeSpec } from '@chsk/core'
+import { cloneProps, CompleteThemeSpec } from '@chsk/core'
 import { defaultTheme } from './defaultTheme'
 
 export const darkTheme: CompleteThemeSpec = {
@@ -11,7 +10,7 @@ export const darkTheme: CompleteThemeSpec = {
             strokeWidth: 0,
         },
     },
-    g: cloneDeep(defaultTheme.g),
+    g: cloneProps(defaultTheme.g),
     line: {
         default: {
             stroke: '#bbbbbb',
@@ -152,25 +151,25 @@ export const darkTheme: CompleteThemeSpec = {
     },
     tspan: {},
     // chsk components
-    Axis: cloneDeep(defaultTheme.Axis),
-    AxisLabel: cloneDeep(defaultTheme.AxisLabel),
-    AxisTicks: cloneDeep(defaultTheme.AxisTicks),
-    GridLines: cloneDeep(defaultTheme.GridLines),
-    Legend: cloneDeep(defaultTheme.Legend),
-    LegendItemList: cloneDeep(defaultTheme.LegendItemList),
-    LegendItem: cloneDeep(defaultTheme.LegendItem),
-    LegendTitle: cloneDeep(defaultTheme.LegendTitle),
-    LegendColorScale: cloneDeep(defaultTheme.LegendColorScale),
-    LegendSizeScale: cloneDeep(defaultTheme.LegendSizeScale),
-    MilestoneMotion: cloneDeep(defaultTheme.MilestoneMotion),
-    Surface: cloneDeep(defaultTheme.Surface),
-    Tooltip: cloneDeep(defaultTheme.Tooltip),
-    TooltipItemList: cloneDeep(defaultTheme.TooltipItemList),
-    TooltipItem: cloneDeep(defaultTheme.TooltipItem),
-    TooltipTitle: cloneDeep(defaultTheme.TooltipTitle),
-    AxisTooltip: cloneDeep(defaultTheme.AxisTooltip),
-    View: cloneDeep(defaultTheme.View),
-    ViewClip: cloneDeep(defaultTheme.ViewClip),
+    Axis: cloneProps(defaultTheme.Axis),
+    AxisLabel: cloneProps(defaultTheme.AxisLabel),
+    AxisTicks: cloneProps(defaultTheme.AxisTicks),
+    GridLines: cloneProps(defaultTheme.GridLines),
+    Legend: cloneProps(defaultTheme.Legend),
+    LegendItemList: cloneProps(defaultTheme.LegendItemList),
+    LegendItem: cloneProps(defaultTheme.LegendItem),
+    LegendTitle: cloneProps(defaultTheme.LegendTitle),
+    LegendColorScale: cloneProps(defaultTheme.LegendColorScale),
+    LegendSizeScale: cloneProps(defaultTheme.LegendSizeScale),
+    MilestoneMotion: cloneProps(defaultTheme.MilestoneMotion),
+    Surface: cloneProps(defaultTheme.Surface),
+    Tooltip: cloneProps(defaultTheme.Tooltip),
+    TooltipItemList: cloneProps(defaultTheme.TooltipItemList),
+    TooltipItem: cloneProps(defaultTheme.TooltipItem),
+    TooltipTitle: cloneProps(defaultTheme.TooltipTitle),
+    AxisTooltip: cloneProps(defaultTheme.AxisTooltip),
+    View: cloneProps(defaultTheme.View),
+    ViewClip: cloneProps(defaultTheme.ViewClip),
     // other settings
     Colors: {
         categorical: {
@@ -189,6 +188,6 @@ export const darkTheme: CompleteThemeSpec = {
             domain: 'auto',
         },
     },
-    Motion: cloneDeep(defaultTheme.Motion),
-    Animation: cloneDeep(defaultTheme.Animation),
+    Motion: cloneProps(defaultTheme.Motion),
+    Animation: cloneProps(defaultTheme.Animation),
 }

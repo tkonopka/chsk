@@ -1,5 +1,4 @@
 import { ViolinDataItem, ViolinProcessedDataItem, ViolinProcessedSummary } from './types'
-import { isArray } from 'lodash'
 
 export const isViolinData = (data: Array<unknown>): data is Array<ViolinDataItem> => {
     const result = data.map((item: unknown) => {
@@ -13,7 +12,7 @@ export const isViolinProcessedSummary = (x: unknown): x is ViolinProcessedSummar
     if (typeof x !== 'object' || x === null) return false
     if (!('n' in x)) return false
     const keys = ['values' as keyof typeof x, 'breaks' as keyof typeof x]
-    const result = keys.map(k => isArray(x[k]))
+    const result = keys.map(k => Array.isArray(x[k]))
     return result.every(Boolean)
 }
 

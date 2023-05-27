@@ -1,4 +1,5 @@
 import {
+    cloneProps,
     BandAxisScale,
     BandScaleProps,
     ContinuousScaleProps,
@@ -11,7 +12,6 @@ import {
     Y,
 } from '@chsk/core'
 import { BarProps } from './types'
-import { cloneDeep } from 'lodash'
 import { ScaleWithBandwidthSpec } from '../bands'
 
 export const getScaleProps = (
@@ -25,8 +25,8 @@ export const getScaleProps = (
     stacked = false
 ) => {
     const result = {
-        index: cloneDeep(scaleSpecIndex) as BandScaleProps,
-        value: cloneDeep(scaleSpecValue) as ContinuousScaleProps,
+        index: cloneProps(scaleSpecIndex) as BandScaleProps,
+        value: cloneProps(scaleSpecValue) as ContinuousScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecIndex)) {
         result.index.domain = ids

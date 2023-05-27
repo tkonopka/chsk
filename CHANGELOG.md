@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] function `cloneProps` to create shallow/deep copies of prop objects
 -   [core] wrapper `PersistentTooltipDataComponent` to create tooltips that
     remain visible until clicked
 -   [annotation] support for prop `shiftUnit` in `Strip` and `GridStripes` to
@@ -16,6 +17,8 @@
 
 ### Changed
 
+-   [all] replaced `cloneDeep` from lodash with custom `cloneProps`
+    implementation
 -   [all] changed rollup config to reduce bundle sizes
 -   [all] updated `package.json` in all packages to mark them as
     free of side effects

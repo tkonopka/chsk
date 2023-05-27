@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend, Scales } from '@chsk/core'
+import { cloneProps, Chart, Legend, Scales } from '@chsk/core'
 import {
     Strip,
     StripPreparedDataContextProps,
@@ -27,7 +26,7 @@ const GetStripPreparedData = ({ value }: { value: StripPreparedDataContextProps 
 
 describe('Strip', () => {
     it('defines processed data (no jitter)', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} jitter={'none'}>
@@ -47,7 +46,7 @@ describe('Strip', () => {
     })
 
     it('defines processed data (random jitter)', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} jitter={'random'}>
@@ -64,7 +63,7 @@ describe('Strip', () => {
     })
 
     it('defines processed data (jitter ascending)', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} jitter={'ascending'}>
@@ -91,7 +90,7 @@ describe('Strip', () => {
     })
 
     it('defines processed data (jitter descending)', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} jitter={'descending'}>
@@ -117,7 +116,7 @@ describe('Strip', () => {
     })
 
     it('defines processed data (jitter middle)', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} jitter={'middle'}>
@@ -133,7 +132,7 @@ describe('Strip', () => {
     })
 
     it('defines prepared data', () => {
-        const result = cloneDeep(mockStripPreparedData)
+        const result = cloneProps(mockStripPreparedData)
         render(
             <Chart>
                 <Strip {...stripProps}>
@@ -162,7 +161,7 @@ describe('Strip', () => {
                 x: [2, 4],
             },
         ]
-        const result = cloneDeep(mockStripPreparedData)
+        const result = cloneProps(mockStripPreparedData)
         render(
             <Chart>
                 <Strip {...stripProps} data={specialCases}>
@@ -182,7 +181,7 @@ describe('Strip', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        const result: Scales = cloneDeep(mockScales)
+        const result: Scales = cloneProps(mockScales)
         render(
             <Chart>
                 <Strip
@@ -201,7 +200,7 @@ describe('Strip', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Strip
@@ -221,7 +220,7 @@ describe('Strip', () => {
     })
 
     it('computes scales using available keys and ignores missing data', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         const data = [{ id: 'alpha', x: [10, 11, 12] }, { id: 'beta' }]
         render(
             <Chart>
@@ -240,7 +239,7 @@ describe('Strip', () => {
     })
 
     it('handles missing keys', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Strip {...stripProps} data={dataMissingKeys} keys={['x', 'y']}>
@@ -258,7 +257,7 @@ describe('Strip', () => {
     })
 
     it('accepts logarithmic scale', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         const data: Array<StripDataItem> = [{ id: 'A', x: [10, 11] }]
         render(
             <Chart>

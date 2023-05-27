@@ -1,4 +1,5 @@
 import {
+    cloneProps,
     angleTheta,
     NumericPositionSpec,
     squaredDistance,
@@ -13,7 +14,6 @@ import {
     roundDecimalPlaces,
     LocationProps,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 
 // a pre-computed array with zero displacement
 const zeroDisplacement: NumericPositionSpec = [0, 0]
@@ -179,7 +179,7 @@ export const arrangeBlockObjects = ({
     minDelta?: number // minimum position update
     maxDelta?: number // maximum update in one iteration
 }) => {
-    const result = cloneDeep(items)
+    const result = cloneProps(items)
     const attractors = items.map(item => {
         const result: BlockObject = [...item]
         result[W] = -1

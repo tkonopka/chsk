@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { UpSetDataItem, UpSetProcessedDataItem, UpSetProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
+    cloneProps,
     BaseView,
     useContainer,
     getIndexes,
@@ -15,7 +16,6 @@ import {
     defaultContainerProps,
     useCreateScales,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 
 const processData = (
     data: Array<UpSetDataItem>,
@@ -73,9 +73,9 @@ const getXYScaleProps = (
     scaleSpecMembership: BandScaleSpec,
     size: SizeSpec
 ) => {
-    const scalePropsIndex = cloneDeep(scaleSpecIndex) as BandScaleProps
+    const scalePropsIndex = cloneProps(scaleSpecIndex) as BandScaleProps
     scalePropsIndex.domain = ids
-    const scalePropsMembership = cloneDeep(scaleSpecMembership) as BandScaleProps
+    const scalePropsMembership = cloneProps(scaleSpecMembership) as BandScaleProps
     scalePropsMembership.domain = keys
     const result = {
         x: horizontal ? scalePropsMembership : scalePropsIndex,

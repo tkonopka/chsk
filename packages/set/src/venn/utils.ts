@@ -1,4 +1,5 @@
 import {
+    cloneProps,
     ColorScaleProps,
     createColorScaleProps,
     interval,
@@ -13,7 +14,6 @@ import {
     expandToSquare,
     NumericScaleProps,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 import { VennProcessedDataItem } from './types'
 
 export const getXYScaleProps = (
@@ -24,8 +24,8 @@ export const getXYScaleProps = (
     size: SizeSpec
 ) => {
     const result = {
-        x: cloneDeep(scaleSpecX) as NumericScaleProps,
-        y: cloneDeep(scaleSpecY) as NumericScaleProps,
+        x: cloneProps(scaleSpecX) as NumericScaleProps,
+        y: cloneProps(scaleSpecY) as NumericScaleProps,
     }
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = data

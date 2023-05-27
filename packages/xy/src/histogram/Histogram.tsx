@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
-import { cloneDeep } from 'lodash'
 import { HistogramDataItem, HistogramProcessedDataItem, HistogramProps } from './types'
 import {
+    cloneProps,
     ContinuousAxisScale,
     createContinuousScaleProps,
     useContainer,
@@ -70,8 +70,8 @@ const getHistogramScaleProps = (
     disabled: boolean[]
 ) => {
     const result = {
-        x: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        y: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+        x: cloneProps(scaleSpecX) as ContinuousScaleProps,
+        y: cloneProps(scaleSpecY) as ContinuousScaleProps,
     }
     const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
-import { cloneDeep } from 'lodash'
 import {
+    cloneProps,
     ColorScaleProps,
     ColorScaleSpec,
     ContinuousScaleProps,
@@ -34,8 +34,8 @@ export const getXYScaleProps = (
     disabled: boolean[]
 ) => {
     const result = {
-        x: cloneDeep(scaleSpecX) as ContinuousScaleProps,
-        y: cloneDeep(scaleSpecY) as ContinuousScaleProps,
+        x: cloneProps(scaleSpecX) as ContinuousScaleProps,
+        y: cloneProps(scaleSpecY) as ContinuousScaleProps,
     }
     const filterDisabled = (v: unknown, i: number) => !disabled[i]
     if (!isScaleWithDomain(scaleSpecX)) {

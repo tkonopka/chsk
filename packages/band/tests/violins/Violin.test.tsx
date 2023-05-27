@@ -1,6 +1,5 @@
 import { render } from '@testing-library/react'
-import { cloneDeep, sum } from 'lodash'
-import { Chart } from '@chsk/core'
+import { cloneProps, Chart } from '@chsk/core'
 import {
     Violin,
     ViolinPreparedDataContextProps,
@@ -11,9 +10,13 @@ import {
 import { mockProcessedData, mockScales, violinProps } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
 
+const sum = (values: undefined | number[]) => {
+    return values === undefined ? undefined : values.reduce((acc, v) => acc + v, 0)
+}
+
 describe('Violin', () => {
     it('defines processed data ', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Violin {...violinProps}>
@@ -99,7 +102,7 @@ describe('Violin', () => {
                 },
             },
         ]
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Violin data={preprocessed} keys={['a']}>
@@ -123,7 +126,7 @@ describe('Violin', () => {
                 c: [1, 2, 3, 4, 5, 6],
             },
         ]
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Violin data={data} keys={['a', 'b', 'c']}>
@@ -145,7 +148,7 @@ describe('Violin', () => {
     })
 
     it('accepts logarithmic scale', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         const data = [{ id: 'A', x: [10, 11] }]
         render(
             <Chart>

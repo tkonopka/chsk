@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend } from '@chsk/core'
+import { cloneProps, Chart, Legend } from '@chsk/core'
 import {
     Schedule,
     SchedulePreparedDataContextProps,
@@ -12,7 +11,7 @@ import { GetProcessedData, GetScales } from '../contexts'
 
 describe('Schedule', () => {
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Schedule {...scheduleProps}>
@@ -46,7 +45,7 @@ describe('Schedule', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Schedule
@@ -65,7 +64,7 @@ describe('Schedule', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Schedule
@@ -84,7 +83,7 @@ describe('Schedule', () => {
     })
 
     it('omits unnecessary intervals', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Schedule {...scheduleProps} keys={['a']}>

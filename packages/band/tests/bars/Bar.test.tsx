@@ -1,6 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend, NumericPositionSpec, X, Y } from '@chsk/core'
+import { cloneProps, Chart, Legend, NumericPositionSpec, X, Y } from '@chsk/core'
 import {
     Bar,
     BarDataItem,
@@ -23,7 +22,7 @@ describe('Bar', () => {
     })
 
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Bar {...barProps}>
@@ -202,7 +201,7 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (vertical)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Bar
@@ -222,7 +221,7 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales (horizontal)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Bar
@@ -248,7 +247,7 @@ describe('Bar', () => {
             { id: '2', value: 50 },
             { id: '5', value: 100 },
         ]
-        const processed = cloneDeep(mockProcessedData)
+        const processed = cloneProps(mockProcessedData)
         let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
         const GetPreparedData = () => {
             prepared = useBarPreparedData()
@@ -302,7 +301,7 @@ describe('Bar', () => {
     ]
 
     it('auto-detects scales with negative numbers (horizontal)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Bar
@@ -321,7 +320,7 @@ describe('Bar', () => {
     })
 
     it('auto-detects scales with negative numbers (vertical)', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Bar

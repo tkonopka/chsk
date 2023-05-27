@@ -1,5 +1,6 @@
 import { createElement, useMemo } from 'react'
 import {
+    cloneProps,
     addColor,
     getIdKeySets,
     BandAxisScale,
@@ -13,7 +14,6 @@ import {
 } from '@chsk/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
-import { cloneDeep } from 'lodash'
 import { HeatMapRectangle } from './HeatMapRectangle'
 import { createCellFilter } from './helpers'
 
@@ -91,7 +91,7 @@ export const HeatMapCells = ({
 
     if (elements.length === 0 && !children) return null
 
-    const customScalesContextValue = cloneDeep(scalesContextValue)
+    const customScalesContextValue = cloneProps(scalesContextValue)
     customScalesContextValue.scales.color = colorScale
 
     return (

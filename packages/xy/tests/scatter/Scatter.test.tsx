@@ -1,13 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { cloneDeep } from 'lodash'
-import { Chart, Legend } from '@chsk/core'
+import { cloneProps, Chart, Legend } from '@chsk/core'
 import { Scatter, useScatterPreparedData, ScatterDataContextProps } from '../../src'
 import { scatterProps } from './scatter.props'
 import { GetProcessedData, GetScales, mockProcessedData, mockScales } from '../contexts'
 
 describe('Scatter', () => {
     it('defines scales', () => {
-        const result = cloneDeep(mockScales)
+        const result = cloneProps(mockScales)
         render(
             <Chart>
                 <Scatter {...scatterProps}>
@@ -22,7 +21,7 @@ describe('Scatter', () => {
     })
 
     it('defines processed data', () => {
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Scatter {...scatterProps}>
@@ -70,7 +69,7 @@ describe('Scatter', () => {
         const p2 = { x: 2, y: 4, k: 4 }
         const p3 = { x: 4, y: 8, k: 3 }
         const data = [{ id: 'A', data: [p1, p2, p3] }]
-        const result = cloneDeep(mockProcessedData)
+        const result = cloneProps(mockProcessedData)
         render(
             <Chart>
                 <Scatter {...scatterProps} data={data} k={'k'}>

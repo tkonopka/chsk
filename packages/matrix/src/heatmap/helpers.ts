@@ -1,4 +1,5 @@
 import {
+    cloneProps,
     BandScaleProps,
     BandScaleSpec,
     ColorScaleProps,
@@ -13,7 +14,6 @@ import {
     X,
     Y,
 } from '@chsk/core'
-import { cloneDeep } from 'lodash'
 import { HeatMapProcessedDataItem } from './types'
 
 export const getXYScaleProps = (
@@ -24,8 +24,8 @@ export const getXYScaleProps = (
     size: SizeSpec
 ) => {
     const result = {
-        x: cloneDeep(scaleSpecX) as BandScaleProps,
-        y: cloneDeep(scaleSpecY) as BandScaleProps,
+        x: cloneProps(scaleSpecX) as BandScaleProps,
+        y: cloneProps(scaleSpecY) as BandScaleProps,
     }
     result.x.domain = keys
     result.x.size = size[X]
