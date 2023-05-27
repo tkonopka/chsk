@@ -46,7 +46,16 @@ const D3_WARNING = /Circular dependency.*d3-interpolate/
 
 const commonConfig = {
     input,
-    external: ['react', 'react-dom', 'react/jsx-runtime', 'framer-motion'],
+    external: [
+        'react',
+        'react-dom',
+        'react/jsx-runtime',
+        'framer-motion',
+        'd3-scale',
+        'd3-shape',
+        'd3-scale-chromatic',
+        'lodash',
+    ],
     plugins: commonPlugins,
     onwarn: function (message) {
         if (D3_WARNING.test(message)) {
