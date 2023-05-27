@@ -64,3 +64,38 @@ export const addPositions = (
 
 /** construct a url string for css, e.g. clipPath */
 export const url = (id: string | undefined) => (id ? 'url(#' + id + ')' : undefined)
+
+// shorthand function used in cloneProps
+const isArray = Array.isArray
+
+/** create a copy of an input props object
+ *
+ * This is a partial replacement for lodash clone and cloneDeep,
+ * which clones primitives, objects, and arrays, but does not handle
+ * types that are not relevant to chsk.
+ */
+export const cloneProps = <T>(x: T, deep = true): T => {
+    if (x === undefined || x === null) return x
+    if (isArray(x)) {
+        if (deep) {
+            return x.map(v => cloneProps(v, deep)) as T
+        } else {
+            return [...x] as T
+        }
+    }
+    if (typeof x === 'object') {
+        if (x instanceof Date) {
+            return deep ? (new Date(x) as T) : x
+        }
+        if (deep) {
+            const result: Record<string, unknown> = {}
+            for (const [k, v] of Object.entries(x)) {
+                result[k] = cloneProps(v, deep)
+            }
+            return result as T
+        } else {
+            return { ...x }
+        }
+    }
+    return x as T
+}

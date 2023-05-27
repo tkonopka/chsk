@@ -1,11 +1,10 @@
 import { AxisScale, AxisScaleProps, NumericScaleProps } from './types'
-import { cloneDeep } from 'lodash'
-import { interval } from '../general'
+import { cloneProps, interval } from '../general'
 import { createContinuousScale } from './axes'
 
 /** create scale props with a size key */
 export const fillSize = (props: Omit<AxisScaleProps, 'size'>, size: number) => {
-    const result = cloneDeep(props) as AxisScaleProps
+    const result = cloneProps(props) as AxisScaleProps
     result.size = size
     return result
 }
@@ -17,7 +16,7 @@ export const zoomDomain = (
     zoomFactor: number,
     center?: number
 ) => {
-    const result = cloneDeep(props)
+    const result = cloneProps(props)
     const range = scale.range()
     const rangeSize = range[1] - range[0]
     const margin = (rangeSize * 0.5) / zoomFactor
@@ -28,7 +27,7 @@ export const zoomDomain = (
 
 /** create scale props with a shifted domain */
 export const shiftDomain = (props: AxisScaleProps, scale: AxisScale, shift: number) => {
-    const result = cloneDeep(props)
+    const result = cloneProps(props)
     const range = scale.range()
     result.viewDomain = [scale.invert(range[0] - shift), scale.invert(range[1] - shift)]
     return result
@@ -36,7 +35,7 @@ export const shiftDomain = (props: AxisScaleProps, scale: AxisScale, shift: numb
 
 /** create scale props with a changed domain (target are coordinates to be converted into a new domain) */
 export const changeDomain = (props: AxisScaleProps, scale: AxisScale, target: [number, number]) => {
-    const result = cloneDeep(props)
+    const result = cloneProps(props)
     result.viewDomain = interval([scale.invert(target[0]), scale.invert(target[1])])
     return result
 }

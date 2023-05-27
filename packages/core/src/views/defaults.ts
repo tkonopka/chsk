@@ -1,4 +1,4 @@
-import { ContainerThemedProps } from '../general'
+import { cloneProps, ContainerThemedProps } from '../general'
 import { SurfaceThemedProps, ViewThemedProps } from './types'
 import {
     createColorScaleProps,
@@ -8,7 +8,6 @@ import {
     defaultSizeScaleSpec,
     SizeScaleProps,
 } from '../scales'
-import { cloneDeep } from 'lodash'
 
 export const defaultContainerProps: ContainerThemedProps = {
     position: [0, 0],
@@ -21,7 +20,7 @@ export const defaultContainerProps: ContainerThemedProps = {
 }
 
 export const defaultViewProps: ViewThemedProps = {
-    container: cloneDeep(defaultContainerProps),
+    container: cloneProps(defaultContainerProps),
     scaleX: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleY: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
     scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, []),

@@ -4,9 +4,8 @@ import { useContainer } from './hooks'
 import { BaseView } from './BaseView'
 import { useThemedProps } from '../themes'
 import { defaultContainerProps, defaultViewProps } from './defaults'
-import { cloneDeep } from 'lodash'
 import { fillSize, useCreateScales } from '../scales'
-import { X, Y } from '../general'
+import { cloneProps, X, Y } from '../general'
 
 const UnthemedView = ({
     variant = 'default',
@@ -30,7 +29,7 @@ const UnthemedView = ({
 
     if (scaleColor.variant === 'categorical' && !isArray) {
         if (scaleColor.domain.length === 0) {
-            scaleColor = cloneDeep(scaleColor)
+            scaleColor = cloneProps(scaleColor)
             scaleColor.domain = data.keys
         }
     }

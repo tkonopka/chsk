@@ -1,8 +1,8 @@
 import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { DataComponentProps, InteractivityProps } from './types'
-import { CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
+import { cloneProps, CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
 import { useTooltip } from '../tooltips'
-import { clone, merge } from 'lodash'
+import { merge } from 'lodash'
 import { getEventXY } from './utils'
 
 export const TooltipDataComponent = <
@@ -35,7 +35,7 @@ export const TooltipDataComponent = <
             handleTooltip(event)
             handlers?.onMouseEnter?.(data, event)
             if (modifiers?.onMouseEnter) {
-                setComponentStyle(merge(clone(style), modifiers.onMouseEnter))
+                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseEnter))
             }
         },
         [data, handleTooltip, handlers, modifiers, style, setComponentStyle]
@@ -45,7 +45,7 @@ export const TooltipDataComponent = <
             handleTooltip(event)
             handlers?.onMouseMove?.(data, event)
             if (modifiers?.onMouseMove) {
-                setComponentStyle(merge(clone(style), modifiers.onMouseMove))
+                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseMove))
             }
         },
         [data, handleTooltip, handlers, modifiers, style, setComponentStyle]
@@ -55,7 +55,7 @@ export const TooltipDataComponent = <
             setTooltipData({})
             handlers?.onMouseLeave?.(data, event)
             if (modifiers?.onMouseLeave) {
-                setComponentStyle(merge(clone(style), modifiers.onMouseLeave))
+                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseLeave))
                 // setKey forces the component to repaint
                 // (without setKey, React can skip painting and the modifiers may not appear)
                 setKey(key => key + 1)
@@ -67,7 +67,7 @@ export const TooltipDataComponent = <
         (event: MouseEvent) => {
             handlers?.onClick?.(data, event)
             if (modifiers?.onClick) {
-                setComponentStyle(merge(clone(style), modifiers.onClick))
+                setComponentStyle(merge(cloneProps(style, false), modifiers.onClick))
             }
         },
         [data, handlers, modifiers, style, setComponentStyle]

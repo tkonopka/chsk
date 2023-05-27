@@ -1,5 +1,5 @@
-import { cloneDeep, merge } from 'lodash'
-import { CssProps } from '../general'
+import { merge } from 'lodash'
+import { CssProps, cloneProps } from '../general'
 import { CompleteThemeSpec, SvgBaseComponent, svgBaseComponents, ThemeSpec } from './types'
 import { camelCase, componentStyles } from './helpers'
 
@@ -16,7 +16,7 @@ export const getClassName = (
 
 export const addColor = (style: CssProps | undefined, color: string | undefined) => {
     if (!style) return { fill: color, stroke: color }
-    const result = cloneDeep(style)
+    const result = cloneProps(style)
     if (!result.fill) {
         result.fill = color
     }
@@ -28,17 +28,17 @@ export const addColor = (style: CssProps | undefined, color: string | undefined)
 
 export const addOpacity = (style: CssProps | undefined, opacity: number) => {
     if (!style) return { opacity }
-    const result = cloneDeep(style)
+    const result = cloneProps(style)
     result.opacity = opacity
     return result
 }
 
 export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
-    return merge(cloneDeep(baseTheme), customTheme ?? {})
+    return merge(cloneProps(baseTheme), customTheme ?? {})
 }
 
 export const mergeThemes = (themes: ThemeSpec[]) => {
-    let result = cloneDeep(themes[0])
+    let result = cloneProps(themes[0])
     themes.forEach((theme: ThemeSpec, i: number) => {
         if (i === 0) return
         result = merge(result, theme)

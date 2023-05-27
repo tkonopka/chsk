@@ -1,5 +1,5 @@
+import { cloneProps } from '../general/utils'
 import { SizeScaleProps, SizeScaleSpec } from './types'
-import { cloneDeep } from 'lodash'
 
 // fill missing domain information in a scale spec to create a scale props
 export const createSizeScaleProps = (
@@ -7,7 +7,7 @@ export const createSizeScaleProps = (
     max: number,
     size: number
 ): SizeScaleProps => {
-    const result = cloneDeep(scaleSpec)
+    const result = cloneProps(scaleSpec)
 
     if (result.domain === 'auto' || result.domain === undefined) {
         result.domain = [0, max]

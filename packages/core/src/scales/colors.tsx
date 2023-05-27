@@ -1,4 +1,4 @@
-import { cloneDeep } from 'lodash'
+import { cloneProps } from '../general'
 import {
     Scale,
     ColorScale,
@@ -56,7 +56,7 @@ export const createColorScaleProps = (
     scaleSpec: ColorScaleSpec,
     domain: [number, number] | [number, number, number] | string[]
 ): ColorScaleProps => {
-    const result = cloneDeep(scaleSpec)
+    const result = cloneProps(scaleSpec)
 
     // helper to pick numbers among several choices
     const getTwoNumbers = (

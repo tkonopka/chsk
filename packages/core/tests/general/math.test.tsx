@@ -273,6 +273,20 @@ describe('sortedIndex', () => {
     it('returns 0 for empty array', () => {
         expect(sortedIndex([], 5)).toEqual(0)
     })
+
+    it('searches in one-item array', () => {
+        expect(sortedIndex([10], 5)).toEqual(0)
+        expect(sortedIndex([10], 15)).toEqual(1)
+        expect(sortedIndex([10], 10)).toEqual(0)
+    })
+
+    it('searches in array with unique items', () => {
+        const array = [10, 20, 30]
+        expect(sortedIndex(array, 5)).toEqual(0)
+        expect(sortedIndex(array, 15)).toEqual(1)
+        expect(sortedIndex(array, 25)).toEqual(2)
+        expect(sortedIndex(array, 50)).toEqual(3)
+    })
 })
 
 describe('binValues', () => {

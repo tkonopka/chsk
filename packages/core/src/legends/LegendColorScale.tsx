@@ -1,5 +1,4 @@
-import { cloneDeep } from 'lodash'
-import { getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
+import { cloneProps, getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { getScaleTicks } from '../axes'
@@ -42,7 +41,7 @@ const UnthemedLegendColorScale = ({
 
     // details for gradient rectangle
     const gradId = 'legend-grad-' + (gradientId ?? className ?? variant)
-    const gradientStyle = style ? cloneDeep(style) : {}
+    const gradientStyle = style ? cloneProps(style, false) : {}
     gradientStyle.fill = 'url(#' + gradId + ')'
 
     return (

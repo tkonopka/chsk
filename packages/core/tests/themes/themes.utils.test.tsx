@@ -149,9 +149,11 @@ describe('getClassName', () => {
 
 describe('addColor', () => {
     it('adds to an existing style', () => {
-        const result = addColor({ strokeWidth: 1 }, 'blue')
+        const style = { strokeWidth: 1 }
+        const result = addColor(style, 'blue')
         expect(result.fill).toEqual('blue')
         expect(result.stroke).toEqual('blue')
+        expect(JSON.stringify(style)).not.toContain('fill')
     })
 
     it('adds to an empty style', () => {
@@ -174,8 +176,10 @@ describe('addColor', () => {
 
 describe('addOpacity', () => {
     it('add to an existing style', () => {
-        const result = addOpacity({ stroke: 'red' }, 0.75)
+        const style = { stroke: 'red' }
+        const result = addOpacity(style, 0.75)
         expect(result.opacity).toEqual(0.75)
+        expect(JSON.stringify(style)).not.toContain('opacity')
     })
 
     it('add to an empty style', () => {

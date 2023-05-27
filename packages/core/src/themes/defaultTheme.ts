@@ -1,3 +1,4 @@
+import { cloneProps } from '../general/utils'
 import {
     defaultLegendColorScaleProps,
     defaultLegendItemListProps,
@@ -21,7 +22,6 @@ import {
     defaultGridLinesProps,
 } from '../axes/defaults'
 import { CompleteThemeSpec } from './types'
-import { cloneDeep } from 'lodash'
 import { interpolateBlues, interpolateRdBu } from 'd3-scale-chromatic'
 
 export const defaultTheme: CompleteThemeSpec = {
@@ -189,39 +189,39 @@ export const defaultTheme: CompleteThemeSpec = {
     tspan: {},
     // chsk components
     Axis: {
-        default: cloneDeep(defaultAxisProps),
+        default: cloneProps(defaultAxisProps),
     },
     AxisLabel: {
-        top: cloneDeep(defaultAxisLabelTopProps),
-        right: cloneDeep(defaultAxisLabelRightProps),
-        bottom: cloneDeep(defaultAxisLabelBottomProps),
-        left: cloneDeep(defaultAxisLabelLeftProps),
+        top: cloneProps(defaultAxisLabelTopProps),
+        right: cloneProps(defaultAxisLabelRightProps),
+        bottom: cloneProps(defaultAxisLabelBottomProps),
+        left: cloneProps(defaultAxisLabelLeftProps),
     },
     AxisTicks: {
-        default: cloneDeep(defaultAxisTicksProps),
+        default: cloneProps(defaultAxisTicksProps),
     },
     GridLines: {
-        default: cloneDeep(defaultGridLinesProps),
+        default: cloneProps(defaultGridLinesProps),
     },
     Legend: {
-        list: cloneDeep(defaultLegendProps),
-        color: cloneDeep(defaultLegendProps),
-        size: cloneDeep(defaultLegendProps),
+        list: cloneProps(defaultLegendProps),
+        color: cloneProps(defaultLegendProps),
+        size: cloneProps(defaultLegendProps),
     },
     LegendItemList: {
-        default: cloneDeep(defaultLegendItemListProps),
+        default: cloneProps(defaultLegendItemListProps),
     },
     LegendItem: {
-        default: cloneDeep(defaultLegendItemProps),
+        default: cloneProps(defaultLegendItemProps),
     },
     LegendTitle: {
-        default: cloneDeep(defaultLegendItemProps),
+        default: cloneProps(defaultLegendItemProps),
     },
     LegendColorScale: {
-        default: cloneDeep(defaultLegendColorScaleProps),
+        default: cloneProps(defaultLegendColorScaleProps),
     },
     LegendSizeScale: {
-        default: cloneDeep(defaultLegendSizeScaleProps),
+        default: cloneProps(defaultLegendSizeScaleProps),
     },
     MilestoneMotion: {
         default: {
@@ -232,47 +232,47 @@ export const defaultTheme: CompleteThemeSpec = {
         },
     },
     Surface: {
-        default: cloneDeep(defaultSurfaceProps),
+        default: cloneProps(defaultSurfaceProps),
     },
     Tooltip: {
-        default: cloneDeep(defaultTooltipProps),
+        default: cloneProps(defaultTooltipProps),
     },
     TooltipItemList: {
-        default: cloneDeep(defaultTooltipItemListProps),
+        default: cloneProps(defaultTooltipItemListProps),
     },
     TooltipItem: {
-        default: cloneDeep(defaultTooltipItemProps),
+        default: cloneProps(defaultTooltipItemProps),
     },
     TooltipTitle: {
-        default: cloneDeep(defaultTooltipItemProps),
+        default: cloneProps(defaultTooltipItemProps),
     },
     AxisTooltip: {
         top: {
-            ...cloneDeep(defaultTooltipProps),
+            ...cloneProps(defaultTooltipProps),
             offset: [0, 0],
             anchor: [0.5, 1],
         },
         right: {
-            ...cloneDeep(defaultTooltipProps),
+            ...cloneProps(defaultTooltipProps),
             offset: [0, 0],
             anchor: [0, 0.5],
         },
         bottom: {
-            ...cloneDeep(defaultTooltipProps),
+            ...cloneProps(defaultTooltipProps),
             offset: [0, 0],
             anchor: [0.5, 0],
         },
         left: {
-            ...cloneDeep(defaultTooltipProps),
+            ...cloneProps(defaultTooltipProps),
             offset: [0, 0],
             anchor: [1, 0.5],
         },
     },
     View: {
-        default: cloneDeep(defaultViewProps),
+        default: cloneProps(defaultViewProps),
     },
     ViewClip: {
-        default: cloneDeep(defaultSurfaceProps),
+        default: cloneProps(defaultSurfaceProps),
     },
     // other settings
     Colors: {

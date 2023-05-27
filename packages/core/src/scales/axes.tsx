@@ -1,4 +1,5 @@
-import { cloneDeep } from 'lodash'
+import { scaleLinear, scaleLog, scaleSqrt, scaleTime } from 'd3-scale'
+import { cloneProps } from '../general/utils'
 import {
     ContinuousAxisScale,
     BandAxisScale,
@@ -10,7 +11,6 @@ import {
     AxisScaleProps,
     BandScaleProps,
 } from './types'
-import { scaleLinear, scaleLog, scaleSqrt, scaleTime } from 'd3-scale'
 
 /** complete domain information in a scale spec to create a scale props */
 export const createContinuousScaleProps = (
@@ -18,7 +18,7 @@ export const createContinuousScaleProps = (
     domain: [number, number],
     size = 100
 ): ContinuousScaleProps => {
-    const result = cloneDeep(scaleSpec) as ContinuousScaleProps
+    const result = cloneProps(scaleSpec) as ContinuousScaleProps
     if (scaleSpec.domain === undefined || typeof scaleSpec.domain === 'string') {
         result.domain = domain
     } else {
