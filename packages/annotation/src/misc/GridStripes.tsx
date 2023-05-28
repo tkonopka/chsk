@@ -1,5 +1,4 @@
 import { createElement } from 'react'
-import { uniq } from 'lodash'
 import { GridStripesProps } from './types'
 import {
     getTickCoordinates,
@@ -11,6 +10,8 @@ import {
     X,
     Y,
 } from '@chsk/core'
+
+const uniq = (values: number[]) => Array.from(new Set<number>(values))
 
 const UnthemedGridStripes = ({
     variant,
