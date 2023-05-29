@@ -48,6 +48,8 @@ through add-on packages.
     with one categorical axis and one continuous axis, e.g. bar charts
 -   **[@chsk/matrix](https://www.npmjs.com/package/@chsk/matrix)** supports
     charts with two categorical axes, e.g. heat maps
+-   **[@chsk/polar](https://www.npmjs.com/package/@chsk/polar)** supports
+    charts using polar coordinates, e.g. pie charts
 -   **[@chsk/set](https://www.npmjs.com/package/@chsk/set)** generates Venn
     diagrams
 -   **[@chsk/themes](https://www.npmjs.com/package/@chsk/themes)** provides a
