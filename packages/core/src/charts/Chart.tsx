@@ -1,5 +1,5 @@
 import { useEffect, useImperativeHandle, useRef, useState } from 'react'
-import { debounce } from 'lodash'
+import debounce from 'lodash/debounce'
 import { ChartDataContextProps, ChartProps } from './types'
 import { DimensionsProvider, SizeSpec, X, Y } from '../general'
 import { defaultTheme, Style } from '../themes'
