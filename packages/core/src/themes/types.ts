@@ -89,12 +89,12 @@ export interface ThemeSpec {
     MilestoneMotion?: Record<string, Partial<MilestoneMotionThemedProps>>
     Surface?: Record<string, Partial<SurfaceThemedProps>>
     Tooltip?: Record<string, Partial<TooltipThemedProps>>
-    TooltipItemList?: Record<string, TooltipItemListThemedProps>
-    TooltipItem?: Record<string, TooltipItemThemedProps>
-    TooltipTitle?: Record<string, TooltipItemThemedProps>
-    AxisTooltip?: Record<string, TooltipThemedProps>
+    TooltipItemList?: Record<string, Partial<TooltipItemListThemedProps>>
+    TooltipItem?: Record<string, Partial<TooltipItemThemedProps>>
+    TooltipTitle?: Record<string, Partial<TooltipItemThemedProps>>
+    AxisTooltip?: Record<string, Partial<TooltipThemedProps>>
     View?: Record<string, Partial<ViewThemedProps>>
-    ViewClip?: Record<string, ViewClipThemedProps>
+    ViewClip?: Record<string, Partial<ViewClipThemedProps>>
     // non-component settings
     Colors?: Record<string, ColorScaleSpec>
     Motion?: Record<string, TransitionProps>
@@ -125,12 +125,12 @@ export interface CompleteThemeSpec {
     MilestoneMotion: Record<string, Partial<MilestoneMotionThemedProps>>
     Surface: Record<string, Partial<SurfaceThemedProps>>
     Tooltip: Record<string, Partial<TooltipThemedProps>>
-    TooltipItemList: Record<string, TooltipItemListThemedProps>
-    TooltipItem: Record<string, TooltipItemThemedProps>
-    TooltipTitle: Record<string, TooltipItemThemedProps>
-    AxisTooltip: Record<string, TooltipThemedProps>
-    View: Record<string, ViewThemedProps>
-    ViewClip: Record<string, ViewClipThemedProps>
+    TooltipItemList: Record<string, Partial<TooltipItemListThemedProps>>
+    TooltipItem: Record<string, Partial<TooltipItemThemedProps>>
+    TooltipTitle: Record<string, Partial<TooltipItemThemedProps>>
+    AxisTooltip: Record<string, Partial<TooltipThemedProps>>
+    View: Record<string, Partial<ViewThemedProps>>
+    ViewClip: Record<string, Partial<ViewClipThemedProps>>
     // non-components
     Colors: ColorsRecords
     Motion: Record<string, TransitionProps>

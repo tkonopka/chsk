@@ -8,6 +8,13 @@ import { getAxisPosition } from './utils'
 import { useThemedProps } from '../themes'
 import { defaultAxisProps } from './defaults'
 
+//Object.defineProperty(object, key, {
+//    'configurable': true,
+//    'enumerable': true,
+//    'value': value,
+//    'writable': true
+//});
+
 const UnthemedAxis = ({
     variant,
     label,
@@ -29,8 +36,13 @@ const UnthemedAxis = ({
             {children ? (
                 Children.map(children, child => {
                     if (!isValidElement(child)) return child
-                    child.props = { variant, ...child.props }
-                    return child
+                    const newChild = Object.create(child)
+                    Object.defineProperty(newChild, 'props', {
+                        value: Object.create(child.props),
+                        writable: true,
+                    })
+                    newChild.props = { variant, ...child.props }
+                    return newChild
                 })
             ) : (
                 <>

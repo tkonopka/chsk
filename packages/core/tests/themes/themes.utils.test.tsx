@@ -8,7 +8,9 @@ import {
     ThemeSpec,
     mergeThemes,
     getCss,
+    fillProps,
 } from '../../src/themes'
+import { CssProps } from '../../dist/types'
 
 describe('mergeTheme', () => {
     it('creates a copy', () => {
@@ -210,5 +212,29 @@ describe('getCss', () => {
     it('creates empty css', () => {
         const result = getCss(defaultTheme, null, '#custom')
         expect(result).toBeNull()
+    })
+})
+
+describe('fillProps', () => {
+    it('transfers data from secondary object into primary object', () => {
+        const primary: Partial<CssProps> = { strokeWidth: 1 }
+        const result = fillProps(primary, { stroke: '#000000' })
+        expect(result?.strokeWidth).toEqual(1)
+        expect(result?.stroke).toEqual('#000000')
+    })
+
+    it('preserves content in primary object', () => {
+        const result = fillProps({ strokeWidth: 1 }, { strokeWidth: 1 })
+        expect(result?.strokeWidth).toEqual(1)
+    })
+
+    it('allows secondary object to be undefined', () => {
+        const result = fillProps({ strokeWidth: 1 }, undefined)
+        expect(result?.strokeWidth).toEqual(1)
+    })
+
+    it('handles empty inputs', () => {
+        expect(fillProps(undefined, undefined)).toEqual(undefined)
+        expect(fillProps(null, undefined)).toEqual(null)
     })
 })

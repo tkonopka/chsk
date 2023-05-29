@@ -1,8 +1,7 @@
 import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { DataComponentProps, DataInteractivityModifiers, InteractivityProps } from './types'
-import { cloneProps, CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
+import { CssProps, SvgElementVariantProps, useDimensions, WithId } from '../general'
 import { useTooltip } from '../tooltips'
-import { merge } from 'lodash'
 import { getEventXY } from './utils'
 
 export const PersistentTooltipDataComponent = <
@@ -28,12 +27,12 @@ export const PersistentTooltipDataComponent = <
             if (data === tooltipData?.data?.[0]) {
                 setTooltipData({})
                 if (modifiers?.onMouseLeave) {
-                    setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseLeave))
+                    setComponentStyle({ ...style, ...modifiers.onMouseLeave })
                 }
             } else {
                 setTooltipData({ x, y, data: [data] })
                 if (modifiers?.onMouseEnter) {
-                    setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseEnter))
+                    setComponentStyle({ ...style, ...modifiers.onMouseEnter })
                 }
             }
         },
@@ -45,7 +44,7 @@ export const PersistentTooltipDataComponent = <
             handleTooltip(event, style, modifiers)
             handlers?.onClick?.(data, event)
             if (modifiers?.onClick) {
-                setComponentStyle(merge(cloneProps(style, false), modifiers.onClick))
+                setComponentStyle({ ...style, ...modifiers.onClick })
                 setKey(key => key + 1)
             }
         },

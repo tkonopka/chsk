@@ -74,28 +74,56 @@ const isArray = Array.isArray
  * which clones primitives, objects, and arrays, but does not handle
  * types that are not relevant to chsk.
  */
-export const cloneProps = <T>(x: T, deep = true): T => {
+export const cloneProps = <T>(x: T): T => {
     if (x === undefined || x === null) return x
     if (isArray(x)) {
-        if (deep) {
-            return x.map(v => cloneProps(v, deep)) as T
-        } else {
-            return [...x] as T
-        }
+        return x.map(v => cloneProps(v)) as T
     }
     if (typeof x === 'object') {
         if (x instanceof Date) {
-            return deep ? (new Date(x) as T) : x
+            return new Date(x) as T
         }
-        if (deep) {
-            const result: Record<string, unknown> = {}
-            for (const [k, v] of Object.entries(x)) {
-                result[k] = cloneProps(v, deep)
-            }
-            return result as T
-        } else {
-            return { ...x }
+        const result: Record<string, unknown> = {}
+        for (const [k, v] of Object.entries(x)) {
+            result[k] = cloneProps(v)
         }
+        return result as T
     }
     return x as T
+}
+
+/**
+ * combine content of two objects.
+ *
+ * This is similar to lodash merge, but handles fewer object types.
+ * It is appropriate for merging props relevant to chsk.
+ *
+ * @param x primary object, the function will modify this object
+ * @param y secondary object
+ */
+export const mergeProps = <T>(x: T, y: T): T => {
+    if (x === undefined || x === null || y === null) return y
+    if (y === undefined) return x
+    if (typeof x !== typeof y || isArray(x)) return y
+    if (typeof x === 'object') {
+        if (x instanceof Date) return y
+        const result = x as Record<string, unknown>
+        const xObj = x as Record<string, unknown>
+        const yObj = y as Record<string, unknown>
+        const xKeys = Object.keys(x)
+        const yKeys = Object.keys(yObj)
+        // for small objects, indexOf() is faster that constructing sets and using has()
+        for (const k of xKeys.values()) {
+            if (yKeys.indexOf(k) >= 0) {
+                result[k] = mergeProps(xObj[k], yObj[k])
+            }
+        }
+        for (const k of yKeys.values()) {
+            if (xKeys.indexOf(k) < 0) {
+                result[k] = yObj[k]
+            }
+        }
+        return result as T
+    }
+    return y
 }

@@ -17,6 +17,8 @@
 
 ### Changed
 
+-   [all] replaced `merge` from lodash with spread operator (when possible)
+    and with custom `mergeProps` and `fillProps` implementations
 -   [all] replaced `cloneDeep` from lodash with custom `cloneProps`
     implementation
 -   [all] changed rollup config to reduce bundle sizes

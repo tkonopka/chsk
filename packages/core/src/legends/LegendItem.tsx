@@ -1,5 +1,4 @@
 import { createElement } from 'react'
-import { merge } from 'lodash'
 import { getTranslate, X, Y, zeroPosition } from '../general'
 import { Square } from '../shapes'
 import { getClassName, useThemedProps } from '../themes'
@@ -50,7 +49,7 @@ const UnthemedLegendItem = ({
     }
 
     const isDisabled = chartData.disabledKeys ? chartData.disabledKeys.has(item) : false
-    const gStyle = isDisabled ? merge(style, disabledStyle) : style
+    const gStyle = isDisabled ? { ...style, ...disabledStyle } : style
     const symbolClassName = getClassName('legendSymbol', className)
     const itemClassName = getClassName('legendItem', className)
 

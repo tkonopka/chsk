@@ -1,6 +1,5 @@
 import { createElement, FC, ReactNode } from 'react'
-import { merge } from 'lodash'
-import { cloneProps, Circle, getClassName, SymbolProps } from '@chsk/core'
+import { Circle, getClassName, SymbolProps } from '@chsk/core'
 import { createConcentricSymbolProps } from './types'
 
 const createConcentricParts = ({
@@ -32,7 +31,7 @@ const createConcentricParts = ({
         setRole,
     })
     const className2 = getClassName(className ?? 'default', 'secondary')
-    const mergedStyle = merge(cloneProps(style, false), styleModifier)
+    const mergedStyle = { ...style, ...styleModifier }
     const secondary = createElement(symbolSecondary, {
         key: 'secondary',
         cx,

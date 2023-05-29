@@ -1,7 +1,22 @@
-import { merge } from 'lodash'
-import { CssProps, cloneProps } from '../general'
+import { CssProps, cloneProps, mergeProps } from '../general'
 import { CompleteThemeSpec, SvgBaseComponent, svgBaseComponents, ThemeSpec } from './types'
 import { camelCase, componentStyles } from './helpers'
+import {
+    AxisLabelThemedProps,
+    AxisThemedProps,
+    AxisTicksThemedProps,
+    GridLinesThemedProps,
+} from '../axes'
+import {
+    LegendColorScaleThemedProps,
+    LegendItemListThemedProps,
+    LegendItemThemedProps,
+    LegendSizeScaleThemedProps,
+    LegendThemedProps,
+} from '../legends'
+import { MilestoneMotionThemedProps } from '../charts'
+import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views'
+import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
 
 // construct a className string by composing a variant code and a className string
 export const getClassName = (
@@ -34,14 +49,14 @@ export const addOpacity = (style: CssProps | undefined, opacity: number) => {
 }
 
 export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
-    return merge(cloneProps(baseTheme), customTheme ?? {})
+    return mergeProps(cloneProps(baseTheme), customTheme ?? {})
 }
 
 export const mergeThemes = (themes: ThemeSpec[]) => {
     let result = cloneProps(themes[0])
     themes.forEach((theme: ThemeSpec, i: number) => {
         if (i === 0) return
-        result = merge(result, theme)
+        result = mergeProps(result, theme)
     })
     return result
 }
@@ -67,4 +82,47 @@ export const getCss = (
         .flat()
         .filter(Boolean)
         .join('\n')
+}
+
+/**
+ * fill missing properties
+ *
+ * @param x primary object, this will be modified
+ * @param y secondary object, values from this object will be transferred into x
+ */
+export const fillProps = <T>(
+    x: T,
+    y:
+        | undefined
+        | Partial<CssProps>
+        | Partial<AxisThemedProps>
+        | Partial<AxisLabelThemedProps>
+        | Partial<AxisTicksThemedProps>
+        | Partial<GridLinesThemedProps>
+        | Partial<LegendThemedProps>
+        | Partial<LegendItemThemedProps>
+        | Partial<LegendItemListThemedProps>
+        | Partial<LegendColorScaleThemedProps>
+        | Partial<LegendSizeScaleThemedProps>
+        | Partial<SurfaceThemedProps>
+        | Partial<TooltipThemedProps>
+        | Partial<TooltipItemListThemedProps>
+        | Partial<TooltipItemThemedProps>
+        | Partial<TooltipThemedProps>
+        | Partial<MilestoneMotionThemedProps>
+        | Partial<ViewThemedProps>
+        | Partial<ViewClipThemedProps>
+): T => {
+    if (x === undefined || x === null) return x
+    if (typeof x !== 'object' || typeof y !== 'object') return x
+    // both x and y are objects
+    const result = { ...x } as Record<string, unknown>
+    const yObj = y as Record<string, unknown>
+    const xKeys = Object.keys(x)
+    for (const k of Object.keys(yObj).values()) {
+        if (xKeys.indexOf(k) < 0) {
+            result[k] = yObj[k]
+        }
+    }
+    return result as T
 }

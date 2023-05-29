@@ -1,4 +1,4 @@
-import { cloneProps, getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
+import { getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { getScaleTicks } from '../axes'
@@ -41,7 +41,7 @@ const UnthemedLegendColorScale = ({
 
     // details for gradient rectangle
     const gradId = 'legend-grad-' + (gradientId ?? className ?? variant)
-    const gradientStyle = style ? cloneProps(style, false) : {}
+    const gradientStyle = style ? { ...style } : {}
     gradientStyle.fill = 'url(#' + gradId + ')'
 
     return (

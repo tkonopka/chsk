@@ -1,4 +1,3 @@
-import { merge } from 'lodash'
 import {
     area,
     line,
@@ -40,7 +39,7 @@ const closedCurves = {
     CatmullRomClosed: curveCatmullRomClosed,
     LinearClosed: curveLinearClosed,
 }
-const allCurves = merge(closedCurves, openCurves, pointCurves)
+const allCurves = { ...closedCurves, ...openCurves, ...pointCurves }
 
 // creates a line generator that accepts data points in format [x, y]
 export const createLineGenerator = (curve: CurveSpec): CurveFunction => {

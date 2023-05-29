@@ -71,6 +71,18 @@ describe('Axis', () => {
         expect(screen.queryByRole('axis')).toBeNull()
     })
 
+    it('creates axis without ticks', () => {
+        render(
+            <Chart {...chartProps}>
+                <View {...viewProps}>
+                    <Axis variant="right" ticks={[]} label={'label'} />
+                </View>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('tick')).toHaveLength(0)
+        expect(screen.getByRole('axis-label').textContent).toContain('label')
+    })
+
     it('skips label component when label is empty', () => {
         render(
             <Chart {...chartProps}>

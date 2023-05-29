@@ -1,7 +1,6 @@
 import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { DataComponentProps, InteractivityProps } from './types'
-import { cloneProps, CssProps, SvgElementVariantProps, WithId } from '../general'
-import { merge } from 'lodash'
+import { CssProps, SvgElementVariantProps, WithId } from '../general'
 
 export const DataComponent = <
     DataSpec extends WithId,
@@ -21,7 +20,7 @@ export const DataComponent = <
         (event: MouseEvent) => {
             handlers?.onMouseEnter?.(data, event)
             if (modifiers?.onMouseEnter) {
-                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseEnter))
+                setComponentStyle({ ...style, ...modifiers.onMouseEnter })
             }
         },
         [data, handlers, style, modifiers, setComponentStyle]
@@ -30,7 +29,7 @@ export const DataComponent = <
         (event: MouseEvent) => {
             handlers?.onMouseMove?.(data, event)
             if (modifiers?.onMouseMove) {
-                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseMove))
+                setComponentStyle({ ...style, ...modifiers.onMouseMove })
             }
         },
         [data, handlers, style, modifiers, setComponentStyle]
@@ -39,7 +38,7 @@ export const DataComponent = <
         (event: MouseEvent) => {
             handlers?.onMouseLeave?.(data, event)
             if (modifiers?.onMouseLeave) {
-                setComponentStyle(merge(cloneProps(style, false), modifiers.onMouseLeave))
+                setComponentStyle({ ...style, ...modifiers.onMouseLeave })
                 // setKey forces the component to repaint
                 // (without this, React can skip painting and the modifiers may not appear)
                 setKey(key => key + 1)
@@ -51,7 +50,7 @@ export const DataComponent = <
         (event: MouseEvent) => {
             handlers?.onClick?.(data, event)
             if (modifiers?.onClick) {
-                setComponentStyle(merge(cloneProps(style, false), modifiers.onClick))
+                setComponentStyle({ ...style, ...modifiers.onClick })
             }
         },
         [data, handlers, style, modifiers, setComponentStyle]
