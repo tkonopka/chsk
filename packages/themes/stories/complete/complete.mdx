@@ -35,7 +35,6 @@ generate the content of the `<style>` tag in an svg graphic.
 The default theme provides styles for several commonly-used elements such as text in titles, legends, and tooltips.
 Altogether, those definitions add around 3kb to the size of each chart.
 If a particular chart type does not require many of those styles, it may be worthwhile to exclude them.
-Unfortunately, removing styles from the default theme is not straightforward
-(it has to do with how nested objects are merged in lodash/javascript, and with typescript types).
+Unfortunately, removing styles from the default theme is not straightforward.
 Thus, to achieve a smaller footprint for the `<style>` tag, it is necessary to start from a bare theme and then
 add the elements required for a given application.
