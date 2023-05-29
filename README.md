@@ -63,7 +63,7 @@ Available packages are: `@chsk/annotation`, `@chsk/band`, `@chsk/matrix`,
 
 Thanks to all the maintainers and contributors of the packages listed in `packages.json`.
 
-Key dependencies include [react](https://github.com/facebook/react) for managing state, [lodash](https://github.com/lodash/lodash) for general data processing, [d3](https://github.com/d3) for data processing related to visualization, and [framer-motion](https://github.com/framer/motion) for managing animations.
+Key dependencies include [react](https://github.com/facebook/react) for managing state, [d3](https://github.com/d3) for data processing related to visualization, and [framer-motion](https://github.com/framer/motion) for managing animations.
 
 Special thanks also to charting libraries [recharts](https://github.com/recharts/recharts) and [nivo](https://github.com/plouc/nivo), which are important influences.
 

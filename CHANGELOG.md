@@ -4,6 +4,9 @@
 
 ### Highlights
 
+-   reduced several (but not all) lodash utility functions by implementations
+    customized for use-cases relevant to the library
+
 ### Added
 
 -   [core] function `cloneProps` to create shallow/deep copies of prop objects
