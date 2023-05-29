@@ -1,12 +1,11 @@
-import { merge } from 'lodash'
 import { ReactElement, ReactNode } from 'react'
-import { cloneProps } from '@chsk/core'
+import { cloneProps, mergeProps } from '@chsk/core'
 
 export const getLetterProfile = (
     profile: Record<string, number>,
     adjustment?: Record<string, number>
 ) => {
-    return merge(cloneProps(profile), adjustment)
+    return mergeProps(cloneProps(profile), adjustment ?? {})
 }
 
 export const getTextContent = (node?: ReactNode): string => {
