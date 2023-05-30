@@ -1,4 +1,5 @@
 import {
+    isArray,
     Chart,
     Axis,
     MilestoneMotion,
@@ -67,8 +68,9 @@ const customTheme: ThemeSpec = {
 
 export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-    const outlierX = interval(rawData[1].data.map(point => Number(point.x)))
-    const outlierY = interval(rawData[1].data.map(point => Number(point.y)))
+    const d1 = rawData[1].data
+    const outlierX = isArray(d1) ? interval(d1.map(point => Number(point.x))) : [0, 0]
+    const outlierY = isArray(d1) ? interval(d1.map(point => Number(point.y))) : [0, 0]
     return (
         <Chart
             data={chartData}

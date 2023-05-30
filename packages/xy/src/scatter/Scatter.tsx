@@ -1,13 +1,8 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
+import { ScatterPreparedDataItem, ScatterProcessedDataItem, ScatterProps } from './types'
 import {
-    ScatterDataItem,
-    ScatterPreparedDataItem,
-    ScatterProcessedDataItem,
-    ScatterProps,
-} from './types'
-import {
-    AccessorFunction,
+    isNumber,
     ContinuousAxisScale,
     getAccessor,
     useContainer,
@@ -28,42 +23,55 @@ import {
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
 
-const getAccessors = ({
+// turn raw data into a minimal format with arrays
+const processData = ({
+    data,
     x,
     y,
     k,
     valueSize = 5,
     valueColor = null,
-}: Pick<ScatterProps, 'x' | 'y' | 'k' | 'valueColor' | 'valueSize'>) => {
-    const getX = getAccessor(x)
-    const getY = getAccessor(y)
-    const getK = k ? getAccessor(k) : undefined
-    const getSize = getNumberAccessor(valueSize)
-    const getColor = valueColor ? getAccessor(valueColor) : null
-    return { getX, getY, getK, getSize, getColor }
-}
-
-// turn raw data into a minimal format with arrays
-const processData = (
-    data: Array<ScatterDataItem>,
-    accessors: {
-        getX: AccessorFunction<number>
-        getY: AccessorFunction<number>
-        getK?: AccessorFunction<number>
-        getSize: AccessorFunction<number>
-        getColor: null | AccessorFunction<number>
-    }
-): Array<ScatterProcessedDataItem> => {
-    const { getX, getY, getK, getColor, getSize } = accessors
-    return data.map((seriesData, index) => ({
-        id: seriesData.id,
-        index,
-        k: getK ? seriesData.data.map(item => getK(item)) : range(seriesData.data.length),
-        x: seriesData.data.map(item => getX(item)),
-        y: seriesData.data.map(item => getY(item)),
-        size: seriesData.data.map(item => getSize(item)),
-        color: getColor ? seriesData.data.map(item => getColor(item)) : undefined,
-    }))
+}: Pick<
+    ScatterProps,
+    'data' | 'x' | 'y' | 'k' | 'valueColor' | 'valueSize'
+>): Array<ScatterProcessedDataItem> => {
+    return data.map((seriesData, index) => {
+        const d = seriesData.data
+        if (Array.isArray(d)) {
+            const getX = getAccessor(x)
+            const getY = getAccessor(y)
+            const getK = k ? getAccessor(k) : undefined
+            const getSize = getNumberAccessor(valueSize)
+            const getColor = valueColor ? getAccessor(valueColor) : null
+            return {
+                id: seriesData.id,
+                index,
+                k: getK ? d.map(item => getK(item)) : range(d.length),
+                x: d.map(item => getX(item)),
+                y: d.map(item => getY(item)),
+                size: d.map(item => getSize(item)),
+                color: getColor ? d.map(item => getColor(item)) : undefined,
+            }
+        } else {
+            const getX = getAccessor<number[]>(String(x))
+            const n = getX(d).length
+            const getY = getAccessor<number[]>(String(y))
+            const getK = k ? getAccessor<number[]>(String(k)) : undefined
+            const getSize = isNumber(valueSize)
+                ? () => Array(n).fill(valueSize)
+                : getAccessor<number[]>(String(valueSize))
+            const getColor = valueColor ? getAccessor<number[]>(String(valueColor)) : null
+            return {
+                id: seriesData.id,
+                index,
+                k: getK ? getK(d) : range(getX(d).length),
+                x: getX(d),
+                y: getY(d),
+                size: getSize(d),
+                color: getColor ? getColor(d) : undefined,
+            }
+        }
+    })
 }
 
 // turn processed data into view-specific coordinates
@@ -108,11 +116,10 @@ export const Scatter = ({
     const { disabled } = useDisabledKeys(seriesIds)
 
     // process dataset
-    const accessors = useMemo(
-        () => getAccessors({ x, y, k, valueSize, valueColor }),
-        [x, y, k, valueSize, valueColor]
+    const processedData = useMemo(
+        () => processData({ data, x, y, k, valueSize, valueColor }),
+        [data, x, y, k, valueSize, valueColor]
     )
-    const processedData = useMemo(() => processData(data, accessors), [data, accessors])
 
     // set up scales
     const { x: xProps, y: yProps } = useMemo(() => {

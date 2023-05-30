@@ -1,6 +1,7 @@
 import { MouseEvent, useCallback, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
 import {
+    isArray,
     Circle,
     ContinuousAxisScale,
     NumericPositionSpec,
@@ -105,10 +106,11 @@ export const ScatterCrosshair = ({
                     return
                 }
             }
+            const originalSeries = originalData[seriesIndex].data
             const data = {
                 ...symbolData[seriesIndex][index],
                 key: seriesData.id,
-                original: originalData[seriesIndex].data[index],
+                original: isArray(originalSeries) ? originalSeries[index] : {},
             }
             const newActiveData = { ...data, label: tooltipFormat(data) }
             setActiveData(newActiveData)

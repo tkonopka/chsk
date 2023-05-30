@@ -1,7 +1,11 @@
-import { isScatterData, isScatterPreparedData, isScatterProcessedData } from '../../src'
+import {
+    isScatterData,
+    isScatterPreparedData,
+    isScatterProcessedData,
+} from '../../src/scatter/predicates'
 
 describe('isScatterData', () => {
-    it('detects correct data format', () => {
+    it('detects correct data format (arrays)', () => {
         const input = [
             {
                 id: 'a',
@@ -21,6 +25,20 @@ describe('isScatterData', () => {
         expect(isScatterData(input)).toBeTruthy()
     })
 
+    it('detects correct data format (object)', () => {
+        const input = [
+            {
+                id: 'a',
+                data: { x: [1, 2], y: [1, 2] },
+            },
+            {
+                id: 'b',
+                data: { x: [1, 2], y: [1, 2] },
+            },
+        ]
+        expect(isScatterData(input)).toBeTruthy()
+    })
+
     it('rejects objects with missing data', () => {
         const input = [
             {
@@ -32,6 +50,16 @@ describe('isScatterData', () => {
             },
             {
                 id: 'b',
+            },
+        ]
+        expect(isScatterData(input)).toBeFalsy()
+    })
+
+    it('rejects data entries that are not objects or arrays', () => {
+        const input = [
+            {
+                id: 'a',
+                data: 1,
             },
         ]
         expect(isScatterData(input)).toBeFalsy()

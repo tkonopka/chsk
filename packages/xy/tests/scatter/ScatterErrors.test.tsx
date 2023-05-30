@@ -16,6 +16,18 @@ export const dataWithErrors = [
     },
 ]
 
+const dataFrameWithErrors = [
+    {
+        id: 'A',
+        data: {
+            x: [1, 2, 3, 4],
+            y: [1, 2, 3.0, 4.0],
+            lo: [0.5, 1.0, 2.5, 3.5],
+            hi: [1.5, 2.5, 3.5, 4.5],
+        },
+    },
+]
+
 describe('ScatterErrors', () => {
     it('creates horizontal error bars', () => {
         render(
@@ -105,5 +117,17 @@ describe('ScatterErrors', () => {
             </Chart>
         )
         expect(screen.queryByRole('scatter-errors')).toBeNull()
+    })
+
+    it('accepts data in data-frame format', () => {
+        render(
+            <Chart>
+                <Scatter data={dataFrameWithErrors} x={'x'} y={'y'}>
+                    <ScatterErrors variant={'x'} lower={'lo'} upper={'hi'} />
+                </Scatter>
+            </Chart>
+        )
+        const result = screen.getByRole('scatter-errors').querySelectorAll('line')
+        expect(result).toHaveLength(4)
     })
 })

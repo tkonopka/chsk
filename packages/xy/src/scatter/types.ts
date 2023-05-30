@@ -23,9 +23,8 @@ import {
     WithId,
 } from '@chsk/core'
 
-export type ScatterDataItem = WithId & {
-    data: Array<Record<string, unknown>>
-}
+export type ScatterDataItemData = Array<Record<string, unknown>> | Record<string, unknown>
+export type ScatterDataItem = WithId & { data: ScatterDataItemData }
 
 export type ScatterProcessedDataItem = WithId & {
     index: number

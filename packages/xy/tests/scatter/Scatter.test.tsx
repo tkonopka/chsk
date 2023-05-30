@@ -81,4 +81,22 @@ describe('Scatter', () => {
         expect(result.data).toHaveLength(1)
         expect(result.data[0].k).toEqual([5, 4, 3])
     })
+
+    it('accepts data in data-frame format', () => {
+        const data = [
+            { id: 'alpha', data: { x: [1, 2, 3], y: [2, 4, 6] } },
+            { id: 'beta', data: { x: [1, 2, 3], y: [1, 4, 9] } },
+        ]
+        const result = cloneProps(mockProcessedData)
+        render(
+            <Chart>
+                <Scatter data={data} x={'x'} y={'y'} autoRescale={false}>
+                    <GetProcessedData value={result} />
+                </Scatter>
+            </Chart>
+        )
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.data[0].x).toEqual([1, 2, 3])
+    })
 })

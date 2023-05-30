@@ -1,4 +1,5 @@
 import {
+    isArray,
     AccessorFunction,
     addColor,
     ContinuousAxisScale,
@@ -12,7 +13,7 @@ import {
     SimpleDataComponent,
     getClassName,
 } from '@chsk/core'
-import { ScatterErrorsProps, ScatterPreparedDataItem } from './types'
+import { ScatterDataItemData, ScatterErrorsProps, ScatterPreparedDataItem } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { ScatterErrorBar } from './ScatterErrorBar'
@@ -28,16 +29,25 @@ const getErrorPoints = ({
     upper,
 }: {
     variant: 'x' | 'y'
-    rawData: Array<Record<string, unknown>>
+    rawData: ScatterDataItemData
     seriesData: ScatterPreparedDataItem
     scale: ContinuousAxisScale
     lower: string | AccessorFunction<number>
     upper: string | AccessorFunction<number>
 }) => {
-    const getLower = getAccessor<number>(lower)
-    const getUpper = getAccessor<number>(upper)
-    const lowerValues = rawData.map(item => scale(getLower(item)))
-    const upperValues = rawData.map(item => scale(getUpper(item)))
+    let lowerValues: number[]
+    let upperValues: number[]
+    if (isArray(rawData)) {
+        const getLower = getAccessor<number>(lower)
+        const getUpper = getAccessor<number>(upper)
+        lowerValues = rawData.map(item => scale(getLower(item)))
+        upperValues = rawData.map(item => scale(getUpper(item)))
+    } else {
+        const getLower = getAccessor<number[]>(String(lower))
+        const getUpper = getAccessor<number[]>(String(upper))
+        lowerValues = getLower(rawData).map(v => scale(v))
+        upperValues = getUpper(rawData).map(v => scale(v))
+    }
     const otherValues = variant === 'y' ? seriesData.x : seriesData.y
     const transform: (x: NumericPositionSpec) => NumericPositionSpec =
         variant === 'y' ? x => x : x => [x[1], x[0]]

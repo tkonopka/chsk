@@ -11,8 +11,9 @@ import {
     ContinuousAxisScale,
     SizeSpec,
     ContainerProps,
+    isArray,
 } from '@chsk/core'
-import { Scatter, ScatterCurve, isScatterData } from '@chsk/xy'
+import { Scatter, ScatterCurve, isScatterData, ScatterDataItemData } from '@chsk/xy'
 import { FlowPath } from '@chsk/annotation'
 import { randomNormalValue, randomUniformValue, round3dp, stepSequence } from '../utils'
 import { MilestoneStory } from '../types'
@@ -114,10 +115,12 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
     if (!isScatterData(rawData)) return null
 
     const bounds: [number, number] = [45, 55]
-    const detailData = rawData.map(item => ({
-        id: item.id,
-        data: item.data.filter(d => Number(d['x']) < bounds[1] && Number(d['x']) > bounds[0]),
-    }))
+    const getDataInBounds = (data: ScatterDataItemData) => {
+        return isArray(data)
+            ? data.filter(d => Number(d['x']) < bounds[1] && Number(d['x']) > bounds[0])
+            : []
+    }
+    const detailData = rawData.map(item => ({ id: item.id, data: getDataInBounds(item.data) }))
     const detailMax =
         1.2 *
         detailData

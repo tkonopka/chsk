@@ -14,6 +14,7 @@ import {
     TooltipProvider,
     ViewClip,
     ViewController,
+    isArray,
 } from '@chsk/core'
 import {
     Scatter,
@@ -120,13 +121,14 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
 
     const chromBoundaries = [0]
     rawData.forEach((series, index) => {
-        const lastPoint = series.data[series.data.length - 1]
+        const d = series.data
+        const lastPoint = isArray(d) ? d[d.length - 1] : { absPos: 0 }
         if (index === rawData.length - 1) {
             chromBoundaries.push(Number(lastPoint.absPos))
         } else {
-            chromBoundaries.push(
-                (Number(lastPoint.absPos) + Number(rawData[index + 1].data[0].absPos)) / 2
-            )
+            const nextSeries = rawData[index + 1].data
+            const nextPos = isArray(nextSeries) ? Number(nextSeries[0].absPos) : 0
+            chromBoundaries.push((Number(lastPoint.absPos) + nextPos) / 2)
         }
     })
     const chromNames = rawData.map(series => series.id)
@@ -138,7 +140,8 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     }
     let nPoints = 0
     rawData.forEach(series => {
-        nPoints += series.data.length
+        const d = series.data
+        nPoints += isArray(d) ? d.length : 0
     })
 
     return (

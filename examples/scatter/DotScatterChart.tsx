@@ -12,6 +12,7 @@ import {
     useDimensions,
     CssProps,
     useScales,
+    isArray,
 } from '@chsk/core'
 import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { Scatter, ScatterPoints, ScatterCrosshair, ScatterDataItem, isScatterData } from '@chsk/xy'
@@ -29,6 +30,7 @@ export const generateDotScatterData = () => {
     ids.forEach((id, index) => {
         const value1 = randomUniformValue(10, 90)
         const value2 = value1 + randomUniformValue(-20, 20)
+        if (!isArray(result[0].data) || !isArray(result[1].data)) return
         result[0].data.push({ id, index: index + 1, value: round2dp(value1) })
         result[1].data.push({
             id,
