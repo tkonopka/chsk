@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BandAxisScale,
     getAccessor,
     useContainer,
@@ -30,17 +29,21 @@ import { getScaleProps, getInternalWidthAndGap } from '../bars/utils'
 // turn raw data into interval objects with start and end boundaries
 const processData = (
     data: Array<ScheduleDataItem>,
-    accessors: [AccessorFunction<unknown>, AccessorFunction<unknown>],
-    keyAccessor: AccessorFunction<unknown>,
+    intervalStart: string,
+    intervalEnd: string,
+    intervalKey: string,
     keys: string[]
 ): Array<ScheduleProcessedDataItem> => {
+    const startAccessor = getAccessor(intervalStart)
+    const endAccessor = getAccessor(intervalEnd)
+    const keyAccessor = getAccessor(intervalKey)
     return data.map((seriesData, index) => {
         const summaries = seriesData.data
             .map((itemData: Record<string, unknown>) => {
                 const key = String(keyAccessor(itemData))
                 return {
-                    start: Number(accessors[0](itemData)),
-                    end: Number(accessors[1](itemData)),
+                    start: Number(startAccessor(itemData)),
+                    end: Number(endAccessor(itemData)),
                     key,
                 }
             })
@@ -110,15 +113,9 @@ export const Schedule = ({
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
-    // collect raw data into an array-based format format
-    const accessors: [AccessorFunction<unknown>, AccessorFunction<unknown>] = useMemo(
-        () => [getAccessor(intervalStart), getAccessor(intervalEnd)],
-        [intervalStart, intervalEnd, intervalKey]
-    )
-    const keyAccessor = useMemo(() => getAccessor(intervalKey), [intervalKey])
     const processedData = useMemo(
-        () => processData(data, accessors, keyAccessor, keys),
-        [data, accessors, keyAccessor, keys]
+        () => processData(data, intervalStart, intervalEnd, intervalKey, keys),
+        [data, intervalStart, intervalEnd, intervalKey, keys]
     )
 
     const { index: indexProps, value: valueProps } = getScaleProps(

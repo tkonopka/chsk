@@ -2,7 +2,6 @@ import { useMemo } from 'react'
 import { HeatMapDataItem, HeatMapProcessedDataItem, HeatMapProps } from './types'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BaseView,
     getAccessor,
     useContainer,
@@ -15,12 +14,12 @@ import {
 } from '@chsk/core'
 import { getColorScaleProps, getSizeScaleProps, getXYScaleProps } from './helpers'
 
-// turn raw dataGroups into a minimal array-based format
 const processData = (
-    accessors: Array<AccessorFunction<string | number>>,
-    data: Array<HeatMapDataItem>,
-    dataSize?: Array<HeatMapDataItem>
+    keys: string[],
+    data: HeatMapDataItem[],
+    dataSize?: HeatMapDataItem[]
 ): Array<HeatMapProcessedDataItem> => {
+    const accessors = keys.map(k => getAccessor<number | string>(k))
     const sizeIndexes = getIndexes(dataSize)
     return data.map((seriesData, index) => {
         const id = seriesData.id
@@ -58,11 +57,7 @@ export const HeatMap = ({
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor<number | string>(k)), [keys])
-    const processedData = useMemo(
-        () => processData(keyAccessors, data, dataSize),
-        [keyAccessors, data, dataSize]
-    )
+    const processedData = useMemo(() => processData(keys, data, dataSize), [keys, data, dataSize])
 
     const { x: xProps, y: yProps } = getXYScaleProps(seriesIds, keys, scaleX, scaleY, innerSize)
     const colorProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)

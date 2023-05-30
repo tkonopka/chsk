@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BandAxisScale,
     getAccessor,
     LinearAxisScale,
@@ -30,11 +29,12 @@ import { getStripInternalOrder } from './utils'
 
 // turn raw data into a minimal array-based format
 const processData = (
-    data: Array<StripDataItem>,
-    accessors: Array<AccessorFunction<unknown>>,
+    data: StripDataItem[],
+    keys: string[],
     valueSize: number,
     jitter: JitterVariant
 ): Array<StripProcessedDataItem> => {
+    const accessors = keys.map(k => getAccessor(k))
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
@@ -110,11 +110,9 @@ export const Strip = ({
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
-    // collect raw data into an array-based format format
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
     const processedData = useMemo(
-        () => processData(data, keyAccessors, valueSize, jitter),
-        [data, keyAccessors, valueSize, jitter]
+        () => processData(data, keys, valueSize, jitter),
+        [data, keys, valueSize, jitter]
     )
 
     const { index: indexProps, value: valueProps } = getScaleProps(

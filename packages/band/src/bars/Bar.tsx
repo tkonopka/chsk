@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BandAxisScale,
     getAccessor,
     LinearAxisScale,
@@ -22,11 +21,8 @@ import { BarDataItem, BarPreparedDataItem, BarProcessedDataItem, BarProps } from
 import { BarPreparedDataProvider } from './context'
 import { getInternalWidthAndGap, getScaleProps } from './utils'
 
-// turn raw data into a minimal array-based format
-const processData = (
-    data: Array<BarDataItem>,
-    accessors: Array<AccessorFunction<unknown>>
-): Array<BarProcessedDataItem> => {
+const processData = (data: BarDataItem[], keys: string[]): Array<BarProcessedDataItem> => {
+    const accessors = keys.map(k => getAccessor(k))
     return data.map((seriesData, index) => {
         const values = accessors.map(f => Number(f(seriesData)))
         return {
@@ -38,7 +34,6 @@ const processData = (
     })
 }
 
-// turn processed data into view-specific coordinates
 const prepareData = (
     data: Array<BarProcessedDataItem>,
     indexScale: BandAxisScale,
@@ -126,9 +121,7 @@ export const Bar = ({
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
-    // collect raw data into an array-based format format
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
-    const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
+    const processedData = useMemo(() => processData(data, keys), [data, keys])
 
     const stacked = variant === 'stacked'
     const { index: indexProps, value: valueProps } = useMemo(

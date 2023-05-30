@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BandAxisScale,
     getAccessor,
     LinearAxisScale,
@@ -32,10 +31,11 @@ import { isQuantileProcessedSummary } from './predicates'
 
 // turn raw data into objects with computed quantile levels
 const processData = (
-    data: Array<QuantileDataItem>,
-    accessors: Array<AccessorFunction<unknown>>,
+    data: QuantileDataItem[],
+    keys: string[],
     quantiles: FiveNumbers
 ): Array<QuantileProcessedDataItem> => {
+    const accessors = keys.map(k => getAccessor(k))
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
@@ -125,12 +125,8 @@ export const Quantile = ({
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
-    // collect raw data into an array-based format format
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
-    const processedData = useMemo(
-        () => processData(data, keyAccessors, quantiles),
-        [data, keyAccessors, quantiles]
-    )
+    const processedData = useMemo(() => processData(data, keys, quantiles), [data, keys, quantiles])
+
     const { index: indexProps, value: valueProps } = getScaleProps(
         processedData.map(d => d.id),
         processedData.map(d => d.domain),

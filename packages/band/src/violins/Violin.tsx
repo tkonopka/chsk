@@ -1,7 +1,6 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
-    AccessorFunction,
     BandAxisScale,
     getAccessor,
     LinearAxisScale,
@@ -29,10 +28,8 @@ import { ViolinPreparedDataProvider } from './context'
 import { getInternalWidthAndGap, getScaleProps } from '../bars/utils'
 import { isViolinProcessedSummary } from './predicates'
 
-const processData = (
-    data: Array<ViolinDataItem>,
-    accessors: Array<AccessorFunction<unknown>>
-): Array<ViolinProcessedDataItem> => {
+const processData = (data: ViolinDataItem[], keys: string[]): Array<ViolinProcessedDataItem> => {
+    const accessors = keys.map(k => getAccessor(k))
     return data.map((seriesData, index) => {
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
@@ -135,9 +132,7 @@ export const Violin = ({
     const { disabled } = useDisabledKeys(keys)
     const seriesIndexes: Record<string, number> = useMemo(() => getIndexes(data), [data])
 
-    // collect raw data into an array-based format format
-    const keyAccessors = useMemo(() => keys.map(k => getAccessor(k)), [keys])
-    const processedData = useMemo(() => processData(data, keyAccessors), [data, keyAccessors])
+    const processedData = useMemo(() => processData(data, keys), [data, keys])
 
     const { index: indexProps, value: valueProps } = getScaleProps(
         processedData.map(d => d.id),
