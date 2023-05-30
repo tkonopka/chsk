@@ -115,7 +115,6 @@ export const fillProps = <T>(
 ): T => {
     if (x === undefined || x === null) return x
     if (typeof x !== 'object' || typeof y !== 'object') return x
-    // both x and y are objects
     const result = { ...x } as Record<string, unknown>
     const yObj = y as Record<string, unknown>
     const xKeys = Object.keys(x)
