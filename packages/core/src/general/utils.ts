@@ -6,6 +6,7 @@ import {
     PositionUnits,
     PositionUnit,
 } from './types'
+import { isArray } from './predicates'
 import { TOP, BOTTOM, LEFT, RIGHT, X, Y } from './constants'
 
 /** get inner size given a padding vector */
@@ -64,9 +65,6 @@ export const addPositions = (
 
 /** construct a url string for css, e.g. clipPath */
 export const url = (id: string | undefined) => (id ? 'url(#' + id + ')' : undefined)
-
-// shorthand function used in cloneProps
-const isArray = Array.isArray
 
 /** create a copy of an input props object
  *
