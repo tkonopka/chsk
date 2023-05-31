@@ -1,8 +1,8 @@
-import { HeatMapCells, HeatMapRectangle } from '../../src'
+import { HeatMapCells, HeatMapColorRectangle } from '../../src'
 import { ChartHeatMapDecorator } from '../decorators'
 
 export default {
-    title: 'Addons/Matrix/HeatMaps/HeatMapRectangle',
+    title: 'Addons/Matrix/HeatMaps/HeatMapColorRectangle',
     component: HeatMapCells,
 }
 
@@ -13,7 +13,7 @@ export const Example = {
             strokeWidth: 1,
             stroke: '#222222',
         },
-        cell: HeatMapRectangle,
+        cell: HeatMapColorRectangle,
     },
     component: HeatMapCells,
     decorators: [ChartHeatMapDecorator],

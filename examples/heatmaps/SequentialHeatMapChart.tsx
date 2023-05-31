@@ -14,7 +14,7 @@ import {
     defaultSequentialScaleSpec,
     Draggable,
 } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { HeatMap, HeatMapCells, HeatMapColorRectangle, HeatMapHighlight } from '@chsk/matrix'
 import { buttonTheme } from '@chsk/themes'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek } from '../utils'
@@ -72,7 +72,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 }}
             >
                 <ViewClip id={'seq-clip'}>
-                    <HeatMapCells />
+                    <HeatMapCells cell={HeatMapColorRectangle} />
                 </ViewClip>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Samples'} />

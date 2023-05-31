@@ -1,0 +1,21 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import { HeatMapColorCircle } from '../../src/heatmap'
+import * as HeatMapColorCircleStories from './HeatMapColorCircle.stories'
+
+# HeatMapColorCircle
+
+<Meta of={HeatMapColorCircleStories} />
+
+`HeatMapColorCircle` draws a single circle.
+
+<ArgTypes of={HeatMapColorCircle} />
+
+## Example
+
+`HeatMapColorCircle` is closely related to `HeatMapCircle`.
+
+<Canvas of={HeatMapColorCircleStories.Example} />
+
+In contrast to `HeatMapCircle`, `HeatMapColorCircle` provides animation for the color fill.
+Color animations can make heatmap updates appear smoother.
+However, in large visualizations with hundreds of cells, animations may decrease responsiveness.

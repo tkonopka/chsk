@@ -6,7 +6,7 @@ export default {
     component: HeatMapCells,
 }
 
-export const Circles = {
+export const Example = {
     name: 'circles',
     args: {
         style: {

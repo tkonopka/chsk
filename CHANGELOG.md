@@ -9,6 +9,9 @@
 
 ### Added
 
+-   [matrix] components `HeatMapColorCircle` and `HeatMapColorRectangle` to
+    support heatmaps that animate color transitions; the default settings
+    still create maps without animations to prioritize performance
 -   [xy] support for row-based and column-based datasets for `Scatter` views
 -   [core] function `cloneProps` to create shallow/deep copies of prop objects
 -   [core] wrapper `PersistentTooltipDataComponent` to create tooltips that

@@ -10,7 +10,13 @@ import {
     Draggable,
     mergeTheme,
 } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
+import {
+    HeatMap,
+    HeatMapCells,
+    HeatMapColorRectangle,
+    HeatMapHighlight,
+    isHeatMapData,
+} from '@chsk/matrix'
 import { buttonTheme } from '@chsk/themes'
 import { interpolateReds } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixUniform } from './generators'
@@ -100,7 +106,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     domain: [0, 100],
                 }}
             >
-                <HeatMapCells cells={lowerTriangularCells} />
+                <HeatMapCells cells={lowerTriangularCells} cell={HeatMapColorRectangle} />
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <HeatMapCells
                     cells={upperTriangularCells}

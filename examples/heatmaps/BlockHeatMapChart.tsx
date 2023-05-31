@@ -11,7 +11,13 @@ import {
     Surface,
     Tooltip,
 } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight, isHeatMapData } from '@chsk/matrix'
+import {
+    HeatMap,
+    HeatMapCells,
+    HeatMapColorRectangle,
+    HeatMapHighlight,
+    isHeatMapData,
+} from '@chsk/matrix'
 import { generateHeatMapMatrixUniform } from './generators'
 import { alphabetGreek, round3dp } from '../utils'
 import { MilestoneStory } from '../types'
@@ -112,7 +118,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 }}
             >
                 <MilestoneMotion enterOn={'map'}>
-                    <HeatMapCells />
+                    <HeatMapCells cell={HeatMapColorRectangle} />
                 </MilestoneMotion>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Replicate 1'} />

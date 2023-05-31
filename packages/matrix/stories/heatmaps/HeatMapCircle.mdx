@@ -6,10 +6,15 @@ import * as HeatMapCircleStories from './HeatMapCircle.stories'
 
 <Meta of={HeatMapCircleStories} />
 
-`HeatMapCircle` draws a single circle. This component can be used together with `HeatMapCells` to draw a heatmap with custom cells.
+`HeatMapCircle` draws a single circle.
 
 <ArgTypes of={HeatMapCircle} />
 
-`HeatMapCircle` has the same API as `HeatMapRectangle`, but uses its props to display a circle instead of a rectangle.
+## Example
 
-<Canvas of={HeatMapCircleStories.Circles} />
+`HeatMapCircle` is a drop-in replacement for `HeatMapRectangle`.
+It can be used in `HeatMapCells` to draw a heatmap with custom cells.
+
+<Canvas of={HeatMapCircleStories.Example} />
+
+Like `HeatMapRectangle`, `HeatMapCircle` does not provide any animations.

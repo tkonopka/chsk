@@ -16,7 +16,7 @@ import {
 import {
     HeatMap,
     HeatMapCells,
-    HeatMapCircle,
+    HeatMapColorCircle,
     HeatMapDataItem,
     HeatMapHighlight,
     isHeatMapData,
@@ -104,7 +104,7 @@ export const SizeBlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                 }}
             >
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff' }} />
-                <HeatMapCells cell={HeatMapCircle} />
+                <HeatMapCells cell={HeatMapColorCircle} />
                 <Axis variant={'left'} label={'Samples'} />
                 <Axis variant={'top'}>
                     <AxisTicks labelStyle={{ textAnchor: 'start', dominantBaseline: 'middle' }} />

@@ -9,7 +9,7 @@ import {
     Tooltip,
     TooltipProvider,
 } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight } from '@chsk/matrix'
+import { HeatMap, HeatMapCells, HeatMapColorRectangle, HeatMapHighlight } from '@chsk/matrix'
 import { interpolateBrBG } from 'd3-scale-chromatic'
 import { generateHeatMapMatrixNormal } from './generators'
 import { alphabetGreek } from '../utils'
@@ -38,7 +38,10 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
                     domain: [-2.6, 0, 2.6],
                 }}
             >
-                <HeatMapCells style={{ strokeWidth: 0.5, stroke: '#bbbbbb' }} />
+                <HeatMapCells
+                    style={{ strokeWidth: 0.5, stroke: '#888888' }}
+                    cell={HeatMapColorRectangle}
+                />
                 <Axis variant={'left'}>
                     <AxisTicks
                         variant={'left'}
