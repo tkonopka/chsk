@@ -121,23 +121,6 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                         <AxisTicks labelFormat={() => ''} />
                     </Axis>
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'data'}>
-                    <TooltipProvider>
-                        <ScatterPoints symbolClassName={'custom'} />
-                        <ScatterCrosshair
-                            style={{ opacity: 0 }}
-                            symbol={CustomActiveSymbol}
-                            symbolStyle={{ opacity: 1, stroke: '#000000', strokeWidth: 0.5 }}
-                            minDistance={20}
-                        />
-                        <Tooltip
-                            offset={[0, -25]}
-                            padding={[4, 0, 4, 0]}
-                            itemSize={[160, 26]}
-                            itemPadding={[4, 8, 4, 8]}
-                        />
-                    </TooltipProvider>
-                </MilestoneMotion>
                 <MilestoneMotion enterOn={'legend'}>
                     <Draggable>
                         <Legend
@@ -154,6 +137,23 @@ export const ClustersScatterChart = ({ fref, chartData, rawData }: MilestoneStor
                             title={'Populations'}
                         />
                     </Draggable>
+                </MilestoneMotion>
+                <MilestoneMotion enterOn={'data'}>
+                    <TooltipProvider>
+                        <ScatterPoints symbolClassName={'custom'} />
+                        <ScatterCrosshair
+                            style={{ opacity: 0 }}
+                            symbol={CustomActiveSymbol}
+                            symbolStyle={{ opacity: 1, stroke: '#000000', strokeWidth: 0.5 }}
+                            minDistance={20}
+                        />
+                        <Tooltip
+                            offset={[0, -25]}
+                            padding={[4, 0, 4, 0]}
+                            itemSize={[160, 26]}
+                            itemPadding={[4, 8, 4, 8]}
+                        />
+                    </TooltipProvider>
                 </MilestoneMotion>
             </Scatter>
         </Chart>
