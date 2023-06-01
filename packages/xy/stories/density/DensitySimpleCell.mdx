@@ -1,0 +1,18 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as DensitySimpleCellStories from './DensitySimpleCell.stories'
+
+# DensitySimpleCell
+
+<Meta of={DensitySimpleCellStories} />
+
+`DensitySimpleCellCircle` draws a single element on a density chart.
+
+<ArgTypes of={DensitySimpleCellStories} />
+
+## Value
+
+Prop `value` is intended to represent the number of data points that fall within a region on a density map.
+`DensitySimpleCell` draws a circle or a rectangle to summarize a region with a single data point or multiple data points, respectively.
+
+<Canvas of={DensitySimpleCellStories.One} />
+<Canvas of={DensitySimpleCellStories.Two} />

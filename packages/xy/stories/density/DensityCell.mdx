@@ -1,0 +1,25 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as DensityCellStories from './DensityCell.stories'
+
+# DensityCell
+
+<Meta of={DensityCellStories} />
+
+`DensityCellCircle` draws a single element on a density chart.
+
+<ArgTypes of={DensityCellStories} />
+
+## Value
+
+Prop `value` is intended to represent the number of data points that fall within a region on a density map.
+`DensityCell` draws a circle or a rectangle to summarize a region with a single data point or multiple data points, respectively.
+
+<Canvas of={DensityCellStories.One} />
+<Canvas of={DensityCellStories.Two} />
+
+## Animations
+
+Overall, `DensityCell` is very similar to `DensitySimpleCell`.
+However, `DensityCell` provides color and shape animations upon state change.
+Animations can make chart updates appear more smooth.
+However,

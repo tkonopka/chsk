@@ -22,12 +22,13 @@ import {
 import {
     ScatterDataContextProps,
     ScatterInteractiveDataItem,
+    XYProcessedDataItem,
     ScatterProcessedDataItem,
 } from './types'
 import { isScatterProcessedData } from './predicates'
 
 export const getXYScaleProps = (
-    data: Array<ScatterProcessedDataItem>,
+    data: XYProcessedDataItem[],
     scaleSpecX: ContinuousScaleSpec,
     scaleSpecY: ContinuousScaleSpec,
     size: SizeSpec,
@@ -68,7 +69,7 @@ export const getSizeScaleProps = (
 }
 
 export const getColorScaleProps = (
-    data: ScatterProcessedDataItem[],
+    data: XYProcessedDataItem[],
     scaleSpec: ColorScaleSpec,
     seriesIds: string[]
 ): ColorScaleProps => {

@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as DensityCellsStories from './DensityCells.stories'
+
+# DensityCells
+
+<Meta of={DensityCellsStories} />
+
+`DensityCells` draws a map to visualize density of data points on a plane.
+
+<ArgTypes of={DensityCellsStories} />
+
+## Transparency
+
+`DensityCells` draws cells to convey the prevalence of data points in rectangular regions.
+By default, color intensity is scaled proportionally to the number of points in a region.
+Prop `transparency` toggles this scaling.
+
+<Canvas of={DensityCellsStories.Transparency} />
+<Canvas of={DensityCellsStories.NoTransparency} />
+
+Both modes use color blending to capture composition of each cell.
+
+## Cells
+
+By default, `DensityCells` draws the map using the `DensitySimpleCell` component, which
+displays rectangles or circles without any animations.
+Prop `cell` accepts other drawing functions.
+For example, `DensityCell` can be used to animate color transitions.
+
+<Canvas of={DensityCellsStories.Cells} />

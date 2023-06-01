@@ -26,13 +26,15 @@ import {
 export type ScatterDataItemData = Array<Record<string, unknown>> | Record<string, unknown>
 export type ScatterDataItem = WithId & { data: ScatterDataItemData }
 
-export type ScatterProcessedDataItem = WithId & {
+export type XYProcessedDataItem = WithId & {
     index: number
     x: Array<number>
     y: Array<number>
+    color?: Array<number>
+}
+export type ScatterProcessedDataItem = XYProcessedDataItem & {
     k: Array<number>
     size: Array<number>
-    color?: Array<number>
 }
 export type ScatterPreparedDataItem = WithId & {
     index: number

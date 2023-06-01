@@ -1,0 +1,30 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as DensityStories from './Density.stories'
+
+# Density
+
+<Meta of={DensityStories} />
+
+`Density` sets up a view for a density plot.
+
+<ArgTypes of={DensityStories} />
+
+## Data
+
+Data should be prepared as an array of objects. The format is equivalent as for the `Scatter` view.
+
+## Bin size
+
+`Density` assigns data points into bins. The size of the bins, measured in pixels / svg coordinates,
+determines the resolution of the density map.
+
+<Canvas of={DensityStories.LoRes} />
+<Canvas of={DensityStories.HiRes} />
+
+## Color
+
+By default, `Density` assigns colors using a categorical scale based on series id (analogously as in `Scatter`).
+To use color values encoded in the dataset, specify `valueColor` to indicate how to extract color values from the data,
+and set a custom `scaleColor` to define a color scale.
+
+<Canvas of={DensityStories.Color} />

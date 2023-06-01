@@ -130,7 +130,7 @@ export const Scatter = ({
             innerSize,
             autoRescale ? disabled : Array(seriesIds.length).fill(false)
         )
-    }, [processedData, scaleX, scaleY, disabled, autoRescale, disabled, seriesIds])
+    }, [processedData, scaleX, scaleY, innerSize, disabled, autoRescale, seriesIds])
     const { colorProps, sizeProps } = useMemo(() => {
         const colorProps = getColorScaleProps(
             processedData,
