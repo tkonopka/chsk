@@ -10,6 +10,7 @@ axes display continuous values.
 -   **Scatter charts** display data points as symbols on a 2D plane
 -   **Line charts** use curves and/or areas to show connections between
     adjacent data points
+-   **Density maps** summarize datasets with a large number of points through a 2D heat map
 
 ## Documentation
 
