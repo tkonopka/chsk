@@ -13,11 +13,10 @@ export const avgLab = (values: number[], scale: ColorScale) => {
         const v = values[i]
         let j = 1
         while (i + j < n && values[i + j] == v) j += 1
-        const multiplicity = j - i
         const vColor = lab(scale(v))
-        l += multiplicity * vColor.l
-        a += multiplicity * vColor.a
-        b += multiplicity * vColor.b
+        l += j * vColor.l
+        a += j * vColor.a
+        b += j * vColor.b
         i += j
     }
     return lab(l / n, a / n, b / n).formatHex()
@@ -33,11 +32,10 @@ export const avgRgb = (values: number[], scale: ColorScale) => {
         const v = values[i]
         let j = 1
         while (i + j < n && values[i + j] == v) j += 1
-        const multiplicity = j - i
         const vColor = rgb(scale(v))
-        r += multiplicity * vColor.r
-        g += multiplicity * vColor.g
-        b += multiplicity * vColor.b
+        r += j * vColor.r
+        g += j * vColor.g
+        b += j * vColor.b
         i += j
     }
     return rgb(r / n, g / n, b / n).formatHex()

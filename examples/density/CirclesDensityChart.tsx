@@ -10,6 +10,7 @@ import {
     range,
     TypographyProps,
     ContinuousScaleSpec,
+    NumericPositionSpec,
 } from '@chsk/core'
 import {
     isScatterData,
@@ -66,6 +67,54 @@ const CustomSubtitle = ({ position }: Pick<TypographyProps, 'position'>) => {
     )
 }
 
+export const DimensionsArrows = ({
+    corner,
+    markerId,
+}: {
+    corner: NumericPositionSpec
+    markerId: string
+}) => {
+    const [x, y] = corner
+    return (
+        <>
+            <Line
+                key={'line-1'}
+                x1={x}
+                y1={y}
+                x2={x + 80}
+                y2={y}
+                markerEnd={markerId}
+                className={'arrow'}
+            />
+            <Typography
+                key={'label-1'}
+                variant={'arrowLabel'}
+                position={[x + 40, y + 18]}
+                angle={0}
+            >
+                dimension 1
+            </Typography>
+            <Line
+                key={'line-2'}
+                x1={x}
+                y1={y}
+                x2={x}
+                y2={y - 80}
+                markerEnd={markerId}
+                className={'arrow'}
+            />
+            <Typography
+                key={'label-2'}
+                variant={'arrowLabel'}
+                position={[x - 16, y - 40]}
+                angle={-90}
+            >
+                dimension 2
+            </Typography>
+        </>
+    )
+}
+
 export const CirclesDensityChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
@@ -90,14 +139,7 @@ export const CirclesDensityChart = ({ fref, chartData, rawData }: MilestoneStory
                 <ViewClip id={'points'}>
                     <DensityCells />
                 </ViewClip>
-                <Line x1={10} y1={360} x2={10} y2={280} markerEnd={'am'} className={'arrow'} />
-                <Typography variant={'arrowLabel'} position={[-6, 320]} angle={-90}>
-                    dimension 2
-                </Typography>
-                <Line x1={10} y1={360} x2={90} y2={360} markerEnd={'am'} className={'arrow'} />
-                <Typography variant={'arrowLabel'} position={[50, 378]} angle={0}>
-                    dimension 1
-                </Typography>
+                <DimensionsArrows corner={[10, 360]} markerId={'am'} />
                 <Legend
                     offset={[10, 0]}
                     position={[1, 1]}

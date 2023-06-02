@@ -11,7 +11,7 @@
 
 ### Added
 
--   [examples] chart with density map
+-   [examples] charts with density maps
 -   [xy] components `Density`, `DensityCells`, `DensityCell`, and
     `DensitySimpleCell` for creating density maps
 -   [xy] support for row-based and column-based datasets for `Scatter` views

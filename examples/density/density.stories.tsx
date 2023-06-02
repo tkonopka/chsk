@@ -1,5 +1,6 @@
 import { GalleryMeta, GalleryStory } from '../gallery'
 import { generateCirclesDensityData, CirclesDensityChart } from './CirclesDensityChart'
+import { generateGradientsDensityData, GradientsDensityChart } from './GradientsDensityChart'
 
 export default {
     ...GalleryMeta,
@@ -11,5 +12,13 @@ export const Circles: GalleryStory = {
     args: {
         generator: generateCirclesDensityData,
         chart: CirclesDensityChart,
+    },
+}
+
+export const Gradients: GalleryStory = {
+    name: 'gradients',
+    args: {
+        generator: generateGradientsDensityData,
+        chart: GradientsDensityChart,
     },
 }
