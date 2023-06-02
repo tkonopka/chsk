@@ -3,10 +3,6 @@ import { lab, rgb } from 'd3-color'
 
 export const floor = Math.floor
 
-export const toHex = (n: number) => {
-    return n < 16 ? '0' + floor(n).toString(16) : floor(n).toString(16)
-}
-
 export const avgLab = (values: number[], scale: ColorScale) => {
     const n = values.length
     let l = 0,

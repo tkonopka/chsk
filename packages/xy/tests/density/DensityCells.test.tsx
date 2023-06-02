@@ -19,6 +19,18 @@ describe('DensityCells', () => {
         ).toEqual(4)
     })
 
+    it('creates cells without role', () => {
+        render(
+            <Chart>
+                <Density {...densityProps}>
+                    <DensityCells setRole={false} cell={DensityCell} />
+                </Density>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('density-cells')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('rect').length).toBeGreaterThan(0)
+    })
+
     it('creates also for disabled cells', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['alpha', 'beta']) }}>

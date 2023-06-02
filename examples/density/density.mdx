@@ -1,0 +1,18 @@
+import { Meta, Story } from '@storybook/blocks'
+import * as DensityStories from './density.stories'
+
+<Meta of={DensityStories} />
+
+# Examples of density maps
+
+Density maps are typically used to summarize very large datasets with many thousands of points.
+
+The examples below are of moderate size and moderate resolution to showcase the possibilities
+while still keeping memory usage low for the online documentation site.
+If needed, the component can also support use-cases with larger data.
+
+Note that some of the lag noticeable when refreshing the examples arises from the need to generate the dataset.
+
+&nbsp;
+
+<Story of={DensityStories.Circles} />

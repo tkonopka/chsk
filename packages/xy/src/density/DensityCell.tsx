@@ -3,7 +3,7 @@ import { DensityCellProps } from './types'
 
 export const DensityCell = ({ value, x, y, width, height, style, ...props }: DensityCellProps) => {
     const r = value < 2 ? width / 2 : 0
-    const config = { fill: style?.fill, rx: r, ry: r }
+    const config = { fill: style?.fill, opacity: style?.opacity, rx: r, ry: r }
     return (
         <m.rect
             initial={config}
@@ -13,7 +13,7 @@ export const DensityCell = ({ value, x, y, width, height, style, ...props }: Den
             y={y}
             width={width}
             height={height}
-            style={{ ...style, fill: undefined }}
+            style={{ ...style, fill: undefined, opacity: undefined }}
             {...props}
         />
     )

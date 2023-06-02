@@ -9,6 +9,7 @@ import {
     norm,
     range,
     relu,
+    distance,
     squaredDistance,
     max,
     interval,
@@ -100,6 +101,18 @@ describe('relu', () => {
     it('relu transformation', () => {
         expect(relu(-1)).toEqual(0)
         expect(relu(1)).toEqual(1)
+    })
+})
+
+describe('distance', () => {
+    it('between a point and itself', () => {
+        expect(distance([0, 0], [0, 0])).toBe(0)
+        expect(distance([1.0, 2.0], [1.0, 2.0])).toBe(0)
+    })
+
+    it('between a two non-equivalent points', () => {
+        expect(distance([0, 0], [1, 0])).toEqual(1.0)
+        expect(distance([2.0, 1.0], [1.0, 2.0])).toEqual(Math.sqrt(2.0))
     })
 })
 

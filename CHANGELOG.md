@@ -6,9 +6,12 @@
 
 -   reduced several (but not all) lodash utility functions by implementations
     customized for use-cases relevant to the library
+-   New components `Density` and `DensityCells` for summarizing large
+    datasets using density maps
 
 ### Added
 
+-   [examples] chart with density map
 -   [xy] components `Density`, `DensityCells`, `DensityCell`, and
     `DensitySimpleCell` for creating density maps
 -   [xy] support for row-based and column-based datasets for `Scatter` views

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import { LazyMotion, domAnimation } from 'framer-motion'
 import {
+    isArray,
     ContinuousAxisScale,
     getAccessor,
     useContainer,
@@ -16,14 +17,8 @@ import {
     interval,
 } from '@chsk/core'
 import { getXYScaleProps, getColorScaleProps } from '../scatter/helpers'
-import {
-    DENSITY_COLOR,
-    DENSITY_CONTENT,
-    DENSITY_COUNT,
-    DensityPreparedDataItem,
-    DensityProcessedDataItem,
-    DensityProps,
-} from './types'
+import { DENSITY_COLOR, DENSITY_CONTENT, DENSITY_COUNT } from './types'
+import { DensityPreparedDataItem, DensityProcessedDataItem, DensityProps } from './types'
 import { avgLab, floor } from './utils'
 import { DensityPreparedDataProvider } from './context'
 
@@ -35,7 +30,7 @@ const processData = ({
 }: Pick<DensityProps, 'data' | 'x' | 'y' | 'valueColor'>): Array<DensityProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const d = seriesData.data
-        if (Array.isArray(d)) {
+        if (isArray(d)) {
             const getX = getAccessor(x)
             const getY = getAccessor(y)
             const getColor = valueColor ? getAccessor(valueColor) : null
@@ -83,7 +78,7 @@ const prepareData = ({
         const d = seriesData.data
         const countIncrement = disabled[i] ? 0 : 1
         let xValues: number[], yValues: number[], colorValues: number[]
-        if (Array.isArray(d)) {
+        if (isArray(d)) {
             const getX = getAccessor(x)
             const getY = getAccessor(y)
             const getColor = valueColor ? getAccessor(valueColor) : null

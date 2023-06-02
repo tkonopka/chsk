@@ -1,11 +1,16 @@
 import { createElement, useMemo } from 'react'
-import { X, Y } from '@chsk/core'
+import { createAxisScale, NumericAxisScale, X, Y } from '@chsk/core'
 import { DENSITY_COLOR, DENSITY_COUNT, DensityCellsProps, DensityPreparedDataItem } from './types'
 import { useDensityPreparedData } from './context'
-import { toHex } from './utils'
 import { DensitySimpleCell } from './DensitySimpleCell'
 
 const max = Math.max
+
+const alphaScale: NumericAxisScale = createAxisScale({
+    variant: 'sqrt',
+    domain: [0, 1],
+    size: 1,
+}) as NumericAxisScale
 
 export const DensityCells = ({
     cell = DensitySimpleCell,
@@ -24,17 +29,17 @@ export const DensityCells = ({
         const x = item[X]
         const y = item[Y]
         const value = item[DENSITY_COUNT]
-        const cellAlpha = transparency || value === 0 ? toHex((255 * value) / maxCount) : ''
-        const fill = item[DENSITY_COLOR] + cellAlpha
+        const opacity = transparency || value === 0 ? alphaScale(value / maxCount) : 1
+        const fill = item[DENSITY_COLOR]
         return createElement(cell, {
-            key: 'cell-' + x + '-' + y,
+            key: x + '-' + y,
             value,
             x: x * binSize,
             y: y * binSize,
             width: binSize,
             height: binSize,
             className: className,
-            style: { fill },
+            style: { fill, opacity },
         })
     })
 

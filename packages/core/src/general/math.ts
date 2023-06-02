@@ -45,6 +45,11 @@ export const moments = (data: number[]): [number, number] => {
 /** ensure a number x is >= 0, useful to avoid negative widths and heights */
 export const relu = (x: number) => Math.max(0, x)
 
+/** compute distance between two points */
+export const distance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
+    return Math.sqrt((a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2)
+}
+
 /** compute squared distances between two points */
 export const squaredDistance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
     return (a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2
