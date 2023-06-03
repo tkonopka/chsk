@@ -1,6 +1,20 @@
 import { FC } from 'react'
-import { ProcessedDataContextProps, RectangleProps, SvgElementProps, ViewProps } from '@chsk/core'
-import { ScatterProps, XYProcessedDataItem } from '../scatter'
+import {
+    DataInteractivityProps,
+    NumericPositionSpec,
+    ProcessedDataContextProps,
+    RectangleProps,
+    SvgElementProps,
+    SymbolProps,
+    ViewProps,
+    WithId,
+} from '@chsk/core'
+import {
+    ScatterCrosshairProps,
+    ScatterPointsProps,
+    ScatterProps,
+    XYProcessedDataItem,
+} from '../scatter'
 
 // density processed items will only store intervals [min, max]
 export type DensityProcessedDataItem = XYProcessedDataItem
@@ -37,4 +51,22 @@ export interface DensityCellsProps extends SvgElementProps {
     cell?: FC<DensityCellProps>
     /** use transparency proportional to cell count */
     transparency?: boolean
+}
+
+export type DensityInteractiveDataItem = WithId & {
+    bins: NumericPositionSpec
+    count: number
+    data: DensityPreparedDataItem
+    color: string
+}
+
+export interface DensityCrosshairProps
+    extends SvgElementProps,
+        DataInteractivityProps<DensityInteractiveDataItem, SymbolProps>,
+        Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'>,
+        Pick<ScatterCrosshairProps, 'variant' | 'expansion' | 'minDistance' | 'visible' | 'style'> {
+    /** format of tooltip label */
+    tooltipFormat?: (data: DensityInteractiveDataItem) => string
+    /** size of symbol */
+    symbolR?: number
 }

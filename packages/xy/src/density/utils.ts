@@ -1,7 +1,7 @@
 import { ColorScale } from '@chsk/core'
 import { lab, rgb } from 'd3-color'
 
-export const floor = Math.floor
+export const round = Math.round
 
 export const avgLab = (values: number[], scale: ColorScale) => {
     const n = values.length

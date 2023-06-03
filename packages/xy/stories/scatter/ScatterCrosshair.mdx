@@ -1,8 +1,4 @@
-import { ArgTypes, Canvas, Meta, Source, Story } from '@storybook/blocks'
-import { Chart, Square } from '@chsk/core'
-import { Scatter, ScatterCrosshair } from '../../src'
-import { ChartForRegressionDecorator, DoubleSquare, ChartWithTooltipDecorator } from './decorators'
-import dataPolynomials from './dataPolynomials.json'
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
 import * as ScatterCrosshairStories from './ScatterCrosshair.stories'
 
 # ScatterCrosshair
@@ -16,7 +12,7 @@ import * as ScatterCrosshairStories from './ScatterCrosshair.stories'
 ## Variants
 
 The default `ScatterCrosshair` component tracks the mouse pointer and finds the nearest data point.
-The component calculates distances using a common Euclidean metric in two dimensions.
+The component calculates distances using the Euclidean metric in two dimensions.
 
 <Canvas of={ScatterCrosshairStories.Default} />
 

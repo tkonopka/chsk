@@ -39,7 +39,6 @@ describe('DensityCells', () => {
                 </Density>
             </Chart>
         )
-        // dataset will have six points, but some overlap
         const cells = screen.getByRole('density-cells')
         expect(cells.querySelectorAll('rect').length).toEqual(4)
     })

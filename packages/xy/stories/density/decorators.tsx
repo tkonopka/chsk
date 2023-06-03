@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { Axis, Chart, Legend, range, roundDecimalPlaces } from '@chsk/core'
-import { ScatterDataItem, Density } from '../../src'
+import { Axis, Chart, Legend, range, roundDecimalPlaces, Tooltip } from '@chsk/core'
+import { ScatterDataItem, Density, DensityCells } from '../../src'
 
 const generateDensityData = (ids: string[], n: number[], round = 2): Array<ScatterDataItem> => {
     const result = ids.map((id: string, i) => {
@@ -51,6 +51,55 @@ export const ChartDensityDecorator = (Story: () => ReactNode) => (
                 positionUnits={'absolute'}
                 title={'Groups'}
             />
+        </Density>
+    </Chart>
+)
+
+export const ChartForCrosshairDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 60, 60, 60]} style={{ display: 'inline-block' }}>
+        <Density
+            data={densityData}
+            x={'x'}
+            y={'y'}
+            binSize={20}
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+        >
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} />
+            <DensityCells />
+            {Story()}
+        </Density>
+    </Chart>
+)
+
+export const ChartForCrosshairTooltipDecorator = (Story: () => ReactNode) => (
+    <Chart size={[400, 300]} padding={[40, 60, 60, 60]} style={{ display: 'inline-block' }}>
+        <Density
+            data={densityData}
+            x={'x'}
+            y={'y'}
+            binSize={20}
+            scaleX={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+            scaleY={{
+                variant: 'linear',
+                domain: [0, 'auto'],
+            }}
+        >
+            <Axis variant={'bottom'} label={'x (a.u.)'} />
+            <Axis variant={'left'} label={'y (a.u.)'} />
+            <DensityCells />
+            {Story()}
+            <Tooltip itemSize={[120, 25]} />
         </Density>
     </Chart>
 )

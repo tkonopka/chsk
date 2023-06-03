@@ -19,7 +19,7 @@ import {
 import { getXYScaleProps, getColorScaleProps } from '../scatter/helpers'
 import { DENSITY_COLOR, DENSITY_CONTENT, DENSITY_COUNT } from './types'
 import { DensityPreparedDataItem, DensityProcessedDataItem, DensityProps } from './types'
-import { avgLab, floor } from './utils'
+import { avgLab, round } from './utils'
 import { DensityPreparedDataProvider } from './context'
 
 const processData = ({
@@ -94,8 +94,8 @@ const prepareData = ({
             colorValues = getColor ? getColor(d) : Array(xValues.length).fill(i)
         }
         xValues.forEach((v, j) => {
-            const xBin = floor(scaleX(v) / binSize)
-            const yBin = floor(scaleY(yValues[j]) / binSize)
+            const xBin = round(scaleX(v) / binSize)
+            const yBin = round(scaleY(yValues[j]) / binSize)
             const key = xBin + ',' + yBin
             if (!binKeys.has(key)) {
                 binKeys.add(key)

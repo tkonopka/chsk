@@ -6,10 +6,10 @@ axes display continuous values.
 
 ## Features
 
--   **Histograms** summarize numeric distributions using binned or smooth curves
 -   **Scatter charts** display data points as symbols on a 2D plane
 -   **Line charts** use curves and/or areas to show connections between
     adjacent data points
+-   **Histograms** summarize numeric distributions using binned or smooth curves
 -   **Density maps** summarize datasets with a large number of points through a 2D heat map
 
 ## Documentation
