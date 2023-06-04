@@ -11,14 +11,16 @@ import {
     LegendColorScale,
     Legend,
     ContinuousScaleSpec,
+    Tooltip,
+    TooltipDataItem,
 } from '@chsk/core'
 import { interpolateOranges } from 'd3-scale-chromatic'
-import { isScatterData, Density, DensityCells } from '@chsk/xy'
+import { isScatterData, Density, DensityCells, DensityCrosshair } from '@chsk/xy'
 import { ArrowMarker, BoxedTitle } from '@chsk/annotation'
 import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
 import { DownloadButtons } from '../navigation'
-import { alphabetGreek, randomUniformValue } from '../utils'
+import { alphabetGreek, randomUniformValue, round3dp } from '../utils'
 import { generateClusterCenters, generateClusterFrames } from './generators'
 import { DimensionsArrows } from './CirclesDensityChart'
 
@@ -75,6 +77,10 @@ const customColorSpec: ColorScaleSpec = {
 }
 const customScales: ContinuousScaleSpec = { variant: 'linear', domain: [-60, 60] }
 
+const customLabelFormat = (x: TooltipDataItem) => {
+    return 'data' in x ? x['label'] + '; mean: ' + round3dp(Number(x['data'])) : ''
+}
+
 export const GradientsDensityChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
 
@@ -101,10 +107,12 @@ export const GradientsDensityChart = ({ fref, chartData, rawData }: MilestoneSto
                         scaleColor={customColorSpec}
                     >
                         <DensityCells />
+                        <DensityCrosshair minDistance={20} />
                         <DimensionsArrows corner={[0, 200]} markerId={'arr'} />
                         <BoxedTitle variant={'top'} distance={15}>
                             Variable &lsquo;a&lsquo;
                         </BoxedTitle>
+                        <Tooltip itemSize={[160, 25]} labelFormat={customLabelFormat} />
                     </Density>
                 </GridItem>
                 <GridItem index={1}>
@@ -119,6 +127,7 @@ export const GradientsDensityChart = ({ fref, chartData, rawData }: MilestoneSto
                         scaleColor={customColorSpec}
                     >
                         <DensityCells />
+                        <DensityCrosshair minDistance={20} />
                         <BoxedTitle variant={'top'} distance={15}>
                             Variable &lsquo;b&lsquo;
                         </BoxedTitle>
@@ -150,6 +159,7 @@ export const GradientsDensityChart = ({ fref, chartData, rawData }: MilestoneSto
                             />
                         </Legend>
                         <DownloadButtons position={[190, -60]} data image />
+                        <Tooltip itemSize={[160, 25]} labelFormat={customLabelFormat} />
                     </Density>
                 </GridItem>
             </Grid>

@@ -31,6 +31,13 @@ export const max = (values: Array<number>, fallback = 1): number => {
     return max === undefined ? fallback : max
 }
 
+export const mean = (data: number[]): number => {
+    const n = data.length
+    if (n === 0) return NaN
+    if (n === 1) return data[0]
+    return data.reduce((acc, v) => acc + v, 0) / n
+}
+
 /** calculate mean and variance for an array of numbers */
 export const moments = (data: number[]): [number, number] => {
     const n = data.length

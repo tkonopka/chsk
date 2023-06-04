@@ -11,11 +11,13 @@ import {
     TypographyProps,
     ContinuousScaleSpec,
     NumericPositionSpec,
+    Tooltip,
 } from '@chsk/core'
 import {
     isScatterData,
     Density,
     DensityCells,
+    DensityCrosshair,
     useDensityPreparedData,
     DENSITY_COUNT,
 } from '@chsk/xy'
@@ -138,6 +140,11 @@ export const CirclesDensityChart = ({ fref, chartData, rawData }: MilestoneStory
             >
                 <ViewClip id={'points'}>
                     <DensityCells />
+                    <DensityCrosshair
+                        visible={[false, false]}
+                        symbolR={7}
+                        symbolStyle={{ strokeWidth: 1, stroke: '#222222' }}
+                    />
                 </ViewClip>
                 <DimensionsArrows corner={[10, 360]} markerId={'am'} />
                 <Legend
@@ -157,6 +164,7 @@ export const CirclesDensityChart = ({ fref, chartData, rawData }: MilestoneStory
                 </Typography>
                 <CustomSubtitle position={[0, -25]} />
                 <DownloadButtons position={[440, -45]} data image />
+                <Tooltip itemSize={[100, 25]} />
             </Density>
         </Chart>
     )

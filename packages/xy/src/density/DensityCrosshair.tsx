@@ -1,6 +1,7 @@
 import { MouseEvent, useCallback, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
 import {
+    mean,
     Square,
     NumericPositionSpec,
     OpacityMotion,
@@ -15,18 +16,64 @@ import {
     FourSideSizeSpec,
     CssProps,
     useTooltip,
+    useScales,
+    isCategoricalColorScale,
+    ColorScale,
+    TooltipDataItem,
 } from '@chsk/core'
 import {
     DENSITY_COLOR,
+    DENSITY_CONTENT,
     DENSITY_COUNT,
     DensityCrosshairProps,
     DensityInteractiveDataItem,
+    DensityPreparedDataItem,
 } from './types'
 import { useDensityPreparedData } from './context'
 import { distanceXY, distanceX, distanceY } from '../scatter/helpers'
-import { defaultDensityTooltipFormat } from './defaults'
 import { createCrosshairLines } from '../scatter/overlays'
 import { createDensitySymbol } from './overlays'
+
+const createInteractiveDataItem = (
+    target: DensityPreparedDataItem
+): DensityInteractiveDataItem => ({
+    id: target[X] + ',' + target[Y], // this affects the key field in tooltips
+    bins: [target[X], target[Y]] as NumericPositionSpec,
+    data: target,
+    count: target[DENSITY_COUNT],
+    color: target[DENSITY_COLOR],
+})
+
+const createTooltipDataItems = (
+    item: DensityInteractiveDataItem,
+    scale: ColorScale
+): TooltipDataItem[] => {
+    const values = item.data[DENSITY_CONTENT]
+    if (!isCategoricalColorScale(scale)) {
+        return [
+            { id: item.id, label: 'count ' + item.count, color: item.color, data: mean(values) },
+        ]
+    }
+    const counts: Record<string, number> = {}
+    values.map(v => {
+        const s = String(v)
+        if (!(s in counts)) {
+            counts[s] = 0
+        }
+        counts[s] += 1
+    })
+    const result: TooltipDataItem[] = []
+    const domain: string[] = scale.domain().map(String)
+    for (const [k, v] of Object.entries(counts)) {
+        result.push({
+            id: domain[Number(k)],
+            color: scale(Number(k)),
+            label: domain[Number(k)] + ': ' + v,
+            data: v,
+        })
+    }
+    return result
+}
 
 export const DensityCrosshair = ({
     variant = 'xy',
@@ -36,7 +83,6 @@ export const DensityCrosshair = ({
     symbolStyle,
     symbolClassName,
     minDistance,
-    tooltipFormat = defaultDensityTooltipFormat,
     visible,
     className,
     style,
@@ -45,6 +91,7 @@ export const DensityCrosshair = ({
     ...props
 }: DensityCrosshairProps) => {
     const preparedData = useDensityPreparedData()
+    const { scales } = useScales()
     const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [activeData, setActiveData] = useState<DensityInteractiveDataItem | undefined>(undefined)
@@ -95,23 +142,16 @@ export const DensityCrosshair = ({
                     return
                 }
             }
-            const data = {
-                id: target[X] + ',' + target[Y], // this affects the key field in tooltips
-                bins: [target[X], target[Y]] as NumericPositionSpec,
-                data: target,
-                count: target[DENSITY_COUNT],
-                color: target[DENSITY_COLOR],
-            }
-            const newActiveData = { ...data, label: tooltipFormat(data) }
+            const newActiveData = createInteractiveDataItem(target)
             setActiveData(newActiveData)
             setTooltipData({
                 x: target[0] * binSize,
                 y: target[1] * binSize,
-                title: JSON.stringify(newActiveData.bins),
-                data: [newActiveData],
+                title: newActiveData.bins[X] + ', ' + newActiveData.bins[Y],
+                data: createTooltipDataItems(newActiveData, scales.color),
             })
             setDetectorStyle(props.modifiers?.onMouseEnter ?? {})
-            props.handlers?.onMouseEnter?.(data, event)
+            props.handlers?.onMouseEnter?.(newActiveData, event)
         },
         [activeData, setActiveData, setTooltipData, targets]
     )

@@ -5,11 +5,11 @@ const pointsAlpha: NumericPositionSpec[] = [
     [1, 1],
     [1, 1],
     [1, 3],
-    [2, 3],
+    [3, 3],
 ]
 const pointsBeta: NumericPositionSpec[] = [
     [2, 2],
-    [2, 3],
+    [3, 3],
 ]
 
 const densityData = [

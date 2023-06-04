@@ -1,7 +1,8 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { Chart } from '@chsk/core'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { Chart, cloneProps } from '@chsk/core'
 import { Density, DensityCrosshair } from '../../src/density'
 import { densityProps } from './density.props'
+import { GetTooltipData, mockTooltipData } from '../contexts'
 
 describe('DensityCrosshair', () => {
     it('creates a detector for mouse events', () => {
@@ -13,6 +14,17 @@ describe('DensityCrosshair', () => {
             </Chart>
         )
         expect(screen.getByRole('density-crosshair').querySelectorAll('rect')).toHaveLength(1)
+    })
+
+    it('creates a detector without role', () => {
+        render(
+            <Chart>
+                <Density {...densityProps}>
+                    <DensityCrosshair setRole={false} />
+                </Density>
+            </Chart>
+        )
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(1)
     })
 
     it('draws crosshair lines', () => {
@@ -87,5 +99,50 @@ describe('DensityCrosshair', () => {
         expect(result).toEqual(1)
         fireEvent.click(detector, { clientX: 0, clientY: 0 })
         expect(result).toEqual(2)
+    })
+
+    it('sets tooltip data summarizing counts per series', async () => {
+        const result = cloneProps(mockTooltipData)
+        render(
+            <Chart size={[300, 300]} padding={[0, 0, 0, 0]}>
+                <Density {...densityProps} binSize={20}>
+                    <DensityCrosshair />
+                    <GetTooltipData value={result} />
+                </Density>
+            </Chart>
+        )
+        const detector = screen.getByRole('crosshair-detector')
+        // check that a coordinate activate a crosshair
+        fireEvent.mouseMove(detector, { clientX: 295, clientY: 5 })
+        await waitFor(() => {
+            expect(result.data).toHaveLength(2)
+        })
+    })
+
+    it('sets tooltip data for non-categorical color scales', async () => {
+        const result = cloneProps(mockTooltipData)
+        render(
+            <Chart size={[300, 300]} padding={[0, 0, 0, 0]}>
+                <Density
+                    {...densityProps}
+                    binSize={20}
+                    valueColor={'x'}
+                    scaleColor={{
+                        variant: 'sequential',
+                        domain: [0, 10],
+                        colors: ['#ffffff', '#000000'],
+                    }}
+                >
+                    <DensityCrosshair />
+                    <GetTooltipData value={result} />
+                </Density>
+            </Chart>
+        )
+        const detector = screen.getByRole('crosshair-detector')
+        // check that a coordinate activate a crosshair
+        fireEvent.mouseMove(detector, { clientX: 295, clientY: 5 })
+        await waitFor(() => {
+            expect(result.data).toHaveLength(1)
+        })
     })
 })

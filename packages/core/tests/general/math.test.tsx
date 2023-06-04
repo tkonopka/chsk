@@ -2,6 +2,7 @@ import { sum } from 'lodash'
 import {
     roundDecimalPlaces,
     rad2deg,
+    mean,
     moments,
     deg2rad,
     angleTheta,
@@ -76,6 +77,18 @@ describe('radians and degrees', () => {
     it('simple conversion to radians', () => {
         expect(roundDecimalPlaces(deg2rad(180), 3)).toEqual(roundDecimalPlaces(Math.PI, 3))
         expect(roundDecimalPlaces(deg2rad(90), 3)).toEqual(roundDecimalPlaces(Math.PI / 2, 3))
+    })
+})
+
+describe('mean', () => {
+    it('computes mean of arrays of numbers', () => {
+        expect(mean([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toEqual(5.5)
+        expect(mean([1, 2])).toEqual(1.5)
+    })
+
+    it('computes mean in special cases', () => {
+        expect(mean([1])).toEqual(1)
+        expect(mean([])).toEqual(NaN)
     })
 })
 

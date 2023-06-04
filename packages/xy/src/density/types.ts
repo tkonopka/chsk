@@ -56,6 +56,7 @@ export interface DensityCellsProps extends SvgElementProps {
 export type DensityInteractiveDataItem = WithId & {
     bins: NumericPositionSpec
     count: number
+    value?: number
     data: DensityPreparedDataItem
     color: string
 }
@@ -65,8 +66,6 @@ export interface DensityCrosshairProps
         DataInteractivityProps<DensityInteractiveDataItem, SymbolProps>,
         Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'>,
         Pick<ScatterCrosshairProps, 'variant' | 'expansion' | 'minDistance' | 'visible' | 'style'> {
-    /** format of tooltip label */
-    tooltipFormat?: (data: DensityInteractiveDataItem) => string
     /** size of symbol */
     symbolR?: number
 }

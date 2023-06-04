@@ -40,7 +40,7 @@ describe('Density', () => {
         expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
         expect(result.data).toHaveLength(2)
         // x and y arrays should hold [min, max] intervals
-        expect(result.data[0].x).toEqual([1, 2])
+        expect(result.data[0].x).toEqual([1, 3])
         expect(result.data[0].y).toEqual([1, 3])
     })
 
