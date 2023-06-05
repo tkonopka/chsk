@@ -2,6 +2,7 @@ import { sum } from 'lodash'
 import {
     roundDecimalPlaces,
     rad2deg,
+    mean,
     moments,
     deg2rad,
     angleTheta,
@@ -9,6 +10,7 @@ import {
     norm,
     range,
     relu,
+    distance,
     squaredDistance,
     max,
     interval,
@@ -78,6 +80,18 @@ describe('radians and degrees', () => {
     })
 })
 
+describe('mean', () => {
+    it('computes mean of arrays of numbers', () => {
+        expect(mean([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])).toEqual(5.5)
+        expect(mean([1, 2])).toEqual(1.5)
+    })
+
+    it('computes mean in special cases', () => {
+        expect(mean([1])).toEqual(1)
+        expect(mean([])).toEqual(NaN)
+    })
+})
+
 describe('moments', () => {
     it('computes means and standard deviation', () => {
         const result = moments([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -100,6 +114,18 @@ describe('relu', () => {
     it('relu transformation', () => {
         expect(relu(-1)).toEqual(0)
         expect(relu(1)).toEqual(1)
+    })
+})
+
+describe('distance', () => {
+    it('between a point and itself', () => {
+        expect(distance([0, 0], [0, 0])).toBe(0)
+        expect(distance([1.0, 2.0], [1.0, 2.0])).toBe(0)
+    })
+
+    it('between a two non-equivalent points', () => {
+        expect(distance([0, 0], [1, 0])).toEqual(1.0)
+        expect(distance([2.0, 1.0], [1.0, 2.0])).toEqual(Math.sqrt(2.0))
     })
 })
 

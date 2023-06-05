@@ -3,7 +3,9 @@ import {
     defaultSequentialScale,
     defaultSizeScale,
     Scales,
+    TooltipData,
     useScales,
+    useTooltip,
 } from '@chsk/core'
 import { ProcessedDataContextProps, useProcessedData } from '@chsk/core'
 
@@ -24,6 +26,15 @@ export const GetProcessedData = ({ value }: { value: ProcessedDataContextProps }
     return null
 }
 
+export const GetTooltipData = ({ value }: { value: TooltipData }) => {
+    const { data } = useTooltip()
+    value.x = data.x
+    value.y = data.y
+    value.title = data.title
+    value.data = data.data
+    return null
+}
+
 export const mockProcessedData: ProcessedDataContextProps = {
     data: [],
     seriesIndexes: {},
@@ -35,4 +46,11 @@ export const mockScales: Scales = {
     y: createContinuousScale({ variant: 'linear', domain: [0, 1], size: 100 }),
     size: defaultSizeScale,
     color: defaultSequentialScale,
+}
+
+export const mockTooltipData: TooltipData = {
+    x: 0,
+    y: 0,
+    title: '',
+    data: [],
 }

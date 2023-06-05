@@ -4,11 +4,16 @@
 
 ### Highlights
 
--   reduced several (but not all) lodash utility functions by implementations
+-   replaced several (but not all) lodash utility functions by implementations
     customized for use-cases relevant to the library
+-   New components `Density` and `DensityCells` for summarizing large
+    datasets using density maps
 
 ### Added
 
+-   [examples] charts with density maps
+-   [xy] components `Density`, `DensityCells`, `DensityCrosshair`,
+    `DensityCell`, and `DensitySimpleCell` for creating density maps
 -   [matrix] components `HeatMapColorCircle` and `HeatMapColorRectangle` to
     support heatmaps that animate color transitions; the default settings
     still create maps without animations to prioritize performance

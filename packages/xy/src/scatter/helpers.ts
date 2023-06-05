@@ -22,12 +22,13 @@ import {
 import {
     ScatterDataContextProps,
     ScatterInteractiveDataItem,
+    XYProcessedDataItem,
     ScatterProcessedDataItem,
 } from './types'
 import { isScatterProcessedData } from './predicates'
 
 export const getXYScaleProps = (
-    data: Array<ScatterProcessedDataItem>,
+    data: XYProcessedDataItem[],
     scaleSpecX: ContinuousScaleSpec,
     scaleSpecY: ContinuousScaleSpec,
     size: SizeSpec,
@@ -68,7 +69,7 @@ export const getSizeScaleProps = (
 }
 
 export const getColorScaleProps = (
-    data: ScatterProcessedDataItem[],
+    data: XYProcessedDataItem[],
     scaleSpec: ColorScaleSpec,
     seriesIds: string[]
 ): ColorScaleProps => {
@@ -107,7 +108,10 @@ export const useSymbolData = (
 export type TargetData = [number, number, number, number]
 
 // alternative ranking functions (distance or distance-squared)
-type XY = NumericPositionSpec | TargetData
+type XY =
+    | NumericPositionSpec
+    | [number, number, unknown, unknown]
+    | [number, number, unknown, unknown, unknown]
 export const distanceXY = (a: XY, b: XY) => Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2)
 export const distanceX = (a: XY, b: XY) => Math.abs(a[X] - b[X])
 export const distanceY = (a: XY, b: XY) => Math.abs(a[Y] - b[Y])

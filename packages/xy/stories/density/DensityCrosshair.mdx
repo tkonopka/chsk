@@ -1,0 +1,33 @@
+import { ArgTypes, Canvas, Meta, Source, Story } from '@storybook/blocks'
+import * as DensityCrosshairStories from './DensityCrosshair.stories'
+
+# DensityCrosshair
+
+<Meta of={DensityCrosshairStories} />
+
+`DensityCrosshair` detects mouse motion and draws crosshair lines to highlight a nearby data point.
+
+<ArgTypes of={DensityCrosshairStories} />
+
+## Variants
+
+The default `DensityCrosshair` component tracks the mouse pointer and
+finds the nearest cell using the Euclidean metric in two dimensions.
+
+<Canvas of={DensityCrosshairStories.Default} />
+
+Prop `variant` changes the calculation of nearest data point.
+Variants `x` and `y` use only the horizontal and vertical positions, respectively.
+
+## Custom symbol
+
+`DensityCrosshair` displays a symbol on top of the density map to represent the active cell.
+This symbol can be tuned with prop `Symbol` and other props with prefix `symbol`.
+
+<Canvas of={DensityCrosshairStories.CustomSymbol} />
+
+## Tooltip
+
+The crosshair component automatically sets data for the tooltip context.
+
+<Canvas of={DensityCrosshairStories.Tooltip} />

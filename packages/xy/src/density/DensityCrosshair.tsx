@@ -1,16 +1,12 @@
 import { MouseEvent, useCallback, useRef, useState } from 'react'
 import debounce from 'lodash/debounce'
 import {
-    isArray,
-    Circle,
-    ContinuousAxisScale,
+    mean,
+    Square,
     NumericPositionSpec,
     OpacityMotion,
     SimpleDataComponent,
     useDimensions,
-    useDisabledKeys,
-    useProcessedData,
-    useScales,
     X,
     Y,
     TOP,
@@ -19,49 +15,90 @@ import {
     LEFT,
     FourSideSizeSpec,
     CssProps,
-    useRawData,
     useTooltip,
+    useScales,
+    isCategoricalColorScale,
+    ColorScale,
+    TooltipDataItem,
 } from '@chsk/core'
-import { ScatterCrosshairProps, ScatterInteractiveDataItem } from './types'
-import { useScatterPreparedData } from './context'
-import { isScatterData, isScatterProcessedData } from './predicates'
-import { useSymbolData, useTargets, distanceXY, distanceX, distanceY } from './helpers'
-import { defaultScatterTooltipFormat } from './defaults'
-import { createActiveSymbol, createCrosshairLines } from './overlays'
+import {
+    DENSITY_COLOR,
+    DENSITY_CONTENT,
+    DENSITY_COUNT,
+    DensityCrosshairProps,
+    DensityInteractiveDataItem,
+    DensityPreparedDataItem,
+} from './types'
+import { useDensityPreparedData } from './context'
+import { distanceXY, distanceX, distanceY } from '../scatter/helpers'
+import { createCrosshairLines } from '../scatter/overlays'
+import { createDensitySymbol } from './overlays'
 
-export const ScatterCrosshair = ({
+const createInteractiveDataItem = (
+    target: DensityPreparedDataItem
+): DensityInteractiveDataItem => ({
+    id: target[X] + ',' + target[Y], // this affects the key field in tooltips
+    bins: [target[X], target[Y]] as NumericPositionSpec,
+    data: target,
+    count: target[DENSITY_COUNT],
+    color: target[DENSITY_COLOR],
+})
+
+const createTooltipDataItems = (
+    item: DensityInteractiveDataItem,
+    scale: ColorScale
+): TooltipDataItem[] => {
+    const values = item.data[DENSITY_CONTENT]
+    if (!isCategoricalColorScale(scale)) {
+        return [
+            { id: item.id, label: 'count ' + item.count, color: item.color, data: mean(values) },
+        ]
+    }
+    const counts: Record<string, number> = {}
+    values.map(v => {
+        const s = String(v)
+        if (!(s in counts)) {
+            counts[s] = 0
+        }
+        counts[s] += 1
+    })
+    const result: TooltipDataItem[] = []
+    const domain: string[] = scale.domain().map(String)
+    for (const [k, v] of Object.entries(counts)) {
+        result.push({
+            id: domain[Number(k)],
+            color: scale(Number(k)),
+            label: domain[Number(k)] + ': ' + v,
+            data: v,
+        })
+    }
+    return result
+}
+
+export const DensityCrosshair = ({
     variant = 'xy',
     expansion,
-    symbol = Circle,
+    symbol = Square,
+    symbolR,
     symbolStyle,
     symbolClassName,
     minDistance,
-    tooltipFormat = defaultScatterTooltipFormat,
     visible,
     className,
     style,
     setRole = true,
     dataComponent = SimpleDataComponent,
     ...props
-}: ScatterCrosshairProps) => {
-    const originalData = useRawData().data
-    const processedData = useProcessedData().data
-    const preparedData = useScatterPreparedData()
-    const { size } = useDimensions()
+}: DensityCrosshairProps) => {
+    const preparedData = useDensityPreparedData()
     const { scales } = useScales()
-    const { disabledKeys } = useDisabledKeys()
+    const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
-    const [activeData, setActiveData] = useState<ScatterInteractiveDataItem | undefined>(undefined)
+    const [activeData, setActiveData] = useState<DensityInteractiveDataItem | undefined>(undefined)
     const { setData: setTooltipData } = useTooltip()
     const [detectorStyle, setDetectorStyle] = useState<CssProps>({})
-    if (!isScatterProcessedData(processedData)) return null
-    if (!isScatterData(originalData)) return null
-
-    // extension of detector rectangle
-    const padding: FourSideSizeSpec = expansion ? expansion : [0, 0, 0, 0]
-
-    const symbolData = useSymbolData(processedData, preparedData)
-    const targets = useTargets(preparedData, disabledKeys)
+    const binSize = preparedData.binSize
+    const padding: FourSideSizeSpec = expansion ? expansion : [binSize, binSize, binSize, binSize]
 
     const handleClick = useCallback(
         (event: MouseEvent) => {
@@ -79,6 +116,7 @@ export const ScatterCrosshair = ({
         [setActiveData, setTooltipData, props.handlers]
     )
 
+    const targets = preparedData.data
     const criterion = variant === 'xy' ? distanceXY : variant === 'x' ? distanceX : distanceY
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
@@ -88,42 +126,34 @@ export const ScatterCrosshair = ({
                 event.clientX - x - padding[LEFT],
                 event.clientY - y - padding[TOP],
             ]
-            const values = targets.map(target => criterion(target, mouse))
+            const mouseBins: NumericPositionSpec = [mouse[X] / binSize, mouse[Y] / binSize]
+            const values = targets.map(target => criterion(target, mouseBins))
             const hit = values.reduce(
                 (result, x, i) => (x < result[0] ? [x, i] : result),
                 [values[0], 0]
             )
-            if (minDistance && hit[0] > minDistance) {
+            if (minDistance && hit[0] > minDistance / binSize) {
                 handleMouseLeave(event)
                 return
             }
             const target = targets[hit[1] ?? 0]
-            const seriesIndex = target[2]
-            const seriesData = processedData[seriesIndex]
-            const index = target[3]
             if (activeData) {
-                if (activeData.id === seriesData.id && activeData.index === index) {
+                if (activeData.bins[X] == target[X] && activeData.bins[Y] === target[Y]) {
                     return
                 }
             }
-            const originalSeries = originalData[seriesIndex].data
-            const data = {
-                ...symbolData[seriesIndex][index],
-                key: seriesData.id,
-                original: isArray(originalSeries) ? originalSeries[index] : {},
-            }
-            const newActiveData = { ...data, label: tooltipFormat(data) }
+            const newActiveData = createInteractiveDataItem(target)
             setActiveData(newActiveData)
             setTooltipData({
-                x: target[0],
-                y: target[1],
-                title: newActiveData.id,
-                data: [newActiveData],
+                x: target[0] * binSize,
+                y: target[1] * binSize,
+                title: newActiveData.bins[X] + ', ' + newActiveData.bins[Y],
+                data: createTooltipDataItems(newActiveData, scales.color),
             })
             setDetectorStyle(props.modifiers?.onMouseEnter ?? {})
-            props.handlers?.onMouseEnter?.(data, event)
+            props.handlers?.onMouseEnter?.(newActiveData, event)
         },
-        [activeData, setActiveData, setTooltipData, targets, processedData]
+        [activeData, setActiveData, setTooltipData, targets]
     )
     const debouncedHandleMouseMove = debounce(handleMouseMove, 10, { leading: true })
 
@@ -142,20 +172,16 @@ export const ScatterCrosshair = ({
         />
     )
 
-    const xScale = scales.x as ContinuousAxisScale
-    const yScale = scales.y as ContinuousAxisScale
     const coordinates: [number, number] =
-        activeData !== undefined && activeData.point !== undefined
-            ? [xScale(activeData.point[X]), yScale(activeData.point[Y])]
+        activeData !== undefined
+            ? [activeData.bins[X] * binSize, activeData.bins[Y] * binSize]
             : [NaN, NaN]
-    const seriesIndex = preparedData.seriesIndexes[activeData?.id ?? '']
-    const activeSymbol = createActiveSymbol({
+    const activeSymbol = createDensitySymbol({
         activeData,
         coordinates,
-        scales,
-        seriesIndex,
         dataComponent,
         symbol,
+        symbolR: symbolR ?? binSize / 2,
         symbolStyle,
         symbolClassName,
         setRole,
@@ -170,7 +196,7 @@ export const ScatterCrosshair = ({
     })
 
     return (
-        <g role={setRole ? 'scatter-crosshair' : undefined}>
+        <g role={setRole ? 'density-crosshair' : undefined}>
             <OpacityMotion
                 key={'crosshair'}
                 role={setRole ? 'crosshair-presence' : undefined}
