@@ -4,7 +4,7 @@
 
 ### Highlights
 
--   reduced several (but not all) lodash utility functions by implementations
+-   replaced several (but not all) lodash utility functions by implementations
     customized for use-cases relevant to the library
 -   New components `Density` and `DensityCells` for summarizing large
     datasets using density maps
@@ -12,8 +12,8 @@
 ### Added
 
 -   [examples] charts with density maps
--   [xy] components `Density`, `DensityCells`, `DensityCell`, and
-    `DensitySimpleCell` for creating density maps
+-   [xy] components `Density`, `DensityCells`, `DensityCrosshair`,
+    `DensityCell`, and `DensitySimpleCell` for creating density maps
 -   [xy] support for row-based and column-based datasets for `Scatter` views
 -   [core] function `cloneProps` to create shallow/deep copies of prop objects
 -   [core] wrapper `PersistentTooltipDataComponent` to create tooltips that

@@ -12,11 +12,13 @@ import * as DensityStories from './Density.stories'
 ## Data
 
 Data should be prepared as an array of objects. The format is equivalent as for the `Scatter` view.
+However, given that `Density` is intended for visualizations of datasets with a larger number of points,
+it is recommended to use the more space-efficient column-based format.
 
 ## Bin size
 
-`Density` assigns data points into bins. The size of the bins, measured in pixels / svg coordinates,
-determines the resolution of the density map.
+`Density` assigns data points into bins.
+The size of the bins, measured in pixels / svg coordinates, determines the resolution of the density map.
 
 <Canvas of={DensityStories.LoRes} />
 <Canvas of={DensityStories.HiRes} />
@@ -24,7 +26,8 @@ determines the resolution of the density map.
 ## Color
 
 By default, `Density` assigns colors using a categorical scale based on series id (analogously as in `Scatter`).
-To use color values encoded in the dataset, specify `valueColor` to indicate how to extract color values from the data,
-and set a custom `scaleColor` to define a color scale.
+To compute colors based on values encoded in the dataset,
+use prop `valueColor` to indicate how to extract color values from the data,
+and specify a custom color scale with prop `scaleColor`.
 
 <Canvas of={DensityStories.Color} />

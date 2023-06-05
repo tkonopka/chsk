@@ -5,15 +5,16 @@ import * as DensityCellsStories from './DensityCells.stories'
 
 <Meta of={DensityCellsStories} />
 
-`DensityCells` draws a map to visualize density of data points on a plane.
+`DensityCells` draws a collection of cells to summarize data density as a heat map.
 
 <ArgTypes of={DensityCellsStories} />
 
 ## Transparency
 
-`DensityCells` draws cells to convey the prevalence of data points in rectangular regions.
-By default, color intensity is scaled proportionally to the number of points in a region.
-Prop `transparency` toggles this scaling.
+Prop `transparency` toggles an opacity transformation.
+The default setting is to enable the opacity transformation.
+This results in cells with color intensity that scales with the number of points in a region,
+thus de-emphasizing regions with only a few data points.
 
 <Canvas of={DensityCellsStories.Transparency} />
 <Canvas of={DensityCellsStories.NoTransparency} />
@@ -22,8 +23,7 @@ Both modes use color blending to capture composition of each cell.
 
 ## Cells
 
-By default, `DensityCells` draws the map using the `DensitySimpleCell` component, which
-displays rectangles or circles without any animations.
+By default, the map is drawn using the `DensitySimpleCell` component, which displays shapes without any animations.
 Prop `cell` accepts other drawing functions.
 For example, `DensityCell` can be used to animate color transitions.
 
