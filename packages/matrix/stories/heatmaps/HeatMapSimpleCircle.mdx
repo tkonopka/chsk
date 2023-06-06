@@ -1,0 +1,19 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import { HeatMapSimpleCircle } from '../../src/heatmap'
+import * as HeatMapSimpleCircleStories from './HeatMapSimpleCircle.stories'
+
+# HeatMapSimpleCircle
+
+<Meta of={HeatMapSimpleCircleStories} />
+
+`HeatMapSimpleCircle` draws a single circle.
+
+<ArgTypes of={HeatMapSimpleCircle} />
+
+## Example
+
+`HeatMapSimpleCircle` is intended to be used in `HeatMapCells` to draw a heatmap with custom cells.
+
+<Canvas of={HeatMapSimpleCircleStories.Example} />
+
+Like `HeatMapSimpleRectangle`, `HeatMapSimpleCircle` does not provide any animations.

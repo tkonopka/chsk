@@ -14,14 +14,14 @@ import {
 } from '@chsk/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
-import { HeatMapRectangle } from './HeatMapRectangle'
+import { HeatMapSimpleRectangle } from './HeatMapSimpleRectangle'
 import { createCellFilter } from './helpers'
 
 export const HeatMapCells = ({
     ids,
     keys,
     cells,
-    cell = HeatMapRectangle,
+    cell = HeatMapSimpleRectangle,
     scaleColor,
     scaleSize,
     className,

@@ -12,9 +12,11 @@ import * as HeatMapCircleStories from './HeatMapCircle.stories'
 
 ## Example
 
-`HeatMapCircle` is a drop-in replacement for `HeatMapRectangle`.
-It can be used in `HeatMapCells` to draw a heatmap with custom cells.
+`HeatMapCircle` is closely related to `HeatMapSimpleCircle`.
+It is intended to be used in `HeatMapCells` to draw a heat map with custom cells.
 
 <Canvas of={HeatMapCircleStories.Example} />
 
-Like `HeatMapRectangle`, `HeatMapCircle` does not provide any animations.
+In contrast to `HeatMapSimpleCircle`, `HeatMapCircle` provides animation for the color fill and the radius.
+These animations can make heatmap updates appear smoother.
+However, in large visualizations with hundreds of cells, animations may decrease responsiveness.

@@ -1,0 +1,20 @@
+import { ArgTypes, Meta, Canvas } from '@storybook/blocks'
+import { HeatMapSimpleRectangle } from '../../src/heatmap'
+import * as HeatMapSimpleRectangleStories from './HeatMapSimpleRectangle.stories'
+
+# HeatMapSimpleRectangle
+
+<Meta of={HeatMapSimpleRectangleStories} />
+
+`HeatMapSimpleRectangle` draws a single rectangle.
+
+<ArgTypes of={HeatMapSimpleRectangle} />
+
+## Example
+
+`HeatMapSimpleRectangle` is intended to be used in `HeatMapCells` to draw a heat map.
+
+<Canvas of={HeatMapSimpleRectangleStories.Example} />
+
+Although `HeatMapSimpleRectangle` has a complex API, its implementation actually ignores most of the props.
+Notably, the component does not support animations.

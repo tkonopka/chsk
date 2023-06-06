@@ -29,6 +29,11 @@
 
 ### Changed
 
+-   [matrix] renamed heatmap cell components `HeatMapRectangle` and
+    `HeatMapCircle` to `HeatMapSimpleRectangle` and `HeatMapSimpleCircle` to
+    convey they have minimal features (no animations); renamed cell
+    components `HeatMapColorRectangle` and `HeatMapColorCircle` to
+    `HeatMapRectangle` and `HeatMapCircle` for brevity
 -   [all] replaced `merge` from lodash with spread operator (when possible)
     and with custom `mergeProps` and `fillProps` implementations
 -   [all] replaced `cloneDeep` from lodash with custom `cloneProps`

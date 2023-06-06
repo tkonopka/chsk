@@ -1,13 +1,15 @@
+import { m } from 'framer-motion'
 import { HeatMapCellProps } from './types'
 
 export const HeatMapCircle = ({ x, y, width, height, className, style }: HeatMapCellProps) => {
+    const config = { fill: style?.fill, r: Math.min(width, height) / 2 }
     return (
-        <circle
-            role={undefined}
+        <m.circle
+            initial={config}
+            animate={config}
             cx={x}
             cy={y}
-            r={Math.min(width, height) / 2}
-            style={style}
+            style={{ ...style, fill: undefined }}
             className={className}
         />
     )

@@ -6,14 +6,17 @@ import * as HeatMapRectangleStories from './HeatMapRectangle.stories'
 
 <Meta of={HeatMapRectangleStories} />
 
-`HeatMapRectangle` draws a single rectangle. This component is the default for drawing cells in `HeatMapCells`.
+`HeatMapRectangle` draws a single rectangle.
 
 <ArgTypes of={HeatMapRectangle} />
 
 ## Example
 
-Although `HeatMapRectangle` has a complex API, its implementation is actually rudimentary and ignores most of the props.
-Notably, `HeatMapRectangle` does not support animations and always creates centered shapes.
-These adjustments optimize the component for the heat map setting.
+`HeatMapRectangle` is closely related to `HeatMapSimpleRectangle`.
+It is intended to be used in `HeatMapCells` to draw a heat map.
 
 <Canvas of={HeatMapRectangleStories.Example} />
+
+In contrast to `HeatMapSimpleRectangle`, `HeatMapRectangle` provides animation for the color fill.
+Color animations can make heatmap updates appear smoother.
+However, in large visualizations with hundreds of cells, animations may decrease responsiveness.
