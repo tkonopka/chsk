@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { HeatMap, HeatMapSurface } from '../src'
-import { heatmapProps } from './props'
+import { HeatMap, HeatMapSurface } from '../../src'
+import { heatmapProps } from '../props'
 
 describe('HeatMapSurface', () => {
     // expand surface to cover entire cells

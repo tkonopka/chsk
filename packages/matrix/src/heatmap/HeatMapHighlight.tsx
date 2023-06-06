@@ -24,7 +24,7 @@ import {
     getClassName,
     relu,
 } from '@chsk/core'
-import { HeatMapHighlightProps } from './types'
+import { HeatMapHighlightProps, HeatMapInteractiveDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
 
 const createDetectorIntervals = (
@@ -90,12 +90,14 @@ export const HeatMapHighlight = ({
     className,
     setRole = true,
     style,
+    ...props
 }: HeatMapHighlightProps) => {
     const processedData = useProcessedData()
     const { scales } = useScales()
     const { size } = useDimensions()
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
+    const [activeData, setActiveData] = useState<HeatMapInteractiveDataItem | undefined>(undefined)
     const { setData: setTooltipData } = useTooltip()
     const data = processedData.data
     if (!isHeatMapSetting(data, scales)) return null
@@ -121,10 +123,20 @@ export const HeatMapHighlight = ({
         }
     }, [detectorIntervals, setZone])
 
-    const handleMouseLeave = useCallback(() => {
-        setZone(null)
-        setTooltipData({})
-    }, [setZone, setTooltipData])
+    const handleClick = useCallback(
+        (event: MouseEvent) => {
+            props.handlers?.onClick?.(activeData, event)
+        },
+        [activeData, props.handlers]
+    )
+    const handleMouseLeave = useCallback(
+        (event: MouseEvent) => {
+            props.handlers?.onMouseLeave?.(activeData, event)
+            setZone(null)
+            setTooltipData({})
+        },
+        [activeData, setZone, setTooltipData, props.handlers]
+    )
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {
             if (detectorRef === null || detectorRef.current === null) return
@@ -136,7 +148,7 @@ export const HeatMapHighlight = ({
             if (inZone(mouse, zone)) return
             const { indexes, zone: newZone } = findZone(mouse, detectorIntervals)
             if (newZone === null) {
-                handleMouseLeave()
+                handleMouseLeave(event)
                 return
             }
             const [x, y] = getAlignPosition(
@@ -153,14 +165,16 @@ export const HeatMapHighlight = ({
                 (zoneValue === null || isNaN(Number(zoneValue)) ? '' : 'value: ' + zoneValue) +
                 ' ' +
                 (zoneSize === null || isNaN(Number(zoneSize)) ? '' : 'size: ' + zoneSize)
-            const activeData = {
+            const activeData: HeatMapInteractiveDataItem = {
                 id: zoneId,
                 key: zoneKey,
-                value: zoneValue,
+                data: zoneValue,
                 size: zoneSize,
                 label: zoneLabel,
                 color: scaleColor(zoneValue as number),
             }
+            props.handlers?.onMouseEnter?.(activeData, event)
+            setActiveData(activeData)
             setTooltipData({
                 x,
                 y,
@@ -169,7 +183,7 @@ export const HeatMapHighlight = ({
             })
             setZone(newZone)
         },
-        [detectorIntervals, detectorRef, zone, setZone]
+        [detectorIntervals, detectorRef, zone, setZone, props.handlers]
     )
 
     // invisible rectangle that detects mouse motion
@@ -182,6 +196,7 @@ export const HeatMapHighlight = ({
             style={{ opacity: 0.0 }}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
+            onClick={handleClick}
         />
     )
 

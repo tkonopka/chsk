@@ -1,6 +1,6 @@
-import { Chart, Axis, Legend, LegendTitle, LegendColorScale } from '@chsk/core'
+import { Chart, Axis, Legend, LegendTitle, LegendColorScale, DataComponent } from '@chsk/core'
 import { interpolateReds } from 'd3-scale-chromatic'
-import { HeatMap, HeatMapCells } from '../../src'
+import { HeatMap, HeatMapCells, HeatMapInteractiveDataItem } from '../../src'
 import { commonProps, ChartHeatMapDecorator } from '../decorators'
 
 export default {
@@ -119,4 +119,29 @@ export const CustomLegends = {
     ),
 
     name: 'custom legends',
+}
+
+export const MouseClick = {
+    name: 'mouse events',
+    args: {
+        dataComponent: DataComponent,
+        handlers: {
+            onClick: (x: HeatMapInteractiveDataItem) => {
+                console.log(JSON.stringify(x))
+            },
+        },
+    },
+    decorators: [ChartHeatMapDecorator],
+}
+
+export const StyleModifiers = {
+    name: 'style modifiers',
+    args: {
+        dataComponent: DataComponent,
+        modifiers: {
+            onMouseEnter: { strokeWidth: 1, stroke: '#000000' },
+            onMouseLeave: {},
+        },
+    },
+    decorators: [ChartHeatMapDecorator],
 }

@@ -5,9 +5,9 @@ import {
     HeatMapCells,
     isHeatMapProcessedData,
     HeatMapProcessedDataItem,
-} from '../src/heatmap'
-import { heatmapProps } from './props'
-import { mockProcessedData, mockScales, GetScales, GetProcessedData } from './contexts'
+} from '../../src/heatmap'
+import { heatmapProps } from '../props'
+import { mockProcessedData, mockScales, GetScales, GetProcessedData } from '../contexts'
 
 const ids = ['alpha', 'beta', 'gamma', 'delta']
 const keysXYZ = ['x', 'y', 'z']

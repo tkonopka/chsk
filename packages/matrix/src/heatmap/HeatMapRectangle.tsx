@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { HeatMapCellProps } from './types'
 
-export const HeatMapRectangle = ({ x, y, width, height, className, style }: HeatMapCellProps) => {
+export const HeatMapRectangle = ({ x, y, width, height, style, ...props }: HeatMapCellProps) => {
     const config = { fill: style?.fill }
     return (
         <m.rect
@@ -12,7 +12,7 @@ export const HeatMapRectangle = ({ x, y, width, height, className, style }: Heat
             height={height}
             width={width}
             style={{ ...style, fill: undefined }}
-            className={className}
+            {...props}
         />
     )
 }

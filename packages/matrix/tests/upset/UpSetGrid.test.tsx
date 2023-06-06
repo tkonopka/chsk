@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { UpSet, UpSetGrid } from '../src/upset'
-import { upSetProps } from './props'
+import { UpSet, UpSetGrid } from '../../src/upset'
+import { upSetProps } from '../props'
 
 describe('UpSetGrid', () => {
     it('draws a grid for horizontal upset chart', () => {

@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
 import { cloneProps, Chart } from '@chsk/core'
-import { UpSet, isUpSetProcessedData } from '../src/upset'
-import { upSetProps } from './props'
-import { GetProcessedData, mockProcessedData } from './contexts'
+import { UpSet, isUpSetProcessedData } from '../../src/upset'
+import { upSetProps } from '../props'
+import { GetProcessedData, mockProcessedData } from '../contexts'
 
 const ids = ['alpha', 'beta', 'gamma', 'delta']
 

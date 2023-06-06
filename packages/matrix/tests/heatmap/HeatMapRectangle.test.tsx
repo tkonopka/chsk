@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapRectangle } from '../src'
-import { heatmapProps } from './props'
+import { HeatMap, HeatMapCells, HeatMapRectangle } from '../../src'
+import { heatmapProps } from '../props'
 
 describe('HeatMapRectangle', () => {
     it('draws cells as rectangles', () => {

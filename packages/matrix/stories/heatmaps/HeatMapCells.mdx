@@ -41,4 +41,24 @@ Thus, it is possible to create Legends based on the custom colors, including usi
 
 <Canvas of={HeatMapCellsStories.CustomLegends} />
 
-Note that for legends with continuous colors, it may be necessary to define a custom identifier `gradientId` to display the color gradient.
+For legends with continuous colors,
+it may be necessary to define a custom identifier `gradientId` to display the color gradient.
+
+## Mouse events and style modifiers
+
+Prop `handlers` attaches event handlers to individual data cells.
+
+<Canvas of={HeatMapCellsStories.MouseClick} />
+
+(Check the browser console with `Ctrl Shift J` for output.)
+
+Prop `modifiers` defines css styles that are applied following mouse events.
+
+<Canvas of={HeatMapCellsStories.StyleModifiers} />
+
+Note that by default, `HeatMapCells` uses `SimpleDataComponent` to create cells, prioritizing simplicity over features.
+`SimpleDataComponent` actually ignores the content of `handlers` and `modifiers`.
+Thus, for `handlers` and `modifiers` to take effect, prop `dataComponent` should also be set, for example,
+to `DataComponent` or `TooltipDataComponent`.
+
+Note also that many use-cases for handlers and modifiers may be handled instead by `HeatMapHighlight`.

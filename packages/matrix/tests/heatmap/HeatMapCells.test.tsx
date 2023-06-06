@@ -1,7 +1,7 @@
-import { render, screen } from '@testing-library/react'
-import { Chart, View } from '@chsk/core'
-import { HeatMap, HeatMapCells } from '../src'
-import { genericViewProps, heatmapCategoricalProps, heatmapProps } from './props'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { Chart, DataComponent, View } from '@chsk/core'
+import { HeatMap, HeatMapCells, HeatMapInteractiveDataItem } from '../../src'
+import { genericViewProps, heatmapCategoricalProps, heatmapProps } from '../props'
 
 describe('HeatMapCells', () => {
     it('draws cells', () => {
@@ -105,5 +105,30 @@ describe('HeatMapCells', () => {
             </Chart>
         )
         expect(screen.queryByRole('heatmap-cells')).toBeNull()
+    })
+
+    it('attaches event handlers', async () => {
+        let result: HeatMapInteractiveDataItem = { id: '', key: '', data: 0 }
+        const handleClick = (data?: HeatMapInteractiveDataItem) => {
+            result = data ? data : result
+        }
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
+                    <HeatMapCells
+                        ids={['alpha']}
+                        keys={['x']}
+                        dataComponent={DataComponent}
+                        handlers={{ onClick: handleClick }}
+                    />
+                </HeatMap>
+            </Chart>
+        )
+        const cells = screen.getByRole('heatmap-cells').querySelectorAll('rect')
+        fireEvent.click(cells[0])
+        await waitFor(() => {
+            expect(result?.id).toEqual('alpha')
+            expect(result?.key).toEqual('x')
+        })
     })
 })

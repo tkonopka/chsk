@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { UpSet, UpSetMemberships } from '../src/upset'
-import { upSetProps } from './props'
+import { UpSet, UpSetMemberships } from '../../src/upset'
+import { upSetProps } from '../props'
 
 describe('UpSetMemberships', () => {
     it('draws memberships on horizontal chart', () => {

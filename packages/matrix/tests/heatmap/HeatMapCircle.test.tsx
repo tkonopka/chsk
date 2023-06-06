@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapCircle } from '../src'
-import { heatmapProps } from './props'
+import { HeatMap, HeatMapCells, HeatMapCircle } from '../../src'
+import { heatmapProps } from '../props'
 
 describe('HeatMapColorCircle', () => {
     it('draws cells as circles', () => {

@@ -11,6 +11,8 @@
 
 ### Added
 
+-   [matrix] support for event handlers and modifiers in heatmap
+    `HeatMapCells` and `HeatMapHighlight`
 -   [examples] charts with density maps
 -   [xy] components `Density`, `DensityCells`, `DensityCrosshair`,
     `DensityCell`, and `DensitySimpleCell` for creating density maps

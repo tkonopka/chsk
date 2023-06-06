@@ -1,8 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
-import { HeatMap, HeatMapCells, HeatMapHighlight } from '../src'
-import { genericViewProps, heatmapProps } from './props'
-import { getNumberAttr } from '../../core/tests/utils'
+import { HeatMap, HeatMapCells, HeatMapHighlight } from '../../src'
+import { genericViewProps, heatmapProps } from '../props'
+import { getNumberAttr } from '../../../core/tests/utils'
+import { HeatMapInteractiveDataItem } from '../../dist/types'
 
 describe('HeatMapHighlight', () => {
     it('creates a detector surface', () => {
@@ -145,5 +146,47 @@ describe('HeatMapHighlight', () => {
         })
         const maskRects = screen.getByRole('heatmap-highlight-mask').querySelectorAll('rect')
         expect(getNumberAttr(maskRects[0], 'height')).toBeGreaterThan(100)
+    })
+
+    it('use event handlers', async () => {
+        let enter: HeatMapInteractiveDataItem | undefined = undefined
+        let clicked: HeatMapInteractiveDataItem | undefined = undefined
+        let left: HeatMapInteractiveDataItem | undefined = undefined
+        const handleEnter = (data?: HeatMapInteractiveDataItem) => {
+            enter = data
+        }
+        const handleClick = (data?: HeatMapInteractiveDataItem) => {
+            clicked = data
+        }
+        const handleLeave = (data?: HeatMapInteractiveDataItem) => {
+            left = data
+        }
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x']}>
+                    <HeatMapCells />
+                    <HeatMapHighlight
+                        handlers={{
+                            onClick: handleClick,
+                            onMouseLeave: handleLeave,
+                            onMouseEnter: handleEnter,
+                        }}
+                    />
+                </HeatMap>
+            </Chart>
+        )
+        const detector = screen.getByRole('heatmap-detector')
+        fireEvent.mouseMove(detector, { clientX: 40, clientY: 40 })
+        await waitFor(() => {
+            expect(enter?.id).toEqual('alpha')
+        })
+        fireEvent.click(detector, { clientX: 40, clientY: 40 })
+        await waitFor(() => {
+            expect(clicked?.id).toEqual('alpha')
+        })
+        fireEvent.mouseLeave(detector)
+        await waitFor(() => {
+            expect(left?.id).toEqual('alpha')
+        })
     })
 })

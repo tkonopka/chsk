@@ -1,8 +1,8 @@
 import { render, screen, within } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Bars } from '@chsk/band'
-import { UpSet, UpSetBar, UpSetMemberships } from '../src/upset'
-import { upSetProps } from './props'
+import { UpSet, UpSetBar, UpSetMemberships } from '../../src/upset'
+import { upSetProps } from '../props'
 
 describe('UpSetBar', () => {
     it('creates a sub-view for a bar chart on a horizontal upset', () => {

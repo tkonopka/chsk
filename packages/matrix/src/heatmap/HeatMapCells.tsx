@@ -11,6 +11,7 @@ import {
     getClassName,
     createContinuousScale,
     ContinuousAxisScale,
+    SimpleDataComponent,
 } from '@chsk/core'
 import { HeatMapCellsProps, HeatMapProcessedDataItem } from './types'
 import { isHeatMapSetting } from './predicates'
@@ -24,9 +25,11 @@ export const HeatMapCells = ({
     cell = HeatMapSimpleRectangle,
     scaleColor,
     scaleSize,
+    dataComponent = SimpleDataComponent,
     className,
     style,
     children,
+    ...props
 }: HeatMapCellsProps) => {
     const processedData = useProcessedData()
     const scalesContextValue = useScales()
@@ -62,27 +65,41 @@ export const HeatMapCells = ({
             const values = seriesData.value
             const sizes = seriesData.size
             return seriesData.value.map((v, i) => {
-                if (!cellFilter(seriesData.id, processedData.keys[i])) return null
+                const k = processedData.keys[i]
+                if (!cellFilter(seriesData.id, k)) return null
                 const cellColor = colorScale(values[i] as number)
                 const cellStyle = addColor(style, cellColor)
                 // cell2R is 2*radius for the cell symbol
                 const cell2R = 2 * (isFinite(sizes[i]) ? sizeScale(sizes[i]) : maxSize)
-                return createElement(cell, {
+
+                return createElement(dataComponent, {
                     key: 'cell-' + seriesData.index + '-' + i,
-                    x: x[i],
-                    y: y,
-                    width: variableSize ? (aspectRatio > 1 ? cell2R * aspectRatio : cell2R) : width,
-                    height: variableSize
-                        ? aspectRatio > 1
-                            ? cell2R
-                            : cell2R / aspectRatio
-                        : height,
-                    cellValue: values[i],
-                    cellSize: sizes[i],
-                    className: cellClassName,
-                    style: cellStyle,
-                    center: true,
-                    setRole: false,
+                    component: cell,
+                    data: {
+                        id: seriesData.id,
+                        key: k,
+                        data: values[i],
+                        size: sizes[i],
+                    },
+                    props: {
+                        cellValue: values[i],
+                        cellSize: sizes[i],
+                        x: x[i],
+                        y: y,
+                        width: variableSize
+                            ? aspectRatio > 1
+                                ? cell2R * aspectRatio
+                                : cell2R
+                            : width,
+                        height: variableSize
+                            ? aspectRatio > 1
+                                ? cell2R
+                                : cell2R / aspectRatio
+                            : height,
+                        className: cellClassName,
+                        style: cellStyle,
+                    },
+                    ...props,
                 })
             })
         })

@@ -3,6 +3,7 @@ import {
     BandScaleSpec,
     ColorScaleProps,
     ColorScaleSpec,
+    DataInteractivityProps,
     ProcessedDataContextProps,
     RectangleProps,
     SizeScaleProps,
@@ -44,16 +45,28 @@ export interface HeatMapProps extends SvgElementProps, Pick<ViewProps, 'containe
     scaleSize?: SizeScaleSpec
 }
 
-export interface HeatMapHighlightProps extends SvgElementProps, BandHighlightProps {
-    /** keys to display (default to all keys) */
-    keys?: string[]
-}
-
-export interface HeatMapCellProps extends RectangleProps {
+export interface HeatMapCellProps extends Omit<RectangleProps, 'center' | 'setRole'> {
     /** value that determines cell color */
     cellValue?: number | string
     /** value that determines cell size */
     cellSize?: number
+}
+
+export type HeatMapInteractiveDataItem = {
+    id: string
+    key: string
+    data: number | string
+    size?: number
+    label?: string
+    color?: string
+}
+
+export interface HeatMapHighlightProps
+    extends SvgElementProps,
+        BandHighlightProps,
+        DataInteractivityProps<HeatMapInteractiveDataItem, HeatMapCellProps> {
+    /** keys to display (default to all keys) */
+    keys?: string[]
 }
 
 export interface HeatMapCellsProps extends HeatMapHighlightProps {
