@@ -13,4 +13,4 @@ It provides a collection of objects that adjust chart look-and-feel.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-themes-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-themes)

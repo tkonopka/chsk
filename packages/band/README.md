@@ -20,4 +20,4 @@ continuous axis.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-band-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-band)

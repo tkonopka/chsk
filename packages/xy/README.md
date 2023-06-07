@@ -14,4 +14,4 @@ axes display continuous values.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-scatter-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-xy)

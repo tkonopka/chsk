@@ -7,7 +7,7 @@ It provides a toolkit for creating static charts for offline publications,
 dynamic components for dashboards, and animated stories for presentations.
 
 -   [documentation](https://tkonopka.github.io/chsk/)
--   [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery-overview--docs)
+-   [gallery of examples](https://tkonopka.github.io/chsk/?path=/docs/gallery)
 
 ## Features
 
@@ -39,7 +39,7 @@ into view in stages. Later, the bars readjust to display new data.
 
 ![Custom bar chart](/gifs/custom-bars-580x280.gif)
 
-All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/docs/gallery-bar-charts--custom-groups).
+All data in the animation are synthetic. A live version of the chart is available [here](https://tkonopka.github.io/chsk/?path=/story/gallery-bar-charts--custom-groups).
 
 ## Install
 

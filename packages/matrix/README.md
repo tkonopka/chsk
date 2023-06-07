@@ -2,7 +2,7 @@
 
 `@chsk/matrix` is part of a data visualization framework based on `@chsk/core`.
 It provides components for charts in which both the horizontal and vertical
-axes hold categorical / discrete labels.
+axes hold categorical/discrete labels.
 
 ## Features
 
@@ -12,4 +12,4 @@ axes hold categorical / discrete labels.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-matrix-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-matrix)

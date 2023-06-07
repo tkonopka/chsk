@@ -9,4 +9,4 @@ It provides components for displaying set intersections.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-set-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-set)

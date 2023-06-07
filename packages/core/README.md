@@ -59,4 +59,4 @@ through add-on packages.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/core-overview--default-story)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/core)

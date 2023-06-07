@@ -21,4 +21,4 @@ incorporated into any chart type.
 
 ## Documentation
 
-See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-annotation-overview--page)
+See [here](https://tkonopka.github.io/chsk/?path=/docs/addons-annotation)
