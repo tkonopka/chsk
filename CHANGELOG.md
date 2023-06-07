@@ -4,10 +4,12 @@
 
 ### Highlights
 
--   replaced several (but not all) lodash utility functions by implementations
-    customized for use-cases relevant to the library
+-   replaced several lodash utility functions by implementations customized
+    for use-cases relevant to the library
 -   New components `Density` and `DensityCells` for summarizing large
     datasets using density maps
+-   New props and new components in existing packages, including for animated
+    heatmaps
 
 ### Added
 
@@ -16,9 +18,9 @@
 -   [examples] charts with density maps
 -   [xy] components `Density`, `DensityCells`, `DensityCrosshair`,
     `DensityCell`, and `DensitySimpleCell` for creating density maps
--   [matrix] components `HeatMapColorCircle` and `HeatMapColorRectangle` to
-    support heatmaps that animate color transitions; the default settings
-    still create maps without animations to prioritize performance
+-   [matrix] components `HeatMapCircle` and `HeatMapRectangle` to support
+    heatmaps that animate color transitions; the default settings still
+    create maps without animations to prioritize performance
 -   [xy] support for row-based and column-based datasets for `Scatter` views
 -   [core] function `cloneProps` to create shallow/deep copies of prop objects
 -   [core] wrapper `PersistentTooltipDataComponent` to create tooltips that
