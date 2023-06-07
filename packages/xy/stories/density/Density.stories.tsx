@@ -45,7 +45,7 @@ export const LoRes = {
 }
 
 export const HiRes = {
-    name: 'low resolution',
+    name: 'high resolution',
     args: {
         data: densityData,
         x: 'x',
