@@ -10,7 +10,7 @@
         "scatter chart",
         "histogram"
     ],
-    "main": "./dist/chsk-xy.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-xy.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

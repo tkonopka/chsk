@@ -54,6 +54,7 @@ const commonConfig = {
         'd3-scale',
         'd3-shape',
         'd3-scale-chromatic',
+        'd3-interpolate',
         'lodash',
     ],
     plugins: commonPlugins,
@@ -63,6 +64,7 @@ const commonConfig = {
         }
     },
 }
+
 const configs = [
     {
         ...commonConfig,
@@ -76,28 +78,12 @@ const configs = [
     {
         ...commonConfig,
         output: {
-            file: `./packages/${pkg}/dist/chsk-${pkg}.cjs.js`,
-            format: 'cjs',
+            file: `./packages/${pkg}/dist/chsk-${pkg}.umd.js`,
+            format: 'umd',
             name: `@chsk/${pkg}`,
             sourcemap: true,
         },
     },
 ]
-if (env === 'production') {
-    configs.push({
-        ...commonConfig,
-        output: {
-            file: `./packages/${pkg}/dist/chsk-${pkg}.umd.js`,
-            format: 'umd',
-            name: `@chsk/${pkg}`,
-            globals: {
-                react: 'React',
-                'react-dom': 'ReactDOM',
-                'react/jsx-runtime': 'jsxRuntime',
-            },
-            sourcemap: true,
-        },
-    })
-}
 
 export default configs

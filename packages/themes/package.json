@@ -10,7 +10,7 @@
         "theme",
         "css"
     ],
-    "main": "./dist/chsk-themes.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-themes.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

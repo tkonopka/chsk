@@ -9,7 +9,7 @@
         "charts",
         "annotation"
     ],
-    "main": "./dist/chsk-annotation.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

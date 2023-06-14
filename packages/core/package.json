@@ -8,7 +8,7 @@
         "visualization",
         "charts"
     ],
-    "main": "./dist/chsk-core.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-core.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

@@ -10,7 +10,7 @@
         "sets",
         "Venn diagram"
     ],
-    "main": "./dist/chsk-set.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-set.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

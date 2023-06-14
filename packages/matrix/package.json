@@ -10,7 +10,7 @@
         "heat map",
         "upset chart"
     ],
-    "main": "./dist/chsk-matrix.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,

@@ -8,6 +8,11 @@
 
 ### Changed
 
+-   [all] simplified build process to generate es modules (primary objects)
+    and umd files (used by jest)
+-   [all] adjusted `package.json` files to add `type` field and remove `main`
+    field
+
 ## v0.5.0
 
 ### Highlights

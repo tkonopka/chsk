@@ -13,7 +13,7 @@
         "strip chart",
         "schedule chart"
     ],
-    "main": "./dist/chsk-band.cjs.js",
+    "type": "module",
     "module": "./dist/chsk-band.es.js",
     "typings": "./dist/types/index.d.ts",
     "sideEffects": false,
