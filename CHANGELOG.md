@@ -8,6 +8,8 @@
 
 ### Changed
 
+-   [all] updated dependencies in `package.json` files to enable recent
+    version of framer-motion
 -   [all] simplified build process to generate es modules (primary objects)
     and umd files (used by jest)
 -   [all] adjusted `package.json` files to add `type` field and remove `main`
