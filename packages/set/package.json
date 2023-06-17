@@ -6,9 +6,13 @@
     "keywords": [
         "react",
         "visualization",
+        "data visualization",
+        "chart",
         "charts",
+        "set",
         "sets",
-        "Venn diagram"
+        "venn",
+        "venn-diagram"
     ],
     "exports": {
         "import": "./dist/chsk-set.es.js",

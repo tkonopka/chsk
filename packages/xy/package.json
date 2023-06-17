@@ -6,9 +6,18 @@
     "keywords": [
         "react",
         "visualization",
+        "data visualization",
+        "chart",
         "charts",
-        "scatter chart",
-        "histogram"
+        "scatter",
+        "scatter-chart",
+        "line",
+        "line-chart",
+        "histogram",
+        "histogram-chart",
+        "density",
+        "density-chart",
+        "density-map"
     ],
     "exports": {
         "import": "./dist/chsk-xy.es.js",

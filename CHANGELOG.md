@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [all] more keywords in `package.json` files
+
 ### Changed
 
 -   [all] added conditional exports to `package.json` files, specifying entry points for 'import' and 'require'

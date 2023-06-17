@@ -6,12 +6,20 @@
     "keywords": [
         "react",
         "visualization",
+        "data visualization",
+        "chart",
         "charts",
-        "bar chart",
-        "box plot",
-        "quantile chart",
-        "strip chart",
-        "schedule chart"
+        "bar",
+        "bar-chart",
+        "box-plot",
+        "quantile",
+        "quantile-chart",
+        "strip",
+        "strip-chart",
+        "schedule",
+        "schedule-chart",
+        "violin",
+        "violin-chart"
     ],
     "exports": {
         "import": "./dist/chsk-band.es.js",

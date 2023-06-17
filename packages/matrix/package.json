@@ -6,9 +6,13 @@
     "keywords": [
         "react",
         "visualization",
+        "data visualization",
+        "chart",
         "charts",
-        "heat map",
-        "upset chart"
+        "heatmap",
+        "heat-map",
+        "upset",
+        "upset-chart"
     ],
     "exports": {
         "import": "./dist/chsk-matrix.es.js",

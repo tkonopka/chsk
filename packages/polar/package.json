@@ -6,9 +6,13 @@
     "keywords": [
         "react",
         "visualization",
+        "data visualization",
+        "chart",
         "charts",
-        "pie chart",
-        "doughnut chart"
+        "pie",
+        "pie-chart",
+        "doughnut",
+        "doughnut-chart"
     ],
     "exports": {
         "import": "./dist/chsk-polar.es.js",
