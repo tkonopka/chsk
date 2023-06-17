@@ -10,6 +10,10 @@
         "theme",
         "css"
     ],
+    "exports": {
+        "import": "./dist/chsk-themes.es.js",
+        "require": "./dist/chsk-themes.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-themes.es.js",
     "typings": "./dist/types/index.d.ts",

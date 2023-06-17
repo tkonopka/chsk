@@ -8,6 +8,7 @@
 
 ### Changed
 
+-   [all] added conditional exports to `package.json` files, specifying entry points for 'import' and 'require'
 -   [all] updated dependencies in `package.json` files to enable recent
     version of framer-motion
 -   [all] simplified build process to generate es modules (primary objects)

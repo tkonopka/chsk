@@ -13,6 +13,10 @@
         "strip chart",
         "schedule chart"
     ],
+    "exports": {
+        "import": "./dist/chsk-band.es.js",
+        "require": "./dist/chsk-band.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-band.es.js",
     "typings": "./dist/types/index.d.ts",

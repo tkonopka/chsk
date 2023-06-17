@@ -10,6 +10,10 @@
         "sets",
         "Venn diagram"
     ],
+    "exports": {
+        "import": "./dist/chsk-set.es.js",
+        "require": "./dist/chsk-set.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-set.es.js",
     "typings": "./dist/types/index.d.ts",

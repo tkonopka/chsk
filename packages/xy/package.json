@@ -10,6 +10,10 @@
         "scatter chart",
         "histogram"
     ],
+    "exports": {
+        "import": "./dist/chsk-xy.es.js",
+        "require": "./dist/chsk-xy.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-xy.es.js",
     "typings": "./dist/types/index.d.ts",

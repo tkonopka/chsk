@@ -10,6 +10,10 @@
         "heat map",
         "upset chart"
     ],
+    "exports": {
+        "import": "./dist/chsk-matrix.es.js",
+        "require": "./dist/chsk-matrix.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-matrix.es.js",
     "typings": "./dist/types/index.d.ts",

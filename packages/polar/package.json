@@ -10,6 +10,10 @@
         "pie chart",
         "doughnut chart"
     ],
+    "exports": {
+        "import": "./dist/chsk-polar.es.js",
+        "require": "./dist/chsk-polar.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-polar.es.js",
     "typings": "./dist/types/index.d.ts",

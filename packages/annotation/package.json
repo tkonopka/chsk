@@ -9,6 +9,10 @@
         "charts",
         "annotation"
     ],
+    "exports": {
+        "import": "./dist/chsk-annotation.es.js",
+        "require": "./dist/chsk-annotation.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-annotation.es.js",
     "typings": "./dist/types/index.d.ts",

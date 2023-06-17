@@ -8,6 +8,10 @@
         "visualization",
         "charts"
     ],
+    "exports": {
+        "import": "./dist/chsk-core.es.js",
+        "require": "./dist/chsk-core.umd.js"
+    },
     "type": "module",
     "module": "./dist/chsk-core.es.js",
     "typings": "./dist/types/index.d.ts",
