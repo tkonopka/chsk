@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] linear scale specs with and without the `nice` parameter
 -   [all] more keywords in `package.json` files
 
 ### Changed

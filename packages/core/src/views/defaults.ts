@@ -4,7 +4,7 @@ import {
     createColorScaleProps,
     createContinuousScaleProps,
     defaultCategoricalScaleSpec,
-    defaultLinearScaleSpec,
+    defaultLinearScaleNiceSpec,
     defaultSizeScaleSpec,
     SizeScaleProps,
 } from '../scales'
@@ -21,8 +21,8 @@ export const defaultContainerProps: ContainerThemedProps = {
 
 export const defaultViewProps: ViewThemedProps = {
     container: cloneProps(defaultContainerProps),
-    scaleX: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
-    scaleY: createContinuousScaleProps(defaultLinearScaleSpec, [0, 100]),
+    scaleX: createContinuousScaleProps(defaultLinearScaleNiceSpec, [0, 100]),
+    scaleY: createContinuousScaleProps(defaultLinearScaleNiceSpec, [0, 100]),
     scaleColor: createColorScaleProps(defaultCategoricalScaleSpec, []),
     scaleSize: createContinuousScaleProps(defaultSizeScaleSpec, [0, 100], 25) as SizeScaleProps,
     setRole: true,

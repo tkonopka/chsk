@@ -23,6 +23,11 @@ export const defaultBandScaleSpec: BandScaleSpec = {
 export const defaultLinearScaleSpec: LinearScaleSpec = {
     variant: 'linear',
     domain: 'auto',
+}
+
+export const defaultLinearScaleNiceSpec: LinearScaleSpec = {
+    variant: 'linear',
+    domain: 'auto',
     nice: true,
 }
 
