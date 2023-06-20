@@ -1,0 +1,59 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as DendrogramStories from './Dendrogram.stories'
+
+# Dendrogram
+
+<Meta of={DendrogramStories} />
+
+`Dendrogram` sets up a view for a dendrogram chart. `Dendrogram` itself does not draw any visible elements, but it pre-processes a dataset so that the data can be visualized by other components, for example `DendrogramTree`.
+
+<ArgTypes of={DendrogramStories} />
+
+## Data
+
+For consistency with data objects in other views, dendrogram data should be prepared as an array of objects.
+In `Dendrogram`, however, this array will have, in most common use cases, only a single item.
+
+The data item should contain the following fields:
+
+-   'id' with an identifier string
+-   'ids' should contain a list of all the leaf nodes in the dendrogram;
+-   'merge' should contain pairs of integers that indicate the dendrogram hierarchy;
+-   'height' should contain a list of values that specify the position of each hierarchy step.
+
+The pseudocode below shows one data item with an identifier and three numeric values.
+
+<Source
+    language="javascript"
+    code={`
+  [
+  {
+   "id": "alpha",
+   "ids": ['a', 'b', 'c', 'd'],
+   "merge": [[-1, -2], [-3, -4], [1, 2]],
+   "height": [0.25, 0.5, 0.75],
+  }
+  ]
+  `}
+/>
+
+The data format follows closely the output from `hclust` in the R environment.
+See the [R documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/hclust.html) for further details.
+
+## Variants
+
+Prop `variant` ...
+
+<Canvas of={DendrogramStories.Top} />
+<Canvas of={DendrogramStories.Right} />
+<Canvas of={DendrogramStories.Bottom} />
+<Canvas of={DendrogramStories.Left} />
+
+## Hang
+
+Prop `hang` determines how the leaf nodes are attached to their branch.
+The default is to draw all the leaves at the baseline.
+Setting `hang` to a nonzero value instead positions the leaves a fixed distance from their branch.
+
+<Canvas of={DendrogramStories.HangBottom} />
+<Canvas of={DendrogramStories.HangRight} />

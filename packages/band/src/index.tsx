@@ -1,5 +1,6 @@
 export * from './bands'
 export * from './bars'
+export * from './dendrogram'
 export * from './quantiles'
 export * from './schedules'
 export * from './strips'
