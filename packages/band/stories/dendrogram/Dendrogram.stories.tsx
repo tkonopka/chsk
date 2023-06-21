@@ -1,3 +1,4 @@
+import { Axis } from '@chsk/core'
 import { Dendrogram, DendrogramTree } from '../../src'
 import { ChartDecorator } from '../decorators'
 import { commonDendrogramProps } from './decorators'
@@ -65,6 +66,42 @@ export const HangRight = {
         variant: 'right',
         hang: 0.1,
         children: <DendrogramTree />,
+    },
+    decorators: [ChartDecorator],
+}
+
+export const DefaultScales = {
+    name: 'default scales',
+    args: {
+        ...commonDendrogramProps,
+        variant: 'bottom',
+        children: (
+            <>
+                <DendrogramTree />
+                <Axis variant={'bottom'} />
+                <Axis variant={'left'} />
+            </>
+        ),
+    },
+    decorators: [ChartDecorator],
+}
+
+export const CustomScales = {
+    name: 'custom scales',
+    args: {
+        ...commonDendrogramProps,
+        scaleIndex: {
+            variant: 'band',
+            domain: ['gamma', 'delta', 'epsilon', 'alpha', 'beta'],
+        },
+        variant: 'bottom',
+        children: (
+            <>
+                <DendrogramTree />
+                <Axis variant={'bottom'} />
+                <Axis variant={'left'} />
+            </>
+        ),
     },
     decorators: [ChartDecorator],
 }

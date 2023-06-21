@@ -57,3 +57,16 @@ Setting `hang` to a nonzero value instead positions the leaves a fixed distance 
 
 <Canvas of={DendrogramStories.HangBottom} />
 <Canvas of={DendrogramStories.HangRight} />
+
+## Scales
+
+Props `scaleValue` and `scaleIndex` fine-tune the scales that capture the dendrogram hierarchy and the leaf elements,
+respectively.
+As in other views, these scales can be visualized with `Axis` components.
+
+<Canvas of={DendrogramStories.DefaultScales} />
+
+By default, leaf nodes are arranged in the order specified in the `data` object (field `ids`).
+The node order can be adjusted by specifying a custom domain for the index scale.
+
+<Canvas of={DendrogramStories.CustomScales} />

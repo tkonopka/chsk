@@ -1,15 +1,13 @@
 import { FC } from 'react'
 import {
-    CssProps,
     DataInteractivityProps,
     LabelProps,
     LinearScaleSpec,
-    LocationProps,
     ProcessedDataContextProps,
     SideVariant,
-    SizeSpec,
     WithId,
     PathProps,
+    SvgElementProps,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
@@ -54,7 +52,8 @@ export type DendrogramInteractiveDataItem = {
     data: number
 }
 
-export interface DendrogramProps extends Omit<BandProps, 'keys' | 'scaleValue'> {
+export interface DendrogramProps
+    extends Omit<BandProps, 'keys' | 'scaleValue' | 'autoRescale' | 'paddingInternal'> {
     /** variant */
     variant?: SideVariant
     /** data */
@@ -66,21 +65,17 @@ export interface DendrogramProps extends Omit<BandProps, 'keys' | 'scaleValue'> 
 }
 
 export interface DendrogramTreeProps
-    extends BandsProps,
+    extends Omit<BandsProps, 'keys' | 'variant'>,
         DataInteractivityProps<DendrogramInteractiveDataItem, PathProps> {
     /** component used to draw individual bars */
     component?: FC<PathProps>
 }
 
-export interface DendrogramLabelsProps extends BandsProps, Omit<LocationProps, 'position'> {
+export interface DendrogramLeafLabelsProps extends SvgElementProps, Omit<LabelProps, 'position'> {
+    /** ids to display (defaults to all ids) */
+    ids?: string[]
     /** format for text */
-    format?: (v: string | number) => string
-    /** minimum size for displaying a label */
-    minSize?: SizeSpec
-    /** toggle visibility of labels outside of small bars */
-    showOuter?: boolean
-    /** css style for outer label */
-    styleOuter?: CssProps
+    format?: (v: string) => string
     /** components used to render label */
     component?: FC<LabelProps>
 }

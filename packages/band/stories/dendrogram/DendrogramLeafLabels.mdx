@@ -1,0 +1,38 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as DendrogramLeafLabelsStories from './DendrogramLeafLabels.stories'
+
+# DendrogramLeafLabels
+
+<Meta of={DendrogramLeafLabelsStories} />
+
+`DendrogramLeafLabels` draws a set of labels next to dendrogram leaf nodes.
+
+<ArgTypes of={DendrogramLeafLabelsStories} />
+
+## Position
+
+Props such as `offset`, `align`, `anchor`, or `angle` can fine-tune label placement.
+In practice, simple labels may only require an `offset`.
+
+<Canvas of={DendrogramLeafLabelsStories.Position} />
+
+## Subsets
+
+By default, `DendrogramLeafLabels` draws labels for all the leaf nodes.
+Prop `ids` restricts this to a subset of nodes.
+
+<Canvas of={DendrogramLeafLabelsStories.Subset} />
+
+## Hang
+
+The feature that distinguishes `DendrogramLeafLabels` from `AxisTicks` is the ability to place
+labels at different heights in the hierarchy.
+
+<Canvas of={DendrogramLeafLabelsStories.Hang} />
+
+## Custom components
+
+Prop `component` accepts a label-drawing function.
+This can accept label components from `@chsk/annotation`, for example `BoxedLabel`.
+
+<Canvas of={DendrogramLeafLabelsStories.Boxed} />

@@ -35,20 +35,18 @@ const processData = (
     })
 }
 
-const abs = Math.abs
-
 const prepareData = (
     data: Array<DendrogramDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
     hang: number
 ): Array<DendrogramPreparedDataItem> => {
-    const indexDomain = indexScale.domain()
+    const abs = Math.abs
     return data.map((item, index) => {
         const nNodes = item.merge.length
         const position: number[] = Array(nNodes).fill(0)
         const height: number[] = Array(nNodes).fill(0)
-        const leafPosition: number[] = indexDomain.map(indexScale)
+        const leafPosition: number[] = item.ids.map(indexScale)
         const leafHeight: number[] = Array(item.ids.length).fill(valueScale(0))
         const interval: [number, number][] = []
         item.merge.map((pair, i) => {
@@ -98,7 +96,6 @@ export const Dendrogram = ({
     const horizontal = variant === 'right' || variant === 'left'
 
     const processedData = useMemo(() => processData(data, hang), [data, hang])
-    console.log('processedData ' + JSON.stringify(processedData))
     const ids = data[0].ids
     const keys = Object.keys(seriesIndexes)
     const { index: indexProps, value: valueProps } = useMemo(
@@ -123,7 +120,6 @@ export const Dendrogram = ({
     if (variant === 'right') {
         valueProps.reverse = true
     }
-    console.log('yProps ' + JSON.stringify(valueProps))
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps })
     const scales = scalesContextValue.scales
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
@@ -134,7 +130,6 @@ export const Dendrogram = ({
         () => prepareData(data, indexScale, valueScale, hang),
         [processedData, indexScale, valueScale, hang]
     )
-    console.log('preparedData ' + JSON.stringify(preparedData))
 
     return (
         <BaseView

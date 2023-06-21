@@ -1,6 +1,6 @@
 export * from './context'
 export * from './Dendrogram'
-export * from './DendrogramLabels'
+export * from './DendrogramLeafLabels'
 export * from './DendrogramTree'
 export * from './predicates'
 export * from './types'

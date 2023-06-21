@@ -5,7 +5,6 @@ import {
     isBandAxisScale,
     NumericPositionSpec,
     Path,
-    useProcessedData,
     useScales,
     X,
     Y,
@@ -25,12 +24,11 @@ const nodePoint = (
         positions[Math.abs(index) - 1],
         heights[Math.abs(index) - 1],
     ]
-    if (horizontal) return [result[1], result[0]]
     return horizontal ? [result[1], result[0]] : result
 }
 
-/** Create a line between two points on a dendrogram. (Negative indexes indicate leaf nodes) */
-const createTreeBiBranch = (
+/** Create points that connect two nodes on a dendrogram. (Negative indexes indicate leaf nodes) */
+const createTreeConnectionPoints = (
     data: DendrogramPreparedDataItem,
     midIndex: number,
     startIndex: number,
@@ -59,22 +57,24 @@ export const DendrogramTree = ({
     dataComponent = DataComponent,
     className,
     style,
-    setRole,
+    setRole = true,
 }: DendrogramTreeProps) => {
-    const processedData = useProcessedData()
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
     const horizontal = isBandAxisScale(scales.y)
 
-    const { idSet } = useMemo(
-        () => getIdKeySets(ids, undefined, processedData),
-        [ids, processedData]
-    )
+    const { idSet } = useMemo(() => getIdKeySets(ids, undefined, preparedData), [ids, preparedData])
 
     const result = preparedData.data.map(seriesData => {
         if (!idSet.has(seriesData.id)) return null
         const lines = seriesData.merge.map((pair: [number, number], i: number) => {
-            const points = createTreeBiBranch(seriesData, i + 1, pair[0], pair[1], horizontal)
+            const points = createTreeConnectionPoints(
+                seriesData,
+                i + 1,
+                pair[0],
+                pair[1],
+                horizontal
+            )
             return createElement(dataComponent, {
                 key: 'tree-' + seriesData.index + '-' + i,
                 data: {
