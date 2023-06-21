@@ -80,7 +80,7 @@ export const DendrogramTree = ({
                 data: {
                     id: seriesData.id,
                     key: seriesData.id,
-                    data: 0,
+                    data: [],
                 },
                 component,
                 props: {

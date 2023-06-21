@@ -1,16 +1,16 @@
-import { isDendrogramData, isDendrogramProcessedData } from '../../src/dendrogram'
+import { isDendrogramData, isDendrogramProcessedData } from '../../src/dendrogram/predicates'
 
 describe('isDendrogramData', () => {
     it('detects correct data format', () => {
         const input = [
             {
-                id: 'a',
+                id: 'alpha',
                 merge: [
                     [-1, -2],
                     [-3, 1],
                 ],
                 height: [0.5, 1.5],
-                ids: ['a', 'b', 'c'],
+                keys: ['a', 'b', 'c'],
             },
         ]
         expect(isDendrogramData(input)).toBeTruthy()
@@ -27,10 +27,10 @@ describe('isDendrogramData', () => {
     it('rejects data with incorrect merge and height arrays', () => {
         const input = [
             {
-                id: 'a',
+                id: 'alpha',
                 merge: [],
                 height: 0,
-                ids: ['a', 'b', 'c'],
+                keys: ['a', 'b', 'c'],
             },
         ]
         expect(isDendrogramData(input)).toBeFalsy()
@@ -45,7 +45,7 @@ describe('isDendrogramData', () => {
                     [-3, 1],
                 ],
                 height: [0.5, 1.5, 2, 3, 4],
-                ids: ['a', 'b', 'c'],
+                keys: ['a', 'b', 'c'],
             },
         ]
         expect(isDendrogramData(input)).toBeFalsy()

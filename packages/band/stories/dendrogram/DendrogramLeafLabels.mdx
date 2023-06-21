@@ -19,9 +19,13 @@ In practice, simple labels may only require an `offset`.
 ## Subsets
 
 By default, `DendrogramLeafLabels` draws labels for all the leaf nodes.
-Prop `ids` restricts this to a subset of nodes.
+Prop `keys` restricts this to a subset of nodes.
 
 <Canvas of={DendrogramLeafLabelsStories.Subset} />
+
+In other views, prop `ids` is used in a similar fashion to restrict in an orthogonal fashion.
+In dendrograms, ids label entire dendrogram, and an entire dendrogram chart typically contains only one tree.
+Thus, the `ids` prop is typically not relevant.
 
 ## Hang
 

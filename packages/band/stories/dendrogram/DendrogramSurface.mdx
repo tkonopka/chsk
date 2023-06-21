@@ -1,0 +1,38 @@
+import { ArgTypes, Canvas, Meta, Source } from '@storybook/blocks'
+import * as DendrogramSurfaceStories from './DendrogramSurface.stories'
+
+# DendrogramSurface
+
+<Meta of={DendrogramSurfaceStories} />
+
+`DendrogramSurface` draws rectangles around dendrogram branches.
+
+<ArgTypes of={DendrogramSurfaceStories} />
+
+## Levels
+
+By default `DendrogramSurface` draws a series of rectangles, each capturing one layer of the dendrogram's hierarchy.
+
+<Canvas of={DendrogramSurfaceStories.AllLevels} />
+
+Prop `levels` accepts am array of integers and draws rectangles around specific parts of the dendrogram.
+Integers are interpreted as (off-by-one) indexes in the `merge` field in the original data.
+
+<Canvas of={DendrogramSurfaceStories.SelectedLevels} />
+
+## Data subsets
+
+Props `ids` offers an alternative method to draw surface.
+This prop takes a list of leaf identifiers, and creates a surface around the minimal hierarchy branch that encompasses those leaves.
+
+<Canvas of={DendrogramSurfaceStories.Subset} />
+
+## Expansion
+
+Props `expansion` enlarges the surface around a branch.
+
+<Canvas of={DendrogramSurfaceStories.Expansion} />
+
+## Interactivity
+
+<Canvas of={DendrogramSurfaceStories.Interactivity} />

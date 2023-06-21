@@ -33,7 +33,7 @@ describe('Dendrogram', () => {
         expect(isDendrogramProcessedData(result.data)).toBeTruthy()
         expect(Object.keys(result.seriesIndexes)).toHaveLength(1)
         expect(result.data).toHaveLength(1)
-        expect(result.keys).toHaveLength(1)
+        expect(result.keys).toHaveLength(4)
     })
 
     it('defines prepared data with default hang', () => {
@@ -51,7 +51,7 @@ describe('Dendrogram', () => {
         )
         expect(Object.keys(prepared.seriesIndexes)).toHaveLength(1)
         expect(prepared.data).toHaveLength(1)
-        expect(prepared.keys).toHaveLength(1)
+        expect(prepared.keys).toHaveLength(4)
         // the dataset represents a balanced tree with four nodes, so there are three merge nodes
         const data = prepared.data[0]
         expect(data.height).toHaveLength(3)

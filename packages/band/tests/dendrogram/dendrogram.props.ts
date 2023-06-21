@@ -9,7 +9,7 @@ export const dataDendrogram: Array<DendrogramDataItem> = [
             [1, 2],
         ],
         height: [0.25, 0.5, 0.75],
-        ids: ['a', 'b', 'c', 'd'],
+        keys: ['a', 'b', 'c', 'd'],
     },
 ]
 

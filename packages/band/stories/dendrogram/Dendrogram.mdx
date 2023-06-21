@@ -17,7 +17,7 @@ In `Dendrogram`, however, this array will have, in most common use cases, only a
 The data item should contain the following fields:
 
 -   'id' with an identifier string
--   'ids' should contain a list of all the leaf nodes in the dendrogram;
+-   'keys' should contain a list of all the leaf nodes in the dendrogram;
 -   'merge' should contain pairs of integers that indicate the dendrogram hierarchy;
 -   'height' should contain a list of values that specify the position of each hierarchy step.
 
@@ -29,7 +29,7 @@ The pseudocode below shows one data item with an identifier and three numeric va
   [
   {
    "id": "alpha",
-   "ids": ['a', 'b', 'c', 'd'],
+   "keys": ['a', 'b', 'c', 'd'],
    "merge": [[-1, -2], [-3, -4], [1, 2]],
    "height": [0.25, 0.5, 0.75],
   }

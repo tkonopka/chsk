@@ -21,7 +21,7 @@ export const Position = {
 export const Subset = {
     name: 'subset',
     args: {
-        ids: ['gamma', 'delta', 'epsilon'],
+        keys: ['gamma', 'delta', 'epsilon'],
         offset: [6, 0],
         style: {
             textAnchor: 'start',

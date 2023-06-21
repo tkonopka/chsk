@@ -12,7 +12,7 @@ const dataHierarchy: Array<DendrogramDataItem> = [
             [1, 3],
         ],
         height: [0.25, 0.5, 0.75, 1],
-        ids: ['alpha', 'beta', 'gamma', 'delta', 'epsilon'],
+        keys: ['alpha', 'beta', 'gamma', 'delta', 'epsilon'],
     },
 ]
 
@@ -72,6 +72,21 @@ export const ChartDendrogramTreeHangDecorator = (Story: () => ReactNode) => (
             <Surface variant={'inner'} />
             <DendrogramTree />
             {Story()}
+        </Dendrogram>
+    </Chart>
+)
+
+export const ChartDendrogramSurfaceDecorator = (Story: () => ReactNode) => (
+    <Chart
+        size={[400, 300]}
+        padding={[40, 60, 40, 40]}
+        style={{ display: 'inline-block' }}
+        theme={customTheme}
+    >
+        <Dendrogram data={dataHierarchy} variant={'right'}>
+            <Surface variant={'inner'} />
+            {Story()}
+            <DendrogramTree />
         </Dendrogram>
     </Chart>
 )

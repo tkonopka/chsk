@@ -1,7 +1,7 @@
 import { DendrogramLeafLabelsProps, DendrogramPreparedDataItem } from './types'
 import {
-    BandAxisScale,
     getClassName,
+    getIdKeySets,
     isBandAxisScale,
     Label,
     NumericPositionSpec,
@@ -14,6 +14,7 @@ import { useDendrogramPreparedData } from './context'
 
 export const DendrogramLeafLabels = ({
     ids,
+    keys,
     format,
     component = Label,
     angle,
@@ -29,32 +30,30 @@ export const DendrogramLeafLabels = ({
     const originalData = useRawData().data
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
+    const horizontal = isBandAxisScale(scales.y)
     if (!isDendrogramData(originalData)) return null
 
-    const horizontal = isBandAxisScale(scales.y)
-    const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
-
     // in LeafLabels, ids is interpreted as entries in the indexScale
-    const idSet = useMemo(() => {
-        const domainSet = new Set(indexScale.domain())
-        if (ids === undefined) return domainSet
-        return new Set(ids.filter(id => domainSet.has(id)))
-    }, [ids, scales])
+    const { idSet, keySet } = useMemo(
+        () => getIdKeySets(ids, keys, preparedData),
+        [ids, keys, preparedData]
+    )
 
     const compositeClassName = getClassName('leafLabel', className)
 
     const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
+        if (!idSet.has(item.id)) return null
         const data = originalData[item.index]
         const leafX = horizontal ? item.leafHeight : item.leafPosition
         const leafY = horizontal ? item.leafPosition : item.leafHeight
-        return data.ids.map((id: string, i: number) => {
-            if (!idSet.has(id)) return null
+        return data.keys.map((k: string, i: number) => {
+            if (!keySet.has(k)) return null
             const position: NumericPositionSpec = [leafX[i], leafY[i]]
-            const value = format ? format(id) : id
+            const value = format ? format(k) : k
             return createElement(
                 component,
                 {
-                    key: 'leaf-' + id,
+                    key: 'leaf-' + item.id + '-' + k,
                     position,
                     offset,
                     angle,

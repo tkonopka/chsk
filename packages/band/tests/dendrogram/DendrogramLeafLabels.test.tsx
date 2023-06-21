@@ -31,7 +31,7 @@ describe('DendrogramLeafLabels', () => {
         render(
             <Chart>
                 <Dendrogram {...dendrogramProps} variant={'right'}>
-                    <DendrogramLeafLabels ids={['a', 'b']} />
+                    <DendrogramLeafLabels keys={['a', 'b']} />
                 </Dendrogram>
             </Chart>
         )

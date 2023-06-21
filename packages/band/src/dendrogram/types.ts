@@ -7,14 +7,16 @@ import {
     SideVariant,
     WithId,
     PathProps,
-    SvgElementProps,
+    RectangleProps,
+    FourSideSizeSpec,
+    ShiftUnit,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
 export type DendrogramDataItem = WithId & {
     merge: Array<[number, number]>
     height: number[]
-    ids: string[]
+    keys: string[]
 }
 
 export type DendrogramProcessedDataItem = WithId & {
@@ -34,7 +36,8 @@ export type DendrogramPreparedDataItem = WithId & {
     height: number[]
     leafPosition: number[]
     leafHeight: number[]
-    interval: [number, number][]
+    positionInterval: [number, number][]
+    heightInterval: [number, number][]
 }
 
 export type DendrogramPreparedDataContextProps = {
@@ -49,7 +52,7 @@ export type DendrogramPreparedDataContextProps = {
 export type DendrogramInteractiveDataItem = {
     id: string
     key: string
-    data: number
+    data: string[]
 }
 
 export interface DendrogramProps
@@ -71,11 +74,24 @@ export interface DendrogramTreeProps
     component?: FC<PathProps>
 }
 
-export interface DendrogramLeafLabelsProps extends SvgElementProps, Omit<LabelProps, 'position'> {
-    /** ids to display (defaults to all ids) */
-    ids?: string[]
+export interface DendrogramLeafLabelsProps
+    extends Omit<BandsProps, 'variant'>,
+        Omit<LabelProps, 'position'> {
     /** format for text */
     format?: (v: string) => string
     /** components used to render label */
     component?: FC<LabelProps>
+}
+
+export interface DendrogramSurfaceProps
+    extends Omit<BandsProps, 'variant'>,
+        DataInteractivityProps<DendrogramInteractiveDataItem, RectangleProps> {
+    /** hierarchy levels */
+    levels?: number[]
+    /** expansion */
+    expansion?: FourSideSizeSpec
+    /** expansion unit */
+    expansionUnit?: ShiftUnit
+    /** component used to draw individual surfaces */
+    component?: FC<RectangleProps>
 }
