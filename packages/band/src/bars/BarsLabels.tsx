@@ -49,7 +49,6 @@ export const BarsLabels = ({
                 if (!idSet.has(seriesData.id)) return null
                 const size = seriesData.size[i]
                 const pos = seriesData.position[i]
-                if (!Number.isFinite(size[X]) || !Number.isFinite(size[Y])) return null
                 const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
                 let labelStyle = style
                 let compositeClassName = innerClassName
