@@ -18,7 +18,7 @@ The library provides React components for data visualization.
 -   **Data-specific components** include bar charts, line charts,
     scatter plots, density maps, pie/doughnut charts, strip charts,
     quantile/box plots, violin plots, histograms, heat maps, set (Venn)
-    diagrams, upset diagrams, and schedule (Gantt) charts.
+    diagrams, upset diagrams, dendrograms, and schedule (Gantt) charts.
 
 Advanced features enable creating dynamic and bespoke content.
 

@@ -19,7 +19,9 @@
         "schedule",
         "schedule-chart",
         "violin",
-        "violin-chart"
+        "violin-chart",
+        "dendrogram",
+        "dendrogram-chart"
     ],
     "exports": {
         "import": "./dist/chsk-band.es.js",

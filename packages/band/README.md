@@ -15,6 +15,7 @@ continuous axis.
     data points in a dataset
 -   **Violin charts** visualize the shapes of number
     distributions using smooth or step-wise curves
+-   **Dendrograms** display hierarchical clustering
 -   **Band components** are general-purpose objects that can be used in
     any of the band-chart views (bar charts, distribution charts, etc.)
 
