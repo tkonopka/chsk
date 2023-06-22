@@ -5,12 +5,14 @@ import {
     isBandAxisScale,
     NumericPositionSpec,
     Path,
+    useRawData,
     useScales,
     X,
     Y,
 } from '@chsk/core'
 import { useDendrogramPreparedData } from './context'
 import { createElement, useMemo } from 'react'
+import { isDendrogramData } from './predicates'
 
 /** Create coordinates for a point on the dendrogram tree */
 const nodePoint = (
@@ -55,13 +57,17 @@ export const DendrogramTree = ({
     ids,
     component = Path,
     dataComponent = DataComponent,
+    handlers,
+    modifiers,
     className,
     style,
     setRole = true,
 }: DendrogramTreeProps) => {
+    const originalData = useRawData().data
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
     const horizontal = isBandAxisScale(scales.y)
+    if (!isDendrogramData(originalData)) return null
 
     const { idSet } = useMemo(() => getIdKeySets(ids, undefined, preparedData), [ids, preparedData])
 
@@ -79,8 +85,8 @@ export const DendrogramTree = ({
                 key: 'tree-' + seriesData.index + '-' + i,
                 data: {
                     id: seriesData.id,
-                    key: seriesData.id,
-                    data: [],
+                    level: i,
+                    data: originalData[seriesData.index],
                 },
                 component,
                 props: {
@@ -90,6 +96,8 @@ export const DendrogramTree = ({
                     style,
                     setRole: false,
                 },
+                handlers,
+                modifiers,
             })
         })
         return (

@@ -14,6 +14,18 @@ describe('DendrogramLeafLabels', () => {
         expect(screen.queryAllByRole('label')).toHaveLength(0)
     })
 
+    it('avoids work for non-existent series ids', () => {
+        render(
+            <Chart>
+                <Dendrogram {...dendrogramProps}>
+                    <DendrogramLeafLabels ids={['incorrect']} />
+                </Dendrogram>
+            </Chart>
+        )
+        const labels = screen.getByRole('view-dendrogram').querySelectorAll('text')
+        expect(labels).toHaveLength(0)
+    })
+
     it('draws all labels', () => {
         render(
             <Chart>

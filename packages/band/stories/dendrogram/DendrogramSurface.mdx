@@ -9,30 +9,36 @@ import * as DendrogramSurfaceStories from './DendrogramSurface.stories'
 
 <ArgTypes of={DendrogramSurfaceStories} />
 
-## Levels
+## Data subsets
 
 By default `DendrogramSurface` draws a series of rectangles, each capturing one layer of the dendrogram's hierarchy.
 
 <Canvas of={DendrogramSurfaceStories.AllLevels} />
 
-Prop `levels` accepts am array of integers and draws rectangles around specific parts of the dendrogram.
-Integers are interpreted as (off-by-one) indexes in the `merge` field in the original data.
+Prop `levels` accepts an array of integers that denote specific parts of the dendrogram.
+Integers are interpreted as indexes in the `merge` field in the original data.
 
 <Canvas of={DendrogramSurfaceStories.SelectedLevels} />
 
-## Data subsets
-
-Props `ids` offers an alternative method to draw surface.
-This prop takes a list of leaf identifiers, and creates a surface around the minimal hierarchy branch that encompasses those leaves.
+Prop `ids` uses a list of leaf identifiers to creates a surface around the branch that encompasses those leaves.
 
 <Canvas of={DendrogramSurfaceStories.Subset} />
 
+A distinction between `levels` and `ids` is that an array of `ids` always creates only a single surface.
+In contrast, an array of `levels` draws multiple surfaces.
+
 ## Expansion
 
-Props `expansion` enlarges the surface around a branch.
+Prop `expansion` enlarges the surface around a branch.
 
 <Canvas of={DendrogramSurfaceStories.Expansion} />
 
 ## Interactivity
 
+Prop `interactive` toggles interactivity, which makes surfaces become visible only upon mouse interactions.
+
 <Canvas of={DendrogramSurfaceStories.Interactivity} />
+
+Note that if `DendrogramTree` (or any other component) is layered on top of `DendrogramSurface`,
+it may be desirable to turn off pointer events on the top layer.
+This is achieved by including `pointerEvents: 'none'` in the top layer's style.

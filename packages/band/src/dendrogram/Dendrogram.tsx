@@ -9,7 +9,7 @@ import {
     BaseView,
     defaultContainerProps,
     useCreateScales,
-    interval as getInterval,
+    interval,
     defaultLinearScaleSpec,
 } from '@chsk/core'
 import {
@@ -26,7 +26,7 @@ const processData = (
     hang: number
 ): Array<DendrogramProcessedDataItem> => {
     return data.map((item, index) => {
-        const minmax = getInterval(item.height)
+        const minmax = interval(item.height)
         return {
             id: item.id,
             index,
@@ -71,8 +71,8 @@ const prepareData = (
             positionExtremities.push(a < 0 ? positionExtremities[0] : positionInterval[a - 1][0])
             positionExtremities.push(b < 0 ? positionExtremities[1] : positionInterval[b - 1][1])
             heightExtremities.push(height[i])
-            positionInterval[i] = getInterval(positionExtremities)
-            heightInterval[i] = getInterval(heightExtremities)
+            positionInterval[i] = interval(positionExtremities)
+            heightInterval[i] = interval(heightExtremities)
         })
         return {
             id: item.id,
@@ -120,18 +120,12 @@ export const Dendrogram = ({
     )
     const xProps = horizontal ? valueProps : indexProps
     const yProps = horizontal ? indexProps : valueProps
-    if (variant === 'top') {
-        valueProps.reverse = true
-    }
-    if (variant === 'right') {
-        valueProps.reverse = true
-    }
+    valueProps.reverse = variant === 'top' || variant === 'right'
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps })
     const scales = scalesContextValue.scales
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
-    // compute spacings between (possibly grouped) bars
     const preparedData = useMemo(
         () => prepareData(data, indexScale, valueScale, hang),
         [processedData, indexScale, valueScale, hang]

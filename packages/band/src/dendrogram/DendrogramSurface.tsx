@@ -1,20 +1,22 @@
-import { DendrogramPreparedDataItem, DendrogramSurfaceProps } from './types'
+import {
+    DendrogramInteractiveDataItem,
+    DendrogramPreparedDataItem,
+    DendrogramSurfaceProps,
+} from './types'
 import {
     BandAxisScale,
-    ContinuousAxisScale,
     DataComponent,
     FourSideSizeSpec,
     getIdKeySets,
     isBandAxisScale,
     range,
     Rectangle,
-    useRawData,
     useScales,
     TOP,
     BOTTOM,
     LEFT,
     RIGHT,
-    getClassName,
+    useRawData,
 } from '@chsk/core'
 import { useDendrogramPreparedData } from './context'
 import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
@@ -45,13 +47,15 @@ const getCommonLevel = (
     keys: string[]
 ) => {
     const positions = keys.map(k => indexScale(k))
-    for (let i = 0; i < data.positionInterval.length; i++) {
+    // loop over all levels except the last one (redundant)
+    const lastLevel = data.positionInterval.length - 1
+    for (let i = 0; i < lastLevel; i++) {
         const interval = data.positionInterval[i]
         if (positions.every(v => v >= interval[0] && v <= interval[1])) {
             return i
         }
     }
-    return data.positionInterval.length - 1
+    return lastLevel
 }
 
 export const DendrogramSurface = ({
@@ -62,6 +66,7 @@ export const DendrogramSurface = ({
     expansionUnit = 'band',
     component = Rectangle,
     dataComponent = DataComponent,
+    interactive = false,
     handlers,
     modifiers,
     className,
@@ -72,12 +77,9 @@ export const DendrogramSurface = ({
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
     const horizontal = isBandAxisScale(scales.y)
-    const [active, setActive] = useState<number | undefined>(undefined)
-    if (!isDendrogramData(originalData)) return null
+    const [active, setActive] = useState<DendrogramInteractiveDataItem | undefined>(undefined)
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
-    const valueScale = horizontal
-        ? (scales.x as ContinuousAxisScale)
-        : (scales.y as ContinuousAxisScale)
+    if (!isDendrogramData(originalData)) return null
 
     const expansionMultiplier =
         expansionUnit === 'band' ? indexScale.bandwidth() : indexScale.step()
@@ -88,33 +90,33 @@ export const DendrogramSurface = ({
         [ids, keys, preparedData]
     )
 
-    /**
     const onMouseEnter = useCallback(
-        (data: WithId | undefined, event: MouseEvent) => {
+        (data: DendrogramInteractiveDataItem | undefined, event: MouseEvent) => {
             handlers?.onMouseEnter?.(data, event)
-            setActive(data?.id)
+            setActive(data)
         },
         [handlers, setActive]
     )
     const onMouseLeave = useCallback(
-        (data: WithId | undefined, event: MouseEvent) => {
+        (data: DendrogramInteractiveDataItem | undefined, event: MouseEvent) => {
             handlers?.onMouseLeave?.(data, event)
             setActive(undefined)
         },
         [handlers, setActive]
     )
-    */
 
-    const compositeHandlers = { ...handlers }
+    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
 
     const surfaceProps = { variant: 'dendrogram-surface', setRole, className, style }
     const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
-        if (!idSet.has(item.id)) return null
+        const id = item.id
+        if (!idSet.has(id)) return null
         const data = originalData[item.index]
+
         // determine the levels to display
         let showLevels: number[] = []
         if (keys === undefined && levels === undefined) {
-            showLevels = range(data.height.length)
+            showLevels = range(item.merge.length)
         }
         if (levels !== undefined) {
             showLevels = showLevels.concat(levels)
@@ -127,17 +129,18 @@ export const DendrogramSurface = ({
 
         return showLevels.map(level => {
             const rectProps = createSurfaceProps(item, level, horizontal, absExpansion)
+            const interactiveOpacity = interactive
+                ? item.id === active?.id && level === active?.level
+                : false
+            const fixedOpacity = !interactive
             return createElement(dataComponent, {
-                key: 'branch-' + item.id + '-' + level,
+                key: 'branch-' + id + '-' + level,
                 component,
-                data: {
-                    id: item.id,
-                    key: String(level),
-                    data: [],
-                },
+                data: { id, level, data },
                 props: {
                     ...rectProps,
                     ...surfaceProps,
+                    opacity: +(interactiveOpacity || fixedOpacity),
                 },
                 handlers: compositeHandlers,
                 modifiers,

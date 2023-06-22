@@ -10,6 +10,7 @@ import {
     RectangleProps,
     FourSideSizeSpec,
     ShiftUnit,
+    WithInteractive,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
@@ -51,8 +52,8 @@ export type DendrogramPreparedDataContextProps = {
 
 export type DendrogramInteractiveDataItem = {
     id: string
-    key: string
-    data: string[]
+    level: number
+    data: DendrogramDataItem
 }
 
 export interface DendrogramProps
@@ -70,7 +71,7 @@ export interface DendrogramProps
 export interface DendrogramTreeProps
     extends Omit<BandsProps, 'keys' | 'variant'>,
         DataInteractivityProps<DendrogramInteractiveDataItem, PathProps> {
-    /** component used to draw individual bars */
+    /** component used to draw individual branches */
     component?: FC<PathProps>
 }
 
@@ -85,6 +86,7 @@ export interface DendrogramLeafLabelsProps
 
 export interface DendrogramSurfaceProps
     extends Omit<BandsProps, 'variant'>,
+        WithInteractive,
         DataInteractivityProps<DendrogramInteractiveDataItem, RectangleProps> {
     /** hierarchy levels */
     levels?: number[]

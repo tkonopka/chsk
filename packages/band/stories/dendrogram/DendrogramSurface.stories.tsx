@@ -1,4 +1,4 @@
-import { DendrogramSurface } from '../../src'
+import { DendrogramSurface, DendrogramInteractiveDataItem } from '../../src'
 import { ChartDendrogramSurfaceDecorator } from './decorators'
 
 export default {
@@ -36,7 +36,7 @@ export const Expansion = {
     name: 'expansion',
     args: {
         levels: [2],
-        expansion: [0.5, 0, 0.5, 0],
+        expansion: [0.5, 0, 0.5, 0.5],
         style: { fill: '#888888', fillOpacity: 0.5, strokeWidth: 1, stroke: '#888888' },
     },
     decorators: [ChartDendrogramSurfaceDecorator],
@@ -45,7 +45,14 @@ export const Expansion = {
 export const Interactivity = {
     name: 'interactive',
     args: {
-        style: { stroke: '#dd0000', strokeWidth: 2 },
+        interactive: true,
+        expansion: [0.5, 0, 0.5, 0.5],
+        style: { fill: '#cccccc', stroke: '#dd0000', strokeWidth: 1, cursor: 'pointer' },
+        handlers: {
+            onClick: (data?: DendrogramInteractiveDataItem) => {
+                console.log(JSON.stringify(data))
+            },
+        },
     },
     decorators: [ChartDendrogramSurfaceDecorator],
 }

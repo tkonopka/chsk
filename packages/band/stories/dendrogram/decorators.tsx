@@ -86,7 +86,7 @@ export const ChartDendrogramSurfaceDecorator = (Story: () => ReactNode) => (
         <Dendrogram data={dataHierarchy} variant={'right'}>
             <Surface variant={'inner'} />
             {Story()}
-            <DendrogramTree />
+            <DendrogramTree style={{ pointerEvents: 'none' }} />
         </Dendrogram>
     </Chart>
 )
