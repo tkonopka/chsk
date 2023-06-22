@@ -90,20 +90,20 @@ export const DendrogramSurface = ({
     const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
 
     const surfaceProps = { variant: 'dendrogram-surface', setRole, className, style }
-    const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
-        const id = item.id
+    const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {
+        const id = seriesData.id
         if (!idSet.has(id)) return null
-        const data = originalData[item.index]
+        const data = originalData[seriesData.index]
         const targetLevels = getTargetLevels(
-            item,
+            seriesData,
             indexScale,
             levels,
             keys === undefined ? keys : keyArray
         )
         return targetLevels.map(level => {
-            const rectProps = createSurfaceProps(item, level, horizontal, absExpansion)
+            const rectProps = createSurfaceProps(seriesData, level, horizontal, absExpansion)
             const interactiveOpacity = interactive
-                ? item.id === active?.id && level === active?.level
+                ? seriesData.id === active?.id && level === active?.level
                 : false
             const fixedOpacity = !interactive
             return createElement(dataComponent, {

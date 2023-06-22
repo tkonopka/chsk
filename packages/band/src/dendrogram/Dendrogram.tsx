@@ -53,7 +53,7 @@ const prepareData = (
         item.merge.map((pair, i) => {
             const h = item.height[i]
             height[i] = valueScale(h)
-            const positionExtremities: number[] = [0, 0]
+            const positionExtremities: Array<number | number[]> = [0, 0]
             const heightExtremities: number[] = [0, 0]
             const [a, b] = pair
             if (a < 0 && hang >= 0) {
@@ -68,10 +68,10 @@ const prepareData = (
             positionExtremities[1] = b < 0 ? leafPosition[abs(b) - 1] : position[b - 1]
             position[i] = 0.5 * (positionExtremities[0] + positionExtremities[1])
             // infer min and max positions along the index scale axis
-            positionExtremities.push(a < 0 ? positionExtremities[0] : positionInterval[a - 1][0])
-            positionExtremities.push(b < 0 ? positionExtremities[1] : positionInterval[b - 1][1])
+            positionExtremities.push(a < 0 ? positionExtremities[0] : positionInterval[a - 1])
+            positionExtremities.push(b < 0 ? positionExtremities[1] : positionInterval[b - 1])
             heightExtremities.push(height[i])
-            positionInterval[i] = interval(positionExtremities)
+            positionInterval[i] = interval(positionExtremities.flat())
             heightInterval[i] = interval(heightExtremities)
         })
         return {
@@ -128,7 +128,7 @@ export const Dendrogram = ({
 
     const preparedData = useMemo(
         () => prepareData(data, indexScale, valueScale, hang),
-        [processedData, indexScale, valueScale, hang]
+        [data, indexScale, valueScale, hang]
     )
 
     return (

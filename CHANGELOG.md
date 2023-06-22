@@ -6,8 +6,9 @@
 
 ### Added
 
--   [band] components `Dendrogram`, `DendrogramTree` to summarize hierarchical
-    dendrograms
+-   [examples] chart with hierarchical clustering
+-   [band] components `Dendrogram`, `DendrogramTree`, `DendrogramLeafLabels`,
+    and `DendrogramSurface` to summarize hierarchical clustering
 -   [core] linear scale specs with and without the `nice` parameter
 -   [all] more keywords in `package.json` files
 
