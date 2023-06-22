@@ -69,15 +69,15 @@ export interface DendrogramProps
 }
 
 export interface DendrogramTreeProps
-    extends Omit<BandsProps, 'keys' | 'variant'>,
+    extends BandsProps,
         DataInteractivityProps<DendrogramInteractiveDataItem, PathProps> {
     /** component used to draw individual branches */
     component?: FC<PathProps>
+    /** hierarchy levels */
+    levels?: number[]
 }
 
-export interface DendrogramLeafLabelsProps
-    extends Omit<BandsProps, 'variant'>,
-        Omit<LabelProps, 'position'> {
+export interface DendrogramLeafLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
     /** format for text */
     format?: (v: string) => string
     /** components used to render label */
@@ -85,7 +85,7 @@ export interface DendrogramLeafLabelsProps
 }
 
 export interface DendrogramSurfaceProps
-    extends Omit<BandsProps, 'variant'>,
+    extends BandsProps,
         WithInteractive,
         DataInteractivityProps<DendrogramInteractiveDataItem, RectangleProps> {
     /** hierarchy levels */

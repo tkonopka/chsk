@@ -9,7 +9,6 @@ import {
     FourSideSizeSpec,
     getIdKeySets,
     isBandAxisScale,
-    range,
     Rectangle,
     useScales,
     TOP,
@@ -21,6 +20,7 @@ import {
 import { useDendrogramPreparedData } from './context'
 import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
 import { isDendrogramData } from './predicates'
+import { getTargetLevels } from './utils'
 
 const createSurfaceProps = (
     data: DendrogramPreparedDataItem,
@@ -38,24 +38,6 @@ const createSurfaceProps = (
         width: (horizontal ? deltaHeight : deltaPosition) + expansion[LEFT] + expansion[RIGHT],
         height: (horizontal ? deltaPosition : deltaHeight) + expansion[TOP] + expansion[BOTTOM],
     }
-}
-
-/** get a hierarchy level that contains all the given keys */
-const getCommonLevel = (
-    data: DendrogramPreparedDataItem,
-    indexScale: BandAxisScale,
-    keys: string[]
-) => {
-    const positions = keys.map(k => indexScale(k))
-    // loop over all levels except the last one (redundant)
-    const lastLevel = data.positionInterval.length - 1
-    for (let i = 0; i < lastLevel; i++) {
-        const interval = data.positionInterval[i]
-        if (positions.every(v => v >= interval[0] && v <= interval[1])) {
-            return i
-        }
-    }
-    return lastLevel
 }
 
 export const DendrogramSurface = ({
@@ -85,7 +67,7 @@ export const DendrogramSurface = ({
         expansionUnit === 'band' ? indexScale.bandwidth() : indexScale.step()
     const absExpansion = expansion.map(v => v * expansionMultiplier) as FourSideSizeSpec
 
-    const { idSet } = useMemo(
+    const { idSet, keyArray } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
         [ids, keys, preparedData]
     )
@@ -112,22 +94,13 @@ export const DendrogramSurface = ({
         const id = item.id
         if (!idSet.has(id)) return null
         const data = originalData[item.index]
-
-        // determine the levels to display
-        let showLevels: number[] = []
-        if (keys === undefined && levels === undefined) {
-            showLevels = range(item.merge.length)
-        }
-        if (levels !== undefined) {
-            showLevels = showLevels.concat(levels)
-        }
-        if (keys !== undefined) {
-            showLevels.push(getCommonLevel(item, indexScale, keys))
-        }
-        // sort to create large-scale blocks first, then small-scale blocks on top
-        showLevels.sort((a, b) => b - a)
-
-        return showLevels.map(level => {
+        const targetLevels = getTargetLevels(
+            item,
+            indexScale,
+            levels,
+            keys === undefined ? keys : keyArray
+        )
+        return targetLevels.map(level => {
             const rectProps = createSurfaceProps(item, level, horizontal, absExpansion)
             const interactiveOpacity = interactive
                 ? item.id === active?.id && level === active?.level

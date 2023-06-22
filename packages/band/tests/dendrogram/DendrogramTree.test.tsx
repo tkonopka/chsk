@@ -64,6 +64,39 @@ describe('DendrogramTree', () => {
         paths.forEach(path => expect(path.getAttribute('class')).toEqual('dendrogram'))
     })
 
+    it('draws a partial tree using levels', () => {
+        render(
+            <Chart>
+                <Dendrogram {...dendrogramProps}>
+                    <DendrogramTree levels={[0]} />
+                </Dendrogram>
+            </Chart>
+        )
+        expect(screen.getByRole('dendrogram-tree').querySelectorAll('path')).toHaveLength(1)
+    })
+
+    it('draws a partial tree using keys', () => {
+        render(
+            <Chart>
+                <Dendrogram {...dendrogramProps}>
+                    <DendrogramTree keys={['c', 'd']} />
+                </Dendrogram>
+            </Chart>
+        )
+        expect(screen.getByRole('dendrogram-tree').querySelectorAll('path')).toHaveLength(1)
+    })
+
+    it('draws a partial tree that overlaps the entire tree', () => {
+        render(
+            <Chart>
+                <Dendrogram {...dendrogramProps}>
+                    <DendrogramTree keys={['a', 'd']} />
+                </Dendrogram>
+            </Chart>
+        )
+        expect(screen.getByRole('dendrogram-tree').querySelectorAll('path')).toHaveLength(3)
+    })
+
     it('draws a tree without role', () => {
         render(
             <Chart>

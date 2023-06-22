@@ -13,19 +13,14 @@ import { isDendrogramData } from './predicates'
 import { useDendrogramPreparedData } from './context'
 
 export const DendrogramLeafLabels = ({
+    variant = 'leaf-label',
     ids,
     keys,
     format,
     component = Label,
-    angle,
-    offset,
-    size,
-    align,
-    padding,
-    anchor,
     className,
-    style,
     setRole,
+    ...props
 }: DendrogramLeafLabelsProps) => {
     const originalData = useRawData().data
     const preparedData = useDendrogramPreparedData()
@@ -39,8 +34,8 @@ export const DendrogramLeafLabels = ({
         [ids, keys, preparedData]
     )
 
-    const compositeClassName = getClassName('leafLabel', className)
-
+    const compositeClassName = getClassName(variant, className)
+    const labelProps = { variant: 'label', className: compositeClassName, setRole }
     const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
         if (!idSet.has(item.id)) return null
         const data = originalData[item.index]
@@ -53,17 +48,10 @@ export const DendrogramLeafLabels = ({
             return createElement(
                 component,
                 {
+                    ...labelProps,
                     key: 'leaf-' + item.id + '-' + k,
                     position,
-                    offset,
-                    angle,
-                    size,
-                    align,
-                    anchor,
-                    padding,
-                    className: compositeClassName,
-                    style,
-                    setRole,
+                    ...props,
                 },
                 value
             )

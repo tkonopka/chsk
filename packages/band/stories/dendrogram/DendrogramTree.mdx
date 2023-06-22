@@ -9,8 +9,20 @@ import * as DendrogramTreeStories from './DendrogramTree.stories'
 
 <ArgTypes of={DendrogramTreeStories} />
 
+## Subtrees
+
+By default, `DendrogramTree` draws the entire dendrogram hierarchy.
+
+<Canvas of={DendrogramTreeStories.AllNodes} />
+
+To draw a subset, specify the specific branches using prop `levels`.
+Alternatively, to draw a subtree, specify prop `keys` with selected leaf node identifiers.
+
+<Canvas of={DendrogramTreeStories.Levels} />
+<Canvas of={DendrogramTreeStories.Keys} />
+
 ## Styling
 
-`DendrogramTree` draws lines to represent a tree hierarchy. Lines can be styled with css.
+`DendrogramTree` lines can be styled with css.
 
 <Canvas of={DendrogramTreeStories.Styling} />

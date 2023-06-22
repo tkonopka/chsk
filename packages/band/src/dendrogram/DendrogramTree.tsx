@@ -1,5 +1,6 @@
 import { DendrogramPreparedDataItem, DendrogramTreeProps } from './types'
 import {
+    BandAxisScale,
     DataComponent,
     getIdKeySets,
     isBandAxisScale,
@@ -13,6 +14,7 @@ import {
 import { useDendrogramPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { isDendrogramData } from './predicates'
+import { getTargetLevels } from './utils'
 
 /** Create coordinates for a point on the dendrogram tree */
 const nodePoint = (
@@ -54,7 +56,9 @@ const createTreeConnectionPoints = (
 }
 
 export const DendrogramTree = ({
+    levels,
     ids,
+    keys,
     component = Path,
     dataComponent = DataComponent,
     handlers,
@@ -68,24 +72,37 @@ export const DendrogramTree = ({
     const { scales } = useScales()
     const horizontal = isBandAxisScale(scales.y)
     if (!isDendrogramData(originalData)) return null
+    const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
 
-    const { idSet } = useMemo(() => getIdKeySets(ids, undefined, preparedData), [ids, preparedData])
+    const { idSet, keyArray } = useMemo(
+        () => getIdKeySets(ids, keys, preparedData),
+        [ids, keys, preparedData]
+    )
 
     const result = preparedData.data.map(seriesData => {
-        if (!idSet.has(seriesData.id)) return null
-        const lines = seriesData.merge.map((pair: [number, number], i: number) => {
+        const id = seriesData.id
+        if (!idSet.has(id)) return null
+        const targetLevels = getTargetLevels(
+            seriesData,
+            indexScale,
+            levels,
+            keys === undefined ? keys : keyArray,
+            true
+        )
+        const lines = targetLevels.map(level => {
+            const pair = seriesData.merge[level]
             const points = createTreeConnectionPoints(
                 seriesData,
-                i + 1,
+                level + 1,
                 pair[0],
                 pair[1],
                 horizontal
             )
             return createElement(dataComponent, {
-                key: 'tree-' + seriesData.index + '-' + i,
+                key: 'tree-' + seriesData.index + '-' + level,
                 data: {
-                    id: seriesData.id,
-                    level: i,
+                    id: id,
+                    level,
                     data: originalData[seriesData.index],
                 },
                 component,
