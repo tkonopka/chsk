@@ -51,7 +51,6 @@ export const Bars = ({
                 if (!idSet.has(seriesData.id)) return null
                 const pos = seriesData.position[i]
                 const size = seriesData.size[i]
-                if (!Number.isFinite(size[0]) || !Number.isFinite(size[1])) return null
                 if (size[0] === 0 || size[1] === 0) return null
                 return createElement(dataComponent, {
                     key: 'bar-' + seriesData.id + '-' + k,
