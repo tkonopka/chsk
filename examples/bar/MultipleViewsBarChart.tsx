@@ -77,6 +77,9 @@ const multiviewTheme: ThemeSpec = {
             visibility: 'visible',
             strokeWidth: 2,
         },
+        'axis.left': {
+            visibility: 'hidden',
+        },
     },
     text: {
         axisLabel: {
@@ -259,7 +262,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridItem index={0}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['alpha']}>
                         <ActiveIdSurface expansion={[0, 10]} />
-                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <GridLines variant={'y'} shift={[-0.5]} shiftUnit={'step'} />
                         <Axis variant={'top'} label={'Alpha'} ticks={[]} />
                         <Axis variant={'bottom'} ticks={[]} />
                         <Axis variant={'left'} />
@@ -271,7 +274,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridItem index={1}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['beta']}>
                         <ActiveIdSurface expansion={[0, 10]} />
-                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <GridLines variant={'y'} shift={[-0.5]} shiftUnit={'step'} />
                         <Axis variant={'top'} label={'Beta'} ticks={[]} />
                         <Axis variant={'bottom'} ticks={[]} />
                         <Bars dataComponent={GlobalHoverDataComponent} modifiers={modifiers} />
@@ -282,7 +285,7 @@ export const MultipleViewsBarChart = ({ fref, chartData, rawData }: MilestoneSto
                 <GridItem index={2}>
                     <Bar {...multiviewBarProps} data={rawData} keys={['gamma']}>
                         <ActiveIdSurface expansion={[0, 0]} />
-                        <GridLines variant={'y'} shift={[-0.6]} />
+                        <GridLines variant={'y'} shift={[-0.5]} shiftUnit={'step'} />
                         <Axis variant={'top'} label={'Gamma'} ticks={[]} />
                         <Axis variant={'bottom'} ticks={[]} />
                         <Bars dataComponent={GlobalHoverDataComponent} modifiers={modifiers} />
