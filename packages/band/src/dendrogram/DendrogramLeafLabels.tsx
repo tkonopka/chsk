@@ -1,6 +1,5 @@
 import { DendrogramLeafLabelsProps, DendrogramPreparedDataItem } from './types'
 import {
-    getClassName,
     getIdKeySets,
     isBandAxisScale,
     Label,
@@ -28,14 +27,12 @@ export const DendrogramLeafLabels = ({
     const horizontal = isBandAxisScale(scales.y)
     if (!isDendrogramData(originalData)) return null
 
-    // in LeafLabels, ids is interpreted as entries in the indexScale
     const { idSet, keySet } = useMemo(
         () => getIdKeySets(ids, keys, preparedData),
         [ids, keys, preparedData]
     )
 
-    const compositeClassName = getClassName(variant, className)
-    const labelProps = { variant: 'label', className: compositeClassName, setRole }
+    const labelProps = { variant, className, setRole }
     const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
         if (!idSet.has(item.id)) return null
         const data = originalData[item.index]
@@ -48,9 +45,9 @@ export const DendrogramLeafLabels = ({
             return createElement(
                 component,
                 {
-                    ...labelProps,
                     key: 'leaf-' + item.id + '-' + k,
                     position,
+                    ...labelProps,
                     ...props,
                 },
                 value

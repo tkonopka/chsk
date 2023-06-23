@@ -42,7 +42,7 @@ See the [R documentation](https://stat.ethz.ch/R-manual/R-devel/library/stats/ht
 
 ## Variants
 
-Prop `variant` ...
+Prop `variant` determines the side of the chart that holds the leaf nodes.
 
 <Canvas of={DendrogramStories.Top} />
 <Canvas of={DendrogramStories.Right} />
@@ -53,7 +53,7 @@ Prop `variant` ...
 
 Prop `hang` determines how the leaf nodes are attached to their branch.
 The default is to draw all the leaves at the baseline.
-Setting `hang` to a nonzero value instead positions the leaves a fixed distance from their branch.
+Setting `hang` to a nonzero value instead positions the leaves near their branch.
 
 <Canvas of={DendrogramStories.HangBottom} />
 <Canvas of={DendrogramStories.HangRight} />

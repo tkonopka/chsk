@@ -61,7 +61,7 @@ export const BandSurface = ({
         },
         [handlers, setActive]
     )
-    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
+    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : handlers
 
     const keyPrefix = 'band-'
     const surfaceProps = { setRole, width, height, className: compositeClassName, style }

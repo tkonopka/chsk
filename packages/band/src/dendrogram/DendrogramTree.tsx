@@ -28,7 +28,7 @@ const nodePoint = (
         positions[Math.abs(index) - 1],
         heights[Math.abs(index) - 1],
     ]
-    return horizontal ? [result[1], result[0]] : result
+    return horizontal ? (result.reverse() as NumericPositionSpec) : result
 }
 
 /** Create points that connect two nodes on a dendrogram. (Negative indexes indicate leaf nodes) */

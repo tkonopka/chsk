@@ -38,7 +38,7 @@ export const ChartDendrogramDecorator = (Story: () => ReactNode) => (
 
 const customTheme: ThemeSpec = {
     rect: {
-        boxedLabel: {
+        leafLabel: {
             fillOpacity: 0,
             stroke: '#000000',
             strokeWidth: 1,

@@ -86,8 +86,7 @@ export const DendrogramSurface = ({
         },
         [handlers, setActive]
     )
-
-    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : undefined
+    const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : handlers
 
     const surfaceProps = { variant: 'dendrogram-surface', setRole, className, style }
     const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {

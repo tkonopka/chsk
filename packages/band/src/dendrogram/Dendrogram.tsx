@@ -54,7 +54,7 @@ const prepareData = (
             const h = item.height[i]
             height[i] = valueScale(h)
             const positionExtremities: Array<number | number[]> = [0, 0]
-            const heightExtremities: number[] = [0, 0]
+            const heightExtremities: number[] = [0, 0, height[i]]
             const [a, b] = pair
             if (a < 0 && hang >= 0) {
                 leafHeight[abs(a) - 1] = valueScale(h - hang)
@@ -67,10 +67,9 @@ const prepareData = (
             positionExtremities[0] = a < 0 ? leafPosition[abs(a) - 1] : position[a - 1]
             positionExtremities[1] = b < 0 ? leafPosition[abs(b) - 1] : position[b - 1]
             position[i] = 0.5 * (positionExtremities[0] + positionExtremities[1])
-            // infer min and max positions along the index scale axis
-            positionExtremities.push(a < 0 ? positionExtremities[0] : positionInterval[a - 1])
-            positionExtremities.push(b < 0 ? positionExtremities[1] : positionInterval[b - 1])
-            heightExtremities.push(height[i])
+            // widen positionExtremities to span all descendants
+            if (a > 0) positionExtremities.push(positionInterval[a - 1])
+            if (b > 0) positionExtremities.push(positionInterval[b - 1])
             positionInterval[i] = interval(positionExtremities.flat())
             heightInterval[i] = interval(heightExtremities)
         })

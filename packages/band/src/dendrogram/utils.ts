@@ -55,7 +55,7 @@ export const getTargetLevels = (
             result.push(commonLevel)
         }
     }
-    // sort to create large-scale blocks first, then small-scale blocks on top
+    // sort in decreasing order to declare large-scale blocks first, then small-scale blocks on top
     result.sort((a, b) => b - a)
     return result
 }

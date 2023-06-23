@@ -115,7 +115,7 @@ export const DendrogramChart = ({ fref, chartData, rawData }: MilestoneStory) =>
             data={chartData}
             fref={fref}
             id="wide-dendrogram"
-            size={[600, 350]}
+            size={[600, 300]}
             padding={[90, 40, 60, 40]}
             theme={customTheme}
         >
