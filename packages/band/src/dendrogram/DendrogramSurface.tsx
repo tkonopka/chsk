@@ -7,7 +7,7 @@ import {
     BandAxisScale,
     DataComponent,
     FourSideSizeSpec,
-    getIdKeySets,
+    useIdsKeys,
     isBandAxisScale,
     Rectangle,
     useScales,
@@ -18,7 +18,7 @@ import {
     useRawData,
 } from '@chsk/core'
 import { useDendrogramPreparedData } from './context'
-import { createElement, MouseEvent, useCallback, useMemo, useState } from 'react'
+import { createElement, MouseEvent, useCallback, useState } from 'react'
 import { isDendrogramData } from './predicates'
 import { getTargetLevels } from './utils'
 
@@ -61,16 +61,12 @@ export const DendrogramSurface = ({
     const horizontal = isBandAxisScale(scales.y)
     const [active, setActive] = useState<DendrogramInteractiveDataItem | undefined>(undefined)
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
+    const { idSet, keyArray } = useIdsKeys(ids, keys, preparedData)
     if (!isDendrogramData(originalData)) return null
 
     const expansionMultiplier =
         expansionUnit === 'band' ? indexScale.bandwidth() : indexScale.step()
     const absExpansion = expansion.map(v => v * expansionMultiplier) as FourSideSizeSpec
-
-    const { idSet, keyArray } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const onMouseEnter = useCallback(
         (data: DendrogramInteractiveDataItem | undefined, event: MouseEvent) => {

@@ -3,14 +3,14 @@ import {
     OpacityMotion,
     useDisabledKeys,
     useScales,
-    getIdKeySets,
+    useIdsKeys,
     isBandAxisScale,
     useProcessedData,
     Path,
     TooltipDataComponent,
 } from '@chsk/core'
 import { useViolinPreparedData } from './context'
-import { ReactNode, createElement, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { ViolinPreparedDataItem, ViolinsProps } from './types'
 import { isViolinProcessedData } from './predicates'
 import { violinPoints } from './utils'
@@ -32,12 +32,8 @@ export const Violins = ({
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     const horizontal = isBandAxisScale(scales.y)
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isViolinProcessedData(processedData)) return null
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const allKeys = preparedData.keys
     const pathStyles = useMemo(
@@ -46,7 +42,7 @@ export const Violins = ({
     )
     const curve = variant === 'step' ? 'Step' : 'BasisClosed'
 
-    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+    const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
         const items = data

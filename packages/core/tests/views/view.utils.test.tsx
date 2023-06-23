@@ -1,12 +1,4 @@
-import {
-    getAnchoredOrigin,
-    getIndexes,
-    getIdKeySets,
-    NumericPositionSpec,
-    SizeSpec,
-    AnchorSpec,
-    ProcessedDataContextProps,
-} from '../../src'
+import { getAnchoredOrigin, getIndexes, NumericPositionSpec, SizeSpec, AnchorSpec } from '../../src'
 
 describe('getAnchoredOrigin', () => {
     it('computes origin - top-left position with top-left anchor', () => {
@@ -84,39 +76,5 @@ describe('getIndexes', () => {
     it('accepts undefined', () => {
         const result = getIndexes(undefined)
         expect(Object.keys(result)).toEqual([])
-    })
-})
-
-describe('getIdKeySets', () => {
-    const tempSeriesIndexes = { A: 0, B: 1, C: 2 }
-    const tempKeys = ['x', 'y', 'z']
-    const tempProcessedDataProps: ProcessedDataContextProps = {
-        data: [],
-        seriesIndexes: tempSeriesIndexes,
-        keys: tempKeys,
-    }
-
-    it('gets all available ids and keys', () => {
-        const result = getIdKeySets(undefined, undefined, tempProcessedDataProps)
-        expect(Array.from(result.idSet).sort()).toEqual(['A', 'B', 'C'])
-        expect(Array.from(result.keySet).sort()).toEqual(['x', 'y', 'z'])
-    })
-
-    it('gets a subset of ids and keys', () => {
-        const result = getIdKeySets(['B'], ['z', 'y'], tempProcessedDataProps)
-        expect(Array.from(result.idSet).sort()).toEqual(['B'])
-        expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
-    })
-
-    it('remove unnecessary ids and keys', () => {
-        const result = getIdKeySets(['B', 'Z'], ['z', 'y', 'w'], tempProcessedDataProps)
-        expect(Array.from(result.idSet).sort()).toEqual(['B'])
-        expect(Array.from(result.keySet).sort()).toEqual(['y', 'z'])
-    })
-
-    it('creates arrays for ids and keys', () => {
-        const result = getIdKeySets(['C', 'A'], ['z', 'y', 'w'], tempProcessedDataProps)
-        expect(result.idArray).toEqual(['A', 'C'])
-        expect(result.keyArray).toEqual(['y', 'z'])
     })
 })

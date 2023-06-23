@@ -4,13 +4,13 @@ import {
     Rectangle,
     useDisabledKeys,
     useScales,
-    getIdKeySets,
+    useIdsKeys,
     TooltipDataComponent,
     useProcessedData,
 } from '@chsk/core'
 import { BarPreparedDataItem, BarsProps } from './types'
 import { useBarPreparedData } from './context'
-import { ReactNode, createElement, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { isBarProcessedData } from './predicates'
 
 export const Bars = ({
@@ -27,12 +27,8 @@ export const Bars = ({
     const colorScale = useScales().scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isBarProcessedData(processedData)) return null
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const styles = useMemo(
         () =>
@@ -43,7 +39,7 @@ export const Bars = ({
         [preparedData, style, colorScale]
     )
 
-    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+    const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
         const bars = data

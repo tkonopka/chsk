@@ -1,9 +1,8 @@
-import { useMemo } from 'react'
 import { m } from 'framer-motion'
 import {
     BandAxisScale,
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     useScales,
     useProcessedData,
     interval,
@@ -29,11 +28,7 @@ export const HeatMapSurface = ({
 }: HeatMapSurfaceProps) => {
     const processedData = useProcessedData()
     const { scales } = useScales()
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, processedData),
-        [ids, keys, processedData]
-    )
+    const { idSet, keySet } = useIdsKeys(ids, keys, processedData)
     if (idSet.size === 0 || keySet.size === 0) return null
 
     const idInterval = getInterval(idSet, scales.y as BandAxisScale, expansion[0])

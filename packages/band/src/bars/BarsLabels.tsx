@@ -1,7 +1,7 @@
-import { createElement, ReactNode, useMemo } from 'react'
+import { createElement } from 'react'
 import {
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     Label,
     OpacityMotion,
     useDisabledKeys,
@@ -34,17 +34,14 @@ export const BarsLabels = ({
     const preparedData = useBarPreparedData()
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isBarProcessedData(processedData)) return null
 
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
     const innerClassName = getClassName(variant, className)
     const outerClassName = getClassName(variant + ' out', className)
     const labelProps = { align, angle, padding, setRole }
 
-    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+    const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
         const labels = data

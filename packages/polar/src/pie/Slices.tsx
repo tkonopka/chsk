@@ -5,7 +5,7 @@ import {
     useScales,
     ContinuousAxisScale,
     useProcessedData,
-    getIdKeySets,
+    useIdsKeys,
 } from '@chsk/core'
 import { Slice } from './Slice'
 import { SlicesProps } from './types'
@@ -28,12 +28,8 @@ export const Slices = ({
     const xScale = scales.x as ContinuousAxisScale
     const colorScale = scales.color
     const data = processedData.data
+    const { idSet } = useIdsKeys(ids, null, processedData)
     if (!isPieProcessedData(data)) return null
-
-    const { idSet } = useMemo(
-        () => getIdKeySets(ids, undefined, processedData),
-        [ids, processedData]
-    )
 
     const styles = useMemo(
         () => processedData.keys.map((k, i) => addColor(style, colorScale(i))),

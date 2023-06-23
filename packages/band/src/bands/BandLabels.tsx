@@ -1,7 +1,7 @@
 import {
     BandAxisScale,
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     getAbsolutePosition,
     SizeSpec,
     SizeUnit,
@@ -16,7 +16,7 @@ import {
     RecordWithId,
 } from '@chsk/core'
 import { BandLabelsProps } from './types'
-import { createElement, ReactNode, useMemo } from 'react'
+import { createElement, ReactNode } from 'react'
 
 // get absolute position along the value axis
 const getAbsoluteValuePos = (
@@ -56,7 +56,7 @@ export const BandLabels = ({
     const data = processedData.data
     const keyPrefix = 'band-label-'
 
-    const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
+    const { idSet } = useIdsKeys(ids, null, processedData)
 
     // label position and details
     const valuePos = getAbsoluteValuePos(position, unit, dimensions.size, scales, horizontal)

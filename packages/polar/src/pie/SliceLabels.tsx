@@ -1,9 +1,9 @@
-import { createElement, ReactNode, useMemo } from 'react'
+import { createElement } from 'react'
 import {
     ContinuousAxisScale,
     deg2rad,
-    getIdKeySets,
     SimpleDataComponent,
+    useIdsKeys,
     useProcessedData,
     useScales,
 } from '@chsk/core'
@@ -26,16 +26,13 @@ export const SliceLabels = ({
     const processedData = useProcessedData()
     const rScale = useScales().scales.x as ContinuousAxisScale
     const data = processedData.data
+    const { idSet } = useIdsKeys(ids, null, processedData)
     if (!isPieProcessedData(data)) return null
 
-    const { idSet } = useMemo(
-        () => getIdKeySets(ids, undefined, processedData),
-        [ids, processedData]
-    )
     const minAngleRad = angleUnit === 'degree' ? deg2rad(minAngle) : minAngle
     const r0 = rScale(0)
 
-    const result: Array<ReactNode> = data.map((seriesData, i) => {
+    const result = data.map((seriesData, i) => {
         if (!idSet.has(seriesData.id)) return null
         if (seriesData.endAngle - seriesData.startAngle < minAngleRad) return null
         return createElement(dataComponent, {

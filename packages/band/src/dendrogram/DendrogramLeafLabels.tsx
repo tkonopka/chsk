@@ -1,14 +1,14 @@
 import { DendrogramLeafLabelsProps, DendrogramPreparedDataItem } from './types'
 import {
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     isBandAxisScale,
     Label,
     NumericPositionSpec,
     useRawData,
     useScales,
 } from '@chsk/core'
-import { createElement, useMemo } from 'react'
+import { createElement } from 'react'
 import { isDendrogramData } from './predicates'
 import { useDendrogramPreparedData } from './context'
 
@@ -26,12 +26,8 @@ export const DendrogramLeafLabels = ({
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
     const horizontal = isBandAxisScale(scales.y)
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isDendrogramData(originalData)) return null
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const compositeClassName = getClassName(variant, className)
 

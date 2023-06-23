@@ -1,8 +1,8 @@
-import { createElement, ReactNode, useCallback, useMemo, useState, MouseEvent } from 'react'
+import { createElement, useCallback, useState, MouseEvent } from 'react'
 import {
     BandAxisScale,
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     useDimensions,
     useScales,
     X,
@@ -43,7 +43,7 @@ export const BandSurface = ({
     const expandedSize = valueSize + expansion[0] + expansion[1]
     const height = horizontal ? surfaceWidth : expandedSize
     const width = horizontal ? expandedSize : surfaceWidth
-    const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
+    const { idSet } = useIdsKeys(ids, null, processedData)
     const compositeClassName = getClassName('bandSurface', className)
 
     const tooltipId = tooltipData?.data?.[0].id
@@ -65,7 +65,7 @@ export const BandSurface = ({
 
     const keyPrefix = 'band-'
     const surfaceProps = { setRole, width, height, className: compositeClassName, style }
-    const bands: Array<ReactNode> = processedData.data
+    const bands = processedData.data
         .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
             const indexPos = indexScale(seriesData.id)

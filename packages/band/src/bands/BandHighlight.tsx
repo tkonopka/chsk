@@ -2,7 +2,7 @@ import { MouseEvent, useCallback, useEffect, useMemo, useRef, useState } from 'r
 import { m } from 'framer-motion'
 import {
     BandAxisScale,
-    getIdKeySets,
+    useIdsKeys,
     useDimensions,
     useScales,
     X,
@@ -102,7 +102,7 @@ export const BandHighlight = ({
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
 
-    const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids, processedData])
+    const { idSet } = useIdsKeys(ids, null, processedData)
     const valueSize = horizontal ? size[X] : size[Y]
     const detectorIntervals = useMemo(
         () => createDetectorIntervals(indexScale, idSet, valueSize, horizontal),

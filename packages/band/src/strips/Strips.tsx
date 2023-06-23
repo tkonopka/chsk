@@ -4,13 +4,13 @@ import {
     OpacityMotion,
     useDisabledKeys,
     useScales,
-    getIdKeySets,
+    useIdsKeys,
     isBandAxisScale,
     DataComponent,
     useProcessedData,
 } from '@chsk/core'
 import { useStripPreparedData } from './context'
-import { ReactNode, createElement, useMemo } from 'react'
+import { createElement, useMemo } from 'react'
 import { StripPreparedDataItem, StripsProps } from './types'
 import { isStripProcessedData } from './predicates'
 
@@ -30,12 +30,8 @@ export const Strips = ({
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
     const horizontal = isBandAxisScale(scales.y)
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isStripProcessedData(processedData)) return null
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const allKeys = preparedData.keys
     const symbolStyles = useMemo(
@@ -43,7 +39,7 @@ export const Strips = ({
         [allKeys, symbolStyle, colorScale]
     )
 
-    const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
+    const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
         const items = data

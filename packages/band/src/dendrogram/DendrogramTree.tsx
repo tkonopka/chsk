@@ -2,7 +2,7 @@ import { DendrogramPreparedDataItem, DendrogramTreeProps } from './types'
 import {
     BandAxisScale,
     DataComponent,
-    getIdKeySets,
+    useIdsKeys,
     isBandAxisScale,
     NumericPositionSpec,
     Path,
@@ -12,7 +12,7 @@ import {
     Y,
 } from '@chsk/core'
 import { useDendrogramPreparedData } from './context'
-import { createElement, useMemo } from 'react'
+import { createElement } from 'react'
 import { isDendrogramData } from './predicates'
 import { getTargetLevels } from './utils'
 
@@ -70,14 +70,10 @@ export const DendrogramTree = ({
     const originalData = useRawData().data
     const preparedData = useDendrogramPreparedData()
     const { scales } = useScales()
+    const { idSet, keyArray } = useIdsKeys(ids, keys, preparedData)
     const horizontal = isBandAxisScale(scales.y)
-    if (!isDendrogramData(originalData)) return null
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
-
-    const { idSet, keyArray } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
+    if (!isDendrogramData(originalData)) return null
 
     const result = preparedData.data.map(seriesData => {
         const id = seriesData.id

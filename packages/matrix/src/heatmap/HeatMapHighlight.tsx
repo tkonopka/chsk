@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState, MouseEvent, useEffect } from 'react'
 import { m } from 'framer-motion'
 import {
-    getIdKeySets,
+    useIdsKeys,
     BandAxisScale,
     useProcessedData,
     useScales,
@@ -100,12 +100,8 @@ export const HeatMapHighlight = ({
     const [activeData, setActiveData] = useState<HeatMapInteractiveDataItem | undefined>(undefined)
     const { setData: setTooltipData } = useTooltip()
     const data = processedData.data
+    const { idSet, keySet, idArray, keyArray } = useIdsKeys(ids, keys, processedData)
     if (!isHeatMapSetting(data, scales)) return null
-
-    const { idSet, keySet, idArray, keyArray } = useMemo(
-        () => getIdKeySets(ids, keys, processedData),
-        [ids, keys, processedData]
-    )
 
     const scaleX = scales.x as BandAxisScale
     const scaleY = scales.y as BandAxisScale

@@ -3,7 +3,7 @@ import {
     OpacityMotion,
     useDisabledKeys,
     useScales,
-    getIdKeySets,
+    useIdsKeys,
     TooltipDataComponent,
     useProcessedData,
     Rectangle,
@@ -29,12 +29,8 @@ export const Schedules = ({
     const colorScale = scales.color
     const data = preparedData.data
     const { disabledKeys, firstRender } = useDisabledKeys()
+    const { idSet, keySet } = useIdsKeys(ids, keys, preparedData)
     if (!isScheduleProcessedData(processedData)) return null
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, preparedData),
-        [ids, keys, preparedData]
-    )
 
     const styles = useMemo(
         () =>
@@ -46,7 +42,7 @@ export const Schedules = ({
     )
 
     const allKeys = preparedData.keys
-    const result: Array<ReactNode> = preparedData.keys
+    const result = preparedData.keys
         .map((k, i) => {
             if (!keySet.has(k)) return null
             const visible = !disabledKeys.has(k)

@@ -9,7 +9,9 @@ import {
 } from '../general'
 import { getAbsolutePosition, useScales } from '../scales'
 import { defaultContainerProps } from './defaults'
+import { ProcessedDataContextProps } from './types'
 
+/** compute a summary of a container box */
 export const useContainer = ({
     position = defaultContainerProps.position,
     positionUnits = defaultContainerProps.positionUnits,
@@ -29,4 +31,38 @@ export const useContainer = ({
         return { dimsProps, origin, innerSize }
     }, [position, positionUnits, size, sizeUnits, padding, anchor, dimensions, scales, offset])
     return { dimensions, dimsProps, origin, innerSize }
+}
+
+// get intersection of values and allowed values, or all allowed values
+const getSet = (values: string[] | undefined | null, allowed: string[]) => {
+    if (values === null) return new Set<string>()
+    const allowedSet = new Set<string>(allowed)
+    if (!values) return allowedSet
+    const result = new Set<string>(values)
+    values.filter(v => !allowedSet.has(v)).forEach(v => result.delete(v))
+    return result
+}
+
+/** get information about ids and keys consistent with a processed dataset
+ *
+ * @param ids array of ids to check against processedData;
+ * set to undefined to retrieve all available ids;
+ * set to null to get empty results
+ * @param keys array of keys to check against processedData;
+ * set to undefined to retrieve all available keys;
+ * set to null to get empty results
+ * @param processedData object summarizing a view dataset
+ */
+export const useIdsKeys = (
+    ids: string[] | undefined | null,
+    keys: string[] | undefined | null,
+    processedData: ProcessedDataContextProps
+) => {
+    return useMemo(() => {
+        const idSet = getSet(ids, Object.keys(processedData.seriesIndexes))
+        const keySet = getSet(keys, processedData.keys)
+        const keyArray = processedData.keys.filter(x => keySet.has(x))
+        const idArray = Object.keys(processedData.seriesIndexes).filter(x => idSet.has(x))
+        return { idSet, keySet, idArray, keyArray }
+    }, [ids, keys, processedData])
 }

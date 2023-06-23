@@ -1,7 +1,7 @@
-import { createElement, ReactNode, useMemo } from 'react'
+import { createElement } from 'react'
 import {
     getClassName,
-    getIdKeySets,
+    useIdsKeys,
     Label,
     LinearAxisScale,
     useProcessedData,
@@ -29,15 +29,15 @@ export const VennSetLabels = ({
     const processedData = useProcessedData()
     const { scales } = useScales()
     const data = processedData.data
+    const { idSet } = useIdsKeys(ids, null, processedData)
     if (!isVennProcessedData(data)) return null
 
-    const { idSet } = useMemo(() => getIdKeySets(ids, [], processedData), [ids])
     const seriesIds = data.map(seriesData => seriesData.id)
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
     const compositeClassName = getClassName('vennSetLabel', className)
 
-    const result: Array<ReactNode> = (ids ?? seriesIds)
+    const result = (ids ?? seriesIds)
         .map((id, i) => {
             if (!idSet.has(id)) return null
             const index: number = processedData.seriesIndexes[id]

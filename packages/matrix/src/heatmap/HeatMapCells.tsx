@@ -2,7 +2,7 @@ import { createElement, useMemo } from 'react'
 import {
     cloneProps,
     addColor,
-    getIdKeySets,
+    useIdsKeys,
     BandAxisScale,
     useProcessedData,
     useScales,
@@ -35,6 +35,7 @@ export const HeatMapCells = ({
     const scalesContextValue = useScales()
     const scales = scalesContextValue.scales
     const data = processedData.data
+    const { idSet, keySet } = useIdsKeys(ids, keys, processedData)
     if (!isHeatMapSetting(data, scales)) return null
 
     const colorScale = scaleColor ? createColorScale(scaleColor) : scales.color
@@ -43,11 +44,6 @@ export const HeatMapCells = ({
     ) as ContinuousAxisScale
     const maxSize = sizeScale(sizeScale.domain()[1])
     const variableSize = isFinite(maxSize)
-
-    const { idSet, keySet } = useMemo(
-        () => getIdKeySets(ids, keys, processedData),
-        [ids, keys, processedData]
-    )
     const cellFilter = useMemo(() => createCellFilter(cells, idSet, keySet), [cells, idSet, keySet])
 
     const scaleX = scales.x as BandAxisScale
