@@ -1,5 +1,6 @@
 import { DendrogramLeafLabelsProps, DendrogramPreparedDataItem } from './types'
 import {
+    getClassName,
     getIdKeySets,
     isBandAxisScale,
     Label,
@@ -32,7 +33,8 @@ export const DendrogramLeafLabels = ({
         [ids, keys, preparedData]
     )
 
-    const labelProps = { variant, className, setRole }
+    const compositeClassName = getClassName(variant, className)
+
     const result = preparedData.data.map((item: DendrogramPreparedDataItem) => {
         if (!idSet.has(item.id)) return null
         const data = originalData[item.index]
@@ -47,7 +49,8 @@ export const DendrogramLeafLabels = ({
                 {
                     key: 'leaf-' + item.id + '-' + k,
                     position,
-                    ...labelProps,
+                    setRole,
+                    className: compositeClassName,
                     ...props,
                 },
                 value

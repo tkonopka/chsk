@@ -14,6 +14,7 @@ import { useBarPreparedData } from './context'
 import { isBarProcessedData } from './predicates'
 
 export const BarsLabels = ({
+    variant = 'bar-label',
     ids,
     keys,
     format = (v: string | number) => String(v),
@@ -21,6 +22,7 @@ export const BarsLabels = ({
     minSize = [40, 10],
     align = [0.5, 0.5],
     offset = [0, 0],
+    angle,
     className,
     setRole = false,
     style,
@@ -38,8 +40,9 @@ export const BarsLabels = ({
         () => getIdKeySets(ids, keys, preparedData),
         [ids, keys, preparedData]
     )
-    const innerClassName = getClassName('barLabel', className)
-    const outerClassName = getClassName('barLabel out', className)
+    const innerClassName = getClassName(variant, className)
+    const outerClassName = getClassName(variant + ' out', className)
+    const labelProps = { align, angle, padding, setRole }
 
     const result: Array<ReactNode> = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
@@ -62,14 +65,12 @@ export const BarsLabels = ({
                 return createElement(
                     component,
                     {
-                        key: 'bar-label-' + j + '-' + i,
+                        key: 'label-' + j + '-' + i,
                         position: [center[X] + offset[X], center[Y] + offset[Y]],
                         size,
-                        align,
-                        padding,
                         className: compositeClassName,
                         style: labelStyle,
-                        setRole: setRole,
+                        ...labelProps,
                     },
                     value
                 )

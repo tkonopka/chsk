@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     DataInteractivityProps,
     LabelProps,
@@ -79,7 +79,7 @@ export interface DendrogramTreeProps
 
 export interface DendrogramLeafLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
     /** format for text */
-    format?: (v: string) => string
+    format?: (v: string) => ReactNode
     /** components used to render label */
     component?: FC<LabelProps>
 }
