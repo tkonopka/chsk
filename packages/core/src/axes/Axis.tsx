@@ -8,13 +8,6 @@ import { getAxisPosition } from './utils'
 import { useThemedProps } from '../themes'
 import { defaultAxisProps } from './defaults'
 
-//Object.defineProperty(object, key, {
-//    'configurable': true,
-//    'enumerable': true,
-//    'value': value,
-//    'writable': true
-//});
-
 const UnthemedAxis = ({
     variant,
     label,
