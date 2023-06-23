@@ -14,6 +14,7 @@
 
 ### Changed
 
+-   [core] default stroke width for tick marks to 1
 -   [core] replaced `getIdKeySets` with hook `useIdsKeys`; reduces the need for
     `useMemo` in add-on packages
 -   [band] props for `BarsLabels` to match `DendrogramLeafLabels`

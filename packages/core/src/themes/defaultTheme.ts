@@ -58,7 +58,6 @@ export const defaultTheme: CompleteThemeSpec = {
         },
         tick: {
             stroke: '#555555',
-            strokeWidth: 2,
         },
     },
     path: {
