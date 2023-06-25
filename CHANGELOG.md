@@ -14,6 +14,9 @@
 
 ### Changed
 
+-   [core] expanded types for `title`, `label`, `titleFormat`, and
+    `labelFormat` in legends and tooltips to support more complex content, for
+    example including `tspan` elements
 -   [core] default stroke width for tick marks to 1
 -   [core] replaced `getIdKeySets` with hook `useIdsKeys`; reduces the need for
     `useMemo` in add-on packages

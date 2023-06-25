@@ -78,12 +78,13 @@ export const QuantileTooltip = ({
         .map((_, i) => [padding[LEFT], itemsPosition[Y] + (itemSize[Y] + infoSize[Y]) * i])
 
     const content = tooltipData.map((data, i) => {
+        const fallbackLabel = data.key ?? ''
         return (
             <QuantileTooltipItem
                 key={'item-' + i}
                 position={infoPositions[i]}
-                data={data as QuantileProcessedSummary & TooltipDataItem} // already check at start
-                label={labelFormat ? labelFormat(data) ?? data.key ?? '' : data.key ?? ''}
+                data={data as QuantileProcessedSummary & TooltipDataItem} // already checked at start
+                label={labelFormat ? labelFormat(data) ?? fallbackLabel : fallbackLabel}
                 labelDistance={labelDistance}
                 item={data.key ?? ''}
                 padding={itemPadding}

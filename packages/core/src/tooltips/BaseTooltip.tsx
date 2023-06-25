@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import { m } from 'framer-motion'
 import {
     DimensionsProvider,
@@ -41,7 +42,7 @@ type BaseTooltipProps = Omit<
     /** vertical corner radius */
     ry?: number
     /** construction of label */
-    labelFormat?: null | ((d: TooltipDataItem) => string)
+    labelFormat?: null | ((d: TooltipDataItem) => ReactNode)
     /** data */
     data: TooltipDataItem[]
 }

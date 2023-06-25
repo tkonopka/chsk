@@ -81,7 +81,12 @@ const CustomChangeArrow = ({ x, y, width, height, style, ...props }: RectanglePr
 }
 
 const customLabelFormat = (x: Record<string, unknown>) => {
-    return x.id + ': ' + x.start + '% → ' + x.end + '%'
+    return (
+        <tspan>
+            <tspan style={{ fontWeight: 600 }}>{String(x.id)}</tspan>
+            {': ' + x.start + '% → ' + x.end + '%'}
+        </tspan>
+    )
 }
 
 export const ChangesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -128,7 +133,7 @@ export const ChangesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 />
                 <DownloadButtons position={[410, 240]} data image />
                 <Tooltip
-                    itemSize={[160, 24]}
+                    itemSize={[165, 24]}
                     labelFormat={customLabelFormat}
                     symbol={() => null}
                     labelDistance={-15}

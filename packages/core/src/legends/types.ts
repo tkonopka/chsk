@@ -54,7 +54,7 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     /** style for symbol */
     symbolStyle?: CssProps
     /** text label */
-    label: string
+    label: ReactNode
     /** label position (overrides auto-calculation based on item index and legend variant) */
     labelPosition?: NumericPositionSpec
     /** style for text label */
@@ -154,7 +154,7 @@ export interface LegendItemListProps
     /** array of items to display (for categorical keys) */
     keys?: string[]
     /** array of labels to display next to symbols */
-    labels?: string[]
+    labels?: ReactNode[]
     /** array of colors */
     colors?: Array<string | number | undefined>
     /** array of symbol sizes */

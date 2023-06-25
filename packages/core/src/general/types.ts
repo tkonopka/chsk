@@ -89,7 +89,7 @@ export interface ItemListProps {
     /** style for list items */
     itemStyle?: CssProps
     /** list title */
-    title?: string
+    title?: ReactNode
     /** style for list title */
     titleStyle?: CssProps
     /** arrange the items horizontally */

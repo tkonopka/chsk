@@ -261,8 +261,7 @@ describe('Tooltip', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip-title')
-        expect(title.textContent).toEqual('custom title')
+        expect(screen.getByRole('tooltip-title').textContent).toEqual('custom title')
     })
 
     it('sets custom item labels', () => {
@@ -275,8 +274,24 @@ describe('Tooltip', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip-item')
-        expect(title.textContent).toEqual('custom label')
+        expect(screen.getByRole('tooltip-item').textContent).toEqual('custom label')
+    })
+
+    it('sets custom title and item labels using JSX', () => {
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys}>
+                    <MockTooltipSetter x={10} y={10} data={tooltipData}>
+                        <Tooltip
+                            titleFormat={() => <tspan>custom title</tspan>}
+                            labelFormat={() => <tspan>custom label</tspan>}
+                        />
+                    </MockTooltipSetter>
+                </View>
+            </Chart>
+        )
+        expect(screen.getByRole('tooltip-item').textContent).toEqual('custom label')
+        expect(screen.getByRole('tooltip-item').textContent).toEqual('custom label')
     })
 
     it('accepts symbols of size zero', () => {
@@ -289,7 +304,9 @@ describe('Tooltip', () => {
                 </View>
             </Chart>
         )
-        const title = screen.getByRole('tooltip-item')
-        expect(title.textContent).toEqual('custom label')
+        const item = screen.getByRole('tooltip-item')
+        expect(item.textContent).toEqual('custom label')
+        // the default symbol is a rect, so setting symbol=null should avoid creating that rect
+        expect(item.querySelectorAll('rect')).toHaveLength(0)
     })
 })

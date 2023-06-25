@@ -62,7 +62,7 @@ const surveyTheme: ThemeSpec = mergeTheme(buttonTheme, {
     LegendItem: {
         default: {
             interactive: false,
-            labelDistance: 10,
+            labelDistance: 5,
         },
     },
 })
@@ -74,7 +74,12 @@ const customTooltipLabel = (x: TooltipDataItem) => {
     const start = 'start' in x ? Number(x['start']) : 0
     const end = 'end' in x ? Number(x['end']) : 0
     const value = round1dp(end - start)
-    return x.key + ': ' + value + '%'
+    return (
+        <tspan>
+            {x.key + ': '}
+            <tspan style={{ fontWeight: 600 }}>{value + '%'}</tspan>
+        </tspan>
+    )
 }
 
 export const SurveyChart = ({ fref, chartData, rawData }: MilestoneStory) => {

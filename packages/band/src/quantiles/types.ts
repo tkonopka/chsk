@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     CssProps,
     DataInteractivityProps,
@@ -121,5 +121,5 @@ export interface QuantileTooltipItemProps
     /** data */
     data: TooltipDataItem & QuantileProcessedSummary
     /** string label next to color symbol */
-    label: string
+    label: ReactNode
 }

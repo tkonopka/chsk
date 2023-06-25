@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
     FourSideSizeSpec,
     NumericPositionSpec,
@@ -38,7 +39,7 @@ export const getContentPosition = (
     titlePosition: NumericPositionSpec,
     itemSize: SizeSpec,
     firstOffset: NumericPositionSpec,
-    title: string | undefined,
+    title: ReactNode | undefined,
     horizontal: boolean
 ) => {
     const result: NumericPositionSpec = [...titlePosition]

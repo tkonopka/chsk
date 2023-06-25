@@ -1,3 +1,4 @@
+import { ReactNode } from 'react'
 import {
     LegendProps,
     LegendTitleProps,
@@ -32,9 +33,9 @@ export interface TooltipProps
     /** size */
     size?: NumericPositionSpec
     /** construction of title */
-    titleFormat?: null | ((d: TooltipData) => string | undefined)
+    titleFormat?: null | ((d: TooltipData) => ReactNode)
     /** construction of label */
-    labelFormat?: null | ((d: TooltipDataItem) => string)
+    labelFormat?: null | ((d: TooltipDataItem) => ReactNode)
     /** extent tooltip can exit its reference region */
     maxOverhang?: FourSideSizeSpec
 }
