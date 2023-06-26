@@ -1,5 +1,5 @@
 import { Counter } from '../../../src'
-import { CounterController, CustomCounterValue } from './CounterController'
+import { CounterController } from './CounterController'
 
 export default {
     title: 'Core/Components/Text/Counter',
@@ -7,20 +7,29 @@ export default {
 }
 
 export const Position = {
-    render: () => <CounterController position={[80, 40]} />,
     name: 'counter',
+    render: () => <CounterController position={[80, 40]} />,
 }
 
 export const CustomFormat = {
+    name: 'custom format',
     render: () => (
         <CounterController position={[80, 40]} format={v => String(v) + '%'} nDecimalPlaces={1} />
     ),
-    name: 'custom format',
 }
 
-export const CustomComponent = {
+export const CustomFormatTspan = {
+    name: 'custom styling',
     render: () => (
-        <CounterController position={[80, 40]} nDecimalPlaces={0} component={CustomCounterValue} />
+        <CounterController
+            position={[80, 40]}
+            format={v => (
+                <tspan>
+                    {String(v)}
+                    <tspan style={{ fontSize: 14, dominantBaseline: 'text-before-edge' }}>%</tspan>
+                </tspan>
+            )}
+            nDecimalPlaces={1}
+        />
     ),
-    name: 'custom component',
 }

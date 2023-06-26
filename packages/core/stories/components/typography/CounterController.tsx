@@ -1,17 +1,8 @@
 import { useState } from 'react'
-import { Chart, Surface, View, Counter, CounterProps, TextContentProps } from '../../../src'
+import { Chart, Surface, View, Counter, CounterProps } from '../../../src'
 
 const randomUniformValue = (min: number, max: number) => {
     return min + Math.random() * (max - min)
-}
-
-export const CustomCounterValue = ({ style, className, children }: TextContentProps) => {
-    return (
-        <text style={style} className={className}>
-            {children}
-            <tspan style={{ fontSize: 14, dominantBaseline: 'text-before-edge' }}> %</tspan>
-        </text>
-    )
 }
 
 export const CounterController = ({

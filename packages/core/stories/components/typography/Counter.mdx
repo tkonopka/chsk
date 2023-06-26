@@ -5,7 +5,7 @@ import * as CounterStories from './Counter.stories'
 
 <Meta of={CounterStories} />
 
-`Counter` creates a text element with a number. Its characteristic feature is that when data changes, the number is animated.
+`Counter` creates a text element displaying a number.
 
 <ArgTypes of={CounterStories} />
 
@@ -15,18 +15,18 @@ import * as CounterStories from './Counter.stories'
 
 <Canvas of={CounterStories.Position} />
 
-## Content format
+## Format
 
 By default, `Counter` displays a number 'as-is'.
-Prop `nDecimalPlaces` introduces number-rounding to a fixed number of decimal places.
+Prop `nDecimalPlaces` introduces rounding to a fixed number of decimal places.
 Alternatively, prop `format` accepts a function to perform custom number-to-string conversion.
 This can be used, for example, to display values as percentages.
 
 <Canvas of={CounterStories.CustomFormat} />
 
-## Custom components
+Format functions can also introduce styling with `tspan` elements.
 
-For even more control over how the counter is displayed, prop `component` accepts a custom React component.
-Custom components can be used to, for example, display text with nested `tspan` tags.
+<Canvas of={CounterStories.CustomFormatTspan} />
 
-<Canvas of={CounterStories.CustomComponent} />
+If a format function is insufficient, it is also possible to render the counter with a custom component.
+The default component is `Label`, but this can substituted with prop `component`.

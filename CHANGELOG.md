@@ -14,8 +14,10 @@
 
 ### Changed
 
--   [core] simplified implementation of `Typography` and `Label` to remove an
-    unnecessary `g` element
+-   [core] removed redundant interface `TextContentProps` (similar to
+    `TypographyProps`)
+-   [core] simplified implementation of `Typography`, `Label`, and `Counter`
+    components to remove unnecessary `g` elements
 -   [core] expanded types for `title`, `label`, `titleFormat`, and
     `labelFormat` in legends and tooltips to support more complex content, for
     example including `tspan` elements

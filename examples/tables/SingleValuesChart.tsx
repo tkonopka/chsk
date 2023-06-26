@@ -13,7 +13,6 @@ import {
     FourSideSizeSpec,
     BOTTOM,
     LEFT,
-    TextContentProps,
 } from '@chsk/core'
 import { buttonTheme } from '@chsk/themes'
 import { MilestoneStory } from '../types'
@@ -58,7 +57,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
         percent: {
             dominantBaseline: 'auto',
             fontSize: '14px',
-            fill: '#bbb',
+            fill: 'inherit',
         },
         warning: {
             fill: '#555',
@@ -83,15 +82,12 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
     },
 })
 
-// a display for a counter number and a small percentage sign
-export const DashboardCounterValue = ({ style, className, children }: TextContentProps) => {
-    return (
-        <text style={style} className={className}>
-            {children}
-            <tspan className={'percent ' + className}> %</tspan>
-        </text>
-    )
-}
+export const counterValue = (value: number) => (
+    <>
+        {value}
+        <tspan className={'percent'}> %</tspan>
+    </>
+)
 
 // a widget to display a label and a percentage
 const DashboardValue = ({
@@ -133,8 +129,8 @@ const DashboardValue = ({
                 setRole={false}
                 position={[position[X] + padding[LEFT], position[Y] + size[Y] - padding[BOTTOM]]}
                 align={[0.5, 0.5]}
-                className={activeClassName}
-                component={DashboardCounterValue}
+                className={activeClassName.trim()}
+                format={counterValue}
             >
                 {value}
             </Counter>

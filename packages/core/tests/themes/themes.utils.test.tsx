@@ -1,3 +1,4 @@
+import { CssProps } from '../../src/general'
 import {
     getClassName,
     addColor,
@@ -10,7 +11,6 @@ import {
     getCss,
     fillProps,
 } from '../../src/themes'
-import { CssProps } from '../../dist/types'
 
 describe('mergeTheme', () => {
     it('creates a copy', () => {

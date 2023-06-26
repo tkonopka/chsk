@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { Chart, Counter, TextContentProps } from '../../src'
+import { Chart, Counter } from '../../src'
 import { chartProps } from '../props'
 import { getTransform } from '../utils'
 
@@ -84,22 +84,22 @@ describe('Counter', () => {
         expect(result?.textContent).toBe('50.12')
     })
 
-    it('displays values with custom component', () => {
-        const CustomValue = ({ children, className }: TextContentProps) => (
-            <text className={className}>
-                <tspan>abc</tspan> {children} <tspan>xyz</tspan>
-            </text>
-        )
+    it('displays values with custom format', () => {
+        const customFormat = (value: number) => {
+            return (
+                <tspan>
+                    abc <tspan className={'custom'}>{value}</tspan> xyz
+                </tspan>
+            )
+        }
         render(
             <Chart {...chartProps}>
-                <Counter component={CustomValue}>50</Counter>
+                <Counter format={customFormat}>50</Counter>
             </Chart>
         )
-        // text element should be annotated as a counter
-        const text = screen.getByRole('chart-content').querySelector('text')
-        expect(text?.closest('g')?.getAttribute('role')).toContain('counter')
-        expect(text?.getAttribute('class')).toContain('counter')
-        // there should be two tspan elements
+        const result = screen.getByRole('chart-content').querySelector('text')
+        expect(result?.getAttribute('role')).toContain('counter')
+        expect(result?.getAttribute('class')).toContain('counter')
         expect(screen.getByRole('chart-content').querySelectorAll('tspan')).toHaveLength(2)
     })
 })
