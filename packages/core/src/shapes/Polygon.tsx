@@ -1,3 +1,4 @@
+import { m } from 'framer-motion'
 import { getClassName } from '../themes'
 import { PolygonProps } from './types'
 import { roundDecimalPlaces } from '../general/'
@@ -13,10 +14,12 @@ export const Polygon = ({
     const pointsString = points
         .map(coords => roundDecimalPlaces(coords[0], 2) + ',' + roundDecimalPlaces(coords[1], 2))
         .join(' ')
+    const config = { points: pointsString }
     return (
-        <polygon
+        <m.polygon
             role={setRole && variant !== 'default' ? variant : undefined}
-            points={pointsString}
+            initial={config}
+            animate={config}
             className={compositeClassName}
             {...props}
         />
