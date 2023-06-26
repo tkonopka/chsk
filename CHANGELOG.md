@@ -14,6 +14,8 @@
 
 ### Changed
 
+-   [band] restricted types for `BarsLabels` prop `format`; the value axis
+    requires numeric values
 -   [core] removed redundant interface `TextContentProps` (similar to
     `TypographyProps`)
 -   [core] simplified implementation of `Typography`, `Label`, and `Counter`

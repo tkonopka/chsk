@@ -8,6 +8,7 @@ import {
     useProcessedData,
     X,
     Y,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { BarPreparedDataItem, BarsLabelsProps } from './types'
 import { useBarPreparedData } from './context'
@@ -17,7 +18,7 @@ export const BarsLabels = ({
     variant = 'bar-label',
     ids,
     keys,
-    format = (v: string | number) => String(v),
+    format = (v: number) => String(v),
     padding = [4, 4, 4, 4],
     minSize = [40, 10],
     align = [0.5, 0.5],
@@ -49,27 +50,29 @@ export const BarsLabels = ({
                 if (!idSet.has(seriesData.id)) return null
                 const size = seriesData.size[i]
                 const pos = seriesData.position[i]
-                const center = [pos[0] + size[0] / 2, pos[1] + size[1] / 2]
+                const position: NumericPositionSpec = [
+                    pos[X] + offset[X] + size[X] / 2,
+                    pos[Y] + offset[Y] + size[Y] / 2,
+                ]
                 let labelStyle = style
                 let compositeClassName = innerClassName
                 if (Math.abs(size[0]) < minSize[0] || Math.abs(size[1]) < minSize[1]) {
                     if (!showOuter) return null
                     labelStyle = styleOuter
-                    center[X] += size[X]
+                    position[X] += size[X]
                     compositeClassName = outerClassName
                 }
-                const value = format(processedData[j].data[i])
                 return createElement(
                     component,
                     {
                         key: 'label-' + j + '-' + i,
-                        position: [center[X] + offset[X], center[Y] + offset[Y]],
+                        position,
                         size,
                         className: compositeClassName,
                         style: labelStyle,
                         ...labelProps,
                     },
-                    value
+                    format(processedData[j].data[i])
                 )
             })
             .filter(Boolean)

@@ -64,7 +64,7 @@ export interface BarsProps
 
 export interface BarsLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
     /** format for text */
-    format?: (v: string | number) => ReactNode
+    format?: (v: number) => ReactNode
     /** minimum size for displaying a label */
     minSize?: SizeSpec
     /** toggle visibility of labels outside of small bars */
