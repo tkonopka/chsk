@@ -61,9 +61,7 @@ describe('LineLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('line-label')
-        expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
-            'rotate(45'
-        )
+        expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
     })
 
     it('creates a line without role', () => {

@@ -136,6 +136,6 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const ticks = screen.getByRole('axis').querySelectorAll('text')
-        expect(ticks[0].closest('g')?.getAttribute('style')).toContain('rotate(45')
+        expect(ticks[0].getAttribute('style')).toContain('rotate(45')
     })
 })

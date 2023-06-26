@@ -19,10 +19,9 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         expect(screen.queryByRole('scatter-label')).not.toBeNull()
-        const label = screen.getByRole('label')
-        expect(label).not.toBeNull()
-        expect(label.querySelector('text')?.textContent).toBe('Label')
-        expect(label.querySelector('text')?.getAttribute('class')).toContain('label scatterLabel')
+        const result = screen.getByRole('label')
+        expect(result.textContent).toBe('Label')
+        expect(result.getAttribute('class')).toContain('label scatterLabel')
     })
 
     it('creates a label using a relative position', () => {
@@ -37,10 +36,9 @@ describe('ScatterLabel', () => {
         )
         // x=1 in view-relative units means at x=400 in svg units,
         // the closest data point will be [8, 64], which is near top-right corner
-        const text = screen.getByRole('scatter-label').querySelector('text')
-        const g = text?.closest('g')
-        expect(getTransform(g ?? text, 'X')).toEqual(400)
-        expect(getTransform(g ?? text, 'Y')).toBeLessThan(50)
+        const result = screen.getByRole('scatter-label').querySelector('text')
+        expect(getTransform(result, 'X')).toEqual(400)
+        expect(getTransform(result, 'Y')).toBeLessThan(50)
     })
 
     it('creates a label using xy position', () => {
@@ -58,12 +56,11 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.getByRole('scatter-label').querySelector('text')
+        const result = screen.getByRole('scatter-label').querySelector('text')
         // data has x=1..8 and y=1..64
         // the nearest data point to [8, 50] should be [7, 49]
-        const g = text?.closest('g')
-        expect(getTransform(g ?? text, 'X')).toBeLessThan(400)
-        expect(getTransform(g ?? text, 'Y')).toBeGreaterThan(50)
+        expect(getTransform(result, 'X')).toBeLessThan(400)
+        expect(getTransform(result, 'Y')).toBeGreaterThan(50)
     })
 
     it('creates a label using x coordinate', () => {
@@ -81,12 +78,11 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.getByRole('scatter-label').querySelector('text')
+        const result = screen.getByRole('scatter-label').querySelector('text')
         // data has x=1..8 and y=1..64
         // the nearest data point to [8, 50] is [7, 49] in 2d, but [8, 64] in x dimensions
-        const g = text?.closest('g')
-        expect(getTransform(g ?? text, 'X')).toBeGreaterThan(350)
-        expect(getTransform(g ?? text, 'Y')).toBeLessThan(50)
+        expect(getTransform(result, 'X')).toBeGreaterThan(350)
+        expect(getTransform(result, 'Y')).toBeLessThan(50)
     })
 
     it('creates a label using y coordinate', () => {
@@ -104,12 +100,11 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.getByRole('scatter-label').querySelector('text')
+        const result = screen.getByRole('scatter-label').querySelector('text')
         // data has x=1..8 and y=1..64
         // middle of y axis is 32, and the nearest point is [6, 36]
-        const g = text?.closest('g')
-        expect(getTransform(g ?? text, 'X')).toBeLessThan(350)
-        expect(getTransform(g ?? text, 'Y')).toBeGreaterThan(50)
+        expect(getTransform(result, 'X')).toBeLessThan(350)
+        expect(getTransform(result, 'Y')).toBeGreaterThan(50)
     })
 
     it('skips work for non-existent series', () => {
@@ -133,10 +128,10 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.getByRole('scatter-label').querySelector('text')
-        expect(text?.textContent).toBe('Label')
+        const result = screen.getByRole('scatter-label').querySelector('text')
+        expect(result?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
+        expect(result?.getAttribute('style')).toContain('rotate(-')
     })
 
     it('uses auto-rotation (different x)', () => {
@@ -149,10 +144,10 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.getByRole('scatter-label').querySelector('text')
-        expect(text?.textContent).toBe('Label')
+        const result = screen.getByRole('scatter-label').querySelector('text')
+        expect(result?.textContent).toBe('Label')
         // rotation should be negative (upward sloping linear line)
-        expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(-')
+        expect(result?.getAttribute('style')).toContain('rotate(-')
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -213,9 +208,9 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const text = screen.queryByRole('scatter-label')?.querySelector('text')
-        expect(text?.textContent).toBe('Label')
-        expect(text?.closest('g')?.getAttribute('style')).toContain('90deg')
+        const result = screen.queryByRole('scatter-label')?.querySelector('text')
+        expect(result?.textContent).toBe('Label')
+        expect(result?.getAttribute('style')).toContain('90deg')
     })
 
     it('handles data series with single point', () => {
@@ -238,11 +233,11 @@ describe('ScatterLabel', () => {
                 </Scatter>
             </Chart>
         )
-        const result = screen.queryAllByRole('scatter-label')
-        result.map(label => {
-            const text = label.querySelector('text')
-            expect(text?.textContent).toBe('Label')
-            expect(text?.closest('g')?.getAttribute('style')).toContain('rotate(0')
+        const labels = screen.queryAllByRole('scatter-label')
+        labels.map(label => {
+            const result = label.querySelector('text')
+            expect(result?.textContent).toBe('Label')
+            expect(result?.getAttribute('style')).toContain('rotate(0')
         })
     })
 })

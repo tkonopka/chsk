@@ -109,10 +109,9 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const label = screen.getByRole('axis-label')
         // the chart inner width is 400 - 40 -40 = 320
         // label at the end of the axis means a transform with translate(320
-        expect(label?.getAttribute('style')).toContain('translateX(320')
+        expect(screen.getByRole('axis-label').getAttribute('style')).toContain('translateX(320')
     })
 
     it('transfers variant to child elements', () => {
@@ -125,8 +124,7 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        const label = screen.getByRole('axis-label')
-        expect(label.querySelector('text')?.getAttribute('class')).toBe('axisLabel top')
+        expect(screen.getByRole('axis-label').getAttribute('class')).toBe('axisLabel top')
     })
 
     it('handles misc children elements variant to child elements', () => {

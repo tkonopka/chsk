@@ -13,9 +13,7 @@ describe('Typography', () => {
         const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
-        expect(getTransform(result, 'X')).toBeNull()
-        expect(getTransform(result, 'Y')).toBeNull()
-        expect(result.closest('g')?.getAttribute('role')).toBeNull()
+        expect(result.getAttribute('role')).toBeNull()
     })
 
     it('creates a text component with role', () => {
@@ -27,7 +25,7 @@ describe('Typography', () => {
         const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
-        expect(result.closest('g')?.getAttribute('role')).toBe('custom-text')
+        expect(result.getAttribute('role')).toBe('custom-text')
     })
 
     it('creates a text component without role', () => {
@@ -41,7 +39,7 @@ describe('Typography', () => {
         const result = screen.getByText('default')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
-        expect(result.closest('g')?.getAttribute('role')).toBeNull()
+        expect(result.getAttribute('role')).toBeNull()
     })
 
     it('creates a default text at specific location', () => {
@@ -50,7 +48,7 @@ describe('Typography', () => {
                 <Typography position={[20, 50]}>default</Typography>
             </Chart>
         )
-        const result = screen.getByText('default').closest('g')
+        const result = screen.getByText('default')
         expect(getTransform(result, 'X')).toEqual(20)
         expect(getTransform(result, 'Y')).toEqual(50)
     })
@@ -64,8 +62,8 @@ describe('Typography', () => {
         const result = screen.getByRole('title')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
-        expect(result.querySelector('text')?.getAttribute('class')).toBe('title')
-        expect(result.querySelector('text')?.textContent).toBe('Title')
+        expect(result.getAttribute('class')).toBe('title')
+        expect(result.textContent).toBe('Title')
     })
 
     it('creates a subtitle', () => {
@@ -75,11 +73,10 @@ describe('Typography', () => {
             </Chart>
         )
         const result = screen.getByRole('subtitle')
-        const text = result.querySelector('text')
         expect(result.getAttribute('x')).toBeNull()
         expect(result.getAttribute('y')).toBeNull()
-        expect(text?.getAttribute('class')).toBe('subtitle')
-        expect(text?.textContent).toBe('Subtitle')
+        expect(result.getAttribute('class')).toBe('subtitle')
+        expect(result.textContent).toBe('Subtitle')
     })
 
     it('skips creating component when content is empty', () => {
@@ -88,8 +85,7 @@ describe('Typography', () => {
                 <Typography variant={'subtitle'} />
             </Chart>
         )
-        const result = screen.queryByRole('subtitle')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('subtitle')).toBeNull()
     })
 
     it('skips creating component when content is null', () => {
@@ -98,8 +94,7 @@ describe('Typography', () => {
                 <Typography variant={'subtitle'}>{null}</Typography>
             </Chart>
         )
-        const result = screen.queryByRole('subtitle')
-        expect(result).toBeNull()
+        expect(screen.queryByRole('subtitle')).toBeNull()
     })
 
     it('accepts a number', () => {
@@ -108,8 +103,7 @@ describe('Typography', () => {
                 <Typography variant={'custom'}>10</Typography>
             </Chart>
         )
-        const result = screen.getByRole('custom')
-        expect(result.querySelector('text')?.textContent).toBe('10')
+        expect(screen.getByRole('custom').textContent).toBe('10')
     })
 
     it('accepts complex content with {}', () => {
@@ -119,8 +113,7 @@ describe('Typography', () => {
                 <Typography variant={'custom'}>The value is {value}</Typography>
             </Chart>
         )
-        const result = screen.getByRole('custom')
-        expect(result.querySelector('text')?.textContent).toBe('The value is 10')
+        expect(screen.getByRole('custom').textContent).toBe('The value is 10')
     })
 
     it('sets inline styles', () => {
@@ -131,10 +124,10 @@ describe('Typography', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('custom').querySelector('text')
-        expect(result?.textContent).toBe('In color')
-        expect(result?.getAttribute('style')).toContain('font-size: 12px')
-        expect(result?.getAttribute('style')).toContain('fill: #ff0000')
+        const result = screen.getByRole('custom')
+        expect(result.textContent).toBe('In color')
+        expect(result.getAttribute('style')).toContain('font-size: 12px')
+        expect(result.getAttribute('style')).toContain('fill: #ff0000')
     })
 
     it('ignores html tags', () => {
@@ -145,8 +138,7 @@ describe('Typography', () => {
                 </Typography>
             </Chart>
         )
-        const result = screen.getByRole('custom').querySelector('text')
-        expect(result?.textContent).toBe('html')
+        expect(screen.getByRole('custom').textContent).toBe('html')
     })
 
     it('preserves tspan children', () => {

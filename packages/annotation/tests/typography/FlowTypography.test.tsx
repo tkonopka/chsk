@@ -25,8 +25,9 @@ describe('FlowTypography', () => {
                 </FlowTypography>
             </Chart>
         )
-        const result = screen.getByRole('chart-content').querySelector('text')
-        expect(result?.closest('g')?.getAttribute('role')).toBeNull()
+        expect(
+            screen.getByRole('chart-content').querySelector('text')?.getAttribute('role')
+        ).toBeNull()
     })
 
     it('reveals text in stages', async () => {

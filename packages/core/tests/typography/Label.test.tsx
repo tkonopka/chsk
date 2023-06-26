@@ -10,11 +10,11 @@ describe('Label', () => {
                 <Label>default</Label>
             </Chart>
         )
-        const result = screen.getByText('default').closest('g')
+        const result = screen.getByText('default')
         expect(result?.getAttribute('x')).toBeNull()
         expect(result?.getAttribute('y')).toBeNull()
         expect(result?.getAttribute('role')).toBe('label')
-        expect(result?.querySelector('text')?.getAttribute('class')).toBe('label')
+        expect(result?.getAttribute('class')).toBe('label')
     })
 
     it('creates a custom label component', () => {
@@ -26,9 +26,8 @@ describe('Label', () => {
             </Chart>
         )
         const result = screen.getByText('abcd')
-        const g = result.closest('g')
-        expect(getTransform(g, 'X')).toEqual(10)
-        expect(getTransform(g, 'Y')).toEqual(20)
+        expect(getTransform(result, 'X')).toEqual(10)
+        expect(getTransform(result, 'Y')).toEqual(20)
         expect(result.getAttribute('role')).toBeNull()
         expect(result.getAttribute('class')).toContain('custom')
     })
@@ -42,9 +41,8 @@ describe('Label', () => {
             </Chart>
         )
         const result = screen.getByText('abcd')
-        const g = result.closest('g')
-        expect(getTransform(g, 'X')).toEqual(14)
-        expect(getTransform(g, 'Y')).toEqual(26)
+        expect(getTransform(result, 'X')).toEqual(14)
+        expect(getTransform(result, 'Y')).toEqual(26)
     })
 
     it('skips creating component when content is empty', () => {
@@ -53,7 +51,6 @@ describe('Label', () => {
                 <Label />
             </Chart>
         )
-        const label = screen.queryByRole('label')
-        expect(label).toBeNull()
+        expect(screen.queryByRole('label')).toBeNull()
     })
 })

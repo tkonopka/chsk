@@ -17,10 +17,14 @@ export const Typography = ({
     const config = { x: position[X], y: position[Y], rotate: angle, originX: '0px', originY: '0px' }
     const role = setRole && variant !== 'default' ? variant : undefined
     return (
-        <m.g role={role} initial={config} animate={config}>
-            <text style={style} className={compositeClassName}>
-                {children}
-            </text>
-        </m.g>
+        <m.text
+            role={role}
+            initial={config}
+            animate={config}
+            style={style}
+            className={compositeClassName}
+        >
+            {children}
+        </m.text>
     )
 }

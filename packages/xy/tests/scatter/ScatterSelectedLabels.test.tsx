@@ -52,9 +52,8 @@ describe('ScatterSelectedLabels', () => {
         expect(cy).toBeGreaterThan(150)
         expect(cy).toBeLessThan(300)
         // label should be above the symbol, i.e. lower y coordinate
-        const label =
-            screen.getByRole('scatter-selected-label')?.querySelector('text')?.closest('g') ?? null
-        expect(label?.querySelector('text')?.textContent).toBe('label')
+        const label = screen.getByRole('scatter-selected-label')?.querySelector('text') ?? null
+        expect(label?.textContent).toBe('label')
         expect(getTransform(label, 'X')).toBe(200)
         expect(getTransform(label, 'Y')).toBeLessThan(cy)
     })
@@ -82,10 +81,9 @@ describe('ScatterSelectedLabels', () => {
             getNumberAttr(symbols[0], 'cx'),
             getNumberAttr(symbols[0], 'cy'),
         ]
-        const g = labels[0].closest('g')
         const labelPosition: NumericPositionSpec = [
-            getTransform(g, 'X') ?? -100,
-            getTransform(g, 'Y') ?? -100,
+            getTransform(labels[0], 'X') ?? -100,
+            getTransform(labels[0], 'Y') ?? -100,
         ]
         expect(Math.sqrt(squaredDistance(symbolPosition, labelPosition))).toBeLessThan(50)
     })

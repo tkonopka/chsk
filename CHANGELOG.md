@@ -14,6 +14,8 @@
 
 ### Changed
 
+-   [core] simplified implementation of `Typography` and `Label` to remove an
+    unnecessary `g` element
 -   [core] expanded types for `title`, `label`, `titleFormat`, and
     `labelFormat` in legends and tooltips to support more complex content, for
     example including `tspan` elements

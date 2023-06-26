@@ -29,10 +29,14 @@ export const Label = ({
     const compositeClassName = getClassName(variant, className)
     const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     return (
-        <m.g role={setRole ? variant : undefined} initial={config} animate={config}>
-            <text style={style} className={compositeClassName}>
-                {children}
-            </text>
-        </m.g>
+        <m.text
+            role={setRole ? variant : undefined}
+            initial={config}
+            animate={config}
+            style={style}
+            className={compositeClassName}
+        >
+            {children}
+        </m.text>
     )
 }

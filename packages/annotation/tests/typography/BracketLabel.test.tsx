@@ -55,9 +55,7 @@ describe('BracketLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('bracket-label-right')
-        expect(result.querySelector('text')?.closest('g')?.getAttribute('style')).toContain(
-            'rotate(45'
-        )
+        expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
     })
 
     it('creates a line without role', () => {
