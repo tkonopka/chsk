@@ -11,7 +11,6 @@ export const Square = ({
     cy = 0,
     r = 1,
     className,
-    style,
     setRole = true,
     ...props
 }: SymbolProps) => {
@@ -28,7 +27,6 @@ export const Square = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
             className={compositeClassName}
             {...props}
         />

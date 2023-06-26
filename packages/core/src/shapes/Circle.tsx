@@ -8,7 +8,6 @@ export const Circle = ({
     cy,
     r,
     className,
-    style,
     setRole = true,
     ...props
 }: SymbolProps) => {
@@ -19,7 +18,6 @@ export const Circle = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
             className={compositeClassName}
             {...props}
         />

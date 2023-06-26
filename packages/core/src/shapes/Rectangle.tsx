@@ -10,7 +10,6 @@ export const Rectangle = ({
     height,
     center = false,
     className,
-    style,
     setRole = true,
     stroke,
     strokeWidth,
@@ -44,7 +43,6 @@ export const Rectangle = ({
             initial={config}
             animate={config}
             role={setRole && variant !== 'default' ? variant : undefined}
-            style={style}
             className={compositeClassName}
             {...props}
         />

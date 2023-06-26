@@ -6,7 +6,6 @@ export const Polygon = ({
     variant = 'default',
     points,
     className,
-    style,
     setRole = true,
     ...props
 }: PolygonProps) => {
@@ -18,7 +17,6 @@ export const Polygon = ({
         <polygon
             role={setRole && variant !== 'default' ? variant : undefined}
             points={pointsString}
-            style={style}
             className={compositeClassName}
             {...props}
         />
