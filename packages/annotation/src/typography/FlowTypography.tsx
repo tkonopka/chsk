@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { animate, domAnimation, LazyMotion, m } from 'framer-motion'
-import { getClassName, X, Y, zeroPosition } from '@chsk/core'
+import { getClassName, ssrCompatible, zeroPosition } from '@chsk/core'
 import { getTextContent } from './utils'
 import { FlowTypographyProps } from './types'
 
@@ -37,14 +37,19 @@ export const FlowTypography = ({
     }
 
     const compositeClassName = getClassName(variant, className)
-    const config = { x: position[X], y: position[Y], rotate: angle, originX: '0px', originY: '0px' }
+    const [x, y] = position
+    const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }
     return (
         <LazyMotion features={domAnimation}>
-            <m.g initial={config} animate={config} role={setRole ? variant : undefined}>
-                <text style={style} className={compositeClassName}>
-                    {value}
-                </text>
-            </m.g>
+            <m.text
+                initial={config}
+                animate={config}
+                role={setRole ? variant : undefined}
+                style={ssrCompatible(style, config)}
+                className={compositeClassName}
+            >
+                {value}
+            </m.text>
         </LazyMotion>
     )
 }

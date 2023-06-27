@@ -12,7 +12,7 @@ import {
     zeroPosition,
 } from '../general'
 import { OpacityMotion } from '../charts'
-import { getClassName } from '../themes'
+import { getClassName, ssrCompatible } from '../themes'
 import { LegendProps } from '../legends'
 import { getContentPosition } from '../legends/utils'
 import { defaultTooltipProps } from './defaults'
@@ -25,6 +25,7 @@ import { useTooltip } from './contexts'
 type BaseTooltipProps = Omit<
     LegendProps,
     | 'variant'
+    | 'position'
     | 'positionUnits'
     | 'size'
     | 'sizeUnits'
@@ -35,6 +36,8 @@ type BaseTooltipProps = Omit<
 > & {
     /** tooltip type */
     variant: SideVariant
+    /** position */
+    position: NumericPositionSpec
     /** size */
     size: NumericPositionSpec
     /** horizontal corner radius */
@@ -130,12 +133,8 @@ export const BaseTooltip = ({
     )
 
     const compositeClassName = getClassName('tooltip', className)
-    const config = {
-        x: position[X],
-        y: position[Y],
-        originX: '0px',
-        originY: '0px',
-    }
+    const [x, y] = position
+    const config = { x, y, originX: '0px', originY: '0px' }
     return (
         <OpacityMotion
             role={'tooltip-presence'}
@@ -146,6 +145,7 @@ export const BaseTooltip = ({
                 role={setRole ? 'tooltip' : undefined}
                 initial={config}
                 animate={config}
+                style={ssrCompatible(undefined, config)}
                 className={compositeClassName}
             >
                 <DimensionsProvider

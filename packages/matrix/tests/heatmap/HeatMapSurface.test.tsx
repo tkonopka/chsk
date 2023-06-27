@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { HeatMap, HeatMapSurface } from '../../src'
 import { heatmapProps } from '../props'
+import { getTransform } from '../../../core/tests/utils'
 
 describe('HeatMapSurface', () => {
     // expand surface to cover entire cells
@@ -17,7 +18,10 @@ describe('HeatMapSurface', () => {
     }
 
     // convenience conversion to integers
-    const round = (x: string | null | undefined) => Math.round(Number(x))
+    const round = (x: unknown) => {
+        const xTrimmed = String(x).replace('px', '')
+        return Math.round(Number(xTrimmed))
+    }
 
     it('creates a surface over the entire view', () => {
         render(
@@ -33,8 +37,7 @@ describe('HeatMapSurface', () => {
             </Chart>
         )
         const result = screen.getByRole('heatmap-surface')
-        const rect = result.querySelector('rect')
-        expect(round(rect?.getAttribute('width'))).toEqual(400)
+        expect(round(result.getAttribute('width'))).toEqual(400)
     })
 
     it('creates a surface over a part of the heat map', () => {
@@ -51,11 +54,10 @@ describe('HeatMapSurface', () => {
             </Chart>
         )
         const result = screen.getByRole('heatmap-surface')
-        const rect = result.querySelector('rect')
-        expect(round(rect?.getAttribute('x'))).toBeGreaterThan(0)
-        expect(round(rect?.getAttribute('y'))).toBeGreaterThan(0)
-        expect(round(rect?.getAttribute('width'))).toBeLessThan(400)
-        expect(round(rect?.getAttribute('height'))).toBeLessThan(300)
+        expect(round(getTransform(result, 'X'))).toBeGreaterThan(0)
+        expect(round(getTransform(result, 'Y'))).toBeGreaterThan(0)
+        expect(round(result.getAttribute('width'))).toBeLessThan(400)
+        expect(round(result.getAttribute('height'))).toBeLessThan(300)
     })
 
     it('skips work when ids are empty/invalid', () => {

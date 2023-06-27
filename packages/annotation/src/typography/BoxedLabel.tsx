@@ -13,6 +13,7 @@ import {
     useDimensions,
     useScales,
     rad2deg,
+    ssrCompatible,
 } from '@chsk/core'
 
 export const BoxedLabel = ({
@@ -68,7 +69,7 @@ export const BoxedLabel = ({
             role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
+            style={ssrCompatible(style, config)}
             className={compositeClassName}
         >
             <Rectangle

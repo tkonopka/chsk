@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { getClassName } from '../themes'
+import { getClassName, ssrCompatible } from '../themes'
 import { RectangleProps } from './types'
 
 export const Rectangle = ({
@@ -16,6 +16,7 @@ export const Rectangle = ({
     fill,
     fillOpacity,
     opacity,
+    style,
     ...props
 }: RectangleProps) => {
     const compositeClassName = getClassName(variant, className)
@@ -44,6 +45,7 @@ export const Rectangle = ({
             animate={config}
             role={setRole && variant !== 'default' ? variant : undefined}
             className={compositeClassName}
+            style={ssrCompatible(style, config)}
             {...props}
         />
     )

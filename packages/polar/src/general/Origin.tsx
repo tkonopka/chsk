@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { useScales, ContinuousAxisScale, getClassName } from '@chsk/core'
+import { useScales, ContinuousAxisScale, getClassName, ssrCompatible } from '@chsk/core'
 import { OriginProps } from './types'
 
 export const Origin = ({ setRole = true, className, style, children }: OriginProps) => {
@@ -13,7 +13,7 @@ export const Origin = ({ setRole = true, className, style, children }: OriginPro
             initial={config}
             animate={config}
             role={setRole ? 'origin' : undefined}
-            style={style}
+            style={ssrCompatible(style, config)}
             className={compositeClassName}
         >
             {children}

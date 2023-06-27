@@ -6,6 +6,7 @@ import {
     useScales,
     useProcessedData,
     interval,
+    ssrCompatible,
 } from '@chsk/core'
 import { HeatMapSurfaceProps } from './types'
 
@@ -23,7 +24,7 @@ export const HeatMapSurface = ({
         [0, 0],
     ],
     className,
-    setRole = false,
+    setRole = true,
     style,
 }: HeatMapSurfaceProps) => {
     const processedData = useProcessedData()
@@ -34,19 +35,22 @@ export const HeatMapSurface = ({
     const idInterval = getInterval(idSet, scales.y as BandAxisScale, expansion[0])
     const keyInterval = getInterval(keySet, scales.x as BandAxisScale, expansion[1])
     const compositeClassName = getClassName('heatmapSurface', className)
-
+    const x = keyInterval[0]
+    const y = idInterval[0]
+    const config = {
+        x,
+        y,
+        width: keyInterval[1] - keyInterval[0],
+        height: idInterval[1] - idInterval[0],
+    }
     return (
-        <g role={'heatmap-surface'}>
-            <m.rect
-                key={'surface-' + Array.from(idSet).join(',') + '-' + Array.from(keySet).join(',')}
-                x={keyInterval[0]}
-                width={keyInterval[1] - keyInterval[0]}
-                y={idInterval[0]}
-                height={idInterval[1] - idInterval[0]}
-                role={setRole ? 'heatmap-surface' : undefined}
-                className={compositeClassName}
-                style={style}
-            />
-        </g>
+        <m.rect
+            key={'surface-' + Array.from(idSet).join(',') + '-' + Array.from(keySet).join(',')}
+            role={setRole ? 'heatmap-surface' : undefined}
+            initial={config}
+            animate={config}
+            className={compositeClassName}
+            style={ssrCompatible(style, config)}
+        />
     )
 }

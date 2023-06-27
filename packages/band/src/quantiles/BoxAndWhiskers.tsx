@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { BoxAndWhiskersProps } from './types'
-import { Line, Rectangle } from '@chsk/core'
+import { Line, Rectangle, ssrCompatible } from '@chsk/core'
 
 export const BoxAndWhiskers = ({
     data,
@@ -104,7 +104,7 @@ export const BoxAndWhiskers = ({
             initial={config}
             animate={config}
             role={setRole ? 'box-and-whiskers' : undefined}
-            style={style}
+            style={ssrCompatible(style, config)}
             {...props}
         >
             {box}

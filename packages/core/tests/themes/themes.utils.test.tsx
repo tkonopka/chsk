@@ -1,3 +1,4 @@
+import { render, screen } from '@testing-library/react'
 import { CssProps } from '../../src/general'
 import {
     getClassName,
@@ -10,6 +11,7 @@ import {
     mergeThemes,
     getCss,
     fillProps,
+    ssrCompatible,
 } from '../../src/themes'
 
 describe('mergeTheme', () => {
@@ -236,5 +238,18 @@ describe('fillProps', () => {
     it('handles empty inputs', () => {
         expect(fillProps(undefined, undefined)).toEqual(undefined)
         expect(fillProps(null, undefined)).toEqual(null)
+    })
+})
+
+describe('ssrCompatible, client', () => {
+    it('does not affect style in client-based rendering', () => {
+        render(
+            <svg>
+                <text role={'content'} style={ssrCompatible({ fill: '#000000' }, { x: 10, y: 20 })}>
+                    content
+                </text>
+            </svg>
+        )
+        expect(screen.getByRole('content').getAttribute('style')).not.toContain('20')
     })
 })

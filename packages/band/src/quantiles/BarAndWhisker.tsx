@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { ContinuousAxisScale, Line, Rectangle, useScales } from '@chsk/core'
+import { ContinuousAxisScale, Line, Rectangle, ssrCompatible, useScales } from '@chsk/core'
 import { BoxAndWhiskersProps } from './types'
 
 export const BarAndWhisker = ({
@@ -77,7 +77,7 @@ export const BarAndWhisker = ({
             initial={config}
             animate={config}
             role={setRole ? 'bar-and-whisker' : undefined}
-            style={style}
+            style={ssrCompatible(style, config)}
             {...props}
         >
             {box}

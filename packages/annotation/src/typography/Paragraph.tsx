@@ -1,5 +1,5 @@
 import { domAnimation, m, LazyMotion } from 'framer-motion'
-import { getClassName, X, Y } from '@chsk/core'
+import { getClassName, ssrCompatible, X, Y } from '@chsk/core'
 import { getTextContent, getLetterProfile, splitText } from './utils'
 import { ParagraphProps } from './types'
 import sans from './arial.json'
@@ -40,7 +40,12 @@ export const Paragraph = ({
     ))
     return (
         <LazyMotion features={domAnimation}>
-            <m.g role={setRole ? 'paragraph' : undefined} initial={config} animate={config}>
+            <m.g
+                role={setRole ? 'paragraph' : undefined}
+                initial={config}
+                animate={config}
+                style={ssrCompatible(undefined, config)}
+            >
                 {content}
             </m.g>
         </LazyMotion>

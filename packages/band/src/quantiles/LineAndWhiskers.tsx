@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { Line } from '@chsk/core'
+import { Line, ssrCompatible } from '@chsk/core'
 import { BoxAndWhiskersProps } from './types'
 
 export const LineAndWhiskers = ({
@@ -92,7 +92,7 @@ export const LineAndWhiskers = ({
             initial={config}
             animate={config}
             role={setRole ? 'line-and-whiskers' : undefined}
-            style={style}
+            style={ssrCompatible(style, config)}
             {...props}
         >
             {middle}

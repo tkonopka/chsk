@@ -12,9 +12,7 @@ describe('FlowTypography', () => {
                 </FlowTypography>
             </Chart>
         )
-        const result = screen.getByRole('flow-typography').querySelectorAll('text')
-        expect(result).toHaveLength(1)
-        expect(result[0]?.getAttribute('class')).toContain('custom')
+        expect(screen.getByRole('flow-typography').getAttribute('class')).toContain('custom')
     })
 
     it('creates without role', () => {

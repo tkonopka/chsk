@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { getClassName } from '../themes'
+import { getClassName, ssrCompatible } from '../themes'
 import { SymbolProps } from './types'
 
 const squareVisualFactor = 0.96
@@ -11,6 +11,7 @@ export const Square = ({
     cy = 0,
     r = 1,
     className,
+    style,
     setRole = true,
     ...props
 }: SymbolProps) => {
@@ -28,6 +29,7 @@ export const Square = ({
             initial={config}
             animate={config}
             className={compositeClassName}
+            style={ssrCompatible(style, config)}
             {...props}
         />
     )

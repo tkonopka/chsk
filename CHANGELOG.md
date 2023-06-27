@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] custom style transformations for server-side rendering to
+    counter-act a bug in framer-motion
 -   [examples] chart with hierarchical clustering
 -   [band] components `Dendrogram`, `DendrogramTree`, `DendrogramLeafLabels`,
     and `DendrogramSurface` to summarize hierarchical clustering

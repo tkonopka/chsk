@@ -125,3 +125,16 @@ export const fillProps = <T>(
     }
     return result as T
 }
+
+/**
+ * framer-motion has a bug that removes transforms in server-side rendering (ssr).
+ * This function adjust a style object so that those transforms are included.
+ */
+export const ssrCompatible = (
+    style: undefined | CssProps,
+    config: { x: number; y: number; rotate?: number }
+) => {
+    if (typeof window === 'object') return style
+    const rotate = config.rotate === undefined ? '' : 'rotate(' + config.rotate + 'deg)'
+    return { ...style, transform: 'translate(' + config.x + 'px,' + config.y + 'px)' + rotate }
+}

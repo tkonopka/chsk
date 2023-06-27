@@ -7,7 +7,7 @@ import {
     zeroPosition,
     centerAlign,
 } from '../general'
-import { getClassName } from '../themes'
+import { getClassName, ssrCompatible } from '../themes'
 
 export const Label = ({
     position = zeroPosition,
@@ -33,7 +33,7 @@ export const Label = ({
             role={setRole ? variant : undefined}
             initial={config}
             animate={config}
-            style={style}
+            style={ssrCompatible(style, config)}
             className={compositeClassName}
         >
             {children}
