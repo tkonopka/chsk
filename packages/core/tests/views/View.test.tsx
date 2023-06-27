@@ -1,4 +1,5 @@
-import { render, screen } from '@testing-library/react'
+import { useState } from 'react'
+import { fireEvent, render, screen } from '@testing-library/react'
 import {
     Chart,
     View,
@@ -6,9 +7,12 @@ import {
     ProcessedDataContextProps,
     useProcessedData,
     useRawData,
+    Scales,
+    ContinuousScaleProps,
 } from '../../src'
 import { chartProps, viewProps } from '../props'
 import { getNumberAttr } from '../utils'
+import { GetScales } from './context'
 
 describe('View', () => {
     it('creates view with default props', () => {
@@ -98,5 +102,33 @@ describe('View', () => {
         )
         expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
         expect(result.keys).toEqual(['a', 'b', 'c'])
+    })
+
+    it('changes scales after change in props', async () => {
+        const scales = {} as Scales
+        const narrow: ContinuousScaleProps = { variant: 'linear', domain: [0, 1], size: 100 }
+        const wide: ContinuousScaleProps = { variant: 'linear', domain: [0, 100], size: 100 }
+        // custom chart that will update props to view upon a click interaction
+        const ScaleUpdateChart = () => {
+            const [zoom, setZoom] = useState(0)
+            const updateState = () => setZoom(zoom => (zoom + 1) % 2)
+            return (
+                <div>
+                    <div role={'button'} onClick={updateState} />
+                    <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
+                        <View scaleX={zoom === 0 ? narrow : wide}>
+                            <GetScales key={1} value={scales} />
+                        </View>
+                    </Chart>
+                </div>
+            )
+        }
+        render(<ScaleUpdateChart />)
+        // clicking should toggle between narrow and wide x domain
+        expect(scales.x.domain()).toEqual([0, 1])
+        fireEvent.click(screen.getByRole('button'))
+        expect(scales.x.domain()).toEqual([0, 100])
+        fireEvent.click(screen.getByRole('button'))
+        expect(scales.x.domain()).toEqual([0, 1])
     })
 })

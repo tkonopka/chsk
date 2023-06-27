@@ -1,8 +1,9 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { Scales, ContinuousAxisScale, useScales, BandAxisScale } from '../../src/scales'
+import { Scales, ContinuousAxisScale, BandAxisScale } from '../../src/scales'
 import { roundDecimalPlaces } from '../../src/general'
 import { Chart, View, ViewController } from '../../src'
 import { chartProps } from '../props'
+import { GetScales } from './context'
 
 describe('ViewController', () => {
     it('creates controller with vertical toolbar', () => {
@@ -166,11 +167,7 @@ describe('ViewController', () => {
     }
 
     it('zoom only along x direction', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
@@ -180,7 +177,7 @@ describe('ViewController', () => {
                         value={'none'}
                         values={['none', 'zoom-in', 'zoom-out']}
                     />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -199,11 +196,7 @@ describe('ViewController', () => {
     })
 
     it('zoom only along y direction', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
@@ -213,7 +206,7 @@ describe('ViewController', () => {
                         value={'none'}
                         values={['none', 'zoom-in', 'zoom-out']}
                     />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -232,16 +225,12 @@ describe('ViewController', () => {
     })
 
     it('zoom on a custom xy region', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'xy'} value={'zoom'} className={'custom'} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -267,16 +256,12 @@ describe('ViewController', () => {
     })
 
     it('ignores zoom on empty region', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'xy'} value={'zoom'} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -295,16 +280,12 @@ describe('ViewController', () => {
     })
 
     it('zoom on a custom x region', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'x'} value={'zoom'} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -328,16 +309,12 @@ describe('ViewController', () => {
     })
 
     it('zoom on a custom y region', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'y'} value={'zoom'} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -361,16 +338,12 @@ describe('ViewController', () => {
     })
 
     it('aborts zoom when mouse leaves', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'x'} value={'zoom'} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -393,16 +366,12 @@ describe('ViewController', () => {
     })
 
     it('pan shifts axes left and right', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'x'} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -428,16 +397,12 @@ describe('ViewController', () => {
     })
 
     it('pan shifts axes up and down', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'y'} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -461,16 +426,12 @@ describe('ViewController', () => {
     })
 
     it('pan ignores shifts smaller than one pixel', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} variant={'xy'} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -484,16 +445,12 @@ describe('ViewController', () => {
     })
 
     it('pan allows mouse leave', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...unitScales}>
                     <ViewController key={0} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -524,16 +481,12 @@ describe('ViewController', () => {
     }
 
     it('pan with time scales', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...timeScales}>
                     <ViewController key={0} variant={'xy'} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -564,16 +517,12 @@ describe('ViewController', () => {
     }
 
     it('pan with band scales', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...bandScales}>
                     <ViewController key={0} value={'pan'} values={['pan']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
@@ -599,16 +548,12 @@ describe('ViewController', () => {
     })
 
     it('zoom with band scales', async () => {
-        let scales = {} as Scales
-        const GetScales = () => {
-            scales = useScales().scales
-            return null
-        }
+        const scales = {} as Scales
         render(
             <Chart size={[100, 100]} padding={[0, 0, 0, 0]}>
                 <View {...bandScales}>
                     <ViewController key={0} value={'none'} values={['none', 'zoom-in']} />
-                    <GetScales key={1} />
+                    <GetScales key={1} value={scales} />
                 </View>
             </Chart>
         )
