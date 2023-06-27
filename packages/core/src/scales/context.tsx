@@ -75,15 +75,17 @@ export const useCreateScales = (props: ScalesProps): ScalesContextValue => {
         }
     }, [dep])
 
-    const scales = useMemo(
-        () => ({
-            x: createAxisScale(scaleProps.x, 'x'),
-            y: createAxisScale(scaleProps.y, 'y'),
-            color: scaleProps.color ? createColorScale(scaleProps.color) : defaultCategoricalScale,
-            size: scaleProps.size ? createAxisScale(scaleProps.size) : defaultSizeScale,
-        }),
-        [scaleProps]
-    )
+    // construct scales, either from an updated scaleProps (after zoom/pan interactions
+    // or from new arguments/inputs
+    const scales = useMemo(() => {
+        const effProps = dep !== JSON.stringify(inProps) ? props : scaleProps
+        return {
+            x: createAxisScale(effProps.x, 'x'),
+            y: createAxisScale(effProps.y, 'y'),
+            color: effProps.color ? createColorScale(effProps.color) : defaultCategoricalScale,
+            size: effProps.size ? createAxisScale(effProps.size) : defaultSizeScale,
+        }
+    }, [scaleProps, dep])
 
     // wrapper for setScaleProps allows passing null to reset props
     const updateScaleProps = useCallback(

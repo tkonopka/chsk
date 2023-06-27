@@ -16,6 +16,9 @@
 
 ### Changed
 
+-   [core] fixed a bug in `useCreateScales` that delayed updates to scales
+    after a refresh, causing charts to redraw momentarily with new data but
+    out-of-date scales
 -   [core] fixed missing motion in `Polygon`
 -   [band] restricted types for `BarsLabels` prop `format`; the value axis
     requires numeric values
