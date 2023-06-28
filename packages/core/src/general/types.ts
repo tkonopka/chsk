@@ -23,9 +23,6 @@ export type PositionUnits = PositionUnit | [PositionUnit, PositionUnit]
 // position as an array [x, y]
 export type PositionSpec = [number | string, number | string]
 export type NumericPositionSpec = [number, number]
-//export type XY = NumericPositionSpec
-
-export type DistanceFunction = (a: NumericPositionSpec, b: NumericPositionSpec) => number
 
 // a position with an interval [x, y1, y0]
 export type NumericPositionIntervalSpec = [number, number, number]

@@ -6,7 +6,6 @@ import {
     FourSideSizeSpec,
     LineProps,
     NumericPositionSpec,
-    ProcessedDataContextProps,
     SvgElementProps,
     SymbolProps,
     ViewProps,
@@ -23,11 +22,6 @@ export type UpSetProcessedDataItem = WithId & {
     index: number
     data: Array<number>
     horizontal: boolean
-}
-
-export type UpSetDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<UpSetProcessedDataItem>
 }
 
 export interface UpSetProps

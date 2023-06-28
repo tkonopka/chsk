@@ -20,24 +20,15 @@ export type BarProcessedDataItem = WithId & {
     domain: Array<[number, number]>
 }
 
-export type BarProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<BarProcessedDataItem>
-}
-
 export type BarPreparedDataItem = WithId & {
     index: number
     position: Array<NumericPositionSpec>
     size: Array<SizeSpec>
 }
 
-export type BarPreparedDataContextProps = {
+export type BarPreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<BarPreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type BarInteractiveDataItem = {

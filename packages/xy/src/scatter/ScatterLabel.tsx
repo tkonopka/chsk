@@ -10,7 +10,6 @@ import {
     squaredDistance,
     getAbsolutePosition,
     Label,
-    DistanceFunction,
     clip,
 } from '@chsk/core'
 import { distanceX, distanceY } from './helpers'
@@ -21,7 +20,7 @@ import { useScatterPreparedData } from './context'
 const getClosestPoint = (
     target: NumericPositionSpec,
     data: ScatterPreparedDataItem,
-    distance: DistanceFunction
+    distance: (a: NumericPositionSpec, b: NumericPositionSpec) => number
 ) => {
     if (data.x.length === 1) return 0
     let result = 0

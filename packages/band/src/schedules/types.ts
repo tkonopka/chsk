@@ -27,11 +27,6 @@ export type ScheduleProcessedDataItem = WithId & {
     domain: Array<[number, number]>
 }
 
-export type ScheduleProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<ScheduleProcessedDataItem>
-}
-
 export type SchedulePreparedSummary = ScheduleProcessedSummary & {
     bandStart: number
     bandWidth: number
@@ -44,13 +39,9 @@ export type SchedulePreparedDataItem = WithId & {
     data: SchedulePreparedSummary[]
 }
 
-export type SchedulePreparedDataContextProps = {
+export type SchedulePreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<SchedulePreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type ScheduleInteractiveDataItem = {

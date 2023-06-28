@@ -75,7 +75,7 @@ export const DendrogramTree = ({
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     if (!isDendrogramData(originalData)) return null
 
-    const result = preparedData.data.map(seriesData => {
+    const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {
         const id = seriesData.id
         if (!idSet.has(id)) return null
         const targetLevels = getTargetLevels(

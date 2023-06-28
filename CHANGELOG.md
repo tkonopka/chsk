@@ -16,6 +16,8 @@
 
 ### Changed
 
+-   [all] removed unused type definitions; affected items mostly reflect types
+    for contexts holding processed data for views
 -   [polar] changed types for labels to allow React components
 -   [set] changed types for labels to allow React components
 -   [core] fixed a bug in `useCreateScales` that delayed updates to scales

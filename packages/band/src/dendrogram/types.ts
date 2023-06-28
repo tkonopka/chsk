@@ -25,11 +25,6 @@ export type DendrogramProcessedDataItem = WithId & {
     domain: [number, number]
 }
 
-export type DendrogramProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<DendrogramProcessedDataItem>
-}
-
 export type DendrogramPreparedDataItem = WithId & {
     index: number
     merge: Array<[number, number]>
@@ -41,13 +36,9 @@ export type DendrogramPreparedDataItem = WithId & {
     heightInterval: [number, number][]
 }
 
-export type DendrogramPreparedDataContextProps = {
+export type DendrogramPreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<DendrogramPreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type DendrogramInteractiveDataItem = {

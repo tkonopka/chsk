@@ -18,11 +18,6 @@ export type ViolinProcessedDataItem = WithId & {
     domain: Array<[number, number] | undefined>
 }
 
-export type ViolinProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<ViolinProcessedDataItem>
-}
-
 export type ViolinPreparedSummary =
     | undefined
     | {
@@ -38,13 +33,9 @@ export type ViolinPreparedDataItem = WithId & {
     data: ViolinPreparedSummary[]
 }
 
-export type ViolinPreparedDataContextProps = {
+export type ViolinPreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<ViolinPreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type ViolinInteractiveDataItem = {

@@ -24,11 +24,6 @@ export type StripProcessedDataItem = WithId & {
     domain: Array<[number, number] | undefined>
 }
 
-export type StripProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<StripProcessedDataItem>
-}
-
 export type StripPreparedPoints =
     | undefined
     | (StripProcessedPoints & {
@@ -41,13 +36,9 @@ export type StripPreparedDataItem = WithId & {
     data: StripPreparedPoints[]
 }
 
-export type StripPreparedDataContextProps = {
+export type StripPreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<StripPreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type StripInteractiveDataItem = {

@@ -36,11 +36,6 @@ export type QuantileProcessedDataItem = WithId & {
     domain: Array<[number, number] | undefined>
 }
 
-export type QuantileProcessedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<QuantileProcessedDataItem>
-}
-
 export type QuantilePreparedSummary =
     | undefined
     | (QuantileProcessedSummary & {
@@ -53,13 +48,9 @@ export type QuantilePreparedDataItem = WithId & {
     data: QuantilePreparedSummary[]
 }
 
-export type QuantilePreparedDataContextProps = {
+export type QuantilePreparedDataContextProps = ProcessedDataContextProps & {
     /** data */
     data: Array<QuantilePreparedDataItem>
-    /** map from series ids to indexes */
-    seriesIndexes: Record<string, number>
-    /** list of keys */
-    keys: string[]
 }
 
 export type QuantileInteractiveDataItem = {

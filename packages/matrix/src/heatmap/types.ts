@@ -4,7 +4,6 @@ import {
     ColorScaleProps,
     ColorScaleSpec,
     DataInteractivityProps,
-    ProcessedDataContextProps,
     RectangleProps,
     SizeScaleProps,
     SizeScaleSpec,
@@ -21,11 +20,6 @@ export type HeatMapProcessedDataItem = WithId & {
     index: number
     value: Array<number | string>
     size: Array<number>
-}
-
-export type HeatMapDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<HeatMapProcessedDataItem>
 }
 
 export interface HeatMapProps extends SvgElementProps, Pick<ViewProps, 'container' | 'children'> {
