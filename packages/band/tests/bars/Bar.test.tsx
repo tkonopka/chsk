@@ -9,6 +9,7 @@ import {
 } from '../../src'
 import { barProps, mockProcessedData, mockScales } from '../props'
 import { GetScales, GetProcessedData } from '../contexts'
+import { BarPreparedDataItem } from '../../dist/types'
 
 describe('Bar', () => {
     it('creates a view', () => {
@@ -41,7 +42,7 @@ describe('Bar', () => {
         prepared: BarPreparedDataContextProps
     ): NumericPositionSpec[] => {
         const result: NumericPositionSpec[] = []
-        prepared.data.forEach(item =>
+        prepared.data.forEach((item: BarPreparedDataItem) =>
             item.position.forEach(position => {
                 result.push(position)
             })
