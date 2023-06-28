@@ -4,12 +4,12 @@ import {
     Bar,
     BarDataItem,
     BarPreparedDataContextProps,
+    BarPreparedDataItem,
     isBarProcessedData,
     useBarPreparedData,
 } from '../../src'
 import { barProps, mockProcessedData, mockScales } from '../props'
 import { GetScales, GetProcessedData } from '../contexts'
-import { BarPreparedDataItem } from '../../dist/types'
 
 describe('Bar', () => {
     it('creates a view', () => {
