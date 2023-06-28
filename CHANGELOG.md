@@ -16,6 +16,8 @@
 
 ### Changed
 
+-   [polar] changed types for labels to allow React components
+-   [set] changed types for labels to allow React components
 -   [core] fixed a bug in `useCreateScales` that delayed updates to scales
     after a refresh, causing charts to redraw momentarily with new data but
     out-of-date scales

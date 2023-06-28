@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import {
     AlignSpec,
     AngleUnit,
@@ -80,14 +80,10 @@ export interface SlicesProps
     padAngle?: number
 }
 
-export interface SliceLabelProps
-    extends SvgElementVariantProps,
-        Omit<SliceProps, 'r' | 'padAngle'>,
-        Pick<LabelProps, 'align' | 'children'>,
-        Pick<PolarItemProps, 'radial' | 'tangential'> {
-    /** content */
-    format?: (x: string | number) => string
-}
+export type SliceLabelProps = SvgElementVariantProps &
+    Omit<SliceProps, 'r' | 'padAngle'> &
+    Pick<LabelProps, 'align' | 'children'> &
+    Pick<PolarItemProps, 'radial' | 'tangential'>
 
 export interface SliceLabelsProps
     extends SvgElementVariantProps,
@@ -101,7 +97,7 @@ export interface SliceLabelsProps
     /** angle unit */
     angleUnit?: AngleUnit
     /** format for text */
-    format?: (v: PieProcessedDataItem) => string
+    format?: (v: PieProcessedDataItem) => ReactNode
     /** components used to render text */
     component?: FC<SliceLabelProps>
 }

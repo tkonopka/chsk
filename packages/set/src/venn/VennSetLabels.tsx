@@ -36,6 +36,7 @@ export const VennSetLabels = ({
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
     const compositeClassName = getClassName('vennSetLabel', className)
+    const labelProps = { size, align, padding, style, setRole }
 
     const result = (ids ?? seriesIds)
         .map((id, i) => {
@@ -51,12 +52,8 @@ export const VennSetLabels = ({
                 {
                     key: 'label-' + id,
                     position: [scaleX(pos[X]) + offset[X], scaleY(pos[Y]) + offset[Y]],
-                    size,
-                    align,
-                    padding,
                     className: compositeClassName,
-                    style,
-                    setRole,
+                    ...labelProps,
                 },
                 value
             )

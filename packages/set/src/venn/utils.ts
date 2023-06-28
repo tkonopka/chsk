@@ -106,10 +106,6 @@ export const midpoint = (a: NumericPositionSpec, b: NumericPositionSpec): Numeri
     return [(a[X] + b[X]) / 2, (a[Y] + b[Y]) / 2]
 }
 
-export const distance = (a: NumericPositionSpec, b: NumericPositionSpec): number => {
-    return Math.sqrt((a[X] - b[X]) ** 2 + (a[Y] - b[Y]) ** 2)
-}
-
 // angle between y axis and vector from point a to point b
 // note: works with svg coordinates system
 export const svgAngle = (a: NumericPositionSpec, b: NumericPositionSpec): number => {

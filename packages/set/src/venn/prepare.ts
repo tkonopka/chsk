@@ -1,7 +1,7 @@
 import { VennInterpolation, VennPreparedDataItem, VennProcessedDataItem } from './types'
-import { ContinuousAxisScale, NumericPositionSpec, Scales, X, Y } from '@chsk/core'
+import { ContinuousAxisScale, NumericPositionSpec, Scales, X, Y, distance } from '@chsk/core'
 import { pathVenn1, pathVenn2, pathVenn3 } from './paths'
-import { svgAngle, distance, midpoint, svgTranslatedPosition } from './utils'
+import { svgAngle, midpoint, svgTranslatedPosition } from './utils'
 
 // turn processed data into view-specific coordinates
 // input is set-oriented array, i.e. set A, set B, set C

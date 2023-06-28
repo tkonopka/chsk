@@ -1,3 +1,4 @@
+import { FC, ReactNode } from 'react'
 import {
     CategoricalScaleSpec,
     DataInteractivityProps,
@@ -12,7 +13,6 @@ import {
     ViewProps,
     WithId,
 } from '@chsk/core'
-import { FC } from 'react'
 
 export type VennDataItem = WithId & {
     data: unknown[]
@@ -84,14 +84,16 @@ export interface VennSetLabelsProps extends SvgElementProps, Omit<LocationProps,
     rs?: number[]
     /** angles */
     angles?: number[]
-    /** format for text */
-    format?: (v: string | number) => string
+    /** format for label content */
+    format?: (v: string) => ReactNode
     /** size for label box */
     size?: SizeSpec
     /** components used to render label */
     component?: FC<LabelProps>
 }
 
-export interface VennIntersectionLabelsProps extends Omit<VennSetLabelsProps, 'rs' | 'angles'> {
-    format?: (v: string | number, item?: VennPreparedDataItem) => string
+export interface VennIntersectionLabelsProps
+    extends Omit<VennSetLabelsProps, 'rs' | 'angles' | 'format'> {
+    /** format for label content */
+    format?: (v: number, item?: VennPreparedDataItem) => ReactNode
 }

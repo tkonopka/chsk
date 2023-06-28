@@ -1,13 +1,12 @@
 import { createElement, ReactNode } from 'react'
 import { getClassName, Label } from '@chsk/core'
 import { isVennPreparedData } from './predicates'
-import { VennIntersectionLabelsProps, VennInteractiveDataItem } from './types'
+import { VennIntersectionLabelsProps } from './types'
 import { useVennPreparedData } from './contexts'
 
 export const VennIntersectionLabels = ({
     ids,
-    format = (v: string | number, item?: VennInteractiveDataItem) =>
-        String(v) ?? String(item?.value),
+    format = (v: number) => String(v),
     padding = [4, 4, 4, 4],
     size = [40, 10],
     anchor = [0.5, 0.5],
