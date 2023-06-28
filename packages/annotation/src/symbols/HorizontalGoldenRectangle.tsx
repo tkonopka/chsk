@@ -13,12 +13,15 @@ export const HorizontalGoldenRectangle = ({
     ...props
 }: SymbolProps) => {
     const compositeClassName = getClassName(variant, className)
-    const x = cx - (r * goldenRectWidth) / 2
-    const y = cy - (r * goldenRectHeight) / 2
-    const config = { x, y, width: r * goldenRectWidth, height: r * goldenRectHeight }
+    const config = {
+        x: cx - (r * goldenRectWidth) / 2,
+        y: cy - (r * goldenRectHeight) / 2,
+        width: r * goldenRectWidth,
+        height: r * goldenRectHeight,
+    }
     return (
         <m.rect
-            role={setRole ? variant : undefined}
+            role={setRole && variant !== 'default' ? variant : undefined}
             initial={config}
             animate={config}
             className={compositeClassName}

@@ -18,9 +18,8 @@ export const FlowPath = ({
     markerEnd,
     className,
     setRole = true,
-    style,
     transition = { pathLength: { duration: 0.5 } },
-    // interactivity
+    // style and interactivity
     ...props
 }: FlowPathProps) => {
     const ref = useRef<SVGPathElement>(null)
@@ -53,7 +52,6 @@ export const FlowPath = ({
                 }}
                 transition={transition}
                 role={setRole ? variant : undefined}
-                style={style}
                 className={compositeClassName}
                 {...props}
             />

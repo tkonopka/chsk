@@ -49,12 +49,11 @@ export const Connector = ({
         elbowPosition = [x2, elbowCoordinate(y2, y1, elbow, relative)]
     }
 
-    let d = ''
-    if (beta === undefined) {
-        d = ['M', x1, y1, 'L', elbowPosition[X], elbowPosition[Y], 'L', x2, y2].join(' ')
-    } else {
-        d = generator([[x1, y1], elbowPosition, [x2, y2]]) ?? ''
-    }
+    const d =
+        beta === undefined
+            ? ['M', x1, y1, 'L', elbowPosition[X], elbowPosition[Y], 'L', x2, y2].join(' ')
+            : generator([[x1, y1], elbowPosition, [x2, y2]]) ?? ''
+
     const compositeClassName = getClassName('connector', className)
     return <Path d={d} {...props} className={compositeClassName} />
 }
