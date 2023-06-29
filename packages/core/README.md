@@ -3,13 +3,6 @@
 `@chsk/core` is a data visualization framework for React. It provides tools
 for customizable, extendable, and dynamic story-telling with data.
 
-The framework relies on [react](https://www.npmjs.com/package/react) for
-managing state and
-[framer-motion](https://www.npmjs.com/package/framer-motion) for animations.
-It uses [d3](https://www.npmjs.com/package/d3) libraries for
-many visualization-related calculations and
-[lodash](https://www.npmjs.com/package/lodash) for general-purpose data processing.
-
 ## Features
 
 The package provides React components that create commonly-used chart
@@ -60,3 +53,12 @@ through add-on packages.
 ## Documentation
 
 See [here](https://tkonopka.github.io/chsk/?path=/docs/core)
+
+## Credits
+
+`@chsk/core` relies on [react](https://www.npmjs.com/package/react)
+for managing state and
+[framer-motion](https://www.npmjs.com/package/framer-motion) for animations.
+It uses [d3](https://www.npmjs.com/package/d3) libraries for
+many visualization-related calculations and
+[lodash](https://www.npmjs.com/package/lodash) for general-purpose data processing.
