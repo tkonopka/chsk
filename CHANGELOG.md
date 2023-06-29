@@ -1,5 +1,13 @@
 # Changelog
 
+## Unreleased
+
+### Highlights
+
+### Added
+
+### Changed
+
 ## v0.6.0
 
 ### Highlights
