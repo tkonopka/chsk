@@ -1,8 +1,12 @@
 # Changelog
 
-## Unreleased
+## v0.6.0
 
 ### Highlights
+
+-   New components for creating dendrogram charts
+-   Adjustments in package configuration files to better support esm / umd
+-   Adjustment to component transforms to better support server-side rendering
 
 ### Added
 
