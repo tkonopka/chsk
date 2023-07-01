@@ -55,6 +55,26 @@ describe('TooltipDataComponent', () => {
         expect(value).toEqual('A')
     })
 
+    it('creates a component with double click handler', () => {
+        let value: string | undefined = ''
+        const customHandler = (data: WithId | undefined) => {
+            value = data?.id
+        }
+        render(
+            <Chart {...chartProps}>
+                <TooltipDataComponent
+                    component={Circle}
+                    data={{ id: 'A' }}
+                    props={{ cx: 10, cy: 10, r: 10, variant: 'target' }}
+                    handlers={{ onDoubleClick: customHandler }}
+                />
+            </Chart>
+        )
+        expect(value).toEqual('')
+        fireEvent.doubleClick(screen.getByRole('target'))
+        expect(value).toEqual('A')
+    })
+
     it('uses custom mouse enter and mouse leave handlers', () => {
         let value: string | undefined = undefined
         const tooltip: TooltipData = {}
@@ -118,6 +138,7 @@ describe('TooltipDataComponent', () => {
                         }}
                         modifiers={{
                             onClick: { strokeWidth: 5 },
+                            onDoubleClick: { strokeDasharray: 2 },
                             onMouseEnter: { stroke: '#ff0000' },
                             onMouseMove: { scale: 2 },
                             onMouseLeave: { opacity: 0 },
@@ -127,10 +148,6 @@ describe('TooltipDataComponent', () => {
             </Chart>
         )
         expect(screen.getByRole('A').getAttribute('style')).not.toContain('stroke')
-        fireEvent.click(screen.getByRole('A'))
-        await waitFor(() => {
-            expect(screen.getByRole('A').getAttribute('style')).toContain('width')
-        })
         fireEvent.mouseEnter(screen.getByRole('A'))
         await waitFor(() => {
             expect(screen.getByRole('A').getAttribute('style')).toContain('stroke')
@@ -142,6 +159,16 @@ describe('TooltipDataComponent', () => {
         fireEvent.mouseLeave(screen.getByRole('A'))
         await waitFor(() => {
             expect(screen.getByRole('A').getAttribute('style')).toContain('opacity')
+        })
+        fireEvent.click(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('width')
+            expect(screen.getByRole('A').getAttribute('style')).toContain('5')
+        })
+        fireEvent.doubleClick(screen.getByRole('A'))
+        await waitFor(() => {
+            expect(screen.getByRole('A').getAttribute('style')).toContain('dash')
+            expect(screen.getByRole('A').getAttribute('style')).toContain('2')
         })
     })
 })
