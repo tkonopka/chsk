@@ -22,6 +22,8 @@ export interface InteractivityProps {
     onMouseMove?: (event: MouseEvent) => void
     /** handler for click event */
     onClick?: (event: MouseEvent) => void
+    /** handler for double-click event */
+    onDoubleClick?: (event: MouseEvent) => void
 }
 
 export interface DataInteractivityHandlers<DataSpec extends WithId> {
@@ -33,6 +35,8 @@ export interface DataInteractivityHandlers<DataSpec extends WithId> {
     onMouseMove?: (data: DataSpec | undefined, event: MouseEvent) => void
     /** handler for click event */
     onClick?: (data: DataSpec | undefined, event: MouseEvent) => void
+    /** handler for double-click event */
+    onDoubleClick?: (data: DataSpec | undefined, event: MouseEvent) => void
 }
 
 export interface DataInteractivityModifiers {
@@ -44,6 +48,8 @@ export interface DataInteractivityModifiers {
     onMouseMove?: CssProps
     /** style modifier upon click */
     onClick?: CssProps
+    /** style modifier upon double click */
+    onDoubleClick?: CssProps
 }
 
 // handling events in a data-dependent way (e.g. by points in scatter plot)

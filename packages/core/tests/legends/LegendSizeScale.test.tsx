@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Legend, LegendSizeScale, View } from '../../src'
 import { chartProps } from '../props'
-import { viewSeriesIndexesKeys, scaleSequential } from './Legend.test'
+import { viewSeriesIndexesKeys, scaleSequential } from './legends.props'
 
 describe('LegendSizeScale', () => {
     it('creates a size scale (variant right)', () => {

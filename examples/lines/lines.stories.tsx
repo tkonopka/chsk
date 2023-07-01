@@ -26,6 +26,12 @@ export const ManyLines: GalleryStory = {
     args: {
         generator: generateManyRandomWalksData,
         chart: ManyRandomWalksChart,
+        comment: (
+            <div>
+                Click on legend item to toggle visibility of one line, or double-click to toggle
+                multiple lines at once.
+            </div>
+        ),
     },
 }
 

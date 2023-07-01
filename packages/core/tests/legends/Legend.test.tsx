@@ -1,25 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { Chart, Legend, View, ColorScaleProps } from '../../src'
+import { Chart, Legend, View } from '../../src'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../utils'
-import { schemeCategory10 } from 'd3-scale-chromatic'
-
-export const viewSeriesIndexesKeys = {
-    seriesIndexes: { X: 0, Y: 1 },
-    keys: ['alpha', 'beta', 'gamma'],
-}
-
-export const scaleCategorical: ColorScaleProps = {
-    variant: 'categorical',
-    colors: schemeCategory10,
-    domain: [], // empty domain by default, will be filled in by View
-}
-
-export const scaleSequential: ColorScaleProps = {
-    variant: 'sequential',
-    colors: ['#ffffff', '#0000ff'],
-    domain: [0, 100],
-}
+import { scaleCategorical, scaleSequential, viewSeriesIndexesKeys } from './legends.props'
 
 describe('Legend (list)', () => {
     it('creates a legend in top-right corner', () => {

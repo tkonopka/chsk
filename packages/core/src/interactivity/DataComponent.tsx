@@ -55,6 +55,15 @@ export const DataComponent = <
         },
         [data, handlers, style, modifiers, setComponentStyle]
     )
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent) => {
+            handlers?.onDoubleClick?.(data, event)
+            if (modifiers?.onDoubleClick) {
+                setComponentStyle({ ...style, ...modifiers.onDoubleClick })
+            }
+        },
+        [data, handlers, style, modifiers, setComponentStyle]
+    )
 
     return createElement(component, {
         ...props,
@@ -64,5 +73,6 @@ export const DataComponent = <
         onMouseMove: handleMouseMove,
         onMouseLeave: handleMouseLeave,
         onClick: handleClick,
+        onDoubleClick: handleDoubleClick,
     })
 }

@@ -55,6 +55,7 @@ export const PersistentTooltipDataComponent = <
         ...props,
         key,
         style: componentStyle,
+        ...handlers,
         onClick: handleClick,
     })
 }

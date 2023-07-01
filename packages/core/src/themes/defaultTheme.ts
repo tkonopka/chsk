@@ -159,6 +159,7 @@ export const defaultTheme: CompleteThemeSpec = {
         legendItem: {
             textAnchor: 'start',
             dominantBaseline: 'central',
+            userSelect: 'none',
         },
         selected: {
             fontWeight: 600,

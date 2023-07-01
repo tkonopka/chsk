@@ -65,6 +65,8 @@ export interface LegendItemProps extends LegendTitleProps, WithInteractive {
     color?: string | number
     /** style for disabled keys */
     disabledStyle?: CssProps
+    /** allow disabling the last active key */
+    allowDisableAll?: boolean
 }
 
 export interface LegendItemThemedProps
@@ -76,6 +78,7 @@ export interface LegendItemThemedProps
     labelDistance: number
     interactive: boolean
     disabledStyle: CssProps
+    allowDisableAll: boolean
 }
 
 export interface LegendColorScaleProps extends Omit<LegendTitleProps, 'variant'>, AxisTicksProps {
@@ -113,6 +116,7 @@ export interface LegendProps
             | 'labelDistance'
             | 'interactive'
             | 'disabledStyle'
+            | 'allowDisableAll'
         > {
     /** legend type */
     variant?: 'list' | 'color' | 'size'
@@ -127,7 +131,7 @@ export interface LegendProps
 }
 
 export interface LegendThemedProps
-    extends Pick<LegendProps, 'padding' | 'scaleSize' | 'disabledStyle'>,
+    extends Pick<LegendProps, 'padding' | 'scaleSize' | 'disabledStyle' | 'allowDisableAll'>,
         Pick<ItemListProps, 'itemSize' | 'itemPadding' | 'horizontal' | 'firstOffset'> {
     offset: NumericPositionSpec
     padding: FourSideSizeSpec
@@ -142,6 +146,7 @@ export interface LegendThemedProps
     labelDistance: number
     interactive: boolean
     disabledStyle: CssProps
+    allowDisableAll: boolean
 }
 
 export interface LegendItemListProps
@@ -166,7 +171,12 @@ export interface LegendItemListProps
 export interface LegendItemListThemedProps
     extends Pick<
         LegendItemListProps,
-        'itemSize' | 'itemPadding' | 'horizontal' | 'interactive' | 'disabledStyle'
+        | 'itemSize'
+        | 'itemPadding'
+        | 'horizontal'
+        | 'interactive'
+        | 'disabledStyle'
+        | 'allowDisableAll'
     > {
     itemSize: SizeSpec
     itemPadding: FourSideSizeSpec
@@ -174,6 +184,7 @@ export interface LegendItemListThemedProps
     r: number
     labelDistance: number
     disabledStyle: CssProps
+    allowDisableAll: boolean
 }
 
 export interface LegendSizeScaleProps

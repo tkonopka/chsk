@@ -20,6 +20,7 @@ export const defaultLegendProps: LegendThemedProps = {
     scaleSize: [8, 80],
     interactive: true,
     disabledStyle: { opacity: 0.5 },
+    allowDisableAll: false,
 }
 
 export const defaultLegendItemListProps: LegendItemListThemedProps = {
@@ -30,6 +31,7 @@ export const defaultLegendItemListProps: LegendItemListThemedProps = {
     labelDistance: 6,
     interactive: true,
     disabledStyle: { opacity: 0.5 },
+    allowDisableAll: false,
 }
 
 export const defaultLegendItemProps: LegendItemThemedProps = {
@@ -40,6 +42,7 @@ export const defaultLegendItemProps: LegendItemThemedProps = {
     labelDistance: 4,
     interactive: true,
     disabledStyle: { opacity: 0.5 },
+    allowDisableAll: false,
 }
 
 export const defaultLegendColorScaleProps: LegendColorScaleThemedProps = {

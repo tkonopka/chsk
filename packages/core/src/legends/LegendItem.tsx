@@ -7,6 +7,7 @@ import { useChartData } from '../charts'
 import { defaultLegendItemProps } from './defaults'
 import { LegendItemProps } from './types'
 import { getLabelPosition, getSymbolPosition, getSymbolStyle } from './utils'
+import { useProcessedData } from '../views'
 
 const UnthemedLegendItem = ({
     variant = 'right',
@@ -26,11 +27,13 @@ const UnthemedLegendItem = ({
     color,
     interactive = defaultLegendItemProps.interactive,
     disabledStyle = defaultLegendItemProps.disabledStyle,
+    allowDisableAll = defaultLegendItemProps.allowDisableAll,
     className,
     style,
     setRole = true,
 }: LegendItemProps) => {
     const colorScale = useScales().scales.color
+    const dataKeys: string[] = useProcessedData().keys
     const { data: chartData, setData: setChartData } = useChartData()
 
     symbolPosition = symbolPosition ?? getSymbolPosition(variant, size, padding, r)
@@ -43,7 +46,18 @@ const UnthemedLegendItem = ({
         if (disabledKeys.has(item)) {
             disabledKeys.delete(item)
         } else {
+            if (disabledKeys.size === dataKeys.length - 1 && !allowDisableAll) return
             disabledKeys.add(item)
+        }
+        setChartData?.({ ...chartData, disabledKeys })
+    }
+    const handleDoubleClick = () => {
+        if (!interactive) return
+        const disabledKeys: Set<string> = chartData.disabledKeys ?? new Set<string>()
+        if (disabledKeys.has(item)) {
+            disabledKeys.clear()
+        } else {
+            dataKeys.filter(k => k !== item).forEach(k => disabledKeys.add(k))
         }
         setChartData?.({ ...chartData, disabledKeys })
     }
@@ -60,6 +74,7 @@ const UnthemedLegendItem = ({
             style={gStyle}
             className={'legendItem'}
             onClick={handleClick}
+            onDoubleClick={handleDoubleClick}
         >
             <rect x={0} y={0} width={size[X]} height={size[Y]} className={itemClassName} />
             {createElement(symbol, {

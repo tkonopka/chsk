@@ -1,11 +1,11 @@
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { Chart, Circle, Legend, LegendItem, LegendItemProps, useChartData, View } from '../../src'
-import { fireEvent, render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
 import { getNumberAttr } from '../utils'
-import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
+import { scaleCategorical, viewSeriesIndexesKeys } from './legends.props'
 
 describe('LegendItem', () => {
-    const legendItemProps: Pick<
+    const alphaItemProps: Pick<
         LegendItemProps,
         'position' | 'item' | 'label' | 'symbol' | 'disabledStyle'
     > = {
@@ -21,7 +21,7 @@ describe('LegendItem', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'}>
-                        <LegendItem variant={'right'} {...legendItemProps} />
+                        <LegendItem variant={'right'} {...alphaItemProps} />
                     </Legend>
                 </View>
             </Chart>
@@ -38,7 +38,7 @@ describe('LegendItem', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'}>
-                        <LegendItem variant={'left'} {...legendItemProps} />
+                        <LegendItem variant={'left'} {...alphaItemProps} />
                     </Legend>
                 </View>
             </Chart>
@@ -55,7 +55,7 @@ describe('LegendItem', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'}>
-                        <LegendItem variant={'top'} {...legendItemProps} />
+                        <LegendItem variant={'top'} {...alphaItemProps} />
                     </Legend>
                 </View>
             </Chart>
@@ -72,7 +72,7 @@ describe('LegendItem', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'}>
-                        <LegendItem variant={'bottom'} {...legendItemProps} />
+                        <LegendItem variant={'bottom'} {...alphaItemProps} />
                     </Legend>
                 </View>
             </Chart>
@@ -87,15 +87,14 @@ describe('LegendItem', () => {
     it('toggles opacity and disabled state upon click', async () => {
         const ShowDisabled = () => {
             const { data } = useChartData()
-            const disabledKeys = Array.from(data.disabledKeys ?? []).join('')
-            if (!data.disabledKeys) return null
-            return <text role={'show-disabled'}>{disabledKeys}</text>
+            const disabledKeys = Array.from(data.disabledKeys ?? []).join(' ')
+            return <text role={'disabled-keys'}>{disabledKeys}</text>
         }
         render(
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'} key={1}>
-                        <LegendItem variant={'bottom'} {...legendItemProps} />
+                        <LegendItem variant={'bottom'} {...alphaItemProps} />
                     </Legend>
                     <ShowDisabled key={2} />
                 </View>
@@ -105,18 +104,103 @@ describe('LegendItem', () => {
         expect(item.getAttribute('style') ?? '').not.toContain('opacity')
         // toggle to disabled state
         fireEvent.click(item)
-        const item2 = await screen.findByRole('legend-item')
-        expect(item2.getAttribute('style') ?? '').toContain('opacity: 0.25')
-        const show = await screen.findByRole('show-disabled')
-        expect(show.textContent).toContain('alpha')
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).toContain('opacity: 0.25')
+            expect(screen.getByRole('disabled-keys').textContent).toContain('alpha')
+        })
         // toggle back to active state
         fireEvent.click(item)
-        const item3 = await screen.findByRole('legend-item')
-        expect(item3.getAttribute('style') ?? '').not.toContain('opacity')
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).not.toContain('opacity')
+        })
         // toggle again to disabled state
         fireEvent.click(item)
-        const item4 = await screen.findByRole('legend-item')
-        expect(item4.getAttribute('style') ?? '').toContain('opacity: 0.25')
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).toContain('opacity')
+        })
+    })
+
+    it('toggles opacity and disabled state upon double click, allowing all disabled', async () => {
+        const ShowDisabled = () => {
+            const { data } = useChartData()
+            const disabledKeys = Array.from(data.disabledKeys ?? []).join(' ')
+            return <text role={'disabled-keys'}>{disabledKeys}</text>
+        }
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend variant={'list'} key={1}>
+                        <LegendItem
+                            variant={'bottom'}
+                            {...alphaItemProps}
+                            style={{ cursor: 'pointer' }}
+                            allowDisableAll={true}
+                        />
+                    </Legend>
+                    <ShowDisabled key={2} />
+                </View>
+            </Chart>
+        )
+        const item = screen.getByRole('legend-item')
+        expect(item.getAttribute('style') ?? '').not.toContain('opacity')
+        // double click turns off all keys except item
+        fireEvent.dblClick(item)
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).not.toContain('opacity')
+            const result = screen.getByRole('disabled-keys')
+            expect(result.textContent).not.toContain('alpha')
+            expect(result.textContent).toContain('beta')
+            expect(result.textContent).toContain('gamma')
+        })
+        // click turns off all keys
+        fireEvent.click(item)
+        await waitFor(() => {
+            const result = screen.getByRole('disabled-keys')
+            expect(result.textContent).toContain('alpha')
+            expect(result.textContent).toContain('beta')
+            expect(result.textContent).toContain('gamma')
+        })
+        // double click returns chart state to original - all keys visible
+        fireEvent.dblClick(item)
+        await waitFor(() => {
+            const result = screen.getByRole('disabled-keys')
+            expect(result.textContent).not.toContain('alpha')
+            expect(result.textContent).not.toContain('beta')
+            expect(result.textContent).not.toContain('gamma')
+        })
+    })
+
+    it('toggles disabled state while preserving at least one active key', async () => {
+        const ShowDisabled = () => {
+            const { data } = useChartData()
+            const disabledKeys = Array.from(data.disabledKeys ?? []).join(' ')
+            return <text role={'disabled-keys'}>{disabledKeys}</text>
+        }
+        render(
+            <Chart {...chartProps}>
+                <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
+                    <Legend variant={'list'} key={1}>
+                        <LegendItem
+                            variant={'bottom'}
+                            {...alphaItemProps}
+                            style={{ cursor: 'pointer' }}
+                        />
+                    </Legend>
+                    <ShowDisabled key={2} />
+                </View>
+            </Chart>
+        )
+        const item = screen.getByRole('legend-item')
+        // double click turns off all keys except item
+        fireEvent.dblClick(item)
+        await waitFor(() => {
+            expect(screen.getByRole('disabled-keys').textContent).not.toContain('alpha')
+        })
+        // attempt to turns off all keys, but it should not be possible to toggle the last key
+        fireEvent.click(item)
+        await waitFor(() => {
+            expect(screen.getByRole('disabled-keys').textContent).not.toContain('alpha')
+        })
     })
 
     it('does not toggle when interactivity is turned off', async () => {
@@ -124,15 +208,25 @@ describe('LegendItem', () => {
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys} scaleColor={scaleCategorical}>
                     <Legend variant={'list'}>
-                        <LegendItem variant={'bottom'} {...legendItemProps} interactive={false} />
+                        <LegendItem
+                            variant={'bottom'}
+                            {...alphaItemProps}
+                            interactive={false}
+                            style={{ cursor: 'pointer' }}
+                        />
                     </Legend>
                 </View>
             </Chart>
         )
         const item = screen.getByRole('legend-item')
-        expect(item.getAttribute('style') ?? '').not.toContain('opacity')
+        expect(item.getAttribute('style')).not.toContain('opacity')
         fireEvent.click(item)
-        const item2 = await screen.findByRole('legend-item')
-        expect(item2.getAttribute('style') ?? '').not.toContain('opacity')
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).not.toContain('opacity')
+        })
+        fireEvent.dblClick(item)
+        await waitFor(() => {
+            expect(screen.getByRole('legend-item').getAttribute('style')).not.toContain('opacity')
+        })
     })
 })

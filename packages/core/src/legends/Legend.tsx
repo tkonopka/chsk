@@ -42,6 +42,8 @@ const UnthemedLegend = ({
     titleStyle,
     // only for discrete items
     interactive = defaultLegendProps.interactive,
+    disabledStyle = defaultLegendProps.disabledStyle,
+    allowDisableAll = defaultLegendProps.allowDisableAll,
     r = defaultLegendProps.r,
     symbol,
     symbolStyle,
@@ -101,6 +103,8 @@ const UnthemedLegend = ({
         symbolStyle,
         labelStyle,
         labelDistance,
+        disabledStyle,
+        allowDisableAll,
     }
 
     // legend content

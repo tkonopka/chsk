@@ -1,7 +1,7 @@
 import { Chart, Legend, LegendItemProps, LegendTitle, View } from '../../src'
 import { render, screen } from '@testing-library/react'
 import { chartProps } from '../props'
-import { scaleCategorical, viewSeriesIndexesKeys } from './Legend.test'
+import { scaleCategorical, viewSeriesIndexesKeys } from './legends.props'
 import { getNumberAttr } from '../utils'
 
 describe('LegendTitle', () => {

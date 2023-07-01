@@ -71,6 +71,15 @@ export const TooltipDataComponent = <
         },
         [data, handlers, modifiers, style, setComponentStyle]
     )
+    const handleDoubleClick = useCallback(
+        (event: MouseEvent) => {
+            handlers?.onDoubleClick?.(data, event)
+            if (modifiers?.onDoubleClick) {
+                setComponentStyle({ ...style, ...modifiers.onDoubleClick })
+            }
+        },
+        [data, handlers, modifiers, style, setComponentStyle]
+    )
 
     return createElement(component, {
         ...props,
@@ -80,5 +89,6 @@ export const TooltipDataComponent = <
         onMouseMove: handleMouseMove,
         onMouseLeave: handleMouseLeave,
         onClick: handleClick,
+        onDoubleClick: handleDoubleClick,
     })
 }

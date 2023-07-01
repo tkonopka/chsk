@@ -6,7 +6,16 @@
 
 ### Added
 
+-   [core] prop `allowDisableAll` in legend components to toggle ability to
+    mark all keys in a view as disabled; defaults to false in order to
+    always preserve some visible view content, compute non-trivial scales, and
+    avoid flashes during legend double-clicks
+-   [core] support for double-clicks on legend items to toggle multiple keys
+    at once
+
 ### Changed
+
+-   [core] types for interactivity components to include `onDoubleClick`
 
 ## v0.6.0
 

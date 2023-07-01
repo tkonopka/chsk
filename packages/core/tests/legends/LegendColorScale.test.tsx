@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { Chart, Legend, View, LegendColorScale } from '../../src'
 import { chartProps } from '../props'
-import { scaleCategorical, scaleSequential, viewSeriesIndexesKeys } from './Legend.test'
+import { scaleCategorical, scaleSequential, viewSeriesIndexesKeys } from './legends.props'
 
 describe('LegendColorScale', () => {
     it('creates a legend with a color scale', () => {
