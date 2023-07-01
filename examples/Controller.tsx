@@ -88,14 +88,14 @@ export const Controller = ({
     return (
         <div className={'controller-story'}>
             <div className={'controller'}>
-                <div className={'controller-label'}>Data</div>
+                <div className={'controller-label'}>DATA</div>
                 <button onClick={handleRefresh}>
                     <ReplayIcon />
                 </button>
                 {steps.length > 0 ? (
                     <>
                         <div className={'controller-spacer'} />
-                        <div className={'controller-label'}>Milestones</div>
+                        <div className={'controller-label'}>MILESTONES</div>
                         <button onClick={handleFastRewind}>
                             <FirstPageIcon fill={index > 0 ? activeFill : inactiveFill} />
                         </button>

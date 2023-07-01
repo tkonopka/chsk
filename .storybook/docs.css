@@ -102,13 +102,17 @@ div.controller-progress {
     vertical-align: middle;
     padding-bottom: 16px;
     margin-right: 8px;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 0.05rem;
 }
 div.controller button.themeButton {
     display: inline-block;
     vertical-align: middle;
     padding: 8px;
-    margin-left: 8px;
+    margin-left: 4px;
     margin-top: -16px;
+    font-size: 14px;
 }
 div.controller button.themeButton.selected {
     background-color: #f4f4f4;

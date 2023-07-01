@@ -51,7 +51,7 @@ export const ThemeController = ({
     return (
         <div className={'controller-story'}>
             <div className={'controller'}>
-                <div className={'controller-label'}>Themes</div>
+                <div className={'controller-label'}>THEME</div>
                 {themeNames.length > 0 ? (
                     <button
                         onClick={handleTheme0}
