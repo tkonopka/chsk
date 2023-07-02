@@ -1,0 +1,36 @@
+import { ArgTypes, Canvas, Meta } from '@storybook/blocks'
+import * as ViewfinderStories from './Viewfinder.stories'
+
+<Meta of={ViewfinderStories} />
+
+# Viewfinder
+
+`Viewfinder` displays corners of a rectangle in a pattern resembling a camera viewfinder.
+
+<ArgTypes of={ViewfinderStories} />
+
+## Variant
+
+Prop `variant` determines the appearance of the viewfinder decorations.
+The default variant `corners` creates lines at all four corners of a rectangle.
+
+<Canvas of={ViewfinderStories.Corners} />
+
+Two other variants, `top-left-bottom-right` and `top-right-bottom-left`, create pairs of opposite corners.
+
+<Canvas of={ViewfinderStories.TopLeftBottomRight} />
+<Canvas of={ViewfinderStories.TopRightBottomLeft} />
+
+The remaining variants create individual corners.
+
+## Corner size
+
+The size of the lines in the corners is controlled with prop `lengths` and `lengthsUnits`.
+
+<Canvas of={ViewfinderStories.AbsLengths} />
+<Canvas of={ViewfinderStories.RelLengths} />
+
+## Corner radius
+
+The API for `Viewfinder` includes props `rx` and `ry` for compatibility with `Rectangle`.
+However, these props have no effect.

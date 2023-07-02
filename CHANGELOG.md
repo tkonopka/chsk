@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [annotation] component `Viewfinder`
 -   [core] prop `allowDisableAll` in legend components to toggle ability to
     mark all keys in a view as disabled; defaults to false in order to
     always preserve some visible view content, compute non-trivial scales, and

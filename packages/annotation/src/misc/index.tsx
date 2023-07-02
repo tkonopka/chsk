@@ -1,4 +1,5 @@
 export * from './Connector'
 export * from './GridStripes'
 export * from './Stripe'
+export * from './Viewfinder'
 export * from './types'

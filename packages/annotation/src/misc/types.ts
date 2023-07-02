@@ -5,6 +5,8 @@ import {
     PositionSpec,
     PositionUnits,
     RectangleProps,
+    SizeSpec,
+    SizeUnits,
     SvgElementVariantProps,
 } from '@chsk/core'
 import { FC } from 'react'
@@ -38,4 +40,20 @@ export interface StripeProps
 export interface GridStripesProps extends GridLinesProps, Pick<StripeProps, 'component'> {
     /** toggle intervals used for stripes */
     parity?: 'even' | 'odd'
+}
+
+export interface ViewfinderProps extends RectangleProps {
+    /** variant */
+    variant?:
+        | 'corners'
+        | 'top-left'
+        | 'top-right'
+        | 'bottom-left'
+        | 'bottom-right'
+        | 'top-left-bottom-right'
+        | 'top-right-bottom-left'
+    /** lengths of corner lines */
+    lengths?: SizeSpec
+    /** units for corner lines */
+    lengthsUnits?: SizeUnits
 }
