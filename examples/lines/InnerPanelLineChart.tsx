@@ -189,11 +189,7 @@ export const InnerPanelLineChart = ({ fref, chartData, rawData }: MilestoneStory
                         toSize={insetContainer.size}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion
-                    enterOn={'inner'}
-                    exit={null}
-                    transition={{ type: 'spring', delay: 0.7 }}
-                >
+                <MilestoneMotion enterOn={'inner'} enterTransition={{ type: 'spring', delay: 0.7 }}>
                     <Scatter
                         container={insetContainer}
                         x={'x'}

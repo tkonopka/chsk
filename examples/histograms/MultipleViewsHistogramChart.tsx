@@ -82,7 +82,7 @@ const AppearingLabel = ({ enterOn, n }: { enterOn: string; n: number }) => {
     const enter = { opacity: 1, scale: 1.5 }
     const transition = { type: 'spring' as const, delay: 0.5, duration: 1.0 }
     return (
-        <MilestoneMotion enter={enter} enterOn={enterOn} exit={null} transition={transition}>
+        <MilestoneMotion enter={enter} enterOn={enterOn} enterTransition={transition}>
             <BoxedLabel
                 position={[1, 0]}
                 positionUnits={'relative'}

@@ -18,7 +18,7 @@ export const VerticalFlowchart: GalleryStory = {
 }
 
 export const HorizontalFlowchart: GalleryStory = {
-    name: 'vertical',
+    name: 'horizontal',
     args: {
         generator: generateHorizontalFlowData,
         chart: HorizontalFlowChart,

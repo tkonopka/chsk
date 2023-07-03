@@ -11,10 +11,12 @@ export interface SvgElementProps {
     setRole?: boolean
 }
 
-export interface SvgElementVariantProps extends SvgElementProps {
+export type WithVariant = {
     /** variant */
     variant?: 'default' | string
 }
+
+export type SvgElementVariantProps = SvgElementProps & WithVariant
 
 /** unit that determines interpretation of position/size arrays */
 export type PositionUnit = 'absolute' | 'relative' | 'view'
@@ -148,4 +150,33 @@ export type RegionProps = {
     width: number
     /** height */
     height: number
+}
+
+// settings for framer-motion transitions
+export interface TransitionSpec {
+    type?: 'spring' | 'tween'
+    // tween settings
+    duration?: number
+    delay?: number
+    // spring settings
+    bounce?: number
+    mass?: number
+    stiffness?: number
+    damping?: number
+    // path length
+    pathLength?: TransitionSpec
+}
+
+export interface WithTransition {
+    /** transition for animation */
+    transition?: TransitionSpec
+}
+
+// settings for animating 'g' elements */
+export type AnimationSpec = WithTransition & {
+    opacity?: number
+    x?: number
+    y?: number
+    fill?: string
+    scale?: number
 }

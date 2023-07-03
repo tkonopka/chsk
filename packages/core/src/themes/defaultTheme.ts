@@ -228,7 +228,6 @@ export const defaultTheme: CompleteThemeSpec = {
             enter: 'hidden',
             config: 'default',
             exit: 'hidden',
-            transition: 'default',
         },
     },
     Surface: {

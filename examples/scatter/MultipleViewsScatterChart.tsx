@@ -125,7 +125,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                         <MilestoneMotion
                             enter={enterAnimation}
                             enterOn={'A'}
-                            transition={enterTransition}
+                            enterTransition={enterTransition}
                         >
                             <GridLines variant={'y'} />
                             <GridLines variant={'x'} />
@@ -155,7 +155,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                     <MilestoneMotion
                         enter={enterAnimation}
                         enterOn={'B'}
-                        transition={enterTransition}
+                        enterTransition={enterTransition}
                     >
                         <Scatter {...commonProps} y={'B'} data={rawData} scaleY={scaleY}>
                             <GridLines variant={'y'} />
@@ -171,7 +171,7 @@ export const MultipleViewsScatterChart = ({ fref, chartData, rawData }: Mileston
                     <MilestoneMotion
                         enter={enterAnimation}
                         enterOn={'C'}
-                        transition={enterTransition}
+                        enterTransition={enterTransition}
                     >
                         <Scatter {...commonProps} y={'C'} data={rawData} scaleY={scaleY}>
                             <GridLines variant={'y'} />

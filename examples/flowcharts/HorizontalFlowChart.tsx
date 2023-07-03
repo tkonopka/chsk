@@ -77,7 +77,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'branch1'} transition={{ delay: 1 }} exit={null}>
+                <MilestoneMotion enterOn={'branch1'} enterTransition={{ delay: 1 }}>
                     <CheckIcon x={x[4] + 20} y={y - branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y - branchHeight]}
@@ -100,7 +100,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'branch2a'} transition={{ delay: 0.7 }} exit={null}>
+                <MilestoneMotion enterOn={'branch2a'} enterTransition={{ delay: 0.7 }}>
                     <FilterIcon x={xMid - 12} y={y + branchHeight - 24} className={'icon'} />
                     <Label
                         position={[xMid, y + branchHeight + 12]}
@@ -121,7 +121,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
                         markerEnd={'arrowH'}
                     />
                 </MilestoneMotion>
-                <MilestoneMotion enterOn={'branch2b'} transition={{ delay: 0.3 }} exit={null}>
+                <MilestoneMotion enterOn={'branch2b'} enterTransition={{ delay: 0.3 }}>
                     <CheckIcon x={x[4] + 20} y={y + branchHeight - 12} className={'icon'} />
                     <Label
                         position={[x[4] + 50, y + branchHeight]}

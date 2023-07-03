@@ -1,4 +1,5 @@
-import { CssProps, cloneProps, mergeProps } from '../general'
+import { CssProps, TransitionSpec, AnimationSpec } from '../general/types'
+import { cloneProps, mergeProps } from '../general/utils'
 import { CompleteThemeSpec, SvgBaseComponent, svgBaseComponents, ThemeSpec } from './types'
 import { camelCase, componentStyles } from './helpers'
 import {
@@ -6,17 +7,21 @@ import {
     AxisThemedProps,
     AxisTicksThemedProps,
     GridLinesThemedProps,
-} from '../axes'
+} from '../axes/types'
 import {
     LegendColorScaleThemedProps,
     LegendItemListThemedProps,
     LegendItemThemedProps,
     LegendSizeScaleThemedProps,
     LegendThemedProps,
-} from '../legends'
-import { MilestoneMotionThemedProps } from '../charts'
-import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views'
-import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
+} from '../legends/types'
+import { MilestoneMotionThemedProps } from '../charts/types'
+import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views/types'
+import {
+    TooltipItemListThemedProps,
+    TooltipItemThemedProps,
+    TooltipThemedProps,
+} from '../tooltips/types'
 
 // construct a className string by composing a variant code and a className string
 export const getClassName = (
@@ -137,4 +142,24 @@ export const ssrCompatible = (
     if (typeof window === 'object') return style
     const rotate = config.rotate === undefined ? '' : 'rotate(' + config.rotate + 'deg)'
     return { ...style, transform: 'translate(' + config.x + 'px,' + config.y + 'px)' + rotate }
+}
+
+/**
+ * extraction of animation and transition settings
+ */
+export const getAnimationValue = (
+    a: AnimationSpec | string | undefined,
+    theme: ThemeSpec
+): undefined | AnimationSpec => {
+    if (typeof a === 'string') return theme.Animation?.[a]
+    return a
+}
+
+export const getTransitionValue = (
+    a: TransitionSpec | string | undefined | null,
+    theme: ThemeSpec
+): undefined | TransitionSpec => {
+    if (a === null) return { duration: 0 }
+    if (typeof a === 'string') return theme.Motion?.[a]
+    return a
 }

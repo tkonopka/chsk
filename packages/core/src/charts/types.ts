@@ -5,8 +5,10 @@ import {
     WithId,
     ContainerProps,
     SizeSpec,
+    AnimationSpec,
+    TransitionSpec,
 } from '../general'
-import { AnimationProps, TransitionProps, StyleProps } from '../themes'
+import { StyleProps } from '../themes'
 
 /** Chart */
 
@@ -60,36 +62,39 @@ export interface OpacityMotionProps {
     children: ReactNode
 }
 
-export type AnimationSpec = undefined | null | string | AnimationProps
-export type TransitionSpec = undefined | null | string | TransitionProps
-
 export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'variant' | 'setRole'> {
     /** enter configuration */
-    enter?: AnimationSpec
-    /** milestone on which to initialize animation */
+    enter?: AnimationSpec | string
+    /** milestone on which to start animation */
     enterOn?: string
+    /** transition used for enter animation */
+    enterTransition?: TransitionSpec | string | null
     /** function executed when enter is triggered */
     onEnter?: () => void
     /** exit configuration */
-    exit?: AnimationSpec
+    exit?: AnimationSpec | string
     /** milestone on which to activate exit animation */
     exitOn?: string
+    /** transition for exit animation */
+    exitTransition?: TransitionSpec | string | null
     /** function executed when exit is toggled */
     onExit?: () => void
     /** children components */
     children?: ReactNode
     /** base configuration */
-    config?: AnimationSpec
-    /** transition settings */
-    transition?: TransitionSpec
+    config?: AnimationSpec | string
     /** default visibility setting */
     visible?: boolean
 }
 
 export interface MilestoneMotionThemedProps
-    extends Pick<MilestoneMotionProps, 'enter' | 'exit' | 'config' | 'transition'> {
-    enter: AnimationSpec
-    exit: AnimationSpec
-    config: AnimationSpec
-    transition: TransitionSpec
+    extends Pick<
+        MilestoneMotionProps,
+        'enter' | 'exit' | 'config' | 'enterTransition' | 'exitTransition'
+    > {
+    enter: AnimationSpec | string
+    exit: AnimationSpec | string
+    config: AnimationSpec | string
+    enterTransition: TransitionSpec | string | null
+    exitTransition: TransitionSpec | string | null
 }

@@ -1,5 +1,10 @@
 import { FC, ReactNode } from 'react'
-import { NumericPositionSpec, SvgElementVariantProps, LocationProps } from '../general'
+import {
+    NumericPositionSpec,
+    SvgElementVariantProps,
+    LocationProps,
+    WithTransition,
+} from '../general'
 
 export interface TypographyProps extends SvgElementVariantProps {
     /** position (absolute coordinates) */
@@ -14,7 +19,7 @@ export interface TypographyProps extends SvgElementVariantProps {
 
 export type LabelProps = TypographyProps & LocationProps
 
-export interface CounterProps extends LabelProps {
+export interface CounterProps extends LabelProps, WithTransition {
     /** number of decimal places */
     nDecimalPlaces?: number
     /** format */

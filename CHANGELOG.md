@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] support for distinct enter and exit transitions in `MilestoneMotion`
 -   [annotation] component `Viewfinder`
 -   [core] prop `allowDisableAll` in legend components to toggle ability to
     mark all keys in a view as disabled; defaults to false in order to
@@ -16,6 +17,8 @@
 
 ### Changed
 
+-   [core] replaced prop `transition` in `MilestoneMotion` by pair of props
+    `enterTransition` and `exitTransition` to enable different timings
 -   [core] types for interactivity components to include `onDoubleClick`
 
 ## v0.6.0

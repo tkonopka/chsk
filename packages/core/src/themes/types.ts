@@ -4,27 +4,24 @@ import {
     ColorScaleSpec,
     DivergingScaleSpec,
     SequentialScaleSpec,
-} from '../scales'
+} from '../scales/types'
 import {
     AxisLabelThemedProps,
     AxisThemedProps,
     AxisTicksThemedProps,
     GridLinesThemedProps,
-} from '../axes'
+} from '../axes/types'
 import {
     LegendColorScaleThemedProps,
     LegendItemListThemedProps,
     LegendItemThemedProps,
     LegendSizeScaleThemedProps,
     LegendThemedProps,
-} from '../legends'
+} from '../legends/types'
+import { AnimationSpec, TransitionSpec } from '../general/types'
 import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps } from '../tooltips'
 import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views'
 import { MilestoneMotionThemedProps } from '../charts'
-
-export type WithVariant = {
-    variant?: 'default' | string
-}
 
 export interface SideRecords<T> extends Record<string, T | undefined> {
     default?: T
@@ -38,31 +35,6 @@ export interface ColorsRecords extends Record<string, ColorScaleSpec> {
     categorical: CategoricalScaleSpec
     diverging: DivergingScaleSpec
     sequential: SequentialScaleSpec
-}
-
-export interface TransitionProps {
-    type?: 'spring' | 'tween'
-    // tween settings
-    duration?: number
-    delay?: number
-    // spring settings
-    bounce?: number
-    mass?: number
-    stiffness?: number
-    damping?: number
-}
-export interface SvgElementTransitionProps {
-    /** transition for animation */
-    transition?: TransitionProps
-}
-
-/** selected settings for animating 'g' elements */
-export type AnimationProps = {
-    opacity?: number
-    x?: number
-    y?: number
-    fill?: string
-    scale?: number
 }
 
 export interface ThemeSpec {
@@ -97,8 +69,8 @@ export interface ThemeSpec {
     ViewClip?: Record<string, Partial<ViewClipThemedProps>>
     // non-component settings
     Colors?: Record<string, ColorScaleSpec>
-    Motion?: Record<string, TransitionProps>
-    Animation?: Record<string, AnimationProps>
+    Motion?: Record<string, TransitionSpec>
+    Animation?: Record<string, AnimationSpec>
 }
 
 export interface CompleteThemeSpec {
@@ -133,8 +105,8 @@ export interface CompleteThemeSpec {
     ViewClip: Record<string, Partial<ViewClipThemedProps>>
     // non-components
     Colors: ColorsRecords
-    Motion: Record<string, TransitionProps>
-    Animation: Record<string, AnimationProps>
+    Motion: Record<string, TransitionSpec>
+    Animation: Record<string, AnimationSpec>
 }
 
 export const svgBaseComponents = [

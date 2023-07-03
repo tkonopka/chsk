@@ -1,19 +1,20 @@
 import { AnimatePresence, m } from 'framer-motion'
 import { useState } from 'react'
 import { useMilestones } from './index'
-import { getAnimationValue, getTransitionValue } from './utils'
 import { MilestoneMotionProps } from './types'
 import { useTheme, useThemedProps } from '../themes'
+import { getAnimationValue, getTransitionValue } from '../themes/utils'
 
 const UnthemedMilestoneMotion = ({
     enter = 'hidden',
     enterOn,
+    enterTransition,
     onEnter,
     exit = 'hidden',
     exitOn,
+    exitTransition,
     onExit,
     config,
-    transition,
     visible,
     setRole = true,
     children,
@@ -47,9 +48,14 @@ const UnthemedMilestoneMotion = ({
                 <m.g
                     role={setRole ? role : undefined}
                     initial={getAnimationValue(enter, theme)}
-                    animate={getAnimationValue(config, theme)}
-                    exit={getAnimationValue(exit, theme)}
-                    transition={getTransitionValue(transition, theme)}
+                    animate={{
+                        ...getAnimationValue(config, theme),
+                        transition: getTransitionValue(enterTransition, theme),
+                    }}
+                    exit={{
+                        ...getAnimationValue(exit, theme),
+                        transition: getTransitionValue(exitTransition, theme),
+                    }}
                 >
                     {children}
                 </m.g>

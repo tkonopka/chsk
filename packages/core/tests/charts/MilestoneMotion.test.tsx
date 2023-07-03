@@ -31,7 +31,7 @@ describe('MilestoneMotion', () => {
         const milestones = new Set<string>(['A'])
         render(
             <Chart {...chartProps} data={{ milestones }}>
-                <MilestoneMotion enter={null} exit={null} transition={null} enterOn={'A'}>
+                <MilestoneMotion enterTransition={null} enterOn={'A'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -124,7 +124,7 @@ describe('MilestoneMotion', () => {
         const milestones = new Set<string>(['enter'])
         render(
             <Chart {...chartProps} data={{ milestones }}>
-                <MilestoneMotion enterOn={'enter'} visible={false} transition={'default'}>
+                <MilestoneMotion enterOn={'enter'} visible={false} enterTransition={'default'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -137,7 +137,7 @@ describe('MilestoneMotion', () => {
         const milestones = new Set<string>(['enter'])
         render(
             <Chart {...chartProps} data={{ milestones }}>
-                <MilestoneMotion enterOn={'enter'} visible={false} transition={'incorrect'}>
+                <MilestoneMotion enterOn={'enter'} visible={false} enterTransition={'incorrect'}>
                     <rect width={10} height={10} />
                 </MilestoneMotion>
             </Chart>
@@ -154,7 +154,7 @@ describe('MilestoneMotion', () => {
                     enter={{ opacity: 0.5, scale: 0.5 }}
                     enterOn={'enter'}
                     visible={false}
-                    transition={{ type: 'spring', duration: 0.5, stiffness: 50 }}
+                    enterTransition={{ type: 'spring', duration: 0.5, stiffness: 50 }}
                 >
                     <rect width={10} height={10} />
                 </MilestoneMotion>

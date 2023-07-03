@@ -124,7 +124,7 @@ const MilestoneArrow = ({
                     markerEnd={'treeArrow'}
                 />
             </MilestoneMotion>
-            <MilestoneMotion enterOn={enterOn} transition={{ delay: duration }} exit={null}>
+            <MilestoneMotion enterOn={enterOn} enterTransition={{ delay: duration }}>
                 {children}
             </MilestoneMotion>
         </>

@@ -3,9 +3,9 @@ import {
     NumericPositionIntervalSpec,
     NumericPositionSpec,
     SvgElementVariantProps,
-} from '../general'
-import { InteractivityProps } from '../interactivity'
-import { SvgElementTransitionProps } from '../themes'
+    WithTransition,
+} from '../general/types'
+import { InteractivityProps } from '../interactivity/types'
 
 type FillStrokeProps = Pick<
     CSSProperties,
@@ -23,7 +23,7 @@ export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, In
 
 export interface RectangleProps
     extends SvgElementVariantProps,
-        SvgElementTransitionProps,
+        WithTransition,
         FillStrokeProps,
         InteractivityProps {
     /** x coordinate */
