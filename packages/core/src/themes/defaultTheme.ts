@@ -298,6 +298,12 @@ export const defaultTheme: CompleteThemeSpec = {
             stiffness: 250,
             damping: 25,
         },
+        tooltip: {
+            type: 'spring',
+            mass: 0.3,
+            stiffness: 300,
+            damping: 20,
+        },
     },
     Animation: {
         default: {

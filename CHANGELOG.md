@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] separate motion settings for tooltip transitions
 -   [core] prop `transition` in typography and shape components
 -   [core] support for distinct enter and exit transitions in `MilestoneMotion`
 -   [annotation] component `Viewfinder`

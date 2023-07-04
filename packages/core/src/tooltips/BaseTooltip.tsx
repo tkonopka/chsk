@@ -12,7 +12,7 @@ import {
     zeroPosition,
 } from '../general'
 import { OpacityMotion } from '../charts'
-import { getClassName, ssrCompatible } from '../themes'
+import { getClassName, ssrCompatible, useTheme } from '../themes'
 import { LegendProps } from '../legends'
 import { getContentPosition } from '../legends/utils'
 import { defaultTooltipProps } from './defaults'
@@ -82,6 +82,7 @@ export const BaseTooltip = ({
     children,
 }: BaseTooltipProps) => {
     const { data: tooltip } = useTooltip()
+    const theme = useTheme()
 
     // relative position of first non-title item
     const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
@@ -146,6 +147,7 @@ export const BaseTooltip = ({
                 initial={config}
                 animate={config}
                 style={ssrCompatible(undefined, config)}
+                transition={theme.Motion.tooltip}
                 className={compositeClassName}
             >
                 <DimensionsProvider
