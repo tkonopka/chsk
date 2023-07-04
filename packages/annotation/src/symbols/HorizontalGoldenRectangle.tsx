@@ -1,9 +1,11 @@
 import { m } from 'framer-motion'
-import { getClassName, ssrCompatible, SymbolProps } from '@chsk/core'
+import { getClassName, getMotionTarget, ssrCompatible, SymbolProps } from '@chsk/core'
 import { goldenRectHeight, goldenRectWidth } from './constants'
 
 export const HorizontalGoldenRectangle = ({
     variant = 'default',
+    initial,
+    animate,
     cx = 0,
     cy = 0,
     r = 1,
@@ -22,8 +24,8 @@ export const HorizontalGoldenRectangle = ({
     return (
         <m.rect
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={config}
-            animate={config}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
             className={compositeClassName}
             style={ssrCompatible(style, config)}
             {...props}

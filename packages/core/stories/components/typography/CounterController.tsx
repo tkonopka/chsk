@@ -10,7 +10,11 @@ export const CounterController = ({
     nDecimalPlaces = 0,
     component,
     format = (v: number) => String(v),
-}: Pick<CounterProps, 'position' | 'format' | 'nDecimalPlaces' | 'component'>) => {
+    valueTransition,
+}: Pick<
+    CounterProps,
+    'position' | 'format' | 'nDecimalPlaces' | 'component' | 'valueTransition'
+>) => {
     const [value, setValue] = useState(randomUniformValue(0, 100))
     const updateValue = () => {
         setValue(randomUniformValue(0, 100))
@@ -33,6 +37,7 @@ export const CounterController = ({
                         style={{ fontSize: 32 }}
                         nDecimalPlaces={nDecimalPlaces}
                         component={component}
+                        valueTransition={valueTransition}
                     >
                         {value}
                     </Counter>

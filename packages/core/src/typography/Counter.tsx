@@ -5,17 +5,17 @@ import { CounterProps } from './types'
 import { Label } from './Label'
 
 const CounterContent = ({
-    transition,
+    valueTransition,
     nDecimalPlaces = 0,
     format = (v: number) => String(v),
     children,
-}: Pick<CounterProps, 'transition' | 'nDecimalPlaces' | 'format' | 'children'>) => {
+}: Pick<CounterProps, 'valueTransition' | 'nDecimalPlaces' | 'format' | 'children'>) => {
     const [value, setValue] = useState(roundDecimalPlaces(Number(children), nDecimalPlaces))
     const [working, setWorking] = useState(false)
 
     if (value !== Number(children) && !working) {
         animate(value, Number(children), {
-            ...transition,
+            ...valueTransition,
             onPlay: () => {
                 setWorking(true)
             },
@@ -36,12 +36,16 @@ export const Counter = ({
     nDecimalPlaces,
     format,
     component = Label,
-    transition,
+    valueTransition,
     children,
     ...props
 }: CounterProps) => {
     const content = (
-        <CounterContent transition={transition} nDecimalPlaces={nDecimalPlaces} format={format}>
+        <CounterContent
+            valueTransition={valueTransition}
+            nDecimalPlaces={nDecimalPlaces}
+            format={format}
+        >
             {children}
         </CounterContent>
     )

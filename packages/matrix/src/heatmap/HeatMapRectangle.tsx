@@ -5,6 +5,7 @@ export const HeatMapRectangle = ({ x, y, width, height, style, ...props }: HeatM
     const config = { fill: style?.fill }
     return (
         <m.rect
+            {...props}
             initial={config}
             animate={config}
             x={x - width / 2}
@@ -12,7 +13,6 @@ export const HeatMapRectangle = ({ x, y, width, height, style, ...props }: HeatM
             height={height}
             width={width}
             style={{ ...style, fill: undefined }}
-            {...props}
         />
     )
 }

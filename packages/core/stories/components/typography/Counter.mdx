@@ -30,3 +30,12 @@ Format functions can also introduce styling with `tspan` elements.
 
 If a format function is insufficient, it is also possible to render the counter with a custom component.
 The default component is `Label`, but this can substituted with prop `component`.
+
+## Transitions
+
+`Counter` has two distinct transition props.
+The first prop, `transition`, affects animations of the component's position.
+The second, `valueTransition`, controls changes of the displayed number.
+In the example below, the value update is set up to take a fixed amoung of time - three seconds.
+
+<Canvas of={CounterStories.Speed} />

@@ -1,9 +1,12 @@
 import { SymbolProps } from './types'
 import { getClassName } from '../themes'
 import { m } from 'framer-motion'
+import { getMotionTarget } from '../general'
 
 export const Circle = ({
     variant = 'default',
+    initial,
+    animate,
     cx,
     cy,
     r,
@@ -11,14 +14,13 @@ export const Circle = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName = getClassName(variant, className)
     const config = { cx, cy, r }
     return (
         <m.circle
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={config}
-            animate={config}
-            className={compositeClassName}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
+            className={getClassName(variant, className)}
             {...props}
         />
     )

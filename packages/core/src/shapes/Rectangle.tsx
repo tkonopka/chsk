@@ -1,9 +1,12 @@
 import { m } from 'framer-motion'
 import { getClassName, ssrCompatible } from '../themes'
 import { RectangleProps } from './types'
+import { getMotionTarget } from '../general'
 
 export const Rectangle = ({
     variant = 'default',
+    initial,
+    animate,
     x,
     y,
     width,
@@ -19,7 +22,6 @@ export const Rectangle = ({
     style,
     ...props
 }: RectangleProps) => {
-    const compositeClassName = getClassName(variant, className)
     if (width < 0) {
         width = Math.abs(width)
         x -= width
@@ -41,10 +43,10 @@ export const Rectangle = ({
     }
     return (
         <m.rect
-            initial={config}
-            animate={config}
             role={setRole && variant !== 'default' ? variant : undefined}
-            className={compositeClassName}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
+            className={getClassName(variant, className)}
             style={ssrCompatible(style, config)}
             {...props}
         />

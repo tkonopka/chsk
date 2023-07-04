@@ -36,6 +36,7 @@ export const FlowPath = ({
         <LazyMotion features={domAnimation}>
             <m.path
                 ref={ref}
+                {...props}
                 initial={{ d: path ?? undefined, pathLength: 0 }}
                 animate={{ d: path ?? undefined, pathLength: 1 }}
                 onAnimationStart={() => {
@@ -53,7 +54,6 @@ export const FlowPath = ({
                 transition={transition}
                 role={setRole ? variant : undefined}
                 className={compositeClassName}
-                {...props}
             />
         </LazyMotion>
     )

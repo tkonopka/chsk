@@ -33,3 +33,14 @@ export const CustomFormatTspan = {
         />
     ),
 }
+
+export const Speed = {
+    name: 'speed',
+    render: () => (
+        <CounterController
+            position={[80, 40]}
+            valueTransition={{ type: 'tween', duration: 3, delay: 0 }}
+            nDecimalPlaces={1}
+        />
+    ),
+}

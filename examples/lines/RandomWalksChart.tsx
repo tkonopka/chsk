@@ -9,6 +9,7 @@ import {
     NumericPositionSpec,
     ViewClip,
     ViewController,
+    MilestoneMotion,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterCrosshair } from '@chsk/xy'
 import { buttonTheme } from '@chsk/themes'
@@ -31,6 +32,13 @@ export const generateRandomWalksData = () => [
 const customLabelFormat = (x: TooltipDataItem) => {
     const p: NumericPositionSpec = 'point' in x ? (x['point'] as NumericPositionSpec) : [0, 0]
     return x.id + ' ' + '(' + round2dp(p[0]) + ', ' + round2dp(p[1]) + ')'
+}
+
+const curveProps = {
+    curve: 'Natural' as const,
+    initial: { pathLength: 0 },
+    animate: { pathLength: 1 },
+    transition: { pathLength: { duration: 1.5 } },
 }
 
 export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -60,6 +68,9 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                     nice: true,
                 }}
             >
+                <Typography variant={'title'} position={[0, -40]}>
+                    Random walks
+                </Typography>
                 <GridLines variant={'y'} style={{ stroke: '#bbbbbb' }} />
                 <GridLines
                     variant={'y'}
@@ -69,38 +80,41 @@ export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) =
                 <Axis variant={'bottom'} label={'x values (a.u.)'} />
                 <Axis variant={'left'} label={'y values (a.u.)'} />
                 <ViewClip id={'two-walks'}>
-                    <ScatterCurve
-                        ids={['alpha']}
-                        curve={'Natural'}
-                        style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
-                    />
-                    <ScatterCurve
-                        ids={['alpha']}
-                        curve={'Natural'}
-                        style={{ strokeWidth: 4, fillOpacity: 0 }}
-                    />
-                    <ScatterCurve
-                        ids={['beta']}
-                        curve={'Natural'}
-                        style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
-                    />
-                    <ScatterCurve
-                        ids={['beta']}
-                        curve={'Natural'}
-                        style={{ strokeWidth: 4, fillOpacity: 0 }}
-                    />
+                    <MilestoneMotion enterOn={'alpha'}>
+                        <ScatterCurve
+                            ids={['alpha']}
+                            style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
+                            {...curveProps}
+                        />
+                        <ScatterCurve
+                            ids={['alpha']}
+                            style={{ strokeWidth: 4, fillOpacity: 0 }}
+                            {...curveProps}
+                        />
+                    </MilestoneMotion>
+                    <MilestoneMotion enterOn={'beta'}>
+                        <ScatterCurve
+                            ids={['beta']}
+                            style={{ stroke: '#ffffff', strokeWidth: 7, fillOpacity: 0 }}
+                            {...curveProps}
+                        />
+                        <ScatterCurve
+                            ids={['beta']}
+                            style={{ strokeWidth: 4, fillOpacity: 0 }}
+                            {...curveProps}
+                        />
+                    </MilestoneMotion>
                 </ViewClip>
-                <ScatterCrosshair
-                    style={{ strokeDasharray: 5, stroke: '#000000', strokeWidth: 0.5 }}
-                    symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
-                />
-                <ViewController
-                    container={{ position: [1, 0], offset: [20, 0] }}
-                    component={IconButton}
-                />
-                <Typography variant={'title'} position={[0, -40]}>
-                    Two random walks
-                </Typography>
+                <MilestoneMotion enterOn={'beta'} enterTransition={{ delay: 1.5 }}>
+                    <ScatterCrosshair
+                        style={{ strokeDasharray: 5, stroke: '#000000', strokeWidth: 0.5 }}
+                        symbolStyle={{ stroke: '#222222', strokeWidth: 3 }}
+                    />
+                    <ViewController
+                        container={{ position: [1, 0], offset: [20, 0] }}
+                        component={IconButton}
+                    />
+                </MilestoneMotion>
                 <Tooltip
                     offset={[20, 0]}
                     itemSize={[140, 24]}

@@ -80,7 +80,7 @@ export const ManyRandomWalksChart = ({ fref, chartData, rawData }: MilestoneStor
             fref={fref}
             id="many-random-walks"
             size={[640, 400]}
-            padding={[80, 210, 60, 60]}
+            padding={[80, 220, 60, 80]}
             theme={customTheme}
         >
             <Surface variant={'outer'} style={{ fill: '#f6f6f6' }} />

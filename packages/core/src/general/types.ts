@@ -1,4 +1,5 @@
 import { CSSProperties, ReactNode, RefObject } from 'react'
+import { Target } from 'framer-motion'
 
 export type CssProps = Partial<CSSProperties>
 
@@ -179,4 +180,13 @@ export type AnimationSpec = WithTransition & {
     y?: number
     fill?: string
     scale?: number
+}
+
+export type TargetTransformer = (config: Target) => Target
+
+export interface AnimationProps extends WithTransition {
+    /** custom change to initial transition state */
+    initial?: Target | TargetTransformer
+    /** custom change to target transition state */
+    animate?: Target | TargetTransformer
 }

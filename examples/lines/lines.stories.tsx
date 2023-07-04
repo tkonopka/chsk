@@ -18,6 +18,7 @@ export const TwoLines: GalleryStory = {
     args: {
         generator: generateRandomWalksData,
         chart: RandomWalksChart,
+        steps: ['alpha', 'beta'],
     },
 }
 

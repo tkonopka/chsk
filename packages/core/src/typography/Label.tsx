@@ -3,6 +3,7 @@ import { LabelProps } from './types'
 import {
     getAlignPosition,
     getAnchoredOrigin,
+    getMotionTarget,
     zeroPadding,
     zeroPosition,
     centerAlign,
@@ -12,6 +13,8 @@ import { getClassName, ssrCompatible } from '../themes'
 export const Label = ({
     position = zeroPosition,
     variant = 'label',
+    initial,
+    animate,
     angle,
     size = [20, 20],
     padding = zeroPadding,
@@ -22,6 +25,7 @@ export const Label = ({
     className,
     setRole = true,
     children,
+    ...props
 }: LabelProps) => {
     if (children === undefined || children === '') return null
     const corner = getAnchoredOrigin(position, size, anchor)
@@ -31,10 +35,11 @@ export const Label = ({
     return (
         <m.text
             role={setRole ? variant : undefined}
-            initial={config}
-            animate={config}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
             style={ssrCompatible(style, config)}
             className={compositeClassName}
+            {...props}
         >
             {children}
         </m.text>

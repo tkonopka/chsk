@@ -159,7 +159,7 @@ export const getTransitionValue = (
     a: TransitionSpec | string | undefined | null,
     theme: ThemeSpec
 ): undefined | TransitionSpec => {
-    if (a === null) return { duration: 0 }
+    if (a === null) return { type: 'tween', duration: 0 }
     if (typeof a === 'string') return theme.Motion?.[a]
     return a
 }

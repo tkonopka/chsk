@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [core] prop `transition` in typography and shape components
 -   [core] support for distinct enter and exit transitions in `MilestoneMotion`
 -   [annotation] component `Viewfinder`
 -   [core] prop `allowDisableAll` in legend components to toggle ability to

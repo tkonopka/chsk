@@ -3,10 +3,11 @@ import {
     NumericPositionSpec,
     SvgElementVariantProps,
     LocationProps,
-    WithTransition,
-} from '../general'
+    AnimationProps,
+    TransitionSpec,
+} from '../general/types'
 
-export interface TypographyProps extends SvgElementVariantProps {
+export interface TypographyProps extends SvgElementVariantProps, AnimationProps {
     /** position (absolute coordinates) */
     position?: NumericPositionSpec
     /** variant */
@@ -19,11 +20,13 @@ export interface TypographyProps extends SvgElementVariantProps {
 
 export type LabelProps = TypographyProps & LocationProps
 
-export interface CounterProps extends LabelProps, WithTransition {
+export interface CounterProps extends LabelProps {
     /** number of decimal places */
     nDecimalPlaces?: number
     /** format */
     format?: (v: number) => ReactNode
     /** component to replace default text */
     component?: FC<LabelProps>
+    /** transition for animation of counter value */
+    valueTransition?: TransitionSpec
 }

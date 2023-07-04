@@ -6,6 +6,7 @@ export const DensityCell = ({ value, x, y, width, height, style, ...props }: Den
     const config = { fill: style?.fill, opacity: style?.opacity, rx: r, ry: r }
     return (
         <m.rect
+            {...props}
             initial={config}
             animate={config}
             x={x - width / 2}
@@ -13,7 +14,6 @@ export const DensityCell = ({ value, x, y, width, height, style, ...props }: Den
             width={width}
             height={height}
             style={{ ...style, fill: undefined, opacity: undefined }}
-            {...props}
         />
     )
 }

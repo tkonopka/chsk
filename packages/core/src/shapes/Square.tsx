@@ -1,12 +1,15 @@
 import { m } from 'framer-motion'
 import { getClassName, ssrCompatible } from '../themes'
 import { SymbolProps } from './types'
+import { getMotionTarget } from '../general'
 
 const squareVisualFactor = 0.96
 const squareHalfSide = 0.5 * Math.sqrt(Math.PI) * squareVisualFactor
 
 export const Square = ({
     variant = 'default',
+    initial,
+    animate,
     cx = 0,
     cy = 0,
     r = 1,
@@ -15,7 +18,6 @@ export const Square = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName = getClassName(variant, className)
     const scaledHalfSide = squareHalfSide * r
     const config = {
         x: cx - scaledHalfSide,
@@ -26,9 +28,9 @@ export const Square = ({
     return (
         <m.rect
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={config}
-            animate={config}
-            className={compositeClassName}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
+            className={getClassName(variant, className)}
             style={ssrCompatible(style, config)}
             {...props}
         />

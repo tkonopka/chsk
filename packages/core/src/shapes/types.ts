@@ -3,7 +3,7 @@ import {
     NumericPositionIntervalSpec,
     NumericPositionSpec,
     SvgElementVariantProps,
-    WithTransition,
+    AnimationProps,
 } from '../general/types'
 import { InteractivityProps } from '../interactivity/types'
 
@@ -12,7 +12,11 @@ type FillStrokeProps = Pick<
     'stroke' | 'strokeWidth' | 'fill' | 'fillOpacity' | 'opacity'
 >
 
-export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, InteractivityProps {
+export interface SymbolProps
+    extends SvgElementVariantProps,
+        AnimationProps,
+        FillStrokeProps,
+        InteractivityProps {
     /** x coordinate */
     cx?: number
     /** y coordinate */
@@ -23,7 +27,7 @@ export interface SymbolProps extends SvgElementVariantProps, FillStrokeProps, In
 
 export interface RectangleProps
     extends SvgElementVariantProps,
-        WithTransition,
+        AnimationProps,
         FillStrokeProps,
         InteractivityProps {
     /** x coordinate */
@@ -42,12 +46,12 @@ export interface RectangleProps
     center?: boolean
 }
 
-export interface PolygonProps extends SvgElementVariantProps, InteractivityProps {
+export interface PolygonProps extends SvgElementVariantProps, AnimationProps, InteractivityProps {
     /** points */
     points: NumericPositionSpec[]
 }
 
-export interface LineProps extends SvgElementVariantProps, InteractivityProps {
+export interface LineProps extends SvgElementVariantProps, AnimationProps, InteractivityProps {
     /** starting x coordinate */
     x1: number
     /** starting y coordinate */
@@ -88,6 +92,7 @@ export type AreaFunction = (xy: Array<NumericPositionIntervalSpec>) => string | 
 
 export interface PathProps
     extends SvgElementVariantProps,
+        AnimationProps,
         InteractivityProps,
         Pick<LineProps, 'markerStart' | 'markerEnd'> {
     /** variant */

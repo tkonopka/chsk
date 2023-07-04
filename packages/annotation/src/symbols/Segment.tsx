@@ -1,10 +1,12 @@
 import { m } from 'framer-motion'
-import { getClassName, SymbolProps, NumericPositionSpec, X, Y } from '@chsk/core'
+import { getClassName, SymbolProps, NumericPositionSpec, X, Y, getMotionTarget } from '@chsk/core'
 import { segmentCoordinates } from './constants'
 
 // a line segment/fragment that can be used in a legend
 export const Segment = ({
     variant = 'default',
+    initial,
+    animate,
     cx = 0,
     cy = 0,
     r = 1,
@@ -12,7 +14,6 @@ export const Segment = ({
     setRole = true,
     ...props
 }: SymbolProps) => {
-    const compositeClassName = getClassName(variant, className)
     const points: Array<NumericPositionSpec> = segmentCoordinates.map(coords => [
         cx + coords[X] * r,
         cy + coords[Y] * r,
@@ -26,9 +27,9 @@ export const Segment = ({
     return (
         <m.line
             role={setRole ? variant : undefined}
-            initial={config}
-            animate={config}
-            className={compositeClassName}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
+            className={getClassName(variant, className)}
             {...props}
         />
     )

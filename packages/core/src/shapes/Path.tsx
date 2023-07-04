@@ -1,4 +1,5 @@
 import { m } from 'framer-motion'
+import { getMotionTarget } from '../general'
 import { getClassName } from '../themes'
 import { PathProps } from './types'
 import { createLineGenerator } from './curves'
@@ -6,6 +7,8 @@ import { useMemo } from 'react'
 
 export const Path = ({
     variant = 'default',
+    initial,
+    animate,
     points,
     curve = 'Linear',
     d,
@@ -22,10 +25,11 @@ export const Path = ({
     if (closed && path && !(path.endsWith('z') || path.endsWith('Z'))) {
         path += 'Z'
     }
+    const config = { d: path ?? undefined }
     return (
         <m.path
-            initial={{ d: path ?? undefined }}
-            animate={{ d: path ?? undefined }}
+            initial={getMotionTarget(config, initial)}
+            animate={getMotionTarget(config, animate)}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
             role={setRole && variant !== 'default' ? variant : undefined}

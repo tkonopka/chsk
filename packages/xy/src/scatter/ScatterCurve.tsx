@@ -20,16 +20,29 @@ export const ScatterCurve = ({
     downsampleFactor,
     downsampleIndex,
     // component props
+    initial,
+    animate,
+    transition,
     style,
     className,
     setRole = true,
+    // dataComponent props
     dataComponent = TooltipDataComponent,
-    ...pathProps
+    ...props
 }: ScatterCurveProps) => {
     const preparedData = useScatterPreparedData()
     const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
+    const pathProps = {
+        curve,
+        variant: 'scatter-curve',
+        className,
+        setRole,
+        initial,
+        animate,
+        transition,
+    }
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
@@ -48,15 +61,8 @@ export const ScatterCurve = ({
         const element = createElement(dataComponent, {
             data: { id },
             component: Path,
-            props: {
-                points,
-                curve,
-                variant: 'scatter-curve',
-                className,
-                style: seriesStyle,
-                setRole,
-            },
-            ...pathProps,
+            props: { points, style: seriesStyle, ...pathProps },
+            ...props,
         })
         return (
             <OpacityMotion

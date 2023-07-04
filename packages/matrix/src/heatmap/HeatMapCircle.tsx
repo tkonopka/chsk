@@ -5,12 +5,12 @@ export const HeatMapCircle = ({ x, y, width, height, style, ...props }: HeatMapC
     const config = { fill: style?.fill, r: Math.min(width, height) / 2 }
     return (
         <m.circle
+            {...props}
             initial={config}
             animate={config}
             cx={x}
             cy={y}
             style={{ ...style, fill: undefined }}
-            {...props}
         />
     )
 }
