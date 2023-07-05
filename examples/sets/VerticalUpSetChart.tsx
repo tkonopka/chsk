@@ -38,7 +38,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
             fillOpacity: 1,
         },
     },
-    Motion: {
+    Transition: {
         default: {
             type: 'spring',
             mass: 0.5,

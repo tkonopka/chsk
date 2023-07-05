@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { getClassName } from '../themes'
+import { mergeTargets } from '../general'
 import { LineProps } from './types'
-import { getMotionTarget } from '../general'
 
 export const Line = ({
     variant = 'default',
@@ -21,8 +21,8 @@ export const Line = ({
     return (
         <m.line
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             className={getClassName(variant, className)}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}

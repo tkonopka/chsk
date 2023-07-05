@@ -45,7 +45,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
             strokeWidth: 1,
         },
     },
-    Colors: {
+    Color: {
         categorical: {
             variant: 'categorical',
             colors: ['#888888', '#de2d26'],

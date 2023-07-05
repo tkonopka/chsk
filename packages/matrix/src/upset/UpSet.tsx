@@ -110,7 +110,7 @@ export const UpSet = ({
         () => getXYScaleProps(seriesIds, keys, horizontal, scaleIndex, scaleMembership, innerSize),
         [seriesIds, keys, horizontal, scaleIndex, scaleMembership, dimsProps]
     )
-    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, [''])
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Color.categorical, [''])
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
 
     return (

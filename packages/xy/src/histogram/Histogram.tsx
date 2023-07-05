@@ -129,7 +129,7 @@ export const Histogram = ({
         innerSize,
         autoRescale ? disabled : Array(seriesIds.length).fill(false)
     )
-    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds)
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Color.categorical, seriesIds)
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
     const scales = scalesContextValue.scales
 

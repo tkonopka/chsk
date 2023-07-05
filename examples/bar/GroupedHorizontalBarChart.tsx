@@ -31,11 +31,6 @@ export const customTheme: ThemeSpec = mergeTheme(groupedTheme, {
             fillOpacity: 0,
         },
     },
-    g: {
-        'legendItem:hover': {
-            cursor: 'auto',
-        },
-    },
 })
 
 const PercentageChangeLabels = ({
@@ -77,6 +72,12 @@ const PercentageChangeLabels = ({
     return <g role={'percentage-change'}>{result}</g>
 }
 
+const barsProps = {
+    componentProps: {
+        initial: { width: 0 },
+    },
+}
+
 export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     return (
         <Chart
@@ -108,7 +109,6 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                     itemPadding={[2, 0, 2, 0]}
                     firstOffset={[-85, 24]}
                     title={'Measurements (arbitrary values)'}
-                    interactive={false}
                 />
                 <MilestoneMotion enterOn={'grid'}>
                     <GridLines variant={'x'} style={{ stroke: '#bbbbbb', strokeWidth: 1 }} />
@@ -122,10 +122,10 @@ export const GroupedHorizontalBarChart = ({ fref, chartData, rawData }: Mileston
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'bars-before'}>
-                    <Bars keys={['before']} />
+                    <Bars keys={['before']} {...barsProps} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'bars-after'}>
-                    <Bars keys={['after']} />
+                    <Bars keys={['after']} {...barsProps} />
                     <Tooltip />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'percentages'}>

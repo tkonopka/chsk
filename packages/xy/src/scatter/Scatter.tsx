@@ -134,7 +134,7 @@ export const Scatter = ({
     const { colorProps, sizeProps } = useMemo(() => {
         const colorProps = getColorScaleProps(
             processedData,
-            scaleColor ?? theme.Colors.categorical,
+            scaleColor ?? theme.Color.categorical,
             seriesIds
         )
         const sizeProps = getSizeScaleProps(processedData, scaleSize, valueSize)

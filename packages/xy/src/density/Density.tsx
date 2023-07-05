@@ -149,7 +149,7 @@ export const Density = ({
         )
     }, [processedData, scaleX, scaleY, innerSize, seriesIds])
     const colorProps = useMemo(() => {
-        return getColorScaleProps(processedData, scaleColor ?? theme.Colors.categorical, seriesIds)
+        return getColorScaleProps(processedData, scaleColor ?? theme.Color.categorical, seriesIds)
     }, [processedData, scaleColor, theme, seriesIds])
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
 

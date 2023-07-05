@@ -274,7 +274,7 @@ export const defaultTheme: CompleteThemeSpec = {
         default: cloneProps(defaultSurfaceProps),
     },
     // other settings
-    Colors: {
+    Color: {
         categorical: {
             variant: 'categorical',
             colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
@@ -291,7 +291,7 @@ export const defaultTheme: CompleteThemeSpec = {
             domain: 'auto',
         },
     },
-    Motion: {
+    Transition: {
         default: {
             type: 'spring',
             mass: 0.5,
@@ -305,7 +305,7 @@ export const defaultTheme: CompleteThemeSpec = {
             damping: 20,
         },
     },
-    Animation: {
+    Target: {
         default: {
             opacity: 1,
             x: 0,

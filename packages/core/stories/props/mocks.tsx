@@ -1,4 +1,4 @@
-import { ContainerProps } from '../../src/general'
+import { SvgElementVariantProps, WithId, ContainerProps } from '../../src/general'
 import { ViewProps } from '../../src/views'
 import { ColorScaleSpec, NumericScaleSpec, TimeScaleSpec, BandScaleSpec } from '../../src/scales'
 import {
@@ -9,11 +9,10 @@ import {
 } from '../../src/scales'
 import {
     DataInteractivityHandlers,
+    DataInteractivityModifiers,
     InteractivityProps,
-    SvgElementVariantProps,
-    WithId,
-} from '../../src'
-import { DataInteractivityModifiers } from '../../src'
+    ComponentProps,
+} from '../../src/interactivity'
 
 /**
  * collection of mock objects
@@ -88,6 +87,11 @@ export const MockDivergingScale = (props: DivergingScaleSpec) => {
     return null
 }
 export const MockThresholdScale = (props: ThresholdScaleSpec) => {
+    console.log(JSON.stringify(props))
+    return null
+}
+
+export const MockComponent = <T,>(props: ComponentProps<T>) => {
     console.log(JSON.stringify(props))
     return null
 }

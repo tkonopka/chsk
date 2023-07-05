@@ -1,13 +1,8 @@
 import { m } from 'framer-motion'
 import { LabelProps } from './types'
-import {
-    getAlignPosition,
-    getAnchoredOrigin,
-    getMotionTarget,
-    zeroPadding,
-    zeroPosition,
-    centerAlign,
-} from '../general'
+import { getAlignPosition, getAnchoredOrigin, mergeTargets } from '../general'
+import { zeroPadding, zeroPosition, centerAlign } from '../general'
+
 import { getClassName, ssrCompatible } from '../themes'
 
 export const Label = ({
@@ -35,8 +30,8 @@ export const Label = ({
     return (
         <m.text
             role={setRole ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             style={ssrCompatible(style, config)}
             className={compositeClassName}
             {...props}

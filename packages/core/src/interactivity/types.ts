@@ -12,6 +12,14 @@ import {
     WithId,
 } from '../general'
 
+// settings for wrappers that create multiple related components
+export interface ComponentProps<Props> {
+    /** function used to draw individual components */
+    component?: FC<Props>
+    /** props passed to each component */
+    componentProps?: Partial<Props>
+}
+
 // handling events on svg elements
 export interface InteractivityProps {
     /** handler for mouse enter event */

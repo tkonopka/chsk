@@ -49,7 +49,7 @@ export const Venn = ({
         [processedData, seriesIds, scaleX, scaleY, innerSize]
     )
     const colorProps = useMemo(
-        () => getColorScaleProps(processedData, scaleColor ?? theme.Colors.categorical),
+        () => getColorScaleProps(processedData, scaleColor ?? theme.Color.categorical),
         [processedData, scaleColor, theme]
     )
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })

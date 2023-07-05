@@ -125,7 +125,7 @@ export interface ContainerThemedProps extends ContainerProps {
     offset: NumericPositionSpec
 }
 
-// fine-tuning location within a container, e.g. for labels, buttons
+// location of an object within a container, e.g. for labels, buttons
 export type LocationProps = {
     /** position */
     position?: NumericPositionSpec
@@ -168,25 +168,18 @@ export interface TransitionSpec {
     pathLength?: TransitionSpec
 }
 
-export interface WithTransition {
-    /** transition for animation */
-    transition?: TransitionSpec
-}
-
-// settings for animating 'g' elements */
-export type AnimationSpec = WithTransition & {
-    opacity?: number
-    x?: number
-    y?: number
-    fill?: string
-    scale?: number
-}
+// settings for animations
+export type AnimationSpec = Target
 
 export type TargetTransformer = (config: Target) => Target
 
-export interface AnimationProps extends WithTransition {
-    /** custom change to initial transition state */
+export interface AnimationProps {
+    /** transition for animation */
+    transition?: TransitionSpec
+    /** (adjustment to) initial transition state */
     initial?: Target | TargetTransformer
-    /** custom change to target transition state */
+    /** (adjustment to) target transition state */
     animate?: Target | TargetTransformer
+    // (adjustment to) target exit state
+    // exit?: Target | TargetTransformer
 }

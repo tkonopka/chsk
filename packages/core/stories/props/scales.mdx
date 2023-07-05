@@ -28,7 +28,7 @@ Numeric scales transform numeric inputs into numeric outputs. They are used to m
 The archetypic numeric scale is the linear scale. A minimal specification requires a string `variant` set to `linear`, and an array of two numbers as a `domain`. For example, the scale below maps numbers in the unit interval into coordinates along an axis.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'linear',
@@ -39,7 +39,7 @@ The archetypic numeric scale is the linear scale. A minimal specification requir
 When specifying scales for a chart axis, it is possible to configure the domain so that it adjusts automatically to the chart data. Set `domain` to the string 'auto', or use the string 'auto' as either the lower or upper bound. For example, the scale below always includes zero as the lower bound.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'linear',
@@ -54,7 +54,7 @@ The supported non-linear scale variants are logarithmic and square-root transfor
 The two examples below use a custom domain and a fully-automatic domain.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'log',
@@ -62,7 +62,7 @@ The two examples below use a custom domain and a fully-automatic domain.
 }`}
 />
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'sqrt',
@@ -89,7 +89,7 @@ Time scales are similar to linear scales, except their `domain` should be specif
 The example below creates a scale that covers the entire year 2022.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'date',
@@ -109,7 +109,7 @@ The domain of these scales should be an array with all possible input values.
 In the example below, the domain consists of exactly four labels.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'band',
@@ -135,7 +135,7 @@ For even finer control, prop `extraPadding` adjusts spacing before individual la
 The example below shows the formatting for all these custom parameters.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'band',

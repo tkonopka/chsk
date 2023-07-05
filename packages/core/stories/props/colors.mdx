@@ -28,7 +28,7 @@ Categorical scales use a discrete set of colors.
 The example below defines a custom scale by explicitly listing color codes.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'categorical',
@@ -42,7 +42,7 @@ specified by [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic).
 For example, the following object defines a series of color arrays for sizes from 0 to 5.
 
 <Source
-    language="language"
+    language="jsx"
     code={`
 [
    ,,,
@@ -57,7 +57,7 @@ The data format intentionally coincides with color schemes in
 Thus, ready color schemes can be readily imported.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 import { schemeCategory10 } from 'd3-scale-chromatic'
 import { schemeBlues } from 'd3-scale-chromatic'
@@ -77,7 +77,7 @@ Simple scales are defined by two values
 representing domain edges, and two colors representing edge colors.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'sequential',
@@ -92,7 +92,7 @@ Several interpolation schemes are available through [d3-scale-chromatic](https:/
 For example, `interpolateBlues` uses shades of blue.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 import { interpolateBlues } from 'd3-scale-chromatic'
 `}
@@ -101,7 +101,7 @@ import { interpolateBlues } from 'd3-scale-chromatic'
 When a sequential scale is used in a 'view' component (e.g. `View` from the core package, but also `Bar`, `Scatter`, `HeatMap` and others), the domain of the scale can be determined automatically from data. The example below forces a scale to start at a value of 0, but leaves the upper bound to be determined from data.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'sequential',
@@ -122,7 +122,7 @@ point.
 The example below defines a blue-white-red scheme centered at a value zero.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'diverging',
@@ -143,7 +143,7 @@ Threshold color scales map numbers into a discrete set of colors using threshold
 The example below creates a three-color scheme based on two thresholds.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 {
   variant: 'threshold',
@@ -154,14 +154,14 @@ The example below creates a three-color scheme based on two thresholds.
 
 ## Default colors
 
-Default color scales can be set using themes. The specifications should be provided under key `Colors`.
+Default color scales can be set using themes. The specifications should be provided under key `Color`.
 The object below carries the color specifications for the default theme.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 const customTheme = {
-  Colors: {
+  Color: {
     categorical: {
         variant: 'categorical',
         colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],

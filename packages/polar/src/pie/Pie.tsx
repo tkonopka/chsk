@@ -84,7 +84,7 @@ export const Pie = ({
         [scaleX, scaleY, innerSize]
     )
     const colorProps = useMemo(
-        () => createColorScaleProps(scaleColor ?? theme.Colors.categorical, seriesIds),
+        () => createColorScaleProps(scaleColor ?? theme.Color.categorical, seriesIds),
         [scaleColor, theme, seriesIds]
     )
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })

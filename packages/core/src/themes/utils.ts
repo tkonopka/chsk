@@ -147,19 +147,19 @@ export const ssrCompatible = (
 /**
  * extraction of animation and transition settings
  */
-export const getAnimationValue = (
+export const getTarget = (
     a: AnimationSpec | string | undefined,
     theme: ThemeSpec
 ): undefined | AnimationSpec => {
-    if (typeof a === 'string') return theme.Animation?.[a]
+    if (typeof a === 'string') return theme.Target?.[a]
     return a
 }
 
-export const getTransitionValue = (
+export const getTransition = (
     a: TransitionSpec | string | undefined | null,
     theme: ThemeSpec
 ): undefined | TransitionSpec => {
     if (a === null) return { type: 'tween', duration: 0 }
-    if (typeof a === 'string') return theme.Motion?.[a]
+    if (typeof a === 'string') return theme.Transition?.[a]
     return a
 }

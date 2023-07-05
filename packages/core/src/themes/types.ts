@@ -68,9 +68,9 @@ export interface ThemeSpec {
     View?: Record<string, Partial<ViewThemedProps>>
     ViewClip?: Record<string, Partial<ViewClipThemedProps>>
     // non-component settings
-    Colors?: Record<string, ColorScaleSpec>
-    Motion?: Record<string, TransitionSpec>
-    Animation?: Record<string, AnimationSpec>
+    Color?: Record<string, ColorScaleSpec>
+    Transition?: Record<string, TransitionSpec>
+    Target?: Record<string, AnimationSpec>
 }
 
 export interface CompleteThemeSpec {
@@ -104,9 +104,9 @@ export interface CompleteThemeSpec {
     View: Record<string, Partial<ViewThemedProps>>
     ViewClip: Record<string, Partial<ViewClipThemedProps>>
     // non-components
-    Colors: ColorsRecords
-    Motion: Record<string, TransitionSpec>
-    Animation: Record<string, AnimationSpec>
+    Color: ColorsRecords
+    Transition: Record<string, TransitionSpec>
+    Target: Record<string, AnimationSpec>
 }
 
 export const svgBaseComponents = [

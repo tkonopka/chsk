@@ -47,7 +47,6 @@ export const GroupedHorizontal: GalleryStory = {
         generator: generateGroupedData,
         chart: GroupedHorizontalBarChart,
         steps: ['grid', 'bars-before', 'bars-after', 'percentages'],
-        comment: <div>This example is non-interactive. (The legends are not clickable.)</div>,
     },
 }
 

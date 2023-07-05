@@ -32,7 +32,7 @@ export const emptyTheme: CompleteThemeSpec = {
     View: {},
     ViewClip: {},
     // other settings
-    Colors: defaultTheme.Colors,
-    Motion: {},
-    Animation: {},
+    Color: defaultTheme.Color,
+    Transition: {},
+    Target: {},
 }

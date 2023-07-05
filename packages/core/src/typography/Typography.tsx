@@ -1,5 +1,5 @@
 import { m } from 'framer-motion'
-import { getMotionTarget, zeroPosition } from '../general'
+import { mergeTargets, zeroPosition } from '../general'
 import { getClassName, ssrCompatible } from '../themes'
 import { TypographyProps } from './types'
 
@@ -23,8 +23,8 @@ export const Typography = ({
     return (
         <m.text
             role={role}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             style={ssrCompatible(style, config)}
             className={compositeClassName}
             {...props}

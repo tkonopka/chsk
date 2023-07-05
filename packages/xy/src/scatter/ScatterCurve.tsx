@@ -20,9 +20,8 @@ export const ScatterCurve = ({
     downsampleFactor,
     downsampleIndex,
     // component props
-    initial,
-    animate,
-    transition,
+    component = Path,
+    componentProps,
     style,
     className,
     setRole = true,
@@ -34,15 +33,7 @@ export const ScatterCurve = ({
     const colorScale = useScales().scales.color
     const { disabledKeys, firstRender } = useDisabledKeys()
 
-    const pathProps = {
-        curve,
-        variant: 'scatter-curve',
-        className,
-        setRole,
-        initial,
-        animate,
-        transition,
-    }
+    const commonProps = { setRole, variant: 'scatter-curve', className, ...componentProps, curve }
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
@@ -60,8 +51,8 @@ export const ScatterCurve = ({
         })
         const element = createElement(dataComponent, {
             data: { id },
-            component: Path,
-            props: { points, style: seriesStyle, ...pathProps },
+            component,
+            props: { ...commonProps, points, style: seriesStyle },
             ...props,
         })
         return (

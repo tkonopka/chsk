@@ -72,7 +72,7 @@ const customTheme: ThemeSpec = mergeThemes([
                 fill: '#555555',
             },
         },
-        Colors: {
+        Color: {
             categorical: {
                 variant: 'categorical',
                 colors: ['#f57600', '#555555'],

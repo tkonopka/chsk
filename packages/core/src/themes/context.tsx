@@ -21,7 +21,7 @@ export const ThemeProvider = ({
     )
     return (
         <ThemeContext.Provider value={mergedTheme}>
-            <MotionConfig transition={mergedTheme.Motion}>
+            <MotionConfig transition={mergedTheme.Transition.default}>
                 <LazyMotion features={domAnimation}>{children}</LazyMotion>
             </MotionConfig>
         </ThemeContext.Provider>

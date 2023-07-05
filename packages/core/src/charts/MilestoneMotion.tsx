@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useMilestones } from './index'
 import { MilestoneMotionProps } from './types'
 import { useTheme, useThemedProps } from '../themes'
-import { getAnimationValue, getTransitionValue } from '../themes/utils'
+import { getTarget, getTransition } from '../themes/utils'
 
 const UnthemedMilestoneMotion = ({
     enter = 'hidden',
@@ -47,14 +47,14 @@ const UnthemedMilestoneMotion = ({
             {active && (
                 <m.g
                     role={setRole ? role : undefined}
-                    initial={getAnimationValue(enter, theme)}
+                    initial={getTarget(enter, theme)}
                     animate={{
-                        ...getAnimationValue(config, theme),
-                        transition: getTransitionValue(enterTransition, theme),
+                        ...getTarget(config, theme),
+                        transition: getTransition(enterTransition, theme),
                     }}
                     exit={{
-                        ...getAnimationValue(exit, theme),
-                        transition: getTransitionValue(exitTransition, theme),
+                        ...getTarget(exit, theme),
+                        transition: getTransition(exitTransition, theme),
                     }}
                 >
                     {children}

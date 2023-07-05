@@ -60,7 +60,7 @@ export const HeatMap = ({
     const processedData = useMemo(() => processData(keys, data, dataSize), [keys, data, dataSize])
 
     const { x: xProps, y: yProps } = getXYScaleProps(seriesIds, keys, scaleX, scaleY, innerSize)
-    const colorProps = getColorScaleProps(processedData, scaleColor ?? theme.Colors.sequential)
+    const colorProps = getColorScaleProps(processedData, scaleColor ?? theme.Color.sequential)
     const sizeProps = getSizeScaleProps(processedData, scaleSize, innerSize, seriesIds, keys)
     const scalesContextValue = useCreateScales({
         x: xProps,

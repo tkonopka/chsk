@@ -5,9 +5,11 @@ import {
     AnchorSpec,
     PositionUnits,
     PositionUnit,
+    TargetTransformer,
 } from './types'
 import { isArray } from './predicates'
 import { TOP, BOTTOM, LEFT, RIGHT, X, Y } from './constants'
+import { Target } from 'framer-motion'
 
 /** get inner size given a padding vector */
 export const getInnerSize = (size: SizeSpec, padding: FourSideSizeSpec): SizeSpec => {
@@ -124,4 +126,10 @@ export const mergeProps = <T>(x: T, y: T): T => {
         return result as T
     }
     return y
+}
+
+export const mergeTargets = (base: Target, update?: Target | TargetTransformer): Target => {
+    if (update === undefined) return base
+    if (typeof update === 'function') return update(base)
+    return { ...base, ...update }
 }

@@ -147,7 +147,7 @@ export const BaseTooltip = ({
                 initial={config}
                 animate={config}
                 style={ssrCompatible(undefined, config)}
-                transition={theme.Motion.tooltip}
+                transition={theme.Transition.tooltip}
                 className={compositeClassName}
             >
                 <DimensionsProvider

@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { getClassName, ssrCompatible } from '../themes'
+import { mergeTargets } from '../general'
 import { SymbolProps } from './types'
-import { getMotionTarget } from '../general'
 
 const squareVisualFactor = 0.96
 const squareHalfSide = 0.5 * Math.sqrt(Math.PI) * squareVisualFactor
@@ -28,8 +28,8 @@ export const Square = ({
     return (
         <m.rect
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             className={getClassName(variant, className)}
             style={ssrCompatible(style, config)}
             {...props}

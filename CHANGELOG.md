@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] interface `ComponentProps` to support customization of
+    base components in higher-order components
 -   [core] separate motion settings for tooltip transitions
 -   [core] prop `transition` in typography and shape components
 -   [core] support for distinct enter and exit transitions in `MilestoneMotion`
@@ -19,6 +21,12 @@
 
 ### Changed
 
+-   [core] renamed key `Colors` in `ThemeSpec` and `CompleteThemeSpec` to
+    `Color` (for consistency with `Target` and `Transition`)
+-   [core] renamed key `Animation` in `ThemeSpec` and `CompleteThemeSpec` to
+    `Target`
+-   [core] renamed key `Motion` in `ThemeSpec` and `CompleteThemeSpec` to
+    `Transition`
 -   [core] replaced prop `transition` in `MilestoneMotion` by pair of props
     `enterTransition` and `exitTransition` to enable different timings
 -   [core] types for interactivity components to include `onDoubleClick`

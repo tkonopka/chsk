@@ -1,5 +1,6 @@
 import { FC, ReactNode } from 'react'
 import {
+    ComponentProps,
     CssProps,
     DataInteractivityProps,
     LabelProps,
@@ -46,12 +47,9 @@ export interface BarProps extends Omit<BandProps, 'scaleValue'> {
     scaleValue?: LinearScaleSpec
 }
 
-export interface BarsProps
-    extends BandsProps,
-        DataInteractivityProps<BarInteractiveDataItem, RectangleProps> {
-    /** component used to draw individual bars */
-    component?: FC<RectangleProps>
-}
+export type BarsProps = BandsProps &
+    DataInteractivityProps<BarInteractiveDataItem, RectangleProps> &
+    ComponentProps<RectangleProps>
 
 export interface BarsLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
     /** format for text */

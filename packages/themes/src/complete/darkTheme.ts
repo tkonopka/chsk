@@ -171,7 +171,7 @@ export const darkTheme: CompleteThemeSpec = {
     View: cloneProps(defaultTheme.View),
     ViewClip: cloneProps(defaultTheme.ViewClip),
     // other settings
-    Colors: {
+    Color: {
         categorical: {
             variant: 'categorical',
             colors: ['#3f9cde', '#e05263', '#ffa047', '#7fc29b', '#c6d8d3', '#68758d'],
@@ -188,6 +188,6 @@ export const darkTheme: CompleteThemeSpec = {
             domain: 'auto',
         },
     },
-    Motion: cloneProps(defaultTheme.Motion),
-    Animation: cloneProps(defaultTheme.Animation),
+    Transition: cloneProps(defaultTheme.Transition),
+    Target: cloneProps(defaultTheme.Target),
 }

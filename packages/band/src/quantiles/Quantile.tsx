@@ -138,7 +138,7 @@ export const Quantile = ({
     )
     const xProps = horizontal ? valueProps : indexProps
     const yProps = horizontal ? indexProps : valueProps
-    const colorProps = createColorScaleProps(scaleColor ?? theme.Colors.categorical, keys)
+    const colorProps = createColorScaleProps(scaleColor ?? theme.Color.categorical, keys)
     const scalesContextValue = useCreateScales({ x: xProps, y: yProps, color: colorProps })
     const scales = scalesContextValue.scales
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)

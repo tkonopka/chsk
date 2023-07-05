@@ -1,7 +1,7 @@
+import { m } from 'framer-motion'
 import { SymbolProps } from './types'
 import { getClassName } from '../themes'
-import { m } from 'framer-motion'
-import { getMotionTarget } from '../general'
+import { mergeTargets } from '../general'
 
 export const Circle = ({
     variant = 'default',
@@ -18,8 +18,8 @@ export const Circle = ({
     return (
         <m.circle
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             className={getClassName(variant, className)}
             {...props}
         />

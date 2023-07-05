@@ -1,0 +1,79 @@
+import { Meta, Source } from '@storybook/blocks'
+
+<Meta title="Core/Props/Transitions" />
+
+# Transitions
+
+All chart transitions are implemented using [Framer Motion](https://www.framer.com/docs/).
+They can be configured globally or adjusted in individual components.
+
+## Global configuration
+
+The default animation settings can be set via a global chart theme using key `Transition`.
+The example below specifies a spring-based animation.
+
+<Source
+    language="jsx"
+    code={`
+const customTheme = {
+  Transition: {
+    default: {
+      type: 'spring',
+      mass: 0.5,
+      stiffness: 250,
+      damping: 25,
+    }
+  }
+}`}
+/>
+
+Settings that can be included in the configuration include `duration`, `bounce`, `mass`, `stiffness`, and `damping`.
+For detailed description of their role in animations, see the [framer motion documentation](https://www.framer.com/docs/transition/).
+Some rules of thumb are:
+
+-   Larger stiffness increases responsiveness, i.e. makes animations seem to begin faster.
+-   Larger damping reduces oscillations.
+
+To apply custom animation settings, use prop `theme` in the `Chart` component.
+The custom settings will then apply to all components within that chart.
+
+<Source
+    language="jsx"
+    code={`
+<Chart {...props} theme={customTheme}>
+  ...
+</Chart>`}
+/>
+
+A custom theme can also include a dictionary under `Transition.tooltip`.
+Those transition settings will affect motion of tooltip.
+
+## Component-specific settings
+
+Several shape and typography components include a prop `transition`, which can be used to
+adjust animation settings for individual components.
+
+The example below defines a custom tween-based animation that lasts one second.
+
+<Source
+    language="jsx"
+    code={`
+const customTransition = {
+  type: 'tween',
+  duration: 1,
+}`}
+/>
+
+The custom transition specification can be passed to a component such as `Rectangle`.
+
+<Source
+    language="jsx"
+    code={`
+<Rectangle {...props} transition={customTransition} />
+`}
+/>
+
+Note that a custom transition will only become noticeable if external logic changes the other props to the component,
+triggering a re-rendering of the component.
+In practice, rather than providing custom transitions directly to shape components, it is more common to specify
+custom transitions as part of `componentProps` in higher-order components.

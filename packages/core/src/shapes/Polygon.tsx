@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { getClassName } from '../themes'
+import { mergeTargets, roundDecimalPlaces } from '../general'
 import { PolygonProps } from './types'
-import { getMotionTarget, roundDecimalPlaces } from '../general/'
 
 export const Polygon = ({
     variant = 'default',
@@ -19,8 +19,8 @@ export const Polygon = ({
     return (
         <m.polygon
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             className={getClassName(variant, className)}
             {...props}
         />

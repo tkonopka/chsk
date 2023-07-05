@@ -36,7 +36,7 @@ export const groupedTheme: ThemeSpec = mergeTheme(buttonTheme, {
             fontWeight: 600,
         },
     },
-    Colors: {
+    Color: {
         categorical: {
             variant: 'categorical' as const,
             colors: schemePaired,

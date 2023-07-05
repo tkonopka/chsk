@@ -50,7 +50,7 @@ export const PolarItem = ({
     if (!children) return null
 
     if (transform.get() !== getTransform(x, y, angle) && !working) {
-        const animateConfig = theme.Motion.default
+        const animateConfig = theme.Transition.default
         const interpolator = interpolate(values, [r, theta, angle])
         animate(0, 1, {
             ...animateConfig,

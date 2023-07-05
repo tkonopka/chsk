@@ -49,7 +49,7 @@ export const Slice = ({
     const [working, setWorking] = useState(false)
 
     if (d.get() !== getSliceD(sliceProps) && !working) {
-        const animateConfig = theme.Motion.default
+        const animateConfig = theme.Transition.default
         const interpolator = interpolateObject(values, sliceProps)
         animate(0, 1, {
             ...animateConfig,

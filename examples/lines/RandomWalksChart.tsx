@@ -36,9 +36,11 @@ const customLabelFormat = (x: TooltipDataItem) => {
 
 const curveProps = {
     curve: 'Natural' as const,
-    initial: { pathLength: 0 },
-    animate: { pathLength: 1 },
-    transition: { pathLength: { duration: 1.5 } },
+    componentProps: {
+        initial: { pathLength: 0 },
+        animate: { pathLength: 1 },
+        transition: { pathLength: { duration: 1.5 } },
+    },
 }
 
 export const RandomWalksChart = ({ fref, chartData, rawData }: MilestoneStory) => {

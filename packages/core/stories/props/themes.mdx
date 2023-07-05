@@ -1,4 +1,4 @@
-import { Canvas, Meta, Source } from '@storybook/blocks'
+import { Meta, Source, Story } from '@storybook/blocks'
 import * as ThemesStories from './themes.stories'
 
 <Meta of={ThemesStories} />
@@ -18,7 +18,7 @@ A theme object is a nested dictionary.
 For example, the object below changes styles for text, geometric components, and tick components.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
   const customTheme = {
   text: {
@@ -68,15 +68,15 @@ For example, the object below changes styles for text, geometric components, and
 To apply the custom theme to a chart, use prop `theme`.
 The charts below display the same content with the default and the custom themes.
 
-<Canvas of={ThemesStories.Default} />
-<Canvas of={ThemesStories.Custom} />
+<Story of={ThemesStories.Default} />
+<Story of={ThemesStories.Custom} />
 
 When two charts appear on the same page, as above, a theme for one chart may affect/override the appearance of another chart.
 (This happens because the `<style>` tag in HTML documents specify global settings, no matter how they are nested.)
 To avoid such cross-talk, set a unique identifier for each chart via the prop `id`.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
   <Chart {...props} theme={customThemeA} id="chart-A">
   ...

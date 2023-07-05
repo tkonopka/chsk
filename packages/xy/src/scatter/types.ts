@@ -18,7 +18,7 @@ import {
     SizeScaleSpec,
     SvgElementProps,
     SvgElementVariantProps,
-    AnimationProps,
+    ComponentProps,
     SymbolProps,
     ViewProps,
     WithId,
@@ -111,8 +111,8 @@ export type SignalProcessingProps = {
 
 export interface ScatterCurveProps
     extends SvgElementProps,
-        AnimationProps,
         DataInteractivityProps<ScatterInteractiveDataItem, PathProps>,
+        ComponentProps<PathProps>,
         SignalProcessingProps {
     /** ids to display (defaults to all ids) */
     ids?: string[]

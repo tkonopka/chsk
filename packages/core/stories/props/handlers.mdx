@@ -20,7 +20,7 @@ Handlers for individual components receive an object summarizing the triggering 
 A custom implementation is as follows.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 const handleIndividualClick = (event) => {
   console.log('click')
@@ -30,7 +30,7 @@ const handleIndividualClick = (event) => {
 Such a custom handler can be provided to a component directly, for example:
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 <Rectangle x={0} y={0} width={10} height={10} onClick={handleIndividualClick} />
 `}
@@ -48,7 +48,7 @@ receive two inputs: a data object along with an object summarizing the triggerin
 An implementation of a custom handler would be as follows.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 const handleDataClick = (data, event) => {
   console.log('clicked ' + JSON.stringify(data))
@@ -61,7 +61,7 @@ In the bar chart context, for example, it would contain an identifier and a valu
 Data-dependent handlers should be grouped and provided as a single prop `handlers`.
 
 <Source
-    language="javascript"
+    language="jsx"
     code={`
 <Bars handlers={{ onClick: handleDataClick }} />
 `}

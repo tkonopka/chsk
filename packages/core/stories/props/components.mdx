@@ -1,0 +1,28 @@
+import { Meta, Source, ArgTypes } from '@storybook/blocks'
+import { MockComponent } from './mocks'
+
+<Meta title="Core/Props/Components" />
+
+# Components
+
+Some higher-order components (in add-on packages) create several related elements.
+An example is `Bars` from the `@chsk/band` package, which typically creates several `Rectangle` shapes at once.
+To allow customization, the higher-order components may include props with prefix 'component'.
+
+<ArgTypes of={MockComponent} />
+
+Prop `component` specifies a function used to create the individual elements.
+In the bar chart example, this would be set to `Rectangle` by default.
+
+`componentProps` accepts an object whose contents will be passed down to the `component` function.
+This allows over-riding default settings in the `component` function.
+
+An important use case for `componentProps` is specifying custom transitions and animation states.
+This may involve setting `transition`, `initial`, and/or `animate` fields.
+Some of the possibilities are showcased in gallery examples.
+
+Note that higher-order components set some props for the `component` function.
+Some of the props in `componentProps` thus may end up being discarded.
+For example, `Bars` sets `x`, `y`, `width`, and `height` for each shape in a bar chart,
+so custom values for those variables in `componentProps` will not have any effect.
+The exact behavior will depend on the higher-order component.

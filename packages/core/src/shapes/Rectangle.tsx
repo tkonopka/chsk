@@ -1,7 +1,7 @@
 import { m } from 'framer-motion'
 import { getClassName, ssrCompatible } from '../themes'
+import { mergeTargets } from '../general'
 import { RectangleProps } from './types'
-import { getMotionTarget } from '../general'
 
 export const Rectangle = ({
     variant = 'default',
@@ -44,8 +44,8 @@ export const Rectangle = ({
     return (
         <m.rect
             role={setRole && variant !== 'default' ? variant : undefined}
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             className={getClassName(variant, className)}
             style={ssrCompatible(style, config)}
             {...props}

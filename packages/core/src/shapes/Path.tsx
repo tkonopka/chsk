@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
-import { getMotionTarget } from '../general'
 import { getClassName } from '../themes'
+import { mergeTargets } from '../general'
 import { PathProps } from './types'
 import { createLineGenerator } from './curves'
 import { useMemo } from 'react'
@@ -28,8 +28,8 @@ export const Path = ({
     const config = { d: path ?? undefined }
     return (
         <m.path
-            initial={getMotionTarget(config, initial)}
-            animate={getMotionTarget(config, animate)}
+            initial={mergeTargets(config, initial)}
+            animate={mergeTargets(config, animate)}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
             role={setRole && variant !== 'default' ? variant : undefined}
