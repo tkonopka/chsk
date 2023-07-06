@@ -180,6 +180,4 @@ export interface AnimationProps {
     initial?: Target | TargetTransformer
     /** (adjustment to) target transition state */
     animate?: Target | TargetTransformer
-    // (adjustment to) target exit state
-    // exit?: Target | TargetTransformer
 }

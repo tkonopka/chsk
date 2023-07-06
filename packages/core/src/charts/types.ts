@@ -58,7 +58,7 @@ export interface OpacityMotionProps {
     firstRender: boolean
     /** flag to indicate visibility, used for exit animation */
     visible?: boolean
-    /** children components */
+    /** content */
     children: ReactNode
 }
 
@@ -79,7 +79,7 @@ export interface MilestoneMotionProps extends Pick<SvgElementVariantProps, 'vari
     exitTransition?: TransitionSpec | string | null
     /** function executed when exit is toggled */
     onExit?: () => void
-    /** children components */
+    /** content */
     children?: ReactNode
     /** base configuration */
     config?: AnimationSpec | string
