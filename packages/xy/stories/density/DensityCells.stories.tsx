@@ -25,7 +25,7 @@ export const NoTransparency = {
 export const Cells = {
     name: 'animated cells',
     args: {
-        cell: DensityCell,
+        component: DensityCell,
     },
     decorators: [ChartDensityDecorator],
 }

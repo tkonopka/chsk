@@ -1,5 +1,10 @@
-import { FC } from 'react'
-import { DataInteractivityProps, PathProps, ProcessedDataContextProps, WithId } from '@chsk/core'
+import {
+    ComponentProps,
+    DataInteractivityProps,
+    PathProps,
+    ProcessedDataContextProps,
+    WithId,
+} from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
 export type ViolinDataItem = WithId & Record<string, unknown>
@@ -55,9 +60,8 @@ export interface ViolinProps extends BandProps {
 
 export interface ViolinsProps
     extends BandsProps,
-        DataInteractivityProps<ViolinInteractiveDataItem, PathProps> {
+        DataInteractivityProps<ViolinInteractiveDataItem, PathProps>,
+        ComponentProps<PathProps> {
     /** variant */
     variant?: 'smooth' | 'step'
-    /** component used to draw individual bars */
-    component?: FC<PathProps>
 }

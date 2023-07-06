@@ -25,11 +25,12 @@ export const BarsLabels = ({
     offset = [0, 0],
     angle,
     className,
-    setRole = false,
+    setRole = true,
     style,
     showOuter = false,
     styleOuter,
     component = Label,
+    componentProps,
 }: BarsLabelsProps) => {
     const processedData = useProcessedData().data
     const preparedData = useBarPreparedData()
@@ -40,7 +41,7 @@ export const BarsLabels = ({
 
     const innerClassName = getClassName(variant, className)
     const outerClassName = getClassName(variant + ' out', className)
-    const labelProps = { align, angle, padding, setRole }
+    const commonProps = { setRole: false, ...componentProps, align, angle, padding }
 
     const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
@@ -66,11 +67,11 @@ export const BarsLabels = ({
                     component,
                     {
                         key: 'label-' + j + '-' + i,
+                        ...commonProps,
                         position,
                         size,
                         className: compositeClassName,
                         style: labelStyle,
-                        ...labelProps,
                     },
                     format(processedData[j].data[i])
                 )
@@ -80,7 +81,7 @@ export const BarsLabels = ({
         return (
             <OpacityMotion
                 key={'labels-' + i}
-                role={'bars-labels'}
+                role={setRole ? 'bars-labels' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

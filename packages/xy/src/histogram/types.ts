@@ -12,8 +12,8 @@ import {
     WithId,
     SvgElementProps,
     NumericPositionSpec,
+    ComponentProps,
 } from '@chsk/core'
-import { FC } from 'react'
 
 export type HistogramDataItem = WithId & {
     data: Array<number>
@@ -76,9 +76,8 @@ export interface HistogramSeriesProps extends HistogramCurveProps {
 
 export interface HistogramBarsProps
     extends SvgElementProps,
-        DataInteractivityProps<HistogramInteractiveDataItem, RectangleProps> {
+        DataInteractivityProps<HistogramInteractiveDataItem, RectangleProps>,
+        ComponentProps<RectangleProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
-    /** component type */
-    component?: FC<RectangleProps>
 }

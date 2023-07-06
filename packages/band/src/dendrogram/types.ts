@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
     DataInteractivityProps,
     LabelProps,
@@ -11,6 +11,7 @@ import {
     FourSideSizeSpec,
     ShiftUnit,
     WithInteractive,
+    ComponentProps,
 } from '@chsk/core'
 import { BandProps, BandsProps } from '../bands'
 
@@ -61,30 +62,29 @@ export interface DendrogramProps
 
 export interface DendrogramTreeProps
     extends BandsProps,
-        DataInteractivityProps<DendrogramInteractiveDataItem, PathProps> {
-    /** component used to draw individual branches */
-    component?: FC<PathProps>
+        DataInteractivityProps<DendrogramInteractiveDataItem, PathProps>,
+        ComponentProps<PathProps> {
     /** hierarchy levels */
     levels?: number[]
 }
 
-export interface DendrogramLeafLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
+export interface DendrogramLeafLabelsProps
+    extends BandsProps,
+        Omit<LabelProps, 'position'>,
+        ComponentProps<LabelProps> {
     /** format for text */
     format?: (v: string) => ReactNode
-    /** components used to render label */
-    component?: FC<LabelProps>
 }
 
 export interface DendrogramSurfaceProps
     extends BandsProps,
         WithInteractive,
-        DataInteractivityProps<DendrogramInteractiveDataItem, RectangleProps> {
+        DataInteractivityProps<DendrogramInteractiveDataItem, RectangleProps>,
+        ComponentProps<RectangleProps> {
     /** hierarchy levels */
     levels?: number[]
     /** expansion */
     expansion?: FourSideSizeSpec
     /** expansion unit */
     expansionUnit?: ShiftUnit
-    /** component used to draw individual surfaces */
-    component?: FC<RectangleProps>
 }

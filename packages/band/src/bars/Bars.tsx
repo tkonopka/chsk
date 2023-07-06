@@ -20,6 +20,7 @@ export const Bars = ({
     componentProps,
     className,
     style,
+    setRole = true,
     dataComponent = TooltipDataComponent,
     ...props
 }: BarsProps) => {
@@ -40,6 +41,7 @@ export const Bars = ({
         [preparedData, style, colorScale]
     )
 
+    const commonProps = { variant: 'bar', setRole: false, ...componentProps, className }
     const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
@@ -58,14 +60,11 @@ export const Bars = ({
                         data: processedData[seriesData.index].data[i],
                     },
                     props: {
-                        variant: 'bar',
-                        setRole: false,
-                        ...componentProps,
+                        ...commonProps,
                         x: pos[0],
                         y: pos[1],
                         width: size[0],
                         height: size[1],
-                        className: className,
                         style: styles[i],
                     },
                     ...props,
@@ -75,8 +74,8 @@ export const Bars = ({
 
         return (
             <OpacityMotion
-                key={'bars-' + k}
-                role={'bars'}
+                key={'b-' + k}
+                role={setRole ? 'bars' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

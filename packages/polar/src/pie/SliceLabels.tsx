@@ -22,6 +22,7 @@ export const SliceLabels = ({
     style,
     dataComponent = SimpleDataComponent,
     component,
+    componentProps,
 }: SliceLabelsProps) => {
     const processedData = useProcessedData()
     const rScale = useScales().scales.x as ContinuousAxisScale
@@ -32,23 +33,27 @@ export const SliceLabels = ({
     const minAngleRad = angleUnit === 'degree' ? deg2rad(minAngle) : minAngle
     const r0 = rScale(0)
 
+    const commonProps = {
+        ...componentProps,
+        className,
+        angleUnit: 'radian' as const,
+        align,
+        setRole,
+        style,
+    }
     const result = data.map((seriesData, i) => {
         if (!idSet.has(seriesData.id)) return null
         if (seriesData.endAngle - seriesData.startAngle < minAngleRad) return null
         return createElement(dataComponent, {
-            key: 'label-' + i,
+            key: 'l-' + i,
             component: component ?? SliceLabel,
             data: seriesData,
             props: {
+                ...commonProps,
                 startAngle: seriesData.startAngle,
                 endAngle: seriesData.endAngle,
                 innerRadius: rScale(seriesData.rInner) - r0,
                 outerRadius: rScale(seriesData.rOuter) - r0,
-                angleUnit: 'radian',
-                align,
-                className,
-                style: style,
-                setRole: setRole,
                 children: format(seriesData),
             },
         })

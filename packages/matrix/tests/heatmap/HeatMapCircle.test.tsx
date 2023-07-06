@@ -8,12 +8,11 @@ describe('HeatMapColorCircle', () => {
         render(
             <Chart>
                 <HeatMap {...heatmapProps} keys={['x', 'y', 'z']}>
-                    <HeatMapCells cell={HeatMapCircle} />
+                    <HeatMapCells component={HeatMapCircle} />
                 </HeatMap>
             </Chart>
         )
-        const result = screen.getByRole('heatmap-cells')
         // the data has four rows and three columns (x, y, z)
-        expect(result.querySelectorAll('circle')).toHaveLength(12)
+        expect(screen.getByRole('heatmap-cells').querySelectorAll('circle')).toHaveLength(12)
     })
 })

@@ -1,8 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
     AlignSpec,
     AngleUnit,
     CategoricalScaleSpec,
+    ComponentProps,
     DataInteractivityProps,
     LabelProps,
     LinearScaleSpec,
@@ -69,11 +70,10 @@ export interface SliceProps extends SvgElementProps, Pick<PolarItemProps, 'angle
 
 export interface SlicesProps
     extends SvgElementProps,
-        DataInteractivityProps<PieInteractiveDataItem, SliceProps> {
+        DataInteractivityProps<PieInteractiveDataItem, SliceProps>,
+        ComponentProps<SliceProps> {
     /** /** ids to display (defaults to all ids) */
     ids?: string[]
-    /** component used to draw individual bars */
-    component?: FC<SliceProps>
     /** radius for slices */
     r?: number
     /** angle padding */
@@ -89,7 +89,8 @@ export interface SliceLabelsProps
     extends SvgElementVariantProps,
         Pick<PolarItemProps, 'radial' | 'tangential'>,
         Pick<SlicesProps, 'ids'>,
-        Pick<DataInteractivityProps<PieInteractiveDataItem, SliceLabelProps>, 'dataComponent'> {
+        Pick<DataInteractivityProps<PieInteractiveDataItem, SliceLabelProps>, 'dataComponent'>,
+        ComponentProps<SliceLabelProps> {
     /** alignment [r, theta] */
     align?: AlignSpec
     /** minimum angle (degrees) */
@@ -98,6 +99,4 @@ export interface SliceLabelsProps
     angleUnit?: AngleUnit
     /** format for text */
     format?: (v: PieProcessedDataItem) => ReactNode
-    /** components used to render text */
-    component?: FC<SliceLabelProps>
 }

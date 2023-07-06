@@ -10,8 +10,7 @@ describe('Strips', () => {
                 <Strips />
             </Chart>
         )
-        const content = screen.getByRole('chart-content')
-        expect(content.querySelectorAll('circle')).toHaveLength(0)
+        expect(screen.getByRole('chart-content').querySelectorAll('circle')).toHaveLength(0)
     })
 
     it('creates strips of data points (vertical)', () => {
@@ -23,8 +22,8 @@ describe('Strips', () => {
             </Chart>
         )
         // the data has two groups, alpha has 22 points, beta has 12
-        const result = screen.getByRole('view-strip')
-        expect(result.querySelectorAll('circle')).toHaveLength(34)
+        expect(screen.queryAllByRole('strips')).toHaveLength(2)
+        expect(screen.getByRole('view-strip').querySelectorAll('circle')).toHaveLength(34)
     })
 
     it('creates strips of data points (horizontal)', () => {
@@ -35,8 +34,19 @@ describe('Strips', () => {
                 </Strip>
             </Chart>
         )
-        const result = screen.getByRole('view-strip')
-        expect(result.querySelectorAll('circle')).toHaveLength(34)
+        expect(screen.getByRole('view-strip').querySelectorAll('circle')).toHaveLength(34)
+    })
+
+    it('creates strips without role', () => {
+        render(
+            <Chart>
+                <Strip {...stripProps} horizontal={true}>
+                    <Strips setRole={false} />
+                </Strip>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('strips')).toHaveLength(0)
+        expect(screen.getByRole('view-strip').querySelectorAll('circle').length).toBeGreaterThan(0)
     })
 
     it('displays data only for specified ids', () => {

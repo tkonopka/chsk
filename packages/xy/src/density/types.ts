@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import {
+    ComponentProps,
     DataInteractivityProps,
     NumericPositionSpec,
     ProcessedDataContextProps,
@@ -46,9 +46,7 @@ export interface DensityCellProps extends Omit<RectangleProps, 'center' | 'varia
     value: number
 }
 
-export interface DensityCellsProps extends SvgElementProps {
-    /** component used to draw a cell in the density map */
-    cell?: FC<DensityCellProps>
+export interface DensityCellsProps extends SvgElementProps, ComponentProps<DensityCellProps> {
     /** use transparency proportional to cell count */
     transparency?: boolean
 }

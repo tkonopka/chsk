@@ -6,8 +6,10 @@ import { useVennPreparedData } from './contexts'
 
 export const VennSets = ({
     component = Path,
+    componentProps,
     className,
     style,
+    setRole = true,
     dataComponent = TooltipDataComponent,
     ...props
 }: VennSetsProps) => {
@@ -15,17 +17,16 @@ export const VennSets = ({
     const data = preparedData.data
     if (!isVennPreparedData(data)) return null
 
+    const commonProps = { variant: 'set', ...componentProps, className, setRole }
     const result = data.map(item => {
         return createElement(dataComponent, {
-            key: 'set-' + item.id,
+            key: 's-' + item.id,
             component,
             data: item,
             props: {
+                ...commonProps,
                 d: item.d,
-                className: className,
                 style: addColor(style, item.color),
-                variant: 'set',
-                setRole: false,
             },
             ...props,
         })

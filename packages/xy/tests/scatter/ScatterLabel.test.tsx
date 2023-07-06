@@ -19,9 +19,9 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         expect(screen.queryByRole('scatter-label')).not.toBeNull()
-        const result = screen.getByRole('label')
-        expect(result.textContent).toBe('Label')
-        expect(result.getAttribute('class')).toContain('label scatterLabel')
+        const result = screen.getByRole('scatter-label').querySelector('text')
+        expect(result?.textContent).toBe('Label')
+        expect(result?.getAttribute('class')).toContain('label scatterLabel')
     })
 
     it('creates a label using a relative position', () => {

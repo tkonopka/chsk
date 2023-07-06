@@ -34,6 +34,7 @@ const getPointPosition = (
 export const ScatterSelectedLabels = ({
     data,
     component = Label,
+    componentProps,
     anchor = [0.5, 0.5],
     offset = [0, -0.1],
     // symbol
@@ -100,6 +101,13 @@ export const ScatterSelectedLabels = ({
         })
     }, [labels, obstacles])
 
+    const commonProps = {
+        variant: 'scatter-label',
+        setRole: false,
+        ...componentProps,
+        style,
+        className,
+    }
     const result = active.map((item, i) => {
         const seriesIndex = preparedData.seriesIndexes[item.id]
         const activeData = symbolData[seriesIndex][item.index]
@@ -133,20 +141,16 @@ export const ScatterSelectedLabels = ({
             component,
             {
                 key: 'label',
-                variant: 'scatter-label',
-                style,
-                className,
+                ...commonProps,
                 ...item,
                 position: packed[i].position,
-                anchor: [0.5, 0.5],
-                setRole: false,
             },
             active[i].content
         )
 
         return (
             <g
-                key={'label-' + String(active[i].content)}
+                key={'l-' + String(active[i].content)}
                 role={setRole ? 'scatter-selected-label' : undefined}
             >
                 {itemConnector}

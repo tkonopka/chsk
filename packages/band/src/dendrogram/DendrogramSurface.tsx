@@ -47,6 +47,7 @@ export const DendrogramSurface = ({
     expansion = [0, 0, 0, 0],
     expansionUnit = 'band',
     component = Rectangle,
+    componentProps,
     dataComponent = DataComponent,
     interactive = false,
     handlers,
@@ -84,7 +85,13 @@ export const DendrogramSurface = ({
     )
     const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : handlers
 
-    const surfaceProps = { variant: 'dendrogram-surface', setRole, className, style }
+    const commonProps = {
+        variant: 'dendrogram-surface',
+        setRole,
+        ...componentProps,
+        className,
+        style,
+    }
     const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {
         const id = seriesData.id
         if (!idSet.has(id)) return null
@@ -102,12 +109,12 @@ export const DendrogramSurface = ({
                 : false
             const fixedOpacity = !interactive
             return createElement(dataComponent, {
-                key: 'branch-' + id + '-' + level,
+                key: 's-' + id + '-' + level,
                 component,
                 data: { id, level, data },
                 props: {
+                    ...commonProps,
                     ...rectProps,
-                    ...surfaceProps,
                     opacity: +(interactiveOpacity || fixedOpacity),
                 },
                 handlers: compositeHandlers,

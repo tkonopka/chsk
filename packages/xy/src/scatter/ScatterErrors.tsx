@@ -67,6 +67,7 @@ export const ScatterErrors = ({
     className,
     setRole = true,
     component = ScatterErrorBar,
+    componentProps,
     dataComponent = SimpleDataComponent,
     ...props
 }: ScatterErrorsProps) => {
@@ -99,6 +100,13 @@ export const ScatterErrors = ({
     )
 
     const compositeClassName = getClassName('scatter-errors', className)
+    const commonProps = {
+        variant,
+        setRole: false,
+        ...componentProps,
+        className: compositeClassName,
+        capWidth,
+    }
     const result = (ids ?? preparedData.keys).map(id => {
         const visible = !disabledKeys.has(id)
         const seriesIndex = preparedData.seriesIndexes[id]
@@ -106,17 +114,14 @@ export const ScatterErrors = ({
         const seriesStyle = addColor(style, scaleColor(seriesIndex))
         const elements = errorsData[seriesIndex].map((points, index) => {
             return createElement(dataComponent, {
-                key: 'error-' + id + '-' + index,
+                key: 'e-' + id + '-' + index,
                 data: { id, index },
                 component,
                 props: {
-                    variant,
+                    ...commonProps,
                     lower: points.lower,
                     upper: points.upper,
-                    capWidth,
-                    setRole,
                     style: seriesStyle,
-                    className: compositeClassName,
                 },
                 ...props,
             })
@@ -124,7 +129,7 @@ export const ScatterErrors = ({
         return (
             <OpacityMotion
                 role={setRole ? 'scatter-errors' : undefined}
-                key={'errors-' + id}
+                key={'e-' + id}
                 visible={visible}
                 firstRender={firstRender}
             >

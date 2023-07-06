@@ -17,6 +17,7 @@ export const Slices = ({
     padAngle = 0,
     //
     component = Slice,
+    componentProps,
     className,
     style,
     dataComponent = TooltipDataComponent,
@@ -37,22 +38,20 @@ export const Slices = ({
     )
 
     const x0 = xScale(0)
+    const commonProps = { ...componentProps, setRole, padAngle, r, className }
     const result = data.map((item, i) => {
         if (!idSet.has(item.id)) return null
         return createElement(dataComponent, {
-            key: 'slice-' + item.id,
+            key: 's-' + item.id,
             component,
             data: item,
             props: {
+                ...commonProps,
                 innerRadius: xScale(item.rInner) - x0,
                 outerRadius: xScale(item.rOuter) - x0,
                 startAngle: item.startAngle,
                 endAngle: item.endAngle,
-                padAngle,
-                r,
-                className,
                 style: styles[i],
-                setRole,
             },
             ...props,
         })

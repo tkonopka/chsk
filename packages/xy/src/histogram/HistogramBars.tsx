@@ -20,6 +20,7 @@ import { isHistogramProcessedData } from './predicates'
 export const HistogramBars = ({
     ids,
     component = Rectangle,
+    componentProps,
     style,
     className,
     setRole = true,
@@ -45,6 +46,7 @@ export const HistogramBars = ({
     )
     const zero: number = scaleY(0)
 
+    const commonProps = { variant: 'histogram-bar', setRole: false, ...componentProps, className }
     const result = (ids ?? preparedData.keys).map(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
@@ -64,18 +66,16 @@ export const HistogramBars = ({
                 const height = point[Y] - zero
                 if (width === 0 || height === 0) return null
                 return createElement(dataComponent, {
-                    key: 'bar-' + seriesIndex + '-' + i,
+                    key: 'b-' + seriesIndex + '-' + i,
                     component,
                     data: { ...processedData[seriesIndex], bin: i },
                     props: {
+                        ...commonProps,
                         x: point[X] - left,
                         y: zero,
-                        width: width,
-                        height: height,
-                        className: className,
+                        width,
+                        height,
                         style: styles[seriesIndex],
-                        variant: 'histogram-bar',
-                        setRole: setRole,
                     },
                     ...props,
                 })
@@ -83,8 +83,8 @@ export const HistogramBars = ({
             .filter(Boolean)
         return (
             <OpacityMotion
-                key={'bars-' + seriesIndex}
-                role={setRole ? 'histogram-bars-presence' : undefined}
+                key={'b-' + seriesIndex}
+                role={setRole ? 'histogram-bars' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

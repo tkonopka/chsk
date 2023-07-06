@@ -22,9 +22,8 @@ describe('Violins', () => {
                 </Violin>
             </Chart>
         )
-        const result = screen.getByRole('view-violin')
         // dataset has two ids and two keys each, so four violins
-        expect(result.querySelectorAll('path')).toHaveLength(4)
+        expect(screen.getByRole('view-violin').querySelectorAll('path')).toHaveLength(4)
     })
 
     it('creates paths with violins (horizontal)', () => {
@@ -35,8 +34,19 @@ describe('Violins', () => {
                 </Violin>
             </Chart>
         )
-        const result = screen.getByRole('view-violin')
-        expect(result.querySelectorAll('path')).toHaveLength(4)
+        expect(screen.getByRole('view-violin').querySelectorAll('path')).toHaveLength(4)
+    })
+
+    it('creates violins without role', () => {
+        render(
+            <Chart>
+                <Violin {...violinProps} horizontal={true}>
+                    <Violins setRole={false} />
+                </Violin>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('violins')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('path')).toHaveLength(4)
     })
 
     it('does not draw paths for empty data', () => {

@@ -42,8 +42,9 @@ export const BandLabels = ({
     padding,
     format = (v: Record<string, unknown>) => String(v['id']),
     component = Label,
+    componentProps,
     className,
-    setRole = false,
+    setRole = true,
     style,
 }: BandLabelsProps) => {
     const rawData = useRawData().data
@@ -74,14 +75,15 @@ export const BandLabels = ({
                 component,
                 {
                     key: keyPrefix + j,
+                    setRole: false,
+                    ...componentProps,
                     position: [pos[X] + offset[X], pos[Y] + offset[Y]],
                     size: labelSize,
                     align,
                     padding,
                     className: compositeClassName,
-                    style: style,
+                    style,
                     variant: 'label',
-                    setRole: setRole,
                 },
                 value
             )
@@ -90,5 +92,5 @@ export const BandLabels = ({
         .filter(Boolean)
 
     if (labels.length === 0) return null
-    return <g role={'band-labels'}>{labels}</g>
+    return <g role={setRole ? 'band-labels' : undefined}>{labels}</g>
 }

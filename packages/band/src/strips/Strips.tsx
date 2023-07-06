@@ -18,6 +18,8 @@ export const Strips = ({
     ids,
     keys,
     component = Circle,
+    componentProps,
+    setRole = true,
     className,
     symbolStyle,
     dataComponent = DataComponent,
@@ -39,6 +41,7 @@ export const Strips = ({
         [allKeys, symbolStyle, colorScale]
     )
 
+    const commonProps = { setRole: false, ...componentProps, className }
     const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
@@ -52,7 +55,7 @@ export const Strips = ({
                 const seriesProcessedData = processedData[seriesData.index].data[i]
                 return summary.valueSize.map((valueSize: number, j: number) =>
                     createElement(dataComponent, {
-                        key: 'point-' + seriesData.index + '-' + i + '-' + j,
+                        key: 'p-' + seriesData.index + '-' + i + '-' + j,
                         data: {
                             id: seriesData.id,
                             key: k,
@@ -62,12 +65,11 @@ export const Strips = ({
                         },
                         component,
                         props: {
+                            ...commonProps,
                             cx: x[j],
                             cy: y[j],
                             r: valueSize,
-                            className,
                             style: symbolStyles[i],
-                            setRole: false,
                         },
                         ...props,
                     })
@@ -78,8 +80,8 @@ export const Strips = ({
 
         return (
             <OpacityMotion
-                key={'strips-' + i}
-                role={'strips'}
+                key={'s-' + i}
+                role={setRole ? 'strips' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

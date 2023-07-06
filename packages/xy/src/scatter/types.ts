@@ -123,17 +123,14 @@ export interface ScatterCurveProps
 export interface ScatterLabelProps
     extends SvgElementVariantProps,
         LabelProps,
-        Pick<ContainerProps, 'positionUnits'> {
+        Pick<ContainerProps, 'positionUnits'>,
+        ComponentProps<LabelProps> {
     /** variant */
     variant?: 'xy' | 'x' | 'y'
     /** series id (defaults to first id) */
     id?: string
     /** set rotation automatically */
     autoRotate?: boolean
-    /** component used to draw the label */
-    component?: FC<LabelProps>
-    /** child components */
-    children?: ReactNode
 }
 
 export interface ScatterIntervalProps
@@ -159,13 +156,12 @@ export interface ScatterErrorBarProps extends SvgElementProps, InteractivityProp
 export interface ScatterErrorsProps
     extends SvgElementVariantProps,
         DataInteractivityProps<ScatterInteractiveDataItem, ScatterErrorBarProps>,
-        Pick<ScatterIntervalProps, 'ids' | 'lower' | 'upper'> {
+        Pick<ScatterIntervalProps, 'ids' | 'lower' | 'upper'>,
+        ComponentProps<ScatterErrorBarProps> {
     /** horizontal or vertical error bars */
     variant: 'x' | 'y'
     /** width of error bar ends */
     capWidth?: number
-    /** component used to draw error bars */
-    component?: FC<ScatterErrorBarProps>
 }
 
 export interface ScatterAreaProps
@@ -235,7 +231,7 @@ export interface ScatterSelectedLabelData extends LocationProps {
 
 export interface ScatterSelectedLabelsProps
     extends SvgElementProps,
-        Pick<ScatterLabelProps, 'component' | 'offset' | 'anchor'>,
+        Pick<ScatterLabelProps, 'component' | 'componentProps' | 'offset' | 'anchor'>,
         Pick<ScatterPointsProps, 'symbol' | 'symbolStyle' | 'symbolClassName'> {
     /** collection of labels */
     data: ScatterSelectedLabelData[]

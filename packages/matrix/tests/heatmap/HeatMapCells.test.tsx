@@ -17,6 +17,18 @@ describe('HeatMapCells', () => {
         expect(result.querySelectorAll('rect')).toHaveLength(12)
     })
 
+    it('draws cells without role', () => {
+        render(
+            <Chart>
+                <HeatMap {...heatmapProps} keys={['x', 'y']}>
+                    <HeatMapCells keys={['x']} setRole={false} />
+                </HeatMap>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('heatmap-cells')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('rect').length).toBeGreaterThan(0)
+    })
+
     it('assigns className', () => {
         render(
             <Chart>

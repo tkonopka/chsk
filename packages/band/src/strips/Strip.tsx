@@ -132,7 +132,7 @@ export const Strip = ({
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const valueScale = horizontal ? (scales.x as LinearAxisScale) : (scales.y as LinearAxisScale)
 
-    // compute spacings between (possibly grouped) bars
+    // compute spacings between (possibly grouped) bands
     const [stripWidth, stripOffset, stripGap] = getInternalWidthAndGap(
         indexScale,
         keys,

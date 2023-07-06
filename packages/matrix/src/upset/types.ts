@@ -2,6 +2,7 @@ import { FC } from 'react'
 import {
     BandScaleSpec,
     CategoricalScaleSpec,
+    ComponentProps,
     CssProps,
     FourSideSizeSpec,
     LineProps,
@@ -57,10 +58,8 @@ export interface UpSetMembershipProps extends UpSetGridProps, WithInteractive {
     lineStyle?: CssProps
 }
 
-export interface UpSetMembershipsProps extends Omit<UpSetMembershipProps, 'positions' | 'r'> {
-    /** component to draw one set intersection */
-    component?: FC<UpSetMembershipProps>
-}
+export type UpSetMembershipsProps = Omit<UpSetMembershipProps, 'positions' | 'r'> &
+    ComponentProps<UpSetMembershipProps>
 
 export interface UpSetBarProps
     extends Pick<BarProps, 'scaleIndex' | 'scaleValue' | 'scaleColor' | 'children'> {

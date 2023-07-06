@@ -22,12 +22,14 @@ export const HeatMapCells = ({
     ids,
     keys,
     cells,
-    cell = HeatMapSimpleRectangle,
+    component = HeatMapSimpleRectangle,
+    componentProps,
     scaleColor,
     scaleSize,
     dataComponent = SimpleDataComponent,
     className,
     style,
+    setRole = true,
     children,
     ...props
 }: HeatMapCellsProps) => {
@@ -51,9 +53,8 @@ export const HeatMapCells = ({
     const x = processedData.keys.map(k => scaleX(k))
     const width = scales.x.bandwidth()
     const height = scales.y.bandwidth()
-    const cellClassName = getClassName('cell', className)
     const aspectRatio = width / height
-
+    const commonProps = { ...componentProps, className: getClassName('cell', className) }
     const elements = data
         .map((seriesData: HeatMapProcessedDataItem) => {
             if (!idSet.has(seriesData.id)) return null
@@ -70,7 +71,7 @@ export const HeatMapCells = ({
 
                 return createElement(dataComponent, {
                     key: 'cell-' + seriesData.index + '-' + i,
-                    component: cell,
+                    component,
                     data: {
                         id: seriesData.id,
                         key: k,
@@ -78,6 +79,7 @@ export const HeatMapCells = ({
                         size: sizes[i],
                     },
                     props: {
+                        ...commonProps,
                         cellValue: values[i],
                         cellSize: sizes[i],
                         x: x[i],
@@ -92,7 +94,6 @@ export const HeatMapCells = ({
                                 ? cell2R
                                 : cell2R / aspectRatio
                             : height,
-                        className: cellClassName,
                         style: cellStyle,
                     },
                     ...props,
@@ -108,7 +109,7 @@ export const HeatMapCells = ({
     customScalesContextValue.scales.color = colorScale
 
     return (
-        <g role={'heatmap-cells'}>
+        <g role={setRole ? 'heatmap-cells' : undefined}>
             {elements}
             <ScalesProvider key={'provider'} value={customScalesContextValue}>
                 {children}

@@ -17,6 +17,7 @@ export const Schedules = ({
     ids,
     keys,
     component = Rectangle,
+    componentProps,
     className,
     setRole = true,
     dataComponent = TooltipDataComponent,
@@ -42,6 +43,7 @@ export const Schedules = ({
     )
 
     const allKeys = preparedData.keys
+    const commonProps = { variant: 'schedule', setRole: false, ...componentProps, className }
     const result = preparedData.keys
         .map((k, i) => {
             if (!keySet.has(k)) return null
@@ -52,25 +54,13 @@ export const Schedules = ({
                 seriesData.data.map((dataItem: SchedulePreparedSummary) => {
                     if (!keySet.has(dataItem.key) || dataItem.key != k) return null
                     const keyIndex = allKeys.indexOf(dataItem.key)
-                    const pos = dataItem.position
-                    const size = dataItem.size
+                    const [x, y] = dataItem.position
+                    const [width, height] = dataItem.size
                     const el = createElement(dataComponent, {
-                        key: 'interval-' + seriesData.index + '-' + i,
-                        data: {
-                            id: seriesData.id,
-                            ...dataItem,
-                        },
+                        key: 's-' + seriesData.index + '-' + i,
+                        data: { id: seriesData.id, ...dataItem },
                         component,
-                        props: {
-                            x: pos[0],
-                            y: pos[1],
-                            width: size[0],
-                            height: size[1],
-                            className,
-                            style: styles[keyIndex],
-                            variant: 'interval',
-                            setRole: setRole,
-                        },
+                        props: { ...commonProps, x, y, width, height, style: styles[keyIndex] },
                         ...props,
                     })
                     items.push(el)
@@ -78,8 +68,8 @@ export const Schedules = ({
             })
             return (
                 <OpacityMotion
-                    key={'intervals-' + i}
-                    role={'intervals'}
+                    key={'s-' + i}
+                    role={setRole ? 'schedules' : undefined}
                     visible={visible}
                     firstRender={firstRender}
                 >

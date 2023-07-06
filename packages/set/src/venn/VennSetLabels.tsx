@@ -8,6 +8,7 @@ import {
     useScales,
     X,
     Y,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { isVennProcessedData } from './predicates'
 import { VennSetLabelsProps } from './types'
@@ -25,6 +26,7 @@ export const VennSetLabels = ({
     setRole = false,
     style,
     component = Label,
+    componentProps,
 }: VennSetLabelsProps) => {
     const processedData = useProcessedData()
     const { scales } = useScales()
@@ -35,9 +37,16 @@ export const VennSetLabels = ({
     const seriesIds = data.map(seriesData => seriesData.id)
     const scaleX = scales.x as LinearAxisScale
     const scaleY = scales.y as LinearAxisScale
-    const compositeClassName = getClassName('vennSetLabel', className)
-    const labelProps = { size, align, padding, style, setRole }
 
+    const commonProps = {
+        ...componentProps,
+        size,
+        align,
+        padding,
+        style,
+        setRole,
+        className: getClassName('vennSetLabel', className),
+    }
     const result = (ids ?? seriesIds)
         .map((id, i) => {
             if (!idSet.has(id)) return null
@@ -46,16 +55,14 @@ export const VennSetLabels = ({
             const pos = [seriesData.center[X], seriesData.center[Y]]
             pos[X] += rs[i] * seriesData.r * Math.sin(angles[i])
             pos[Y] += rs[i] * seriesData.r * Math.cos(angles[i])
-            const value = format(id)
+            const position: NumericPositionSpec = [
+                scaleX(pos[X]) + offset[X],
+                scaleY(pos[Y]) + offset[Y],
+            ]
             return createElement(
                 component,
-                {
-                    key: 'label-' + id,
-                    position: [scaleX(pos[X]) + offset[X], scaleY(pos[Y]) + offset[Y]],
-                    className: compositeClassName,
-                    ...labelProps,
-                },
-                value
+                { key: 'l-' + id, ...commonProps, position },
+                format(id)
             )
         })
         .filter(Boolean)

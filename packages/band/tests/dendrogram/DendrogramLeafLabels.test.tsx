@@ -60,7 +60,7 @@ describe('DendrogramLeafLabels', () => {
             </Chart>
         )
         // there should be four labels
-        const labels = screen.queryAllByRole('label')
+        const labels = screen.getByRole('view-dendrogram').querySelectorAll('text')
         expect(labels).toHaveLength(4)
         // the labels should be at different heights
         const x: Array<number | null> = []

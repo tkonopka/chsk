@@ -1,7 +1,6 @@
 import { createElement, useCallback, useState, MouseEvent } from 'react'
 import {
     BandAxisScale,
-    getClassName,
     useIdsKeys,
     useDimensions,
     useScales,
@@ -23,11 +22,12 @@ export const BandSurface = ({
     interactive = false,
     tooltip = false,
     component = Rectangle,
+    componentProps,
     dataComponent = DataComponent,
     handlers,
     modifiers,
     className,
-    setRole = false,
+    setRole = true,
     style,
 }: BandSurfaceProps) => {
     const processedData = useProcessedData()
@@ -44,7 +44,6 @@ export const BandSurface = ({
     const height = horizontal ? surfaceWidth : expandedSize
     const width = horizontal ? expandedSize : surfaceWidth
     const { idSet } = useIdsKeys(ids, null, processedData)
-    const compositeClassName = getClassName('bandSurface', className)
 
     const tooltipId = tooltipData?.data?.[0].id
     const onMouseEnter = useCallback(
@@ -64,7 +63,15 @@ export const BandSurface = ({
     const compositeHandlers = interactive ? { ...handlers, onMouseEnter, onMouseLeave } : handlers
 
     const keyPrefix = 'band-'
-    const surfaceProps = { setRole, width, height, className: compositeClassName, style }
+    const surfaceProps = {
+        variant: 'band-surface',
+        setRole: false,
+        ...componentProps,
+        width,
+        height,
+        className,
+        style,
+    }
     const bands = processedData.data
         .map((seriesData: RecordWithId, j: number) => {
             if (!idSet.has(seriesData.id)) return null
@@ -91,5 +98,5 @@ export const BandSurface = ({
         .filter(Boolean)
 
     if (bands.length === 0) return null
-    return <g role={'band-surface'}>{bands}</g>
+    return <g role={setRole ? 'band-surface' : undefined}>{bands}</g>
 }

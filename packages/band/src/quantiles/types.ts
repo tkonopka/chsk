@@ -1,5 +1,6 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
+    ComponentProps,
     CssProps,
     DataInteractivityProps,
     InteractivityProps,
@@ -85,13 +86,10 @@ export interface QuantileProps extends BandProps {
     quantiles?: [number, number, number, number, number]
 }
 
-export interface QuantilesProps
-    extends BandsProps,
-        DataInteractivityProps<QuantileInteractiveDataItem, BoxAndWhiskersProps>,
-        Pick<BoxAndWhiskersProps, 'boxStyle' | 'whiskerStyle' | 'middleStyle' | 'whiskerCapWidth'> {
-    /** component used to draw box and whiskers */
-    component?: FC<BoxAndWhiskersProps>
-}
+export type QuantilesProps = BandsProps &
+    DataInteractivityProps<QuantileInteractiveDataItem, BoxAndWhiskersProps> &
+    ComponentProps<BoxAndWhiskersProps> &
+    Pick<BoxAndWhiskersProps, 'boxStyle' | 'whiskerStyle' | 'middleStyle' | 'whiskerCapWidth'>
 
 export interface QuantileTooltipProps
     extends Omit<TooltipProps, 'variant' | 'horizontal' | 'children'>,

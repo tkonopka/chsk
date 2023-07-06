@@ -13,7 +13,7 @@ export const Example = {
             strokeWidth: 1,
             stroke: '#222222',
         },
-        cell: HeatMapRectangle,
+        component: HeatMapRectangle,
     },
     component: HeatMapCells,
     decorators: [ChartHeatMapDecorator],

@@ -1,8 +1,9 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
     BandScaleSpec,
     ColorScaleProps,
     ColorScaleSpec,
+    ComponentProps,
     DataInteractivityProps,
     RectangleProps,
     SizeScaleProps,
@@ -63,11 +64,9 @@ export interface HeatMapHighlightProps
     keys?: string[]
 }
 
-export interface HeatMapCellsProps extends HeatMapHighlightProps {
+export interface HeatMapCellsProps extends HeatMapHighlightProps, ComponentProps<HeatMapCellProps> {
     /** id and key coordinates for subset of cells */
     cells?: [string, string][]
-    /** symbol for individual cells */
-    cell?: FC<HeatMapCellProps>
     /** scale for colors */
     scaleColor?: ColorScaleProps
     /** scale for size */

@@ -1,4 +1,4 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
     CategoricalScaleSpec,
     DataInteractivityProps,
@@ -12,6 +12,7 @@ import {
     SvgElementProps,
     ViewProps,
     WithId,
+    ComponentProps,
 } from '@chsk/core'
 
 export type VennDataItem = WithId & {
@@ -70,14 +71,14 @@ export interface VennProps
 
 export type VennInteractiveDataItem = VennPreparedDataItem
 
-export interface VennSetsProps
-    extends SvgElementProps,
-        DataInteractivityProps<VennInteractiveDataItem, PathProps> {
-    /** component used to draw individual bars */
-    component?: FC<PathProps>
-}
+export type VennSetsProps = SvgElementProps &
+    DataInteractivityProps<VennInteractiveDataItem, PathProps> &
+    ComponentProps<PathProps>
 
-export interface VennSetLabelsProps extends SvgElementProps, Omit<LocationProps, 'position'> {
+export interface VennSetLabelsProps
+    extends SvgElementProps,
+        Omit<LocationProps, 'position'>,
+        ComponentProps<LabelProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** relative radius for label labelPosition */
@@ -88,8 +89,6 @@ export interface VennSetLabelsProps extends SvgElementProps, Omit<LocationProps,
     format?: (v: string) => ReactNode
     /** size for label box */
     size?: SizeSpec
-    /** components used to render label */
-    component?: FC<LabelProps>
 }
 
 export interface VennIntersectionLabelsProps

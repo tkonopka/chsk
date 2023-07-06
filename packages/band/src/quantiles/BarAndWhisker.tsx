@@ -43,7 +43,7 @@ export const BarAndWhisker = ({
     const lines = [
         <Line
             variant={'whisker'}
-            key={'whisker'}
+            key={'line'}
             x1={0}
             x2={0}
             y1={0}
@@ -55,7 +55,7 @@ export const BarAndWhisker = ({
     const caps = [
         <Line
             variant={'whisker-cap'}
-            key={'whisker-cap'}
+            key={'cap'}
             x1={-halfCap}
             x2={halfCap}
             y1={-cy + data.interval[1]}

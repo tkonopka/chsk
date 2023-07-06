@@ -1,5 +1,13 @@
-import { getAnchoredOrigin, getCenter, url, cloneProps, mergeProps } from '../../src/general/utils'
+import {
+    getAnchoredOrigin,
+    getCenter,
+    url,
+    cloneProps,
+    mergeProps,
+    mergeTargets,
+} from '../../src/general/utils'
 import { AnchorSpec, NumericPositionSpec, SizeSpec } from '../../src/general/types'
+import { AnimationSpec } from '../../dist/types'
 
 describe('getAnchoredOrigin', () => {
     it('computes origin - top-left position with top-left anchor', () => {
@@ -160,5 +168,32 @@ describe('mergeProps', () => {
         expect(d1.getFullYear()).toEqual(2000)
         expect(d2.getFullYear()).toEqual(2001)
         expect(result.a.getFullYear()).toEqual(2001)
+    })
+})
+
+describe('mergeTargets', () => {
+    it('ignores empty update', () => {
+        const result = mergeTargets({ x: 0 }, undefined)
+        expect(result?.x).toEqual(0)
+    })
+
+    it('transfers information', () => {
+        const result = mergeTargets({ x: 0 }, { width: 10 })
+        expect(result?.x).toEqual(0)
+        expect(result?.width).toEqual(10)
+    })
+
+    it('replaces information', () => {
+        const result = mergeTargets({ opacity: 0 }, { opacity: 0.5 })
+        expect(result?.opacity).toEqual(0.5)
+    })
+
+    it('transforms target using a function', () => {
+        const customTransform = (target: AnimationSpec): AnimationSpec => {
+            return { x: Number(target.x) + Number(target.width), width: 0 }
+        }
+        const result = mergeTargets({ x: 0, width: 10 }, customTransform)
+        expect(result?.x).toEqual(10)
+        expect(result?.width).toEqual(0)
     })
 })

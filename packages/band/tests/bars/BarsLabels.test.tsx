@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { getTransform } from '../../../core/tests/utils'
-import { Bar, BarsLabels, Strip } from '../../src'
-import { barProps, stripProps } from '../props'
+import { Bar, BarsLabels } from '../../src/bars'
+import { barProps } from '../props'
 
 describe('BarsLabels', () => {
     it('avoids work in non-bar view', () => {
@@ -26,9 +26,8 @@ describe('BarsLabels', () => {
                 </Bar>
             </Chart>
         )
-        const result = screen.getByRole('view-bar')
-        expect(screen.queryByRole('bars-labels')).toBeDefined()
-        const labels = result.querySelectorAll('text')
+        expect(screen.queryAllByRole('bars-labels')).toHaveLength(1)
+        const labels = screen.getByRole('view-bar').querySelectorAll('text')
         expect(labels).toHaveLength(2)
         // center-aligned, so labels should be at different x-coordinates
         expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
@@ -63,6 +62,18 @@ describe('BarsLabels', () => {
         const result = screen.getByRole('view-bar')
         // the data has two groups of three bars each
         expect(result.querySelectorAll('text')).toHaveLength(6)
+    })
+
+    it('creates labels without role', () => {
+        render(
+            <Chart>
+                <Bar {...barProps} horizontal={true}>
+                    <BarsLabels setRole={false} />
+                </Bar>
+            </Chart>
+        )
+        expect(screen.queryByRole('bars-labels')).toBeNull()
+        expect(screen.getByRole('view-bar').querySelectorAll('text')).toHaveLength(6)
     })
 
     it('skips labels for small bars', () => {
@@ -139,16 +150,5 @@ describe('BarsLabels', () => {
         )
         const result = screen.getByRole('view-bar')
         expect(result.querySelectorAll('text')).toHaveLength(0)
-    })
-
-    it('skips works in non-Bars setting', () => {
-        render(
-            <Chart>
-                <Strip {...stripProps}>
-                    <BarsLabels />
-                </Strip>
-            </Chart>
-        )
-        expect(screen.queryByRole('bars-labels')).toBeNull()
     })
 })

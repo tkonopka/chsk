@@ -12,7 +12,6 @@ export const BoxAndWhiskers = ({
     className,
     style,
     setRole,
-    // interactivity props
     ...props
 }: BoxAndWhiskersProps) => {
     if (!data) return null
@@ -50,7 +49,7 @@ export const BoxAndWhiskers = ({
         />,
         <Line
             variant={'whisker'}
-            key={'whisker-upper'}
+            key={'upper'}
             x1={0}
             x2={0}
             y1={-cy + coords[3]}
@@ -60,7 +59,7 @@ export const BoxAndWhiskers = ({
         />,
         <Line
             variant={'whisker'}
-            key={'whisker-lower'}
+            key={'lower'}
             x1={0}
             x2={0}
             y1={-cy + coords[1]}
@@ -72,7 +71,7 @@ export const BoxAndWhiskers = ({
     const caps = [
         <Line
             variant={'whisker-cap'}
-            key={'whisker-upper-cap'}
+            key={'upper-cap'}
             x1={-halfCap}
             x2={halfCap}
             y1={-cy + coords[4]}
@@ -82,7 +81,7 @@ export const BoxAndWhiskers = ({
         />,
         <Line
             variant={'whisker-cap'}
-            key={'whisker-lower-cap'}
+            key={'lower-cap'}
             x1={-halfCap}
             x2={halfCap}
             y1={-cy + coords[0]}

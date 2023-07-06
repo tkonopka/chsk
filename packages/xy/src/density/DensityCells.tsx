@@ -13,7 +13,8 @@ const alphaScale: NumericAxisScale = createAxisScale({
 }) as NumericAxisScale
 
 export const DensityCells = ({
-    cell = DensitySimpleCell,
+    component = DensitySimpleCell,
+    componentProps,
     transparency = true,
     className,
     style,
@@ -25,20 +26,21 @@ export const DensityCells = ({
         [data]
     )
 
+    const commonProps = { ...componentProps, className }
     const elements = data.map((item: DensityPreparedDataItem) => {
         const x = item[X]
         const y = item[Y]
         const value = item[DENSITY_COUNT]
         const opacity = transparency || value === 0 ? alphaScale(value / maxCount) : 1
         const fill = item[DENSITY_COLOR]
-        return createElement(cell, {
+        return createElement(component, {
             key: x + '-' + y,
+            ...commonProps,
             value,
             x: x * binSize,
             y: y * binSize,
             width: binSize,
             height: binSize,
-            className: className,
             style: { fill, opacity },
         })
     })

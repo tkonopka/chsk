@@ -23,7 +23,7 @@ describe('DensityCells', () => {
         render(
             <Chart>
                 <Density {...densityProps}>
-                    <DensityCells setRole={false} cell={DensityCell} />
+                    <DensityCells setRole={false} component={DensityCell} />
                 </Density>
             </Chart>
         )
@@ -31,11 +31,11 @@ describe('DensityCells', () => {
         expect(screen.getByRole('view-content').querySelectorAll('rect').length).toBeGreaterThan(0)
     })
 
-    it('creates also for disabled cells', () => {
+    it('creates cells for disabled keys', () => {
         render(
             <Chart data={{ disabledKeys: new Set<string>(['alpha', 'beta']) }}>
                 <Density {...densityProps}>
-                    <DensityCells cell={DensityCell} />
+                    <DensityCells component={DensityCell} />
                 </Density>
             </Chart>
         )

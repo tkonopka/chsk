@@ -43,6 +43,7 @@ export const ScatterLabel = ({
     angle = 0,
     autoRotate = false,
     component = Label,
+    componentProps,
     className,
     setRole = true,
     children,
@@ -52,7 +53,6 @@ export const ScatterLabel = ({
     const { scales } = useScales()
     const { size } = useDimensions()
     const { disabledKeys, firstRender } = useDisabledKeys()
-    const compositeClassName = getClassName('scatter-label', className)
 
     id = id ?? preparedData.keys[0]
     const visible = !disabledKeys.has(id)
@@ -75,17 +75,14 @@ export const ScatterLabel = ({
         point = [(point[0] + secondPoint[0]) / 2, (point[1] + secondPoint[1]) / 2]
     }
 
-    const result = createElement(
-        component,
-        {
-            position: point,
-            angle,
-            className: compositeClassName,
-            setRole,
-            ...props,
-        },
-        children
-    )
+    const commonProps = {
+        setRole: false,
+        ...componentProps,
+        angle,
+        className: getClassName('scatter-label', className),
+        ...props,
+    }
+    const result = createElement(component, { ...commonProps, position: point }, children)
     return (
         <OpacityMotion
             role={setRole ? 'scatter-label' : undefined}

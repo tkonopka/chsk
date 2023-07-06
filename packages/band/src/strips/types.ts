@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import {
+    ComponentProps,
     CssProps,
     DataInteractivityProps,
     ProcessedDataContextProps,
@@ -71,9 +71,8 @@ export interface StripProps extends BandProps {
 
 export interface StripsProps
     extends BandsProps,
-        DataInteractivityProps<StripInteractiveDataItem, SymbolProps> {
-    /** component used to draw box and whiskers */
-    component?: FC<SymbolProps>
+        DataInteractivityProps<StripInteractiveDataItem, SymbolProps>,
+        ComponentProps<SymbolProps> {
     /** style for symbols */
     symbolStyle?: CssProps
 }

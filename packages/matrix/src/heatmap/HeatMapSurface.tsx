@@ -45,7 +45,7 @@ export const HeatMapSurface = ({
     }
     return (
         <m.rect
-            key={'surface-' + Array.from(idSet).join(',') + '-' + Array.from(keySet).join(',')}
+            key={'s-' + Array.from(idSet).join(',') + '-' + Array.from(keySet).join(',')}
             role={setRole ? 'heatmap-surface' : undefined}
             initial={config}
             animate={config}

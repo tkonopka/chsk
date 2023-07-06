@@ -60,6 +60,7 @@ export const DendrogramTree = ({
     ids,
     keys,
     component = Path,
+    componentProps,
     dataComponent = DataComponent,
     handlers,
     modifiers,
@@ -75,6 +76,13 @@ export const DendrogramTree = ({
     const indexScale = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     if (!isDendrogramData(originalData)) return null
 
+    const commonProps = {
+        variant: 'dendrogram',
+        setRole: false,
+        ...componentProps,
+        style,
+        className,
+    }
     const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {
         const id = seriesData.id
         if (!idSet.has(id)) return null
@@ -95,26 +103,16 @@ export const DendrogramTree = ({
                 horizontal
             )
             return createElement(dataComponent, {
-                key: 'tree-' + seriesData.index + '-' + level,
-                data: {
-                    id: id,
-                    level,
-                    data: originalData[seriesData.index],
-                },
+                key: 't-' + seriesData.index + '-' + level,
+                data: { id, level, data: originalData[seriesData.index] },
                 component,
-                props: {
-                    variant: 'dendrogram',
-                    points,
-                    className,
-                    style,
-                    setRole: false,
-                },
+                props: { ...commonProps, points },
                 handlers,
                 modifiers,
             })
         })
         return (
-            <g key={'tree-' + seriesData.index} role={setRole ? 'dendrogram-tree' : undefined}>
+            <g key={'t-' + seriesData.index} role={setRole ? 'dendrogram-tree' : undefined}>
                 {lines}
             </g>
         )

@@ -14,8 +14,7 @@ describe('Schedules', () => {
         )
         // the data has two groups: alpha and beta
         // index alpha has two intervals, index beta has one interval
-        const result = screen.getByRole('view-content')
-        expect(result.querySelectorAll('rect')).toHaveLength(3)
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(3)
     })
 
     it('creates schedule boxes (horizontal)', () => {
@@ -49,6 +48,15 @@ describe('Schedules', () => {
         expect(ticks[1].textContent).toEqual('beta')
     })
 
+    it('skips work in non-schedules context', () => {
+        render(
+            <Chart>
+                <Schedules setRole={true} />
+            </Chart>
+        )
+        expect(screen.getByRole('chart-content').querySelector('schedules')).toBeNull()
+    })
+
     it('displays nothing when ids are empty', () => {
         render(
             <Chart>
@@ -57,8 +65,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-content')
-        expect(result.querySelectorAll('rect')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(0)
     })
 
     it('displays nothing when keys are empty', () => {
@@ -69,8 +76,7 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
-        const result = screen.getByRole('view-content')
-        expect(result.querySelectorAll('rect')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(0)
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -81,7 +87,19 @@ describe('Schedules', () => {
                 </Schedule>
             </Chart>
         )
+        expect(screen.getByRole('view-content').querySelectorAll('rect')).toHaveLength(0)
+    })
+
+    it('creates schedules without role', () => {
+        render(
+            <Chart>
+                <Schedule {...scheduleProps} horizontal={true}>
+                    <Schedules setRole={false} />
+                </Schedule>
+            </Chart>
+        )
         const result = screen.getByRole('view-content')
-        expect(result.querySelectorAll('rect')).toHaveLength(0)
+        expect(result.querySelectorAll('rect')).toHaveLength(3)
+        expect(result.querySelector('schedules')).toBeNull()
     })
 })

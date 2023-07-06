@@ -34,6 +34,18 @@ describe('UpSetMemberships', () => {
         expect(lines[0].getAttribute('y1')).toEqual(lines[0].getAttribute('y2'))
     })
 
+    it('draws memberships without role', () => {
+        render(
+            <Chart>
+                <UpSet {...upSetProps} horizontal={true}>
+                    <UpSetMemberships setRole={false} />
+                </UpSet>
+            </Chart>
+        )
+        expect(screen.queryAllByRole('upset-memberships')).toHaveLength(0)
+        expect(screen.getByRole('view-content').querySelectorAll('line').length).toBeGreaterThan(0)
+    })
+
     it('avoids work outside of UpSet context', () => {
         render(
             <Chart>

@@ -79,9 +79,6 @@ export const pathVenn2of2 = ({ data, index }: pathVennProps) => {
     const p2 = item.points[1]
     const s1 = item.largeArcs[0]
     const s2 = other.largeArcs[0]
-    if (equalCoordinates(p1, p2)) {
-        return ''
-    }
     return [pathM(p1), pathArc(p2, item.r, s1, 1), pathArc(p1, other.r, s2, 1)].join(' ')
 }
 

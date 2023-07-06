@@ -16,25 +16,30 @@ export const VennIntersectionLabels = ({
     setRole = false,
     style,
     component = Label,
+    componentProps,
 }: VennIntersectionLabelsProps) => {
     const preparedData = useVennPreparedData()
     const data = preparedData.data
     if (!isVennPreparedData(data)) return null
 
     const idSet = new Set(ids ?? preparedData.data.map(item => item.id))
-    const compositeClassName = getClassName('vennIntersectionLabel', className)
-    const componentProps = { size, anchor, align, offset, padding, style, setRole }
+    const commonProps = {
+        ...componentProps,
+        size,
+        anchor,
+        align,
+        offset,
+        padding,
+        style,
+        setRole,
+        className: getClassName('vennIntersectionLabel', className),
+    }
     const result: Array<ReactNode> = data
         .map((item, i) => {
             if (!idSet.has(item.id)) return null
             return createElement(
                 component,
-                {
-                    key: 'label-' + i,
-                    position: item.labelPosition,
-                    className: compositeClassName,
-                    ...componentProps,
-                },
+                { key: 'l-' + i, ...commonProps, position: item.labelPosition },
                 format(item.value, item)
             )
         })

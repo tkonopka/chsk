@@ -6,6 +6,9 @@
 
 ### Added
 
+-   [all] transitioned package components to the `ComponentProps` interface
+    where relevant, enabling customization of base components, including with
+    custom animation states and custom transitions
 -   [core] interface `ComponentProps` to support customization of
     base components in higher-order components
 -   [core] separate motion settings for tooltip transitions
@@ -21,6 +24,8 @@
 
 ### Changed
 
+-   [matrix] replaced prop `cell` in `HeatMapCells` by `component` for
+    consistency with other components
 -   [core] renamed key `Colors` in `ThemeSpec` and `CompleteThemeSpec` to
     `Color` (for consistency with `Target` and `Transition`)
 -   [core] renamed key `Animation` in `ThemeSpec` and `CompleteThemeSpec` to

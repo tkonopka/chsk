@@ -8,6 +8,7 @@ import {
     useProcessedData,
     Path,
     TooltipDataComponent,
+    CurveSpec,
 } from '@chsk/core'
 import { useViolinPreparedData } from './context'
 import { createElement, useMemo } from 'react'
@@ -20,9 +21,11 @@ export const Violins = ({
     ids,
     keys,
     component = Path,
-    className,
+    componentProps,
     dataComponent = TooltipDataComponent,
     style,
+    className,
+    setRole = true,
     ...props
 }: ViolinsProps) => {
     const processedData = useProcessedData().data
@@ -40,8 +43,15 @@ export const Violins = ({
         () => allKeys.map((k, i) => addColor(style, colorScale(i))),
         [allKeys, style, colorScale]
     )
-    const curve = variant === 'step' ? 'Step' : 'BasisClosed'
-
+    const curve: CurveSpec = variant === 'step' ? 'Step' : 'BasisClosed'
+    const commonProps = {
+        variant: 'violin',
+        setRole: false,
+        ...componentProps,
+        curve,
+        closed: true,
+        className,
+    }
     const result = preparedData.keys.map((k, i) => {
         if (!keySet.has(k)) return null
         const visible = !disabledKeys.has(k)
@@ -54,7 +64,7 @@ export const Violins = ({
                 if (points.length === 0) return null
                 const seriesProcessedData = processedData[seriesData.index].data[i]
                 return createElement(dataComponent, {
-                    key: 'violin-' + seriesData.index + '-' + i,
+                    key: 'v-' + seriesData.index + '-' + i,
                     data: {
                         id: seriesData.id,
                         key: k,
@@ -62,13 +72,9 @@ export const Violins = ({
                     },
                     component,
                     props: {
-                        variant: 'violin',
+                        ...commonProps,
                         points,
-                        curve,
-                        closed: true,
-                        className,
                         style: pathStyles[i],
-                        setRole: false,
                     },
                     ...props,
                 })
@@ -77,8 +83,8 @@ export const Violins = ({
 
         return (
             <OpacityMotion
-                key={'violins-' + i}
-                role={'violins'}
+                key={'v-' + i}
+                role={setRole ? 'violins' : undefined}
                 visible={visible}
                 firstRender={firstRender}
             >

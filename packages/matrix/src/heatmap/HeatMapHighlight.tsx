@@ -185,6 +185,7 @@ export const HeatMapHighlight = ({
     // invisible rectangle that detects mouse motion
     const detector = (
         <rect
+            key={'detector'}
             ref={detectorRef}
             role={setRole ? 'heatmap-detector' : undefined}
             width={size[X]}
@@ -200,7 +201,7 @@ export const HeatMapHighlight = ({
     return (
         <g role={'heatmap-highlight'}>
             <OpacityMotion
-                key={'heatmap-highlight-mask'}
+                key={'mask'}
                 role={setRole ? 'heatmap-highlight-mask' : undefined}
                 visible={zone !== null}
                 firstRender={false}

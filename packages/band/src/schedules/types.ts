@@ -1,5 +1,5 @@
-import { FC } from 'react'
 import {
+    ComponentProps,
     DataInteractivityProps,
     LinearScaleSpec,
     NumericPositionSpec,
@@ -64,9 +64,6 @@ export interface ScheduleProps extends Omit<BandProps, 'scaleValue'> {
     scaleValue?: LinearScaleSpec | TimeScaleSpec
 }
 
-export interface SchedulesProps
-    extends BandsProps,
-        DataInteractivityProps<ScheduleInteractiveDataItem, RectangleProps> {
-    /** component used to schedule interval box */
-    component?: FC<RectangleProps>
-}
+export type SchedulesProps = BandsProps &
+    DataInteractivityProps<ScheduleInteractiveDataItem, RectangleProps> &
+    ComponentProps<RectangleProps>

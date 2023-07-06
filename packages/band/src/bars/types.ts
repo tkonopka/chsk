@@ -1,10 +1,11 @@
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 import {
     ComponentProps,
     CssProps,
     DataInteractivityProps,
     LabelProps,
     LinearScaleSpec,
+    LocationProps,
     NumericPositionSpec,
     ProcessedDataContextProps,
     RectangleProps,
@@ -51,7 +52,11 @@ export type BarsProps = BandsProps &
     DataInteractivityProps<BarInteractiveDataItem, RectangleProps> &
     ComponentProps<RectangleProps>
 
-export interface BarsLabelsProps extends BandsProps, Omit<LabelProps, 'position'> {
+export interface BarsLabelsProps
+    extends BandsProps,
+        Omit<LocationProps, 'position' | 'size'>,
+        Pick<LabelProps, 'variant' | 'angle' | 'children'>,
+        ComponentProps<LabelProps> {
     /** format for text */
     format?: (v: number) => ReactNode
     /** minimum size for displaying a label */
@@ -60,6 +65,4 @@ export interface BarsLabelsProps extends BandsProps, Omit<LabelProps, 'position'
     showOuter?: boolean
     /** css style for outer label */
     styleOuter?: CssProps
-    /** components used to render label */
-    component?: FC<LabelProps>
 }

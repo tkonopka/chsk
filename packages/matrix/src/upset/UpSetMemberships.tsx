@@ -12,13 +12,14 @@ import { UpSetMembership } from './UpSetMembership'
 
 export const UpSetMemberships = ({
     component = UpSetMembership,
+    componentProps,
     symbol,
     line,
     symbolStyle,
     lineStyle,
     style,
     className,
-    setRole,
+    setRole = true,
 }: UpSetMembershipsProps) => {
     const processedData = useProcessedData()
     const { scales } = useScales()
@@ -31,9 +32,16 @@ export const UpSetMemberships = ({
     const r = Math.min(scaleIndex.bandwidth(), scaleKeys.bandwidth()) / 2
     const ids = data.map(x => x.id)
 
-    const compositeSymbolStyle = addColor(symbolStyle, scaleColor(''))
-    const compositeLineStyle = addColor(lineStyle, scaleColor(''))
-
+    const commonProps = {
+        setRole: false,
+        ...componentProps,
+        r,
+        symbol,
+        symbolStyle: addColor(symbolStyle, scaleColor('')),
+        line,
+        lineStyle: addColor(lineStyle, scaleColor('')),
+        className,
+    }
     const cells = processedData.keys.map((k, i) => {
         let positions: [number, number][] = []
         ids.map((seriesId, seriesIndex) => {
@@ -45,21 +53,11 @@ export const UpSetMemberships = ({
         if (horizontal) {
             positions = positions.map(x => [x[1], x[0]])
         }
-        return createElement(component, {
-            key: 'membership-' + k,
-            positions,
-            r,
-            symbol,
-            symbolStyle: compositeSymbolStyle,
-            line,
-            lineStyle: compositeLineStyle,
-            className,
-            setRole,
-        })
+        return createElement(component, { key: 'm-' + k, ...commonProps, positions })
     })
 
     return (
-        <g role={'upset-memberships'} style={style}>
+        <g role={setRole ? 'upset-memberships' : undefined} style={style}>
             {cells}
         </g>
     )

@@ -17,7 +17,8 @@ import { isQuantileProcessedData } from './predicates'
 export const Quantiles = ({
     ids,
     keys,
-    component, // the default value is not set here to simplify the storybook docs page
+    component = BoxAndWhiskers,
+    componentProps,
     className,
     setRole = true,
     boxStyle,
@@ -51,6 +52,7 @@ export const Quantiles = ({
         [allKeys, middleStyle, colorScale]
     )
 
+    const commonProps = { setRole, ...componentProps, horizontal, className, whiskerCapWidth }
     const result = preparedData.keys
         .map((k, i) => {
             if (!keySet.has(k)) return null
@@ -62,22 +64,19 @@ export const Quantiles = ({
                     const processedSummary = processedData[seriesData.index].data[i]
                     if (!processedSummary) return null
                     return createElement(dataComponent, {
-                        key: 'quantiles-' + seriesData.index + '-' + i,
+                        key: 'q-' + seriesData.index + '-' + i,
                         data: {
                             id: seriesData.id,
                             key: k,
                             ...processedSummary,
                         },
-                        component: component ?? BoxAndWhiskers,
+                        component,
                         props: {
+                            ...commonProps,
                             data: summary,
-                            horizontal,
-                            className,
                             boxStyle: boxStyles[i],
                             whiskerStyle: whiskerStyles[i],
                             middleStyle: middleStyles[i],
-                            whiskerCapWidth,
-                            setRole,
                         },
                         ...props,
                     })
@@ -86,8 +85,8 @@ export const Quantiles = ({
 
             return (
                 <OpacityMotion
-                    key={'distributions-' + i}
-                    role={'distributions'}
+                    key={'q-' + i}
+                    role={setRole ? 'quantiles' : undefined}
                     visible={visible}
                     firstRender={firstRender}
                 >

@@ -1,4 +1,3 @@
-import { FC } from 'react'
 import {
     AlignSpec,
     BandScaleSpec,
@@ -17,25 +16,28 @@ import {
     NumericScaleSpec,
     TimeScaleSpec,
     ContinuousScaleSpec,
+    ComponentProps,
 } from '@chsk/core'
 
 export interface BandSurfaceProps
     extends SvgElementProps,
         WithInteractive,
-        DataInteractivityProps<WithId, RectangleProps> {
+        DataInteractivityProps<WithId, RectangleProps>,
+        ComponentProps<RectangleProps> {
     /** variant */
     variant?: 'band' | 'step'
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** expansion along the value axis */
     expansion?: TwoSideSizeSpec
-    /** component */
-    component?: FC<RectangleProps>
     /** use tooltip data to display surface */
     tooltip?: boolean
 }
 
-export interface BandLabelsProps extends SvgElementProps, Omit<LocationProps, 'position'> {
+export interface BandLabelsProps
+    extends SvgElementProps,
+        Omit<LocationProps, 'position'>,
+        ComponentProps<LabelProps> {
     /** ids to display (defaults to all ids) */
     ids?: string[]
     /** position of label along the value axis */
@@ -46,8 +48,6 @@ export interface BandLabelsProps extends SvgElementProps, Omit<LocationProps, 'p
     unit?: SizeUnit
     /** format for text */
     format?: (v: Record<string, unknown>) => string
-    /** component used to render label */
-    component?: FC<LabelProps>
 }
 
 export interface BandHighlightProps extends SvgElementProps {
