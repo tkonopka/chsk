@@ -106,7 +106,7 @@ export const TriangularHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                     domain: [0, 100],
                 }}
             >
-                <HeatMapCells cells={lowerTriangularCells} cell={HeatMapRectangle} />
+                <HeatMapCells cells={lowerTriangularCells} component={HeatMapRectangle} />
                 <HeatMapHighlight style={{ fill: '#222222', opacity: 0.6 }} />
                 <HeatMapCells
                     cells={upperTriangularCells}

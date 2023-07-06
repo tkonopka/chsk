@@ -154,7 +154,7 @@ export const GridHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) =
             >
                 <GridLines variant={'x'} />
                 <GridLines variant={'y'} />
-                <HeatMapCells cell={CustomHeatMapCell} style={{ stroke: '#444444' }} />
+                <HeatMapCells component={CustomHeatMapCell} style={{ stroke: '#444444' }} />
                 <Axis variant={'left'} label={'Origin'} />
                 <Axis variant={'right'} label={''} />
                 <Axis variant={'top'} label={'Target'} />

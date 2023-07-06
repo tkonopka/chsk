@@ -40,7 +40,7 @@ export const DivergingHeatMapChart = ({ fref, chartData, rawData }: MilestoneSto
             >
                 <HeatMapCells
                     style={{ strokeWidth: 0.5, stroke: '#888888' }}
-                    cell={HeatMapRectangle}
+                    component={HeatMapRectangle}
                 />
                 <Axis variant={'left'}>
                     <AxisTicks

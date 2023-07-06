@@ -47,6 +47,11 @@ const customTooltipLabel = (x: TooltipDataItem) => {
     const duration = end - start
     return String(start) + '-' + String(end) + ' (' + duration + ' days)'
 }
+const customSchedulesProps = {
+    rx: 3,
+    ry: 3,
+    initial: { width: 0 },
+}
 
 export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScheduleData(rawData)) return null
@@ -69,19 +74,19 @@ export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStor
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'A'}>
                     <Axis variant={'left'} ticks={['Phase 1']} />
-                    <Schedules keys={['A']} />
+                    <Schedules keys={['A']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'B'}>
                     <Axis variant={'left'} ticks={['Phase 2']} />
-                    <Schedules keys={['B']} />
+                    <Schedules keys={['B']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'C'}>
                     <Axis variant={'left'} ticks={['Phase 3']} />
-                    <Schedules keys={['C']} />
+                    <Schedules keys={['C']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'D'}>
                     <Axis variant={'left'} ticks={['Phase 4']} />
-                    <Schedules keys={['D']} />
+                    <Schedules keys={['D']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <Tooltip
                     padding={[4, 0, 2, 0]}

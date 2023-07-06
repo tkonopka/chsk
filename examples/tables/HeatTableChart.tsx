@@ -204,22 +204,22 @@ export const HeatTableChart = ({ fref, chartData, rawData }: MilestoneStory) => 
                     </Axis>
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'A'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['A']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['A']} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'B'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['B']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['B']} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'C'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['C']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['C']} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'D'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['D']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['D']} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'E'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['E']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['E']} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'F'}>
-                    <HeatMapCells cell={HeatMapSquareCounter} keys={['F']} />
+                    <HeatMapCells component={HeatMapSquareCounter} keys={['F']} />
                     <HeatMapHighlight style={{ opacity: 0 }} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'title'}>

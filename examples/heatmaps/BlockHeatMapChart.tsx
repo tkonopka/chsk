@@ -118,7 +118,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 }}
             >
                 <MilestoneMotion enterOn={'map'}>
-                    <HeatMapCells cell={HeatMapRectangle} />
+                    <HeatMapCells component={HeatMapRectangle} />
                 </MilestoneMotion>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Replicate 1'} />

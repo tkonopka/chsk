@@ -135,7 +135,7 @@ export const ConfusionTableChart = ({ fref, chartData, rawData }: MilestoneStory
                     domain: [0, 100],
                 }}
             >
-                <HeatMapCells cell={HeatMapCounter} style={{ strokeWidth: 0 }} />
+                <HeatMapCells component={HeatMapCounter} style={{ strokeWidth: 0 }} />
                 <GridLines variant={'x'} shift={[-0.5, 0.5]} />
                 <GridLines variant={'y'} shift={[-0.5, 0.5]} />
                 <BoxedTitle variant={'left'} distance={0} size={35} />

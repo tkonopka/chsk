@@ -72,7 +72,7 @@ export const SequentialHeatMapChart = ({ fref, chartData, rawData }: MilestoneSt
                 }}
             >
                 <ViewClip id={'seq-clip'}>
-                    <HeatMapCells cell={HeatMapRectangle} />
+                    <HeatMapCells component={HeatMapRectangle} />
                 </ViewClip>
                 <Surface style={{ stroke: '#222222', strokeWidth: 1, fill: '#ffffff00' }} />
                 <Axis variant={'left'} label={'Samples'} />
