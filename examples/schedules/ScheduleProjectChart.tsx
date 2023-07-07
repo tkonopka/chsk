@@ -85,8 +85,8 @@ export const ScheduleProjectChart = ({ fref, chartData, rawData }: MilestoneStor
                     <Schedules keys={['C']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <MilestoneMotion enterOn={'D'}>
-                    <Axis variant={'left'} ticks={['Phase 4']} />
-                    <Schedules keys={['D']} componentProps={customSchedulesProps} />
+                    <Axis key={'D0'} variant={'left'} ticks={['Phase 4']} />
+                    <Schedules key={'D1'} keys={['D']} componentProps={customSchedulesProps} />
                 </MilestoneMotion>
                 <Tooltip
                     padding={[4, 0, 2, 0]}

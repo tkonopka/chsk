@@ -6,6 +6,10 @@
 
 ### Added
 
+-   [core] support for exit states in shape and typography components
+    (settings passed to `componentProps` in higher-order components affect
+    animations in response to legend toggles, but do not take effect during
+    milestone updates)
 -   [all] transitioned package components to the `ComponentProps` interface
     where relevant, enabling customization of base components, including with
     custom animation states and custom transitions

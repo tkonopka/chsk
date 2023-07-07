@@ -7,6 +7,7 @@ export const Circle = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     cx,
     cy,
     r,
@@ -20,6 +21,7 @@ export const Circle = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={getClassName(variant, className)}
             {...props}
         />

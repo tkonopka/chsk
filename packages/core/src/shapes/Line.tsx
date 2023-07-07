@@ -7,6 +7,7 @@ export const Line = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     x1,
     y1,
     x2,
@@ -23,6 +24,7 @@ export const Line = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={getClassName(variant, className)}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}

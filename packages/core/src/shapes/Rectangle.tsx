@@ -7,6 +7,7 @@ export const Rectangle = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     x,
     y,
     width,
@@ -46,6 +47,7 @@ export const Rectangle = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={getClassName(variant, className)}
             style={ssrCompatible(style, config)}
             {...props}

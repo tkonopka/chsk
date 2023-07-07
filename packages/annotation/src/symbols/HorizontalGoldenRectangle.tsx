@@ -6,6 +6,7 @@ export const HorizontalGoldenRectangle = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     cx = 0,
     cy = 0,
     r = 1,
@@ -26,6 +27,7 @@ export const HorizontalGoldenRectangle = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={compositeClassName}
             style={ssrCompatible(style, config)}
             {...props}

@@ -7,6 +7,7 @@ export const Polygon = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     points,
     className,
     setRole = true,
@@ -21,6 +22,7 @@ export const Polygon = ({
             role={setRole && variant !== 'default' ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={getClassName(variant, className)}
             {...props}
         />

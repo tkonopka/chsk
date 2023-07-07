@@ -8,6 +8,7 @@ export const HeatMapCircle = ({ x, y, width, height, style, ...props }: HeatMapC
             {...props}
             initial={config}
             animate={config}
+            exit={config}
             cx={x}
             cy={y}
             style={{ ...style, fill: undefined }}

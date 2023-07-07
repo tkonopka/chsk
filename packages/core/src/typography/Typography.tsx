@@ -8,6 +8,7 @@ export const Typography = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     angle,
     style,
     className,
@@ -25,6 +26,7 @@ export const Typography = ({
             role={role}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             style={ssrCompatible(style, config)}
             className={compositeClassName}
             {...props}

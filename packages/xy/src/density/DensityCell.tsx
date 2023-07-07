@@ -9,6 +9,7 @@ export const DensityCell = ({ value, x, y, width, height, style, ...props }: Den
             {...props}
             initial={config}
             animate={config}
+            exit={config}
             x={x - width / 2}
             y={y - height / 2}
             width={width}

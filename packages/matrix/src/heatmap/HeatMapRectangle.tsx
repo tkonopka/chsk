@@ -8,6 +8,7 @@ export const HeatMapRectangle = ({ x, y, width, height, style, ...props }: HeatM
             {...props}
             initial={config}
             animate={config}
+            exit={config}
             x={x - width / 2}
             y={y - height / 2}
             height={height}

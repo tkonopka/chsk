@@ -63,6 +63,11 @@ const weekTheme: ThemeSpec = mergeTheme(buttonTheme, {
             cursor: 'pointer',
         },
     },
+    LegendItem: {
+        default: {
+            allowDisableAll: true,
+        },
+    },
 })
 
 const keyLabels: Record<string, string> = {
@@ -114,7 +119,12 @@ export const ScheduleWeekChart = ({ fref, chartData, rawData }: MilestoneStory) 
                 <Axis variant={'left'} label={'Time'} ticks={16} />
                 <GridLines variant={'y'} values={16} />
                 <GridLines variant={'x'} shift={[-0.714, 0.714]} />
-                <Schedules />
+                <Schedules
+                    componentProps={{
+                        initial: { height: 0 },
+                        exit: { height: 0 },
+                    }}
+                />
                 <Legend
                     horizontal={false}
                     position={[470, 60]}

@@ -9,6 +9,7 @@ export const Path = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     points,
     curve = 'Linear',
     d,
@@ -30,6 +31,7 @@ export const Path = ({
         <m.path
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             markerStart={markerStart ? 'url(#' + markerStart + ')' : undefined}
             markerEnd={markerEnd ? 'url(#' + markerEnd + ')' : undefined}
             role={setRole && variant !== 'default' ? variant : undefined}

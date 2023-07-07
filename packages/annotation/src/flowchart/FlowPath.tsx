@@ -39,6 +39,7 @@ export const FlowPath = ({
                 {...props}
                 initial={{ d: path ?? undefined, pathLength: 0 }}
                 animate={{ d: path ?? undefined, pathLength: 1 }}
+                exit={{ d: path ?? undefined, pathLength: 1 }}
                 onAnimationStart={() => {
                     if (markerStart) {
                         ref.current?.setAttribute('marker-start', 'url(#' + markerStart + ')')

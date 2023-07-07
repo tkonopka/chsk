@@ -18,11 +18,11 @@ In the bar chart example, this would be set to `Rectangle` by default.
 This allows over-riding default settings in the `component` function.
 
 An important use case for `componentProps` is specifying custom transitions and animation states.
-This may involve setting `transition`, `initial`, and/or `animate` fields.
+This may involve setting `transition`, `initial`, `animate`, and/or `exit` properties.
 Some of the possibilities are showcased in gallery examples.
 
-Note that higher-order components set some props for the `component` function.
+Note that higher-order components use the `component` function to reflect a dataset.
 Some of the props in `componentProps` thus may end up being discarded.
-For example, `Bars` sets `x`, `y`, `width`, and `height` for each shape in a bar chart,
+For example, `Bars` sets `x`, `y`, `width`, and `height` for each bar in a bar chart,
 so custom values for those variables in `componentProps` will not have any effect.
 The exact behavior will depend on the higher-order component.

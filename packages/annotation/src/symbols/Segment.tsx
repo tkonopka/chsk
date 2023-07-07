@@ -7,6 +7,7 @@ export const Segment = ({
     variant = 'default',
     initial,
     animate,
+    exit,
     cx = 0,
     cy = 0,
     r = 1,
@@ -29,6 +30,7 @@ export const Segment = ({
             role={setRole ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             className={getClassName(variant, className)}
             {...props}
         />

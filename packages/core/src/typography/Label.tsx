@@ -10,6 +10,7 @@ export const Label = ({
     variant = 'label',
     initial,
     animate,
+    exit,
     angle,
     size = [20, 20],
     padding = zeroPadding,
@@ -32,6 +33,7 @@ export const Label = ({
             role={setRole ? variant : undefined}
             initial={mergeTargets(config, initial)}
             animate={mergeTargets(config, animate)}
+            exit={mergeTargets(config, exit)}
             style={ssrCompatible(style, config)}
             className={compositeClassName}
             {...props}

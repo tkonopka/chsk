@@ -176,8 +176,10 @@ export type TargetTransformer = (config: Target) => Target
 export interface AnimationProps {
     /** transition for animation */
     transition?: TransitionSpec
-    /** (adjustment to) initial transition state */
+    /** (adjustment to) initial state */
     initial?: Target | TargetTransformer
-    /** (adjustment to) target transition state */
+    /** (adjustment to) target state */
     animate?: Target | TargetTransformer
+    /** (adjustment to) exit state */
+    exit?: Target | TargetTransformer
 }
