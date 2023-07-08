@@ -5,9 +5,15 @@ import {
     PathProps,
     SvgElementVariantProps,
     InteractivityProps,
+    AnimationProps,
 } from '@chsk/core'
 
-export interface BlockArrowProps extends SvgElementVariantProps, InteractivityProps {
+export interface BlockArrowProps
+    extends SvgElementVariantProps,
+        AnimationProps,
+        InteractivityProps {
+    /** variant */
+    variant?: 'arrow' | 'caret'
     /** start position */
     start: PositionSpec
     /** end position */
@@ -24,7 +30,7 @@ export interface BlockArrowProps extends SvgElementVariantProps, InteractivityPr
     headLength?: number
 }
 
-export interface ArcArrowProps extends BlockArrowProps {
+export interface ArcArrowProps extends Omit<BlockArrowProps, 'variant'> {
     /** handedness of arc curvature */
     variant: 'left' | 'right'
     /** radius of arc */

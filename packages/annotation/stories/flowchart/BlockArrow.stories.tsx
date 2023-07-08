@@ -53,6 +53,23 @@ export const DoubleSided = {
     decorators: [ChartDecorator],
 }
 
+export const Caret = {
+    name: 'caret',
+    args: {
+        variant: 'caret',
+        start: [120, 110],
+        end: [160, 110],
+        stemWidth: 60,
+        headWidth: 60,
+        headLength: 20,
+        units: 'absolute',
+        style: {
+            fillOpacity: 1,
+        },
+    },
+    decorators: [ChartDecorator],
+}
+
 export const CssStyle = {
     name: 'css style',
     args: {

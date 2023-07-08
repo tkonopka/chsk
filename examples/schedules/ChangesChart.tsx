@@ -76,6 +76,7 @@ const CustomChangeArrow = ({ x, y, width, height, style, ...props }: RectanglePr
             heads={[false, Math.abs(width) > 20]}
             stemWidth={10}
             {...props}
+            variant={'arrow'}
         />
     )
 }

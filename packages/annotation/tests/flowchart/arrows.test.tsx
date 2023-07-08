@@ -1,6 +1,11 @@
 import { getBlockArrowPoints, getTangent } from '../../src/flowchart/arrows'
 import { roundDecimalPlaces } from '@chsk/core'
 
+const roundNumber = (x: number) => {
+    const result = Math.round(x)
+    return Object.is(result, -0) ? 0 : result
+}
+
 describe('getBlockArrowPoints', () => {
     it('creates points for a single arrow', () => {
         // arrow pointing up
@@ -18,6 +23,23 @@ describe('getBlockArrowPoints', () => {
         expect(result[1]).toEqual([-5, 0])
         // a point in the middle represent the tip of the arrow
         expect(result[4]).toEqual([0, -100])
+    })
+
+    it('creates points for an arrow with caret', () => {
+        const result = getBlockArrowPoints({
+            start: [0, 0],
+            end: [0, -100],
+            heads: [false, true],
+            headWidth: 10,
+            headLength: 10,
+            stemWidth: 20,
+            caret: true,
+        })
+        expect(result).toHaveLength(5 + 5)
+        // one of the points represents the tip of the caret (not exactly at 0, 0)
+        expect(result[2]).toEqual([0, -10])
+        // another point represents other tip (exactly at 0,-100)
+        expect(result[7]).toEqual([0, -100])
     })
 
     it('creates points for a short arrow', () => {
@@ -54,6 +76,23 @@ describe('getBlockArrowPoints', () => {
         expect(result[7]).toEqual([0, -100])
     })
 
+    it('simplifies points when head and stem widths are equal', () => {
+        const result = getBlockArrowPoints({
+            start: [0, 0],
+            end: [100, 0],
+            heads: [false, true],
+            headWidth: 20,
+            headLength: 10,
+            stemWidth: 20,
+        })
+        expect(result).toHaveLength(2 + 3)
+        // first few points represent base of arrow
+        expect(result[0].map(roundNumber)).toEqual([0, 10])
+        expect(result[1].map(roundNumber)).toEqual([0, -10])
+        // tip of the arrow
+        expect(result[3].map(roundNumber)).toEqual([100, 0])
+    })
+
     it('creates rotated arrow', () => {
         // arrow at some angle
         const result = getBlockArrowPoints({
@@ -66,8 +105,8 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(5 + 5)
         // arrow tips should match the start/end positions
-        expect(result[2].map(Math.round)).toEqual([20, 40])
-        expect(result[7].map(Math.round)).toEqual([60, 80])
+        expect(result[2].map(roundNumber)).toEqual([20, 40])
+        expect(result[7].map(roundNumber)).toEqual([60, 80])
     })
 
     it('creates rotated arrow (different angle)', () => {
@@ -82,8 +121,8 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(5 + 5)
         // arrow tips should match the start/end positions
-        expect(result[2].map(Math.round)).toEqual([60, 40])
-        expect(result[7].map(Math.round)).toEqual([20, 80])
+        expect(result[2].map(roundNumber)).toEqual([60, 40])
+        expect(result[7].map(roundNumber)).toEqual([20, 80])
     })
 
     it('creates diagonal arrow', () => {

@@ -16,9 +16,15 @@ The shape of the arrow is determined by props `stemWidth`, `headWidth`, and `hea
 <Canvas of={BlockArrowStories.Narrow} />
 <Canvas of={BlockArrowStories.Wide} />
 
+## Variants
+
+Prop `variant` further determines the arrow shape, with variant `caret` introducing an indentation at the arrow base.
+
+<Canvas of={BlockArrowStories.Caret} />
+
 ## Arrow heads
 
-By default, `BlockArrow` creates a shape that is blunt at the start position and has an arrowhead at the end position.
+By default, `BlockArrow` creates an arrowhead only at the end position.
 Arrowheads can be configured at each side via prop `heads`.
 
 <Canvas of={BlockArrowStories.DoubleSided} />

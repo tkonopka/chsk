@@ -84,7 +84,11 @@ const BarsComponentWithArrow = ({ x, y, width, height, ...props }: RectangleProp
             end={[x + width / 2, y]}
             units={'absolute'}
             headLength={Math.min(14, height)}
+            stemWidth={width}
+            headWidth={width}
             {...props}
+            variant={'arrow'}
+            className={'bar'}
         />
     )
 }

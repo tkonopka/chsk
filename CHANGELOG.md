@@ -6,6 +6,7 @@
 
 ### Added
 
+-   [annotation] prop `variant` in `BlockArrow` to support caret shapes
 -   [core] support for exit states in shape and typography components
     (settings passed to `componentProps` in higher-order components affect
     animations in response to legend toggles, but do not take effect during

@@ -3,6 +3,7 @@ import { BlockArrowProps } from './types'
 import { getBlockArrowPath } from './arrows'
 
 export const BlockArrow = ({
+    variant = 'arrow',
     start,
     end,
     units = 'view',
@@ -24,6 +25,7 @@ export const BlockArrow = ({
         headWidth,
         headLength,
         stemWidth,
+        caret: variant === 'caret',
     })
 
     return <Path variant={'block-arrow'} d={path} {...props} />

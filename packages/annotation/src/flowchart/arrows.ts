@@ -2,7 +2,10 @@ import { NumericPositionSpec, X, Y } from '@chsk/core'
 import { getStartToEndAxis } from '../typography/lines'
 
 // transformations on arrays of points
-const translatePoints = (points: NumericPositionSpec[], translate: NumericPositionSpec) => {
+const translatePoints = (
+    points: NumericPositionSpec[],
+    translate: NumericPositionSpec
+): NumericPositionSpec[] => {
     return points.map(point => [point[X] + translate[X], point[Y] + translate[Y]])
 }
 const rotateAndTranslatePoints = (
@@ -30,13 +33,23 @@ const headPoints = (
     halfHeadWidth: number,
     headLength: number
 ): NumericPositionSpec[] => {
-    return [
+    const points: NumericPositionSpec[] = [
         [-halfStemWidth, -headLength],
         [-halfHeadWidth, -headLength],
         [0, 0], // tip of arrow
         [halfHeadWidth, -headLength],
         [halfStemWidth, -headLength],
     ]
+    if (halfStemWidth === halfHeadWidth) return points.slice(1, 4)
+    return points
+}
+const caretPoints = (
+    halfStemWidth: number,
+    halfHeadWidth: number,
+    headLength: number
+): NumericPositionSpec[] => {
+    const points = headPoints(halfStemWidth, halfHeadWidth, -headLength)
+    return translatePoints(points, [0, -headLength])
 }
 
 type GetArrowPointsProps = {
@@ -46,6 +59,7 @@ type GetArrowPointsProps = {
     headWidth: number
     headLength: number
     stemWidth: number
+    caret?: boolean
 }
 
 export const getBlockArrowPoints = ({
@@ -55,6 +69,7 @@ export const getBlockArrowPoints = ({
     headWidth,
     headLength,
     stemWidth,
+    caret = false,
 }: GetArrowPointsProps): NumericPositionSpec[] => {
     const { deltaX, deltaY, cosBeta, sinBeta } = getStartToEndAxis(start, end)
 
@@ -66,9 +81,13 @@ export const getBlockArrowPoints = ({
     // points for a block arrow that points upward
     const pointsA = heads[0]
         ? headPoints(halfStemWidth, halfHeadWidth, headLength)
+        : caret
+        ? caretPoints(halfStemWidth, halfHeadWidth, headLength)
         : stemPoints(halfStemWidth)
     const pointsB = heads[1]
         ? headPoints(-halfStemWidth, -halfHeadWidth, -headLength)
+        : caret
+        ? caretPoints(-halfStemWidth, -halfHeadWidth, -headLength)
         : stemPoints(-halfStemWidth)
     const result: NumericPositionSpec[] = translatePoints(pointsA, [0, halfLength])
         .concat(translatePoints(pointsB, [0, -halfLength]))
