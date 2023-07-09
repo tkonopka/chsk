@@ -1,4 +1,4 @@
-import { RawData } from '@chsk/core'
+import { isArray, RawData } from '@chsk/core'
 import { HistogramDataItem, HistogramProcessedDataItem } from './types'
 
 export const isHistogramProcessedData = (
@@ -13,7 +13,7 @@ export const isHistogramProcessedData = (
 
 export const isHistogramData = (data: RawData): data is Array<HistogramDataItem> => {
     const result = data.map(item => {
-        return 'id' in item && 'data' in item && Array.isArray(item.data)
+        return 'id' in item && 'data' in item && isArray(item.data)
     })
     return result.every(Boolean)
 }

@@ -1,4 +1,4 @@
-import { NumericPositionSpec } from '../general'
+import { isArray, NumericPositionSpec } from '../general'
 import { TooltipItem } from './TooltipItem'
 import { defaultTooltipProps } from './defaults'
 import { TooltipItemListProps } from './types'
@@ -26,7 +26,7 @@ const UnthemedTooltipItemList = ({
     className,
     setRole = true,
 }: TooltipItemListProps) => {
-    const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
+    const rs = isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
     const {
         itemPosition,
         itemSize: itemSizes,

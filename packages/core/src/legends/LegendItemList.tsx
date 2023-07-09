@@ -1,4 +1,4 @@
-import { NumericPositionSpec } from '../general'
+import { isArray, NumericPositionSpec } from '../general'
 import { LegendItem } from './LegendItem'
 import { defaultLegendProps } from './defaults'
 import { getItemPositions } from './utils'
@@ -18,7 +18,7 @@ const UnthemedLegendItemList = ({
     labelDistance = defaultLegendProps.labelDistance,
     ...props
 }: LegendItemListProps) => {
-    const rs = Array.isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
+    const rs = isArray(r) ? r : Array(keys?.length ?? 1).fill(r)
     const {
         itemPosition,
         itemSize: itemSizes,

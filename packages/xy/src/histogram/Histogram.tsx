@@ -24,6 +24,7 @@ import {
     useCreateScales,
     binValues,
     histogramPoints,
+    isArray,
 } from '@chsk/core'
 import { HistogramPreparedDataProvider } from './context'
 import { getBreaksArray } from './utils'
@@ -111,7 +112,7 @@ export const Histogram = ({
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
     const { disabled } = useDisabledKeys(seriesIds)
     const breaksArray = useMemo(
-        () => (Array.isArray(breaks) ? breaks : getBreaksArray(data, breaks)),
+        () => (isArray(breaks) ? breaks : getBreaksArray(data, breaks)),
         [data, breaks]
     )
 

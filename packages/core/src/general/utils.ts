@@ -53,10 +53,10 @@ export const getCenter = (
 
 /** conversion of ambiguous data types */
 export const numberPair = (x: number | [number, number]): [number, number] => {
-    return Array.isArray(x) ? x : [x, x]
+    return isArray(x) ? x : [x, x]
 }
 export const positionUnitPair = (x: PositionUnits): [PositionUnit, PositionUnit] => {
-    return Array.isArray(x) ? x : [x, x]
+    return isArray(x) ? x : [x, x]
 }
 
 /** vector addition */

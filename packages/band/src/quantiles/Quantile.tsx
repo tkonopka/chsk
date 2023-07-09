@@ -16,6 +16,7 @@ import {
     moments,
     defaultContainerProps,
     useCreateScales,
+    isArray,
 } from '@chsk/core'
 import {
     FiveNumbers,
@@ -50,7 +51,7 @@ const processData = (
                     extrema: raw.extrema,
                 }
             }
-            if (!Array.isArray(raw)) return undefined
+            if (!isArray(raw)) return undefined
             const [mean, variance] = moments(raw as number[])
             const sd = isFinite(variance) ? Math.sqrt(variance) : 0
             return {

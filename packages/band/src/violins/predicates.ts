@@ -1,3 +1,4 @@
+import { isArray } from '@chsk/core'
 import { ViolinDataItem, ViolinProcessedDataItem, ViolinProcessedSummary } from './types'
 
 export const isViolinData = (data: Array<unknown>): data is Array<ViolinDataItem> => {
@@ -12,8 +13,7 @@ export const isViolinProcessedSummary = (x: unknown): x is ViolinProcessedSummar
     if (typeof x !== 'object' || x === null) return false
     if (!('n' in x)) return false
     const keys = ['values' as keyof typeof x, 'breaks' as keyof typeof x]
-    const result = keys.map(k => Array.isArray(x[k]))
-    return result.every(Boolean)
+    return keys.map(k => isArray(x[k])).every(Boolean)
 }
 
 export const isViolinProcessedData = (

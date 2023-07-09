@@ -1,5 +1,5 @@
 import { GridItemProps } from './types'
-import { DimensionsProvider, getTranslate, X, Y, zeroPadding } from '../general'
+import { DimensionsProvider, getTranslate, isArray, X, Y, zeroPadding } from '../general'
 import { useGrid } from './contexts'
 
 export const GridItem = ({
@@ -16,7 +16,7 @@ export const GridItem = ({
     if (index === undefined && position !== undefined) {
         index = [position[Y], position[X]]
     }
-    if (Array.isArray(index)) {
+    if (isArray(index)) {
         if (grid.variant === 'horizontal') {
             index = index[Y] + grid.grid[Y] * index[X]
         } else if (grid.variant === 'vertical') {

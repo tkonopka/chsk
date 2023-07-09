@@ -1,5 +1,5 @@
 import { ReactElement, ReactNode } from 'react'
-import { cloneProps, mergeProps } from '@chsk/core'
+import { cloneProps, mergeProps, isArray } from '@chsk/core'
 
 export const getLetterProfile = (
     profile: Record<string, number>,
@@ -12,7 +12,7 @@ export const getTextContent = (node?: ReactNode): string => {
     if (!node) return ''
     if (typeof node === 'string') return node
     if (typeof node !== 'object') return String(node).toString()
-    if (Array.isArray(node)) return node.map(x => getTextContent(x)).join('')
+    if (isArray(node)) return node.map(x => getTextContent(x)).join('')
     return String((node as ReactElement).props.children).toString()
 }
 

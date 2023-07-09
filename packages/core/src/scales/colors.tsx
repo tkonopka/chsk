@@ -1,4 +1,4 @@
-import { cloneProps } from '../general'
+import { cloneProps, isArray } from '../general'
 import {
     Scale,
     ColorScale,
@@ -105,7 +105,7 @@ export const createColorScaleProps = (
 
     // must be a categorical scale
     result.variant = 'categorical'
-    if (!Array.isArray(result.domain)) {
+    if (!isArray(result.domain)) {
         result.domain = domain ? domain.map(String) : []
     }
     return result as CategoricalScaleProps

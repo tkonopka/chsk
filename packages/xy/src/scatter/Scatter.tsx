@@ -19,6 +19,7 @@ import {
     useCreateScales,
     Scales,
     range,
+    isArray,
 } from '@chsk/core'
 import { ScatterPreparedDataProvider } from './context'
 import { getXYScaleProps, getSizeScaleProps, getColorScaleProps } from './helpers'
@@ -37,7 +38,7 @@ const processData = ({
 >): Array<ScatterProcessedDataItem> => {
     return data.map((seriesData, index) => {
         const d = seriesData.data
-        if (Array.isArray(d)) {
+        if (isArray(d)) {
             const getX = getAccessor(x)
             const getY = getAccessor(y)
             const getK = k ? getAccessor(k) : undefined

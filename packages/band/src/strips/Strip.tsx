@@ -15,6 +15,7 @@ import {
     interval,
     defaultContainerProps,
     useCreateScales,
+    isArray,
 } from '@chsk/core'
 import {
     StripDataItem,
@@ -39,7 +40,7 @@ const processData = (
         const summaries = accessors.map(f => {
             const raw = f(seriesData)
             if (!raw) return undefined
-            if (!Array.isArray(raw)) return undefined
+            if (!isArray(raw)) return undefined
             return {
                 value: raw as number[],
                 internal: getStripInternalOrder(jitter, raw as number[]),

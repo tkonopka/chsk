@@ -1,5 +1,5 @@
 import { getTickCoordinates, getTicks, useScales } from '../scales'
-import { numberPair, useDimensions, X, Y } from '../general'
+import { isArray, numberPair, useDimensions, X, Y } from '../general'
 import { Line } from '../shapes'
 import { useThemedProps } from '../themes'
 import { defaultGridLinesProps } from './defaults'
@@ -21,7 +21,7 @@ const UnthemedGridLines = ({
     const scale = isX ? scales.x : scales.y
 
     // compute locations for grid lines, avoiding duplicate positions
-    const tickValues = Array.isArray(values) ? values : getTicks(scale, values)
+    const tickValues = isArray(values) ? values : getTicks(scale, values)
     const coordinates = new Set<number>()
     type KeyValue = [string, number]
     const tickCoordinates: KeyValue[] = []

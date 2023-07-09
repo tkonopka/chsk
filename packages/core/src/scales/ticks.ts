@@ -1,3 +1,4 @@
+import { isArray } from '../general'
 import { Scale } from './types'
 import { isContinuousAxisScale } from './predicates'
 import {
@@ -9,7 +10,7 @@ import {
 
 /** get an array of ticks in the scale domain */
 export const getTicks = (scale: Scale, ticks?: number[] | string[] | number | Date[]) => {
-    if (Array.isArray(ticks)) return ticks
+    if (isArray(ticks)) return ticks
     if (isThresholdColorScale(scale)) {
         return scale.domain()
     }

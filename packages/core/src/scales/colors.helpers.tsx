@@ -5,6 +5,7 @@ import {
     ScaleSequential as D3ScaleSequential,
     scaleThreshold,
 } from 'd3-scale'
+import { isArray } from '../general'
 import {
     CategoricalColorScale,
     CategoricalScaleProps,
@@ -21,7 +22,7 @@ const setInterpolatorOrRange = (
     scale: D3ScaleSequential<string> | D3ScaleDiverging<string>,
     colors: ColorArray | ColorInterpolator
 ) => {
-    if (!Array.isArray(colors)) {
+    if (!isArray(colors)) {
         scale.interpolator(colors as ColorInterpolator)
     } else {
         scale.range(colors)
@@ -58,11 +59,11 @@ const getColorArray = (colors: ColorScheme, size: number) => {
 
     // handle array of arrays, e.g. d3 schemes with format [undefined, undefined, ["red", "blue"]]
     const isNested = (x: readonly unknown[]): x is readonly (readonly unknown[])[] => {
-        return x.reduce((acc: boolean, x: unknown) => acc || Array.isArray(x), false)
+        return x.reduce((acc: boolean, x: unknown) => acc || isArray(x), false)
     }
     const allColors = isNested(colors) ? colors[nColors] : colors
 
-    if (!Array.isArray(allColors)) return Array(nColors).fill('#000')
+    if (!isArray(allColors)) return Array(nColors).fill('#000')
     return allColors.map(v => String(v)).slice(0, nColors)
 }
 

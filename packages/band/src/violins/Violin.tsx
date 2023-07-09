@@ -16,6 +16,7 @@ import {
     defaultContainerProps,
     useCreateScales,
     binValues,
+    isArray,
 } from '@chsk/core'
 import { breaks as makeBreaks } from '@chsk/core'
 import {
@@ -41,7 +42,7 @@ const processData = (data: ViolinDataItem[], keys: string[]): Array<ViolinProces
                     breaks: raw.breaks,
                 }
             }
-            if (!Array.isArray(raw)) return undefined
+            if (!isArray(raw)) return undefined
             return {
                 n: raw.length,
                 values: raw as number[],
@@ -78,7 +79,7 @@ const prepareData = (
     const fullScaled = fullDomain.map(v => valueScale(v))
     // set up a single breaks array for all the violins
     let breaksArray: number[]
-    if (Array.isArray(breaks)) {
+    if (isArray(breaks)) {
         breaksArray = breaks.map(v => valueScale(v))
     } else {
         breaksArray = makeBreaks(fullScaled, Number(breaks))

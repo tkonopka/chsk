@@ -1,6 +1,5 @@
+import { isArray } from '@chsk/core'
 import { QuantileDataItem, QuantileProcessedDataItem, QuantileProcessedSummary } from './types'
-
-const isArray = Array.isArray
 
 export const isQuantileData = (data: Array<unknown>): data is Array<QuantileDataItem> => {
     const result = data.map((item: unknown) => {

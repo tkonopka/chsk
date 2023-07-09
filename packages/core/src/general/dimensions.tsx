@@ -5,6 +5,7 @@ import {
     SizeSpec,
     SizeUnits,
 } from './types'
+import { isArray } from './predicates'
 import { positionUnitPair } from './utils'
 
 export const getAbsoluteSize = (
@@ -30,7 +31,7 @@ export const getDimensionsProps = (
 }
 
 export const getTranslate = (x: number | NumericPositionSpec, y = 0): undefined | string => {
-    if (Array.isArray(x)) {
+    if (isArray(x)) {
         return getTranslate(x[0], x[1])
     }
     return x === 0 && y === 0 ? undefined : 'translate(' + x + ',' + y + ')'
