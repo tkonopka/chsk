@@ -133,3 +133,15 @@ export const mergeTargets = (base: Target, update?: Target | TargetTransformer):
     if (typeof update === 'function') return update(base)
     return { ...base, ...update }
 }
+
+/** removes fields that have values set to undefined */
+export const trimTarget = (object: Target): Target => {
+    type TargetKey = keyof object
+    const keys = Object.entries(object)
+        .filter(kv => kv[1] === undefined)
+        .map(kv => kv[0] as TargetKey)
+    keys.forEach(k => {
+        delete object[k]
+    })
+    return object
+}

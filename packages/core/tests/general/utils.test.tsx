@@ -5,6 +5,7 @@ import {
     cloneProps,
     mergeProps,
     mergeTargets,
+    trimTarget,
 } from '../../src/general/utils'
 import { AnchorSpec, NumericPositionSpec, SizeSpec } from '../../src/general/types'
 import { AnimationSpec } from '../../dist/types'
@@ -195,5 +196,21 @@ describe('mergeTargets', () => {
         const result = mergeTargets({ x: 0, width: 10 }, customTransform)
         expect(result?.x).toEqual(10)
         expect(result?.width).toEqual(0)
+    })
+})
+
+describe('trimTarget', () => {
+    it('preserves values in target', () => {
+        const result = trimTarget({ stroke: '#000000', strokeWidth: 1 })
+        expect(JSON.stringify(Object.keys(result))).toContain('stroke')
+        expect(JSON.stringify(Object.keys(result))).toContain('strokeWidth')
+    })
+
+    it('removes fields with undefined values', () => {
+        const input = { opacity: undefined, fill: '#000000' }
+        expect(JSON.stringify(Object.keys(input))).toContain('opacity')
+        const result = trimTarget(input)
+        expect(JSON.stringify(Object.keys(result))).not.toContain('opacity')
+        expect(JSON.stringify(Object.keys(result))).toContain('fill')
     })
 })

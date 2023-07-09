@@ -1,6 +1,6 @@
 import { m } from 'framer-motion'
 import { getClassName, ssrCompatible } from '../themes'
-import { mergeTargets } from '../general'
+import { mergeTargets, trimTarget } from '../general'
 import { RectangleProps } from './types'
 
 export const Rectangle = ({
@@ -31,7 +31,7 @@ export const Rectangle = ({
         height = Math.abs(height)
         y -= height
     }
-    const config = {
+    const config = trimTarget({
         x: center ? x - width / 2 : x,
         y: center ? y - height / 2 : y,
         width,
@@ -41,7 +41,7 @@ export const Rectangle = ({
         fill,
         fillOpacity,
         opacity,
-    }
+    })
     return (
         <m.rect
             role={setRole && variant !== 'default' ? variant : undefined}

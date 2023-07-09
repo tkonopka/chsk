@@ -22,6 +22,7 @@ import {
     TooltipItemThemedProps,
     TooltipThemedProps,
 } from '../tooltips/types'
+import { CustomValueType } from 'framer-motion'
 
 // construct a className string by composing a variant code and a className string
 export const getClassName = (
@@ -131,17 +132,22 @@ export const fillProps = <T>(
     return result as T
 }
 
+type ConfigValue = number | string | CustomValueType
+
 /**
  * framer-motion has a bug that removes transforms in server-side rendering (ssr).
  * This function adjust a style object so that those transforms are included.
  */
 export const ssrCompatible = (
     style: undefined | CssProps,
-    config: { x: number; y: number; rotate?: number }
+    config: { x?: ConfigValue; y?: ConfigValue; rotate?: ConfigValue }
 ) => {
     if (typeof window === 'object') return style
     const rotate = config.rotate === undefined ? '' : 'rotate(' + config.rotate + 'deg)'
-    return { ...style, transform: 'translate(' + config.x + 'px,' + config.y + 'px)' + rotate }
+    return {
+        ...style,
+        transform: 'translate(' + (config.x ?? 0) + 'px,' + (config.y ?? 0) + 'px)' + rotate,
+    }
 }
 
 /**

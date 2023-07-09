@@ -29,6 +29,8 @@
 
 ### Changed
 
+-   [core] rendering of `Rectangle` objects to avoid unnecessary
+    fields with 'undefined' values in svg code
 -   [matrix] replaced prop `cell` in `HeatMapCells` by `component` for
     consistency with other components
 -   [core] renamed key `Colors` in `ThemeSpec` and `CompleteThemeSpec` to
