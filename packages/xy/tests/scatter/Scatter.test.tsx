@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend } from '@chsk/core'
-import { Scatter, useScatterPreparedData, ScatterDataContextProps } from '../../src'
+import { cloneProps, Chart, Legend, PreparedDataContextProps } from '@chsk/core'
+import { Scatter, ScatterPreparedDataItem, useScatterPreparedData } from '../../src'
 import { scatterProps } from './scatter.props'
 import { GetProcessedData, GetScales, mockProcessedData, mockScales } from '../contexts'
 
@@ -35,7 +35,11 @@ describe('Scatter', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: ScatterDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<ScatterPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useScatterPreparedData()
             return null
