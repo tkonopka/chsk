@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend } from '@chsk/core'
+import { cloneProps, Chart, Legend, PreparedDataContextProps } from '@chsk/core'
 import {
     Schedule,
-    SchedulePreparedDataContextProps,
     isScheduleProcessedData,
     useSchedulePreparedData,
+    SchedulePreparedDataItem,
 } from '../../src'
 import { mockScales, mockProcessedData, scheduleProps } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
@@ -27,7 +27,11 @@ describe('Schedule', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: SchedulePreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<SchedulePreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useSchedulePreparedData()
             return null

@@ -1,15 +1,36 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend, NumericPositionSpec, X, Y } from '@chsk/core'
+import {
+    cloneProps,
+    Chart,
+    Legend,
+    NumericPositionSpec,
+    X,
+    Y,
+    PreparedDataContextProps,
+} from '@chsk/core'
 import {
     Bar,
     BarDataItem,
-    BarPreparedDataContextProps,
     BarPreparedDataItem,
     isBarProcessedData,
     useBarPreparedData,
 } from '../../src'
 import { barProps, mockProcessedData, mockScales } from '../props'
 import { GetScales, GetProcessedData } from '../contexts'
+
+const GetPreparedData = ({ value }: { value: PreparedDataContextProps<BarPreparedDataItem> }) => {
+    const preparedData = useBarPreparedData()
+    value.data = preparedData.data
+    value.keys = preparedData.keys
+    value.seriesIndexes = preparedData.seriesIndexes
+    return null
+}
+
+const mockPreparedData: PreparedDataContextProps<BarPreparedDataItem> = {
+    data: [],
+    seriesIndexes: {},
+    keys: [],
+}
 
 describe('Bar', () => {
     it('creates a view', () => {
@@ -39,7 +60,7 @@ describe('Bar', () => {
     })
 
     const getAllPreparedPositions = (
-        prepared: BarPreparedDataContextProps
+        prepared: PreparedDataContextProps<BarPreparedDataItem>
     ): NumericPositionSpec[] => {
         const result: NumericPositionSpec[] = []
         prepared.data.forEach((item: BarPreparedDataItem) =>
@@ -51,24 +72,20 @@ describe('Bar', () => {
     }
 
     it('defines prepared data (grouped)', () => {
-        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData = () => {
-            prepared = useBarPreparedData()
-            return null
-        }
+        const result = cloneProps(mockPreparedData)
         render(
             <Chart>
                 <Bar {...barProps} variant={'grouped'}>
-                    <GetPreparedData />
+                    <GetPreparedData value={result} />
                 </Bar>
             </Chart>
         )
         // the dataset has two indexes and three keys
-        expect(Object.keys(prepared.seriesIndexes)).toHaveLength(2)
-        expect(prepared.data).toHaveLength(2)
-        expect(prepared.keys).toHaveLength(3)
+        expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
+        expect(result.data).toHaveLength(2)
+        expect(result.keys).toHaveLength(3)
         // all bar positions should be different
-        const allPositions = getAllPreparedPositions(prepared)
+        const allPositions = getAllPreparedPositions(result)
         allPositions.forEach((a, i) => {
             allPositions.forEach((b, j) => {
                 if (i == j) return
@@ -81,22 +98,18 @@ describe('Bar', () => {
     const xyzData: Array<BarDataItem> = [{ id: 'alpha', label: 'alpha', x: 20, y: 20, z: 20 }]
 
     it('defines prepared data (layered)', () => {
-        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData = () => {
-            prepared = useBarPreparedData()
-            return null
-        }
+        const result = cloneProps(mockPreparedData)
         render(
             <Chart>
                 <Bar {...barProps} variant={'layered'} data={xyzData}>
-                    <GetPreparedData />
+                    <GetPreparedData value={result} />
                 </Bar>
             </Chart>
         )
-        expect(prepared.data).toHaveLength(1)
-        expect(prepared.keys).toHaveLength(3)
+        expect(result.data).toHaveLength(1)
+        expect(result.keys).toHaveLength(3)
         // all bar positions should be equal
-        const allPositions = getAllPreparedPositions(prepared)
+        const allPositions = getAllPreparedPositions(result)
         allPositions.forEach((a, i) => {
             allPositions.forEach((b, j) => {
                 if (i == j) return
@@ -106,16 +119,8 @@ describe('Bar', () => {
     })
 
     it('defines prepared data with internal padding (vertical)', () => {
-        let prepared1: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        let prepared2: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData1 = () => {
-            prepared1 = useBarPreparedData()
-            return null
-        }
-        const GetPreparedData2 = () => {
-            prepared2 = useBarPreparedData()
-            return null
-        }
+        const result1 = cloneProps(mockPreparedData)
+        const result2 = cloneProps(mockPreparedData)
         render(
             <Chart>
                 <Bar
@@ -125,7 +130,7 @@ describe('Bar', () => {
                     data={xyzData}
                     paddingInternal={0}
                 >
-                    <GetPreparedData1 />
+                    <GetPreparedData value={result1} />
                 </Bar>
                 <Bar
                     {...barProps}
@@ -134,36 +139,28 @@ describe('Bar', () => {
                     data={xyzData}
                     paddingInternal={0.5}
                 >
-                    <GetPreparedData2 />
+                    <GetPreparedData value={result2} />
                 </Bar>
             </Chart>
         )
         // second set of bars should have narrower bars
         const indexes = [0, 1, 2]
         indexes.map(index => {
-            expect(prepared2.data[0].size[index][X]).toBeLessThan(prepared1.data[0].size[index][X])
+            expect(result2.data[0].size[index][X]).toBeLessThan(result1.data[0].size[index][X])
         })
         // second set of bars should be centered around the same x position
         indexes.map(index => {
-            const d1 = prepared1.data[0]
+            const d1 = result1.data[0]
             const x1 = d1.position[index][X] + d1.size[index][X] / 2
-            const d2 = prepared2.data[0]
+            const d2 = result2.data[0]
             const x2 = d2.position[index][X] + d2.size[index][X] / 2
             expect(Math.round(x1)).toEqual(Math.round(x2))
         })
     })
 
     it('defines prepared data with internal padding (horizontal)', () => {
-        let prepared1: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        let prepared2: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData1 = () => {
-            prepared1 = useBarPreparedData()
-            return null
-        }
-        const GetPreparedData2 = () => {
-            prepared2 = useBarPreparedData()
-            return null
-        }
+        const result1 = cloneProps(mockPreparedData)
+        const result2 = cloneProps(mockPreparedData)
         render(
             <Chart>
                 <Bar
@@ -173,7 +170,7 @@ describe('Bar', () => {
                     data={xyzData}
                     paddingInternal={0}
                 >
-                    <GetPreparedData1 />
+                    <GetPreparedData value={result1} />
                 </Bar>
                 <Bar
                     {...barProps}
@@ -182,20 +179,20 @@ describe('Bar', () => {
                     data={xyzData}
                     paddingInternal={0.5}
                 >
-                    <GetPreparedData2 />
+                    <GetPreparedData value={result2} />
                 </Bar>
             </Chart>
         )
         // second set of bars should have narrower bars (in horizontal view, that means small height)
         const indexes = [0, 1, 2]
         indexes.map(index => {
-            expect(prepared2.data[0].size[index][Y]).toBeLessThan(prepared1.data[0].size[index][Y])
+            expect(result2.data[0].size[index][Y]).toBeLessThan(result1.data[0].size[index][Y])
         })
         // second set of bars should be centered around the same y position
         indexes.map(index => {
-            const d1 = prepared1.data[0]
+            const d1 = result1.data[0]
             const y1 = d1.position[index][Y] + d1.size[index][Y] / 2
-            const d2 = prepared2.data[0]
+            const d2 = result2.data[0]
             const y2 = d2.position[index][Y] + d2.size[index][Y] / 2
             expect(Math.round(y1)).toEqual(Math.round(y2))
         })
@@ -249,11 +246,7 @@ describe('Bar', () => {
             { id: '5', value: 100 },
         ]
         const processed = cloneProps(mockProcessedData)
-        let prepared: BarPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
-        const GetPreparedData = () => {
-            prepared = useBarPreparedData()
-            return null
-        }
+        const prepared = cloneProps(mockPreparedData)
         render(
             <Chart>
                 <Bar
@@ -263,7 +256,7 @@ describe('Bar', () => {
                     scaleIndex={{ variant: 'linear', domain: [0, 6], bandwidth: [0, 1] }}
                 >
                     <GetProcessedData value={processed} />
-                    <GetPreparedData />
+                    <GetPreparedData value={prepared} />
                 </Bar>
             </Chart>
         )
