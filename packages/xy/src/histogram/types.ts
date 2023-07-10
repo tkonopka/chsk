@@ -4,7 +4,6 @@ import {
     CssProps,
     CurveSpec,
     DataInteractivityProps,
-    ProcessedDataContextProps,
     PathProps,
     RectangleProps,
     SvgElementVariantProps,
@@ -26,11 +25,6 @@ export type HistogramProcessedDataItem = WithId & {
     n: number
     mean?: number
     sd?: number
-}
-
-export type HistogramDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<HistogramProcessedDataItem>
 }
 
 export type HistogramInteractiveDataItem = HistogramProcessedDataItem & { bin?: number }

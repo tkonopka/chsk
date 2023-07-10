@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { ScatterDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { ScatterPreparedDataItem } from './types'
 
 export const ScatterPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as ScatterDataContextProps)
+} as PreparedDataContextProps<ScatterPreparedDataItem>)
 
 export const ScatterPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: ScatterDataContextProps & {
+}: PreparedDataContextProps<ScatterPreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data, seriesIndexes, keys])

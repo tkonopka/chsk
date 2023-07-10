@@ -116,7 +116,7 @@ export const DensityCrosshair = ({
         [setActiveData, setTooltipData, props.handlers]
     )
 
-    const targets = preparedData.data
+    const targets: DensityPreparedDataItem[] = preparedData.data
     const criterion = variant === 'xy' ? distanceXY : variant === 'x' ? distanceX : distanceY
     const handleMouseMove = useCallback(
         (event: MouseEvent) => {

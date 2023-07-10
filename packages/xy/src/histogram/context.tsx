@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { HistogramDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { HistogramProcessedDataItem } from './types'
 
 export const HistogramPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as HistogramDataContextProps)
+} as PreparedDataContextProps<HistogramProcessedDataItem>)
 
 export const HistogramPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: HistogramDataContextProps & {
+}: PreparedDataContextProps<HistogramProcessedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])

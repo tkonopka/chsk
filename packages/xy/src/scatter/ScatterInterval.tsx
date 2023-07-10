@@ -18,7 +18,7 @@ import {
     X,
     Y,
 } from '@chsk/core'
-import { ScatterDataContextProps, ScatterIntervalProps, SignalProcessingProps } from './types'
+import { ScatterIntervalProps, ScatterPreparedDataItem, SignalProcessingProps } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
 import { curvePoints } from './signals'
@@ -38,7 +38,7 @@ const getScatterIntervalD = ({
 }: {
     seriesIndex: number
     rawData: RawDataContextProps
-    preparedData: ScatterDataContextProps
+    preparedData: ScatterPreparedDataItem[]
     yScale: ContinuousAxisScale
     lower: string | AccessorFunction<number>
     upper: string | AccessorFunction<number>
@@ -49,7 +49,7 @@ const getScatterIntervalD = ({
     const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
     const lowerValues = originalSeriesData.map(item => yScale(getLower(item)))
     const upperValues = originalSeriesData.map(item => yScale(getUpper(item)))
-    const x = preparedData.data[seriesIndex].x
+    const x = preparedData[seriesIndex].x
     const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
     const lowerPoints = curvePoints({ x, y: lowerValues, ...signalProps })
     const upperPoints = curvePoints({ x, y: upperValues, ...signalProps })
@@ -97,7 +97,7 @@ export const ScatterInterval = ({
                 getScatterIntervalD({
                     seriesIndex,
                     rawData,
-                    preparedData,
+                    preparedData: preparedData.data,
                     yScale,
                     lower,
                     upper,

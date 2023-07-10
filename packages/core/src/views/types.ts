@@ -40,7 +40,7 @@ export type ProcessedDataContextProps = {
     keys: string[]
 }
 
-export type PreparedDataContextProps<T> = ProcessedDataContextProps & {
+export type PreparedDataContextProps<T> = Omit<ProcessedDataContextProps, 'data'> & {
     /** data */
     data: Array<T>
 }

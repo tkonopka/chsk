@@ -18,12 +18,13 @@ import {
     SizeSpec,
     X,
     Y,
+    PreparedDataContextProps,
 } from '@chsk/core'
 import {
-    ScatterDataContextProps,
     ScatterInteractiveDataItem,
     XYProcessedDataItem,
     ScatterProcessedDataItem,
+    ScatterPreparedDataItem,
 } from './types'
 import { isScatterProcessedData } from './predicates'
 
@@ -82,7 +83,7 @@ export const getColorScaleProps = (
 
 export const useSymbolData = (
     processedData: Array<RecordWithId>,
-    preparedData: ScatterDataContextProps
+    preparedData: PreparedDataContextProps<ScatterPreparedDataItem>
 ): Array<ScatterInteractiveDataItem[]> => {
     if (!isScatterProcessedData(processedData)) return []
     return useMemo(() => {
@@ -116,7 +117,10 @@ export const distanceXY = (a: XY, b: XY) => Math.sqrt((a[0] - b[0]) ** 2 + (a[1]
 export const distanceX = (a: XY, b: XY) => Math.abs(a[X] - b[X])
 export const distanceY = (a: XY, b: XY) => Math.abs(a[Y] - b[Y])
 
-export const useTargets = (preparedData: ScatterDataContextProps, disabledKeys: Set<string>) => {
+export const useTargets = (
+    preparedData: PreparedDataContextProps<ScatterPreparedDataItem>,
+    disabledKeys: Set<string>
+) => {
     return useMemo(() => {
         const result: TargetData[] = []
         preparedData.keys.forEach(id => {

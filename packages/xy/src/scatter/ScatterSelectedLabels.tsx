@@ -8,12 +8,12 @@ import {
     useProcessedData,
     X,
     Y,
+    PreparedDataContextProps,
 } from '@chsk/core'
 import {
     ScatterSelectedLabelsProps,
     ScatterSelectedLabelData,
     ScatterPreparedDataItem,
-    ScatterDataContextProps,
 } from './types'
 import { useScatterPreparedData } from './context'
 import { createElement, useMemo } from 'react'
@@ -24,7 +24,7 @@ import { useSymbolData } from './helpers'
 const getPointPosition = (
     id: string,
     index: number,
-    preparedData: ScatterDataContextProps
+    preparedData: PreparedDataContextProps<ScatterPreparedDataItem>
 ): { position: NumericPositionSpec; r: number } => {
     const seriesIndex = preparedData.seriesIndexes[id]
     const seriesData = preparedData.data[seriesIndex]

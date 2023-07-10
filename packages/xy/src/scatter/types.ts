@@ -14,7 +14,6 @@ import {
     LocationProps,
     NumericPositionSpec,
     PathProps,
-    ProcessedDataContextProps,
     SizeScaleSpec,
     SvgElementProps,
     SvgElementVariantProps,
@@ -43,11 +42,6 @@ export type ScatterPreparedDataItem = WithId & {
     y: Array<number>
     r: Array<number>
     color?: Array<string>
-}
-
-export type ScatterDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<ScatterPreparedDataItem>
 }
 
 export interface ScatterProps

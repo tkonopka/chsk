@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend } from '@chsk/core'
+import { cloneProps, Chart, Legend, PreparedDataContextProps } from '@chsk/core'
 import {
     Histogram,
     useHistogramPreparedData,
     isHistogramProcessedData,
-    HistogramDataContextProps,
     HistogramProcessedDataItem,
 } from '../../src/histogram'
 import { histogramProps } from './histogram.props'
@@ -32,7 +31,11 @@ describe('Histogram', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: HistogramDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<HistogramProcessedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useHistogramPreparedData()
             return null

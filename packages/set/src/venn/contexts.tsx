@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { VennDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { VennPreparedDataItem } from './types'
 
 export const VennPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as VennDataContextProps)
+} as PreparedDataContextProps<VennPreparedDataItem>)
 
 export const VennPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: VennDataContextProps & {
+}: PreparedDataContextProps<VennPreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data, seriesIndexes, keys])

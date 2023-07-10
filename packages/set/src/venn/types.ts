@@ -7,7 +7,6 @@ import {
     LinearScaleSpec,
     NumericPositionSpec,
     PathProps,
-    ProcessedDataContextProps,
     SizeSpec,
     SvgElementProps,
     ViewProps,
@@ -39,11 +38,6 @@ export type VennPreparedDataItem = WithId & {
     value: number
     color: string
     d: string
-}
-
-export type VennDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<VennPreparedDataItem>
 }
 
 export type VennInterpolation = (c1: string, c2: string, c3?: string) => string
