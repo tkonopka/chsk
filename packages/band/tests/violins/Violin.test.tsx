@@ -1,11 +1,11 @@
 import { render } from '@testing-library/react'
-import { cloneProps, Chart } from '@chsk/core'
+import { cloneProps, Chart, PreparedDataContextProps } from '@chsk/core'
 import {
     Violin,
-    ViolinPreparedDataContextProps,
     isViolinProcessedData,
     useViolinPreparedData,
     ViolinProcessedDataItem,
+    ViolinPreparedDataItem,
 } from '../../src/violins'
 import { mockProcessedData, mockScales, violinProps } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
@@ -32,7 +32,11 @@ describe('Violin', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: ViolinPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<ViolinPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useViolinPreparedData()
             return null
@@ -51,7 +55,11 @@ describe('Violin', () => {
     })
 
     it('uses a fixed number of breaks', () => {
-        let prepared: ViolinPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<ViolinPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useViolinPreparedData()
             return null
@@ -73,7 +81,11 @@ describe('Violin', () => {
     })
 
     it('uses an array as breaks', () => {
-        let prepared: ViolinPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<ViolinPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useViolinPreparedData()
             return null

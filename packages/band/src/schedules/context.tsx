@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { SchedulePreparedDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { SchedulePreparedDataItem } from './types'
 
 export const SchedulePreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as SchedulePreparedDataContextProps)
+} as PreparedDataContextProps<SchedulePreparedDataItem>)
 
 export const SchedulePreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: SchedulePreparedDataContextProps & {
+}: PreparedDataContextProps<SchedulePreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])

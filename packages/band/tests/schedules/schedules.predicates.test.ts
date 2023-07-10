@@ -49,6 +49,10 @@ describe('isScheduleProcessedSummary', () => {
         expect(isScheduleProcessedSummary(input)).toBeTruthy()
     })
 
+    it('accepts undefined as representative of missing data', () => {
+        expect(isScheduleProcessedSummary(undefined)).toBeTruthy()
+    })
+
     it('rejects partial objects', () => {
         expect(isScheduleProcessedSummary({ start: 0, key: 'x' })).toBeFalsy()
         expect(isScheduleProcessedSummary({ end: 5, key: 'x' })).toBeFalsy()
@@ -57,7 +61,7 @@ describe('isScheduleProcessedSummary', () => {
 
     it('rejects arrays and non-objects', () => {
         expect(isScheduleProcessedSummary([1, 2, 3])).toBeFalsy()
-        expect(isScheduleProcessedSummary(null)).toBeFalsy()
+        expect(isScheduleProcessedSummary(10)).toBeFalsy()
     })
 })
 

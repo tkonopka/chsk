@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { StripPreparedDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { StripPreparedDataItem } from './types'
 
 export const StripPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as StripPreparedDataContextProps)
+} as PreparedDataContextProps<StripPreparedDataItem>)
 
 export const StripPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: StripPreparedDataContextProps & {
+}: PreparedDataContextProps<StripPreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])

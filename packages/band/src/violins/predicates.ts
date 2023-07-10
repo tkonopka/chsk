@@ -1,5 +1,6 @@
 import { isArray } from '@chsk/core'
 import { ViolinDataItem, ViolinProcessedDataItem, ViolinProcessedSummary } from './types'
+import { isBandProcessedDataArray } from '../bands/predicates'
 
 export const isViolinData = (data: Array<unknown>): data is Array<ViolinDataItem> => {
     const result = data.map((item: unknown) => {
@@ -10,18 +11,14 @@ export const isViolinData = (data: Array<unknown>): data is Array<ViolinDataItem
 }
 
 export const isViolinProcessedSummary = (x: unknown): x is ViolinProcessedSummary => {
-    if (typeof x !== 'object' || x === null) return false
+    if (!x) return true
+    if (typeof x !== 'object') return false
     if (!('n' in x)) return false
-    const keys = ['values' as keyof typeof x, 'breaks' as keyof typeof x]
-    return keys.map(k => isArray(x[k])).every(Boolean)
+    return 'values' in x && isArray(x['values'])
 }
 
 export const isViolinProcessedData = (
     data: Array<unknown>
 ): data is Array<ViolinProcessedDataItem> => {
-    const result = data.map((item: unknown) => {
-        if (typeof item !== 'object' || item === null) return false
-        return 'id' in item && 'index' in item && 'data' in item && 'domain' in item
-    })
-    return result.length > 0 && result.every(Boolean)
+    return isBandProcessedDataArray(data, isViolinProcessedSummary)
 }

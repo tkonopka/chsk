@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart } from '@chsk/core'
+import { cloneProps, Chart, PreparedDataContextProps } from '@chsk/core'
 import {
     Dendrogram,
-    DendrogramPreparedDataContextProps,
+    DendrogramPreparedDataItem,
     isDendrogramProcessedData,
     useDendrogramPreparedData,
 } from '../../src/dendrogram'
@@ -37,7 +37,11 @@ describe('Dendrogram', () => {
     })
 
     it('defines prepared data with default hang', () => {
-        let prepared: DendrogramPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<DendrogramPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useDendrogramPreparedData()
             return null
@@ -62,7 +66,11 @@ describe('Dendrogram', () => {
     })
 
     it('defines prepared data with positive hang', () => {
-        let prepared: DendrogramPreparedDataContextProps = { data: [], seriesIndexes: {}, keys: [] }
+        let prepared: PreparedDataContextProps<DendrogramPreparedDataItem> = {
+            data: [],
+            seriesIndexes: {},
+            keys: [],
+        }
         const GetPreparedData = () => {
             prepared = useDendrogramPreparedData()
             return null

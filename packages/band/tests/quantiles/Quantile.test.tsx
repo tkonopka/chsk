@@ -1,12 +1,12 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend, Scales } from '@chsk/core'
+import { cloneProps, Chart, Legend, Scales, PreparedDataContextProps } from '@chsk/core'
 import {
     Quantile,
-    QuantilePreparedDataContextProps,
     isQuantileProcessedData,
     useQuantilePreparedData,
     QuantileProcessedDataItem,
     isQuantileProcessedSummary,
+    QuantilePreparedDataItem,
 } from '../../src/quantiles'
 import { quantileProps, dataMissingKeys, mockScales, mockProcessedData } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
@@ -29,7 +29,7 @@ describe('Quantile', () => {
     })
 
     it('defines prepared data', () => {
-        let prepared: QuantilePreparedDataContextProps = {
+        let prepared: PreparedDataContextProps<QuantilePreparedDataItem> = {
             data: [],
             seriesIndexes: {},
             keys: [],

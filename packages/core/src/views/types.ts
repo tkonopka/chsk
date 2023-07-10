@@ -40,6 +40,11 @@ export type ProcessedDataContextProps = {
     keys: string[]
 }
 
+export type PreparedDataContextProps<T> = ProcessedDataContextProps & {
+    /** data */
+    data: Array<T>
+}
+
 /** View components */
 
 export type ViewSeriesKeys = {

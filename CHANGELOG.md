@@ -6,6 +6,8 @@
 
 ### Added
 
+-   [core] generic type `PreparedDataContextProps` to hold datasets with
+    view-specific coordinates/formating
 -   [annotation] prop `variant` in `BlockArrow` to support caret shapes
 -   [core] support for exit states in shape and typography components
     (settings passed to `componentProps` in higher-order components affect
@@ -29,6 +31,8 @@
 
 ### Changed
 
+-   [all] removed exported types for contexts with prepared data, e.g.
+    `StripPreparedDataContextProps`;
 -   [core] rendering of `Rectangle` objects to avoid unnecessary
     fields with 'undefined' values in svg code
 -   [matrix] replaced prop `cell` in `HeatMapCells` by `component` for

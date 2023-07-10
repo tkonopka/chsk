@@ -1,12 +1,5 @@
-import {
-    ComponentProps,
-    CssProps,
-    DataInteractivityProps,
-    ProcessedDataContextProps,
-    SymbolProps,
-    WithId,
-} from '@chsk/core'
-import { BandProps, BandsProps } from '../bands'
+import { ComponentProps, CssProps, DataInteractivityProps, SymbolProps, WithId } from '@chsk/core'
+import { BandPreparedDataItem, BandProcessedDataItem, BandProps, BandsProps } from '../bands'
 
 export type StripDataItem = WithId & Record<string, unknown>
 
@@ -18,11 +11,7 @@ export type StripProcessedPoints =
           valueSize: number[]
       }
 
-export type StripProcessedDataItem = WithId & {
-    index: number
-    data: StripProcessedPoints[]
-    domain: Array<[number, number] | undefined>
-}
+export type StripProcessedDataItem = BandProcessedDataItem<StripProcessedPoints>
 
 export type StripPreparedPoints =
     | undefined
@@ -31,15 +20,7 @@ export type StripPreparedPoints =
           bandWidth: number
       })
 
-export type StripPreparedDataItem = WithId & {
-    index: number
-    data: StripPreparedPoints[]
-}
-
-export type StripPreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<StripPreparedDataItem>
-}
+export type StripPreparedDataItem = BandPreparedDataItem<StripPreparedPoints>
 
 export type StripInteractiveDataItem = {
     id: string

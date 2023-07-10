@@ -66,11 +66,6 @@ describe('isViolinProcessedSummary', () => {
         }
         expect(isViolinProcessedSummary(input)).toBeFalsy()
     })
-
-    it('rejects null', () => {
-        const input = null
-        expect(isViolinProcessedSummary(input)).toBeFalsy()
-    })
 })
 
 describe('isViolinProcessedData', () => {
@@ -88,11 +83,6 @@ describe('isViolinProcessedData', () => {
 
     it('rejects non-objects', () => {
         const input = [5, 5]
-        expect(isViolinProcessedData(input)).toBeFalsy()
-    })
-
-    it('rejects null', () => {
-        const input = [null]
         expect(isViolinProcessedData(input)).toBeFalsy()
     })
 })

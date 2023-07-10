@@ -1,4 +1,4 @@
-import { isStripData, isStripProcessedData } from '../../src'
+import { isStripData, isStripProcessedPoints, isStripProcessedData } from '../../src'
 
 describe('isStripData', () => {
     it('detects correct data format', () => {
@@ -40,13 +40,19 @@ describe('isStripData', () => {
     })
 })
 
+describe('isStripProcessedPoints', () => {
+    it('rejects string data', () => {
+        expect(isStripProcessedPoints('abc')).toBeFalsy()
+    })
+})
+
 describe('isStripProcessedData', () => {
     it('detects correct data format', () => {
         const input = [
             {
                 id: 'a',
                 index: 0,
-                data: [{ internal: [0, 1, 2], value: [0.5, 1.5, 1.0], r: [2, 2, 2] }],
+                data: [{ internal: [0, 1, 2], value: [0.5, 1.5, 1.0], valueSize: [2, 2, 2] }],
                 domain: [[0.5, 1.5]],
             },
         ]
@@ -54,8 +60,7 @@ describe('isStripProcessedData', () => {
     })
 
     it('rejects non-objects', () => {
-        const input = [null]
-        expect(isStripProcessedData(input)).toBeFalsy()
+        expect(isStripProcessedData([null])).toBeFalsy()
     })
 
     it('rejects empty data', () => {

@@ -7,30 +7,20 @@ import {
     LinearScaleSpec,
     LocationProps,
     NumericPositionSpec,
-    ProcessedDataContextProps,
     RectangleProps,
     SizeSpec,
     WithId,
 } from '@chsk/core'
-import { BandProps, BandsProps } from '../bands'
+import { BandProcessedDataItem, BandProps, BandsProps } from '../bands'
 
 export type BarDataItem = WithId & Record<string, unknown>
 
-export type BarProcessedDataItem = WithId & {
-    index: number
-    data: Array<number>
-    domain: Array<[number, number]>
-}
+export type BarProcessedDataItem = BandProcessedDataItem<number>
 
 export type BarPreparedDataItem = WithId & {
     index: number
     position: Array<NumericPositionSpec>
     size: Array<SizeSpec>
-}
-
-export type BarPreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<BarPreparedDataItem>
 }
 
 export type BarInteractiveDataItem = {

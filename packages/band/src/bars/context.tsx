@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { BarPreparedDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { BarPreparedDataItem } from './types'
 
 export const BarPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as BarPreparedDataContextProps)
+} as PreparedDataContextProps<BarPreparedDataItem>)
 
 export const BarPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: BarPreparedDataContextProps & {
+}: PreparedDataContextProps<BarPreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])

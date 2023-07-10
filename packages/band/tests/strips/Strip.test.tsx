@@ -1,22 +1,26 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend, Scales } from '@chsk/core'
+import { cloneProps, Chart, Legend, Scales, PreparedDataContextProps } from '@chsk/core'
 import {
     Strip,
-    StripPreparedDataContextProps,
     isStripProcessedData,
     useStripPreparedData,
     StripProcessedDataItem,
     StripDataItem,
+    StripPreparedDataItem,
 } from '../../src/strips'
 import { stripProps, dataMissingKeys, mockScales, mockProcessedData } from '../props'
 import { GetProcessedData, GetScales } from '../contexts'
 
-const mockStripPreparedData: StripPreparedDataContextProps = {
+const mockStripPreparedData: PreparedDataContextProps<StripPreparedDataItem> = {
     data: [],
     seriesIndexes: {},
     keys: [],
 }
-const GetStripPreparedData = ({ value }: { value: StripPreparedDataContextProps }) => {
+const GetStripPreparedData = ({
+    value,
+}: {
+    value: PreparedDataContextProps<StripPreparedDataItem>
+}) => {
     const preparedData = useStripPreparedData()
     value.data = preparedData.data
     value.seriesIndexes = preparedData.seriesIndexes

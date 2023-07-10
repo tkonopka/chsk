@@ -3,13 +3,12 @@ import {
     DataInteractivityProps,
     LinearScaleSpec,
     NumericPositionSpec,
-    ProcessedDataContextProps,
     RectangleProps,
     SizeSpec,
     TimeScaleSpec,
     WithId,
 } from '@chsk/core'
-import { BandProps, BandsProps } from '../bands'
+import { BandPreparedDataItem, BandProcessedDataItem, BandProps, BandsProps } from '../bands'
 
 export type ScheduleDataItem = WithId & {
     data: Array<Record<string, unknown>>
@@ -21,11 +20,7 @@ export type ScheduleProcessedSummary = {
     end: number
 }
 
-export type ScheduleProcessedDataItem = WithId & {
-    index: number
-    data: ScheduleProcessedSummary[]
-    domain: Array<[number, number]>
-}
+export type ScheduleProcessedDataItem = BandProcessedDataItem<ScheduleProcessedSummary>
 
 export type SchedulePreparedSummary = ScheduleProcessedSummary & {
     bandStart: number
@@ -34,15 +29,7 @@ export type SchedulePreparedSummary = ScheduleProcessedSummary & {
     size: SizeSpec
 }
 
-export type SchedulePreparedDataItem = WithId & {
-    index: number
-    data: SchedulePreparedSummary[]
-}
-
-export type SchedulePreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<SchedulePreparedDataItem>
-}
+export type SchedulePreparedDataItem = BandPreparedDataItem<SchedulePreparedSummary>
 
 export type ScheduleInteractiveDataItem = {
     id: string

@@ -3,7 +3,6 @@ import {
     DataInteractivityProps,
     LabelProps,
     LinearScaleSpec,
-    ProcessedDataContextProps,
     SideVariant,
     WithId,
     PathProps,
@@ -28,18 +27,13 @@ export type DendrogramProcessedDataItem = WithId & {
 
 export type DendrogramPreparedDataItem = WithId & {
     index: number
-    merge: Array<[number, number]>
+    merge: [number, number][]
     position: number[]
     height: number[]
     leafPosition: number[]
     leafHeight: number[]
     positionInterval: [number, number][]
     heightInterval: [number, number][]
-}
-
-export type DendrogramPreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<DendrogramPreparedDataItem>
 }
 
 export type DendrogramInteractiveDataItem = {

@@ -19,6 +19,17 @@ import {
     ComponentProps,
 } from '@chsk/core'
 
+export type BandProcessedDataItem<T> = WithId & {
+    index: number
+    data: Array<T>
+    domain: Array<[number, number] | undefined>
+}
+
+export type BandPreparedDataItem<T> = WithId & {
+    index: number
+    data: Array<T>
+}
+
 export interface BandSurfaceProps
     extends SvgElementProps,
         WithInteractive,

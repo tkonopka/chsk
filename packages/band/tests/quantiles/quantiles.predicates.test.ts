@@ -97,7 +97,7 @@ describe('isQuantileProcessedData', () => {
             {
                 id: 'a',
                 index: 0,
-                data: [{ values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }],
+                data: [{ n: 10, values: [1, 2, 3, 4, 5], quantiles: q5, extrema: [0, 8] }],
                 domain: [[0, 8]],
             },
         ]

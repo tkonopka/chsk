@@ -1,18 +1,19 @@
 import { createContext, ReactNode, useContext, useMemo } from 'react'
-import { DendrogramPreparedDataContextProps } from './types'
+import { PreparedDataContextProps } from '@chsk/core'
+import { DendrogramPreparedDataItem } from './types'
 
 export const DendrogramPreparedDataContext = createContext({
     data: [],
     seriesIndexes: {},
     keys: [],
-} as DendrogramPreparedDataContextProps)
+} as PreparedDataContextProps<DendrogramPreparedDataItem>)
 
 export const DendrogramPreparedDataProvider = ({
     data,
     seriesIndexes,
     keys,
     children,
-}: DendrogramPreparedDataContextProps & {
+}: PreparedDataContextProps<DendrogramPreparedDataItem> & {
     children: ReactNode
 }) => {
     const value = useMemo(() => ({ data, seriesIndexes, keys }), [data])

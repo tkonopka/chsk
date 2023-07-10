@@ -16,11 +16,12 @@ import {
     useTooltip,
     TooltipItem,
     RawDataContextProps,
+    PreparedDataContextProps,
 } from '@chsk/core'
 import {
     Bar,
     BarInteractiveDataItem,
-    BarPreparedDataContextProps,
+    BarPreparedDataItem,
     Bars,
     useBarPreparedData,
 } from '@chsk/band'
@@ -85,7 +86,7 @@ const baseDimension: Record<string, [number, number]> = {
 // get a letter code 'A', 'C', etc. from a data object holding id, key / rank
 const getBaseLetter = (
     rawData: RawDataContextProps,
-    preparedData: BarPreparedDataContextProps,
+    preparedData: PreparedDataContextProps<BarPreparedDataItem>,
     data?: BarInteractiveDataItem
 ) => {
     const dataIndex = preparedData.seriesIndexes[data?.id ?? ''] ?? 0

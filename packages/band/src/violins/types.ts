@@ -1,11 +1,5 @@
-import {
-    ComponentProps,
-    DataInteractivityProps,
-    PathProps,
-    ProcessedDataContextProps,
-    WithId,
-} from '@chsk/core'
-import { BandProps, BandsProps } from '../bands'
+import { ComponentProps, DataInteractivityProps, PathProps, WithId } from '@chsk/core'
+import { BandPreparedDataItem, BandProcessedDataItem, BandProps, BandsProps } from '../bands'
 
 export type ViolinDataItem = WithId & Record<string, unknown>
 
@@ -17,11 +11,7 @@ export type ViolinProcessedSummary =
           breaks?: number[]
       }
 
-export type ViolinProcessedDataItem = WithId & {
-    index: number
-    data: ViolinProcessedSummary[]
-    domain: Array<[number, number] | undefined>
-}
+export type ViolinProcessedDataItem = BandProcessedDataItem<ViolinProcessedSummary>
 
 export type ViolinPreparedSummary =
     | undefined
@@ -33,15 +23,7 @@ export type ViolinPreparedSummary =
           bandWidth: number
       }
 
-export type ViolinPreparedDataItem = WithId & {
-    index: number
-    data: ViolinPreparedSummary[]
-}
-
-export type ViolinPreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<ViolinPreparedDataItem>
-}
+export type ViolinPreparedDataItem = BandPreparedDataItem<ViolinPreparedSummary>
 
 export type ViolinInteractiveDataItem = {
     id: string

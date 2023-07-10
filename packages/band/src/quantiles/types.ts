@@ -4,7 +4,6 @@ import {
     CssProps,
     DataInteractivityProps,
     InteractivityProps,
-    ProcessedDataContextProps,
     SizeSpec,
     SvgElementProps,
     TooltipDataItem,
@@ -12,7 +11,7 @@ import {
     TooltipProps,
     WithId,
 } from '@chsk/core'
-import { BandProps, BandsProps } from '../bands'
+import { BandPreparedDataItem, BandProcessedDataItem, BandProps, BandsProps } from '../bands'
 
 export type QuantileDataItem = WithId & Record<string, unknown>
 
@@ -31,11 +30,7 @@ export type QuantileProcessedSummary =
           extrema: [number, number]
       }
 
-export type QuantileProcessedDataItem = WithId & {
-    index: number
-    data: QuantileProcessedSummary[]
-    domain: Array<[number, number] | undefined>
-}
+export type QuantileProcessedDataItem = BandProcessedDataItem<QuantileProcessedSummary>
 
 export type QuantilePreparedSummary =
     | undefined
@@ -44,15 +39,7 @@ export type QuantilePreparedSummary =
           bandWidth: number
       })
 
-export type QuantilePreparedDataItem = WithId & {
-    index: number
-    data: QuantilePreparedSummary[]
-}
-
-export type QuantilePreparedDataContextProps = ProcessedDataContextProps & {
-    /** data */
-    data: Array<QuantilePreparedDataItem>
-}
+export type QuantilePreparedDataItem = BandPreparedDataItem<QuantilePreparedSummary>
 
 export type QuantileInteractiveDataItem = {
     id: string
