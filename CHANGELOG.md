@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+### Added
+
+### Changed
+
 ## v0.7.0
 
 ### Highlights
