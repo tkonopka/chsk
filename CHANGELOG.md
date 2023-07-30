@@ -1,8 +1,14 @@
 # Changelog
 
-## Unreleased
+## v0.7.0
 
 ### Highlights
+
+-   Control for enter and exit transitions in `MilestoneMotion`
+-   Support for more customization in high-order components through prop
+    `componentProps`
+-   New component `Viewfinder`
+-   Double-click interactions with legends
 
 ### Added
 
