@@ -13,6 +13,7 @@ import {
 } from '../general'
 
 // settings for wrappers that create multiple related components
+// The name 'ComponentProps' may cause confusion with React's ComponentProps and may need adjustment in future
 export interface ComponentProps<Props> {
     /** function used to draw individual components */
     component?: FC<Props>

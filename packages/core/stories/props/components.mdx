@@ -5,24 +5,25 @@ import { MockComponent } from './mocks'
 
 # Components
 
-Some higher-order components (in add-on packages) create several related elements.
-An example is `Bars` from the `@chsk/band` package, which typically creates several `Rectangle` shapes at once.
-To allow customization, the higher-order components may include props with prefix 'component'.
+Some high-order components (in add-on packages) create several related elements in batch.
+An example is `Bars` from the `@chsk/band` package, which, under default settings, creates several `Rectangle` shapes.
+To allow customization, such high-order components may include props with prefix 'component'.
 
 <ArgTypes of={MockComponent} />
 
 Prop `component` specifies a function used to create the individual elements.
 In the bar chart example, this would be set to `Rectangle` by default.
 
-`componentProps` accepts an object whose contents will be passed down to the `component` function.
+`componentProps` accepts an object whose contents are passed to the `component` function.
 This allows over-riding default settings in the `component` function.
 
 An important use case for `componentProps` is specifying custom transitions and animation states.
 This may involve setting `transition`, `initial`, `animate`, and/or `exit` properties.
 Some of the possibilities are showcased in gallery examples.
 
-Note that higher-order components use the `component` function to reflect a dataset.
-Some of the props in `componentProps` thus may end up being discarded.
+Note that high-order components use the `component` function to visualize a specific dataset.
+To do that, they set some props used by the base component.
+As such, some props in `componentProps` may end up being discarded.
 For example, `Bars` sets `x`, `y`, `width`, and `height` for each bar in a bar chart,
 so custom values for those variables in `componentProps` will not have any effect.
-The exact behavior will depend on the higher-order component.
+The exact behavior will depend on the high-order component.

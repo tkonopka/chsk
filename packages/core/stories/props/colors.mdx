@@ -7,17 +7,17 @@ import {
     MockThresholdScale,
 } from './mocks'
 
-<Meta title="Core/Props/Colors" />
+<Meta title="Core/Props/Color scales" />
 
-# Colors
+# Color scales
 
-While colors for individual components can be set via css styles with props such as `style`
-(sometimes `labelStyle`, `symbolStyle` or similar), color schemes are set via scales with prop `scaleColor`.
+While colors for individual components can be set via props such as `style`
+(sometimes `labelStyle`, `symbolStyle` or similar), color scales define a group of colors.
+These scales are set with prop `scaleColor`.
 
 <ArgTypes of={MockColors} />
 
 Color scales are based on [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic), with minor adjustments.
-They are specified with objects that define a scale variant, domain, and other properties.
 
 ## Categorical colors
 
