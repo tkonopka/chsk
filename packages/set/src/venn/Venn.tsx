@@ -45,8 +45,8 @@ export const Venn = ({
         [data, separation, proportional]
     )
     const { x: xProps, y: yProps } = useMemo(
-        () => getXYScaleProps(processedData, seriesIds, scaleX, scaleY, innerSize),
-        [processedData, seriesIds, scaleX, scaleY, innerSize]
+        () => getXYScaleProps(processedData, scaleX, scaleY, innerSize),
+        [processedData, scaleX, scaleY, innerSize]
     )
     const colorProps = useMemo(
         () => getColorScaleProps(processedData, scaleColor ?? theme.Color.categorical),

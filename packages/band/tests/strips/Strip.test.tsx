@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { cloneProps, Chart, Legend, Scales, PreparedDataContextProps } from '@chsk/core'
+import { cloneProps, Chart, Legend, Scales, PreparedDataContextProps, range } from '@chsk/core'
 import {
     Strip,
     isStripProcessedData,
@@ -81,16 +81,8 @@ describe('Strip', () => {
         // in ascending mode:
         // data points alpha.x which are ascending in the raw dataset, should be left as-is
         // data points alpha.y, which are decreasing in the raw dataset, should be reversed
-        expect(firstIdData[0]?.internal).toEqual(
-            Array(11)
-                .fill(0)
-                .map((v, i) => i)
-        )
-        expect(firstIdData[1]?.internal).toEqual(
-            Array(11)
-                .fill(0)
-                .map((v, i) => 10 - i)
-        )
+        expect(firstIdData[0]?.internal).toEqual(range(11))
+        expect(firstIdData[1]?.internal).toEqual(range(11).reverse())
     })
 
     it('defines processed data (jitter descending)', () => {
@@ -107,16 +99,8 @@ describe('Strip', () => {
         // in descending mode:
         // data points alpha.x, which are ascending in the raw dataset, should be reversed
         // data points alpha.y, which are decreasing in the raw dataset, should be left as is
-        expect(firstIdData[0]?.internal).toEqual(
-            Array(11)
-                .fill(0)
-                .map((v, i) => 10 - i)
-        )
-        expect(firstIdData[1]?.internal).toEqual(
-            Array(11)
-                .fill(0)
-                .map((v, i) => i)
-        )
+        expect(firstIdData[0]?.internal).toEqual(range(11).reverse())
+        expect(firstIdData[1]?.internal).toEqual(range(11))
     })
 
     it('defines processed data (jitter middle)', () => {

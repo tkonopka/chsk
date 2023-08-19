@@ -6,6 +6,11 @@
 
 ### Changed
 
+-   code improvements in response to typescript ts validations
+    (`noUnusedLocals`)
+-   code improvements in response to typescript validations
+    (`noUnusedParameters`)
+
 ## v0.7.0
 
 ### Highlights

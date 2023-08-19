@@ -66,7 +66,6 @@ const prepareData = (
     data: Array<ViolinProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
-    horizontal: boolean,
     width: number,
     offset: number,
     gap: number,
@@ -165,22 +164,12 @@ export const Violin = ({
                 processedData,
                 indexScale,
                 valueScale,
-                horizontal,
                 internalWidth,
                 internalOffset,
                 internalGap,
                 breaks
             ),
-        [
-            processedData,
-            horizontal,
-            indexScale,
-            valueScale,
-            internalWidth,
-            internalOffset,
-            internalGap,
-            breaks,
-        ]
+        [processedData, indexScale, valueScale, internalWidth, internalOffset, internalGap, breaks]
     )
 
     return (

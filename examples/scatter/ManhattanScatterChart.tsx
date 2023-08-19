@@ -15,6 +15,7 @@ import {
     ViewClip,
     ViewController,
     isArray,
+    indexes,
 } from '@chsk/core'
 import {
     Scatter,
@@ -72,7 +73,7 @@ export const generateManhattanScatterData = () => {
         result[chromIndex].data[pointIndex].value = newValue
     }
     offset = 0
-    chromLengths.forEach((chromL, index) => {
+    indexes(chromLengths).forEach(index => {
         const nChromPoints = result[index].data.length
         for (let i = 2; i < nChromPoints - 2; i++) {
             if (hits.has(offset + i)) {
@@ -81,7 +82,7 @@ export const generateManhattanScatterData = () => {
                     .fill(0)
                     .map(() => randomUniformValue(0, 1))
                 noise[2] = 1
-                noise.map((noiseValue, j) => {
+                indexes(noise).map(j => {
                     changeValue(index, i + j - 2, level * noise[j])
                 })
             }
@@ -136,7 +137,7 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
         .slice(1, chromBoundaries.length)
         .map((x, i) => (x + chromBoundaries[i]) / 2)
     const chromLabel = (value: unknown, index: number) => {
-        return index < 3 || index % 2 == 1 ? chromNames[index] : ''
+        return index < 3 || index % 2 == 1 ? chromNames[index] : String(value)
     }
     let nPoints = 0
     rawData.forEach(series => {

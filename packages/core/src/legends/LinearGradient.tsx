@@ -1,4 +1,4 @@
-import { roundDecimalPlaces, X, Y } from '../general'
+import { range, roundDecimalPlaces, X, Y } from '../general'
 import { LinearGradientProps } from './types'
 
 export const LinearGradient = ({
@@ -12,9 +12,7 @@ export const LinearGradient = ({
     if (n <= 1) return null
     let stopOffsets: number[]
     if (!offsets || offsets.length !== stops.length) {
-        stopOffsets = Array(n)
-            .fill(0)
-            .map((v, i) => roundDecimalPlaces(i / (n - 1), 4))
+        stopOffsets = range(n).map(i => roundDecimalPlaces(i / (n - 1), 4))
     } else {
         stopOffsets = offsets
     }

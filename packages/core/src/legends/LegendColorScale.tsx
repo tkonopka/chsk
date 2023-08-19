@@ -1,4 +1,4 @@
-import { getTranslate, LEFT, TOP, X, Y, zeroPosition } from '../general'
+import { getTranslate, LEFT, range, TOP, X, Y, zeroPosition } from '../general'
 import { Rectangle } from '../shapes'
 import { isContinuousColorScale, useScales } from '../scales'
 import { getScaleTicks } from '../axes'
@@ -35,9 +35,7 @@ const UnthemedLegendColorScale = ({
     const domain = scale.domain()
     const domainSize = domain[domain.length - 1] - domain[0]
     const nStops = 21
-    const stops = Array(nStops)
-        .fill(0)
-        .map((v, i) => scale(domain[0] + (i / nStops) * domainSize))
+    const stops = range(nStops).map(i => scale(domain[0] + (i / nStops) * domainSize))
 
     // details for gradient rectangle
     const gradId = 'legend-grad-' + (gradientId ?? className ?? variant)

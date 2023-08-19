@@ -1,16 +1,15 @@
+import { range } from '@chsk/core'
 import { randomNormalValue, randomUniformValue } from '../utils'
 
 // produce a random walk with n steps
 export const generateRandomWalk = (n: number, mean = 0, sd = 1) => {
     let y = 0
     const result = [{ x: 0, y }]
-    Array(n)
-        .fill(0)
-        .forEach((v, i) => {
-            if (i === 0) return
-            y += randomNormalValue(mean, sd)
-            result.push({ x: i, y })
-        })
+    range(n).forEach(i => {
+        if (i === 0) return
+        y += randomNormalValue(mean, sd)
+        result.push({ x: i, y })
+    })
     return result
 }
 

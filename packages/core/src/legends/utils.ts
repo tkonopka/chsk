@@ -74,8 +74,7 @@ export const getItemPositions = (
     const labelPosition: NumericPositionSpec[] = []
     const symbolPosition: NumericPositionSpec[] = []
     const pos = [position[0], position[1]]
-    symbolSizes.map((s, i) => {
-        const r = symbolSizes[i]
+    symbolSizes.map(r => {
         const extraStep = Math.max(0, 2 * r + stepPadding - stepSize)
         itemPosition.push([pos[X], pos[Y]])
         pos[X] += step[X] + extraStep * stepMultiplier[X]

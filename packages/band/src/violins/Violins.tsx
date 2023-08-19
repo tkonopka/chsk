@@ -1,5 +1,6 @@
 import {
     addColor,
+    range,
     OpacityMotion,
     useDisabledKeys,
     useScales,
@@ -40,7 +41,7 @@ export const Violins = ({
 
     const allKeys = preparedData.keys
     const pathStyles = useMemo(
-        () => allKeys.map((k, i) => addColor(style, colorScale(i))),
+        () => range(allKeys.length).map(i => addColor(style, colorScale(i))),
         [allKeys, style, colorScale]
     )
     const curve: CurveSpec = variant === 'step' ? 'Step' : 'BasisClosed'

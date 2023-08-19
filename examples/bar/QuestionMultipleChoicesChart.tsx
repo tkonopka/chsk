@@ -3,6 +3,7 @@ import {
     ThemeSpec,
     Typography,
     mergeTheme,
+    indexes,
     BandAxisScale,
     ContinuousAxisScale,
     useScales,
@@ -68,7 +69,7 @@ const CustomTicks = ({
     const xCoordinate = scaleX(0)
     const tickFormat = labelFormat ?? ((v: unknown) => String(v))
 
-    const result = tickValues.map((v, i) => {
+    const result = indexes(tickValues).map(i => {
         return (
             <g key={'tick-' + i}>
                 <Typography

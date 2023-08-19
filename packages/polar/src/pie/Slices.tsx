@@ -1,6 +1,7 @@
 import { createElement, useMemo } from 'react'
 import {
     addColor,
+    indexes,
     TooltipDataComponent,
     useScales,
     ContinuousAxisScale,
@@ -33,7 +34,7 @@ export const Slices = ({
     if (!isPieProcessedData(data)) return null
 
     const styles = useMemo(
-        () => processedData.keys.map((k, i) => addColor(style, colorScale(i))),
+        () => indexes(processedData.keys).map(i => addColor(style, colorScale(i))),
         [processedData, style, colorScale]
     )
 

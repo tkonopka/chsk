@@ -1,5 +1,6 @@
 import {
     addColor,
+    indexes,
     OpacityMotion,
     useDisabledKeys,
     useScales,
@@ -40,15 +41,15 @@ export const Quantiles = ({
 
     const allKeys = preparedData.keys
     const boxStyles = useMemo(
-        () => allKeys.map((k, i) => addColor(boxStyle, colorScale(i))),
+        () => indexes(allKeys).map(i => addColor(boxStyle, colorScale(i))),
         [allKeys, boxStyle, colorScale]
     )
     const whiskerStyles = useMemo(
-        () => allKeys.map((k, i) => addColor(whiskerStyle, colorScale(i))),
+        () => indexes(allKeys).map(i => addColor(whiskerStyle, colorScale(i))),
         [allKeys, whiskerStyle, colorScale]
     )
     const middleStyles = useMemo(
-        () => allKeys.map((k, i) => addColor(middleStyle, colorScale(i))),
+        () => indexes(allKeys).map(i => addColor(middleStyle, colorScale(i))),
         [allKeys, middleStyle, colorScale]
     )
 

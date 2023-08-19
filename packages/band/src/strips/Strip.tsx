@@ -61,7 +61,6 @@ const prepareData = (
     data: Array<StripProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
-    horizontal: boolean,
     width: number,
     offset: number,
     gap: number
@@ -141,17 +140,8 @@ export const Strip = ({
         variant
     )
     const preparedData = useMemo(
-        () =>
-            prepareData(
-                processedData,
-                indexScale,
-                valueScale,
-                horizontal,
-                stripWidth,
-                stripOffset,
-                stripGap
-            ),
-        [processedData, horizontal, indexScale, valueScale, stripWidth, stripOffset, stripGap]
+        () => prepareData(processedData, indexScale, valueScale, stripWidth, stripOffset, stripGap),
+        [processedData, indexScale, valueScale, stripWidth, stripOffset, stripGap]
     )
 
     return (

@@ -9,6 +9,7 @@ import {
     clip,
     norm,
     range,
+    indexes,
     relu,
     distance,
     squaredDistance,
@@ -224,6 +225,17 @@ describe('range', () => {
         expect(range(3, 0)).toEqual([3, 2, 1])
         expect(range(2, -2)).toEqual([2, 1, 0, -1])
         expect(range(-2, -4)).toEqual([-2, -3])
+    })
+})
+
+describe('indexes', () => {
+    it('creates indexes for non-empty arrays', () => {
+        expect(indexes([1, 2, 3])).toEqual([0, 1, 2])
+        expect(indexes(['a', 'b'])).toEqual([0, 1])
+    })
+
+    it('creates indexes for empty array', () => {
+        expect(indexes([])).toEqual([])
     })
 })
 

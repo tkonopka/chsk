@@ -98,6 +98,11 @@ export const range = (a: number, b?: number): number[] => {
     return result
 }
 
+/** create a sequence of numbers to match an array, e.g. [0,1,2,3] */
+export const indexes = (a: unknown[]): number[] => {
+    return Array.from(Array(a.length).keys())
+}
+
 /**
  * create a series of positions [a, b] to represent a histogram
  *

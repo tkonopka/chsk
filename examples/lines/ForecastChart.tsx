@@ -10,6 +10,7 @@ import {
     interval,
     TimeAxisScale,
     useScales,
+    range,
 } from '@chsk/core'
 import { isScatterData, Scatter, ScatterCurve, ScatterInterval } from '@chsk/xy'
 import { LineLabel, Stripe } from '@chsk/annotation'
@@ -22,9 +23,7 @@ const yearLength = dayLength * 365.25
 
 export const generateForecastData = () => {
     const phase = randomUniformValue(0, 2 * Math.PI)
-    const pattern = Array(52)
-        .fill(0)
-        .map((v, i) => Math.sin(phase + (Math.PI * i) / 26))
+    const pattern = range(52).map(i => Math.sin(phase + (Math.PI * i) / 26))
     const slope = randomUniformValue(-0.03, 0.03)
     const years = 3.5
     const now = new Date(Date.now())

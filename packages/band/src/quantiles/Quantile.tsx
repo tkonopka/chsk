@@ -77,7 +77,6 @@ const prepareData = (
     data: Array<QuantileProcessedDataItem>,
     indexScale: BandAxisScale,
     valueScale: LinearAxisScale,
-    horizontal: boolean,
     width: number,
     offset: number,
     gap: number
@@ -153,17 +152,8 @@ export const Quantile = ({
         variant
     )
     const preparedData = useMemo(
-        () =>
-            prepareData(
-                processedData,
-                indexScale,
-                valueScale,
-                horizontal,
-                boxWidth,
-                boxOffset,
-                boxGap
-            ),
-        [processedData, indexScale, valueScale, horizontal, boxWidth, boxOffset, boxGap]
+        () => prepareData(processedData, indexScale, valueScale, boxWidth, boxOffset, boxGap),
+        [processedData, indexScale, valueScale, boxWidth, boxOffset, boxGap]
     )
 
     return (

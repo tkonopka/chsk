@@ -1,4 +1,4 @@
-import { isArray } from '../general'
+import { isArray, indexes } from '../general'
 import { Scale } from './types'
 import { isContinuousAxisScale } from './predicates'
 import {
@@ -19,7 +19,7 @@ export const getTicks = (scale: Scale, ticks?: number[] | string[] | number | Da
         return scale.ticks(ticks) as Array<number>
     }
     if (isCategoricalColorScale(scale)) {
-        return scale.domain().map((v, i) => i) as Array<number>
+        return indexes(scale.domain())
     }
     return scale.ticks(ticks)
 }

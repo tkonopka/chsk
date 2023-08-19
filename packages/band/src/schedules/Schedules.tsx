@@ -1,5 +1,6 @@
 import {
     addColor,
+    indexes,
     OpacityMotion,
     useDisabledKeys,
     useScales,
@@ -35,7 +36,7 @@ export const Schedules = ({
 
     const styles = useMemo(
         () =>
-            preparedData.keys.map((k, i) => {
+            indexes(preparedData.keys).map(i => {
                 const keyColor = colorScale(i)
                 return addColor(style, keyColor)
             }),

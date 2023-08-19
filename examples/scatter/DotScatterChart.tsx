@@ -13,6 +13,7 @@ import {
     CssProps,
     useScales,
     isArray,
+    indexes,
 } from '@chsk/core'
 import { VerticalGoldenRectangle } from '@chsk/annotation'
 import { Scatter, ScatterPoints, ScatterCrosshair, ScatterDataItem, isScatterData } from '@chsk/xy'
@@ -78,7 +79,7 @@ const CustomBandSurface = ({ ids, r, style }: { ids: string[]; r: number; style:
 
     const indexScale = scales.y as ContinuousAxisScale
     const height = r * goldenRectWidth
-    const result = ids.map((id, index) => {
+    const result = indexes(ids).map(index => {
         return (
             <rect
                 key={'bg-' + index}

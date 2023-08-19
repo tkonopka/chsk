@@ -1,5 +1,6 @@
 import {
     addColor,
+    indexes,
     DataComponent,
     isContinuousAxisScale,
     NumericPositionSpec,
@@ -38,7 +39,7 @@ export const HistogramBars = ({
 
     const styles = useMemo(
         () =>
-            preparedData.keys.map((k, i) => {
+            indexes(preparedData.keys).map(i => {
                 const keyColor = colorScale(i)
                 return addColor(style, keyColor)
             }),

@@ -1,4 +1,5 @@
 import {
+    indexes,
     Chart,
     Axis,
     GridLines,
@@ -18,9 +19,7 @@ import * as d3 from 'd3-scale-chromatic'
 
 const interpolate = d3.interpolateOranges
 const n = alphabetGreek.length
-const greekColors = Array(alphabetGreek.length)
-    .fill(0)
-    .map((x, i) => interpolate((i + 1) / (n + 2)))
+const greekColors = indexes(alphabetGreek).map(i => interpolate((i + 1) / (n + 2)))
 
 export const generateManyRandomWalksData = () => {
     const result = alphabetGreek

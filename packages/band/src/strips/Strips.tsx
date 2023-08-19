@@ -1,5 +1,6 @@
 import {
     addColor,
+    indexes,
     Circle,
     OpacityMotion,
     useDisabledKeys,
@@ -37,7 +38,7 @@ export const Strips = ({
 
     const allKeys = preparedData.keys
     const symbolStyles = useMemo(
-        () => allKeys.map((k, i) => addColor(symbolStyle, colorScale(i))),
+        () => indexes(allKeys).map(i => addColor(symbolStyle, colorScale(i))),
         [allKeys, symbolStyle, colorScale]
     )
 

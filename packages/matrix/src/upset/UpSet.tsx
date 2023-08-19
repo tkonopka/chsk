@@ -19,7 +19,6 @@ import {
 
 const processData = (
     data: Array<UpSetDataItem>,
-    ids: string[],
     horizontal: boolean
 ): { keys: string[]; processedData: Array<UpSetProcessedDataItem> } => {
     // identify membership of all data elements in the raw data
@@ -101,10 +100,7 @@ export const UpSet = ({
     const seriesIndexes = useMemo(() => getIndexes(data), [data])
     const seriesIds = useMemo(() => data.map(item => item.id), [data])
 
-    const { keys, processedData } = useMemo(
-        () => processData(data, seriesIds, horizontal),
-        [data, seriesIds, horizontal]
-    )
+    const { keys, processedData } = useMemo(() => processData(data, horizontal), [data, horizontal])
 
     const { x: xProps, y: yProps } = useMemo(
         () => getXYScaleProps(seriesIds, keys, horizontal, scaleIndex, scaleMembership, innerSize),

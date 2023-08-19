@@ -1,5 +1,6 @@
 import {
     cloneProps,
+    indexes,
     BandAxisScale,
     BandScaleProps,
     ContinuousScaleProps,
@@ -20,7 +21,7 @@ export const getScaleProps = (
     scaleSpecIndex: ScaleWithBandwidthSpec,
     scaleSpecValue: ContinuousScaleSpec,
     size: SizeSpec, // inner size of the view
-    horizontal: boolean, // inner size of the view
+    horizontal: boolean,
     disabled: boolean[],
     stacked = false
 ) => {
@@ -32,9 +33,15 @@ export const getScaleProps = (
         result.index.domain = ids
     }
     if (!isScaleWithDomain(scaleSpecValue)) {
-        const filterDisabled = (v: unknown, i: number) => !disabled[i]
+        const active = indexes(disabled).filter(i => !disabled[i])
         const isValue = (v: unknown) => v !== undefined && isFinite(Number(v))
-        const values = data.map(d => d.filter(filterDisabled).flat().filter(isValue) as number[])
+        const values = data.map(
+            d =>
+                active
+                    .map(i => d[i])
+                    .flat()
+                    .filter(isValue) as number[]
+        )
         const sumValues = (values: number[]) => {
             const positive = values.reduce((acc, v) => (isFinite(v) && v > 0 ? acc + v : acc), 0)
             const negative = values.reduce((acc, v) => (isFinite(v) && v < 0 ? acc + v : acc), 0)

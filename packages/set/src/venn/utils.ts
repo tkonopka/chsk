@@ -18,7 +18,6 @@ import { VennProcessedDataItem } from './types'
 
 export const getXYScaleProps = (
     data: Array<VennProcessedDataItem>,
-    ids: string[],
     scaleSpecX: LinearScaleSpec,
     scaleSpecY: LinearScaleSpec,
     size: SizeSpec

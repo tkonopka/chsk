@@ -1,6 +1,7 @@
 import { createElement, useMemo } from 'react'
 import {
     cloneProps,
+    indexes,
     addColor,
     useIdsKeys,
     BandAxisScale,
@@ -61,7 +62,7 @@ export const HeatMapCells = ({
             const y = scaleY(seriesData.id)
             const values = seriesData.value
             const sizes = seriesData.size
-            return seriesData.value.map((v, i) => {
+            return indexes(seriesData.value).map(i => {
                 const k = processedData.keys[i]
                 if (!cellFilter(seriesData.id, k)) return null
                 const cellColor = colorScale(values[i] as number)

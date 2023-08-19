@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import {
     cloneProps,
+    indexes,
     ColorScaleProps,
     ColorScaleSpec,
     ContinuousScaleProps,
@@ -39,17 +40,17 @@ export const getXYScaleProps = (
         x: cloneProps(scaleSpecX) as ContinuousScaleProps,
         y: cloneProps(scaleSpecY) as ContinuousScaleProps,
     }
-    const filterDisabled = (v: unknown, i: number) => !disabled[i]
+    const active = indexes(disabled).filter(i => !disabled[i])
     if (!isScaleWithDomain(scaleSpecX)) {
-        const x = data
-            .filter(filterDisabled)
+        const x = active
+            .map(i => data[i])
             .map(seriesData => seriesData.x)
             .flat()
         result.x = createContinuousScaleProps(scaleSpecX, interval(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
-        const y = data
-            .filter(filterDisabled)
+        const y = active
+            .map(i => data[i])
             .map(seriesData => seriesData.y)
             .flat()
         result.y = createContinuousScaleProps(scaleSpecY, interval(y))
@@ -91,7 +92,7 @@ export const useSymbolData = (
             const seriesIndex = preparedData.seriesIndexes[id]
             const seriesProcessedData = processedData[seriesIndex]
             const data = preparedData.data[seriesIndex]
-            return data.r.map((r: number, index: number) => ({
+            return indexes(data.r).map(index => ({
                 id,
                 index,
                 point: [seriesProcessedData.x[index], seriesProcessedData.y[index]] as [
@@ -127,7 +128,7 @@ export const useTargets = (
             if (disabledKeys.has(id)) return
             const seriesIndex = preparedData.seriesIndexes[id]
             const data = preparedData.data[seriesIndex]
-            data.r.forEach((r: number, index: number) => {
+            indexes(data.r).forEach(index => {
                 result.push([data.x[index], data.y[index], seriesIndex, index])
             })
         })

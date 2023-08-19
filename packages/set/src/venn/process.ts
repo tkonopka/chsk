@@ -1,6 +1,6 @@
 import { VennDataItem, VennProcessedDataItem } from './types'
 import { countCommonElements, countOverlap, rotatePointTrig } from './utils'
-import { NumericPositionSpec } from '@chsk/core'
+import { NumericPositionSpec, indexes } from '@chsk/core'
 import { processData2 } from './compute2'
 import { processData3 } from './compute3'
 
@@ -23,9 +23,7 @@ export const processData = (
             id,
             index,
             size: sets[index].size,
-            intersection: data3.map((otherSeries, index2) =>
-                countOverlap(sets[index], sets[index2])
-            ),
+            intersection: indexes(data3).map(index2 => countOverlap(sets[index], sets[index2])),
             common,
             r: 1,
             center: [0, 0] as NumericPositionSpec,

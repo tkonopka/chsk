@@ -3,6 +3,7 @@ import { LazyMotion, domAnimation } from 'framer-motion'
 import { HistogramDataItem, HistogramProcessedDataItem, HistogramProps } from './types'
 import {
     cloneProps,
+    indexes,
     ContinuousAxisScale,
     createContinuousScaleProps,
     useContainer,
@@ -74,17 +75,17 @@ const getHistogramScaleProps = (
         x: cloneProps(scaleSpecX) as ContinuousScaleProps,
         y: cloneProps(scaleSpecY) as ContinuousScaleProps,
     }
-    const filterDisabled = (v: unknown, i: number) => !disabled[i]
+    const active = indexes(disabled).filter(i => !disabled[i])
     if (!isScaleWithDomain(scaleSpecX)) {
-        const x = data
-            .filter(filterDisabled)
+        const x = active
+            .map(i => data[i])
             .map(seriesData => seriesData.points.map(point => point[X]))
             .flat()
         result.x = createContinuousScaleProps(scaleSpecX, interval(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
-        const y = data
-            .filter(filterDisabled)
+        const y = active
+            .map(i => data[i])
             .map(seriesData => seriesData.points.map(point => point[Y]))
             .flat()
         result.y = createContinuousScaleProps(scaleSpecY, interval(y))
