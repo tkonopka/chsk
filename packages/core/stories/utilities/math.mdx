@@ -1,0 +1,126 @@
+import { Meta, Source, ArgTypes } from '@storybook/blocks'
+
+<Meta title="Core/Utilities/Math" />
+
+# Math
+
+The core package bundles some utility functions for mathematical operations.
+These functions are used internally, but they may also be relevant for developing custom charts.
+
+## Single values
+
+Single-value functions act on inputs that are single integers or floating-point values.
+
+**`clip`** forces a number into a specified [min, max] interval.
+
+<Source
+    language="js"
+    code={`
+clip(2, 0, 10) // 2
+clip(-2, 0, 10) // 0
+clip(20, 0, 10) // 10
+`}
+/>
+
+**`deg2rad`** converts an angle in degrees to a value in radians.
+
+<Source
+    language="js"
+    code={`
+deg2rad(180) // 3.14...
+`}
+/>
+
+**`rad2deg`** converts an angle in radians to a value in degrees.
+
+<Source
+    language="js"
+    code={`
+rad2angle(Math.PI) // 180
+`}
+/>
+
+**`roundDecimalPlaces`** rounds a number to a specified number of decimal places.
+
+<Source
+    language="js"
+    code={`
+roundDecimalPlaces(0.12345, 2) // 0.12
+`}
+/>
+
+**`relu`** (rectilinear unit) transforms numbers into positive semi-definitive values.
+
+<Source
+    language="js"
+    code={`
+relu(1.5) // 1.5
+relu(-0.5) // 0
+`}
+/>
+
+## Arrays
+
+Array functions operate on lists/arrays.
+
+**interval** computes the [min, max] values for an array of numbers.
+For empty input arrays, an optional parameters specifies the desired fallback result.
+
+<Source
+    language="js"
+    code={`
+interval([0, 1, 2, 3]) // [0, 3]
+interval([], fallback=[0, 1]) // [0, 1]
+`}
+/>
+
+**mean** computes the simple average of an array of numbers.
+
+<Source
+    language="js"
+    code={`
+mean([0, 5]) // 2.5
+`}
+/>
+
+**moments** computes the simple average and the variance (the two first distribution moments) of an array of numbers.
+
+<Source
+    language="js"
+    code={`
+moments([1, 2]) // [1.5, 0.5]
+moments([1]) // [1, NaN]
+`}
+/>
+
+## Positions
+
+Position functions accept one or more arguments that represent coordinates on a 2D plane.
+
+**distance** computes the Euclidean distance between two points.
+
+<Source
+    language="js"
+    code={`
+distance([3, 4], [0, 0]) // 5
+`}
+/>
+
+**norm** computes the Euclidean norm of a 2D coordinate vector.
+
+<Source
+    language="js"
+    code={`
+norm([3, 4]) // 5
+`}
+/>
+
+**squaredDistance** computes the square of the Euclidean distance between two points.
+This is related to `distance`, but it avoids computing a square root.
+
+<Source
+    language="js"
+    code={`
+squaredDistance([3, 4], [0, 0]) // 25
+`}
+/>
