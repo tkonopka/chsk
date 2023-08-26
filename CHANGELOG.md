@@ -9,8 +9,9 @@
 -   turned on additional typescript validations ('noImplicitAny',
     'strictNullChecks',
     'strictFunctionTypes', 'strictBindCallApply',  
-    'strictPropertyInitialization', 'noImplicitThis',
-    'useUnknownInCatchVariables', 'alwaysStrict')
+     'strictPropertyInitialization', 'noImplicitThis',
+    'useUnknownInCatchVariables', 'alwaysStrict', 'noFallthroughCasesInSwitch',
+    'noImplicitOverride')
 -   code improvements in response to typescript validations (`noImplicitReturns`)
 -   code improvements in response to typescript validations
     (`noUnusedLocals`)
