@@ -51,9 +51,9 @@ export const Schedules = ({
             const visible = !disabledKeys.has(k)
             const items: Array<ReactNode> = []
             data.map((seriesData: SchedulePreparedDataItem) => {
-                if (!idSet.has(seriesData.id)) return null
+                if (!idSet.has(seriesData.id)) return
                 seriesData.data.map((dataItem: SchedulePreparedSummary) => {
-                    if (!keySet.has(dataItem.key) || dataItem.key != k) return null
+                    if (!keySet.has(dataItem.key) || dataItem.key != k) return
                     const keyIndex = allKeys.indexOf(dataItem.key)
                     const [x, y] = dataItem.position
                     const [width, height] = dataItem.size

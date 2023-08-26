@@ -49,4 +49,15 @@ describe('ScatterSeries', () => {
         )
         expect(screen.queryByRole('scatter-series')).toBeNull()
     })
+
+    it('does not render intervals', () => {
+        render(
+            <Chart>
+                <Scatter {...scatterProps}>
+                    <ScatterSeries ids={['non-existent']} layers={['interval']} />
+                </Scatter>
+            </Chart>
+        )
+        expect(screen.queryByRole('scatter-series')).toBeNull()
+    })
 })

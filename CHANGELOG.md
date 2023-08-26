@@ -6,7 +6,8 @@
 
 ### Changed
 
--   code improvements in response to typescript ts validations
+-   code improvements in response to typescript validations (`noImplicitReturns`)
+-   code improvements in response to typescript validations
     (`noUnusedLocals`)
 -   code improvements in response to typescript validations
     (`noUnusedParameters`)

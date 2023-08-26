@@ -169,9 +169,8 @@ export const shakeStyles = (
             if (!(selector in content)) return
             const classNames = selectorClasses.slice(1)
             const overlaps = classNames.every(className => content[selector].has(className))
-            if (classNames.length === 0 || overlaps) {
-                return line
-            }
+            if (classNames.length && !overlaps) return
+            return line
         })
         .filter(Boolean)
         .join('\n')
