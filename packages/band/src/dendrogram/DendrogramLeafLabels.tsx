@@ -35,9 +35,11 @@ export const DendrogramLeafLabels = ({
         const data = originalData[item.index]
         const leafX = horizontal ? item.leafHeight : item.leafPosition
         const leafY = horizontal ? item.leafPosition : item.leafHeight
-        return data.keys.map((k: string, i: number) => {
-            if (!keySet.has(k)) return null
-            const position: NumericPositionSpec = [leafX[i], leafY[i]]
+        return data?.keys.map((k: string, i: number) => {
+            const x = leafX[i]
+            const y = leafY[i]
+            if (!keySet.has(k) || !x || !y) return null
+            const position: NumericPositionSpec = [x, y]
             const value = format ? format(k) : k
             return createElement(
                 component,

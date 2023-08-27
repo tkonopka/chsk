@@ -67,8 +67,8 @@ describe('Regression', () => {
         // regression with pooled data (with one series omitted) and individual data
         // should be the same. So the details of two regression lines should be equal
         const result = screen.getByRole('view-scatter').querySelectorAll('line')
-        expect(result[0].getAttribute('y1')).toEqual(result[1].getAttribute('y1'))
-        expect(result[0].getAttribute('y2')).toEqual(result[1].getAttribute('y2'))
+        expect(result[0]?.getAttribute('y1')).toEqual(result[1]?.getAttribute('y1'))
+        expect(result[0]?.getAttribute('y2')).toEqual(result[1]?.getAttribute('y2'))
     })
 
     it('skips work when a series id does not exist', () => {

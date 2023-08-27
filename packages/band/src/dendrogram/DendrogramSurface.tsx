@@ -30,6 +30,7 @@ const createSurfaceProps = (
 ) => {
     const positions = data.positionInterval[index]
     const heights = data.heightInterval[index]
+    if (!positions || !heights) return null
     const deltaHeight = heights[1] - heights[0]
     const deltaPosition = positions[1] - positions[0]
     return {
@@ -94,8 +95,8 @@ export const DendrogramSurface = ({
     }
     const result = preparedData.data.map((seriesData: DendrogramPreparedDataItem) => {
         const id = seriesData.id
-        if (!idSet.has(id)) return null
         const data = originalData[seriesData.index]
+        if (!idSet.has(id) || !data) return null
         const targetLevels = getTargetLevels(
             seriesData,
             indexScale,
@@ -104,6 +105,7 @@ export const DendrogramSurface = ({
         )
         return targetLevels.map(level => {
             const rectProps = createSurfaceProps(seriesData, level, horizontal, absExpansion)
+            if (!rectProps) return null
             const interactiveOpacity = interactive
                 ? seriesData.id === active?.id && level === active?.level
                 : false

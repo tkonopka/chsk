@@ -34,7 +34,7 @@ const processData = (
     let start = 0
     const offset = unit === 'radian' ? angle : deg2rad(angle)
     return data.map((seriesData, index) => {
-        const proportion = values[index] / total
+        const proportion = Number(values[index]) / total
         let startAngle = start
         let endAngle = start + proportion * 2 * Math.PI
         if (index === 0) {
@@ -46,7 +46,7 @@ const processData = (
         return {
             id: seriesData.id,
             index,
-            data: values[index],
+            data: Number(values[index]),
             proportion,
             startAngle,
             endAngle,

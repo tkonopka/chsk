@@ -17,7 +17,7 @@ describe('UpSetMemberships', () => {
         const result = screen.getByRole('upset-memberships')
         const lines = result.querySelectorAll('line')
         expect(lines).toHaveLength(2)
-        expect(lines[0].getAttribute('x1')).toEqual(lines[0].getAttribute('x2'))
+        expect(lines[0]?.getAttribute('x1')).toEqual(lines[0]?.getAttribute('x2'))
     })
 
     it('draws memberships on vertical chart', () => {
@@ -31,7 +31,7 @@ describe('UpSetMemberships', () => {
         const result = screen.getByRole('upset-memberships')
         const lines = result.querySelectorAll('line')
         expect(lines).toHaveLength(2)
-        expect(lines[0].getAttribute('y1')).toEqual(lines[0].getAttribute('y2'))
+        expect(lines[0]?.getAttribute('y1')).toEqual(lines[0]?.getAttribute('y2'))
     })
 
     it('draws memberships without role', () => {
@@ -69,8 +69,8 @@ describe('UpSetMemberships', () => {
         const circles = result.querySelectorAll('circle')
         const lines = result.querySelectorAll('line')
         const expected = 'upSetMembership'
-        expect(circles[0].getAttribute('class')).toEqual(expected)
-        expect(lines[0].getAttribute('class')).toEqual(expected)
+        expect(circles[0]?.getAttribute('class')).toEqual(expected)
+        expect(lines[0]?.getAttribute('class')).toEqual(expected)
     })
 
     it('assigns custom className to symbols and lines', () => {
@@ -87,7 +87,7 @@ describe('UpSetMemberships', () => {
         const circles = result.querySelectorAll('circle')
         const lines = result.querySelectorAll('line')
         const expected = 'upSetMembership custom'
-        expect(circles[0].getAttribute('class')).toEqual(expected)
-        expect(lines[0].getAttribute('class')).toEqual(expected)
+        expect(circles[0]?.getAttribute('class')).toEqual(expected)
+        expect(lines[0]?.getAttribute('class')).toEqual(expected)
     })
 })

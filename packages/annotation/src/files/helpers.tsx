@@ -30,7 +30,8 @@ const rgbValue2hex = (x: string) => {
 }
 
 /** convert an rgb(r g b) or rgb(r g b a) string into hex */
-export const rgb2hex = (rgb: string) => {
+export const rgb2hex = (rgb: string | undefined) => {
+    if (!rgb) return 'undefined'
     const prefix = rgb.startsWith('rgb(') ? 'rgb' : rgb.startsWith('rgba(') ? 'rgba' : undefined
     if (!prefix) return rgb
     const sep = rgb.includes(',') ? ',' : ' '
@@ -48,7 +49,7 @@ export const rgb2hex = (rgb: string) => {
 }
 
 const contentInParentheses = (s: string, prefix: string): string => {
-    return s.replace(prefix + '(', '').split(')')[0]
+    return String(s.replace(prefix + '(', '').split(')')[0])
 }
 
 export const cleanTransform = (x: string | undefined, n: number) => {
@@ -107,7 +108,7 @@ export const cleanStyle = (raw: string, n: number) => {
         .map(part => {
             if (part.startsWith('fill:') || part.startsWith('stroke:')) {
                 const [k, v] = part.split(':', 2)
-                return k + ': ' + rgb2hex(v.trim())
+                return k + ': ' + rgb2hex(v?.trim())
             }
             return part
         })
@@ -139,7 +140,7 @@ export const scanSvg = (
     }
     for (const attr of element.attributes) {
         if (attr.name === 'class') {
-            attr.value.split(' ').forEach(className => result[nodeName].add(className))
+            attr.value.split(' ').forEach(className => result[nodeName]?.add(className))
         }
     }
 
@@ -163,13 +164,15 @@ export const shakeStyles = (
         .split('\n')
         .map(line => {
             const tokens = line.split(' ')
-            if (!tokens[0].startsWith('#')) return
-            const selectorClasses = tokens[1].split('.')
+            if (!tokens[0]?.startsWith('#')) return
+            const selectorClasses = tokens[1]?.split('.')
+            if (!selectorClasses) return
             const selector = selectorClasses[0]
+            if (!selector) return
             if (!(selector in content)) return
-            const classNames = selectorClasses.slice(1)
-            const overlaps = classNames.every(className => content[selector].has(className))
-            if (classNames.length && !overlaps) return
+            const classNames = selectorClasses?.slice(1)
+            const overlaps = classNames?.every(className => content[selector]?.has(className))
+            if (classNames?.length && !overlaps) return
             return line
         })
         .filter(Boolean)

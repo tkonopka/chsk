@@ -15,7 +15,7 @@ import { randomUniformValue } from '../utils'
 import { DownloadButtons } from '../navigation'
 
 export const generateQuestionTwoChoicesData = () => {
-    const values = [randomUniformValue(5, 50), randomUniformValue(5, 50)]
+    const values: [number, number] = [randomUniformValue(5, 50), randomUniformValue(5, 50)]
     const total = values[0] + values[1]
     return [
         {

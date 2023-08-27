@@ -19,9 +19,9 @@ const getBarData = (data: Array<UpSetProcessedDataItem>, keys: string[]): Array<
     const result: Array<BarDataItem> = []
     keys.map((k, i) => {
         let value = 0
-        data.map(seriesData => {
+        data.forEach(seriesData => {
             if (seriesData.data[i]) {
-                value = seriesData.data[i]
+                value = Number(seriesData.data[i])
             }
         })
         result.push({ id: k, value })
@@ -54,13 +54,12 @@ export const UpSetBar = ({
     const { scales } = useScales()
     const data = processedData.data
     if (!isUpSetProcessedData(data) || data.length == 0) return null
-    const horizontal = data[0].horizontal
+    const horizontal = data[0]?.horizontal ?? false
     const barData = useMemo(() => getBarData(data, processedData.keys), [data, processedData])
     const barLayout = useMemo(
         () => getBarViewLayout(horizontal, size, dimensions.size),
         [horizontal, dimensions]
     )
-
     const container: ContainerProps = {
         position: barLayout.position,
         positionUnits: 'absolute',

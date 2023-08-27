@@ -20,8 +20,8 @@ describe('ViewController', () => {
         const buttons = screen.getByRole('toolbar').querySelectorAll('g')
         expect(buttons).toHaveLength(6)
         // buttons arranged vertical, i.e. all with the same x coordinate
-        expect(buttons[0].getAttribute('transform')).toBeNull()
-        expect(buttons[1].getAttribute('transform')).toContain('translate(0,20)')
+        expect(buttons[0]?.getAttribute('transform')).toBeNull()
+        expect(buttons[1]?.getAttribute('transform')).toContain('translate(0,20)')
     })
 
     it('creates controller with horizontal toolbar', () => {
@@ -35,8 +35,8 @@ describe('ViewController', () => {
         const buttons = screen.getByRole('toolbar').querySelectorAll('g')
         expect(buttons).toHaveLength(6)
         // buttons arranged horizontal, i.e. all with the same y coordinate
-        expect(buttons[0].getAttribute('transform')).toBeNull()
-        expect(buttons[1].getAttribute('transform')).toContain('translate(20,0)')
+        expect(buttons[0]?.getAttribute('transform')).toBeNull()
+        expect(buttons[1]?.getAttribute('transform')).toContain('translate(20,0)')
     })
 
     it('creates controller without role', () => {
@@ -81,9 +81,9 @@ describe('ViewController', () => {
         expect(screen.getByRole('toolbar').querySelectorAll('g')).toHaveLength(3)
         const buttons = screen.getAllByRole('button')
         expect(buttons).toHaveLength(3)
-        expect(buttons[0].getAttribute('class')).toBe('button none')
-        expect(buttons[1].getAttribute('class')).toBe('button selected zoom')
-        expect(buttons[2].getAttribute('class')).toBe('button pan')
+        expect(buttons[0]?.getAttribute('class')).toBe('button none')
+        expect(buttons[1]?.getAttribute('class')).toBe('button selected zoom')
+        expect(buttons[2]?.getAttribute('class')).toBe('button pan')
     })
 
     it('creates pan-detection surface', () => {
@@ -99,9 +99,9 @@ describe('ViewController', () => {
         expect(screen.queryByRole('controller-zoom')).toBeNull()
         // pan button should be selected
         const buttons = screen.getAllByRole('button')
-        expect(buttons[0].getAttribute('class')).toBe('button none')
-        expect(buttons[1].getAttribute('class')).toBe('button zoom')
-        expect(buttons[2].getAttribute('class')).toBe('button selected pan')
+        expect(buttons[0]?.getAttribute('class')).toBe('button none')
+        expect(buttons[1]?.getAttribute('class')).toBe('button zoom')
+        expect(buttons[2]?.getAttribute('class')).toBe('button selected pan')
     })
 
     it('buttons toggle controllers', async () => {
@@ -117,16 +117,16 @@ describe('ViewController', () => {
         expect(screen.queryByRole('controller-pan')).not.toBeNull()
         expect(screen.queryByRole('controller-zoom')).toBeNull()
         const buttons = screen.getAllByRole('button')
-        expect(buttons[0].getAttribute('class')).toBe('button selected pan')
-        expect(buttons[1].getAttribute('class')).toBe('button zoom')
+        expect(buttons[0]?.getAttribute('class')).toBe('button selected pan')
+        expect(buttons[1]?.getAttribute('class')).toBe('button zoom')
         // click on the zoom button
-        fireEvent.click(buttons[1])
+        if (buttons[1]) fireEvent.click(buttons[1])
         await waitFor(() => {
             expect(screen.queryByRole('controller-pan')).toBeNull()
             expect(screen.queryByRole('controller-zoom')).not.toBeNull()
             const buttons = screen.getAllByRole('button')
-            expect(buttons[0].getAttribute('class')).toBe('button pan')
-            expect(buttons[1].getAttribute('class')).toBe('button selected zoom')
+            expect(buttons[0]?.getAttribute('class')).toBe('button pan')
+            expect(buttons[1]?.getAttribute('class')).toBe('button selected zoom')
         })
     })
 
@@ -139,13 +139,14 @@ describe('ViewController', () => {
             </Chart>
         )
         // click the reset button
-        fireEvent.click(screen.getAllByRole('button')[2])
+        const button = screen.getAllByRole('button')[2]
+        if (button) fireEvent.click(button)
         await waitFor(() => {
             const buttons = screen.getAllByRole('button')
-            expect(buttons[0].getAttribute('class')).toBe('button selected pan')
-            expect(buttons[1].getAttribute('class')).toBe('button zoom')
-            expect(buttons[2].getAttribute('class')).toBe('button reset')
-            expect(buttons[3].getAttribute('class')).toBe('button none')
+            expect(buttons[0]?.getAttribute('class')).toBe('button selected pan')
+            expect(buttons[1]?.getAttribute('class')).toBe('button zoom')
+            expect(buttons[2]?.getAttribute('class')).toBe('button reset')
+            expect(buttons[3]?.getAttribute('class')).toBe('button none')
         })
     })
 
@@ -184,12 +185,14 @@ describe('ViewController', () => {
         // initially, scales have domain [0, 1] and size 100
         checkUnitScales(scales, [0, 100], [100, 0])
         // click to zoom-in, scales should change
-        fireEvent.click(screen.getAllByRole('button')[1])
+        const zoomIn = screen.getAllByRole('button')[1]
+        if (zoomIn) fireEvent.click(zoomIn)
         await waitFor(() => {
             checkUnitScales(scales, [-50, 150], [100, 0])
         })
         // convert to zoom-out, click, should revert to former x scale
-        fireEvent.click(screen.getAllByRole('button')[2])
+        const zoomOut = screen.getAllByRole('button')[2]
+        if (zoomOut) fireEvent.click(zoomOut)
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])
         })
@@ -213,12 +216,14 @@ describe('ViewController', () => {
         // initially, scales have domain [0, 1] and size 100
         checkUnitScales(scales, [0, 100], [100, 0])
         // click on detector to zoom-in, scales should change
-        fireEvent.click(screen.getAllByRole('button')[1])
+        const zoomIn = screen.getAllByRole('button')[1]
+        if (zoomIn) fireEvent.click(zoomIn)
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [150, -50])
         })
         // convert to zoom-out, click, should revert to former x scale
-        fireEvent.click(screen.getAllByRole('button')[2])
+        const zoomOut = screen.getAllByRole('button')[2]
+        if (zoomOut) fireEvent.click(zoomOut)
         await waitFor(() => {
             checkUnitScales(scales, [0, 100], [100, 0])
         })
@@ -564,7 +569,8 @@ describe('ViewController', () => {
         const bandwidth = (scales.x as BandAxisScale).bandwidth()
         const step = (scales.x as BandAxisScale).step()
         // click to zoom-in by 2x
-        fireEvent.click(screen.getAllByRole('button')[1])
+        const zoomIn = screen.getAllByRole('button')[1]
+        if (zoomIn) fireEvent.click(zoomIn)
         await waitFor(() => {
             const xScale = scales.x as BandAxisScale
             expect(xScale.ticks().length).toEqual(4)

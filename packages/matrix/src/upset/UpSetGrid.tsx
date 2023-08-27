@@ -13,7 +13,7 @@ export const UpSetGrid = ({
     const { scales } = useScales()
     const data = processedData.data
     if (!isUpSetProcessedData(data) || data.length == 0) return null
-    const horizontal = data[0].horizontal
+    const horizontal = data[0]?.horizontal
 
     const scaleIndex = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const scaleKeys = horizontal ? (scales.x as BandAxisScale) : (scales.y as BandAxisScale)

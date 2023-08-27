@@ -16,8 +16,8 @@ import { MilestoneStory } from '../types'
 
 export const generateStripAndBoxData = () => {
     const three = Array(3).fill(0)
-    const means = three.map(() => randomUniformValue(10, 16))
-    const offsets = three.map(() => randomUniformValue(0, 5))
+    const means = three.map(() => randomUniformValue(10, 16)) as [number, number, number]
+    const offsets = three.map(() => randomUniformValue(0, 5)) as [number, number, number]
     const positive = (v: number) => v > 0
     const x = generateMixedPopulation([45, 5], [means[0], means[0] + offsets[0]], [3, 6])
     const y = generateMixedPopulation([45, 5], [means[1], means[1] + offsets[1]], [3, 8])
@@ -85,7 +85,7 @@ const expLabelFormat = (v: unknown) => {
         <tspan>
             {a !== '1' ? a + ' · ' : ''}10
             <tspan dy={-6} className={'exponent'}>
-                {b.replace('+', '')}
+                {b?.replace('+', '')}
             </tspan>
         </tspan>
     )

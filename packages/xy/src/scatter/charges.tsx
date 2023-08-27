@@ -59,11 +59,12 @@ export const blockObject = (
  * @param charge toggle between item moving away (charge=+1) and toward (charge=-1) the target
  */
 const computeDisplacement = (
-    item: BlockObject,
-    obj: BlockObject,
+    item: BlockObject | undefined,
+    obj: BlockObject | undefined,
     clearance: number,
     charge: number
 ): NumericPositionSpec => {
+    if (!item || !obj) return [0, 0]
     const theta = angleTheta(
         item.slice(0, 2) as NumericPositionSpec,
         obj.slice(0, 2) as NumericPositionSpec
@@ -114,6 +115,7 @@ const totalRepulsion = (
 ): NumericPositionSpec => {
     const target = items[index]
     const result: NumericPositionSpec = [0, 0]
+    if (!target) return result
     const updateResult = (displacement: NumericPositionSpec, weight: number) => {
         result[0] += displacement[0] * weight
         result[1] += displacement[1] * weight
@@ -144,7 +146,7 @@ const totalAttraction = (
 
 /** update a 2d position using a translation vector */
 const updateXY = (
-    position: number[],
+    position: BlockObject,
     displacement: NumericPositionSpec,
     lr: number,
     minDelta: number,
@@ -181,10 +183,10 @@ export const arrangeBlockObjects = ({
 }) => {
     const result = cloneProps(items)
     const attractors = items.map(item => {
-        const result: BlockObject = [...item]
-        result[W] = -1
-        result[H] = -1
-        return result
+        const attractor: BlockObject = [...item]
+        attractor[W] = -1
+        attractor[H] = -1
+        return attractor
     })
 
     const indexes = Array.from(Array(items.length).keys())
@@ -199,10 +201,13 @@ export const arrangeBlockObjects = ({
         })
         let maxDisplacement = 0
         indexes.forEach(index => {
-            const displacement = addPositions(repulsion[index], attraction[index])
+            const displacement = addPositions(
+                repulsion[index] ?? [0, 0],
+                attraction[index] ?? [0, 0]
+            )
             displacement[X] = roundDecimalPlaces(displacement[X], 4)
             displacement[Y] = roundDecimalPlaces(displacement[Y], 4)
-            updateXY(result[index], displacement, lr, minDelta, maxDelta)
+            updateXY(result[index] ?? [0, 0, 0, 0, 0], displacement, lr, minDelta, maxDelta)
             maxDisplacement = Math.max(
                 maxDisplacement,
                 Math.max(Math.abs(displacement[X]), Math.abs(displacement[Y]))

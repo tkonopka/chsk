@@ -10,7 +10,11 @@ import {
 } from '@chsk/core'
 import { HeatMapSurfaceProps } from './types'
 
-const getInterval = (targets: Set<string>, scale: BandAxisScale, expansion: [number, number]) => {
+const getInterval = (
+    targets: Set<string>,
+    scale: BandAxisScale,
+    expansion: [number, number]
+): [number, number] => {
     const bandwidth = scale.bandwidth()
     const values = interval(Array.from(targets).map(scale))
     return [values[0] - expansion[0] * bandwidth, values[1] + expansion[1] * bandwidth]

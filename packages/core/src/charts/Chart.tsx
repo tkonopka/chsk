@@ -58,10 +58,10 @@ export const Chart = ({
         if (!stretch || !parent) return
         debouncedSetChartSize([parent.clientWidth, parent.clientHeight])
         const resizeObserver = new ResizeObserver(event => {
-            const box = event[0].contentBoxSize[0]
+            const box = event[0]?.contentBoxSize[0]
             const boxSize: SizeSpec = [
-                Math.round(box.inlineSize + stretchExpansion[X]),
-                Math.round(box.blockSize + stretchExpansion[Y]),
+                Math.round((box?.inlineSize ?? 0) + stretchExpansion[X]),
+                Math.round((box?.blockSize ?? 0) + stretchExpansion[Y]),
             ]
             debouncedSetChartSize(boxSize)
         })

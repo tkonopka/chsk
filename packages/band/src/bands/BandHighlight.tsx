@@ -142,8 +142,8 @@ export const BandHighlight = ({
                 tooltipAlign
             )
             const idIndex = horizontal ? indexes[Y] : indexes[X]
-            const zoneId = processedData.data[idIndex].id
-            const seriesData = processedData.data[idIndex].data as Record<string, unknown>[]
+            const zoneId = processedData.data[idIndex]?.id ?? ''
+            const seriesData = processedData.data[idIndex]?.data as Record<string, unknown>[]
             const activeData: TooltipDataItem[] = seriesData
                 .map((data, j) => ({
                     ...data,

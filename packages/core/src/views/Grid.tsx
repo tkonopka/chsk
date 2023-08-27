@@ -20,7 +20,7 @@ const computeGrid = (
     horizontal: boolean,
     innerSize: SizeSpec,
     grid: SizeSpec,
-    spacing: number[],
+    spacing: SizeSpec,
     widths?: number[],
     heights?: number[]
 ) => {
@@ -61,8 +61,11 @@ const computeGrid = (
             column = Math.floor(i / grid[Y])
             row = i - column * grid[Y]
         }
-        positions.push([x[2 * column], y[2 * row]])
-        sizes.push([x[2 * column + 1] - x[2 * column], y[2 * row + 1] - y[2 * row]])
+        positions.push([Number(x[2 * column]), Number(y[2 * row])])
+        sizes.push([
+            Number(x[2 * column + 1]) - Number(x[2 * column]),
+            Number(y[2 * row + 1]) - Number(y[2 * row]),
+        ])
     })
 
     return { positions, sizes }

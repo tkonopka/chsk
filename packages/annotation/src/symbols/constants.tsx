@@ -9,7 +9,7 @@
  * area A can appear larger visually than circles with the same area A.
  */
 
-import { range } from '@chsk/core'
+import { NumericPositionSpec, range } from '@chsk/core'
 
 /** rectangles */
 
@@ -27,7 +27,7 @@ const equilateralArm = 2 * Math.sqrt(Math.PI / (3 * Math.sqrt(3))) * equilateral
 // length of a side of an equilateral triangle of unit area
 const equilateralSide = Math.sqrt(3) * equilateralArm * equilateralVisualFactor
 // coordinates for vertices of an equilateral triangle
-export const equilateralCoordinates = [
+export const equilateralCoordinates: NumericPositionSpec[] = [
     [0, -equilateralArm],
     [equilateralSide / 2, equilateralArm / 2],
     [-equilateralSide / 2, equilateralArm / 2],
@@ -38,7 +38,7 @@ export const equilateralCoordinates = [
 const diamondVisualFactor = 0.96
 // distance from diamond center to one of its corners
 const diamondEdge = Math.sqrt(Math.PI / 2) * diamondVisualFactor
-export const diamondCoordinates = [
+export const diamondCoordinates: NumericPositionSpec[] = [
     [0, -diamondEdge],
     [diamondEdge, 0],
     [0, diamondEdge],
@@ -51,7 +51,7 @@ export const diamondCoordinates = [
 const segmentArm = 1.1
 
 // coordinates for vertices of line segment
-export const segmentCoordinates = [
+export const segmentCoordinates: NumericPositionSpec[] = [
     [-segmentArm, 0],
     [segmentArm, 0],
 ]
@@ -59,14 +59,14 @@ export const segmentCoordinates = [
 /** pentagon */
 
 const angleOffset = -Math.PI / 2
-export const pentagonCoordinates = range(0, 5).map(i => [
+export const pentagonCoordinates: NumericPositionSpec[] = range(0, 5).map(i => [
     Math.cos(angleOffset + (2 * Math.PI * i) / 5),
     Math.sin(angleOffset + (2 * Math.PI * i) / 5),
 ])
 
 /** star */
 
-export const starCoordinates: Array<number[]> = []
+export const starCoordinates: Array<NumericPositionSpec> = []
 const starProtrusion = 0.447
 range(0, 5).forEach(i => {
     let angle = angleOffset + 2 * Math.PI * ((2 * i) / 10)

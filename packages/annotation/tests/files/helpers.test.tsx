@@ -60,6 +60,7 @@ describe('rgb2hex', () => {
     it('preserves non-rgb string', () => {
         expect(rgb2hex('#222222')).toBe('#222222')
         expect(rgb2hex('abc')).toBe('abc')
+        expect(rgb2hex(undefined)).toBe('undefined')
     })
 
     it('handles rgb string with slash', () => {
@@ -229,8 +230,8 @@ describe('scanSvg', () => {
         expect('rect' in result).toBeTruthy()
         expect('circle' in result).toBeTruthy()
         expect(result['rect']).toContain('A')
-        expect(result['circle'].has('B')).toBeTruthy()
-        expect(result['circle'].has('C')).toBeTruthy()
+        expect(result['circle']?.has('B')).toBeTruthy()
+        expect(result['circle']?.has('C')).toBeTruthy()
     })
 
     it('extracts class names from nested elements', () => {

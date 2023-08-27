@@ -42,17 +42,20 @@ export const generateSequenceLogoBarData = () => {
     const bits = raw.map((v, index) => {
         if (index == 0 || index === n - 1) return v
         if (v > 1.5 || v < 0.2) return v
-        return (raw[index] + 0.5 * raw[index - 1] + 0.5 * raw[index + 1]) / 2
+        return (
+            (Number(raw[index]) + 0.5 * Number(raw[index - 1]) + 0.5 * Number(raw[index + 1])) / 2
+        )
     })
 
+    type pair = [number, number]
     const makePositionData = (index: number) => {
         const values = Array(4)
             .fill(0)
             .map(() => randomUniformValue(0, 1))
             .map(v => (v < 0.2 ? 0 : v * v * v * v))
-            .map((v, index) => [v, index])
+            .map((v, index) => [v, index]) as [pair, pair, pair, pair]
         values.sort((a, b) => b[0] - a[0])
-        const normalization = bits[index] / values.reduce((total, v) => (total += v[0]), 0)
+        const normalization = Number(bits[index]) / values.reduce((total, v) => (total += v[0]), 0)
         return {
             id: String(index + 1),
             rank1: threshold(round4dp(values[0][0] * normalization), 0.03),
@@ -90,10 +93,10 @@ const getBaseLetter = (
     data?: BarInteractiveDataItem
 ) => {
     const dataIndex = preparedData.seriesIndexes[data?.id ?? ''] ?? 0
-    const dataKey = data?.key ?? preparedData.keys[0]
+    const dataKey = data?.key ?? Number(preparedData.keys[0])
     const keyIndex = keyMapping[dataKey] ?? 0
-    const base = (rawData.data[dataIndex]['bases'] as string[])[keyIndex ?? 0]
-    return { base, baseIndex: acgt.indexOf(base) }
+    const base = (rawData.data[dataIndex]?.['bases'] as string[])[keyIndex ?? 0] as string
+    return { base, baseIndex: acgt.indexOf(String(base)) }
 }
 
 const LogoDataComponent = ({
@@ -108,7 +111,7 @@ const LogoDataComponent = ({
     const { base, baseIndex } = getBaseLetter(rawData, preparedData, data)
 
     // extract svg properties for ACGT components
-    const dim = baseDimension[base]
+    const dim = baseDimension[base] as [number, number]
     const path = basePath[base]
 
     // create an animated letter/path

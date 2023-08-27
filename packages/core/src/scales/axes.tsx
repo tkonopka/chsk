@@ -43,8 +43,10 @@ export const createBandScale = ({
     const n = domain.length
     const innerPadding = +(n > 1) * Math.max(0, Math.min(1, paddingInner ?? padding))
     const outerPadding = Math.max(0, paddingOuter ?? padding)
-    const extraKeys = Object.keys(extraPadding)
-    const totalExtraPadding = extraKeys.reduce((acc: number, k: string) => acc + extraPadding[k], 0)
+    const totalExtraPadding = Object.values(extraPadding).reduce(
+        (acc: number, value) => acc + value,
+        0
+    )
     const step = size / (2 * outerPadding + n - innerPadding + totalExtraPadding)
     const bandwidth = (1 - innerPadding) * step
     let position = outerPadding * step
@@ -81,7 +83,7 @@ export const createBandScale = ({
     result.ticks = () => {
         if (!viewDomain) return domain
         return domain.filter(x => {
-            const coordinate = positions[x] + bandwidth / 2
+            const coordinate = Number(positions[x]) + bandwidth / 2
             return coordinate >= viewDomain[0] && coordinate <= viewDomain[1]
         })
     }

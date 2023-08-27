@@ -42,8 +42,8 @@ export const ScatterCurve = ({
         seriesStyle.fill = undefined
         const seriesData = preparedData.data[seriesIndex]
         const points = curvePoints({
-            x: seriesData.x,
-            y: seriesData.y,
+            x: seriesData?.x ?? [],
+            y: seriesData?.y ?? [],
             convolutionMask,
             convolutionOffset,
             downsampleFactor,

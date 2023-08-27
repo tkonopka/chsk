@@ -14,7 +14,7 @@ describe('Counter', () => {
         expect(screen.getByRole('counter')).toBeDefined()
         const result = screen.getByRole('chart-content').querySelectorAll('text')
         expect(result).toHaveLength(1)
-        expect(result[0].getAttribute('class')).toContain('counter')
+        expect(result[0]?.getAttribute('class')).toContain('counter')
     })
 
     it('creates a counter without role', () => {

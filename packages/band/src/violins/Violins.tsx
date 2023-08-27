@@ -63,7 +63,7 @@ export const Violins = ({
                 if (!summary) return null
                 const points = violinPoints({ ...summary, horizontal })
                 if (points.length === 0) return null
-                const seriesProcessedData = processedData[seriesData.index].data[i]
+                const seriesProcessedData = processedData[seriesData.index]?.data[i]
                 return createElement(dataComponent, {
                     key: 'v-' + seriesData.index + '-' + i,
                     data: {

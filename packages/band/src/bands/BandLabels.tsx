@@ -14,6 +14,7 @@ import {
     Y,
     useProcessedData,
     RecordWithId,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { BandLabelsProps } from './types'
 import { createElement, ReactNode } from 'react'
@@ -67,10 +68,12 @@ export const BandLabels = ({
 
     const labels: Array<ReactNode> = data
         .map((seriesData: RecordWithId, j: number) => {
-            if (!idSet.has(seriesData.id)) return null
-            const value = format(rawData[j])
+            const value = rawData[j]
+            if (!idSet.has(seriesData.id) || value === undefined) return null
             const indexPos = indexScale(seriesData.id)
-            const pos = horizontal ? [valuePos, indexPos] : [indexPos, valuePos]
+            const pos: NumericPositionSpec = horizontal
+                ? [valuePos, indexPos]
+                : [indexPos, valuePos]
             return createElement(
                 component,
                 {
@@ -85,7 +88,7 @@ export const BandLabels = ({
                     style,
                     variant: 'label',
                 },
-                value
+                format(value)
             )
         })
         .flat()

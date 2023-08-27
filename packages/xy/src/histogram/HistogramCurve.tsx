@@ -37,7 +37,7 @@ export const HistogramCurve = ({
             component: Path,
             props: {
                 variant: 'histogram-curve',
-                points: preparedData.data[seriesIndex].points,
+                points: preparedData.data[seriesIndex]?.points,
                 curve,
                 style: seriesStyle,
                 setRole,

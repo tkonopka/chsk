@@ -26,9 +26,12 @@ const getPointPosition = (
     index: number,
     preparedData: PreparedDataContextProps<ScatterPreparedDataItem>
 ): { position: NumericPositionSpec; r: number } => {
-    const seriesIndex = preparedData.seriesIndexes[id]
+    const seriesIndex = Number(preparedData.seriesIndexes[id])
     const seriesData = preparedData.data[seriesIndex]
-    return { position: [seriesData.x[index], seriesData.y[index]], r: seriesData.r[index] }
+    return {
+        position: [seriesData?.x[index], seriesData?.y[index]] as NumericPositionSpec,
+        r: seriesData?.r[index] as number,
+    }
 }
 
 export const ScatterSelectedLabels = ({
@@ -66,7 +69,7 @@ export const ScatterSelectedLabels = ({
         preparedData.data.map((seriesData: ScatterPreparedDataItem) => {
             if (disabledKeys.has(seriesData.id)) return
             seriesData.x.map((v, i) => {
-                const position: NumericPositionSpec = [v, seriesData.y[i]]
+                const position = [v, seriesData?.y[i]] as NumericPositionSpec
                 result.push(blockObject(position, undefined, seriesData.r[i]))
             })
         })
@@ -109,8 +112,8 @@ export const ScatterSelectedLabels = ({
         className,
     }
     const result = active.map((item, i) => {
-        const seriesIndex = preparedData.seriesIndexes[item.id]
-        const activeData = symbolData[seriesIndex][item.index]
+        const seriesIndex = Number(preparedData.seriesIndexes[item.id])
+        const activeData = symbolData[seriesIndex]?.[item.index]
         const { position } = getPointPosition(item.id, item.index, preparedData)
         const itemSymbol = symbol
             ? createActiveSymbol({
@@ -132,8 +135,8 @@ export const ScatterSelectedLabels = ({
                   className: connectorClassName,
                   x1: position[X],
                   y1: position[Y],
-                  x2: packed[i].position[X],
-                  y2: packed[i].position[Y],
+                  x2: Number(packed[i]?.position[X]),
+                  y2: Number(packed[i]?.position[Y]),
                   setRole: false,
               })
             : null
@@ -143,14 +146,14 @@ export const ScatterSelectedLabels = ({
                 key: 'label',
                 ...commonProps,
                 ...item,
-                position: packed[i].position,
+                position: packed[i]?.position,
             },
-            active[i].content
+            active[i]?.content
         )
 
         return (
             <g
-                key={'l-' + String(active[i].content)}
+                key={'l-' + String(active[i]?.content)}
                 role={setRole ? 'scatter-selected-label' : undefined}
             >
                 {itemConnector}

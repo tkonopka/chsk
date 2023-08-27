@@ -10,7 +10,7 @@ export const avgLab = (values: number[], scale: ColorScale) => {
         b = 0
     let i = 0
     while (i < n) {
-        const v = values[i]
+        const v = values[i] as number
         let j = 1
         while (i + j < n && values[i + j] == v) j += 1
         const vColor = lab(scale(v))
@@ -29,7 +29,7 @@ export const avgRgb = (values: number[], scale: ColorScale) => {
         b = 0
     let i = 0
     while (i < n) {
-        const v = values[i]
+        const v = values[i] as number
         let j = 1
         while (i + j < n && values[i + j] == v) j += 1
         const vColor = rgb(scale(v))

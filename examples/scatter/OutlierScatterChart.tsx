@@ -10,6 +10,7 @@ import {
     ThemeSpec,
     LegendTitle,
     defaultCategoricalScaleSpec,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { BlockArrow, BracketLabel, Segment } from '@chsk/annotation'
 import { isScatterData, Scatter, ScatterPoints, Regression } from '@chsk/xy'
@@ -68,9 +69,13 @@ const customTheme: ThemeSpec = {
 
 export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isScatterData(rawData)) return null
-    const d1 = rawData[1].data
-    const outlierX = isArray(d1) ? interval(d1.map(point => Number(point.x))) : [0, 0]
-    const outlierY = isArray(d1) ? interval(d1.map(point => Number(point.y))) : [0, 0]
+    const d1 = rawData[1]?.data
+    const outlierX: NumericPositionSpec = isArray(d1)
+        ? interval(d1.map(point => Number(point.x)))
+        : [0, 0]
+    const outlierY: NumericPositionSpec = isArray(d1)
+        ? interval(d1.map(point => Number(point.y)))
+        : [0, 0]
     return (
         <Chart
             data={chartData}

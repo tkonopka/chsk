@@ -89,27 +89,30 @@ export const ScatterCrosshair = ({
                 event.clientY - y - padding[TOP],
             ]
             const values = targets.map(target => criterion(target, mouse))
+            type pair = [number, number]
             const hit = values.reduce(
-                (result, x, i) => (x < result[0] ? [x, i] : result),
-                [values[0], 0]
+                (result: pair, x, i) => (x < result[0] ? ([x, i] as pair) : result),
+                [values[0], 0] as pair
             )
             if (minDistance && hit[0] > minDistance) {
                 handleMouseLeave(event)
                 return
             }
             const target = targets[hit[1] ?? 0]
+            if (!target) return
             const seriesIndex = target[2]
             const seriesData = processedData[seriesIndex]
             const index = target[3]
             if (activeData) {
-                if (activeData.id === seriesData.id && activeData.index === index) {
+                if (activeData.id === seriesData?.id && activeData.index === index) {
                     return
                 }
             }
-            const originalSeries = originalData[seriesIndex].data
+            const originalSeries = originalData[seriesIndex]?.data
             const data = {
-                ...symbolData[seriesIndex][index],
-                key: seriesData.id,
+                ...symbolData[seriesIndex]?.[index],
+                id: String(seriesData?.id),
+                key: String(seriesData?.id),
                 original: isArray(originalSeries) ? originalSeries[index] : {},
             }
             const newActiveData = { ...data, label: tooltipFormat(data) }
@@ -148,7 +151,7 @@ export const ScatterCrosshair = ({
         activeData !== undefined && activeData.point !== undefined
             ? [xScale(activeData.point[X]), yScale(activeData.point[Y])]
             : [NaN, NaN]
-    const seriesIndex = preparedData.seriesIndexes[activeData?.id ?? '']
+    const seriesIndex = Number(preparedData.seriesIndexes[activeData?.id ?? ''])
     const activeSymbol = createActiveSymbol({
         activeData,
         coordinates,

@@ -24,7 +24,7 @@ const idsC = ids.slice(9, 17)
 
 export const generateCustomGroupsBarData = () => {
     const valuesA = generateSortedValues(5, [25, 100])
-    if (valuesA[1] < 95) valuesA[0] = 95
+    if (Number(valuesA[1]) < 95) valuesA[0] = 95
     const valuesB = generateSortedValues(4, [25, 80])
     const valuesC = generateSortedValues(8, [25, 80])
 
@@ -85,8 +85,8 @@ const customGroupsBarProps = {
         domain: [0, 100] as [number, number],
     },
 }
-customGroupsBarProps.scaleIndex.extraPadding[idsB[0]] = 0.4
-customGroupsBarProps.scaleIndex.extraPadding[idsC[0]] = 0.4
+customGroupsBarProps.scaleIndex.extraPadding[String(idsB[0])] = 0.4
+customGroupsBarProps.scaleIndex.extraPadding[String(idsC[0])] = 0.4
 
 const customTooltipTitle = (x: TooltipData) => {
     return x?.data?.[0]?.id
@@ -123,8 +123,8 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
             <MilestoneMotion enterOn={'A'}>
                 <Bars keys={['A']} modifiers={customModifiers} />
                 <LineLabel
-                    start={[idsA[0], 105]}
-                    end={[idsA[idsA.length - 1], 105]}
+                    start={[idsA[0] as string, 105]}
+                    end={[idsA[idsA.length - 1] as string, 105]}
                     expansion={[0.5, 0.5]}
                 >
                     Group A
@@ -134,8 +134,8 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
             <MilestoneMotion enterOn={'B'}>
                 <Bars keys={['B']} modifiers={customModifiers} />
                 <LineLabel
-                    start={[idsB[0], 105]}
-                    end={[idsB[idsB.length - 1], 105]}
+                    start={[idsB[0] as string, 105]}
+                    end={[idsB[idsB.length - 1] as string, 105]}
                     expansion={[0.5, 0.5]}
                 >
                     Group B
@@ -145,8 +145,8 @@ export const CustomGroupsBarChart = ({ fref, chartData, rawData }: MilestoneStor
             <MilestoneMotion enterOn={'C'}>
                 <Bars keys={['C']} modifiers={customModifiers} />
                 <LineLabel
-                    start={[idsC[0], 105]}
-                    end={[idsC[idsC.length - 1], 105]}
+                    start={[idsC[0] as string, 105]}
+                    end={[idsC[idsC.length - 1] as string, 105]}
                     expansion={[0.5, 0.5]}
                 >
                     others

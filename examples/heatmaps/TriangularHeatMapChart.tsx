@@ -43,9 +43,11 @@ export const generateTriangularHeatMapData = () => {
         ids.forEach((idB, j) => {
             if (i < j) return
             const multiplier = groupMultiplier(idA, idB)
-            const value = round3dp(Number(result[i][idB]) + Math.random() * multiplier)
-            result[i][idB] = value
-            result[j][idA] = value
+            const value = round3dp(Number(result[i]?.[idB]) + Math.random() * multiplier)
+            const rowI = result[i]
+            if (rowI) rowI[idB] = value
+            const rowJ = result[j]
+            if (rowJ) rowJ[idA] = value
         })
     })
     return result

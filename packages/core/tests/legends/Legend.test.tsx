@@ -50,8 +50,8 @@ describe('Legend (list)', () => {
         )
         const items = screen.getAllByRole('legend-item')
         expect(items).toHaveLength(3)
-        expect(items[0].getAttribute('role')).toContain('legend-item')
-        expect(items[0].getAttribute('class')).toContain('legendItem')
+        expect(items[0]?.getAttribute('role')).toContain('legend-item')
+        expect(items[0]?.getAttribute('class')).toContain('legendItem')
     })
 
     it('creates legend items without role', () => {
@@ -74,7 +74,7 @@ describe('Legend (list)', () => {
             </Chart>
         )
         const items = screen.getAllByRole('legend-item')
-        expect(items[0].getAttribute('transform')).toContain('translate(0,20)')
+        expect(items[0]?.getAttribute('transform')).toContain('translate(0,20)')
     })
 
     it('creates a background surface rectangle', () => {
@@ -108,7 +108,7 @@ describe('Legend (list)', () => {
             </Chart>
         )
         const title = screen.getAllByRole('legend-title')
-        const titleRect = title[0].querySelector('rect')
+        const titleRect = title[0]?.querySelector('rect')
         expect(getNumberAttr(titleRect, 'x')).toEqual(5)
         expect(getNumberAttr(titleRect, 'y')).toEqual(5)
     })

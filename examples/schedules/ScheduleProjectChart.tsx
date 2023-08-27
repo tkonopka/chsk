@@ -15,17 +15,17 @@ import { randomUniformValue } from '../utils'
 export const generateScheduleProjectData = () => {
     const times: [number, number][] = []
     times.push([0, Math.floor(randomUniformValue(2, 9))])
-    let maxTime = times[0][1]
+    let maxTime = times[0]?.[1] as number
     times.push([
         maxTime + Math.floor(randomUniformValue(-2, 0.5)),
         maxTime + Math.floor(randomUniformValue(2, 9)),
     ])
-    maxTime = times[1][1]
+    maxTime = times[1]?.[1] as number
     times.push([
         maxTime + Math.floor(randomUniformValue(-2, 0.5)),
         maxTime + Math.floor(randomUniformValue(2, 9)),
     ])
-    maxTime = times[2][1]
+    maxTime = times[2]?.[1] as number
     times.push([
         maxTime + Math.floor(randomUniformValue(-2, 0.5)),
         maxTime + Math.floor(randomUniformValue(2, 9)),
@@ -34,7 +34,7 @@ export const generateScheduleProjectData = () => {
     const keys = ['A', 'B', 'C', 'D']
     return ids.map((id, i) => ({
         id: id,
-        data: [{ start: times[i][0], end: times[i][1], key: keys[i] }],
+        data: [{ start: times[i]?.[0], end: times[i]?.[1], key: keys[i] }],
     }))
 }
 

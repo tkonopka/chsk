@@ -40,8 +40,8 @@ describe('Density', () => {
         expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
         expect(result.data).toHaveLength(2)
         // x and y arrays should hold [min, max] intervals
-        expect(result.data[0].x).toEqual([1, 3])
-        expect(result.data[0].y).toEqual([1, 3])
+        expect(result.data[0]?.x).toEqual([1, 3])
+        expect(result.data[0]?.y).toEqual([1, 3])
     })
 
     it('accepts data in verbose format', () => {
@@ -79,10 +79,10 @@ describe('Density', () => {
         // the data should get binned into four bins (6 points, but some points are identical)
         expect(prepared.data).toHaveLength(4)
         // the data should be sorted with low-count entries first
-        expect(prepared.data[0][DENSITY_COUNT]).toEqual(1)
-        expect(prepared.data[1][DENSITY_COUNT]).toEqual(1)
-        expect(prepared.data[2][DENSITY_COUNT]).toEqual(2)
-        expect(prepared.data[3][DENSITY_COUNT]).toEqual(2)
+        expect(prepared.data[0]?.[DENSITY_COUNT]).toEqual(1)
+        expect(prepared.data[1]?.[DENSITY_COUNT]).toEqual(1)
+        expect(prepared.data[2]?.[DENSITY_COUNT]).toEqual(2)
+        expect(prepared.data[3]?.[DENSITY_COUNT]).toEqual(2)
     })
 
     it('defines prepared data with disabled series', () => {
@@ -108,10 +108,10 @@ describe('Density', () => {
         // the data should get binned into four bins (6 points, but some points are identical)
         expect(prepared.data).toHaveLength(4)
         // the data should be sorted with low-count entries first, and one bin should be empty
-        expect(prepared.data[0][DENSITY_COUNT]).toEqual(0)
-        expect(prepared.data[1][DENSITY_COUNT]).toEqual(1)
-        expect(prepared.data[2][DENSITY_COUNT]).toEqual(1)
-        expect(prepared.data[3][DENSITY_COUNT]).toEqual(2)
+        expect(prepared.data[0]?.[DENSITY_COUNT]).toEqual(0)
+        expect(prepared.data[1]?.[DENSITY_COUNT]).toEqual(1)
+        expect(prepared.data[2]?.[DENSITY_COUNT]).toEqual(1)
+        expect(prepared.data[3]?.[DENSITY_COUNT]).toEqual(2)
     })
 
     it('accepts sequential color values (columns)', () => {

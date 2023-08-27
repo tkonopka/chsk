@@ -33,9 +33,10 @@ const UnthemedLegendColorScale = ({
     // create a list of colors
     const scaleSize = horizontal ? size[X] : -size[Y]
     const domain = scale.domain()
-    const domainSize = domain[domain.length - 1] - domain[0]
+    const domainStart = Number(domain[0])
+    const domainSize = Number(domain[domain.length - 1]) - domainStart
     const nStops = 21
-    const stops = range(nStops).map(i => scale(domain[0] + (i / nStops) * domainSize))
+    const stops = range(nStops).map(i => scale(domainStart + (i / nStops) * domainSize))
 
     // details for gradient rectangle
     const gradId = 'legend-grad-' + (gradientId ?? className ?? variant)

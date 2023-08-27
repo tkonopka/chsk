@@ -5,7 +5,8 @@ import { NumericPositionSpec } from './types'
 import { X, Y } from './constants'
 
 /** round a number x to n decimal places, e.g. 33.3333 -> 33.3 */
-export const roundDecimalPlaces = (x: number, n: number) => {
+export const roundDecimalPlaces = (x: number | undefined, n: number) => {
+    if (x === undefined) return Number(x)
     if (n === 0) return Math.round(x)
     if (n === 3) return Math.round(x * 1000) / 1000
     if (n === 1) return Math.round(x * 10) / 10
@@ -18,23 +19,26 @@ export const rad2deg = (x: number) => (180 * x) / Math.PI
 export const deg2rad = (x: number) => (Math.PI * x) / 180
 
 /** get min and max values in an array */
-export const interval = (values: Array<number>, fallback = [1, 1]): [number, number] => {
-    const min = values.reduce((acc, v) => Math.min(acc, v), values[0])
-    const max = values.reduce((acc, v) => Math.max(acc, v), values[0])
-    if (min === undefined && max === undefined) return [fallback[0], fallback[1]]
+export const interval = (
+    values: Array<number>,
+    fallback: [number, number] = [1, 1]
+): [number, number] => {
+    if (!values.length) return [fallback[0], fallback[1]]
+    const min = values.reduce((acc, v) => Math.min(acc, v), Number(values[0]))
+    const max = values.reduce((acc, v) => Math.max(acc, v), Number(values[0]))
+    //if (min === undefined && max === undefined) return [fallback[0], fallback[1]]
     return [min, max]
 }
 
 /** get the maximum value in an array */
 export const max = (values: Array<number>, fallback = 1): number => {
-    const max = values.reduce((acc, v) => Math.max(acc, v), values[0])
-    return max === undefined ? fallback : max
+    if (!values.length) return fallback
+    return values.reduce((acc, v) => Math.max(acc, v), Number(values[0]))
 }
 
 export const mean = (data: number[]): number => {
     const n = data.length
     if (n === 0) return NaN
-    if (n === 1) return data[0]
     return data.reduce((acc, v) => acc + v, 0) / n
 }
 
@@ -42,7 +46,7 @@ export const mean = (data: number[]): number => {
 export const moments = (data: number[]): [number, number] => {
     const n = data.length
     if (n === 0) return [NaN, NaN]
-    if (n === 1) return [data[0], NaN]
+    if (n === 1) return [Number(data[0]), NaN]
     const total = data.reduce((acc, v) => acc + v, 0)
     const mean = total / data.length
     const sumSquares = data.reduce((acc, v) => acc + (v - mean) ** 2, 0)
@@ -112,10 +116,10 @@ export const indexes = (a: unknown[]): number[] => {
 export const histogramPoints = (values: number[], breaks: number[]) => {
     const n = breaks.length
     const result: NumericPositionSpec[] = Array(n + 1).fill([0, 0])
-    result[0] = [breaks[0], values[0]]
-    result[n] = [breaks[n - 1], values[n - 2]]
+    result[0] = [Number(breaks[0]), Number(values[0])]
+    result[n] = [Number(breaks[n - 1]), Number(values[n - 2])]
     values.forEach((value, i) => {
-        result[i + 1] = [(breaks[i + 1] + breaks[i]) / 2.0, value]
+        result[i + 1] = [(Number(breaks[i + 1]) + Number(breaks[i])) / 2.0, value]
     })
     return result
 }
@@ -126,7 +130,7 @@ export const sortedIndex = (data: number[], target: number): number => {
     let high = data.length
     while (low < high) {
         const mid = (low + high) >>> 1
-        if (data[mid] < target) {
+        if (Number(data[mid]) < target) {
             low = mid + 1
         } else {
             high = mid
@@ -141,8 +145,8 @@ export const binValues = (data: number[], breaks: number[], density: boolean) =>
     if (data.length === 0) {
         return values
     }
-    const min = breaks[0]
-    const max = breaks[breaks.length - 1]
+    const min = Number(breaks[0])
+    const max = Number(breaks[breaks.length - 1])
     data.filter(v => v >= min && v <= max).forEach(v => {
         const index = sortedIndex(breaks, v)
         // may over-estimate density in lowest bin when points are exactly equal to lower bound
@@ -151,7 +155,7 @@ export const binValues = (data: number[], breaks: number[], density: boolean) =>
     if (density) {
         const total = values.reduce((acc, v) => acc + v, 0)
         values.forEach((v, i) => {
-            const width = breaks[i + 1] - breaks[i]
+            const width = Number(breaks[i + 1]) - Number(breaks[i])
             values[i] = v / (width * total)
         })
     }
@@ -163,13 +167,13 @@ export const breaks = (data: number[], n: number) => {
     const minmax = interval(data)
     const scale = scaleLinear().range([0, 100]).domain(minmax).clamp(false)
     let result = scale.ticks(Math.max(2, n))
-    const step = result[1] - result[0]
-    const last = result[result.length - 1]
+    const step = Number(result[1]) - Number(result[0])
+    const last = Number(result[result.length - 1])
     if (last < minmax[1]) {
         result.push(last + step)
     }
-    if (result[0] > minmax[0]) {
-        result = [result[0] - step].concat(result)
+    if (Number(result[0]) > minmax[0]) {
+        result = [Number(result[0]) - step].concat(result)
     }
     return result
 }

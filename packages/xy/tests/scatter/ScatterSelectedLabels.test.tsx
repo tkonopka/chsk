@@ -75,7 +75,7 @@ describe('ScatterSelectedLabels', () => {
         const labels = result.querySelectorAll('text')
         expect(symbols).toHaveLength(1)
         expect(labels).toHaveLength(1)
-        expect(labels[0].textContent).toBe('quadratic')
+        expect(labels[0]?.textContent).toBe('quadratic')
         // symbol and label should be nearby
         const symbolPosition: NumericPositionSpec = [
             getNumberAttr(symbols[0], 'cx'),

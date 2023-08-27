@@ -58,7 +58,11 @@ export const PolarItem = ({
                 setWorking(true)
             },
             onUpdate: latest => {
-                const [rLatest, thetaLatest, angleLatest] = interpolator(latest)
+                const [rLatest, thetaLatest, angleLatest] = interpolator(latest) as [
+                    number,
+                    number,
+                    number
+                ]
                 const latestX = rLatest * Math.sin(thetaLatest)
                 const latestY = -rLatest * Math.cos(thetaLatest)
                 transform.set(getTransform(latestX, latestY, angleLatest))

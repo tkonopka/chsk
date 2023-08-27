@@ -25,10 +25,10 @@ export const generateQuantileGroupsData = () => {
             .sort((a, b) => a - b)
         return {
             n: Math.round(randomNormalValue(100, 15)),
-            moments: [(values[3] + values[5]) / 2, NaN],
+            moments: [(Number(values[3]) + Number(values[5])) / 2, NaN],
             values: [values[0], values[2], values[4], values[6], values[8]],
             quantiles: q5,
-            extrema: [values[0] - 0.5, values[8] + 0.5],
+            extrema: [Number(values[0]) - 0.5, Number(values[8]) + 0.5],
         }
     }
     return alphabetGreek.map(id => ({

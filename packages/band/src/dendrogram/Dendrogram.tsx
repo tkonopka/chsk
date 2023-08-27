@@ -51,10 +51,10 @@ const prepareData = (
         const positionInterval: [number, number][] = []
         const heightInterval: [number, number][] = []
         item.merge.map((pair, i) => {
-            const h = item.height[i]
+            const h = item.height[i] ?? 0
             height[i] = valueScale(h)
             const positionExtremities: Array<number | number[]> = [0, 0]
-            const heightExtremities: number[] = [0, 0, height[i]]
+            const heightExtremities: number[] = [0, 0, height[i] ?? 0]
             const [a, b] = pair
             if (a < 0 && hang >= 0) {
                 leafHeight[abs(a) - 1] = valueScale(h - hang)
@@ -62,14 +62,18 @@ const prepareData = (
             if (b < 0 && hang >= 0) {
                 leafHeight[abs(b) - 1] = valueScale(h - hang)
             }
-            heightExtremities[0] = a < 0 ? leafHeight[abs(a) - 1] : heightInterval[a - 1][0]
-            heightExtremities[1] = b < 0 ? leafHeight[abs(b) - 1] : heightInterval[b - 1][1]
-            positionExtremities[0] = a < 0 ? leafPosition[abs(a) - 1] : position[a - 1]
-            positionExtremities[1] = b < 0 ? leafPosition[abs(b) - 1] : position[b - 1]
+            heightExtremities[0] =
+                a < 0 ? Number(leafHeight[abs(a) - 1]) : Number(heightInterval[a - 1]?.[0])
+            heightExtremities[1] =
+                b < 0 ? Number(leafHeight[abs(b) - 1]) : Number(heightInterval[b - 1]?.[1])
+            positionExtremities[0] =
+                a < 0 ? Number(leafPosition[abs(a) - 1]) : Number(position[a - 1])
+            positionExtremities[1] =
+                b < 0 ? Number(leafPosition[abs(b) - 1]) : Number(position[b - 1])
             position[i] = 0.5 * (positionExtremities[0] + positionExtremities[1])
             // widen positionExtremities to span all descendants
-            if (a > 0) positionExtremities.push(positionInterval[a - 1])
-            if (b > 0) positionExtremities.push(positionInterval[b - 1])
+            if (a > 0) positionExtremities.push(positionInterval[a - 1] ?? [])
+            if (b > 0) positionExtremities.push(positionInterval[b - 1] ?? [])
             positionInterval[i] = interval(positionExtremities.flat())
             heightInterval[i] = interval(heightExtremities)
         })
@@ -102,12 +106,12 @@ export const Dendrogram = ({
     const horizontal = variant === 'right' || variant === 'left'
 
     const processedData = useMemo(() => processData(data, hang), [data, hang])
-    const keys = data[0].keys
+    const keys = data[0]?.keys ?? []
     const { index: indexProps, value: valueProps } = useMemo(
         () =>
             getScaleProps(
                 keys,
-                data.map(d => d.keys.map(() => processedData[0].domain)),
+                data.map(d => d.keys.map(() => processedData[0]?.domain)),
                 scaleIndex,
                 scaleValue,
                 innerSize,

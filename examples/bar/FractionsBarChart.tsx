@@ -1,8 +1,11 @@
 import {
+    AnchorSpec,
     Chart,
     Counter,
     CounterProps,
     MilestoneMotion,
+    NumericPositionSpec,
+    SizeSpec,
     ThemeSpec,
     Typography,
     TypographyProps,
@@ -78,9 +81,9 @@ export const CustomCounter = (props: CounterProps) => (
 
 export const CustomLabel = ({ children }: Pick<TypographyProps, 'children'>) => {
     const prepared = useBarPreparedData()
-    const position = prepared.data[0].position[2]
-    const size = prepared.data[0].size[2]
-    const anchor = [position[X] + size[X] / 2, position[Y] + size[Y] - 1]
+    const position = prepared.data[0]?.position[2] as NumericPositionSpec
+    const size = prepared.data[0]?.size[2] as SizeSpec
+    const anchor: AnchorSpec = [position[X] + size[X] / 2, position[Y] + size[Y] - 1]
     const labelPosition: [number, number] = [anchor[X] - 20, anchor[Y] + 32]
     return (
         <>

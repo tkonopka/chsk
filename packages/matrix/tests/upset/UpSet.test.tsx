@@ -21,7 +21,7 @@ describe('UpSet', () => {
         expect(Object.keys(result.seriesIndexes)).toHaveLength(4)
         expect(result.data).toHaveLength(4)
         ids.forEach((id, i) => {
-            expect(result.data[i].id).toEqual(id)
+            expect(result.data[i]?.id).toEqual(id)
         })
         // the sets intersect so that:
         // 2 elements are present in (alpha)

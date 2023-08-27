@@ -42,8 +42,8 @@ const PercentageChangeLabels = ({
 }) => {
     const processedData = useProcessedData()
     // determine indexes for keys holding before/after values
-    const before = processedData.keys.indexOf(keys[0])
-    const after = processedData.keys.indexOf(keys[1])
+    const before = processedData.keys.indexOf(keys[0] as string)
+    const after = processedData.keys.indexOf(keys[1] as string)
     if (before < 0 || after < 0) return null
     // compute percentages
     const changes = processedData.data.map(item => {
@@ -53,8 +53,8 @@ const PercentageChangeLabels = ({
     })
     // create labels
     const result = processedData.data.map((item, index) => {
-        const label = (changes[index] > 0 ? '+' : '') + changes[index] + '%'
-        const color = colors[changes[index] > 0 ? 0 : 1]
+        const label = (Number(changes[index]) > 0 ? '+' : '') + changes[index] + '%'
+        const color = colors[Number(changes[index]) > 0 ? 0 : 1]
         return (
             <BracketLabel
                 key={'label-' + item.id}

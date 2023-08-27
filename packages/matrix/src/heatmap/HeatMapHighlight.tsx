@@ -153,10 +153,10 @@ export const HeatMapHighlight = ({
                 tooltipAlign
             )
             const [keyIndex, idIndex] = indexes
-            const zoneId = idArray[idIndex]
-            const zoneKey = keyArray[keyIndex]
-            const zoneValue = data[idIndex].value[keyIndex]
-            const zoneSize = data[idIndex].size[keyIndex]
+            const zoneId = String(idArray[idIndex])
+            const zoneKey = String(keyArray[keyIndex])
+            const zoneValue = Number(data[idIndex]?.value[keyIndex])
+            const zoneSize = data[idIndex]?.size[keyIndex]
             const zoneLabel =
                 (zoneValue === null || isNaN(Number(zoneValue)) ? '' : 'value: ' + zoneValue) +
                 ' ' +

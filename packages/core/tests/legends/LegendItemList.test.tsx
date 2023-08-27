@@ -59,7 +59,7 @@ describe('LegendItemList', () => {
                         <LegendItemList
                             position={[0, 0]}
                             variant={'right'}
-                            keys={[keys[2]]}
+                            keys={[String(keys[2])]}
                             labels={[keys[2]]}
                         />
                     </Legend>
@@ -72,7 +72,7 @@ describe('LegendItemList', () => {
         const labels = legend.querySelectorAll('text')
         expect(labels).toHaveLength(1)
         // the color should be associated with keys[2], i.e. gamma, i.e. gray
-        const rect = items[0].querySelectorAll('rect')[1]
-        expect(rect.getAttribute('style')).toContain('#888888')
+        const rect = items[0]?.querySelectorAll('rect')[1]
+        expect(rect?.getAttribute('style')).toContain('#888888')
     })
 })

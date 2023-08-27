@@ -23,19 +23,23 @@ export const prepareData = (
     }))
     // split set-oriented data into piece-oriented format
     // this is brute-force handling of cases with 1 set, 2 sets, 3 sets
-    let prepare: (
-        data: VennProcessedDataItem[],
-        scales: Scales,
-        interpolation: VennInterpolation
-    ) => VennPreparedDataItem[] = prepareData1
-    if (data.length === 2) prepare = prepareData2
-    if (data.length === 3) prepare = prepareData3
-
-    if (data.length === 0) return []
-    return prepare(scaledData, scales, interpolation)
+    if (data.length === 1) return prepareData1(scaledData as [VennProcessedDataItem], scales)
+    if (data.length === 2)
+        return prepareData2(
+            scaledData as [VennProcessedDataItem, VennProcessedDataItem],
+            scales,
+            interpolation
+        )
+    if (data.length === 3)
+        return prepareData3(
+            scaledData as [VennProcessedDataItem, VennProcessedDataItem, VennProcessedDataItem],
+            scales,
+            interpolation
+        )
+    return []
 }
 
-const prepareData1 = (data: VennProcessedDataItem[], scales: Scales): VennPreparedDataItem[] => {
+const prepareData1 = (data: [VennProcessedDataItem], scales: Scales): VennPreparedDataItem[] => {
     const A = data[0]
     return [
         {
@@ -43,7 +47,7 @@ const prepareData1 = (data: VennProcessedDataItem[], scales: Scales): VennPrepar
             membership: [true],
             label: A.id,
             labelPosition: A.center,
-            value: A.intersection[0],
+            value: Number(A.intersection[0]),
             color: scales.color(0),
             d: pathVenn1({ data, index: 0 }),
         },
@@ -51,7 +55,7 @@ const prepareData1 = (data: VennProcessedDataItem[], scales: Scales): VennPrepar
 }
 
 const prepareData2 = (
-    data: VennProcessedDataItem[],
+    data: [VennProcessedDataItem, VennProcessedDataItem],
     scales: Scales,
     interpolation: VennInterpolation
 ): VennPreparedDataItem[] => {
@@ -122,7 +126,7 @@ const prepareData2 = (
 }
 
 const prepareData3 = (
-    data: VennProcessedDataItem[],
+    data: [VennProcessedDataItem, VennProcessedDataItem, VennProcessedDataItem],
     scales: Scales,
     interpolation: VennInterpolation
 ): VennPreparedDataItem[] => {
@@ -160,6 +164,9 @@ const prepareData3 = (
     // distance from center to a location within one set that does not overlap with other sets
     const exclusiveD = (innerD + (unitDistance + d0)) / 2
     const color = scales.color
+    const Aintersection = A.intersection as [number, number, number]
+    const Bintersection = B.intersection as [number, number, number]
+    const Cintersection = C.intersection as [number, number, number]
     return [
         // first three items represent elements unique to A, B, C
         {
@@ -167,7 +174,7 @@ const prepareData3 = (
             membership: [true, false, false],
             label: A.id + ' ∩ ! ' + B.id + ' ∩ ! ' + C.id,
             labelPosition: svgTranslatedPosition(origin, exclusiveD, rotation - angleThird / 2),
-            value: A.size - A.intersection[1] - A.intersection[2] + A.common,
+            value: A.size - Aintersection[1] - Aintersection[2] + A.common,
             color: color(0),
             d: pathVenn1({ data, index: 0 }),
         },
@@ -176,7 +183,7 @@ const prepareData3 = (
             membership: [false, true, false],
             label: '! ' + A.id + ' ∩ ' + B.id + ' ∩ ! ' + C.id,
             labelPosition: svgTranslatedPosition(origin, exclusiveD, rotation + angleThird / 2),
-            value: B.size - B.intersection[0] - B.intersection[2] + B.common,
+            value: B.size - Bintersection[0] - Bintersection[2] + B.common,
             color: color(1),
             d: pathVenn1({ data, index: 1 }),
         },
@@ -185,7 +192,7 @@ const prepareData3 = (
             membership: [false, false, true],
             label: '! ' + A.id + ' ∩ ! ' + B.id + '  ∩ ' + C.id,
             labelPosition: svgTranslatedPosition(origin, exclusiveD, rotation + Math.PI),
-            value: C.size - C.intersection[0] - C.intersection[1] + C.common,
+            value: C.size - Cintersection[0] - Cintersection[1] + C.common,
             color: color(2),
             d: pathVenn1({ data, index: 2 }),
         },
@@ -195,7 +202,7 @@ const prepareData3 = (
             membership: [true, true, false],
             label: A.id + ' ∩ ' + B.id + ' ∩ ! ' + C.id,
             labelPosition: svgTranslatedPosition(origin, sharedD, rotation + 0),
-            value: A.intersection[1] - A.common,
+            value: Aintersection[1] - A.common,
             color: interpolation(color(0), color(1)),
             d: pathVenn2({ data, index: 0 }),
         },
@@ -203,7 +210,7 @@ const prepareData3 = (
             id: B.id + ' ' + C.id,
             membership: [false, true, true],
             labelPosition: svgTranslatedPosition(origin, sharedD, rotation + angleThird),
-            value: B.intersection[2] - B.common,
+            value: Bintersection[2] - B.common,
             label: '! ' + A.id + ' ∩ ' + B.id + ' ∩ ' + C.id,
             color: interpolation(color(1), color(2)),
             d: pathVenn2({ data, index: 1 }),
@@ -213,7 +220,7 @@ const prepareData3 = (
             membership: [true, false, true],
             label: A.id + ' ∩ ! ' + B.id + ' ∩ ' + C.id,
             labelPosition: svgTranslatedPosition(origin, sharedD, rotation - angleThird),
-            value: C.intersection[0] - C.common,
+            value: Cintersection[0] - C.common,
             color: interpolation(color(0), color(2)),
             d: pathVenn2({ data, index: 2 }),
         },

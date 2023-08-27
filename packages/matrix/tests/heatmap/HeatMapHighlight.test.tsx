@@ -51,8 +51,8 @@ describe('HeatMapHighlight', () => {
         fireEvent.mouseLeave(detector)
         const maskRects = screen.getByRole('heatmap-highlight-mask').querySelectorAll('rect')
         expect(maskRects).toHaveLength(4)
-        expect(maskRects[0].getAttribute('class')).toContain('heatmapHighlight')
-        expect(maskRects[0].getAttribute('class')).toContain('custom')
+        expect(maskRects[0]?.getAttribute('class')).toContain('heatmapHighlight')
+        expect(maskRects[0]?.getAttribute('class')).toContain('custom')
     })
 
     it('creates elements without role', async () => {

@@ -5,11 +5,11 @@ const add = addPositions
 
 // modifies object 'result'
 export const processData2 = (
-    result: Array<VennProcessedDataItem>,
+    result: [VennProcessedDataItem, VennProcessedDataItem],
     separation: number,
     proportional: boolean
 ) => {
-    const intersection = result[0].intersection[1]
+    const intersection = Number(result[0]?.intersection[1])
     if (proportional) {
         // two circles with different sizes
         const { centerA, centerB, rA, rB, pointsA, pointsB, thetaA, thetaB } = computeVenn2(
@@ -103,7 +103,7 @@ export const computeVenn2 = (
         pointsB.push([pointB[X], -0.01 * r])
         pointsB.push([pointB[X], 0.01 * r])
     } else {
-        const range = [Math.abs(rA - rB), rA + rB]
+        const range: [number, number] = [Math.abs(rA - rB), rA + rB]
         let d = (range[1] + range[0]) / 2,
             size = 0
         while (range[1] - range[0] > 1e-6 * (rA + rB)) {
@@ -122,8 +122,8 @@ export const computeVenn2 = (
         posB[X] = d / 2
         pointsA.push([rA * Math.cos(thetaA) - d / 2, rA * Math.sin(thetaA)])
         pointsA.push([rA * Math.cos(thetaA) - d / 2, -rA * Math.sin(thetaA)])
-        pointsB.push(pointsA[1])
-        pointsB.push(pointsA[0])
+        pointsB.push(pointsA[1] as NumericPositionSpec)
+        pointsB.push(pointsA[0] as NumericPositionSpec)
     }
 
     // shift positions so that they are equidistant from the origin
@@ -144,7 +144,7 @@ const getThetas = (rA: number, rB: number, d: number) => {
     const rSmall = Math.min(rA, rB)
     const rLS = rLarge / rSmall
     const thetaCritical = Math.asin(rSmall / rLarge)
-    const range = [0, thetaCritical]
+    const range: [number, number] = [0, thetaCritical]
     const dCritical = rLarge * Math.cos(thetaCritical)
     let thetaLarge = 0
     const thetaSmall = (theta: number) => {

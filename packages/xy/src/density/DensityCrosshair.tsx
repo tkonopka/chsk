@@ -66,7 +66,7 @@ const createTooltipDataItems = (
     const domain: string[] = scale.domain().map(String)
     for (const [k, v] of Object.entries(counts)) {
         result.push({
-            id: domain[Number(k)],
+            id: String(domain[Number(k)]),
             color: scale(Number(k)),
             label: domain[Number(k)] + ': ' + v,
             data: v,
@@ -128,15 +128,17 @@ export const DensityCrosshair = ({
             ]
             const mouseBins: NumericPositionSpec = [mouse[X] / binSize, mouse[Y] / binSize]
             const values = targets.map(target => criterion(target, mouseBins))
-            const hit = values.reduce(
-                (result, x, i) => (x < result[0] ? [x, i] : result),
-                [values[0], 0]
-            )
+            type pair = [number, number]
+            const hit = values.reduce((result, x, i) => (x < result[0] ? [x, i] : result) as pair, [
+                values[0],
+                0,
+            ] as pair)
             if (minDistance && hit[0] > minDistance / binSize) {
                 handleMouseLeave(event)
                 return
             }
             const target = targets[hit[1] ?? 0]
+            if (!target) return
             if (activeData) {
                 if (activeData.bins[X] == target[X] && activeData.bins[Y] === target[Y]) {
                     return

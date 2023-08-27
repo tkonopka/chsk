@@ -44,14 +44,14 @@ export const getXYScaleProps = (
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = active
             .map(i => data[i])
-            .map(seriesData => seriesData.x)
+            .map(seriesData => seriesData?.x ?? [])
             .flat()
         result.x = createContinuousScaleProps(scaleSpecX, interval(x))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = active
             .map(i => data[i])
-            .map(seriesData => seriesData.y)
+            .map(seriesData => seriesData?.y ?? [])
             .flat()
         result.y = createContinuousScaleProps(scaleSpecY, interval(y))
     }
@@ -89,18 +89,19 @@ export const useSymbolData = (
     if (!isScatterProcessedData(processedData)) return []
     return useMemo(() => {
         return preparedData.keys.map(id => {
-            const seriesIndex = preparedData.seriesIndexes[id]
+            const seriesIndex = Number(preparedData.seriesIndexes[id])
             const seriesProcessedData = processedData[seriesIndex]
             const data = preparedData.data[seriesIndex]
+            if (data === undefined) return []
             return indexes(data.r).map(index => ({
                 id,
                 index,
-                point: [seriesProcessedData.x[index], seriesProcessedData.y[index]] as [
-                    number,
-                    number
-                ],
-                size: seriesProcessedData.size[index],
-                color: seriesProcessedData.color?.[index],
+                point: [
+                    seriesProcessedData?.x[index],
+                    seriesProcessedData?.y[index],
+                ] as NumericPositionSpec,
+                size: seriesProcessedData?.size[index],
+                color: seriesProcessedData?.color?.[index],
             }))
         })
     }, [processedData, preparedData])
@@ -121,15 +122,16 @@ export const distanceY = (a: XY, b: XY) => Math.abs(a[Y] - b[Y])
 export const useTargets = (
     preparedData: PreparedDataContextProps<ScatterPreparedDataItem>,
     disabledKeys: Set<string>
-) => {
+): TargetData[] => {
     return useMemo(() => {
         const result: TargetData[] = []
         preparedData.keys.forEach(id => {
-            if (disabledKeys.has(id)) return
             const seriesIndex = preparedData.seriesIndexes[id]
+            if (disabledKeys.has(id) || seriesIndex === undefined) return
             const data = preparedData.data[seriesIndex]
+            if (!data) return
             indexes(data.r).forEach(index => {
-                result.push([data.x[index], data.y[index], seriesIndex, index])
+                result.push([data.x[index] as number, data.y[index] as number, seriesIndex, index])
             })
         })
         return result

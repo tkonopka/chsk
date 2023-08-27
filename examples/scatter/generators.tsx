@@ -11,7 +11,7 @@ export const generateXYValues = (
         const item: Record<string, number> = {}
         item['x'] = v
         keys.forEach((k, i) => {
-            item[k] = y[i](v)
+            item[k] = Number(y[i]?.(v))
         })
         return item
     })

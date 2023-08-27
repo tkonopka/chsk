@@ -38,7 +38,7 @@ describe('HeatMapCells', () => {
             </Chart>
         )
         const result = screen.getByRole('heatmap-cells')
-        expect(result.querySelectorAll('rect')[0].getAttribute('class')).toEqual('cell')
+        expect(result.querySelectorAll('rect')[0]?.getAttribute('class')).toEqual('cell')
     })
 
     it('draws cells only for selected ids', () => {
@@ -137,7 +137,7 @@ describe('HeatMapCells', () => {
             </Chart>
         )
         const cells = screen.getByRole('heatmap-cells').querySelectorAll('rect')
-        fireEvent.click(cells[0])
+        if (cells[0]) fireEvent.click(cells[0])
         await waitFor(() => {
             expect(result?.id).toEqual('alpha')
             expect(result?.key).toEqual('x')

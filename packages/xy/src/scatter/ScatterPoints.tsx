@@ -35,19 +35,19 @@ export const ScatterPoints = ({
         if (seriesIndex === undefined) return null
         const seriesStyle = addColor(symbolStyle, colorScale(seriesIndex))
         const data = preparedData.data[seriesIndex]
-        const x = data.x
-        const y = data.y
-        const k = processedData[seriesIndex].k
-        const colors = data.color
+        const x = data?.x
+        const y = data?.y
+        const k = processedData[seriesIndex]?.k
+        const colors = data?.color
         const dots = visible
-            ? data.r.map((r: number, i: number) =>
+            ? data?.r.map((r: number, i: number) =>
                   createElement(dataComponent, {
-                      key: k[i],
-                      data: symbolData[seriesIndex][i],
+                      key: k?.[i],
+                      data: symbolData[seriesIndex]?.[i],
                       component: symbol,
                       props: {
-                          cx: x[i],
-                          cy: y[i],
+                          cx: x?.[i],
+                          cy: y?.[i],
                           r: r,
                           className: symbolClassName,
                           style: colors ? addColor(symbolStyle, colors[i]) : seriesStyle,

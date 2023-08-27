@@ -27,7 +27,12 @@ const generateQuestionData = (id: string) => {
     while (!done) {
         const values = Array(4)
             .fill(0)
-            .map(() => round1dp(randomUniformValue(5, 35)))
+            .map(() => Number(round1dp(randomUniformValue(5, 35)))) as [
+            number,
+            number,
+            number,
+            number
+        ]
         const sum = values[0] + values[1] + values[2] + values[3]
         const neutral = 100 - sum
         done = neutral > 5

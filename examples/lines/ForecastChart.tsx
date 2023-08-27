@@ -33,7 +33,7 @@ export const generateForecastData = () => {
         .fill(0)
         .map(() => randomNormalValue(0, 0.65))
     const syntheticData = noiseData.map((x, i) => {
-        const value = i * slope + pattern[i % 52]
+        const value = i * slope + Number(pattern[i % 52])
         return {
             time: new Date(Number(start) + i * weekLength),
             value: x + value,
@@ -79,7 +79,7 @@ export const ForecastRectangle = () => {
         <>
             <LineLabel
                 start={[Number(now), 0]}
-                end={[scales.x.domain()[1], 0]}
+                end={[scales.x.domain()[1] as number, 0]}
                 units={['view', 'absolute']}
                 className={'forecast'}
                 lineStyle={{ visibility: 'hidden' }}
@@ -89,7 +89,7 @@ export const ForecastRectangle = () => {
             </LineLabel>
             <Stripe
                 variant={'x'}
-                domain={[Number(now), scales.x.domain()[1]]}
+                domain={[Number(now), scales.x.domain()[1] as number]}
                 className={'forecast'}
             />
         </>
@@ -99,7 +99,7 @@ export const ForecastRectangle = () => {
 export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
     const { scales } = useScales()
     const scaleX = scales.x as TimeAxisScale
-    const timeDomain = scaleX.domain()
+    const timeDomain = scaleX.domain() as [number, number]
     const minYear = new Date(timeDomain[0]).getFullYear()
     const maxYear = new Date(timeDomain[1]).getFullYear()
     const yearBoundaries = []
@@ -109,10 +109,10 @@ export const YearAxisTicks = ({ variant }: Pick<AxisTicksProps, 'variant'>) => {
         const yearMid = Number(new Date(year + '-07-01'))
         const yearQ1 = Number(new Date(year + '-04-01'))
         const yearQ3 = Number(new Date(year + '-010-01'))
-        if (yearStart >= timeDomain[0]) {
+        if (yearStart >= Number(timeDomain[0])) {
             yearBoundaries.push(yearStart)
         }
-        if (yearQ3 <= timeDomain[1] && yearQ1 > timeDomain[0]) {
+        if (yearQ3 <= Number(timeDomain[1]) && yearQ1 > Number(timeDomain[0])) {
             yearMids.push(yearMid)
         }
     }

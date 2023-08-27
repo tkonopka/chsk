@@ -32,16 +32,16 @@ export const generateErrorsData = () => {
     const xNoise = generateUniformPopulation(n, -0.4, 0.4)
     const xValues = Array(n)
         .fill(0)
-        .map((_, i) => i + 1 + xNoise[i])
+        .map((_, i) => i + 1 + Number(xNoise[i]))
     const xErrors = generateUniformPopulation(n, 0.2, 0.4)
     const yErrors = generateUniformPopulation(n, 0.05, 0.12)
     const data = xValues.map((x, i) => ({
         x: round4dp(x),
         y: round4dp(Math.log(x)),
-        xmin: x - xErrors[i],
-        xmax: x + xErrors[i],
-        ymin: Math.log(x) - Math.max(0.1, Math.log(x) * yErrors[i]),
-        ymax: Math.log(x) + Math.max(0.1, Math.log(x) * yErrors[i]),
+        xmin: x - Number(xErrors[i]),
+        xmax: x + Number(xErrors[i]),
+        ymin: Math.log(x) - Math.max(0.1, Math.log(x) * Number(yErrors[i])),
+        ymax: Math.log(x) + Math.max(0.1, Math.log(x) * Number(yErrors[i])),
     }))
     return [{ id: 'A', data }]
 }

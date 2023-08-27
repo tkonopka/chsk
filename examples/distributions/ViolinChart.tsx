@@ -26,11 +26,18 @@ export const generateViolinData = () => {
     const bimodal = generateUniformPopulation(2, 0, 6).map(v => Math.floor(v))
     return ids.map((id, i) => {
         const result: RecordWithId = { id }
-        let values = generateMixedPopulation([n[i]], [means[i]], [sds[i]])
+        let values = generateMixedPopulation(
+            [n[i] as number],
+            [means[i] as number],
+            [sds[i] as number]
+        )
         if (bimodal.indexOf(i) >= 0) {
-            const newN: number = n[i] * 0.8
-            const newMean = means[i] > 50 ? means[i] - 4 * sds[i] : means[i] + 3 * sds[i]
-            values = values.concat(generateMixedPopulation([newN], [newMean], [sds[i]]))
+            const newN = Number(n[i]) * 0.8
+            const newMean =
+                Number(means[i]) > 50
+                    ? Number(means[i]) - 4 * Number(sds[i])
+                    : Number(means[i]) + 3 * Number(sds[i])
+            values = values.concat(generateMixedPopulation([newN], [newMean], [sds[i] as number]))
         }
         result[id] = values
             .filter(v => v >= 0)

@@ -30,13 +30,14 @@ export const getTickCoordinates = (
     values: undefined | number | number[] | string[] | Date[],
     shift = 0,
     size = 0 // only used for color scales
-) => {
+): number[] => {
     const tickValues = getTicks(scale, values)
     if (isColorScale(scale)) {
         if (isCategoricalColorScale(scale)) return []
         const domain = scale.domain()
-        const domainSize = domain[domain.length - 1] - domain[0]
-        const result = tickValues.map(v => (size * (Number(v) - domain[0])) / domainSize)
+        const domainStart = Number(domain[0])
+        const domainSize = Number(domain[domain.length - 1]) - domainStart
+        const result = tickValues.map(v => (size * (Number(v) - domainStart)) / domainSize)
         // for vertical color scales (size < 0), adjust the mapping to make low-high go from bottom-to-top
         return size < 0 ? result.map(v => Math.abs(size) + v) : result
     }

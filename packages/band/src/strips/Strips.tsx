@@ -53,7 +53,7 @@ export const Strips = ({
                 if (!summary) return null
                 const x = horizontal ? summary.value : summary.internal
                 const y = horizontal ? summary.internal : summary.value
-                const seriesProcessedData = processedData[seriesData.index].data[i]
+                const seriesProcessedData = processedData[seriesData.index]?.data[i]
                 return summary.valueSize.map((valueSize: number, j: number) =>
                     createElement(dataComponent, {
                         key: 'p-' + seriesData.index + '-' + i + '-' + j,

@@ -93,7 +93,7 @@ const ClickSummary = ({ data }: { data: HistogramInteractiveDataItem }) => {
     }
     const breaks = data.breaks
     const domain = data.bin ? '[' + breaks[data.bin - 1] + ', ' + breaks[data.bin] + ']' : null
-    const value = data.bin ? data.points[data.bin][1] : null
+    const value = data.bin ? data.points[data.bin]?.[1] : null
     return (
         <div>
             <div>

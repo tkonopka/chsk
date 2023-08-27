@@ -15,7 +15,7 @@ describe('QuantileTooltip', () => {
         )
         const boxwhiskers = screen.getAllByRole('box-and-whiskers')
         expect(boxwhiskers.length).toBeGreaterThan(0)
-        fireEvent.mouseEnter(boxwhiskers[0])
+        if (boxwhiskers[0]) fireEvent.mouseEnter(boxwhiskers[0])
         await waitFor(() => {
             const content = screen.getByRole('tooltip-content')
             // tooltip should contain one rect (background surface)
@@ -37,7 +37,8 @@ describe('QuantileTooltip', () => {
                 </Quantile>
             </Chart>
         )
-        fireEvent.mouseEnter(screen.getAllByRole('box-and-whiskers')[0])
+        const firstBox = screen.getAllByRole('box-and-whiskers')[0]
+        if (firstBox) fireEvent.mouseEnter(firstBox)
         await waitFor(() => {
             const title = screen.getByRole('tooltip-title')
             expect(title.textContent).toEqual('Custom title')
@@ -58,7 +59,8 @@ describe('QuantileTooltip', () => {
                 </Quantile>
             </Chart>
         )
-        fireEvent.mouseEnter(screen.getAllByRole('box-and-whiskers')[0])
+        const firstBox = screen.getAllByRole('box-and-whiskers')[0]
+        if (firstBox) fireEvent.mouseEnter(firstBox)
         await waitFor(() => {
             const content = screen.getByRole('tooltip-content')
             // tooltip should have many text fields with various info

@@ -67,20 +67,20 @@ const getSubTreeIndexes = (data: DendrogramDataItem, index: number, result: numb
     if (index < 0) {
         result.push(-index - 1)
     } else {
-        getSubTreeIndexes(data, data.merge[index - 1][0], result)
-        getSubTreeIndexes(data, data.merge[index - 1][1], result)
+        getSubTreeIndexes(data, data.merge[index - 1]?.[0] as number, result)
+        getSubTreeIndexes(data, data.merge[index - 1]?.[1] as number, result)
     }
 }
 
 const flipDomain = (domain: string[], data: DendrogramDataItem, level: number) => {
-    const pair = data.merge[level]
+    const pair = data.merge[level] as [number, number]
     const leftIndexes: number[] = []
     const rightIndexes: number[] = []
     getSubTreeIndexes(data, pair[0], leftIndexes)
     getSubTreeIndexes(data, pair[1], rightIndexes)
     const keys = data.keys
-    const leftTransformed = leftIndexes.map(i => domain.indexOf(keys[i]))
-    const rightTransformed = rightIndexes.map(i => domain.indexOf(keys[i]))
+    const leftTransformed = leftIndexes.map(i => domain.indexOf(keys[i] as string))
+    const rightTransformed = rightIndexes.map(i => domain.indexOf(keys[i] as string))
     let leftInterval = interval(leftTransformed)
     let rightInterval = interval(rightTransformed)
     if (rightInterval[0] < leftInterval[0]) {
@@ -107,7 +107,7 @@ export const DendrogramChart = ({ fref, chartData, rawData }: MilestoneStory) =>
 
     // resets the domain when a new dataset/hierarchy is loaded
     useEffect(() => {
-        setDomain(rawData[0].keys)
+        setDomain(rawData[0]?.keys)
     }, [rawData])
 
     return (

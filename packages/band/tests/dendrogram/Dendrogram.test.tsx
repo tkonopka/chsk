@@ -58,10 +58,10 @@ describe('Dendrogram', () => {
         expect(prepared.keys).toHaveLength(4)
         // the dataset represents a balanced tree with four nodes, so there are three merge nodes
         const data = prepared.data[0]
-        expect(data.height).toHaveLength(3)
-        expect(data.position).toHaveLength(3)
+        expect(data?.height).toHaveLength(3)
+        expect(data?.position).toHaveLength(3)
         // by default, hang is negative, and all leaf nodes should be at equal height
-        const leafHeights = new Set<number>(data.leafHeight)
+        const leafHeights = new Set<number>(data?.leafHeight)
         expect(Array.from(leafHeights)).toHaveLength(1)
     })
 
@@ -83,10 +83,10 @@ describe('Dendrogram', () => {
             </Chart>
         )
         const data = prepared.data[0]
-        expect(data.height).toHaveLength(3)
-        expect(data.position).toHaveLength(3)
+        expect(data?.height).toHaveLength(3)
+        expect(data?.position).toHaveLength(3)
         // a balanced tree with four nodes will have leaf nodes at two distinct levels
-        const leafHeights = new Set<number>(data.leafHeight)
+        const leafHeights = new Set<number>(data?.leafHeight)
         expect(Array.from(leafHeights)).toHaveLength(2)
     })
 })

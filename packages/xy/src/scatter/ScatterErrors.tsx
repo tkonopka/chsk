@@ -52,8 +52,8 @@ const getErrorPoints = ({
     const transform: (x: NumericPositionSpec) => NumericPositionSpec =
         variant === 'y' ? x => x : x => [x[1], x[0]]
     return lowerValues.map((v, i) => ({
-        lower: transform([otherValues[i], v]),
-        upper: transform([otherValues[i], upperValues[i]]),
+        lower: transform([otherValues[i], v] as NumericPositionSpec),
+        upper: transform([otherValues[i], upperValues[i]] as NumericPositionSpec),
     }))
 }
 
@@ -86,16 +86,18 @@ export const ScatterErrors = ({
 
     const errorsData = useMemo(
         () =>
-            data.map((seriesData, index) =>
-                getErrorPoints({
+            data.map((seriesData, index) => {
+                const rawItem = rawData[index]?.data
+                if (!rawItem) return
+                return getErrorPoints({
                     variant,
-                    rawData: rawData[index].data,
+                    rawData: rawItem,
                     seriesData,
                     scale: variant === 'y' ? scaleY : scaleX,
                     lower,
                     upper,
                 })
-            ),
+            }),
         [variant, data, rawData, scaleX, scaleY, lower, upper]
     )
 
@@ -112,7 +114,7 @@ export const ScatterErrors = ({
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
         const seriesStyle = addColor(style, scaleColor(seriesIndex))
-        const elements = errorsData[seriesIndex].map((points, index) => {
+        const elements = errorsData[seriesIndex]?.map((points, index) => {
             return createElement(dataComponent, {
                 key: 'e-' + id + '-' + index,
                 data: { id, index },

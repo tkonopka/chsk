@@ -66,8 +66,8 @@ const FirstPoint = ({
     const { scales } = useScales()
     const preparedData = useScatterPreparedData()
     const index = id ? preparedData.seriesIndexes[id] ?? 0 : 0
-    const cx = preparedData.data[index].x[0]
-    const cy = preparedData.data[index].y[0]
+    const cx = preparedData.data[index]?.x[0]
+    const cy = preparedData.data[index]?.y[0]
     const pointStyle = addColor(style, scales.color(index))
     return (
         <Circle cx={cx} cy={cy} r={r} setRole={setRole} style={pointStyle} className={className} />
@@ -104,7 +104,7 @@ const SignCurve = ({ ids, prefix = 'sign-gradient' }: { ids?: string[]; prefix?:
     const result = (ids ?? processedData.keys).map((id: string) => {
         const seriesIndex = processedData.seriesIndexes[id]
         if (seriesIndex === undefined) return
-        const range = interval(data[seriesIndex].y)
+        const range = interval(data[seriesIndex]?.y ?? [])
         const stops = getStops(range)
         const offsets = getOffsets(range)
         const gradId = prefix + '-' + id

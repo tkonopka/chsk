@@ -20,10 +20,10 @@ export const Segment = ({
         cy + coords[Y] * r,
     ])
     const config = {
-        x1: points[0][X],
-        y1: points[0][Y],
-        x2: points[1][X],
-        y2: points[1][Y],
+        x1: points[0]?.[X],
+        y1: points[0]?.[Y],
+        x2: points[1]?.[X],
+        y2: points[1]?.[Y],
     }
     return (
         <m.line

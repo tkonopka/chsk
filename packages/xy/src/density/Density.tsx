@@ -95,15 +95,16 @@ const prepareData = ({
         }
         xValues.forEach((v, j) => {
             const xBin = round(scaleX(v) / binSize)
-            const yBin = round(scaleY(yValues[j]) / binSize)
+            const yBin = round(scaleY(Number(yValues[j])) / binSize)
             const key = xBin + ',' + yBin
             if (!binKeys.has(key)) {
                 binKeys.add(key)
                 bins[key] = [xBin, yBin, 0, '', []]
             }
-            if (countIncrement) {
-                bins[key][DENSITY_COUNT] += 1
-                bins[key][DENSITY_CONTENT].push(colorValues[j])
+            const binsData = bins[key]
+            if (countIncrement && binsData) {
+                binsData[DENSITY_COUNT] += 1
+                binsData[DENSITY_CONTENT].push(Number(colorValues[j]))
             }
         })
     })

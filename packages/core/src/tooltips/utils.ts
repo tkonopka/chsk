@@ -59,11 +59,11 @@ export const flipPositionAnchor = (
 ) => {
     const flippedPosition: NumericPositionSpec = [...position]
     const flippedAnchor: AnchorSpec = [...anchor]
-    for (const i in [X, Y]) {
-        if (Math.abs(overhang[i])) {
-            flippedPosition[i] = -position[i]
-            flippedAnchor[i] = 1 - anchor[i]
+    overhang.forEach((value, i) => {
+        if (Math.abs(value)) {
+            flippedPosition[i] = -Number(position[i])
+            flippedAnchor[i] = 1 - Number(anchor[i])
         }
-    }
+    })
     return { flippedPosition, flippedAnchor }
 }

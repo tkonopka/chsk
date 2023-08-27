@@ -132,7 +132,8 @@ const MilestoneArrow = ({
 }
 
 export const TreeFlowChart = ({ fref, chartData, rawData }: MilestoneStory) => {
-    const nData = rawData[0].data as unknown as number[]
+    type number8 = [number, number, number, number, number, number, number, number]
+    const nData = rawData[0]?.data as unknown as number8
     const [nTotal, nLoss, nA, nB, nA1, nA2, nB1, nB2] = nData
     // coordinates and settings for box locations
     const boxStart: NumericPositionSpec = [0.5, 30]

@@ -21,9 +21,9 @@ describe('GridItem', () => {
         expect(screen.queryAllByRole('grid-item')).toHaveLength(2)
         const items = screen.getAllByRole('grid-item')
         // index 1 is near top-left corner, 1 across
-        expect(items[0].getAttribute('transform')).toBe('translate(100,0)')
+        expect(items[0]?.getAttribute('transform')).toBe('translate(100,0)')
         // index 6 in a 4x4 grid is 2 across, 1 down
-        expect(items[1].getAttribute('transform')).toBe('translate(200,100)')
+        expect(items[1]?.getAttribute('transform')).toBe('translate(200,100)')
     })
 
     it('creates a grid item using position', () => {
@@ -37,8 +37,8 @@ describe('GridItem', () => {
         )
         expect(screen.queryAllByRole('grid-item')).toHaveLength(2)
         const items = screen.getAllByRole('grid-item')
-        expect(items[0].getAttribute('transform')).toBe('translate(100,200)')
-        expect(items[1].getAttribute('transform')).toBe('translate(0,300)')
+        expect(items[0]?.getAttribute('transform')).toBe('translate(100,200)')
+        expect(items[1]?.getAttribute('transform')).toBe('translate(0,300)')
     })
 
     it('creates a grid item using array index', () => {
@@ -52,8 +52,8 @@ describe('GridItem', () => {
         )
         expect(screen.queryAllByRole('grid-item')).toHaveLength(2)
         const items = screen.getAllByRole('grid-item')
-        expect(items[0].getAttribute('transform')).toBe('translate(200,100)')
-        expect(items[1].getAttribute('transform')).toBe('translate(300,0)')
+        expect(items[0]?.getAttribute('transform')).toBe('translate(200,100)')
+        expect(items[1]?.getAttribute('transform')).toBe('translate(300,0)')
     })
 
     it('creates a dimensions provider that affect children', () => {

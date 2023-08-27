@@ -80,7 +80,7 @@ const dateToString = (d: Date) => {
 
 const customTooltipLabelFormat = (x: TooltipDataItem) => {
     if (!('point' in x)) return ''
-    const point = x.point as number[]
+    const point = x.point as [number, number]
     return dateToString(new Date(point[0])) + ', ' + point[1]
 }
 

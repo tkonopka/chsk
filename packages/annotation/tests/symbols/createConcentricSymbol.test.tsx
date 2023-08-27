@@ -26,18 +26,18 @@ describe('createConcentricSymbol', () => {
         const symbols = screen.getByRole('chart-content').querySelectorAll('circle')
         expect(symbols).toHaveLength(2)
         // first element should be secondary element in the background
-        expect(symbols[0].getAttribute('class')).toContain('secondary')
+        expect(symbols[0]?.getAttribute('class')).toContain('secondary')
         expect(getNumberAttr(symbols[0], 'r')).toEqual(1.5)
-        expect(symbols[0].getAttribute('style')).not.toContain('#ff0000')
-        expect(symbols[0].getAttribute('style')).toContain('#ffffff')
+        expect(symbols[0]?.getAttribute('style')).not.toContain('#ff0000')
+        expect(symbols[0]?.getAttribute('style')).toContain('#ffffff')
         // second element should be primary element in the foreground
-        expect(symbols[1].getAttribute('class')).toContain('primary')
+        expect(symbols[1]?.getAttribute('class')).toContain('primary')
         expect(getNumberAttr(symbols[1], 'r')).toEqual(1)
-        expect(symbols[1].getAttribute('style')).toContain('#ff0000')
-        expect(symbols[1].getAttribute('style')).not.toContain('#ffffff')
+        expect(symbols[1]?.getAttribute('style')).toContain('#ff0000')
+        expect(symbols[1]?.getAttribute('style')).not.toContain('#ffffff')
         // both elements should contain a stroke color
-        expect(symbols[0].getAttribute('style')).toContain('#0000ff')
-        expect(symbols[1].getAttribute('style')).toContain('#0000ff')
+        expect(symbols[0]?.getAttribute('style')).toContain('#0000ff')
+        expect(symbols[1]?.getAttribute('style')).toContain('#0000ff')
     })
 
     it('creates secondary symbol in the foreground', () => {
@@ -61,18 +61,18 @@ describe('createConcentricSymbol', () => {
         const symbols = screen.getByRole('chart-content').querySelectorAll('circle')
         expect(symbols).toHaveLength(2)
         // first element should be primary element in the background
-        expect(symbols[0].getAttribute('class')).toContain('primary')
+        expect(symbols[0]?.getAttribute('class')).toContain('primary')
         expect(getNumberAttr(symbols[0], 'r')).toEqual(2)
-        expect(symbols[0].getAttribute('style')).toContain('#ff0000')
-        expect(symbols[0].getAttribute('style')).not.toContain('#ffffff')
+        expect(symbols[0]?.getAttribute('style')).toContain('#ff0000')
+        expect(symbols[0]?.getAttribute('style')).not.toContain('#ffffff')
         // second element should be secondary element in the foreground
-        expect(symbols[1].getAttribute('class')).toContain('secondary')
+        expect(symbols[1]?.getAttribute('class')).toContain('secondary')
         expect(getNumberAttr(symbols[1], 'r')).toEqual(1.6)
-        expect(symbols[1].getAttribute('style')).not.toContain('#ff0000')
-        expect(symbols[1].getAttribute('style')).toContain('#ffffff')
+        expect(symbols[1]?.getAttribute('style')).not.toContain('#ff0000')
+        expect(symbols[1]?.getAttribute('style')).toContain('#ffffff')
         // both elements should contain a stroke color
-        expect(symbols[0].getAttribute('style')).toContain('#0000ff')
-        expect(symbols[1].getAttribute('style')).toContain('#0000ff')
+        expect(symbols[0]?.getAttribute('style')).toContain('#0000ff')
+        expect(symbols[1]?.getAttribute('style')).toContain('#0000ff')
     })
 
     it('sets custom class names', () => {
@@ -87,9 +87,9 @@ describe('createConcentricSymbol', () => {
             </Chart>
         )
         const symbols = screen.getByRole('chart-content').querySelectorAll('rect')
-        const g = symbols[0].closest('g')
-        expect(symbols[0].getAttribute('class')).toBe('custom secondary')
-        expect(symbols[1].getAttribute('class')).toBe('custom primary')
+        const g = symbols[0]?.closest('g')
+        expect(symbols[0]?.getAttribute('class')).toBe('custom secondary')
+        expect(symbols[1]?.getAttribute('class')).toBe('custom primary')
         expect(g?.getAttribute('class')).toBe('custom')
     })
 
@@ -110,13 +110,13 @@ describe('createConcentricSymbol', () => {
         )
         const symbols = screen.getByRole('chart-content').querySelectorAll('rect')
         expect(symbols).toHaveLength(2)
-        const g = symbols[0].closest('g')
+        const g = symbols[0]?.closest('g')
         // clicks handlers should act on entire group
         expect(value).toBe(0)
-        fireEvent.click(symbols[0])
-        fireEvent.click(symbols[1])
+        if (symbols[0]) fireEvent.click(symbols[0])
+        if (symbols[1]) fireEvent.click(symbols[1])
         expect(value).toBe(2)
-        fireEvent.click(g ?? symbols[0])
+        if (g) fireEvent.click(g)
         expect(value).toBe(3)
     })
 })

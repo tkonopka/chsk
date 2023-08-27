@@ -146,14 +146,16 @@ describe('Bar', () => {
         // second set of bars should have narrower bars
         const indexes = [0, 1, 2]
         indexes.map(index => {
-            expect(result2.data[0].size[index][X]).toBeLessThan(result1.data[0].size[index][X])
+            expect(Number(result2.data[0]?.size[index]?.[X])).toBeLessThan(
+                Number(result1.data[0]?.size[index]?.[X])
+            )
         })
         // second set of bars should be centered around the same x position
         indexes.map(index => {
             const d1 = result1.data[0]
-            const x1 = d1.position[index][X] + d1.size[index][X] / 2
+            const x1 = Number(d1?.position[index]?.[X]) + Number(d1?.size[index]?.[X]) / 2
             const d2 = result2.data[0]
-            const x2 = d2.position[index][X] + d2.size[index][X] / 2
+            const x2 = Number(d2?.position[index]?.[X]) + Number(d2?.size[index]?.[X]) / 2
             expect(Math.round(x1)).toEqual(Math.round(x2))
         })
     })
@@ -186,14 +188,16 @@ describe('Bar', () => {
         // second set of bars should have narrower bars (in horizontal view, that means small height)
         const indexes = [0, 1, 2]
         indexes.map(index => {
-            expect(result2.data[0].size[index][Y]).toBeLessThan(result1.data[0].size[index][Y])
+            expect(Number(result2.data[0]?.size[index]?.[Y])).toBeLessThan(
+                Number(result1.data[0]?.size[index]?.[Y])
+            )
         })
         // second set of bars should be centered around the same y position
         indexes.map(index => {
             const d1 = result1.data[0]
-            const y1 = d1.position[index][Y] + d1.size[index][Y] / 2
+            const y1 = Number(d1?.position[index]?.[Y]) + Number(d1?.size[index]?.[Y]) / 2
             const d2 = result2.data[0]
-            const y2 = d2.position[index][Y] + d2.size[index][Y] / 2
+            const y2 = Number(d2?.position[index]?.[Y]) + Number(d2?.size[index]?.[Y]) / 2
             expect(Math.round(y1)).toEqual(Math.round(y2))
         })
     })
@@ -262,10 +266,10 @@ describe('Bar', () => {
         )
         expect(isBarProcessedData(processed.data)).toBeTruthy()
         // in svg coordinates, the first bar should be at the left, the last bar should be at the right
-        const pos0 = prepared.data[0].position[0]
-        const pos2 = prepared.data[2].position[0]
-        expect(pos0[X]).toBeLessThan(200)
-        expect(pos2[X]).toBeGreaterThan(200)
+        const pos0 = prepared.data[0]?.position[0]
+        const pos2 = prepared.data[2]?.position[0]
+        expect(pos0?.[X]).toBeLessThan(200)
+        expect(pos2?.[X]).toBeGreaterThan(200)
     })
 
     it('prepares color scale for legend', () => {

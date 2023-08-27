@@ -8,7 +8,7 @@ describe('darkTheme', () => {
     })
 
     it('defines light color for text', () => {
-        const textFill = darkTheme.text.default.fill ?? ''
+        const textFill = darkTheme.text.default?.fill ?? ''
         const textRgb = colArray(textFill)
         expect(textRgb[0]).toBeGreaterThan(128)
         expect(textRgb[1]).toBeGreaterThan(128)

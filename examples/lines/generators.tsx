@@ -56,7 +56,7 @@ export const generateSurvivalMatrix = (
     const pEvent2 = pEvent * pEvent
     const pCensor2 = pCensor * pCensor
     while (nRisk > 4 && time < maxTime) {
-        time += Math.floor(randomUniformValue(tInterval[0], tInterval[1]))
+        time += Math.floor(randomUniformValue(tInterval[0] as number, tInterval[1] as number))
         const e = Math.random()
         const c = Math.random()
         const nEvent = e < pEvent2 ? 2 : e < pEvent ? 1 : 0
@@ -101,10 +101,11 @@ export const generateRegressionData = (
 ): Array<unknown> => {
     const xValues = Array(n)
         .fill(0)
-        .map(() => randomUniformValue(xInterval[0], xInterval[1]))
+        .map(() => randomUniformValue(xInterval[0] as number, xInterval[1] as number))
         .sort((a, b) => a - b)
     return xValues.map(x => {
-        const y = coefficients[0] + coefficients[1] * x + randomNormalValue(0, noise)
+        const y =
+            Number(coefficients[0]) + Number(coefficients[1]) * x + randomNormalValue(0, noise)
         return { x, y }
     })
 }

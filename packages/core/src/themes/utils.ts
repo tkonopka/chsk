@@ -54,12 +54,12 @@ export const addOpacity = (style: CssProps | undefined, opacity: number) => {
     return result
 }
 
-export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec) => {
+export const mergeTheme = (baseTheme: ThemeSpec, customTheme?: ThemeSpec): ThemeSpec => {
     return mergeProps(cloneProps(baseTheme), customTheme ?? {})
 }
 
-export const mergeThemes = (themes: ThemeSpec[]) => {
-    let result = cloneProps(themes[0])
+export const mergeThemes = (themes: ThemeSpec[]): ThemeSpec => {
+    let result = cloneProps(themes[0] ?? {})
     themes.forEach((theme: ThemeSpec, i: number) => {
         if (i === 0) return
         result = mergeProps(result, theme)

@@ -63,7 +63,11 @@ export const getColorScaleProps = (
 }
 
 // count elements in common in two sets
-export const countOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => {
+export const countOverlap = (
+    setA: Set<unknown> | undefined,
+    setB: Set<unknown> | undefined
+): number => {
+    if (setA === undefined || setB === undefined) return 0
     let result = 0
     setA.forEach(x => (result += +setB.has(x)))
     return result
@@ -72,7 +76,7 @@ export const countOverlap = (setA: Set<unknown>, setB: Set<unknown>): number => 
 // count elements that are present in all the provided sets
 export const countCommonElements = (sets: Array<Set<unknown>>): number => {
     if (sets.length === 0) return 0
-    let common = new Set(sets[0].values())
+    let common = new Set(sets[0]?.values())
     sets.slice(1, sets.length).forEach(set => {
         const newCommon = new Set()
         set.forEach(x => {

@@ -79,16 +79,16 @@ const getHistogramScaleProps = (
     if (!isScaleWithDomain(scaleSpecX)) {
         const x = active
             .map(i => data[i])
-            .map(seriesData => seriesData.points.map(point => point[X]))
+            .map(seriesData => seriesData?.points.map(point => point[X]))
             .flat()
-        result.x = createContinuousScaleProps(scaleSpecX, interval(x))
+        result.x = createContinuousScaleProps(scaleSpecX, interval(x as number[]))
     }
     if (!isScaleWithDomain(scaleSpecY)) {
         const y = active
             .map(i => data[i])
-            .map(seriesData => seriesData.points.map(point => point[Y]))
+            .map(seriesData => seriesData?.points.map(point => point[Y]))
             .flat()
-        result.y = createContinuousScaleProps(scaleSpecY, interval(y))
+        result.y = createContinuousScaleProps(scaleSpecY, interval(y as number[]))
     }
     result.x.size = size[X]
     result.y.size = size[Y]

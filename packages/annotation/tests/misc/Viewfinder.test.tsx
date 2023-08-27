@@ -24,7 +24,7 @@ describe('Viewfinder', () => {
             </Chart>
         )
         const corners = screen.getByRole('chart-content').querySelectorAll('path')
-        expect(corners?.[0].closest('g')?.getAttribute('role')).toBeNull()
+        expect(corners[0]?.closest('g')?.getAttribute('role')).toBeNull()
     })
 
     it('creates viewfinder with only one corner', () => {

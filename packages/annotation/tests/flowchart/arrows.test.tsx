@@ -87,10 +87,10 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(2 + 3)
         // first few points represent base of arrow
-        expect(result[0].map(roundNumber)).toEqual([0, 10])
-        expect(result[1].map(roundNumber)).toEqual([0, -10])
+        expect(result[0]?.map(roundNumber)).toEqual([0, 10])
+        expect(result[1]?.map(roundNumber)).toEqual([0, -10])
         // tip of the arrow
-        expect(result[3].map(roundNumber)).toEqual([100, 0])
+        expect(result[3]?.map(roundNumber)).toEqual([100, 0])
     })
 
     it('creates rotated arrow', () => {
@@ -105,8 +105,8 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(5 + 5)
         // arrow tips should match the start/end positions
-        expect(result[2].map(roundNumber)).toEqual([20, 40])
-        expect(result[7].map(roundNumber)).toEqual([60, 80])
+        expect(result[2]?.map(roundNumber)).toEqual([20, 40])
+        expect(result[7]?.map(roundNumber)).toEqual([60, 80])
     })
 
     it('creates rotated arrow (different angle)', () => {
@@ -121,8 +121,8 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(5 + 5)
         // arrow tips should match the start/end positions
-        expect(result[2].map(roundNumber)).toEqual([60, 40])
-        expect(result[7].map(roundNumber)).toEqual([20, 80])
+        expect(result[2]?.map(roundNumber)).toEqual([60, 40])
+        expect(result[7]?.map(roundNumber)).toEqual([20, 80])
     })
 
     it('creates diagonal arrow', () => {
@@ -137,11 +137,11 @@ describe('getBlockArrowPoints', () => {
         })
         expect(result).toHaveLength(5 + 5)
         // arrow tip should match the start/end positions
-        expect(result[7].map(Math.round)).toEqual([200, 100])
+        expect(result[7]?.map(Math.round)).toEqual([200, 100])
         // arrow sides should be horizontal
         const x = Math.sqrt(100 + 100)
-        expect(result[6].map(Math.round)).toEqual([200 - x, 100].map(Math.round))
-        expect(result[8].map(Math.round)).toEqual([200, 100 + x].map(Math.round))
+        expect(result[6]?.map(Math.round)).toEqual([200 - x, 100].map(Math.round))
+        expect(result[8]?.map(Math.round)).toEqual([200, 100 + x].map(Math.round))
     })
 })
 

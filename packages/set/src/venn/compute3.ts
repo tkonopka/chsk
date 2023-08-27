@@ -5,7 +5,10 @@ import { rotatePoint } from './utils'
 const add = addPositions
 
 // modifies object 'result'
-export const processData3 = (result: Array<VennProcessedDataItem>, separation: number) => {
+export const processData3 = (
+    result: [VennProcessedDataItem, VennProcessedDataItem, VennProcessedDataItem],
+    separation: number
+) => {
     const shiftY = separation * Math.tan(Math.PI / 6)
     // circle centers
     result[0].center = [-separation, shiftY]

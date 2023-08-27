@@ -41,10 +41,10 @@ export const generateHistogramScatterData = () => {
     // create a dataset where two populations have different trends
     const data: ScatterData = []
     groupA.forEach((x, i) => {
-        data.push({ k: data.length, x, y: x * 1.0 + noiseA[i] })
+        data.push({ k: data.length, x, y: x * 1.0 + Number(noiseA[i]) })
     })
     groupB.forEach((x, i) => {
-        data.push({ k: data.length, x, y: x * 4.0 + noiseB[i] })
+        data.push({ k: data.length, x, y: x * 4.0 + Number(noiseB[i]) })
     })
     return [{ id: 'A', data }]
 }
@@ -143,15 +143,15 @@ export const HistogramScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     //
     const histogramData = rawData.map(seriesData => {
         const data = seriesData.data as Array<Record<string, number>>
-        const values: number[] = data.map(d => d['x'])
+        const values: number[] = data.map(d => Number(d.x))
         return { id: seriesData.id, data: values }
     })
 
-    const scatterData = stratifyByX(rawData[0].data as ScatterData, Number(lower), Number(upper))
+    const scatterData = stratifyByX(rawData[0]?.data as ScatterData, Number(lower), Number(upper))
 
     // on first render, adjust the bounds to include all the data
     useEffect(() => {
-        const [min, max] = interval(histogramData[0].data)
+        const [min, max] = interval(histogramData[0]?.data as number[])
         setLower(min)
         setUpper(max)
         setInstance(instance => instance + 1)

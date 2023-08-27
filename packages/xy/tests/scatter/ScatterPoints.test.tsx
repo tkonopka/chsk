@@ -26,7 +26,7 @@ describe('ScatterPoints', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-points').querySelectorAll('circle')
-        expect(result[0].getAttribute('r')).toEqual('8')
+        expect(result[0]?.getAttribute('r')).toEqual('8')
     })
 
     it('skips work when a series id does not exist', () => {
@@ -73,8 +73,8 @@ describe('ScatterPoints', () => {
         const result = screen.getByRole('scatter-points').querySelectorAll('circle')
         expect(result).toHaveLength(2)
         // second point has value 4x larger than second point, so radius should be 2x
-        const r1 = Number(result[0].getAttribute('r'))
-        const r2 = Number(result[1].getAttribute('r'))
+        const r1 = Number(result[0]?.getAttribute('r'))
+        const r2 = Number(result[1]?.getAttribute('r'))
         expect(r1).toBeGreaterThan(0)
         expect(r2).toBeGreaterThan(0)
         expect(Math.round(r1)).toEqual(Math.round(r2 / 2))
@@ -109,8 +109,8 @@ describe('ScatterPoints', () => {
         const result = screen.getByRole('scatter-points').querySelectorAll('circle')
         expect(result).toHaveLength(2)
         // the two points should be at the extremes of the color scale, i.e. red and white
-        expect(result[0].getAttribute('style')).toContain('rgb(255')
-        expect(result[1].getAttribute('style')).toContain('rgb(0')
+        expect(result[0]?.getAttribute('style')).toContain('rgb(255')
+        expect(result[1]?.getAttribute('style')).toContain('rgb(0')
     })
 
     it('accepts time scale', () => {

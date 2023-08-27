@@ -62,10 +62,10 @@ describe('Pie', () => {
         expect(processed.data).toHaveLength(pieProps.data.length)
         const expectedIds = ['alpha', 'beta', 'gamma']
         expectedIds.forEach((id, i) => {
-            expect(processed.data[i].id).toEqual(id)
+            expect(processed.data[i]?.id).toEqual(id)
         })
         // first element should start at angle 0
-        expect(processed.data[0].startAngle).toEqual(0)
+        expect(processed.data[0]?.startAngle).toEqual(0)
     })
 
     it('defines scales with 1:1 aspect ratio', () => {
@@ -98,7 +98,7 @@ describe('Pie', () => {
                 </Pie>
             </Chart>
         )
-        expect(processed.data[0].startAngle).toEqual(Math.PI / 2)
+        expect(processed.data[0]?.startAngle).toEqual(Math.PI / 2)
     })
 
     it('uses angle alignment', () => {
@@ -115,7 +115,7 @@ describe('Pie', () => {
                 </Pie>
             </Chart>
         )
-        const startAngle = processed.data[0].startAngle
+        const startAngle = processed.data[0]?.startAngle
         expect(startAngle).toBeGreaterThan(0)
         expect(startAngle).toBeLessThan(Math.PI)
     })

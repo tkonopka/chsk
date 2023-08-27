@@ -36,13 +36,13 @@ export const componentStyles = (
     component: SvgBaseComponent,
     theme: CompleteThemeSpec
 ) => {
-    const subTheme = theme[component]
+    const subTheme: Record<string, Partial<CSSProperties>> = theme[component]
     const prefix = ancestor + (ancestor ? ' ' : '') + component
-    return Object.keys(subTheme)
-        .map(variant => {
-            const cssString = cssStyleString(subTheme[variant])
+    return Object.entries(subTheme)
+        .map(([selector, selectorProperties]) => {
+            const cssString = cssStyleString(selectorProperties)
             if (cssString.length === 0) return ''
-            const suffix = variant === 'default' ? '' : '.' + variant
+            const suffix = selector === 'default' ? '' : '.' + selector
             return prefix + suffix + ' { ' + cssString + ' }'
         })
         .filter(entry => entry.length > 0)

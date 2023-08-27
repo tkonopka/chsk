@@ -44,8 +44,8 @@ describe('Schedules', () => {
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(2)
-        expect(ticks[0].textContent).toEqual('alpha')
-        expect(ticks[1].textContent).toEqual('beta')
+        expect(ticks[0]?.textContent).toEqual('alpha')
+        expect(ticks[1]?.textContent).toEqual('beta')
     })
 
     it('skips work in non-schedules context', () => {

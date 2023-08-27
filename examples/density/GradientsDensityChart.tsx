@@ -30,7 +30,7 @@ export const generateGradientsDensityData = () => {
     const populations = range(n).map(() => Math.floor(randomUniformValue(2000, 5000)))
     const density = 30
     const data = generateClusterFrames(centers, populations, density)
-    data.forEach((d: Record<string, number[]>) => {
+    data.forEach((d: { x: number[]; y: number[] } & Record<string, number[]>) => {
         const xInterval = interval(d.x)
         const xSize = xInterval[1] - xInterval[0]
         const yInterval = interval(d.y)

@@ -62,7 +62,7 @@ export const Quantiles = ({
                 .map((seriesData: QuantilePreparedDataItem) => {
                     if (!idSet.has(seriesData.id)) return null
                     const summary = seriesData.data[i]
-                    const processedSummary = processedData[seriesData.index].data[i]
+                    const processedSummary = processedData[seriesData.index]?.data[i]
                     if (!processedSummary) return null
                     return createElement(dataComponent, {
                         key: 'q-' + seriesData.index + '-' + i,

@@ -15,12 +15,12 @@ describe('AxisTicks', () => {
         )
         const result = screen.getByRole('axis').querySelectorAll('g')
         // the first g inside axis-top should be a group with all ticks
-        expect(result[0].getAttribute('role')).toBe('ticks')
+        expect(result[0]?.getAttribute('role')).toBe('ticks')
         // the next g should be a group with one tick
-        expect(result[1].getAttribute('role')).toBe('tick')
+        expect(result[1]?.getAttribute('role')).toBe('tick')
         // elements within the tick group do not need a role
-        expect(result[1].querySelector('line')?.getAttribute('role')).toBeNull()
-        expect(result[1].querySelector('text')?.getAttribute('role')).toBeNull()
+        expect(result[1]?.querySelector('line')?.getAttribute('role')).toBeNull()
+        expect(result[1]?.querySelector('text')?.getAttribute('role')).toBeNull()
     })
 
     it('creates ticks without role', () => {
@@ -34,10 +34,10 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const result = screen.getByRole('axis').querySelectorAll('g')
-        expect(result[0].getAttribute('role')).toBeNull()
-        expect(result[1].getAttribute('role')).toBeNull()
-        expect(result[1].querySelector('line')?.getAttribute('role')).toBeNull()
-        expect(result[1].querySelector('text')?.getAttribute('role')).toBeNull()
+        expect(result[0]?.getAttribute('role')).toBeNull()
+        expect(result[1]?.getAttribute('role')).toBeNull()
+        expect(result[1]?.querySelector('line')?.getAttribute('role')).toBeNull()
+        expect(result[1]?.querySelector('text')?.getAttribute('role')).toBeNull()
     })
 
     it('formats tick labels', () => {
@@ -52,7 +52,7 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const result = screen.getAllByRole('tick')
-        expect(result[0].textContent).toContain('%')
+        expect(result[0]?.textContent).toContain('%')
     })
 
     it('accepts complex label format function', () => {
@@ -67,8 +67,8 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const result = screen.getAllByRole('tick')
-        expect(result[0].textContent).toContain('abc')
-        expect(result[0].querySelectorAll('tspan')).toHaveLength(1)
+        expect(result[0]?.textContent).toContain('abc')
+        expect(result[0]?.querySelectorAll('tspan')).toHaveLength(1)
     })
 
     it('can omit ticks altogether', () => {
@@ -136,6 +136,6 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const ticks = screen.getByRole('axis').querySelectorAll('text')
-        expect(ticks[0].getAttribute('style')).toContain('rotate(45')
+        expect(ticks[0]?.getAttribute('style')).toContain('rotate(45')
     })
 })

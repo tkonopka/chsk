@@ -33,7 +33,11 @@ export const generateManyLinesHistogramData = () => {
     const positive = (v: number) => v > 0
     return ids.map((id, index) => ({
         id,
-        data: generateMixedPopulation([1000], [means[index]], [sds[index]]).filter(positive),
+        data: generateMixedPopulation(
+            [1000],
+            [means[index] as number],
+            [sds[index] as number]
+        ).filter(positive),
     }))
 }
 

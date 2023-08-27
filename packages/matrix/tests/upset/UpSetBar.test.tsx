@@ -60,10 +60,10 @@ describe('UpSetBar', () => {
         )
         // membership symbols should have one color
         const membership = screen.getByRole('upset-memberships')
-        expect(membership.querySelectorAll('circle')[0].getAttribute('style')).toContain('#00f')
+        expect(membership.querySelectorAll('circle')[0]?.getAttribute('style')).toContain('#00f')
         // bars should have a different color
         const bar = within(screen.getByRole('view-bar')).getByRole('view-content')
-        expect(bar.querySelectorAll('rect')[0].getAttribute('style')).toContain('#f00')
+        expect(bar.querySelectorAll('rect')[0]?.getAttribute('style')).toContain('#f00')
     })
 
     it('inherits custom color from UpSet component', () => {
@@ -77,6 +77,6 @@ describe('UpSetBar', () => {
             </Chart>
         )
         const result = within(screen.getByRole('view-bar')).getByRole('view-content')
-        expect(result.querySelectorAll('rect')[0].getAttribute('style')).toContain('#f00')
+        expect(result.querySelectorAll('rect')[0]?.getAttribute('style')).toContain('#f00')
     })
 })

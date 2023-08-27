@@ -6,6 +6,8 @@
 
 ### Changed
 
+-   code modifications in response to typescript validations
+    (`noUncheckedIndexedAccess`)
 -   turned on additional typescript validations ('noImplicitAny',
     'strictNullChecks',
     'strictFunctionTypes', 'strictBindCallApply',  

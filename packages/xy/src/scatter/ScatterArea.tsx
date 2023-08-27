@@ -28,7 +28,7 @@ export const getAreaD = ({
     baseline?: number
     curve: CurveSpec
 }) => {
-    const base = scaleY(baseline ?? scaleY.domain()[0])
+    const base = scaleY(baseline ?? Number(scaleY.domain()[0]))
     const pointIntervals: Array<NumericPositionIntervalSpec> = points.map(d => [d[0], d[1], base])
     const generator = createAreaGenerator(curve)
     return generator(pointIntervals) ?? ''
@@ -58,15 +58,16 @@ export const ScatterArea = ({
     if (!isContinuousAxisScale(scaleY)) return null
 
     const areas: Record<string, string> = {}
-    preparedData.keys.map(id => {
+    preparedData.keys.forEach(id => {
         const seriesIndex = preparedData.seriesIndexes[id]
+        if (seriesIndex === undefined) return
         const seriesData = preparedData.data[seriesIndex]
         areas[id] = useMemo(
             () =>
                 getAreaD({
                     points: curvePoints({
-                        x: seriesData.x,
-                        y: seriesData.y,
+                        x: seriesData?.x ?? [],
+                        y: seriesData?.y ?? [],
                         convolutionMask,
                         convolutionOffset,
                         downsampleFactor,

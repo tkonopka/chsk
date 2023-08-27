@@ -82,7 +82,7 @@ export const createCellFilter = (
             if (!data[cellId]) {
                 data[cellId] = new Set()
             }
-            data[cellId].add(cellKey)
+            data[cellId]?.add(cellKey)
         })
     } else {
         Array.from(ids).forEach(cellId => {
@@ -90,7 +90,6 @@ export const createCellFilter = (
         })
     }
     return (cellId: string, cellKey: string): boolean => {
-        if (!data[cellId]) return false
-        return data[cellId].has(cellKey)
+        return data[cellId]?.has(cellKey) ?? false
     }
 }

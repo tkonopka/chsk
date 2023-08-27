@@ -67,8 +67,7 @@ describe('Paragraph', () => {
                 </Paragraph>
             </Chart>
         )
-        const result = screen.getAllByRole('paragraph')
-        const text = result[0].querySelectorAll('text')
+        const text = screen.getByRole('paragraph').querySelectorAll('text')
         expect(text).toHaveLength(2)
         expect(text[0]?.textContent).toBe('aaa aaa')
         expect(text[1]?.textContent).toBe('bbb')
@@ -82,7 +81,7 @@ describe('Paragraph', () => {
         )
         const result = screen.queryAllByRole('paragraph')
         expect(result).toBeDefined()
-        expect(result[0].querySelectorAll('text')).toHaveLength(0)
+        expect(result[0]?.querySelectorAll('text')).toHaveLength(0)
     })
 
     it('accepts children as react elements', () => {
@@ -95,7 +94,7 @@ describe('Paragraph', () => {
         )
         const result = screen.queryAllByRole('paragraph')
         expect(result).toBeDefined()
-        expect(result[0].querySelectorAll('text')).toHaveLength(1)
+        expect(result[0]?.querySelectorAll('text')).toHaveLength(1)
     })
 
     it('uses a specified character to create line breaks', () => {
@@ -107,7 +106,7 @@ describe('Paragraph', () => {
             </Chart>
         )
         const result = screen.queryAllByRole('paragraph')
-        expect(result[0].querySelectorAll('text')).toHaveLength(3)
+        expect(result[0]?.querySelectorAll('text')).toHaveLength(3)
     })
 
     it('uses an offset', () => {

@@ -9,6 +9,7 @@ import {
     X,
     Y,
     DataComponent,
+    NumericPositionSpec,
 } from '@chsk/core'
 import { RegressionProps } from './types'
 import { useScatterPreparedData } from './context'
@@ -22,8 +23,8 @@ const regression = (x: number[], y: number[]): [number, number] => {
         D = 0
     x.forEach((v, i) => {
         A += v
-        B += y[i]
-        C += v * y[i]
+        B += Number(y[i])
+        C += v * Number(y[i])
         D += v * v
     })
     const denominator = A * A - N * D
@@ -31,7 +32,10 @@ const regression = (x: number[], y: number[]): [number, number] => {
 }
 
 // get two points that define a regression line
-const getRegressionLineCoordinates = (domain: [number, number], coefficients: [number, number]) => {
+const getRegressionLineCoordinates = (
+    domain: [number, number],
+    coefficients: [number, number]
+): [NumericPositionSpec, NumericPositionSpec] => {
     return [
         [domain[0], coefficients[0] + domain[0] * coefficients[1]],
         [domain[1], coefficients[0] + domain[1] * coefficients[1]],
@@ -58,8 +62,8 @@ const PooledRegression = ({
             const seriesIndex = preparedData.seriesIndexes[id]
             if (seriesIndex === undefined) return
             if (disabledKeys.has(id)) return
-            x = x.concat(preparedData.data[seriesIndex].x)
-            y = y.concat(preparedData.data[seriesIndex].y)
+            x = x.concat(preparedData.data[seriesIndex]?.x ?? [])
+            y = y.concat(preparedData.data[seriesIndex]?.y ?? [])
         })
         if (x.length === 0) return null
         const coefficients = regression(x, y)
@@ -104,7 +108,8 @@ const IndividualRegression = ({
     const coefficients: Record<string, [number, number]> = useMemo(() => {
         const result: Record<string, [number, number]> = {}
         preparedData.keys.map((id, i) => {
-            result[id] = regression(preparedData.data[i].x, preparedData.data[i].y)
+            const iData = preparedData.data[i] ?? { x: [], y: [] }
+            result[id] = regression(iData.x, iData.y)
         })
         return result
     }, [preparedData])
@@ -113,12 +118,13 @@ const IndividualRegression = ({
         const seriesIndex = preparedData.seriesIndexes[id]
         if (seriesIndex === undefined) return null
         if (disabledKeys.has(id)) return null
-        if (coefficients[id].some(isNaN)) return null
+        if (coefficients[id]?.some(isNaN)) return null
+        if (preparedData.data[seriesIndex] === undefined) return null
         const seriesStyle = addColor(style, colorScale(seriesIndex))
         seriesStyle.fill = undefined
         const points = getRegressionLineCoordinates(
-            interval(preparedData.data[seriesIndex].x),
-            coefficients[id]
+            interval(preparedData.data[seriesIndex]?.x ?? []),
+            coefficients[id] ?? [0, 1]
         )
         const element = createElement(dataComponent, {
             data: { id, ids: [id], variant: 'series' },

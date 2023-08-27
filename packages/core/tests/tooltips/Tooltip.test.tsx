@@ -53,7 +53,7 @@ describe('Tooltip', () => {
         expect(items).toHaveLength(1)
         const label = tooltip.querySelector('text')
         expect(label?.textContent).toEqual('label')
-        const symbol = items[0].querySelector('rect')
+        const symbol = items[0]?.querySelector('rect')
         expect(symbol?.getAttribute('class')).toContain('tooltip')
         expect(symbol?.getAttribute('class')).not.toContain('surface')
     })
@@ -175,7 +175,7 @@ describe('Tooltip', () => {
         expect(surface.getAttribute('height')).toEqual('40')
         // the non-title item should be shifted down
         const items = screen.getAllByRole('tooltip-item')
-        expect(items[0].getAttribute('transform')).toContain('translate(0,20)')
+        expect(items[0]?.getAttribute('transform')).toContain('translate(0,20)')
     })
 
     it('uses a title from the TooltipContext', () => {
@@ -194,7 +194,7 @@ describe('Tooltip', () => {
         const surface = screen.getByRole('tooltip-surface')
         expect(surface.getAttribute('height')).toEqual('60')
         const items = screen.getAllByRole('tooltip-item')
-        expect(items[0].getAttribute('transform')).toContain('translate(0,30)')
+        expect(items[0]?.getAttribute('transform')).toContain('translate(0,30)')
     })
 
     it('omits title line when title is explicitly empty', () => {
@@ -212,7 +212,7 @@ describe('Tooltip', () => {
         const surface = screen.getByRole('tooltip-surface')
         expect(surface.getAttribute('height')).toEqual('30')
         const items = screen.getAllByRole('tooltip-item')
-        expect(items[0].getAttribute('transform')).toBeNull()
+        expect(items[0]?.getAttribute('transform')).toBeNull()
     })
 
     it('omits items when labelFormat is null', () => {
@@ -248,7 +248,7 @@ describe('Tooltip', () => {
         const surface = screen.getByRole('tooltip-surface')
         expect(surface.getAttribute('height')).toEqual('50')
         const items = screen.getAllByRole('tooltip-item')
-        expect(items[0].getAttribute('transform')).toContain('translate(0,10)')
+        expect(items[0]?.getAttribute('transform')).toContain('translate(0,10)')
     })
 
     it('sets custom title', () => {

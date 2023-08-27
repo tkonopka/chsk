@@ -24,7 +24,7 @@ export const Paragraph = ({
     const offsets = Array(lines.length)
         .fill(0)
         .map((_, index) => index * size[Y])
-    const maxOffset = offsets[offsets.length - 1]
+    const maxOffset = Number(offsets[offsets.length - 1])
     const [x, y] = [position[X] + offset[X], position[Y] - align * maxOffset + offset[Y]]
     const compositeClassName = getClassName('paragraph', className)
     const config = { x, y, rotate: angle, originX: '0px', originY: '0px' }

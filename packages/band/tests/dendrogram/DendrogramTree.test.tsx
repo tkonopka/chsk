@@ -131,9 +131,9 @@ describe('DendrogramTree', () => {
             return el.getAttribute('d') ?? ''
         }
         const d1: string[] = []
-        trees[0].querySelectorAll('path').forEach(path => d1.push(getPathD(path)))
+        trees[0]?.querySelectorAll('path').forEach(path => d1.push(getPathD(path)))
         const d2: string[] = []
-        trees[1].querySelectorAll('path').forEach(path => d2.push(getPathD(path)))
+        trees[1]?.querySelectorAll('path').forEach(path => d2.push(getPathD(path)))
         // each dendrogram should have three merges, but should look different
         expect(d1).toHaveLength(3)
         expect(d2).toHaveLength(3)

@@ -28,8 +28,8 @@ export const generateBarStripData = () => {
     const positive = (v: number) => v >= 0
     return ids.map((id, index) => ({
         id,
-        x: generateMixedPopulation([6], [means[2 * index]], [10]).filter(positive),
-        y: generateMixedPopulation([6], [means[2 * index + 1]], [10]).filter(positive),
+        x: generateMixedPopulation([6], [means[2 * index] as number], [10]).filter(positive),
+        y: generateMixedPopulation([6], [means[2 * index + 1] as number], [10]).filter(positive),
     }))
 }
 

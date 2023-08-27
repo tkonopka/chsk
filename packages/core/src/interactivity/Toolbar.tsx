@@ -25,7 +25,7 @@ export const Toolbar = <Value,>({
     setRole = true,
     style,
 }: ToolbarProps<Value>) => {
-    const multipliers = horizontal ? [1, 0] : [0, 1]
+    const multipliers: [number, number] = horizontal ? [1, 0] : [0, 1]
     const content = values.map((v: Value, i: number) => {
         const itemPosition: NumericPositionSpec = [
             itemSize[X] * multipliers[X] * i,

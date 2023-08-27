@@ -15,7 +15,7 @@ import { render, screen } from '@testing-library/react'
 import { venn2Props, venn3Props } from './props'
 import { Venn, isVennProcessedData, VennProcessedDataItem } from '../src'
 
-const round2dp = (x: number) => roundDecimalPlaces(x, 2)
+const round2dp = (x: number | undefined) => roundDecimalPlaces(x, 2)
 
 describe('Venn', () => {
     it('defines a view', () => {
@@ -64,7 +64,7 @@ describe('Venn', () => {
         expect(processed.data).toHaveLength(2)
         const expectedIds = ['alpha', 'beta']
         expectedIds.forEach((id, i) => {
-            expect(processed.data[i].id).toEqual(id)
+            expect(processed.data[i]?.id).toEqual(id)
         })
     })
 
@@ -112,8 +112,10 @@ describe('Venn', () => {
             </Chart>
         )
         const factor = Math.sqrt(4 / 3)
-        expect(processed.data[0].r).toBeGreaterThan(processed.data[1].r)
-        expect(round2dp(processed.data[0].r)).toEqual(round2dp(factor * processed.data[1].r))
+        expect(processed.data[0]?.r).toBeGreaterThan(Number(processed.data[1]?.r))
+        expect(round2dp(processed.data[0]?.r)).toEqual(
+            round2dp(factor * Number(processed.data[1]?.r))
+        )
     })
 
     it('computes positions for disjoint sets', () => {
@@ -135,8 +137,8 @@ describe('Venn', () => {
                 </Venn>
             </Chart>
         )
-        expect(processed.data[0].center[X]).toBeLessThan(-1)
-        expect(processed.data[1].center[X]).toBeGreaterThan(1)
+        expect(processed.data[0]?.center[X]).toBeLessThan(-1)
+        expect(processed.data[1]?.center[X]).toBeGreaterThan(1)
     })
 
     it('computes positions for two sets at angle', () => {
@@ -153,15 +155,15 @@ describe('Venn', () => {
             </Chart>
         )
         // first dataset should have sets side-by-side along x-axis
-        expect(processed0.data[0].center[X]).toBeLessThan(0)
-        expect(Math.abs(processed0.data[0].center[Y])).toEqual(0)
-        expect(processed0.data[1].center[X]).toBeGreaterThan(0)
-        expect(Math.abs(processed0.data[1].center[Y])).toEqual(0)
+        expect(processed0.data[0]?.center[X]).toBeLessThan(0)
+        expect(Math.abs(Number(processed0.data[0]?.center[Y]))).toEqual(0)
+        expect(processed0.data[1]?.center[X]).toBeGreaterThan(0)
+        expect(Math.abs(Number(processed0.data[1]?.center[Y]))).toEqual(0)
         // second dataset should have sets above / below the y-axis
-        expect(Math.abs(100 * processed1.data[0].center[X])).toBeLessThan(0.001)
-        expect(processed1.data[0].center[Y]).toBeGreaterThan(0)
-        expect(Math.abs(processed1.data[1].center[X])).toBeLessThan(0.001)
-        expect(processed1.data[1].center[Y]).toBeLessThan(0)
+        expect(Math.abs(100 * Number(processed1.data[0]?.center[X]))).toBeLessThan(0.001)
+        expect(processed1.data[0]?.center[Y]).toBeGreaterThan(0)
+        expect(Math.abs(Number(processed1.data[1]?.center[X]))).toBeLessThan(0.001)
+        expect(processed1.data[1]?.center[Y]).toBeLessThan(0)
     })
 
     it('computes positions for three sets at angle', () => {
@@ -178,25 +180,25 @@ describe('Venn', () => {
             </Chart>
         )
         // first dataset should have two sets side-by-side, and one set below
-        expect(Math.abs(round2dp(processed0.data[0].center[X]))).toEqual(
-            Math.abs(round2dp(processed0.data[1].center[X]))
+        expect(Math.abs(round2dp(processed0.data[0]?.center[X]))).toEqual(
+            Math.abs(round2dp(processed0.data[1]?.center[X]))
         )
-        expect(Math.abs(round2dp(processed0.data[0].center[Y]))).toEqual(
-            Math.abs(round2dp(processed0.data[1].center[Y]))
+        expect(Math.abs(round2dp(processed0.data[0]?.center[Y]))).toEqual(
+            Math.abs(round2dp(processed0.data[1]?.center[Y]))
         )
-        expect(processed0.data[0].center[Y]).toBeGreaterThan(0)
-        expect(round2dp(processed0.data[2].center[X])).toEqual(0)
-        expect(processed0.data[2].center[Y]).toBeLessThan(0)
+        expect(processed0.data[0]?.center[Y]).toBeGreaterThan(0)
+        expect(round2dp(processed0.data[2]?.center[X])).toEqual(0)
+        expect(processed0.data[2]?.center[Y]).toBeLessThan(0)
         // rotated dataset should have two sets side-by-side, and one set above
-        expect(Math.abs(round2dp(processed1.data[0].center[X]))).toEqual(
-            Math.abs(round2dp(processed1.data[1].center[X]))
+        expect(Math.abs(round2dp(processed1.data[0]?.center[X]))).toEqual(
+            Math.abs(round2dp(processed1.data[1]?.center[X]))
         )
-        expect(Math.abs(round2dp(processed1.data[0].center[Y]))).toEqual(
-            Math.abs(round2dp(processed1.data[1].center[Y]))
+        expect(Math.abs(round2dp(processed1.data[0]?.center[Y]))).toEqual(
+            Math.abs(round2dp(processed1.data[1]?.center[Y]))
         )
-        expect(processed1.data[0].center[Y]).toBeLessThan(0)
-        expect(Math.abs(round2dp(processed1.data[2].center[X]))).toEqual(0)
-        expect(processed1.data[2].center[Y]).toBeGreaterThan(0)
+        expect(processed1.data[0]?.center[Y]).toBeLessThan(0)
+        expect(Math.abs(round2dp(processed1.data[2]?.center[X]))).toEqual(0)
+        expect(processed1.data[2]?.center[Y]).toBeGreaterThan(0)
     })
 
     it('computes arc sizes for three sets with large separation', () => {
@@ -212,7 +214,7 @@ describe('Venn', () => {
         // and the outer arc should be a near complete circle (largeArc=1)
         const indexes: number[] = [0, 1, 2]
         indexes.forEach((i: number) => {
-            expect(processed.data[i].largeArcs).toEqual([0, 0, 0, 1])
+            expect(processed.data[i]?.largeArcs).toEqual([0, 0, 0, 1])
         })
     })
 
@@ -229,7 +231,7 @@ describe('Venn', () => {
         // and the outer arc should also be less than a hemisphere (largeArc=0)
         const indexes: number[] = [0, 1, 2]
         indexes.forEach((i: number) => {
-            expect(processed.data[i].largeArcs).toEqual([0, 0, 0, 0])
+            expect(processed.data[i]?.largeArcs).toEqual([0, 0, 0, 0])
         })
     })
 })

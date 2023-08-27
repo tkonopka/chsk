@@ -72,7 +72,7 @@ const customTheme = mergeTheme(buttonTheme, {
 // only display a tooltip on the main part of the heatmap
 const CustomTooltip = (props: TooltipProps) => {
     const { data: tooltip } = useTooltip()
-    if (tooltip?.data?.[0].key?.startsWith('flag')) return null
+    if (tooltip?.data?.[0]?.key?.startsWith('flag')) return null
     return <Tooltip {...props} />
 }
 

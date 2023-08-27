@@ -57,6 +57,8 @@ export const generateHeatMapRowCategorical = (
         .map(() => categories[Math.floor(Math.random() * nCats)])
     if (sorted) randomCats.sort()
     const result: WithId & Record<string, string | number> = { id }
-    keys.forEach((k, i) => (result[k] = randomCats[i]))
+    keys.forEach((k, i) => {
+        result[k] = String(randomCats[i])
+    })
     return result
 }

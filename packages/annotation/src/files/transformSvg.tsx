@@ -76,7 +76,7 @@ export const transformSvg = (
 
     // recompute css definitions using the theme (useful for charts that use outside/global css)
     if (nodeName === 'style' && theme) {
-        const [chartId] = content ? Array.from(content['svg.id']) : ''
+        const [chartId] = content ? Array.from(content['svg.id'] ?? []) : ['']
         element.textContent = getCss(theme, undefined, '#' + chartId)
     }
 

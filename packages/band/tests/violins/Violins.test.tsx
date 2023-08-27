@@ -107,7 +107,7 @@ describe('Violins', () => {
             </Chart>
         )
         const paths = screen.getByRole('view-violin').querySelectorAll('path')
-        expect(paths[0].getAttribute('class')).toContain('violin custom')
+        expect(paths[0]?.getAttribute('class')).toContain('violin custom')
     })
 
     it('creates paths for selected ids', () => {

@@ -88,13 +88,13 @@ describe('DendrogramSurface', () => {
         // at first, all rectangles should be invisible
         expect(getTotalOpacity(rects)).toEqual(0)
         // when mouse enters one surface, opacity should change to 1
-        fireEvent.mouseEnter(rects[0])
+        if (rects[0]) fireEvent.mouseEnter(rects[0])
         await waitFor(() => {
             const rects = screen.getByRole('view-content').querySelectorAll('rect')
             expect(getTotalOpacity(rects)).toEqual(1)
         })
         // when mouse leaves surface, opacity should change back to 0
-        fireEvent.mouseLeave(rects[0])
+        if (rects[0]) fireEvent.mouseLeave(rects[0])
         await waitFor(() => {
             const rects = screen.getByRole('view-content').querySelectorAll('rect')
             expect(getTotalOpacity(rects)).toEqual(0)

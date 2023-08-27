@@ -1,4 +1,4 @@
-import { isArray, X, Y, zeroPosition } from '../general'
+import { isArray, NumericPositionSpec, X, Y, zeroPosition } from '../general'
 import { Line } from '../shapes'
 import { getTickCoordinates, getTicks, Scale, useScales } from '../scales'
 import { AxisTicksProps } from './types'
@@ -36,7 +36,7 @@ export const getScaleTicks = ({
     const tickCoordinates: Array<number> = getTickCoordinates(scale, tickValues, 0, scaleSize)
 
     const horizontal = variant === 'top' || variant === 'bottom'
-    const tickPositions = horizontal
+    const tickPositions: NumericPositionSpec[] = horizontal
         ? tickCoordinates.map(v => [v, 0])
         : tickCoordinates.map(v => [0, v])
     const xMultiplier = variant === 'right' ? 1 : -1

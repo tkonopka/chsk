@@ -42,6 +42,6 @@ describe('BoxedLabel', () => {
         )
         const result = screen.queryAllByRole('boxed-label')
         expect(result).toBeDefined()
-        expect(result[0].querySelectorAll('text')).toHaveLength(0)
+        expect(result[0]?.querySelectorAll('text')).toHaveLength(0)
     })
 })

@@ -4,8 +4,21 @@ import { equalCoordinates } from './utils'
 
 // create an arc definition in svg format:
 // A rx, ry, x-axis-rotation, large-arc-flag, sweep-flag, x, y
-const pathArc = (b: NumericPositionSpec, r: number, largeArc: number, sweep = 0) => {
-    return 'A ' + r + ' ' + r + ' 0 ' + largeArc + ' ' + sweep + ' ' + b[X] + ' ' + b[Y]
+const pathArc = (b: NumericPositionSpec, r?: number, largeArc?: number, sweep = 0) => {
+    return (
+        'A ' +
+        (r ?? 0) +
+        ' ' +
+        (r ?? 0) +
+        ' 0 ' +
+        (largeArc ?? 0) +
+        ' ' +
+        sweep +
+        ' ' +
+        b[X] +
+        ' ' +
+        b[Y]
+    )
 }
 
 const pathM = (p: NumericPositionSpec) => {
@@ -21,16 +34,18 @@ export type pathVennProps = {
 
 const pathVenn1of1 = ({ data, index }: pathVennProps) => {
     const item = data[index]
-    const p1: NumericPositionSpec = addPositions(item.points[0], [0, -0.01])
-    const p2: NumericPositionSpec = addPositions(item.points[0], [0, 0.01])
+    if (!item) return ''
+    const p1: NumericPositionSpec = addPositions(item.points[0] ?? [0, 0], [0, -0.01])
+    const p2: NumericPositionSpec = addPositions(item.points[0] ?? [0, 0], [0, 0.01])
     return [pathM(p1), pathArc(p2, item.r, 0, 0), pathArc(p1, item.r, 1, 1)].join(' ')
 }
 
 const pathVenn1of2 = ({ data, index }: pathVennProps) => {
     const item = data[index]
     const other = data[(index + 1) % 2]
-    const p1 = item.points[0]
-    const p2 = item.points[1]
+    if (!item || !other) return ''
+    const p1 = item?.points[0] ?? [0, 0]
+    const p2 = item?.points[1] ?? [0, 0]
     let p1effective = p1
     let p2effective = p2
     if (equalCoordinates(p1, p2)) {
@@ -53,9 +68,10 @@ const pathVenn1of3 = ({ data, index }: pathVennProps) => {
     const item0 = data[index]
     const item1 = data[(index + 1) % 3]
     const item2 = data[(index + 2) % 3]
-    const p1 = item0.points[0]
-    const p2 = item2.points[1]
-    const p3 = item0.points[3]
+    if (!item0 || !item1 || !item2) return ''
+    const p1 = item0.points[0] ?? [0, 0]
+    const p2 = item2.points[1] ?? [0, 0]
+    const p3 = item0.points[3] ?? [0, 0]
     return [
         pathM(p1),
         pathArc(p2, item1.r, 0),
@@ -75,8 +91,9 @@ export const pathVenn1 = (props: pathVennProps) => {
 export const pathVenn2of2 = ({ data, index }: pathVennProps) => {
     const item = data[index]
     const other = data[(index + 1) % 2]
-    const p1 = item.points[0]
-    const p2 = item.points[1]
+    if (!item || !other) return ''
+    const p1 = item.points[0] ?? [0, 0]
+    const p2 = item.points[1] ?? [0, 0]
     const s1 = item.largeArcs[0]
     const s2 = other.largeArcs[0]
     return [pathM(p1), pathArc(p2, item.r, s1, 1), pathArc(p1, other.r, s2, 1)].join(' ')
@@ -86,9 +103,10 @@ export const pathVenn2of3 = ({ data, index }: pathVennProps) => {
     const item0 = data[index]
     const item1 = data[(index + 1) % 3]
     const item2 = data[(index + 2) % 3]
-    const p1 = item0.points[0]
-    const p2 = item0.points[1]
-    const p3 = item1.points[2]
+    if (!item0 || !item1 || !item2) return ''
+    const p1 = item0.points[0] ?? [0, 0]
+    const p2 = item0.points[1] ?? [0, 0]
+    const p3 = item1.points[2] ?? [0, 0]
     return [
         pathM(p1),
         pathArc(p2, item0.r, 0, 1),
@@ -108,9 +126,10 @@ export const pathVenn3 = ({ data }: Pick<pathVennProps, 'data'>) => {
     const item0 = data[0]
     const item1 = data[1]
     const item2 = data[2]
-    const p1 = item0.points[1]
-    const p2 = item1.points[1]
-    const p3 = item2.points[1]
+    if (!item0 || !item1 || !item2) return ''
+    const p1 = item0.points[1] ?? [0, 0]
+    const p2 = item1.points[1] ?? [0, 0]
+    const p3 = item2.points[1] ?? [0, 0]
     return [
         pathM(p1),
         pathArc(p2, item0.r, 0, 1),

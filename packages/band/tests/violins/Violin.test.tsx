@@ -71,7 +71,7 @@ describe('Violin', () => {
                 </Violin>
             </Chart>
         )
-        const dataAlphaX = prepared.data[0].data[0]
+        const dataAlphaX = prepared.data[0]?.data[0]
         // actual number of breaks is dependent on the data, there might be a few more than specified
         expect(dataAlphaX?.breaks.length).toBeGreaterThan(4)
         expect(dataAlphaX?.breaks.length).toBeLessThan(10)
@@ -97,7 +97,7 @@ describe('Violin', () => {
                 </Violin>
             </Chart>
         )
-        const dataAlphaX = prepared.data[0].data[0]
+        const dataAlphaX = prepared.data[0]?.data[0]
         expect(dataAlphaX?.breaks.length).toBe(5)
         expect(dataAlphaX?.n).toBeGreaterThan(3)
         expect(sum(dataAlphaX?.values)).toEqual(dataAlphaX?.n)

@@ -41,8 +41,8 @@ export const generateScheduleWeekData = () => {
         const item = {
             id: id,
             data: [
-                { start: times[2 * i][0], end: times[2 * i][1], key: 'A' },
-                { start: times[2 * i + 1][0], end: times[2 * i + 1][1], key: 'B' },
+                { start: times[2 * i]?.[0], end: times[2 * i]?.[1], key: 'A' },
+                { start: times[2 * i + 1]?.[0], end: times[2 * i + 1]?.[1], key: 'B' },
             ],
         }
         result.push(item)
@@ -50,7 +50,7 @@ export const generateScheduleWeekData = () => {
     ids.slice(5, 7).forEach((id, i) => {
         const item = {
             id: id,
-            data: [{ start: times[10 + i][0], end: times[10 + i][1], key: 'C' }],
+            data: [{ start: times[10 + i]?.[0], end: times[10 + i]?.[1], key: 'C' }],
         }
         result.push(item)
     })

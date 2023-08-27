@@ -98,7 +98,7 @@ export const getBlockArrowPoints = ({
 }
 
 const getClosedPath = (points: NumericPositionSpec[]) => {
-    const p0 = points[0][X] + ',' + points[0][Y]
+    const p0 = points[0]?.[X] + ',' + points[0]?.[Y]
     const d = points
         .slice(1)
         .map(point => 'L' + point[X] + ',' + point[Y])
@@ -123,7 +123,7 @@ const getCenter = (
     const deltaY = end[Y] - start[Y]
     const theta = Math.atan(-deltaY / deltaX)
     // middle of line along start-to-end axis
-    const mid = [(start[X] + end[X]) / 2, (start[Y] + end[Y]) / 2]
+    const mid: NumericPositionSpec = [(start[X] + end[X]) / 2, (start[Y] + end[Y]) / 2]
     // angle to reach center of circle or radius r that passes both start and end positions
     const adjustment = deltaX < 0 ? Math.PI : 0
     const handedness = variant === 'left' ? Math.PI / 2 : -Math.PI / 2
@@ -189,8 +189,8 @@ export const getArcArrowPath = ({
     )
     const transformedEnd = rotateAndTranslatePoints(pointsEnd, end, endCosBeta, endSinBeta)
 
-    const pStart0 = transformedStart[0][X] + ' ' + transformedStart[0][Y]
-    const pEnd0 = transformedEnd[0][X] + ' ' + transformedEnd[0][Y]
+    const pStart0 = transformedStart[0]?.[X] + ' ' + transformedStart[0]?.[Y]
+    const pEnd0 = transformedEnd[0]?.[X] + ' ' + transformedEnd[0]?.[Y]
     const result: string[] = ['M' + pStart0]
     transformedStart.slice(1).forEach(point => result.push('L ' + point[X] + ' ' + point[Y]))
     const startSweep = variant === 'left' ? 0 : 1

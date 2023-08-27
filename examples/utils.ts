@@ -107,12 +107,12 @@ export const randomSelection = (pool: string[], n = 1, allowDuplicates = true): 
     const size = pool.length
     if (allowDuplicates) {
         while (result.length < n) {
-            result.push(pool[Math.floor(Math.random() * size)])
+            result.push(pool[Math.floor(Math.random() * size)] as string)
         }
     } else {
         const selection = new Set<string>()
         while (selection.size < Math.min(n, size)) {
-            selection.add(pool[Math.floor(Math.random() * size)])
+            selection.add(pool[Math.floor(Math.random() * size)] as string)
         }
         selection.forEach(x => result.push(x))
     }
@@ -125,7 +125,7 @@ export const generateMixedPopulation = (n: number[], mean: number[], sd: number[
     n.forEach((size, i) => {
         const values: number[] = Array(Math.round(size))
             .fill(0)
-            .map(() => randomNormalValue(mean[i], sd[i]))
+            .map(() => randomNormalValue(Number(mean[i]), sd[i]))
         result.push(values)
     })
     return result.flat()

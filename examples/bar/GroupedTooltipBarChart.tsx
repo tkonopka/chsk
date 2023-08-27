@@ -55,7 +55,8 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
 
 const customLabelFormat = (x: TooltipDataItem) => {
     const processedData = useProcessedData()
-    const seriesData = processedData.data[processedData.seriesIndexes[x.id]].data as number[]
+    const seriesData = processedData.data[processedData.seriesIndexes[x.id] as number]
+        ?.data as number[]
     const keyIndex = processedData.keys.indexOf(x.key ?? '')
     return x.key + ' - ' + seriesData[keyIndex] + '%'
 }

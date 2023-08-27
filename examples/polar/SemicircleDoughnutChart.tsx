@@ -10,7 +10,9 @@ const ids = alphabetGreek.slice(0, 4)
 export const generateSemicircleDoughnutData = () => {
     const sizes = generateUniformPopulation(ids.length, 2, 120).map(Math.round)
     const total = sizes.reduce((acc, v) => acc + v, 0)
-    const result = [{ id: '_', data: total }].concat(ids.map((id, i) => ({ id, data: sizes[i] })))
+    const result = [{ id: '_', data: total }].concat(
+        ids.map((id, i) => ({ id, data: Number(sizes[i]) }))
+    )
     return result
 }
 
@@ -102,7 +104,7 @@ export const SemicircleDoughnutChart = ({ fref, chartData, rawData }: MilestoneS
                 <Tooltip
                     offset={[0, -20]}
                     itemSize={[100, 24]}
-                    titleFormat={x => x.data?.[0].id}
+                    titleFormat={x => x.data?.[0]?.id}
                     labelFormat={customTooltipLabelFormat}
                 />
             </Pie>

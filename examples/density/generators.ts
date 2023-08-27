@@ -28,18 +28,21 @@ const generateOneClusterPoints = (
     radii: number[]
 ) => {
     const result: NumericPositionSpec[] = []
-    const [x, y] = centers[i]
-    const r: number[] = range(n).map(v => (radii[i] * Math.sqrt(1 + v)) / Math.sqrt(n))
+    const [x, y] = centers[i] as NumericPositionSpec
+    const r: number[] = range(n).map(v => (Number(radii[i]) * Math.sqrt(1 + v)) / Math.sqrt(n))
     let j = 0
     while (j < n) {
         const theta = randomUniformValue(0, TWOPI)
-        const point: NumericPositionSpec = [r[j] * cos(theta) + x, r[j] * sin(theta) + y]
+        const point: NumericPositionSpec = [
+            Number(r[j]) * cos(theta) + x,
+            Number(r[j]) * sin(theta) + y,
+        ]
         // estimate if the point falls within intended region of other clusters
         // and reject at random if there is overlap
         let accept = true
         const distances = centers.map(center => distance(center, point))
         distances.map((d, k) => {
-            if (k !== i && d < radii[k]) {
+            if (k !== i && d < Number(radii[k])) {
                 accept = accept && Math.random() > 0.5
             }
         })
@@ -59,6 +62,6 @@ const points2frame = (points: NumericPositionSpec[]) => ({
 export const generateClusterFrames = (centers: NumericPositionSpec[], n: number[], density = 1) => {
     const radii = n.map(v => Math.sqrt(v / density))
     return range(centers.length)
-        .map(i => generateOneClusterPoints(i, centers, n[i], radii))
+        .map(i => generateOneClusterPoints(i, centers, Number(n[i]), radii))
         .map(points2frame)
 }

@@ -78,7 +78,7 @@ const multiviewHistogramProps: Pick<HistogramProps, 'variant' | 'breaks' | 'scal
 }
 
 // an animated label that first appears large, then positions itself in a corner
-const AppearingLabel = ({ enterOn, n }: { enterOn: string; n: number }) => {
+const AppearingLabel = ({ enterOn, n }: { enterOn: string; n?: number }) => {
     const enter = { opacity: 1, scale: 1.5 }
     const transition = { type: 'spring' as const, delay: 0.5, duration: 1.0 }
     return (
@@ -119,7 +119,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                                 <AxisTicks tickSize={0} />
                                 <AxisLabel>probability density</AxisLabel>
                             </Axis>
-                            <AppearingLabel enterOn={'small'} n={rawData[0].data.length} />
+                            <AppearingLabel enterOn={'small'} n={rawData[0]?.data.length} />
                         </Histogram>
                     </MilestoneMotion>
                 </GridItem>
@@ -130,7 +130,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             <Surface />
                             <Axis variant={'bottom'} label={'values (a.u.)'} />
                             <HistogramCurve ids={['medium']} />
-                            <AppearingLabel enterOn={'medium'} n={rawData[1].data.length} />
+                            <AppearingLabel enterOn={'medium'} n={rawData[1]?.data.length} />
                         </Histogram>
                     </MilestoneMotion>
                 </GridItem>
@@ -141,7 +141,7 @@ export const MultipleViewsHistogramChart = ({ fref, chartData, rawData }: Milest
                             <Surface />
                             <Axis variant={'bottom'} />
                             <HistogramCurve ids={['large']} />
-                            <AppearingLabel enterOn={'large'} n={rawData[2].data.length} />
+                            <AppearingLabel enterOn={'large'} n={rawData[2]?.data.length} />
                         </Histogram>
                     </MilestoneMotion>
                 </GridItem>

@@ -62,8 +62,8 @@ export const TimeBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     const allIds = rawData.map(d => d.id)
     const oneDay = 24 * 3600 * 1000
     const idsDomain: [Date, Date] = [
-        new Date(Number(new Date(allIds[0])) - oneDay),
-        new Date(Number(new Date(allIds[allIds.length - 1])) + oneDay),
+        new Date(Number(new Date(allIds[0] as string)) - oneDay),
+        new Date(Number(new Date(allIds[allIds.length - 1] as string)) + oneDay),
     ]
     const bandwidth: [Date, Date] = [new Date(0), new Date(0.8 * oneDay)]
 
@@ -139,7 +139,7 @@ export const TimeBarChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                     offset={[10, 0]}
                     itemSize={[80, 24]}
                     titleFormat={d => {
-                        return d.data?.[0].id
+                        return d.data?.[0]?.id
                     }}
                 />
                 <DownloadButtons position={[446, -72]} data image />

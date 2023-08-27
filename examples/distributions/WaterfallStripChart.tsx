@@ -26,7 +26,7 @@ export const generateWaterfallStripData = () => {
             id,
             data: [values[i]],
         }))
-        .sort((a, b) => -a.data[0] + b.data[0])
+        .sort((a, b) => -Number(a.data[0]) + Number(b.data[0]))
 }
 
 export const customTheme: ThemeSpec = {
@@ -83,14 +83,16 @@ const BetweenBandsLabel = ({
 
 export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     if (!isStripData(rawData)) return null
-    const subsetData = rawData.filter(d => Math.abs((d.data as number[])[0]) > 2.5)
+    const subsetData = rawData.filter(d => Math.abs(Number((d.data as number[])[0])) > 2.5)
     const omitted = '(' + (rawData.length - subsetData.length) + ' samples)'
 
     // band scale with a gap for a custom label
     const lastPositiveId = subsetData
         .filter(d => Number((d.data as number[])[0]) > 0)
-        .reverse()[0].id
-    const firstNegativeId = subsetData.filter(d => Number((d.data as number[])[0]) < 0)[0].id
+        .reverse()[0]?.id
+    const firstNegativeId = String(
+        subsetData.filter(d => Number((d.data as number[])[0]) < 0)[0]?.id
+    )
     const scaleIndex: BandScaleSpec = {
         variant: 'band' as const,
         paddingOuter: 0.1,
@@ -140,8 +142,8 @@ export const WaterfallStripChart = ({ fref, chartData, rawData }: MilestoneStory
                 </Axis>
                 <Strips />
                 <BetweenBandsLabel
-                    x1={lastPositiveId}
-                    x2={firstNegativeId}
+                    x1={lastPositiveId as string}
+                    x2={firstNegativeId as string}
                     y={0}
                     label={omitted}
                     size={[80, 40]}

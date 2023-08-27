@@ -22,7 +22,7 @@ export const processData = (
         return {
             id,
             index,
-            size: sets[index].size,
+            size: Number(sets[index]?.size),
             intersection: indexes(data3).map(index2 => countOverlap(sets[index], sets[index2])),
             common,
             r: 1,
@@ -36,9 +36,16 @@ export const processData = (
     })
     // assign positions
     if (result.length === 2) {
-        processData2(result, separation, proportional)
+        processData2(
+            result as [VennProcessedDataItem, VennProcessedDataItem],
+            separation,
+            proportional
+        )
     } else if (result.length === 3) {
-        processData3(result, separation)
+        processData3(
+            result as [VennProcessedDataItem, VennProcessedDataItem, VennProcessedDataItem],
+            separation
+        )
     }
 
     // global rotation

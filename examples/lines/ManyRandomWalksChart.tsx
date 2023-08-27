@@ -25,10 +25,10 @@ export const generateManyRandomWalksData = () => {
     const result = alphabetGreek
         .map(() => {
             const data = generateRandomWalk(200)
-            return { data, final: data[data.length - 1].y }
+            return { data, final: data[data.length - 1]?.y }
         })
         .sort((a, b) => Number(a.final) - Number(b.final))
-    return result.map((item, index) => ({ id: alphabetGreek[index], ...item }))
+    return result.map((item, index) => ({ id: String(alphabetGreek[index]), ...item }))
 }
 
 const customTheme: ThemeSpec = {

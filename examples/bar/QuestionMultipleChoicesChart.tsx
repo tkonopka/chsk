@@ -73,7 +73,7 @@ const CustomTicks = ({
         return (
             <g key={'tick-' + i}>
                 <Typography
-                    position={[xCoordinate + translate[X], yCoordinates[i] + translate[Y]]}
+                    position={[xCoordinate + translate[X], Number(yCoordinates[i]) + translate[Y]]}
                     style={labelStyle}
                     variant={'tick-label'}
                     className={'left'}

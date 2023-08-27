@@ -36,7 +36,7 @@ describe('Button', () => {
             </Chart>
         )
         const buttons = screen.queryAllByRole('button')
-        expect(buttons[0].getAttribute('class')).toContain('button selected A')
-        expect(buttons[1].getAttribute('class')).toContain('button selected B')
+        expect(buttons[0]?.getAttribute('class')).toContain('button selected A')
+        expect(buttons[1]?.getAttribute('class')).toContain('button selected B')
     })
 })

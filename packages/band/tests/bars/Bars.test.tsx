@@ -108,8 +108,8 @@ describe('Bars', () => {
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(2)
-        expect(ticks[0].textContent).toEqual('alpha')
-        expect(ticks[1].textContent).toEqual('beta')
+        expect(ticks[0]?.textContent).toEqual('alpha')
+        expect(ticks[1]?.textContent).toEqual('beta')
     })
 
     it('displays bars only for specified keys', () => {
@@ -223,8 +223,8 @@ describe('Bars', () => {
         const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
-        expect(result[0].getAttribute('height')).toEqual(result[1].getAttribute('height'))
-        expect(result[0].getAttribute('width')).toEqual(result[1].getAttribute('width'))
+        expect(result[0]?.getAttribute('height')).toEqual(result[1]?.getAttribute('height'))
+        expect(result[0]?.getAttribute('width')).toEqual(result[1]?.getAttribute('width'))
     })
 
     it('handles negative values (horizontal)', () => {
@@ -244,8 +244,8 @@ describe('Bars', () => {
         const result = screen.getByRole('view-content').querySelectorAll('rect')
         expect(result).toHaveLength(2)
         // two bars should have equal size
-        expect(result[0].getAttribute('height')).toEqual(result[1].getAttribute('height'))
-        expect(result[0].getAttribute('width')).toEqual(result[1].getAttribute('width'))
+        expect(result[0]?.getAttribute('height')).toEqual(result[1]?.getAttribute('height'))
+        expect(result[0]?.getAttribute('width')).toEqual(result[1]?.getAttribute('width'))
     })
 
     it('skips works in non-Bars setting', () => {

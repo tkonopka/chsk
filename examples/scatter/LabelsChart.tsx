@@ -34,7 +34,7 @@ export const generateLabelsData = () => {
     const yValues = generateUniformPopulation(n, 0.05, 10.0)
     const data = xValues.map((x, i) => ({
         x: round4dp(x),
-        y: round4dp(yValues[i]),
+        y: round4dp(yValues[i] as number),
         label: alphabetGreek[i],
     }))
     return [{ id: 'A', data }]
@@ -82,10 +82,10 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     // on first render, create one label to display a non-trivial chart scene
     let firstLabels: ScatterSelectedLabelData[] = []
     if (isScatterData(rawData)) {
-        const labelString = isArray(rawData[0].data) ? String(rawData[0].data[0].label) : ''
+        const labelString = isArray(rawData[0]?.data) ? String(rawData[0]?.data[0]?.label) : ''
         firstLabels = [
             {
-                id: rawData[0].id,
+                id: String(rawData[0]?.id),
                 index: 0,
                 size: [10 + labelString.length * 9, 26],
                 content: labelString,

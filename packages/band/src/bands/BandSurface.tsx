@@ -45,7 +45,7 @@ export const BandSurface = ({
     const width = horizontal ? expandedSize : surfaceWidth
     const { idSet } = useIdsKeys(ids, null, processedData)
 
-    const tooltipId = tooltipData?.data?.[0].id
+    const tooltipId = tooltipData?.data?.[0]?.id
     const onMouseEnter = useCallback(
         (data: WithId | undefined, event: MouseEvent) => {
             handlers?.onMouseEnter?.(data, event)

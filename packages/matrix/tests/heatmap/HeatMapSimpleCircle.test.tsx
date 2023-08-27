@@ -15,6 +15,6 @@ describe('HeatMapSimpleCircle', () => {
         const result = screen.getByRole('heatmap-cells')
         // the data has four rows and three columns (x, y, z)
         expect(result.querySelectorAll('circle')).toHaveLength(12)
-        expect(result.querySelectorAll('circle')[0].getAttribute('class')).toEqual('cell')
+        expect(result.querySelectorAll('circle')[0]?.getAttribute('class')).toEqual('cell')
     })
 })

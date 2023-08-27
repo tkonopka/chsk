@@ -46,15 +46,15 @@ const getScatterIntervalD = ({
 } & SignalProcessingProps) => {
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
-    const originalSeriesData = rawData.data[seriesIndex].data as Array<Record<string, unknown>>
+    const originalSeriesData = rawData.data[seriesIndex]?.data as Array<Record<string, unknown>>
     const lowerValues = originalSeriesData.map(item => yScale(getLower(item)))
     const upperValues = originalSeriesData.map(item => yScale(getUpper(item)))
-    const x = preparedData[seriesIndex].x
+    const x = preparedData[seriesIndex]?.x ?? []
     const signalProps = { convolutionMask, convolutionOffset, downsampleFactor, downsampleIndex }
     const lowerPoints = curvePoints({ x, y: lowerValues, ...signalProps })
     const upperPoints = curvePoints({ x, y: upperValues, ...signalProps })
     const pointIntervals: Array<NumericPositionIntervalSpec> = lowerPoints.map(
-        (p: NumericPositionSpec, i: number) => [p[X], p[Y], upperPoints[i][Y]]
+        (p: NumericPositionSpec, i: number) => [p[X], p[Y], Number(upperPoints[i]?.[Y])]
     )
     const generator = createAreaGenerator(curve)
     return generator(pointIntervals) ?? ''

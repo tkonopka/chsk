@@ -37,7 +37,7 @@ export const generateFractionsVerticalBarData = () => {
     const total = values.reduce((acc, v) => acc + v, 0)
     const data: RecordWithId = { id: 'A' }
     fractionsKeys.forEach((k: string, i: number) => {
-        data[k] = roundDecimalPlaces((100 * values[i]) / total, 1)
+        data[k] = roundDecimalPlaces((100 * Number(values[i])) / total, 1)
     })
     return [data]
 }
@@ -82,7 +82,7 @@ const CustomLabels = ({
     const processedData = useProcessedData().data[0]
     const preparedData = useBarPreparedData().data[0]
     const keys = useProcessedData().keys
-    const values: number[] = processedData.data as number[]
+    const values: number[] = processedData?.data as number[]
     const total = values.reduce((acc, v) => acc + v, 0)
     // compute positions for labels, starting at the top
     let y = itemSize[Y] / 2
@@ -90,8 +90,8 @@ const CustomLabels = ({
     const start: NumericPositionSpec[] = Array(values.length)
     const end: NumericPositionSpec[] = Array(values.length)
     indexes.forEach(i => {
-        const corner = preparedData.position[i]
-        const size = preparedData.size[i]
+        const corner = preparedData?.position[i] as [number, number]
+        const size = preparedData?.size[i] as [number, number]
         const middle: NumericPositionSpec = [corner[X] + size[X], corner[Y] + size[Y] / 2]
         if (middle[Y] > y) {
             end[i] = addPositions(middle, offset)
@@ -115,7 +115,7 @@ const CustomLabels = ({
         size: itemSize,
     }
     const result = indexes.map(i => {
-        const percent = roundDecimalPlaces((100 * values[i]) / total, 1)
+        const percent = roundDecimalPlaces((100 * Number(values[i])) / total, 1)
         const content = (
             <tspan>
                 {keys[i]} <tspan className={'percent'}>{percent}%</tspan>
@@ -133,10 +133,10 @@ const CustomLabels = ({
                     <Connector
                         key={0}
                         variant={'lh'}
-                        x1={start[i][X]}
-                        y1={start[i][Y]}
-                        x2={end[i][X]}
-                        y2={end[i][Y]}
+                        x1={start[i]?.[X] as number}
+                        y1={start[i]?.[Y] as number}
+                        x2={end[i]?.[X] as number}
+                        y2={end[i]?.[Y] as number}
                         elbow={0.25}
                         className={''}
                     />

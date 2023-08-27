@@ -71,8 +71,8 @@ describe('BandHighlight', () => {
         fireEvent.mouseMove(detector, { clientX: 40, clientY: 41 })
         const maskRects = screen.getByRole('band-highlight-mask').querySelectorAll('rect')
         expect(maskRects).toHaveLength(2)
-        expect(maskRects[0].getAttribute('class')).toContain('bandHighlight')
-        expect(maskRects[0].getAttribute('class')).toContain('custom')
+        expect(maskRects[0]?.getAttribute('class')).toContain('bandHighlight')
+        expect(maskRects[0]?.getAttribute('class')).toContain('custom')
     })
 
     it('sets tooltip data', () => {
@@ -114,7 +114,7 @@ describe('BandHighlight', () => {
         fireEvent.mouseMove(screen.getByRole('band-detector'), { clientX: 40, clientY: 40 })
         // two keys (x, z) are disabled, so tooltip should contain only info about the third key, y
         expect(tooltip.data).toHaveLength(1)
-        expect(tooltip.data?.[0].key).toBe('y')
+        expect(tooltip.data?.[0]?.key).toBe('y')
     })
 
     it('omits detector rectangle when non-interactive', () => {

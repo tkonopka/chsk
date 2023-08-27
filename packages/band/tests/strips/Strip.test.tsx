@@ -45,8 +45,8 @@ describe('Strip', () => {
         expect(result.keys).toHaveLength(2)
         // in default variant, data points will have an internal ordering [0, 1, 2, ...]
         const data = result.data as Array<StripProcessedDataItem>
-        const firstIdData = data[0].data
-        expect(firstIdData[0]?.internal).toEqual(firstIdData[1]?.internal)
+        const firstIdData = data[0]?.data
+        expect(firstIdData?.[0]?.internal).toEqual(firstIdData?.[1]?.internal)
     })
 
     it('defines processed data (random jitter)', () => {
@@ -60,10 +60,10 @@ describe('Strip', () => {
         )
         expect(isStripProcessedData(result.data)).toBeTruthy()
         const data = result.data as Array<StripProcessedDataItem>
-        const firstIdData = data[0].data
+        const firstIdData = data[0]?.data
         // in jitter variant, data points should have a randomized order,
         // i.e. two 11-element arrays for keys 'x' and 'y' are unlikely to be equal
-        expect(firstIdData[0]?.internal).not.toEqual(firstIdData[1]?.internal)
+        expect(firstIdData?.[0]?.internal).not.toEqual(firstIdData?.[1]?.internal)
     })
 
     it('defines processed data (jitter ascending)', () => {
@@ -77,12 +77,12 @@ describe('Strip', () => {
         )
         expect(isStripProcessedData(result.data)).toBeTruthy()
         const data = result.data as Array<StripProcessedDataItem>
-        const firstIdData = data[0].data
+        const firstIdData = data[0]?.data
         // in ascending mode:
         // data points alpha.x which are ascending in the raw dataset, should be left as-is
         // data points alpha.y, which are decreasing in the raw dataset, should be reversed
-        expect(firstIdData[0]?.internal).toEqual(range(11))
-        expect(firstIdData[1]?.internal).toEqual(range(11).reverse())
+        expect(firstIdData?.[0]?.internal).toEqual(range(11))
+        expect(firstIdData?.[1]?.internal).toEqual(range(11).reverse())
     })
 
     it('defines processed data (jitter descending)', () => {
@@ -95,12 +95,12 @@ describe('Strip', () => {
             </Chart>
         )
         const data = result.data as Array<StripProcessedDataItem>
-        const firstIdData = data[0].data
+        const firstIdData = data[0]?.data
         // in descending mode:
         // data points alpha.x, which are ascending in the raw dataset, should be reversed
         // data points alpha.y, which are decreasing in the raw dataset, should be left as is
-        expect(firstIdData[0]?.internal).toEqual(range(11).reverse())
-        expect(firstIdData[1]?.internal).toEqual(range(11))
+        expect(firstIdData?.[0]?.internal).toEqual(range(11).reverse())
+        expect(firstIdData?.[1]?.internal).toEqual(range(11))
     })
 
     it('defines processed data (jitter middle)', () => {
@@ -113,10 +113,10 @@ describe('Strip', () => {
             </Chart>
         )
         const data = result.data as Array<StripProcessedDataItem>
-        const firstIdData = data[0].data
+        const firstIdData = data[0]?.data
         // in middle variant, data points should all be at one internal offset value
-        expect(firstIdData[0]?.internal.length).toBeGreaterThan(5)
-        expect(new Set(firstIdData[0]?.internal).size).toEqual(1)
+        expect(firstIdData?.[0]?.internal.length).toBeGreaterThan(5)
+        expect(new Set(firstIdData?.[0]?.internal).size).toEqual(1)
     })
 
     it('defines prepared data', () => {
@@ -160,12 +160,12 @@ describe('Strip', () => {
         // the dataset has two indexes and three keys
         expect(Object.keys(result.seriesIndexes)).toHaveLength(3)
         const preparedData = result.data
-        expect(preparedData[0].data[0]?.internal).toEqual([])
+        expect(preparedData[0]?.data[0]?.internal).toEqual([])
         // all values should be finite
-        expect(preparedData[1].data[0]?.internal[0]).toBeLessThan(1000)
-        expect(preparedData[1].data[0]?.value[0]).toBeLessThan(1000)
-        expect(preparedData[2].data[0]?.internal[0]).toBeLessThan(1000)
-        expect(preparedData[2].data[0]?.value[0]).toBeLessThan(1000)
+        expect(preparedData[1]?.data[0]?.internal[0]).toBeLessThan(1000)
+        expect(preparedData[1]?.data[0]?.value[0]).toBeLessThan(1000)
+        expect(preparedData[2]?.data[0]?.internal[0]).toBeLessThan(1000)
+        expect(preparedData[2]?.data[0]?.value[0]).toBeLessThan(1000)
     })
 
     it('auto-detects scales (vertical)', () => {
@@ -237,11 +237,11 @@ describe('Strip', () => {
         )
         const data = result.data as Array<StripProcessedDataItem>
         // for first id, first key (x) should have information, second key should not
-        expect(data[0].data[0]).not.toBeFalsy()
-        expect(data[0].data[1]).toBeFalsy()
+        expect(data[0]?.data[0]).not.toBeFalsy()
+        expect(data[0]?.data[1]).toBeFalsy()
         // for second id, first key (x) should not have information
-        expect(data[1].data[0]).toBeFalsy()
-        expect(data[1].data[1]).not.toBeFalsy()
+        expect(data[1]?.data[0]).toBeFalsy()
+        expect(data[1]?.data[1]).not.toBeFalsy()
     })
 
     it('accepts logarithmic scale', () => {

@@ -29,8 +29,8 @@ describe('getLabelPositions', () => {
         const items = itemProps.map(makeBlockObjects)
         const result = arrangeBlockObjects({ obstacles, items })
         expect(result).toHaveLength(2)
-        expect(result[0].position).toEqual([4, 4])
-        expect(result[1].position).toEqual([12, 5])
+        expect(result[0]?.position).toEqual([4, 4])
+        expect(result[1]?.position).toEqual([12, 5])
     })
 
     it('returns unchanged item position when no adjustment needed (using sizes)', () => {
@@ -46,8 +46,8 @@ describe('getLabelPositions', () => {
         const items = itemProps.map(makeBlockObjects)
         const result = arrangeBlockObjects({ obstacles, items })
         expect(result).toHaveLength(2)
-        expect(result[0].position).toEqual([4, 4])
-        expect(result[1].position).toEqual([12, 5])
+        expect(result[0]?.position).toEqual([4, 4])
+        expect(result[1]?.position).toEqual([12, 5])
     })
 
     it('moves items away from each other (horizontal)', () => {
@@ -59,11 +59,11 @@ describe('getLabelPositions', () => {
         const result = arrangeBlockObjects({ obstacles: [], items, clearance: 1 })
         expect(result).toHaveLength(2)
         // the y coordinate should be unchanged
-        expect(result[0].position[1]).toBe(4)
-        expect(result[1].position[1]).toBe(4)
+        expect(result[0]?.position[1]).toBe(4)
+        expect(result[1]?.position[1]).toBe(4)
         // the x coordinate should be amplified
-        expect(result[0].position[0]).toBeGreaterThan(0.5)
-        expect(result[1].position[0]).toBeLessThan(-0.5)
+        expect(result[0]?.position[0]).toBeGreaterThan(0.5)
+        expect(result[1]?.position[0]).toBeLessThan(-0.5)
     })
 
     it('moves items away from each other (vertical)', () => {
@@ -75,11 +75,11 @@ describe('getLabelPositions', () => {
         const result = arrangeBlockObjects({ obstacles: [], items, clearance: 1 })
         expect(result).toHaveLength(2)
         // the y coordinate should be unchanged
-        expect(result[0].position[0]).toBe(4)
-        expect(result[1].position[0]).toBe(4)
+        expect(result[0]?.position[0]).toBe(4)
+        expect(result[1]?.position[0]).toBe(4)
         // the x coordinate should be amplified
-        expect(result[0].position[1]).toBeGreaterThan(0.5)
-        expect(result[1].position[1]).toBeLessThan(-0.5)
+        expect(result[0]?.position[1]).toBeGreaterThan(0.5)
+        expect(result[1]?.position[1]).toBeLessThan(-0.5)
     })
 
     it('returns unchanged positions when no adjustment needed', () => {
@@ -95,8 +95,8 @@ describe('getLabelPositions', () => {
         const items = itemProps.map(makeBlockObjects)
         const result = arrangeBlockObjects({ obstacles, items })
         expect(result).toHaveLength(2)
-        expect(result[0].position).toEqual([3, 4])
-        expect(result[1].position).toEqual([6, 6])
+        expect(result[0]?.position).toEqual([3, 4])
+        expect(result[1]?.position).toEqual([6, 6])
     })
 
     it('moves an item away from an obstacle', () => {
@@ -107,10 +107,10 @@ describe('getLabelPositions', () => {
         const result = arrangeBlockObjects({ obstacles, items, clearance: 1 })
         expect(result).toHaveLength(1)
         // x coordinate should be unchanged because initial displacement is only vertical
-        expect(Math.abs(roundDecimalPlaces(result[0].position[0], 4))).toEqual(0.0)
+        expect(Math.abs(roundDecimalPlaces(Number(result[0]?.position[0]), 4))).toEqual(0.0)
         // y coordinate should be such to create exactly clearance of 1
-        expect(result[0].position[1]).toBeGreaterThan(2.99)
-        expect(result[0].position[1]).toBeLessThan(3.01)
+        expect(result[0]?.position[1]).toBeGreaterThan(2.99)
+        expect(result[0]?.position[1]).toBeLessThan(3.01)
     })
 
     it('does not push items too far unnecessarily', () => {
@@ -126,9 +126,9 @@ describe('getLabelPositions', () => {
         const items = itemProps.map(makeBlockObjects)
         const result = arrangeBlockObjects({ obstacles, items, clearance: 1 })
         expect(result).toHaveLength(1)
-        expect(Math.abs(roundDecimalPlaces(result[0].position[0], 4))).toEqual(0.0)
-        expect(result[0].position[1]).toBeGreaterThan(6.5)
-        expect(result[0].position[1]).toBeLessThan(7.5)
+        expect(Math.abs(roundDecimalPlaces(Number(result[0]?.position[0]), 4))).toEqual(0.0)
+        expect(result[0]?.position[1]).toBeGreaterThan(6.5)
+        expect(result[0]?.position[1]).toBeLessThan(7.5)
     })
 
     it('moves items in 2d', () => {
@@ -140,7 +140,7 @@ describe('getLabelPositions', () => {
         const items = itemProps.map(makeBlockObjects)
         const result = arrangeBlockObjects({ items, clearance: 10 })
         expect(result).toHaveLength(2)
-        expect(result[0].position[0]).toBeLessThan(105)
-        expect(result[1].position[0]).toBeGreaterThan(115)
+        expect(result[0]?.position[0]).toBeLessThan(105)
+        expect(result[1]?.position[0]).toBeGreaterThan(115)
     })
 })

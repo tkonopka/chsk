@@ -103,8 +103,11 @@ export const QuantileTooltipItem = ({
     if (!data) return null
 
     const item = 'key' in data ? String(data.key) : ''
-    const symbolPosition = [r + padding[LEFT], r + padding[TOP]]
-    const labelPosition = [symbolPosition[X] + r + labelDistance, symbolPosition[Y]]
+    const symbolPosition: NumericPositionSpec = [r + padding[LEFT], r + padding[TOP]]
+    const labelPosition: NumericPositionSpec = [
+        symbolPosition[X] + r + labelDistance,
+        symbolPosition[Y],
+    ]
 
     const itemStyle = getSymbolStyle(symbolStyle, color, colorScale, item)
     const symbolClassName = getClassName('tooltipSymbol right', className)

@@ -28,13 +28,13 @@ export const splitText = (
     lineWidth: number,
     separator?: string
 ): string[] => {
-    const lines = separator ? content.split(separator) : [content]
+    const lines: string[] = separator ? content.split(separator) : [content]
     if (lines.length > 1) {
         return lines.map(line => splitText(line, widths, lineWidth)).flat()
     }
     // split long text
     const result: string[] = []
-    const words = lines[0]
+    const words = String(lines[0])
         .replace(/\n/g, ' ')
         .split(' ')
         .filter(word => word.length > 0)
@@ -43,7 +43,7 @@ export const splitText = (
     let line = ''
     let lineLength = 0
     words.forEach((word, index) => {
-        const wordLength = wordLengths[index]
+        const wordLength = Number(wordLengths[index])
         if (lineLength + spaceLength + wordLength < lineWidth) {
             lineLength += (line.length > 0 ? spaceLength : 0) + wordLength
             line += (line.length > 0 ? ' ' : '') + word

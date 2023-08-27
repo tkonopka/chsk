@@ -19,7 +19,7 @@ export const convolution = (data: number[], mask: number[], normalizeMask = true
     for (let i = 0; i < n; i += 1) {
         let iResult = 0
         for (let j = 0; j < mLength; j++) {
-            iResult += (data[i - j] ?? 0) * m[j]
+            iResult += (data[i - j] ?? 0) * Number(m[j])
         }
         result[i] = iResult
     }
@@ -27,13 +27,13 @@ export const convolution = (data: number[], mask: number[], normalizeMask = true
 }
 
 /** pick a subset of data values at regular intervals */
-export const downsample = (data: number[], alpha: number, offset = 0) => {
+export const downsample = (data: number[], alpha: number, offset = 0): number[] => {
     const n = data.length
     const thresholds = data.map((_, i) => Math.floor(i * alpha))
     const indexes = thresholds
         .map((t, i) => (i + offset < n && (i === 0 || t != thresholds[i - 1]) ? i : undefined))
         .filter(v => v !== undefined) as number[]
-    return indexes.map(i => data[i + offset])
+    return indexes.map(i => data[i + offset] as number)
 }
 
 /** create an array of points suitable for creating paths */
@@ -57,5 +57,5 @@ export const curvePoints = ({
     const x1 = noDownsample ? x0 : downsample(x0, downsampleFactor, downsampleIndex)
     const y1 = noDownsample ? y0 : downsample(y0, downsampleFactor, downsampleIndex)
     // format into array of [x, y] points
-    return x1.map((v: number, i: number) => [v, y1[i]])
+    return x1.map((v: number, i: number) => [v, Number(y1[i])])
 }

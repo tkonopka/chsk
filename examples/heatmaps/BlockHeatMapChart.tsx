@@ -42,22 +42,28 @@ export const generateBlockHeatMapData = () => {
     ids.forEach((idA, i) => {
         ids.forEach((idB, j) => {
             if (i < j) return
+            const rowI = result[i]
+            const rowJ = result[j]
+            if (!rowI || !rowJ) return
             if (i === j) {
-                result[i][idA] = 100
+                rowI[idA] = 100
                 return
             }
             const multiplier = groupMultiplier(idA, idB)
-            const value = round3dp(Number(result[i][idB]) + Math.random() * multiplier)
-            result[i][idB] = value
-            result[j][idA] = value
+            const value = round3dp(Number(rowI[idB]) + Math.random() * multiplier)
+            rowI[idB] = value
+            rowJ[idA] = value
         })
     })
     // set some cells to magic numbers to encode breaks between groups
     // (this is just for an example, not a complete cluster analysis)
-    result[0][ids[breakA]] = 20
-    result[0][ids[breakB]] = 20
-    result[breakA][ids[0]] = 20
-    result[breakB][ids[0]] = 20
+    const row0 = result[0]
+    const rowA = result[breakA]
+    const rowB = result[breakB]
+    if (row0) row0[ids[breakA] as string] = 20
+    if (row0) row0[ids[breakB] as string] = 20
+    if (rowA) rowA[ids[0] as string] = 20
+    if (rowB) rowB[ids[0] as string] = 20
     return result
 }
 
@@ -91,7 +97,7 @@ export const BlockHeatMapChart = ({ fref, chartData, rawData }: MilestoneStory) 
     if (!isHeatMapData(rawData)) return null
 
     // look for magic number '20' to detect block boundaries
-    const breaks = ids.map(id => (rawData[0][id] === 20 ? id : null)).filter(Boolean)
+    const breaks = ids.map(id => (rawData[0]?.[id] === 20 ? id : null)).filter(Boolean)
     const breakIndexes = [ids.indexOf(breaks[0] ?? 'alpha'), ids.indexOf(breaks[1] ?? 'alpha')]
     const idsA = ids.slice(0, breakIndexes[0])
     const idsB = ids.slice(breakIndexes[0], breakIndexes[1])

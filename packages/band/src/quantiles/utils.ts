@@ -2,9 +2,9 @@
 const getQuantile = (values: number[], quantile: number, n: number): number => {
     const realIndex = n * Math.max(0, Math.min(1, quantile))
     const intIndex = Math.floor(realIndex)
-    if (realIndex === intIndex) return values[intIndex]
-    const v1 = values[intIndex],
-        v2 = values[intIndex + 1]
+    if (realIndex === intIndex) return Number(values[intIndex])
+    const v1 = Number(values[intIndex]),
+        v2 = Number(values[intIndex + 1])
     return v1 + (v2 - v1) * (realIndex - intIndex)
 }
 

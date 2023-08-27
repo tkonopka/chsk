@@ -14,7 +14,7 @@ describe('SliceLabels', () => {
         )
         const labels = screen.getByRole('view-pie').querySelectorAll('text')
         expect(labels).toHaveLength(pieProps.data.length)
-        expect(labels[0].getAttribute('class')).toContain('sliceLabel')
+        expect(labels[0]?.getAttribute('class')).toContain('sliceLabel')
     })
 
     it('avoids work when data is empty', () => {
@@ -84,8 +84,8 @@ describe('SliceLabels', () => {
             </Chart>
         )
         const labels = screen.getByRole('view-pie').querySelectorAll('text')
-        expect(labels[0].textContent).toBe('alpha')
-        expect(labels[1].textContent).toBe('beta')
-        expect(labels[2].textContent).toBe('gamma')
+        expect(labels[0]?.textContent).toBe('alpha')
+        expect(labels[1]?.textContent).toBe('beta')
+        expect(labels[2]?.textContent).toBe('gamma')
     })
 })

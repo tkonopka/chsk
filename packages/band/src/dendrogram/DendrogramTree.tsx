@@ -25,8 +25,8 @@ const nodePoint = (
     const positions = index < 0 ? data.leafPosition : data.position
     const heights = index < 0 ? data.leafHeight : data.height
     const result: NumericPositionSpec = [
-        positions[Math.abs(index) - 1],
-        heights[Math.abs(index) - 1],
+        Number(positions[Math.abs(index) - 1]),
+        Number(heights[Math.abs(index) - 1]),
     ]
     return horizontal ? (result.reverse() as NumericPositionSpec) : result
 }
@@ -93,24 +93,28 @@ export const DendrogramTree = ({
             keys === undefined ? keys : keyArray,
             true
         )
-        const lines = targetLevels.map(level => {
-            const pair = seriesData.merge[level]
-            const points = createTreeConnectionPoints(
-                seriesData,
-                level + 1,
-                pair[0],
-                pair[1],
-                horizontal
-            )
-            return createElement(dataComponent, {
-                key: 't-' + seriesData.index + '-' + level,
-                data: { id, level, data: originalData[seriesData.index] },
-                component,
-                props: { ...commonProps, points },
-                handlers,
-                modifiers,
+        const lines = targetLevels
+            .map(level => {
+                const pair = seriesData.merge[level]
+                const data = originalData[seriesData.index]
+                if (!pair || !data) return
+                const points = createTreeConnectionPoints(
+                    seriesData,
+                    level + 1,
+                    pair[0],
+                    pair[1],
+                    horizontal
+                )
+                return createElement(dataComponent, {
+                    key: 't-' + seriesData.index + '-' + level,
+                    data: { id, level, data },
+                    component,
+                    props: { ...commonProps, points },
+                    handlers,
+                    modifiers,
+                })
             })
-        })
+            .filter(Boolean)
         return (
             <g key={'t-' + seriesData.index} role={setRole ? 'dendrogram-tree' : undefined}>
                 {lines}

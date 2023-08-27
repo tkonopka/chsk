@@ -14,8 +14,8 @@ describe('GridLines', () => {
         )
         const lines = screen.getByRole('grid-lines').querySelectorAll('line')
         expect(lines).toHaveLength(6)
-        expect(lines[0].getAttribute('role')).toBeNull()
-        expect(lines[1].getAttribute('role')).toBeNull()
+        expect(lines[0]?.getAttribute('role')).toBeNull()
+        expect(lines[1]?.getAttribute('role')).toBeNull()
     })
 
     it('creates vertical grid lines', () => {
@@ -38,8 +38,8 @@ describe('GridLines', () => {
             </Chart>
         )
         const lines = screen.getByRole('view-content').querySelectorAll('line')
-        expect(lines[0].getAttribute('role')).toBeNull()
-        expect(lines[1].getAttribute('role')).toBeNull()
+        expect(lines[0]?.getAttribute('role')).toBeNull()
+        expect(lines[1]?.getAttribute('role')).toBeNull()
     })
 
     it('creates grid with boolean nice', () => {
@@ -85,8 +85,8 @@ describe('GridLines', () => {
         const result = screen.getByRole('grid-lines').querySelectorAll('line')
         // the chart has inner width = 400-40 = 360.
         // a side-to-side grid line should have x2=360. An expanded line should go to x2=400
-        expect(result[0].getAttribute('x1')).toBe('-10')
-        expect(result[0].getAttribute('x2')).toBe('400')
+        expect(result[0]?.getAttribute('x1')).toBe('-10')
+        expect(result[0]?.getAttribute('x2')).toBe('400')
     })
 
     it('creates expanded lines (symmetric)', () => {
@@ -98,8 +98,8 @@ describe('GridLines', () => {
             </Chart>
         )
         const result = screen.getByRole('grid-lines').querySelectorAll('line')
-        expect(result[0].getAttribute('x1')).toBe('-10')
-        expect(result[0].getAttribute('x2')).toBe('370')
+        expect(result[0]?.getAttribute('x1')).toBe('-10')
+        expect(result[0]?.getAttribute('x2')).toBe('370')
     })
 
     it('creates grid lines without role', () => {

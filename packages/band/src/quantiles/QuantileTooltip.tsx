@@ -56,7 +56,7 @@ export const QuantileTooltip = ({
     title =
         title ?? (titleFormat === null ? '' : titleFormat ? titleFormat(tooltip) : tooltip.title)
     const n = tooltipData.length
-    const infoSize = [cellSize[X] * 4 + cellPadding, cellSize[Y] * 5]
+    const infoSize: NumericPositionSpec = [cellSize[X] * 4 + cellPadding, cellSize[Y] * 5]
     size = size ?? [
         Math.max(itemSize[X], infoSize[X]) + padding[LEFT] + padding[RIGHT],
         itemSize[Y] * n +
@@ -68,7 +68,7 @@ export const QuantileTooltip = ({
 
     const titlePosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
     const itemsPosition: NumericPositionSpec = [padding[LEFT], padding[TOP]]
-    const step = [0, itemSize[Y]]
+    const step: NumericPositionSpec = [0, itemSize[Y]]
     if (title) {
         itemsPosition[0] += step[0] + firstOffset[0]
         itemsPosition[1] += step[1] + firstOffset[1]

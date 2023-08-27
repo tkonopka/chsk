@@ -11,8 +11,8 @@ import {
 } from './icons'
 import { ControllerProps, MilestoneStep } from './types'
 
-const isString = (m: MilestoneStep): m is string => typeof m === 'string'
-const isNumber = (m: MilestoneStep): m is number => typeof m === 'number'
+const isString = (m: MilestoneStep | undefined): m is string => typeof m === 'string'
+const isNumber = (m: MilestoneStep | undefined): m is number => typeof m === 'number'
 
 const allMilestones = (steps: MilestoneStep[]) => {
     const result = new Set<string>()

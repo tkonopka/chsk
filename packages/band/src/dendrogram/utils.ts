@@ -11,7 +11,7 @@ const getCommonLevel = (
     // loop over all levels except the last one (redundant)
     const lastLevel = data.positionInterval.length - 1
     for (let i = 0; i < lastLevel; i++) {
-        const interval = data.positionInterval[i]
+        const interval = data.positionInterval[i] as [number, number]
         if (positions.every(v => v >= interval[0] && v <= interval[1])) {
             return i
         }
@@ -23,6 +23,7 @@ const getCommonLevel = (
 const getSubTree = (data: DendrogramPreparedDataItem, level: number, result: number[]) => {
     result.push(level)
     const pair = data.merge[level]
+    if (!pair) return
     if (pair[0] > 0) {
         getSubTree(data, pair[0] - 1, result)
     }

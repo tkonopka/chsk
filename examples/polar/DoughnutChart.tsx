@@ -11,7 +11,10 @@ const ids = alphabetGreek.slice(0, 6)
 export const generateDoughnutData = () => {
     const sizes = generateUniformPopulation(ids.length, 1, 50).map(Math.round)
     const total = sizes.reduce((acc, v) => acc + v, 0)
-    return ids.map((id, i) => ({ id, data: roundDecimalPlaces((100 * sizes[i]) / total, 2) }))
+    return ids.map((id, i) => ({
+        id,
+        data: roundDecimalPlaces((100 * Number(sizes[i])) / total, 2),
+    }))
 }
 
 const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
@@ -56,7 +59,7 @@ export const DoughnutChart = ({ fref, chartData, rawData }: MilestoneStory) => {
                 <Tooltip
                     offset={[0, -20]}
                     itemSize={[80, 24]}
-                    titleFormat={x => x.data?.[0].id}
+                    titleFormat={x => x.data?.[0]?.id}
                     labelFormat={x => x.data + '%'}
                 />
             </Pie>

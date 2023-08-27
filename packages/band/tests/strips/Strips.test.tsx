@@ -64,8 +64,8 @@ describe('Strips', () => {
         // the chart should have an axis ready to display 'alpha' and 'beta'
         const ticks = screen.getAllByRole('tick')
         expect(ticks).toHaveLength(2)
-        expect(ticks[0].textContent).toEqual('alpha')
-        expect(ticks[1].textContent).toEqual('beta')
+        expect(ticks[0]?.textContent).toEqual('alpha')
+        expect(ticks[1]?.textContent).toEqual('beta')
     })
 
     it('displays data only for specified keys', () => {
@@ -140,7 +140,8 @@ describe('Strips', () => {
         )
         const result = screen.getByRole('view-strip')
         // dataset has values only in a selected id-key combos
-        const expected = Number(dataMissingKeys[0].x?.length) + Number(dataMissingKeys[1].y?.length)
+        const expected =
+            Number(dataMissingKeys[0]?.x?.length) + Number(dataMissingKeys[1]?.y?.length)
         expect(result.querySelectorAll('circle')).toHaveLength(expected)
     })
 })

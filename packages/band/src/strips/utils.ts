@@ -8,9 +8,10 @@ export const getStripInternalOrder = (jitter: JitterVariant, values: number[]) =
     if (jitter === 'random') return result.sort(() => Math.random() - 0.5)
     if (jitter === 'middle') return Array(values.length).fill((values.length + 1) / 2)
 
-    const ascendingComparator = (a: number[], b: number[]) => a[0] - b[0]
-    const descendingComparator = (a: number[], b: number[]) => b[0] - a[0]
-    const aux = values.map((v, i) => [v, i])
+    type pair = [number, number]
+    const ascendingComparator = (a: pair, b: pair) => a[0] - b[0]
+    const descendingComparator = (a: pair, b: pair) => b[0] - a[0]
+    const aux: pair[] = values.map((v, i) => [v, i])
     if (jitter === 'increasing' || jitter === 'ascending') {
         aux.sort(ascendingComparator).forEach((vi, j) => (result[vi[1]] = j))
     } else {

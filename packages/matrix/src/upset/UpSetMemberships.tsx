@@ -25,7 +25,7 @@ export const UpSetMemberships = ({
     const { scales } = useScales()
     const data = processedData.data
     if (!isUpSetProcessedData(data) || data.length == 0) return null
-    const horizontal = data[0].horizontal
+    const horizontal = data[0]?.horizontal
     const scaleIndex = horizontal ? (scales.y as BandAxisScale) : (scales.x as BandAxisScale)
     const scaleKeys = horizontal ? (scales.x as BandAxisScale) : (scales.y as BandAxisScale)
     const scaleColor = scales.color as CategoricalColorScale
@@ -45,7 +45,7 @@ export const UpSetMemberships = ({
     const cells = processedData.keys.map((k, i) => {
         let positions: [number, number][] = []
         ids.map((seriesId, seriesIndex) => {
-            const value = data[seriesIndex].data[i]
+            const value = data[seriesIndex]?.data[i] ?? 0
             if (value > 0) {
                 positions.push([scaleIndex(seriesId), scaleKeys(k)])
             }

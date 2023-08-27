@@ -48,9 +48,9 @@ export const BarsLabels = ({
         const visible = !disabledKeys.has(k)
         const labels = data
             .map((seriesData: BarPreparedDataItem, j) => {
-                if (!idSet.has(seriesData.id)) return null
                 const size = seriesData.size[i]
                 const pos = seriesData.position[i]
+                if (!idSet.has(seriesData.id) || !size || !pos) return null
                 const position: NumericPositionSpec = [
                     pos[X] + offset[X] + size[X] / 2,
                     pos[Y] + offset[Y] + size[Y] / 2,
@@ -73,7 +73,7 @@ export const BarsLabels = ({
                         className: compositeClassName,
                         style: labelStyle,
                     },
-                    format(processedData[j].data[i])
+                    format(Number(processedData[j]?.data[i]))
                 )
             })
             .filter(Boolean)

@@ -25,7 +25,7 @@ export const getSizeEstimate = (
     title: boolean | undefined,
     horizontal: boolean
 ): SizeSpec => {
-    const sizeMultiplier = horizontal
+    const sizeMultiplier: [number, number] = horizontal
         ? [nItems + (title ? 1 : 0), 1]
         : [1, nItems + (title ? 1 : 0)]
     return [
@@ -44,7 +44,7 @@ export const getContentPosition = (
 ) => {
     const result: NumericPositionSpec = [...titlePosition]
     if (title) {
-        const step = horizontal ? [itemSize[X], 0] : [0, itemSize[Y]]
+        const step: NumericPositionSpec = horizontal ? [itemSize[X], 0] : [0, itemSize[Y]]
         result[X] += step[X] + firstOffset[X]
         result[Y] += step[Y] + firstOffset[Y]
     }
@@ -65,7 +65,7 @@ export const getItemPositions = (
     const stepSize = horizontal ? size[0] : size[1]
     const stepPadding = horizontal ? pad[LEFT] + pad[RIGHT] : pad[TOP] + pad[BOTTOM]
     const step: NumericPositionSpec = horizontal ? [stepSize, 0] : [0, stepSize]
-    const stepMultiplier = horizontal ? [1, 0] : [0, 1]
+    const stepMultiplier: [number, number] = horizontal ? [1, 0] : [0, 1]
     const maxSize: number = max(symbolSizes)
     const centerX = pad[LEFT] + (size[X] - pad[LEFT] - pad[RIGHT]) / 2
 
@@ -73,14 +73,17 @@ export const getItemPositions = (
     const itemSize: SizeSpec[] = []
     const labelPosition: NumericPositionSpec[] = []
     const symbolPosition: NumericPositionSpec[] = []
-    const pos = [position[0], position[1]]
+    const pos: NumericPositionSpec = [position[0], position[1]]
     symbolSizes.map(r => {
         const extraStep = Math.max(0, 2 * r + stepPadding - stepSize)
         itemPosition.push([pos[X], pos[Y]])
         pos[X] += step[X] + extraStep * stepMultiplier[X]
         pos[Y] += step[Y] + extraStep * stepMultiplier[Y]
-        const symbolPos: [number, number] = [maxSize + pad[LEFT], r + pad[TOP]]
-        const labelPos: [number, number] = [2 * maxSize + pad[LEFT] + labelDistance, r + pad[TOP]]
+        const symbolPos: NumericPositionSpec = [maxSize + pad[LEFT], r + pad[TOP]]
+        const labelPos: NumericPositionSpec = [
+            2 * maxSize + pad[LEFT] + labelDistance,
+            r + pad[TOP],
+        ]
         if (variant === 'left') {
             symbolPos[X] = size[X] - maxSize - pad[RIGHT]
             labelPos[X] = symbolPos[X] - maxSize - labelDistance

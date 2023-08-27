@@ -83,7 +83,7 @@ describe('Scatter', () => {
         )
         expect(Object.keys(result.seriesIndexes)).toHaveLength(1)
         expect(result.data).toHaveLength(1)
-        expect(result.data[0].k).toEqual([5, 4, 3])
+        expect(result.data[0]?.k).toEqual([5, 4, 3])
     })
 
     it('accepts data in data-frame format', () => {
@@ -101,6 +101,6 @@ describe('Scatter', () => {
         )
         expect(Object.keys(result.seriesIndexes)).toHaveLength(2)
         expect(result.data).toHaveLength(2)
-        expect(result.data[0].x).toEqual([1, 2, 3])
+        expect(result.data[0]?.x).toEqual([1, 2, 3])
     })
 })

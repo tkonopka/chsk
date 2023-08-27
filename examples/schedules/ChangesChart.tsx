@@ -25,7 +25,7 @@ export const generateChangesData = () => {
     const baseValues = ids.map(() => round2dp(randomUniformValue(10, 90))).sort((a, b) => b - a)
     // create an array of objects, one for each id
     return ids.map((id, i) => {
-        const start = baseValues[i]
+        const start = baseValues[i] as number
         const change = randomUniformValue(-30, 30)
         let end = start + (Math.abs(change) > 1 ? change : 1)
         end = round2dp(Math.min(100, Math.max(0, end)))

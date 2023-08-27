@@ -41,7 +41,7 @@ describe('ScatterErrors', () => {
         expect(result).toHaveLength(4)
         const line0 = result[0]
         expect(getNumberAttr(line0, 'y1')).toEqual(getNumberAttr(line0, 'y2'))
-        expect(line0.getAttribute('class')).toContain('scatterError')
+        expect(line0?.getAttribute('class')).toContain('scatterError')
     })
 
     it('creates vertical error bars', () => {
@@ -56,7 +56,7 @@ describe('ScatterErrors', () => {
         expect(result).toHaveLength(4)
         const line0 = result[0]
         expect(getNumberAttr(line0, 'x1')).toEqual(getNumberAttr(line0, 'x2'))
-        expect(line0.getAttribute('class')).toContain('scatterError')
+        expect(line0?.getAttribute('class')).toContain('scatterError')
     })
 
     it('creates error bars with caps', () => {
@@ -80,7 +80,7 @@ describe('ScatterErrors', () => {
             </Chart>
         )
         const lines = screen.getByRole('scatter-errors').querySelectorAll('line')
-        expect(lines[0].getAttribute('role')).toBeNull()
+        expect(lines[0]?.getAttribute('role')).toBeNull()
     })
 
     it('creates error bars without role', () => {
@@ -94,7 +94,7 @@ describe('ScatterErrors', () => {
         const g = screen.getByRole('view-content').querySelector('g')
         expect(g?.getAttribute('role')).toBeNull()
         const lines = screen.getByRole('chart-content').querySelectorAll('line')
-        expect(lines[0].getAttribute('role')).toBeNull()
+        expect(lines[0]?.getAttribute('role')).toBeNull()
     })
 
     it('ignores non-existent ids', () => {

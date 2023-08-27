@@ -52,7 +52,7 @@ const UnthemedGridStripes = ({
                 variant: 'grid-stripe',
                 key: 'x-' + i,
                 x: v,
-                width: endCoordinates[i] - v,
+                width: Number(endCoordinates[i]) - v,
                 y: -e1,
                 height: size[Y] + e1 + e2,
                 ...props,
@@ -66,7 +66,7 @@ const UnthemedGridStripes = ({
                 x: -e1,
                 width: size[X] + e1 + e2,
                 y: v,
-                height: endCoordinates[i] - v,
+                height: Number(endCoordinates[i]) - v,
                 ...props,
             })
         )

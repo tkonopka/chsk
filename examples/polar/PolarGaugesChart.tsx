@@ -28,7 +28,7 @@ const createPieData = (v: number) => [
 ]
 export const generateGaugesData = () => {
     const sizes = generateUniformPopulation(ids.length, 0, 100).map(Math.round)
-    return ids.map((id, i) => ({ id, pieData: createPieData(sizes[i]) }))
+    return ids.map((id, i) => ({ id, pieData: createPieData(Number(sizes[i])) }))
 }
 
 const customTheme: ThemeSpec = mergeThemes([
@@ -99,7 +99,7 @@ export const CustomPolarGauge = ({
     size: SizeSpec
     data: Array<PieDataItem>
 }) => {
-    const value = data[0].data
+    const value = data[0]?.data
     const container: ContainerProps = {
         position,
         positionUnits: 'relative',

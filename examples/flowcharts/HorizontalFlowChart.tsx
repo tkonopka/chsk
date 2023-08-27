@@ -41,7 +41,7 @@ export const HorizontalFlowChart = ({ fref, chartData }: MilestoneStory) => {
     const y = 60
     const branchHeight = 32
     // positions for lines
-    const x = [80, 160, 240, 340, 420]
+    const x: [number, number, number, number, number] = [80, 160, 240, 340, 420]
     // positions for icons
     const xStart = x[0] - 44
     const xMid = (x[2] + x[3]) / 2

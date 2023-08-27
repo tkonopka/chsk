@@ -49,12 +49,12 @@ export const VennSetLabels = ({
     }
     const result = (ids ?? seriesIds)
         .map((id, i) => {
-            if (!idSet.has(id)) return null
-            const index: number = processedData.seriesIndexes[id]
+            const index = Number(processedData.seriesIndexes[id])
             const seriesData = data[index]
-            const pos = [seriesData.center[X], seriesData.center[Y]]
-            pos[X] += rs[i] * seriesData.r * Math.sin(angles[i])
-            pos[Y] += rs[i] * seriesData.r * Math.cos(angles[i])
+            if (seriesData === undefined || !idSet.has(id)) return
+            const pos: NumericPositionSpec = [seriesData.center[X], seriesData.center[Y]]
+            pos[X] += Number(rs[i]) * seriesData.r * Math.sin(Number(angles[i]))
+            pos[Y] += Number(rs[i]) * seriesData.r * Math.cos(Number(angles[i]))
             const position: NumericPositionSpec = [
                 scaleX(pos[X]) + offset[X],
                 scaleY(pos[Y]) + offset[Y],

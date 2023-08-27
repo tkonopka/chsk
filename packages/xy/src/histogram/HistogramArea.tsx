@@ -33,11 +33,11 @@ export const HistogramArea = ({
 
     const areas: Record<string, string> = {}
     preparedData.keys.map(id => {
-        const seriesIndex = preparedData.seriesIndexes[id]
+        const seriesIndex = Number(preparedData.seriesIndexes[id])
         areas[id] = useMemo(
             () =>
                 getAreaD({
-                    points: preparedData.data[seriesIndex].points,
+                    points: preparedData.data[seriesIndex]?.points ?? [],
                     curve,
                     scaleY,
                     baseline: 0,

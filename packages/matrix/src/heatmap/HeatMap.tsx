@@ -24,8 +24,7 @@ const processData = (
     return data.map((seriesData, index) => {
         const id = seriesData.id
         const sizeIndex = sizeIndexes[id]
-        const sizeData: HeatMapDataItem =
-            sizeIndex !== undefined && dataSize !== undefined ? dataSize[sizeIndex] : { id }
+        const sizeData: HeatMapDataItem = dataSize?.[sizeIndex ?? 0] ?? { id }
         return {
             id,
             index,

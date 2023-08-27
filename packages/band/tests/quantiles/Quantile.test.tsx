@@ -101,11 +101,11 @@ describe('Quantile', () => {
         expect(isQuantileProcessedData(result.data)).toBeTruthy()
         const data = result.data as Array<QuantileProcessedDataItem>
         // for first id, first key (x) is defined and second key (y) is not
-        expect(data[0].data[0]).toBeTruthy()
-        expect(data[0].data[1]).toBeFalsy()
+        expect(data[0]?.data[0]).toBeTruthy()
+        expect(data[0]?.data[1]).toBeFalsy()
         // for second id, first key (x) is not defined
-        expect(data[1].data[0]).toBeFalsy()
-        expect(data[1].data[1]).toBeTruthy()
+        expect(data[1]?.data[0]).toBeFalsy()
+        expect(data[1]?.data[1]).toBeTruthy()
     })
 
     it('computes scales using available keys and ignores missing data', () => {
@@ -178,10 +178,10 @@ describe('Quantile', () => {
         )
         expect(isQuantileProcessedData(result.data)).toBeTruthy()
         const data = result.data as Array<QuantileProcessedDataItem>
-        expect(isQuantileProcessedSummary(precomputed[0].x)).toBeTruthy()
-        expect(data[0].id).toEqual(precomputed[0].id)
-        expect(data[0].data[0]?.values).toEqual(precomputed[0].x.values)
-        expect(data[0].data[0]?.quantiles).toEqual(precomputed[0].x.quantiles)
-        expect(JSON.stringify(data[0].data[0])).not.toContain('junk')
+        expect(isQuantileProcessedSummary(precomputed[0]?.x)).toBeTruthy()
+        expect(data[0]?.id).toEqual(precomputed[0]?.id)
+        expect(data[0]?.data[0]?.values).toEqual(precomputed[0]?.x.values)
+        expect(data[0]?.data[0]?.quantiles).toEqual(precomputed[0]?.x.quantiles)
+        expect(JSON.stringify(data[0]?.data[0])).not.toContain('junk')
     })
 })

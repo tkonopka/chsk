@@ -45,7 +45,7 @@ export const HeatMapCells = ({
     const sizeScale = (
         scaleSize ? createContinuousScale(scaleSize) : scales.size
     ) as ContinuousAxisScale
-    const maxSize = sizeScale(sizeScale.domain()[1])
+    const maxSize = sizeScale(sizeScale.domain()[1] ?? 0)
     const variableSize = isFinite(maxSize)
     const cellFilter = useMemo(() => createCellFilter(cells, idSet, keySet), [cells, idSet, keySet])
 
@@ -63,12 +63,13 @@ export const HeatMapCells = ({
             const values = seriesData.value
             const sizes = seriesData.size
             return indexes(seriesData.value).map(i => {
-                const k = processedData.keys[i]
+                const k = String(processedData.keys[i])
                 if (!cellFilter(seriesData.id, k)) return null
                 const cellColor = colorScale(values[i] as number)
                 const cellStyle = addColor(style, cellColor)
                 // cell2R is 2*radius for the cell symbol
-                const cell2R = 2 * (isFinite(sizes[i]) ? sizeScale(sizes[i]) : maxSize)
+                const iSize = sizes[i]
+                const cell2R = 2 * (iSize !== undefined ? sizeScale(iSize) : maxSize)
 
                 return createElement(dataComponent, {
                     key: 'cell-' + seriesData.index + '-' + i,
@@ -76,14 +77,14 @@ export const HeatMapCells = ({
                     data: {
                         id: seriesData.id,
                         key: k,
-                        data: values[i],
-                        size: sizes[i],
+                        data: Number(values[i]),
+                        size: iSize,
                     },
                     props: {
                         ...commonProps,
                         cellValue: values[i],
-                        cellSize: sizes[i],
-                        x: x[i],
+                        cellSize: iSize,
+                        x: Number(x[i]),
                         y: y,
                         width: variableSize
                             ? aspectRatio > 1

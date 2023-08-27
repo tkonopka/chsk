@@ -44,7 +44,7 @@ export const generateManhattanScatterData = () => {
     let offset = 0
     const result = chromLengths.map((chromL, index) => {
         const n = Math.round(density * chromL)
-        offset += index > 0 ? chromLengths[index - 1] : 0
+        offset += index > 0 ? (chromLengths[index - 1] as number) : 0
         nPoints += n
         const pointInterval = chromL / (n + 1)
         const positions: number[] = Array(n)
@@ -58,7 +58,7 @@ export const generateManhattanScatterData = () => {
             data: positions.map((x, j) => ({
                 pos: x,
                 absPos: offset + x,
-                value: -Math.log10(Math.max(values[j], 1e-12)),
+                value: -Math.log10(Math.max(Number(values[j]), 1e-12)),
             })),
         }
     })
@@ -70,11 +70,12 @@ export const generateManhattanScatterData = () => {
             .map(() => Math.round(randomUniformValue(0, nPoints)))
     )
     const changeValue = (chromIndex: number, pointIndex: number, newValue: number) => {
-        result[chromIndex].data[pointIndex].value = newValue
+        const obj = result[chromIndex]?.data[pointIndex]
+        if (obj) obj.value = newValue
     }
     offset = 0
     indexes(chromLengths).forEach(index => {
-        const nChromPoints = result[index].data.length
+        const nChromPoints = result[index]?.data.length ?? 0
         for (let i = 2; i < nChromPoints - 2; i++) {
             if (hits.has(offset + i)) {
                 const level = randomUniformValue(5, 10)
@@ -83,7 +84,7 @@ export const generateManhattanScatterData = () => {
                     .map(() => randomUniformValue(0, 1))
                 noise[2] = 1
                 indexes(noise).map(j => {
-                    changeValue(index, i + j - 2, level * noise[j])
+                    changeValue(index, i + j - 2, level * Number(noise[j]))
                 })
             }
         }
@@ -125,17 +126,17 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
         const d = series.data
         const lastPoint = isArray(d) ? d[d.length - 1] : { absPos: 0 }
         if (index === rawData.length - 1) {
-            chromBoundaries.push(Number(lastPoint.absPos))
+            chromBoundaries.push(Number(lastPoint?.absPos))
         } else {
-            const nextSeries = rawData[index + 1].data
-            const nextPos = isArray(nextSeries) ? Number(nextSeries[0].absPos) : 0
-            chromBoundaries.push((Number(lastPoint.absPos) + nextPos) / 2)
+            const nextSeries = rawData[index + 1]?.data
+            const nextPos = isArray(nextSeries) ? Number(nextSeries[0]?.absPos) : 0
+            chromBoundaries.push((Number(lastPoint?.absPos) + nextPos) / 2)
         }
     })
     const chromNames = rawData.map(series => series.id)
     const chromMids = chromBoundaries
         .slice(1, chromBoundaries.length)
-        .map((x, i) => (x + chromBoundaries[i]) / 2)
+        .map((x, i) => (x + Number(chromBoundaries[i])) / 2)
     const chromLabel = (value: unknown, index: number) => {
         return index < 3 || index % 2 == 1 ? chromNames[index] : String(value)
     }

@@ -67,7 +67,7 @@ describe('ScatterCrosshair', () => {
         fireEvent.mouseMove(detector, { clientX: 50, clientY: 50 })
         const lines = screen.getByRole('scatter-crosshair').querySelectorAll('line')
         expect(lines).toHaveLength(1)
-        expect(lines[0].getAttribute('x1')).toEqual(lines[0].getAttribute('x2'))
+        expect(lines[0]?.getAttribute('x1')).toEqual(lines[0]?.getAttribute('x2'))
     })
 
     it('draws one line as horizontal crosshair', () => {
@@ -82,7 +82,7 @@ describe('ScatterCrosshair', () => {
         fireEvent.mouseMove(detector, { clientX: 50, clientY: 50 })
         const lines = screen.getByRole('scatter-crosshair').querySelectorAll('line')
         expect(lines).toHaveLength(1)
-        expect(lines[0].getAttribute('y1')).toEqual(lines[0].getAttribute('y2'))
+        expect(lines[0]?.getAttribute('y1')).toEqual(lines[0]?.getAttribute('y2'))
     })
 
     it('removes lines upon mouse leave', async () => {

@@ -48,9 +48,9 @@ export const Bars = ({
         const visible = !disabledKeys.has(k)
         const bars = data
             .map((seriesData: BarPreparedDataItem) => {
-                if (!idSet.has(seriesData.id)) return null
                 const pos = seriesData.position[i]
                 const size = seriesData.size[i]
+                if (!idSet.has(seriesData.id) || !pos || !size) return null
                 if (size[0] === 0 || size[1] === 0) return null
                 return createElement(dataComponent, {
                     key: 'bar-' + seriesData.id + '-' + k,
@@ -58,7 +58,7 @@ export const Bars = ({
                     data: {
                         id: seriesData.id,
                         key: k,
-                        data: processedData[seriesData.index].data[i],
+                        data: Number(processedData[seriesData.index]?.data[i]),
                     },
                     props: {
                         ...commonProps,
