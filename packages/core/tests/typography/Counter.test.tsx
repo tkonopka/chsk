@@ -28,7 +28,7 @@ describe('Counter', () => {
         expect(result?.getAttribute('class')).toContain('counter')
     })
 
-    it('creates a counter with offset position', () => {
+    it('creates a counter with offset position', async () => {
         render(
             <Chart {...chartProps}>
                 <Counter position={[10, 20]} offset={[4, 6]}>
@@ -37,8 +37,10 @@ describe('Counter', () => {
             </Chart>
         )
         const counter = screen.getByRole('counter')
-        expect(getTransform(counter, 'X')).toEqual(14)
-        expect(getTransform(counter, 'Y')).toEqual(26)
+        await waitFor(() => {
+            expect(getTransform(counter, 'X')).toEqual(14)
+            expect(getTransform(counter, 'Y')).toEqual(26)
+        })
     })
 
     it('updates values', async () => {

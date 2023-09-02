@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { getTransform } from '../../../core/tests/utils'
 import { Bar, BarsLabels } from '../../src/bars'
@@ -17,7 +17,7 @@ describe('BarsLabels', () => {
         expect(labels).toHaveLength(0)
     })
 
-    it('creates center-aligned labels for bars', () => {
+    it('creates center-aligned labels for bars', async () => {
         // view with two indexes, one bar each
         render(
             <Chart>
@@ -29,12 +29,14 @@ describe('BarsLabels', () => {
         expect(screen.queryAllByRole('bars-labels')).toHaveLength(1)
         const labels = screen.getByRole('view-bar').querySelectorAll('text')
         expect(labels).toHaveLength(2)
-        // center-aligned, so labels should be at different x-coordinates
-        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
-        expect(getTransform(labels[0], 'X')).not.toEqual(getTransform(labels[1], 'X'))
+        await waitFor(() => {
+            // center-aligned, so labels should be at different x-coordinates
+            expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
+            expect(getTransform(labels[0], 'X')).not.toEqual(getTransform(labels[1], 'X'))
+        })
     })
 
-    it('creates left-aligned labels for bars', () => {
+    it('creates left-aligned labels for bars', async () => {
         // view with two indexes, one bar each
         render(
             <Chart>
@@ -46,9 +48,11 @@ describe('BarsLabels', () => {
         const result = screen.getByRole('view-bar')
         const labels = result.querySelectorAll('text')
         expect(labels).toHaveLength(2)
-        // left-aligned, so labels should be at equal x-coordinates
-        expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
-        expect(getTransform(labels[0], 'X')).toEqual(getTransform(labels[1], 'X'))
+        await waitFor(() => {
+            // left-aligned, so labels should be at equal x-coordinates
+            expect(getTransform(labels[0], 'X')).toBeGreaterThan(0)
+            expect(getTransform(labels[0], 'X')).toEqual(getTransform(labels[1], 'X'))
+        })
     })
 
     it('creates labels for many bars', () => {

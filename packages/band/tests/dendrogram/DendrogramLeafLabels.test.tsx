@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Dendrogram, DendrogramLeafLabels } from '../../src/dendrogram'
 import { dendrogramProps } from './dendrogram.props'
@@ -51,7 +51,7 @@ describe('DendrogramLeafLabels', () => {
         expect(labels).toHaveLength(2)
     })
 
-    it('draws labels at different heights', () => {
+    it('draws labels at different heights', async () => {
         render(
             <Chart>
                 <Dendrogram {...dendrogramProps} variant={'right'} hang={0.1}>
@@ -62,13 +62,15 @@ describe('DendrogramLeafLabels', () => {
         // there should be four labels
         const labels = screen.getByRole('view-dendrogram').querySelectorAll('text')
         expect(labels).toHaveLength(4)
-        // the labels should be at different heights
-        const x: Array<number | null> = []
-        labels.forEach(label => {
-            x.push(getTransform(label, 'X'))
+        await waitFor(() => {
+            // the labels should be at different heights
+            const x: Array<number | null> = []
+            labels.forEach(label => {
+                x.push(getTransform(label, 'X'))
+            })
+            const xSet = new Set(x)
+            expect(xSet.has(null)).toBeFalsy()
+            expect(xSet.size).toBe(2)
         })
-        const xSet = new Set(x)
-        expect(xSet.has(null)).toBeFalsy()
-        expect(xSet.size).toBe(2)
     })
 })

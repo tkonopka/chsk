@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, View, ColorScaleProps, TooltipProvider, TooltipDataItem, Tooltip } from '../../src'
 import { chartProps } from '../props'
 import { schemeCategory10 } from 'd3-scale-chromatic'
@@ -71,7 +71,7 @@ describe('Tooltip', () => {
         expect(screen.queryAllByRole('tooltip-item')).toHaveLength(0)
     })
 
-    it('creates tooltip at position', () => {
+    it('creates tooltip at position', async () => {
         render(
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
@@ -87,12 +87,14 @@ describe('Tooltip', () => {
             </Chart>
         )
         const tooltip = screen.getByRole('tooltip')
-        // tooltip position is [10, 10], anchored at bottom-right corner, so corner at negative coordinates
-        expect(getTransform(tooltip, 'X')).toEqual(-30)
-        expect(getTransform(tooltip, 'Y')).toEqual(-30)
+        await waitFor(() => {
+            // tooltip position is [10, 10], anchored at bottom-right corner, so corner at negative coordinates
+            expect(getTransform(tooltip, 'X')).toEqual(-30)
+            expect(getTransform(tooltip, 'Y')).toEqual(-30)
+        })
     })
 
-    it('creates flipped tooltip', () => {
+    it('creates flipped tooltip', async () => {
         render(
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
@@ -108,11 +110,13 @@ describe('Tooltip', () => {
             </Chart>
         )
         const tooltip = screen.getByRole('tooltip')
-        expect(getTransform(tooltip, 'X')).toEqual(10)
-        expect(getTransform(tooltip, 'Y')).toEqual(10)
+        await waitFor(() => {
+            expect(getTransform(tooltip, 'X')).toEqual(10)
+            expect(getTransform(tooltip, 'Y')).toEqual(10)
+        })
     })
 
-    it('creates shifted tooltip', () => {
+    it('creates shifted tooltip', async () => {
         render(
             <Chart {...chartProps}>
                 <View data={viewSeriesIndexesKeys}>
@@ -128,8 +132,10 @@ describe('Tooltip', () => {
             </Chart>
         )
         const tooltip = screen.getByRole('tooltip')
-        // for centered tooltips, flipping an anchor is not sufficient to avoid overhang, so a shift is needed
-        expect(getTransform(tooltip, 'X')).toEqual(0)
+        await waitFor(() => {
+            // for centered tooltips, flipping an anchor is not sufficient to avoid overhang, so a shift is needed
+            expect(getTransform(tooltip, 'X')).toEqual(0)
+        })
     })
 
     it('creates tooltip with multiple items ', () => {

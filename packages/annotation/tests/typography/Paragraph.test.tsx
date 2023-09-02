@@ -1,7 +1,7 @@
 import { Paragraph } from '../../src/'
 import { splitText } from '../../src/typography/utils'
 import sans from '../../src/typography/arial.json'
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { chartProps } from '../props'
 
@@ -109,7 +109,7 @@ describe('Paragraph', () => {
         expect(result[0]?.querySelectorAll('text')).toHaveLength(3)
     })
 
-    it('uses an offset', () => {
+    it('uses an offset', async () => {
         render(
             <Chart {...chartProps}>
                 <Paragraph position={[10, 20]} size={[120, 20]} offset={[4, 6]}>
@@ -118,7 +118,9 @@ describe('Paragraph', () => {
             </Chart>
         )
         const result = screen.getByRole('paragraph')
-        expect(result.getAttribute('style')).toContain('translateX(14')
-        expect(result.getAttribute('style')).toContain('translateY(26')
+        await waitFor(() => {
+            expect(result.getAttribute('style')).toContain('translateX(14')
+            expect(result.getAttribute('style')).toContain('translateY(26')
+        })
     })
 })

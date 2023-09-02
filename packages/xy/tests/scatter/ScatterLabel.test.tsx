@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Scatter, ScatterLabel } from '../../src/scatter'
 import { scatterProps } from './scatter.props'
@@ -24,7 +24,7 @@ describe('ScatterLabel', () => {
         expect(result?.getAttribute('class')).toContain('label scatterLabel')
     })
 
-    it('creates a label using a relative position', () => {
+    it('creates a label using a relative position', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
@@ -37,11 +37,13 @@ describe('ScatterLabel', () => {
         // x=1 in view-relative units means at x=400 in svg units,
         // the closest data point will be [8, 64], which is near top-right corner
         const result = screen.getByRole('scatter-label').querySelector('text')
-        expect(getTransform(result, 'X')).toEqual(400)
-        expect(getTransform(result, 'Y')).toBeLessThan(50)
+        await waitFor(() => {
+            expect(getTransform(result, 'X')).toEqual(400)
+            expect(getTransform(result, 'Y')).toBeLessThan(50)
+        })
     })
 
-    it('creates a label using xy position', () => {
+    it('creates a label using xy position', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
@@ -57,13 +59,15 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label').querySelector('text')
-        // data has x=1..8 and y=1..64
-        // the nearest data point to [8, 50] should be [7, 49]
-        expect(getTransform(result, 'X')).toBeLessThan(400)
-        expect(getTransform(result, 'Y')).toBeGreaterThan(50)
+        await waitFor(() => {
+            // data has x=1..8 and y=1..64
+            // the nearest data point to [8, 50] should be [7, 49]
+            expect(getTransform(result, 'X')).toBeLessThan(400)
+            expect(getTransform(result, 'Y')).toBeGreaterThan(50)
+        })
     })
 
-    it('creates a label using x coordinate', () => {
+    it('creates a label using x coordinate', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
@@ -79,13 +83,15 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label').querySelector('text')
-        // data has x=1..8 and y=1..64
-        // the nearest data point to [8, 50] is [7, 49] in 2d, but [8, 64] in x dimensions
-        expect(getTransform(result, 'X')).toBeGreaterThan(350)
-        expect(getTransform(result, 'Y')).toBeLessThan(50)
+        await waitFor(() => {
+            // data has x=1..8 and y=1..64
+            // the nearest data point to [8, 50] is [7, 49] in 2d, but [8, 64] in x dimensions
+            expect(getTransform(result, 'X')).toBeGreaterThan(350)
+            expect(getTransform(result, 'Y')).toBeLessThan(50)
+        })
     })
 
-    it('creates a label using y coordinate', () => {
+    it('creates a label using y coordinate', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Scatter {...scatterProps}>
@@ -101,10 +107,12 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('scatter-label').querySelector('text')
-        // data has x=1..8 and y=1..64
-        // middle of y axis is 32, and the nearest point is [6, 36]
-        expect(getTransform(result, 'X')).toBeLessThan(350)
-        expect(getTransform(result, 'Y')).toBeGreaterThan(50)
+        await waitFor(() => {
+            // data has x=1..8 and y=1..64
+            // middle of y axis is 32, and the nearest point is [6, 36]
+            expect(getTransform(result, 'X')).toBeLessThan(350)
+            expect(getTransform(result, 'Y')).toBeGreaterThan(50)
+        })
     })
 
     it('skips work for non-existent series', () => {
@@ -118,7 +126,7 @@ describe('ScatterLabel', () => {
         expect(screen.queryByRole('scatter-label')).toBeNull()
     })
 
-    it('uses auto-rotation', () => {
+    it('uses auto-rotation', async () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
@@ -130,11 +138,13 @@ describe('ScatterLabel', () => {
         )
         const result = screen.getByRole('scatter-label').querySelector('text')
         expect(result?.textContent).toBe('Label')
-        // rotation should be negative (upward sloping linear line)
-        expect(result?.getAttribute('style')).toContain('rotate(-')
+        await waitFor(() => {
+            // rotation should be negative (upward sloping linear line)
+            expect(result?.getAttribute('style')).toContain('rotate(-')
+        })
     })
 
-    it('uses auto-rotation (different x)', () => {
+    it('uses auto-rotation (different x)', async () => {
         render(
             <Chart>
                 <Scatter {...scatterProps}>
@@ -146,8 +156,10 @@ describe('ScatterLabel', () => {
         )
         const result = screen.getByRole('scatter-label').querySelector('text')
         expect(result?.textContent).toBe('Label')
-        // rotation should be negative (upward sloping linear line)
-        expect(result?.getAttribute('style')).toContain('rotate(-')
+        await waitFor(() => {
+            // rotation should be negative (upward sloping linear line)
+            expect(result?.getAttribute('style')).toContain('rotate(-')
+        })
     })
 
     it('skips rendering when keys are disabled', () => {
@@ -182,7 +194,7 @@ describe('ScatterLabel', () => {
         expect(screen.queryByRole('scatter-label')).toBeNull()
     })
 
-    it('handles vertical lines', () => {
+    it('handles vertical lines', async () => {
         const verticalData = [
             {
                 id: 'vertical',
@@ -209,11 +221,13 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const result = screen.queryByRole('scatter-label')?.querySelector('text')
-        expect(result?.textContent).toBe('Label')
-        expect(result?.getAttribute('style')).toContain('90deg')
+        await waitFor(() => {
+            expect(result?.textContent).toBe('Label')
+            expect(result?.getAttribute('style')).toContain('90deg')
+        })
     })
 
-    it('handles data series with single point', () => {
+    it('handles data series with single point', async () => {
         const singleData = [
             {
                 id: 'single',
@@ -234,10 +248,12 @@ describe('ScatterLabel', () => {
             </Chart>
         )
         const labels = screen.queryAllByRole('scatter-label')
-        labels.map(label => {
-            const result = label.querySelector('text')
-            expect(result?.textContent).toBe('Label')
-            expect(result?.getAttribute('style')).toContain('rotate(0')
+        await waitFor(() => {
+            labels.map(label => {
+                const result = label.querySelector('text')
+                expect(result?.textContent).toBe('Label')
+                expect(result?.getAttribute('style')).toContain('rotate(0')
+            })
         })
     })
 })

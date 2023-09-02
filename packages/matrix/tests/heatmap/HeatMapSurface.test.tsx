@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { HeatMap, HeatMapSurface } from '../../src'
 import { heatmapProps } from '../props'
@@ -40,7 +40,7 @@ describe('HeatMapSurface', () => {
         expect(round(result.getAttribute('width'))).toEqual(400)
     })
 
-    it('creates a surface over a part of the heat map', () => {
+    it('creates a surface over a part of the heat map', async () => {
         render(
             <Chart size={[440, 340]} padding={[20, 20, 20, 20]}>
                 <HeatMap
@@ -54,10 +54,12 @@ describe('HeatMapSurface', () => {
             </Chart>
         )
         const result = screen.getByRole('heatmap-surface')
-        expect(round(getTransform(result, 'X'))).toBeGreaterThan(0)
-        expect(round(getTransform(result, 'Y'))).toBeGreaterThan(0)
-        expect(round(result.getAttribute('width'))).toBeLessThan(400)
-        expect(round(result.getAttribute('height'))).toBeLessThan(300)
+        await waitFor(() => {
+            expect(round(getTransform(result, 'X'))).toBeGreaterThan(0)
+            expect(round(getTransform(result, 'Y'))).toBeGreaterThan(0)
+            expect(round(result.getAttribute('width'))).toBeLessThan(400)
+            expect(round(result.getAttribute('height'))).toBeLessThan(300)
+        })
     })
 
     it('skips work when ids are empty/invalid', () => {

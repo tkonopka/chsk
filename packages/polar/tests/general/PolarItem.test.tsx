@@ -72,8 +72,10 @@ describe('PolarItem', () => {
             </Chart>
         )
         const g = screen.getByRole('custom')
-        expect(getTransform(g, 'X')).toBe(0)
-        expect(getTransform(g, 'Y')).toBe(-100)
+        await waitFor(() => {
+            expect(getTransform(g, 'X')).toBe(0)
+            expect(getTransform(g, 'Y')).toBe(-100)
+        })
         // click, rotation clockwise - label should move slowly to the right of the origin
         fireEvent.click(screen.getByRole('button'))
         await waitFor(() => {
@@ -89,7 +91,7 @@ describe('PolarItem', () => {
         })
     })
 
-    it('rotates radial labels in the left hemisphere', () => {
+    it('rotates radial labels in the left hemisphere', async () => {
         render(
             <Chart size={[400, 300]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
@@ -104,13 +106,15 @@ describe('PolarItem', () => {
         )
         const right = screen.queryByText('right')
         const left = screen.queryByText('left')
-        // radial label on the right should be nearly vertical
-        expect(right?.closest('g')?.getAttribute('style')).toContain('(-80deg)')
-        // radial label on the left should be nearly vertical, but in opposite direction
-        expect(left?.closest('g')?.getAttribute('style')).toContain('(80deg)')
+        await waitFor(() => {
+            // radial label on the right should be nearly vertical
+            expect(right?.closest('g')?.getAttribute('style')).toContain('(-80deg)')
+            // radial label on the left should be nearly vertical, but in opposite direction
+            expect(left?.closest('g')?.getAttribute('style')).toContain('(80deg)')
+        })
     })
 
-    it('rotates tangential labels in the bottom hemisphere', () => {
+    it('rotates tangential labels in the bottom hemisphere', async () => {
         render(
             <Chart size={[400, 300]}>
                 <View scaleX={scaleLinear11} scaleY={scaleLinear11}>
@@ -125,9 +129,11 @@ describe('PolarItem', () => {
         )
         const top = screen.queryByText('top')
         const bottom = screen.queryByText('bottom')
-        // tangential label in top hemisphere should be nearly vertical
-        expect(top?.closest('g')?.getAttribute('style')).toContain('(80deg)')
-        // tangential label in bottom hemisphere be nearly vertical, but in opposite direction
-        expect(bottom?.closest('g')?.getAttribute('style')).toContain('(280deg)')
+        await waitFor(() => {
+            // tangential label in top hemisphere should be nearly vertical
+            expect(top?.closest('g')?.getAttribute('style')).toContain('(80deg)')
+            // tangential label in bottom hemisphere be nearly vertical, but in opposite direction
+            expect(bottom?.closest('g')?.getAttribute('style')).toContain('(280deg)')
+        })
     })
 })

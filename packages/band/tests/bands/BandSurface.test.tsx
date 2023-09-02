@@ -22,7 +22,7 @@ export const MockTooltipSetter = ({
 }
 
 describe('BandSurface', () => {
-    it('creates default band surfaces (variant step)', () => {
+    it('creates default band surfaces (variant step)', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Bar
@@ -40,12 +40,14 @@ describe('BandSurface', () => {
         expect(surfaces).toHaveLength(2)
         expect(getNumberAttr(surfaces[0], 'width')).toEqual(400)
         expect(getNumberAttr(surfaces[0], 'height')).toEqual(150)
-        // the second rectangle should be positioned exactly at [0, 150]
-        expect(getTransform(surfaces[1], 'X')).toBe(0)
-        expect(getTransform(surfaces[1], 'Y')).toBe(150)
+        await waitFor(() => {
+            // the second rectangle should be positioned exactly at [0, 150]
+            expect(getTransform(surfaces[1], 'X')).toBe(0)
+            expect(getTransform(surfaces[1], 'Y')).toBe(150)
+        })
     })
 
-    it('creates band surfaces (variant band)', () => {
+    it('creates band surfaces (variant band)', async () => {
         render(
             <Chart size={[400, 300]} padding={[0, 0, 0, 0]}>
                 <Bar
@@ -63,9 +65,11 @@ describe('BandSurface', () => {
         expect(surfaces).toHaveLength(2)
         expect(getNumberAttr(surfaces[0], 'width')).toEqual(400)
         expect(getNumberAttr(surfaces[0], 'height')).toBeLessThan(140)
-        // the second rectangle should be positioned a little below at [0, 150]
-        expect(getTransform(surfaces[1], 'X')).toBe(0)
-        expect(getTransform(surfaces[1], 'Y')).toBeGreaterThan(160)
+        await waitFor(() => {
+            // the second rectangle should be positioned a little below at [0, 150]
+            expect(getTransform(surfaces[1], 'X')).toBe(0)
+            expect(getTransform(surfaces[1], 'Y')).toBeGreaterThan(160)
+        })
     })
 
     it('create surface only on selected bands', () => {

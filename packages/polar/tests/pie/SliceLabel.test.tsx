@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart } from '@chsk/core'
 import { Pie, SliceLabel } from '../../src'
 import { pieProps } from './props'
@@ -19,7 +19,7 @@ describe('SliceLabel', () => {
         expect(result.getAttribute('class')).toContain('label sliceLabel')
     })
 
-    it('creates a radial label', () => {
+    it('creates a radial label', async () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
@@ -36,10 +36,12 @@ describe('SliceLabel', () => {
             </Chart>
         )
         const result = screen.getByText('label')
-        expect(getTransform(result.closest('g'), 'rotate')).toEqual(-90)
+        await waitFor(() => {
+            expect(getTransform(result.closest('g'), 'rotate')).toEqual(-90)
+        })
     })
 
-    it('creates a tangential label', () => {
+    it('creates a tangential label', async () => {
         render(
             <Chart>
                 <Pie {...pieProps}>
@@ -59,7 +61,9 @@ describe('SliceLabel', () => {
         )
         // slice is a semi-circle, tangent label at midpoint should be vertical
         const result = screen.getByText('label')
-        expect(getTransform(result.closest('g'), 'rotate')).toEqual(90)
+        await waitFor(() => {
+            expect(getTransform(result.closest('g'), 'rotate')).toEqual(90)
+        })
     })
 
     it('creates a label in left hemisphere', () => {

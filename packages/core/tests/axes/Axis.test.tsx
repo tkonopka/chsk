@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, Axis, View, AxisLabel } from '../../src'
 import { chartProps, viewProps } from '../props'
 
@@ -94,7 +94,7 @@ describe('Axis', () => {
         expect(screen.queryByRole('axis-label')).toBeNull()
     })
 
-    it('places label at the end of the axis', () => {
+    it('places label at the end of the axis', async () => {
         const customTheme = {
             AxisLabel: {
                 top: {
@@ -109,9 +109,12 @@ describe('Axis', () => {
                 </View>
             </Chart>
         )
-        // the chart inner width is 400 - 40 -40 = 320
-        // label at the end of the axis means a transform with translate(320
-        expect(screen.getByRole('axis-label').getAttribute('style')).toContain('translateX(320')
+        const label = screen.getByRole('axis-label')
+        await waitFor(() => {
+            // the chart inner width is 400 - 40 -40 = 320
+            // label at the end of the axis means a transform with translate(320
+            expect(label.getAttribute('style')).toContain('translateX(320')
+        })
     })
 
     it('transfers variant to child elements', () => {

@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, Circle, Line, NumericPositionSpec, squaredDistance } from '@chsk/core'
 import { Scatter, ScatterSelectedLabels, ScatterSelectedLabelData } from '../../src/scatter'
 import { scatterProps } from './scatter.props'
@@ -22,7 +22,7 @@ describe('ScatterSelectedLabels', () => {
         expect(label.querySelector('text')?.getAttribute('class')).toContain('scatterLabel')
     })
 
-    it('creates a label and a symbol', () => {
+    it('creates a label and a symbol', async () => {
         const scatterData = [
             {
                 id: 'A',
@@ -54,11 +54,13 @@ describe('ScatterSelectedLabels', () => {
         // label should be above the symbol, i.e. lower y coordinate
         const label = screen.getByRole('scatter-selected-label')?.querySelector('text') ?? null
         expect(label?.textContent).toBe('label')
-        expect(getTransform(label, 'X')).toBe(200)
-        expect(getTransform(label, 'Y')).toBeLessThan(cy)
+        await waitFor(() => {
+            expect(getTransform(label, 'X')).toBe(200)
+            expect(getTransform(label, 'Y')).toBeLessThan(cy)
+        })
     })
 
-    it('displays labels only for active data series', () => {
+    it('displays labels only for active data series', async () => {
         const labelData: ScatterSelectedLabelData[] = [
             { id: 'linear', index: 1, size: [40, 20], content: 'linear' },
             { id: 'quadratic', index: 4, size: [40, 20], content: 'quadratic' },
@@ -76,16 +78,18 @@ describe('ScatterSelectedLabels', () => {
         expect(symbols).toHaveLength(1)
         expect(labels).toHaveLength(1)
         expect(labels[0]?.textContent).toBe('quadratic')
-        // symbol and label should be nearby
-        const symbolPosition: NumericPositionSpec = [
-            getNumberAttr(symbols[0], 'cx'),
-            getNumberAttr(symbols[0], 'cy'),
-        ]
-        const labelPosition: NumericPositionSpec = [
-            getTransform(labels[0], 'X') ?? -100,
-            getTransform(labels[0], 'Y') ?? -100,
-        ]
-        expect(Math.sqrt(squaredDistance(symbolPosition, labelPosition))).toBeLessThan(50)
+        await waitFor(() => {
+            // symbol and label should be nearby
+            const symbolPosition: NumericPositionSpec = [
+                getNumberAttr(symbols[0], 'cx'),
+                getNumberAttr(symbols[0], 'cy'),
+            ]
+            const labelPosition: NumericPositionSpec = [
+                getTransform(labels[0], 'X') ?? -100,
+                getTransform(labels[0], 'Y') ?? -100,
+            ]
+            expect(Math.sqrt(squaredDistance(symbolPosition, labelPosition))).toBeLessThan(50)
+        })
     })
 
     it('displays connecting line', () => {

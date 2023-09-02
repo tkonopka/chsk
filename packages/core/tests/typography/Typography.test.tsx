@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, Typography } from '../../src'
 import { chartProps } from '../props'
 import { getTransform } from '../utils'
@@ -42,15 +42,17 @@ describe('Typography', () => {
         expect(result.getAttribute('role')).toBeNull()
     })
 
-    it('creates a default text at specific location', () => {
+    it('creates a default text at specific location', async () => {
         render(
             <Chart {...chartProps}>
                 <Typography position={[20, 50]}>default</Typography>
             </Chart>
         )
         const result = screen.getByText('default')
-        expect(getTransform(result, 'X')).toEqual(20)
-        expect(getTransform(result, 'Y')).toEqual(50)
+        await waitFor(() => {
+            expect(getTransform(result, 'X')).toEqual(20)
+            expect(getTransform(result, 'Y')).toEqual(50)
+        })
     })
 
     it('creates a title', () => {
@@ -162,7 +164,7 @@ describe('Typography', () => {
         expect(result.querySelectorAll('tspan')).toHaveLength(3)
     })
 
-    it('rotates text', () => {
+    it('rotates text', async () => {
         render(
             <Chart {...chartProps}>
                 <Typography variant={'custom'} angle={90}>
@@ -171,7 +173,9 @@ describe('Typography', () => {
             </Chart>
         )
         const result = screen.getByRole('custom')
-        expect(result.getAttribute('style')).toContain('deg')
-        expect(getTransform(result, 'rotate')).toEqual(90)
+        await waitFor(() => {
+            expect(result.getAttribute('style')).toContain('deg')
+            expect(getTransform(result, 'rotate')).toEqual(90)
+        })
     })
 })

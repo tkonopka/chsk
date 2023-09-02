@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Axis, AxisTicks, Chart, View } from '../../src'
 import { chartProps, viewProps } from '../props'
 
@@ -125,7 +125,7 @@ describe('AxisTicks', () => {
         expect(screen.getByRole('axis').querySelectorAll('text')).toHaveLength(3)
     })
 
-    it('rotates tick labels', () => {
+    it('rotates tick labels', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -136,6 +136,8 @@ describe('AxisTicks', () => {
             </Chart>
         )
         const ticks = screen.getByRole('axis').querySelectorAll('text')
-        expect(ticks[0]?.getAttribute('style')).toContain('rotate(45')
+        await waitFor(() => {
+            expect(ticks[0]?.getAttribute('style')).toContain('rotate(45')
+        })
     })
 })

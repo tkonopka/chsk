@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, ChartProps, Rectangle, RectangleProps, View } from '@chsk/core'
 import { viewProps } from '../props'
 import { Stripe } from '../../src'
@@ -10,7 +10,7 @@ export const chartProps: Pick<ChartProps, 'size' | 'padding'> = {
 }
 
 describe('Stripe', () => {
-    it('creates stripe with x-axis domain', () => {
+    it('creates stripe with x-axis domain', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -20,9 +20,11 @@ describe('Stripe', () => {
         )
         expect(screen.getByRole('stripe')).toBeDefined()
         const result = screen.getByRole('view-content').querySelector('rect')
-        expect(getTransform(result, 'X')).toBe(200)
-        expect(getNumberAttr(result, 'width')).toBe(200)
-        expect(getNumberAttr(result, 'height')).toBe(300)
+        await waitFor(() => {
+            expect(getTransform(result, 'X')).toBe(200)
+            expect(getNumberAttr(result, 'width')).toBe(200)
+            expect(getNumberAttr(result, 'height')).toBe(300)
+        })
     })
 
     it('creates stripe with y-axis domain', () => {
@@ -38,7 +40,7 @@ describe('Stripe', () => {
         expect(getNumberAttr(result, 'height')).toBe(30)
     })
 
-    it('creates stripe with x-axis domain (relative units)', () => {
+    it('creates stripe with x-axis domain (relative units)', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -47,9 +49,11 @@ describe('Stripe', () => {
             </Chart>
         )
         const result = screen.getByRole('view-content').querySelector('rect')
-        expect(getNumberAttr(result, 'width')).toBe(100)
-        expect(getNumberAttr(result, 'height')).toBe(300)
-        expect(getTransform(result, 'X')).toBe(100)
+        await waitFor(() => {
+            expect(getNumberAttr(result, 'width')).toBe(100)
+            expect(getNumberAttr(result, 'height')).toBe(300)
+            expect(getTransform(result, 'X')).toBe(100)
+        })
     })
 
     it('creates stripe with y-axis domain (relative units)', () => {

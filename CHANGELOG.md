@@ -6,6 +6,7 @@
 
 ### Changed
 
+-   updated test suite to support framer-motion >10.16.1
 -   code modifications in response to typescript validations
     (`noUncheckedIndexedAccess`)
 -   turned on additional typescript validations ('noImplicitAny',

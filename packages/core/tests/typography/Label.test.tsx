@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, Label } from '../../src'
 import { chartProps } from '../props'
 import { getTransform } from '../utils'
@@ -17,7 +17,7 @@ describe('Label', () => {
         expect(result?.getAttribute('class')).toBe('label')
     })
 
-    it('creates a custom label component', () => {
+    it('creates a custom label component', async () => {
         render(
             <Chart {...chartProps}>
                 <Label position={[10, 20]} variant={'custom'} setRole={false}>
@@ -26,13 +26,15 @@ describe('Label', () => {
             </Chart>
         )
         const result = screen.getByText('abcd')
-        expect(getTransform(result, 'X')).toEqual(10)
-        expect(getTransform(result, 'Y')).toEqual(20)
-        expect(result.getAttribute('role')).toBeNull()
-        expect(result.getAttribute('class')).toContain('custom')
+        await waitFor(() => {
+            expect(getTransform(result, 'X')).toEqual(10)
+            expect(getTransform(result, 'Y')).toEqual(20)
+            expect(result.getAttribute('role')).toBeNull()
+            expect(result.getAttribute('class')).toContain('custom')
+        })
     })
 
-    it('creates a label with offset', () => {
+    it('creates a label with offset', async () => {
         render(
             <Chart {...chartProps}>
                 <Label position={[10, 20]} offset={[4, 6]}>
@@ -41,8 +43,10 @@ describe('Label', () => {
             </Chart>
         )
         const result = screen.getByText('abcd')
-        expect(getTransform(result, 'X')).toEqual(14)
-        expect(getTransform(result, 'Y')).toEqual(26)
+        await waitFor(() => {
+            expect(getTransform(result, 'X')).toEqual(14)
+            expect(getTransform(result, 'Y')).toEqual(26)
+        })
     })
 
     it('skips creating component when content is empty', () => {

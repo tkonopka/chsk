@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
 import { LineLabel } from '../../src/'
 import { chartProps, viewProps } from '../props'
@@ -50,7 +50,7 @@ describe('LineLabel', () => {
         expect(Number(result.getAttribute('x2'))).toBeGreaterThan(100)
     })
 
-    it('creates a line with text rotation', () => {
+    it('creates a line with text rotation', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -61,7 +61,9 @@ describe('LineLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('line-label')
-        expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
+        await waitFor(() => {
+            expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
+        })
     })
 
     it('creates a line without role', () => {

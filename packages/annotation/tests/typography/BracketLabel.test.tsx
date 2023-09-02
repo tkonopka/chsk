@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import { Chart, View } from '@chsk/core'
 import { BracketLabel } from '../../src/'
 import { chartProps, viewProps } from '../props'
@@ -44,7 +44,7 @@ describe('BracketLabel', () => {
         expect(screen.getAllByRole('bracket')).toBeDefined()
     })
 
-    it('creates a line with text rotation', () => {
+    it('creates a line with text rotation', async () => {
         render(
             <Chart {...chartProps}>
                 <View {...viewProps}>
@@ -55,7 +55,9 @@ describe('BracketLabel', () => {
             </Chart>
         )
         const result = screen.getByRole('bracket-label-right')
-        expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
+        await waitFor(() => {
+            expect(result.querySelector('text')?.getAttribute('style')).toContain('rotate(45')
+        })
     })
 
     it('creates a line without role', () => {
