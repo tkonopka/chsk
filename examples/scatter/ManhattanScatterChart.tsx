@@ -115,7 +115,7 @@ const SimpleCircle = ({ cx, cy, r, className, style }: SymbolProps) => {
 // create a label for a tooltip entry
 const customTooltipFormat = (item: ScatterInteractiveDataItem): string => {
     const original: Record<string, unknown> = item.original ?? {}
-    return item.index + ' (' + round3(original.pos) + ', ' + round3(original.value) + ')'
+    return item.index + ' (' + round3(original['pos']) + ', ' + round3(original['value']) + ')'
 }
 
 export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneStory) => {
@@ -126,11 +126,11 @@ export const ManhattanScatterChart = ({ fref, chartData, rawData }: MilestoneSto
         const d = series.data
         const lastPoint = isArray(d) ? d[d.length - 1] : { absPos: 0 }
         if (index === rawData.length - 1) {
-            chromBoundaries.push(Number(lastPoint?.absPos))
+            chromBoundaries.push(Number(lastPoint?.['absPos']))
         } else {
-            const nextSeries = rawData[index + 1]?.data
-            const nextPos = isArray(nextSeries) ? Number(nextSeries[0]?.absPos) : 0
-            chromBoundaries.push((Number(lastPoint?.absPos) + nextPos) / 2)
+            const nextSeries = rawData[index + 1]?.['data']
+            const nextPos = isArray(nextSeries) ? Number(nextSeries[0]?.['absPos']) : 0
+            chromBoundaries.push((Number(lastPoint?.['absPos']) + nextPos) / 2)
         }
     })
     const chromNames = rawData.map(series => series.id)

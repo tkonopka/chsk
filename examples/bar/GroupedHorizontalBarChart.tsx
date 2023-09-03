@@ -47,7 +47,7 @@ const PercentageChangeLabels = ({
     if (before < 0 || after < 0) return null
     // compute percentages
     const changes = processedData.data.map(item => {
-        const values = item.data
+        const values = item['data']
         if (!Array.isArray(values)) return 0
         return Math.round((100 * (values[after] - values[before])) / values[before])
     })

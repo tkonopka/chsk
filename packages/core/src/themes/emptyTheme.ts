@@ -33,6 +33,6 @@ export const emptyTheme: CompleteThemeSpec = {
     ViewClip: {},
     // other settings
     Color: defaultTheme.Color,
-    Transition: {},
+    Transition: { default: {}, tooltip: {} },
     Target: {},
 }

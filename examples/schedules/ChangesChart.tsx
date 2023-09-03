@@ -84,8 +84,8 @@ const CustomChangeArrow = ({ x, y, width, height, style, ...props }: RectanglePr
 const customLabelFormat = (x: Record<string, unknown>) => {
     return (
         <tspan>
-            <tspan style={{ fontWeight: 600 }}>{String(x.id)}</tspan>
-            {': ' + x.start + '% → ' + x.end + '%'}
+            <tspan style={{ fontWeight: 600 }}>{String(x['id'])}</tspan>
+            {': ' + x['start'] + '% → ' + x['end'] + '%'}
         </tspan>
     )
 }

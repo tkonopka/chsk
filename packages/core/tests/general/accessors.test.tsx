@@ -14,12 +14,8 @@ describe('getAccessor', () => {
     })
 
     it('create a function to get a custom string from an object', () => {
-        type TestType = {
-            a: string
-            b: number
-        }
-        const testdata: TestType = { a: 'alpha', b: 20 }
-        const customFunction = (obj: Record<string, unknown>) => obj.a + ' ' + obj.b
+        const testdata = { a: 'alpha', b: 20 }
+        const customFunction = (obj: Record<string, unknown>) => obj['a'] + ' ' + obj['b']
         const result = getAccessor<string>(customFunction)
         expect(result(testdata)).toEqual('alpha 20')
     })
@@ -39,12 +35,8 @@ describe('getNumberAccessor', () => {
     })
 
     it('create a function to get a custom string from an object', () => {
-        type TestType = {
-            a: number
-            b: number
-        }
-        const testdata: TestType = { a: 1, b: 2 }
-        const customFunction = (obj: Record<string, unknown>) => Number(obj.a) + Number(obj.b)
+        const testdata = { a: 1, b: 2 }
+        const customFunction = (obj: Record<string, unknown>) => Number(obj['a']) + Number(obj['b'])
         const result = getNumberAccessor(customFunction)
         expect(result(testdata)).toEqual(3)
     })

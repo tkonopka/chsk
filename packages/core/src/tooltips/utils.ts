@@ -15,7 +15,7 @@ import {
 export const guessLabel = <DataSpec extends WithId & Record<string, unknown>>(
     x: DataSpec
 ): string => {
-    if ('label' in x) return String(x.label)
+    if ('label' in x) return String(x['label'])
     const result = x as DataSpec & { label?: string }
     if ('key' in x && 'data' in x) {
         return String(result['key']) + ': ' + String(result['data'])
@@ -59,11 +59,13 @@ export const flipPositionAnchor = (
 ) => {
     const flippedPosition: NumericPositionSpec = [...position]
     const flippedAnchor: AnchorSpec = [...anchor]
-    overhang.forEach((value, i) => {
-        if (Math.abs(value)) {
-            flippedPosition[i] = -Number(position[i])
-            flippedAnchor[i] = 1 - Number(anchor[i])
-        }
-    })
+    if (Math.abs(overhang[X])) {
+        flippedPosition[X] = -position[X]
+        flippedAnchor[X] = 1 - anchor[X]
+    }
+    if (Math.abs(overhang[Y])) {
+        flippedPosition[Y] = -position[Y]
+        flippedAnchor[Y] = 1 - anchor[Y]
+    }
     return { flippedPosition, flippedAnchor }
 }

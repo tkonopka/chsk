@@ -8,7 +8,7 @@ const downloadToFile = (data: string, filename: string) => {
     const link = document.createElement('a')
     link.download = filename
     link.href = window.URL.createObjectURL(blob)
-    link.dataset.downloadurl = ['text/json', link.download, link.href].join(':')
+    link.dataset['downloadurl'] = ['text/json', link.download, link.href].join(':')
     const event = new MouseEvent('click', { view: window, bubbles: true, cancelable: true })
     link.dispatchEvent(event)
     link.remove()

@@ -31,7 +31,7 @@ describe('Chart', () => {
 
     it('sets an initial state', () => {
         let state: Record<string, unknown> = { abc: 0 }
-        expect(state.abc).toEqual(0)
+        expect(state['abc']).toEqual(0)
         const GetChartData = () => {
             state = useChartData().data
             return null
@@ -41,15 +41,16 @@ describe('Chart', () => {
                 <GetChartData />
             </Chart>
         )
-        expect(state.abc).toEqual(1)
+        expect(state['abc']).toEqual(1)
     })
 
     it('updates state using ref', () => {
+        // mock state; will be over-written during chart render
         let state: Record<string, unknown> = { abc: 0, milestones: [] }
         const ref: ForwardedRef<ChartRef> = {
             current: {
                 updateData: d => (state = d),
-                toggleMilestone: milestone => (state.milestones = new Set<string>([milestone])),
+                toggleMilestone: milestone => (state['milestones'] = new Set<string>([milestone])),
             },
         }
         const GetChartData = () => {
@@ -63,16 +64,18 @@ describe('Chart', () => {
         )
         act(() => ref.current?.updateData({ abc: 2 }))
         act(() => ref.current?.toggleMilestone('xyz'))
-        expect(state.abc).toEqual(2)
-        expect(Array.from(state.milestones as Set<string>)).toEqual(['xyz'])
+        expect(state['abc']).toEqual(2)
+        expect(state['milestones']).not.toBeUndefined()
+        expect(Array.from(state['milestones'] as Set<string>)).toEqual(['xyz'])
     })
 
     it('toggles milestones using ref', () => {
+        // mock state; will be over-written during chart render
         let state: Record<string, unknown> = { abc: 0, milestones: [] }
         const ref: ForwardedRef<ChartRef> = {
             current: {
                 updateData: d => (state = d),
-                toggleMilestone: milestone => (state.milestones = new Set<string>([milestone])),
+                toggleMilestone: milestone => (state['milestones'] = new Set<string>([milestone])),
             },
         }
         const GetChartData = () => {
@@ -85,13 +88,15 @@ describe('Chart', () => {
             </Chart>
         )
         // default state has no milestones
-        expect(state.milestones).toBeUndefined()
+        expect(state['milestones']).toBeUndefined()
         // toggle a milestone on
         act(() => ref.current?.toggleMilestone('xyz'))
-        expect(Array.from(state.milestones as Set<string>)).toEqual(['xyz'])
+        expect(state['milestones']).not.toBeUndefined()
+        expect(Array.from(state['milestones'] as Set<string>)).toEqual(['xyz'])
         // toggle a milestone off
         act(() => ref.current?.toggleMilestone('xyz'))
-        expect(Array.from(state.milestones as Set<string>)).toEqual([])
+        expect(state['milestones']).not.toBeUndefined()
+        expect(Array.from(state['milestones'] as Set<string>)).toEqual([])
     })
 
     it('stretches to fill parent container (timer)', () => {

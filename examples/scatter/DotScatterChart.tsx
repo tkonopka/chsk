@@ -64,7 +64,7 @@ const customTheme: ThemeSpec = mergeTheme(buttonTheme, {
 
 // formatting for tooltip content
 const customLabelFormat = (x: Record<string, unknown>) => {
-    return ids[Number(x.index)] + ': ' + (x.point as number[])[0]
+    return ids[Number(x['index'])] + ': ' + (x['point'] as number[])[0]
 }
 
 // create background bands, similar to BandSurface, but here adjusted for xy axes and golden rectangles

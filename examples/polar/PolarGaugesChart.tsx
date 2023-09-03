@@ -141,7 +141,7 @@ export const PolarGaugesChart = ({ fref, chartData, rawData }: MilestoneStory) =
                         id={item.id}
                         position={[index * width, 0]}
                         size={[width, 1]}
-                        data={item.pieData as Array<PieDataItem>}
+                        data={item['pieData'] as Array<PieDataItem>}
                     />
                 )
             })}

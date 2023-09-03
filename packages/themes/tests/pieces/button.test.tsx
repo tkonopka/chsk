@@ -7,6 +7,6 @@ describe('button theme', () => {
     })
 
     it('specifies fill opacity for paths', () => {
-        expect(buttonTheme?.path?.button?.fillOpacity).toBeGreaterThan(0)
+        expect(buttonTheme?.path?.['button']?.['fillOpacity']).toBeGreaterThan(0)
     })
 })

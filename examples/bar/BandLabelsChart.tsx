@@ -78,7 +78,7 @@ export const BandLabelsChart = ({ fref, chartData, rawData }: MilestoneStory) =>
                 offset={[40, 0]}
                 size={[1.1, 0.9]}
                 component={StyledBoxedLabel}
-                format={v => String(v.delta)}
+                format={v => String(v['delta'])}
             />
             <StyledBoxedLabel position={[460, -18]} size={[55, 25]}>
                 delta

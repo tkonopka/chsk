@@ -23,7 +23,7 @@ export const isScatterPreparedData = (
 
 export const isScatterData = (data: RawData): data is Array<ScatterDataItem> => {
     const result = data.map(item => {
-        return 'id' in item && 'data' in item && typeof item.data === 'object'
+        return 'id' in item && 'data' in item && typeof item['data'] === 'object'
     })
     return result.every(Boolean)
 }

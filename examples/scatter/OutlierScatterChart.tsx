@@ -71,10 +71,10 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
     if (!isScatterData(rawData)) return null
     const d1 = rawData[1]?.data
     const outlierX: NumericPositionSpec = isArray(d1)
-        ? interval(d1.map(point => Number(point.x)))
+        ? interval(d1.map(point => Number(point['x'])))
         : [0, 0]
     const outlierY: NumericPositionSpec = isArray(d1)
-        ? interval(d1.map(point => Number(point.y)))
+        ? interval(d1.map(point => Number(point['y'])))
         : [0, 0]
     return (
         <Chart
@@ -176,8 +176,8 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                             item={'points'}
                             label={'Using entire dataset'}
                             symbolStyle={{
-                                ...customTheme.line?.regression,
-                                ...customTheme.line?.pooled,
+                                ...customTheme.line?.['regression'],
+                                ...customTheme.line?.['pooled'],
                             }}
                             labelDistance={16}
                             interactive={false}
@@ -193,8 +193,8 @@ export const OutlierScatterChart = ({ fref, chartData, rawData }: MilestoneStory
                             label={'Excluding outliers'}
                             labelDistance={16}
                             symbolStyle={{
-                                ...customTheme.line?.regression,
-                                ...customTheme.line?.points,
+                                ...customTheme.line?.['regression'],
+                                ...customTheme.line?.['points'],
                             }}
                             interactive={false}
                         />

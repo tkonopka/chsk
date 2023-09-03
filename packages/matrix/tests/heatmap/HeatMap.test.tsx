@@ -29,7 +29,7 @@ describe('HeatMap', () => {
         expect(result.keys).toEqual(keysXYZ)
         ids.forEach((id, i) => {
             expect(result.data[i]?.id).toEqual(id)
-            const size = result.data[i]?.size as number[]
+            const size = result.data[i]?.['size'] as number[]
             expect(size).toHaveLength(keysXYZ.length)
             expect(size.every(v => !isFinite(v))).toBeTruthy()
         })

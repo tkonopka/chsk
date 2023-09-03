@@ -115,7 +115,7 @@ export const QuestionMultipleChoicesChart = ({ fref, chartData, rawData }: Miles
                     offset={[50, 0]}
                     size={[0.95, 0.95]}
                     component={CustomCounter}
-                    format={item => String(item.value)}
+                    format={item => String(item['value'])}
                 />
                 <DownloadButtons position={[0, 210]} data image />
             </Bar>

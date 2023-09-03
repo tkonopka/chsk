@@ -29,6 +29,15 @@ describe('BandHighlight', () => {
         expect(screen.queryByRole('band-highlight-mask')).toBeNull()
     })
 
+    it('does not creates a detector surface outside of a band chart', () => {
+        render(
+            <Chart>
+                <BandHighlight />
+            </Chart>
+        )
+        expect(screen.queryAllByRole('band-detector')).toHaveLength(0)
+    })
+
     it('creates a detector surface without role', () => {
         render(
             <Chart>

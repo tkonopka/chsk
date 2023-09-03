@@ -139,7 +139,7 @@ const DashboardValue = ({
 }
 
 export const SingleValuesChart = ({ fref, chartData, rawData }: MilestoneStory) => {
-    const values = rawData[0]?.data as number[]
+    const values = rawData[0]?.['data'] as number[]
     return (
         <Chart
             data={chartData}

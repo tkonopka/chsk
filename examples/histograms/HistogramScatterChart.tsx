@@ -143,7 +143,7 @@ export const HistogramScatterChart = ({ fref, chartData, rawData }: MilestoneSto
     //
     const histogramData = rawData.map(seriesData => {
         const data = seriesData.data as Array<Record<string, number>>
-        const values: number[] = data.map(d => Number(d.x))
+        const values: number[] = data.map(d => Number(d['x']))
         return { id: seriesData.id, data: values }
     })
 

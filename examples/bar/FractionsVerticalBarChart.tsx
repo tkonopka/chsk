@@ -82,7 +82,7 @@ const CustomLabels = ({
     const processedData = useProcessedData().data[0]
     const preparedData = useBarPreparedData().data[0]
     const keys = useProcessedData().keys
-    const values: number[] = processedData?.data as number[]
+    const values: number[] = processedData?.['data'] as number[]
     const total = values.reduce((acc, v) => acc + v, 0)
     // compute positions for labels, starting at the top
     let y = itemSize[Y] / 2

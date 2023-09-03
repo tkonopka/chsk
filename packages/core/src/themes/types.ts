@@ -38,6 +38,11 @@ type ColorsRecord = Record<string, ColorScaleSpec> & {
     sequential: SequentialScaleSpec
 }
 
+type TransitionsRecord = Record<string, TransitionSpec> & {
+    default: TransitionSpec
+    tooltip: TransitionSpec
+}
+
 export interface CompleteThemeSpec {
     // svg components
     circle: ThemedPropsRecord<CSSProperties>
@@ -71,12 +76,13 @@ export interface CompleteThemeSpec {
     // other settings
     Color: ColorsRecord
     Target: ThemedPropsRecord<AnimationSpec>
-    Transition: ThemedPropsRecord<TransitionSpec>
+    Transition: TransitionsRecord
 }
 
 // ThemeSpec is related to CompleteThemeSpec, but all fields are optional
-export type ThemeSpec = Partial<Omit<CompleteThemeSpec, 'Color'>> & {
+export type ThemeSpec = Partial<Omit<CompleteThemeSpec, 'Color' | 'Transition'>> & {
     Color?: Partial<ColorsRecord>
+    Transition?: Partial<TransitionsRecord>
 }
 
 export const svgBaseComponents = [

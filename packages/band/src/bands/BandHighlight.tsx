@@ -25,7 +25,8 @@ import {
     useDisabledKeys,
 } from '@chsk/core'
 import { interval, relu } from '@chsk/core'
-import { BandHighlightProps } from './types'
+import { BandHighlightProps, BandProcessedDataItem } from './types'
+import { isBandProcessedDataArray } from './predicates'
 
 const createDetectorIntervals = (
     scaleBand: BandAxisScale,
@@ -92,7 +93,7 @@ export const BandHighlight = ({
     setRole = true,
     style,
 }: BandHighlightProps) => {
-    const processedData = useProcessedData()
+    const processed = useProcessedData()
     const { size } = useDimensions()
     const { scales } = useScales()
     const { disabledKeys } = useDisabledKeys()
@@ -102,12 +103,17 @@ export const BandHighlight = ({
     const detectorRef = useRef<SVGRectElement>(null)
     const [zone, setZone] = useState<null | DetectorZone>(null)
 
-    const { idSet } = useIdsKeys(ids, null, processedData)
+    const { idSet } = useIdsKeys(ids, null, processed)
     const valueSize = horizontal ? size[X] : size[Y]
     const detectorIntervals = useMemo(
         () => createDetectorIntervals(indexScale, idSet, valueSize, horizontal),
         [indexScale, idSet, valueSize, horizontal]
     )
+
+    const processedData = processed.data
+    type GenericBandProcessedDataItem = BandProcessedDataItem<Record<string, unknown>>
+    if (!isBandProcessedDataArray<GenericBandProcessedDataItem>(processedData, () => true))
+        return null
 
     useEffect(() => {
         if (!interactive && zone === null) {
@@ -142,13 +148,14 @@ export const BandHighlight = ({
                 tooltipAlign
             )
             const idIndex = horizontal ? indexes[Y] : indexes[X]
-            const zoneId = processedData.data[idIndex]?.id ?? ''
-            const seriesData = processedData.data[idIndex]?.data as Record<string, unknown>[]
-            const activeData: TooltipDataItem[] = seriesData
+            const seriesProcessedData = processedData[idIndex]
+            if (!seriesProcessedData?.id || !seriesProcessedData?.data) return
+            const zoneId = seriesProcessedData?.id
+            const activeData: TooltipDataItem[] = seriesProcessedData?.data
                 .map((data, j) => ({
                     ...data,
                     id: zoneId,
-                    key: processedData.keys[j],
+                    key: processed.keys[j],
                 }))
                 .filter(data => !(data.key && disabledKeys.has(data.key)))
             setTooltipData({

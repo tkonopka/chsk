@@ -6,6 +6,8 @@
 
 ### Changed
 
+-   code improvements in response to typescript validations
+    (`noPropertyAccessFromIndexSignature`)
 -   removed exported types related to themes (`SideRecords`, `ColorsRecords`)
 -   simplified type definitions for themes
 -   updated test suite to support framer-motion >10.16.1

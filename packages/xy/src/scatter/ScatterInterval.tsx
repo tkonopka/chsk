@@ -46,7 +46,7 @@ const getScatterIntervalD = ({
 } & SignalProcessingProps) => {
     const getLower = getAccessor<number>(lower)
     const getUpper = getAccessor<number>(upper)
-    const originalSeriesData = rawData.data[seriesIndex]?.data as Array<Record<string, unknown>>
+    const originalSeriesData = rawData.data[seriesIndex]?.['data'] as Array<Record<string, unknown>>
     const lowerValues = originalSeriesData.map(item => yScale(getLower(item)))
     const upperValues = originalSeriesData.map(item => yScale(getUpper(item)))
     const x = preparedData[seriesIndex]?.x ?? []

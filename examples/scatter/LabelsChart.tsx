@@ -82,7 +82,7 @@ export const LabelsChart = ({ fref, chartData, rawData }: MilestoneStory) => {
     // on first render, create one label to display a non-trivial chart scene
     let firstLabels: ScatterSelectedLabelData[] = []
     if (isScatterData(rawData)) {
-        const labelString = isArray(rawData[0]?.data) ? String(rawData[0]?.data[0]?.label) : ''
+        const labelString = isArray(rawData[0]?.data) ? String(rawData[0]?.data[0]?.['label']) : ''
         firstLabels = [
             {
                 id: String(rawData[0]?.id),

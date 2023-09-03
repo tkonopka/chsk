@@ -224,8 +224,8 @@ const ActiveIdSurface = ({ expansion }: { expansion: [number, number] }) => {
     let compositeData: TooltipData = {}
     if (tooltipData.x !== undefined) {
         compositeData = tooltipData
-    } else if (chartData.activeId) {
-        compositeData = { data: [{ id: String(chartData.activeId) }] }
+    } else if (chartData['activeId']) {
+        compositeData = { data: [{ id: String(chartData['activeId']) }] }
     }
     return (
         <TooltipProvider value={{ data: compositeData, setData }}>
