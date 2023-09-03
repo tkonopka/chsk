@@ -23,90 +23,60 @@ import { TooltipItemListThemedProps, TooltipItemThemedProps, TooltipThemedProps 
 import { SurfaceThemedProps, ViewClipThemedProps, ViewThemedProps } from '../views'
 import { MilestoneMotionThemedProps } from '../charts'
 
-export interface SideRecords<T> extends Record<string, T | undefined> {
-    default?: T
-    top?: T
-    bottom?: T
-    left?: T
-    right?: T
+type ThemedPropsRecord<T> = { default?: Partial<T> } & Record<string, Partial<T>>
+
+type ThemedSidePropsRecord<T> = ThemedPropsRecord<T> & {
+    top?: Partial<T>
+    bottom?: Partial<T>
+    left?: Partial<T>
+    right?: Partial<T>
 }
 
-export interface ColorsRecords extends Record<string, ColorScaleSpec> {
+type ColorsRecord = Record<string, ColorScaleSpec> & {
     categorical: CategoricalScaleSpec
     diverging: DivergingScaleSpec
     sequential: SequentialScaleSpec
 }
 
-export interface ThemeSpec {
-    // svg components
-    circle?: Record<string, Partial<CSSProperties>>
-    g?: Record<string, Partial<CSSProperties>>
-    line?: Record<string, Partial<CSSProperties>>
-    path?: Record<string, Partial<CSSProperties>>
-    polygon?: Record<string, Partial<CSSProperties>>
-    rect?: Record<string, Partial<CSSProperties>>
-    text?: Record<string, Partial<CSSProperties>>
-    tspan?: Record<string, Partial<CSSProperties>>
-    // chsk components
-    Axis?: SideRecords<Partial<AxisThemedProps>>
-    AxisLabel?: SideRecords<Partial<AxisLabelThemedProps>>
-    AxisTicks?: SideRecords<Partial<AxisTicksThemedProps>>
-    GridLines?: Record<string, Partial<GridLinesThemedProps>>
-    Legend?: Record<string, Partial<LegendThemedProps>>
-    LegendItem?: Record<string, Partial<LegendItemThemedProps>>
-    LegendItemList?: Record<string, Partial<LegendItemListThemedProps>>
-    LegendTitle?: Record<string, Partial<LegendItemThemedProps>>
-    LegendColorScale?: Record<string, Partial<LegendColorScaleThemedProps>>
-    LegendSizeScale?: Record<string, Partial<LegendSizeScaleThemedProps>>
-    MilestoneMotion?: Record<string, Partial<MilestoneMotionThemedProps>>
-    Surface?: Record<string, Partial<SurfaceThemedProps>>
-    Tooltip?: Record<string, Partial<TooltipThemedProps>>
-    TooltipItemList?: Record<string, Partial<TooltipItemListThemedProps>>
-    TooltipItem?: Record<string, Partial<TooltipItemThemedProps>>
-    TooltipTitle?: Record<string, Partial<TooltipItemThemedProps>>
-    AxisTooltip?: Record<string, Partial<TooltipThemedProps>>
-    View?: Record<string, Partial<ViewThemedProps>>
-    ViewClip?: Record<string, Partial<ViewClipThemedProps>>
-    // non-component settings
-    Color?: Record<string, ColorScaleSpec>
-    Transition?: Record<string, TransitionSpec>
-    Target?: Record<string, AnimationSpec>
-}
-
 export interface CompleteThemeSpec {
     // svg components
-    circle: Record<string, Partial<CSSProperties>>
-    g: Record<string, Partial<CSSProperties>>
-    line: Record<string, Partial<CSSProperties>>
-    path: Record<string, Partial<CSSProperties>>
-    polygon: Record<string, Partial<CSSProperties>>
-    rect: Record<string, Partial<CSSProperties>>
-    text: Record<string, Partial<CSSProperties>>
-    tspan: Record<string, Partial<CSSProperties>>
+    circle: ThemedPropsRecord<CSSProperties>
+    g: ThemedPropsRecord<CSSProperties>
+    line: ThemedPropsRecord<CSSProperties>
+    path: ThemedPropsRecord<CSSProperties>
+    polygon: ThemedPropsRecord<CSSProperties>
+    rect: ThemedPropsRecord<CSSProperties>
+    text: ThemedPropsRecord<CSSProperties>
+    tspan: ThemedPropsRecord<CSSProperties>
     // chsk components
-    Axis: SideRecords<Partial<AxisThemedProps>>
-    AxisLabel: SideRecords<Partial<AxisLabelThemedProps>>
-    AxisTicks: SideRecords<Partial<AxisTicksThemedProps>>
-    GridLines: Record<string, Partial<GridLinesThemedProps>>
-    Legend: Record<string, Partial<LegendThemedProps>>
-    LegendItemList: Record<string, LegendItemListThemedProps>
-    LegendItem: Record<string, LegendItemThemedProps>
-    LegendTitle: Record<string, LegendItemThemedProps>
-    LegendColorScale: Record<string, Partial<LegendColorScaleThemedProps>>
-    LegendSizeScale: Record<string, Partial<LegendSizeScaleThemedProps>>
-    MilestoneMotion: Record<string, Partial<MilestoneMotionThemedProps>>
-    Surface: Record<string, Partial<SurfaceThemedProps>>
-    Tooltip: Record<string, Partial<TooltipThemedProps>>
-    TooltipItemList: Record<string, Partial<TooltipItemListThemedProps>>
-    TooltipItem: Record<string, Partial<TooltipItemThemedProps>>
-    TooltipTitle: Record<string, Partial<TooltipItemThemedProps>>
-    AxisTooltip: Record<string, Partial<TooltipThemedProps>>
-    View: Record<string, Partial<ViewThemedProps>>
-    ViewClip: Record<string, Partial<ViewClipThemedProps>>
-    // non-components
-    Color: ColorsRecords
-    Transition: Record<string, TransitionSpec>
-    Target: Record<string, AnimationSpec>
+    Axis: ThemedSidePropsRecord<AxisThemedProps>
+    AxisLabel: ThemedSidePropsRecord<AxisLabelThemedProps>
+    AxisTicks: ThemedSidePropsRecord<AxisTicksThemedProps>
+    GridLines: ThemedPropsRecord<GridLinesThemedProps>
+    Legend: ThemedPropsRecord<LegendThemedProps>
+    LegendItemList: ThemedPropsRecord<LegendItemListThemedProps>
+    LegendItem: ThemedPropsRecord<LegendItemThemedProps>
+    LegendTitle: ThemedPropsRecord<LegendItemThemedProps>
+    LegendColorScale: ThemedPropsRecord<LegendColorScaleThemedProps>
+    LegendSizeScale: ThemedPropsRecord<LegendSizeScaleThemedProps>
+    MilestoneMotion: ThemedPropsRecord<MilestoneMotionThemedProps>
+    Surface: ThemedPropsRecord<SurfaceThemedProps>
+    Tooltip: ThemedPropsRecord<TooltipThemedProps>
+    TooltipItemList: ThemedPropsRecord<TooltipItemListThemedProps>
+    TooltipItem: ThemedPropsRecord<TooltipItemThemedProps>
+    TooltipTitle: ThemedPropsRecord<TooltipItemThemedProps>
+    AxisTooltip: ThemedPropsRecord<TooltipThemedProps>
+    View: ThemedPropsRecord<ViewThemedProps>
+    ViewClip: ThemedPropsRecord<ViewClipThemedProps>
+    // other settings
+    Color: ColorsRecord
+    Target: ThemedPropsRecord<AnimationSpec>
+    Transition: ThemedPropsRecord<TransitionSpec>
+}
+
+// ThemeSpec is related to CompleteThemeSpec, but all fields are optional
+export type ThemeSpec = Partial<Omit<CompleteThemeSpec, 'Color'>> & {
+    Color?: Partial<ColorsRecord>
 }
 
 export const svgBaseComponents = [
