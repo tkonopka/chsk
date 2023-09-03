@@ -135,13 +135,10 @@ export const BaseTooltip = ({
 
     const compositeClassName = getClassName('tooltip', className)
     const [x, y] = position
+    const visible = tooltip.x !== undefined && tooltip.y !== undefined
     const config = { x, y, originX: '0px', originY: '0px' }
     return (
-        <OpacityMotion
-            role={'tooltip-presence'}
-            visible={tooltip.x !== undefined && tooltip.y !== undefined}
-            firstRender={false}
-        >
+        <OpacityMotion role={'tooltip-presence'} visible={visible} firstRender={false}>
             <m.g
                 role={setRole ? 'tooltip' : undefined}
                 initial={config}

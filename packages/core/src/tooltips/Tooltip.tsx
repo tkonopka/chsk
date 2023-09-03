@@ -65,8 +65,8 @@ const UnthemedTooltip = ({
     const originPosition = getAnchoredOrigin(flippedPosition, tooltipSize, flippedAnchor)
     const position = addPositions(originPosition, tooltipPosition)
     exits = exitsParent(position, tooltipSize, dimensions.size, maxOverhang)
-    position[X] = position[X] - exits[X]
-    position[Y] = position[Y] - exits[Y]
+    position[X] -= exits[X]
+    position[Y] -= exits[Y]
 
     return (
         <BaseTooltip
