@@ -1,30 +1,34 @@
 # Changelog
 
-## Unreleased
+## v0.8.0
+
+### Highlights
+
+-   Internal code improvements and updates
 
 ### Added
 
 ### Changed
 
-- audit fix dependencies
-- fix lodash imports leading to webpack "can't resolve" errors
-- code improvements in response to typescript validations
+-   audit fix dependencies
+-   fix lodash imports leading to webpack "can't resolve" errors
+-   code improvements in response to typescript validations
     (`noPropertyAccessFromIndexSignature`)
-- removed exported types related to themes (`SideRecords`, `ColorsRecords`)
-- simplified type definitions for themes
-- updated test suite to support framer-motion >10.16.1
-- code modifications in response to typescript validations
+-   removed exported types related to themes (`SideRecords`, `ColorsRecords`)
+-   simplified type definitions for themes
+-   updated test suite to support framer-motion >10.16.1
+-   code modifications in response to typescript validations
     (`noUncheckedIndexedAccess`)
-- turned on additional typescript validations ('noImplicitAny',
+-   turned on additional typescript validations ('noImplicitAny',
     'strictNullChecks',
     'strictFunctionTypes', 'strictBindCallApply',  
      'strictPropertyInitialization', 'noImplicitThis',
     'useUnknownInCatchVariables', 'alwaysStrict', 'noFallthroughCasesInSwitch',
     'noImplicitOverride')
-- code improvements in response to typescript validations (`noImplicitReturns`)
-- code improvements in response to typescript validations
+-   code improvements in response to typescript validations (`noImplicitReturns`)
+-   code improvements in response to typescript validations
     (`noUnusedLocals`)
-- code improvements in response to typescript validations
+-   code improvements in response to typescript validations
     (`noUnusedParameters`)
 
 ## v0.7.0
