@@ -48,7 +48,6 @@ Lint and build steps are managed using `lerna`. The following two commands perfo
 
 ```
 npm run lint
-npm run build-core   # may be required to build the core package before other packages
 npm run build
 ```
 
