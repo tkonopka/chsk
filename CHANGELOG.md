@@ -6,6 +6,9 @@
 
 ### Changed
 
+- audit fix dependencies
+- upgrade storybook to v8
+
 ## v0.8.0
 
 ### Highlights
