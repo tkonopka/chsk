@@ -6,9 +6,9 @@
 
 ### Changed
 
-- audit fix dependencies
-- upgrade storybook to v8
-- update package dependencies
+-   audit fix dependencies
+-   upgrade storybook to v8
+-   update package dependencies
 
 ## v0.8.0
 

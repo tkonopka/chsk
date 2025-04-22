@@ -2,7 +2,7 @@ import './docs.css'
 import { transformCode } from './chsk'
 
 export const parameters = {
-    actions: { },
+    actions: {},
     controls: {
         matchers: {
             color: /(background|color)$/i,
@@ -47,4 +47,4 @@ export const parameters = {
         },
     },
 }
-export const tags = ['autodocs'];
+export const tags = ['autodocs']
