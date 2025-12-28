@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react'
+import type { Meta, StoryObj } from '@storybook/react-webpack5'
 import { Path, NumericPositionSpec } from '../../../src'
 import { ChartDecorator } from '../decorators'
 
