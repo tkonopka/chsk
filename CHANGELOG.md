@@ -4,10 +4,12 @@
 
 ### Added
 
+-   add pr template
+
 ### Changed
 
 -   audit fix dependencies
--   upgrade storybook to v8
+-   upgrade storybook to v9
 -   update package dependencies
 
 ## v0.8.0
